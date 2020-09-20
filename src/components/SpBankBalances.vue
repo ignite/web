@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="container">
-      <sp-h3 v-if="balances.length > 0">Balance</sp-h3>
+        <sp-h3>
+          Balance
+          <icon-synchronization-1 @click.native="balancesUpdate" class="h3__icon"/>
+        </sp-h3>
+      <div v-if="balances.length < 1">Account balance appears to be empty.</div>
       <div class="list">
         <div class="list__item" v-for="b in balances" :key="b.denom">
           <div class="list__item__h3">
@@ -20,7 +24,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;531;600;700;800&display=swap");
 
 .container {
-  font-family: "Inter";
+  font-family: "Inter", "Helvetica", sans-serif;
 }
 .list {
   display: flex;
@@ -42,7 +46,14 @@
   margin-bottom: 0.25rem;
 }
 .list__item__h2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+}
+.h3__icon {
+  width: 1em;
+  height: 1em;
+  padding: 0 0.25em;
+  fill: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 }
 </style>
 
@@ -61,6 +72,10 @@ export default {
   methods: {
     numberFormat(number) {
       return Intl.NumberFormat().format(number);
+    },
+    async balancesUpdate() {
+      await this.$store.dispatch("cosmos/accountSignInTry");
+      await this.$store.dispatch("cosmos/bankBalancesGet");
     },
   },
 };

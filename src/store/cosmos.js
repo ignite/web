@@ -3,6 +3,7 @@ import {
   Secp256k1Wallet,
   SigningCosmosClient,
   makeCosmoshubPath,
+  coins,
 } from "@cosmjs/launchpad";
 
 const CUSTOM_URL =
@@ -31,6 +32,9 @@ export default {
       // dispatch("stakingPoolFetch");
       // dispatch("validatorsFetch");
       await dispatch("chainIdFetch");
+      await dispatch("accountSignInTry");
+    },
+    async accountSignInTry({ dispatch }) {
       const mnemonic = localStorage.getItem("mnemonic");
       if (mnemonic) {
         await dispatch("accountSignIn", { mnemonic });
@@ -48,24 +52,45 @@ export default {
           makeCosmoshubPath(0),
           ADDRESS_PREFIX
         );
+        localStorage.setItem("mnemonic", mnemonic);
         const [{ address }] = await wallet.getAccounts();
         const url = `${API}/auth/accounts/${address}`;
         const acc = (await axios.get(url)).data;
-        if (acc.result.value.address === address) {
-          localStorage.setItem("mnemonic", mnemonic);
-          const account = acc.result.value;
-          const client = new SigningCosmosClient(API, address, wallet);
-          commit("set", { key: "account", value: account });
-          commit("set", { key: "client", value: client });
-          // dispatch("delegationsFetch");
-          // dispatch("transfersIncomingFetch");
-          // dispatch("transfersOutgoingFetch");
-          dispatch("bankBalancesGet");
-          resolve(account);
-        } else {
-          reject("Account doesn't exist.");
+        const account = acc.result.value;
+        commit("set", { key: "account", value: account });
+        const client = new SigningCosmosClient(API, address, wallet);
+        commit("set", { key: "client", value: client });
+        // // dispatch("delegationsFetch");
+        // // dispatch("transfersIncomingFetch");
+        // // dispatch("transfersOutgoingFetch");
+        try {
+          await dispatch("bankBalancesGet");
+        } catch {
+          console.log("Error in getting a bank balance.");
         }
+        // resolve(account);
       });
+    },
+    async tokenSend({ state }, { amount, denom, to_address, memo = "" }) {
+      const from_address = state.client.senderAddress;
+      const msg = {
+        type: "cosmos-sdk/MsgSend",
+        value: {
+          amount: [
+            {
+              amount,
+              denom,
+            },
+          ],
+          from_address,
+          to_address,
+        },
+      };
+      const fee = {
+        amount: coins(200, "token"),
+        gas: "200000",
+      };
+      return await state.client.signAndPost([msg], fee, memo);
     },
     async bankBalancesGet({ commit, state }) {
       const { address } = state.account;

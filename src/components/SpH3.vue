@@ -13,6 +13,8 @@
   font-family: "Inter";
   font-weight: 700;
   font-size: 1.5rem;
-  margin: 2.5rem 0 1rem;
+  margin: 3.5rem 0 1rem;
+  display: flex;
+  align-items: center;
 }
 </style>

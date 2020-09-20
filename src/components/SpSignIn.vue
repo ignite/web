@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="button" v-if="address">
-          <div class="button__text">
+          <div class="button__text button__address">
             {{ address }}
           </div>
         </div>
@@ -12,7 +12,7 @@
             <icon-lock-3 />
           </div>
           <div class="button__text">
-            {{ address ? "Log out" : "Sign In" }}
+            {{ address ? "Log out" : "Sign in " }}
           </div>
         </div>
       </div>
@@ -20,10 +20,16 @@
         <div class="container-dropdown">
           <div v-if="dropdown && !address">
             <div class="dropdown">
-              <textarea
-                v-model="mnemonic"
-                class="dropdown__textarea"
-              ></textarea>
+              <div class="dropdown__textarea">
+                <textarea
+                  v-model="mnemonic"
+                  placeholder="Mnemonic..."
+                  class="dropdown__textarea__input"
+                ></textarea>
+                <div class="dropdown__textarea__icon" @click="mnemonicGenerate()">
+                  <icon-magic-1/>
+                </div>
+              </div>
               <div
                 :class="[
                   'dropdown__button',
@@ -47,7 +53,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;531;600;700;800&display=swap");
 
 .container {
-  font-family: "Inter";
+  font-family: "Inter", "Helvetica", sans-serif;
   font-weight: 500;
 }
 .row {
@@ -79,6 +85,11 @@
   font-weight: 700;
   color: rgba(0, 0, 0, 0.85);
 }
+.button__address {
+  text-transform: none;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+}
 .container-dropdown {
   padding: 0.5rem 0;
   position: absolute;
@@ -96,22 +107,35 @@
   right: 0;
 }
 .dropdown__textarea {
-  padding: 0.5rem;
   display: block;
+  height: 8em;
+  position: relative;
+}
+.dropdown__textarea__input {
   border: 0;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  outline: none;
   width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  resize: none;
+  letter-spacing: 0.02em;
   font-family: inherit;
   font-size: 0.85rem;
   line-height: 1.4;
-  height: 8em;
-  box-sizing: border-box;
-  resize: none;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
-  margin-bottom: 0.75rem;
-  letter-spacing: 0.02em;
   color: rgba(0, 0, 0, 0.85);
-  outline: none;
+}
+.dropdown__textarea__icon {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  fill: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 .dropdown__button {
   display: flex;
@@ -122,6 +146,7 @@
   justify-content: center;
   cursor: pointer;
   user-select: none;
+  margin-top: 0.75rem;
 }
 .dropdown__button__text {
   text-transform: uppercase;
@@ -153,11 +178,13 @@
 
 <script>
 import IconLock3 from "./IconLock3";
+import IconMagic1 from "./IconMagic1";
 import * as bip39 from "bip39";
 
 export default {
   componenents: {
     IconLock3,
+    IconMagic1,
   },
   data() {
     return {
@@ -173,8 +200,8 @@ export default {
       return bip39.validateMnemonic(this.mnemonicClean);
     },
     address() {
-      const { account } = this.$store.state.cosmos;
-      return account && account.address;
+      const { client } = this.$store.state.cosmos;
+      return client && client.senderAddress;
     },
   },
   methods: {
@@ -191,6 +218,10 @@ export default {
         const mnemonic = this.mnemonicClean;
         await this.$store.dispatch("cosmos/accountSignIn", { mnemonic });
       }
+    },
+    mnemonicGenerate() {
+      const mnemonic = bip39.generateMnemonic();
+      this.mnemonic = mnemonic;
     },
     truncate(string) {
       return `${string.substring(0, 16)}...`;
