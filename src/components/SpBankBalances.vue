@@ -1,10 +1,13 @@
 <template>
   <div>
     <div class="container">
-        <sp-h3>
-          Balance
-          <icon-synchronization-1 @click.native="balancesUpdate" class="h3__icon"/>
-        </sp-h3>
+      <sp-h3>
+        Balance
+        <icon-synchronization-1
+          @click.native="balancesUpdate"
+          class="h3__icon"
+        />
+      </sp-h3>
       <div v-if="balances.length < 1">Account balance appears to be empty.</div>
       <div class="list">
         <div class="list__item" v-for="b in balances" :key="b.denom">
@@ -59,11 +62,14 @@
 
 <script>
 import SpH3 from "./SpH3";
+import IconSynchronization1 from "./IconSynchronization1";
 
 export default {
   components: {
     SpH3,
+    IconSynchronization1,
   },
+  category: "wallet",
   computed: {
     balances() {
       return this.$store.state.cosmos.bankBalances;

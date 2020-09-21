@@ -5,6 +5,8 @@ import {
   makeCosmoshubPath,
   coins,
 } from "@cosmjs/launchpad";
+import { chain } from "lodash";
+import starport from "./starport";
 
 const CUSTOM_URL =
   process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL);
@@ -21,10 +23,17 @@ export default {
     client: null,
     chain_id: "",
     bankBalances: [],
+    data: [],
   },
+  modules: { starport },
   mutations: {
     set(state, { key, value }) {
       state[key] = value;
+    },
+    entitySet(state, { type, body }) {
+      const updated = {};
+      updated[type] = body;
+      state.data = { ...state.data, ...updated };
     },
   },
   actions: {
@@ -87,7 +96,7 @@ export default {
         },
       };
       const fee = {
-        amount: coins(200, "token"),
+        amount: coins(200, denom),
         gas: "200000",
       };
       return await state.client.signAndPost([msg], fee, memo);
@@ -101,6 +110,23 @@ export default {
     async accountSignOut({ commit }) {
       localStorage.removeItem("mnemonic");
       window.location.reload();
+    },
+    async entityFetch({ state, commit, dispatch }, { type }) {
+      if (!state.chain_id) {
+        await dispatch("chainIdFetch");
+      }
+      const url = `${API}/${state.chain_id}/${type}`;
+      const body = (await axios.get(url)).data.result;
+      commit("entitySet", { type, body });
+    },
+    async entitySubmit({ state }, { type, body }) {
+      const { chain_id } = state;
+      const creator = state.client.senderAddress;
+      const base_req = { chain_id, from: creator };
+      const req = { base_req, creator, ...body };
+      const { data } = await axios.post(`${API}/${chain_id}/${type}`, req);
+      const { msg, fee, memo } = data.value;
+      return await state.client.signAndPost(msg, fee, memo);
     },
   },
 };

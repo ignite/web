@@ -7,7 +7,10 @@
           <div class="card token__item">
             <div @click="denomChange" class="label h3 h3__button">
               {{ denom }}
-              <icon-synchronization-1 v-if="denoms.length > 1" class="h3__icon" />
+              <icon-synchronization-1
+                v-if="denoms.length > 1"
+                class="h3__icon"
+              />
             </div>
             <div>
               <input
@@ -44,22 +47,12 @@
               placeholder="Add a text message..."
             />
           </div>
-          <div
-            :class="[
-              'send',
-              'h3',
-              `send__enabled__${valid.amount && valid.to_address && !inFlight}`,
-            ]"
+          <sp-button
+            :disabled="!(valid.amount && valid.to_address && !inFlight)"
             @click="send"
+            :loading="inFlight"
+            >Send tokens</sp-button
           >
-            <div class="send__text">
-              Send tokens
-              <div class="send__text__icon">
-                <icon-loading-2 v-if="inFlight" class="send__text__icon__spin"/>
-                <icon-paper-plane-2 v-else />
-              </div>
-            </div>
-          </div>
         </div>
         <div class="log">
           <div class="log__text">
@@ -137,45 +130,11 @@
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
 }
-.send {
-  background: rgb(247, 247, 247);
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  border-radius: 0.5rem;
-}
-.send__enabled__false .send__text {
-  color: rgba(0, 0, 0, 0.25);
-  cursor: not-allowed;
-  fill: rgba(0, 0, 0, 0.25);
-}
-.send__text {
-  margin: 0 2rem;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-}
-.send__text__icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  padding: 0.25rem;
-}
-.send__text__icon__spin {
-  animation: spin 2.5s linear infinite;
-}
 .log__text {
   display: flex;
   justify-content: flex-end;
   font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.35);
-}
-@keyframes spin {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 </style>
 
@@ -184,6 +143,7 @@ import SpH3 from "./SpH3";
 import IconSynchronization1 from "./IconSynchronization1";
 import IconLoading2 from "./IconLoading2";
 import IconPaperPlane2 from "./IconPaperPlane2";
+import SpButton from "./SpButton";
 import { isInteger } from "lodash";
 import { Bech32 } from "@cosmjs/encoding";
 
@@ -193,7 +153,9 @@ export default {
     IconSynchronization1,
     IconLoading2,
     IconPaperPlane2,
+    SpButton,
   },
+  category: "wallet",
   data() {
     return {
       amount: "",

@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ foo }}
     <div class="container">
       <div class="row">
         <div class="button" v-if="address">
@@ -26,8 +27,11 @@
                   placeholder="Mnemonic..."
                   class="dropdown__textarea__input"
                 ></textarea>
-                <div class="dropdown__textarea__icon" @click="mnemonicGenerate()">
-                  <icon-magic-1/>
+                <div
+                  class="dropdown__textarea__icon"
+                  @click="mnemonicGenerate()"
+                >
+                  <icon-magic-1 />
                 </div>
               </div>
               <div
@@ -182,10 +186,11 @@ import IconMagic1 from "./IconMagic1";
 import * as bip39 from "bip39";
 
 export default {
-  componenents: {
+  components: {
     IconLock3,
     IconMagic1,
   },
+  props: ["foo"],
   data() {
     return {
       mnemonic: "",
