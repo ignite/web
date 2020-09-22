@@ -7,10 +7,7 @@
           <div class="card token__item">
             <div @click="denomChange" class="label h3 h3__button">
               {{ denom }}
-              <icon-synchronization-1
-                v-if="denoms.length > 1"
-                class="h3__icon"
-              />
+              <icon-circle-2 v-if="denoms.length > 1" class="h3__icon" />
             </div>
             <div>
               <input
@@ -96,8 +93,8 @@
   cursor: pointer;
 }
 .h3__icon {
-  height: 1.2em;
-  width: 1.2em;
+  height: 1em;
+  width: 1em;
   margin: 0 0.25rem;
   fill: rgba(0, 0, 0, 0.35);
 }
@@ -140,9 +137,9 @@
 
 <script>
 import SpH3 from "./SpH3";
-import IconSynchronization1 from "./IconSynchronization1";
 import IconLoading2 from "./IconLoading2";
 import IconPaperPlane2 from "./IconPaperPlane2";
+import IconCircle2 from "./IconCircle2";
 import SpButton from "./SpButton";
 import { isInteger } from "lodash";
 import { Bech32 } from "@cosmjs/encoding";
@@ -150,9 +147,9 @@ import { Bech32 } from "@cosmjs/encoding";
 export default {
   components: {
     SpH3,
-    IconSynchronization1,
     IconLoading2,
     IconPaperPlane2,
+    IconCircle2,
     SpButton,
   },
   category: "wallet",
