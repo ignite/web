@@ -5,7 +5,7 @@
       <sp-sign-in />
       <sp-bank-balances />
       <sp-token-send />
-      <sp-type-item :value="{ type: 'post', fields: ['title', 'body'] }" />
+      <sp-type-form type="post" :fields="['title', 'body']" />
     </div>
     <!-- </sp-auto-sidebar> -->
   </div>
@@ -23,7 +23,7 @@
 import SpSignIn from "@/components/SpSignIn";
 import SpBankBalances from "@/components/SpBankBalances";
 import SpTokenSend from "@/components/SpTokenSend";
-import SpTypeItem from "@/components/SpTypeItem";
+import SpTypeForm from "@/components/SpTypeForm";
 import SpAutoSidebar from "@/components/SpAutoSidebar";
 
 export default {
@@ -31,7 +31,7 @@ export default {
     SpSignIn,
     SpBankBalances,
     SpTokenSend,
-    SpTypeItem,
+    SpTypeForm,
     SpAutoSidebar,
   },
 };

@@ -31,6 +31,7 @@
 }
 .list {
   display: flex;
+  flex-wrap: wrap;
 }
 .list__item {
   background: rgb(247, 247, 247);
@@ -38,6 +39,7 @@
   border-radius: 0.5rem;
   width: 100%;
   max-width: 225px;
+  margin-bottom: 10px;
   margin-right: 10px;
   box-sizing: border-box;
 }
