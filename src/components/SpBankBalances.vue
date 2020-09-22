@@ -38,7 +38,7 @@
   border-radius: 0.5rem;
   width: 100%;
   max-width: 225px;
-  margin-right: 1rem;
+  margin-right: 10px;
   box-sizing: border-box;
 }
 .list__item__h3 {

@@ -92,6 +92,7 @@
 .button__address {
   text-transform: none;
   font-weight: 500;
+  overflow: hidden;
   color: rgba(0, 0, 0, 0.5);
 }
 .container-dropdown {
@@ -177,6 +178,12 @@
 .button__disabled__true {
   cursor: not-allowed;
   opacity: 0.5;
+}
+@media screen and (max-width: 600px) {
+  .button__address {
+    max-width: 120px;
+    text-overflow: ellipsis;
+  }
 }
 </style>
 

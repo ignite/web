@@ -5,8 +5,6 @@ import {
   makeCosmoshubPath,
   coins,
 } from "@cosmjs/launchpad";
-import { chain } from "lodash";
-import starport from "./starport";
 
 const CUSTOM_URL =
   process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL);
@@ -25,7 +23,6 @@ export default {
     bankBalances: [],
     data: [],
   },
-  modules: { starport },
   mutations: {
     set(state, { key, value }) {
       state[key] = value;
