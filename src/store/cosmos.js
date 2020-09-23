@@ -6,17 +6,25 @@ import {
   coins,
 } from "@cosmjs/launchpad";
 
-const CUSTOM_URL =
+const GITPOD =
   process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL);
 const API =
-  (CUSTOM_URL && `${CUSTOM_URL.protocol}//1317-${CUSTOM_URL.hostname}`) ||
+  process.env.VUE_APP_API_COSMOS ||
+  (GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
   "http://localhost:1317";
-const ADDRESS_PREFIX = "cosmos";
+const RPC =
+  process.env.VUE_APP_API_TENDERMINT ||
+  (GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
+  "http://localhost:26657";
+const WS =
+  process.env.VUE_APP_WS_TENDERMINT ||
+  (GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
+  "ws://localhost:26657/websocket";
+const ADDR_PREFIX = process.env.VUE_APP_ADDRESS_PREFIX || "cosmos";
 
 export default {
   namespaced: true,
   state: {
-    API,
     account: {},
     client: null,
     chain_id: "",
@@ -56,7 +64,7 @@ export default {
         const wallet = await Secp256k1Wallet.fromMnemonic(
           mnemonic,
           makeCosmoshubPath(0),
-          ADDRESS_PREFIX
+          ADDR_PREFIX
         );
         localStorage.setItem("mnemonic", mnemonic);
         const [{ address }] = await wallet.getAccounts();
