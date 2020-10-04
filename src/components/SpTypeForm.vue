@@ -92,6 +92,11 @@ export default {
     fields: {
       default: () => [],
     },
+    preflight: {
+      default: (obj) => {
+        return obj;
+      },
+    },
   },
   components: {
     SpInput,
@@ -99,7 +104,7 @@ export default {
     SpH3,
     SpButton,
   },
-  data: function() {
+  data: function () {
     return {
       fieldsList: {},
       flight: false,
@@ -131,9 +136,16 @@ export default {
     async submit() {
       if (this.valid && !this.flight && this.hasAddress) {
         this.flight = true;
-        const payload = { type: this.type, body: this.fieldsList };
+
+        const payload = {
+          type: this.type,
+          body: this.preflight(this.fieldsList),
+        };
         await this.$store.dispatch("cosmos/entitySubmit", payload);
-        await this.$store.dispatch("cosmos/entityFetch", payload);
+        await this.$store.dispatch("cosmos/entityFetch", {
+          type: this.type,
+          body: this.fieldsList,
+        });
         this.flight = false;
         Object.keys(this.fieldsList).forEach((f) => {
           this.fieldsList[f] = "";
