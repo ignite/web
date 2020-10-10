@@ -114,7 +114,7 @@ export default {
     (this.fields || []).forEach((field) => {
       this.$set(this.fieldsList, field, "");
     });
-    this.$store.dispatch("cosmos/entityFetch", { type: "post" });
+    this.$store.dispatch("cosmos/entityFetch", { type: this.type });
   },
   computed: {
     hasAddress() {
