@@ -9,16 +9,16 @@ import {
 const GITPOD =
   process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL);
 const API =
-  process.env.VUE_APP_API_COSMOS ||
   (GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
+  process.env.VUE_APP_API_COSMOS ||
   "http://localhost:1317";
 const RPC =
-  process.env.VUE_APP_API_TENDERMINT ||
   (GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
+  process.env.VUE_APP_API_TENDERMINT ||
   "http://localhost:26657";
 const WS =
-  process.env.VUE_APP_WS_TENDERMINT ||
   (GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
+  process.env.VUE_APP_WS_TENDERMINT ||
   "ws://localhost:26657/websocket";
 const ADDR_PREFIX = process.env.VUE_APP_ADDRESS_PREFIX || "cosmos";
 
