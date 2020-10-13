@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ foo }}
     <div class="container">
       <div class="row">
         <div class="button" v-if="address">
