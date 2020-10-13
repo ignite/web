@@ -93,8 +93,8 @@ export default {
       default: () => [],
     },
     preflight: {
-      default: (obj) => {
-        return obj;
+      default: () => {
+        return (obj) => obj;
       },
     },
   },
@@ -104,7 +104,7 @@ export default {
     SpH3,
     SpButton,
   },
-  data: function () {
+  data: function() {
     return {
       fieldsList: {},
       flight: false,
