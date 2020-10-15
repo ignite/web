@@ -101,7 +101,7 @@ export default {
         },
       };
       const fee = {
-        amount: coins(200, denom),
+        amount: coins(0, denom),
         gas: "200000",
       };
       return await state.client.signAndPost([msg], fee, memo);
