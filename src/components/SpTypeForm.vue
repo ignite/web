@@ -97,6 +97,9 @@ export default {
         return (obj) => obj;
       },
     },
+    module: {
+      type: String,
+    },
   },
   components: {
     SpInput,
@@ -114,14 +117,17 @@ export default {
     (this.fields || []).forEach((field) => {
       this.$set(this.fieldsList, field, "");
     });
-    this.$store.dispatch("cosmos/entityFetch", { type: this.type });
+    this.$store.dispatch("cosmos/entityFetch", {
+      type: this.type,
+      module: this.module,
+    });
   },
   computed: {
     hasAddress() {
       return !!this.$store.state.cosmos.account.address;
     },
     instanceList() {
-      return this.$store.state.cosmos.data[this.type] || [];
+      return this.$store.state.cosmos.data[`${this.module}/${this.type}`] || [];
     },
     valid() {
       return Object.values(this.fieldsList).every((el) => {
@@ -136,15 +142,16 @@ export default {
     async submit() {
       if (this.valid && !this.flight && this.hasAddress) {
         this.flight = true;
-
         const payload = {
           type: this.type,
           body: this.preflight(this.fieldsList),
+          module: this.module,
         };
         await this.$store.dispatch("cosmos/entitySubmit", payload);
         await this.$store.dispatch("cosmos/entityFetch", {
           type: this.type,
           body: this.fieldsList,
+          module: this.module,
         });
         this.flight = false;
         Object.keys(this.fieldsList).forEach((f) => {

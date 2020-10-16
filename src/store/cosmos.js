@@ -35,9 +35,9 @@ export default {
     set(state, { key, value }) {
       state[key] = value;
     },
-    entitySet(state, { type, body }) {
+    entitySet(state, { type, body, module }) {
       const updated = {};
-      updated[type] = body;
+      updated[`${module}/${type}`] = body;
       state.data = { ...state.data, ...updated };
     },
   },
@@ -116,20 +116,23 @@ export default {
       localStorage.removeItem("mnemonic");
       window.location.reload();
     },
-    async entityFetch({ state, commit, dispatch }, { type }) {
+    async entityFetch({ state, commit, dispatch }, { type, module }) {
+      console.log("entitiFetch");
       if (!state.chain_id) {
         await dispatch("chainIdFetch");
       }
-      const url = `${API}/${state.chain_id}/${type}`;
+      const module_name = module || state.chain_id;
+      const url = `${API}/${module_name}/${type}`;
       const body = (await axios.get(url)).data.result;
-      commit("entitySet", { type, body });
+      commit("entitySet", { type, body, module });
     },
-    async entitySubmit({ state }, { type, body }) {
+    async entitySubmit({ state }, { type, body, module }) {
       const { chain_id } = state;
       const creator = state.client.senderAddress;
       const base_req = { chain_id, from: creator };
       const req = { base_req, creator, ...body };
-      const { data } = await axios.post(`${API}/${chain_id}/${type}`, req);
+      const module_name = module || chain_id;
+      const { data } = await axios.post(`${API}/${module_name}/${type}`, req);
       const { msg, fee, memo } = data.value;
       return await state.client.signAndPost(msg, fee, memo);
     },
