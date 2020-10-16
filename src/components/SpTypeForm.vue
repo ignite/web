@@ -19,7 +19,9 @@
           Create {{ type }}
         </sp-button>
       </div>
-      <sp-h3>List of {{ type }} items</sp-h3>
+      <sp-h3
+        >List of {{ type }} items {{ module && `in module ${module}` }}</sp-h3
+      >
       <div class="item" v-for="instance in instanceList" :key="instance.id">
         <div class="item__field" v-for="(value, key) in instance" :key="key">
           <div class="item__field__key">{{ key }}:</div>

@@ -117,7 +117,6 @@ export default {
       window.location.reload();
     },
     async entityFetch({ state, commit, dispatch }, { type, module }) {
-      console.log("entitiFetch");
       if (!state.chain_id) {
         await dispatch("chainIdFetch");
       }
