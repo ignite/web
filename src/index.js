@@ -5,3 +5,8 @@ export { default as SpH3 } from "./components/SpH3";
 export { default as SpInput } from "./components/SpInput";
 export { default as SpTokenSend } from "./components/SpTokenSend";
 export { default as SpTypeForm } from "./components/SpTypeForm";
+
+export { default as SpBlockInfoCard } from "./components/blocks/BlockInfoCard"
+export { default as SpBlockChain } from "./components/blocks/explorer/BlockChain"
+export { default as SpBlockDetailSheet } from "./components/blocks/explorer/BlockDetailSheet"
+export { default as SpBlockExplorer } from "./components/blocks/explorer/BlockExplorer"

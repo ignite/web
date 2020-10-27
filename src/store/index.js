@@ -5,5 +5,10 @@ import cosmos from "./cosmos";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { cosmos },
+  modules: {
+    cosmos,
+    blocks,
+    txs,
+    env    
+  },
 });

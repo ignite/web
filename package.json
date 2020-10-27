@@ -15,8 +15,10 @@
     "bip39": "^3.0.2",
     "core-js": "^3.6.5",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue-uuid": "^2.0.2",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
