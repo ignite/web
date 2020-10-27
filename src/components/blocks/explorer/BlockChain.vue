@@ -326,15 +326,15 @@ export default {
 .chain__block {
   position: relative;
   width: 100%;
-  padding-left: var(--g-offset-side);
+  padding-left: var(--sp-g-offset-side);
   padding-right: var(--bg-offset);
 }
 .chain__block:after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: calc(var(--g-offset-side) - var(--bg-offset));
-  width: calc(100% - var(--g-offset-side));
+  left: calc(var(--sp-g-offset-side) - var(--bg-offset));
+  width: calc(100% - var(--sp-g-offset-side));
   height: 1px;
   background-color: var(--sp-c-border-primary);  
 }
@@ -343,7 +343,7 @@ export default {
   position: absolute;
   z-index: 2;
   top: -3px;
-  left: calc(var(--g-offset-side) - 1.85rem);
+  left: calc(var(--sp-g-offset-side) - 1.85rem);
   width: 4px;
   height: calc(100% + 6px);
   background-color: var(--sp-c-txt-highlight);
@@ -362,7 +362,7 @@ export default {
 }
 @media only screen and (max-width: 992px) {
   .chain__block:before {
-    left: calc(var(--g-offset-side) - 1.5rem);
+    left: calc(var(--sp-g-offset-side) - 1.5rem);
   }
 }
 
@@ -386,7 +386,7 @@ export default {
 .util-btn {
   position: absolute;
   top: -0.8rem;
-  left: calc((100% - var(--g-offset-side)) / 2 + 22px);
+  left: calc((100% - var(--sp-g-offset-side)) / 2 + 22px);
   width: 22px;
   height: 22px;
   background-color: var(--sp-c-bg-primary);
