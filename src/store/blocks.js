@@ -1,7 +1,7 @@
 import axios from 'axios'
 import ReconnectingWebSocket from 'reconnecting-websocket'
-import blockHelpers, { formatter as blockFormatter } from '@/helpers/block'
-import txHelpers from '@/helpers/tx.js'
+import blockHelpers, { formatter as blockFormatter } from '../helpers/block'
+import txHelpers from '../helpers/tx'
 
 const state = {
   chainId: null,

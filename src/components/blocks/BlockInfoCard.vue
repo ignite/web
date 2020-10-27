@@ -38,9 +38,9 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { formatter as blockFormatter } from '@/helpers/block'
+import { formatter as blockFormatter } from '../../helpers/block'
 
-import Box from "@/assets/icons/Box"
+import Box from "../../assets/icons/Box"
 
 export default {
   components: {
@@ -94,7 +94,7 @@ export default {
 .card {
   overflow: hidden;
   padding: 1.5rem;
-  background-color: var(--c-bg-primary);
+  background-color: var(--sp-c-bg-primary);
   border-radius: 12px;
 }
 .card__top {
@@ -103,16 +103,16 @@ export default {
   margin-bottom: 4.5rem;
 }
 .card__top-left {
-  color: var(--c-txt-highlight);
+  color: var(--sp-c-txt-highlight);
 }
 .card__top-left p:first-child {
   font-size: 0.75rem;
-  font-weight: var(--f-w-medium);
+  font-weight: var(--sp-f-w-medium);
   margin-bottom: 4px;
 }
 .card__top-left p:last-child {
   font-size: 1.3125rem;
-  font-weight: var(--f-w-bold);
+  font-weight: var(--sp-f-w-bold);
 }
 .card__top-right {
   font-size: 0.75rem;
@@ -131,7 +131,7 @@ export default {
   white-space: nowrap; /* forces text to single line */
   overflow: hidden;
   text-overflow: ellipsis;  
-  font-family: var(--f-secondary);
+  font-family: var(--sp-f-secondary);
 }
 
 .container {
@@ -212,7 +212,7 @@ export default {
   font-size: 0.75rem;
   line-height: 130.9%;
   letter-spacing: 0.005em;
-  color: var(--c-txt-grey);
+  color: var(--sp-c-txt-grey);
   opacity: .8;
 }
 

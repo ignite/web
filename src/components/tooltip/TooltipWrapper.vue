@@ -112,8 +112,8 @@ export default {
   border-radius: 6px;
   font-size: 0.875rem;
   line-height: 1.35;
-  color: var(--c-txt-contrast-secondary);
-  background-color: var(--c-bg-contrast-secondary);
+  color: var(--sp-c-txt-contrast-secondary);
+  background-color: var(--sp-c-bg-contrast-secondary);
   box-shadow: 0px 0px 8px rgba(0,0,0,.1);
   white-space: nowrap;
   overflow-wrap: normal;
@@ -133,7 +133,7 @@ export default {
   height: 0; 
   border-top: var(--tooltip-size) solid transparent;
   border-bottom: var(--tooltip-size) solid transparent; 
-  border-right: calc(var(--tooltip-size) + 2px) solid var(--c-bg-contrast-secondary);
+  border-right: calc(var(--tooltip-size) + 2px) solid var(--sp-c-bg-contrast-secondary);
 }
 .tooltip-wrapper.-is-active .tooltip {
   opacity: 1;

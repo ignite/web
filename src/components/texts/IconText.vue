@@ -1,6 +1,9 @@
 <script>
-import IconCopy from '@/assets/icons/Copy'
-import TooltipWrapper from '@/components/tooltip/TooltipWrapper'
+import IconCopy from '../../assets/icons/Copy'
+import IconCheck from '../../assets/icons/Check'
+import IconSpinner from '../../assets/icons/Spinner'
+import IconSuccessDot from '../../assets/icons/SuccessDot'
+import TooltipWrapper from '../tooltip/TooltipWrapper'
 
 export default {
   components: {
@@ -10,12 +13,15 @@ export default {
     text: { type: String, required: true },
     link: { type: String, default: null },
     isIconClickable: { type: Boolean, default: false },    
+    isIconFirst: { type: Boolean, default: false },
+    tooltipStates: { type: Object, default: null },
+    tooltipDirection: { type: String, default: 'right' },    
     iconType: {
       type: String,
       required: true,
       default: 'copy',
       validator(value) {
-        return ['copy'].indexOf(value)>=0
+        return ['copy', 'successDot', 'spinner', 'check'].indexOf(value)>=0
       }
     },
     tooltipOption: {
@@ -24,22 +30,26 @@ export default {
       validator(value) {
         return ['none', 'iconWrapper', 'textWrapper', 'compWrapper'].indexOf(value)>=0
       }
-    },
-    tooltipStates: { type: Object, default: null },
-    tooltipDirection: { type: String, default: 'right' }
+    }
   },
   methods: {
     getIconType() {
       switch (this.iconType) {
         case 'copy':
           return <IconCopy/>
+        case 'successDot':
+          return <IconSuccessDot/>
+        case 'spinner':
+          return <IconSpinner/>
+        case 'check':
+          return <IconCheck/>
         default:
           return <IconCopy/>
       }
     },
     getIconContent() {
       return !this.isIconClickable ? (
-        <span>{this.getIconType()}</span>
+        this.getIconType()
       ) : (
         <button onClick={() => this.$emit('iconClicked')}>{this.getIconType()}</button>
       )
@@ -73,9 +83,14 @@ export default {
     )
 
     return (
-      <p class="main">
+      <p class="icon-text">
+        {this.isIconFirst &&
+          <span class={`icon-text__icon -is-${this.iconType}`}>{this.getIconComp()}</span>        
+        }
         {textContent}
-        <span class={`icon -is-${this.iconType}`}>{this.getIconComp()}</span>
+        {!this.isIconFirst &&
+          <span class={`icon-text__icon -is-${this.iconType}`}>{this.getIconComp()}</span>        
+        }
       </p>      
     )
   }
@@ -84,23 +99,41 @@ export default {
 
 <style scoped>
 
-.main {
+.icon-text {
+  display: flex;
+  align-items: center;  
   font-size: 1rem;
 }
-.main > *:first-child {
+
+.icon-text > *.-is-spinner {
+  width: 8px;
+  height: 8px;  
+}
+
+.icon-text > *:first-child {
   margin-right: 4px;
 }
-
-.main a {
-  color: var(--c-txt-highlight)
+.icon-text > *:first-child.-is-check,
+.icon-text > *:first-child.-is-successDot {
+  margin-right: 1rem;
+}
+.icon-text > *:first-child.-is-spinner {
+  margin-right: 0.8rem;
 }
 
-.icon.-is-copy {
+.icon-text a {
+  color: var(--sp-c-txt-highlight)
+}
+
+.icon-text__icon {
+  display: block;
+}
+.icon-text__icon.-is-copy {
   display: inline-block;
   transform: translate3d(0, 1px, 0);
 }
-.icon * >>> svg path {
-  fill: var(--c-txt-third);
+.icon-text__icon * >>> svg path {
+  fill: var(--sp-c-txt-third);
 }
 
 </style>

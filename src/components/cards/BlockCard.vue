@@ -40,13 +40,13 @@ export default {
 
 .card__title {
   font-size: 1.3125rem;
-  font-weight: var(--f-w-bold);
-  color: var(--c-txt-third);
+  font-weight: var(--sp-f-w-bold);
+  color: var(--sp-c-txt-third);
 }
 
 .card__note {
   font-size: 0.75rem;
-  color: var(--c-txt-third);
+  color: var(--sp-c-txt-third);
 }
 
 </style>

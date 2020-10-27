@@ -103,8 +103,8 @@ import moment from 'moment'
 import { uuid } from 'vue-uuid'
 import { mapGetters } from 'vuex'
 
-import CopyIconText from '@/components/texts/CopyIconText'
-import YamlCards from '@/components/cards/YamlCards'
+import CopyIconText from '../../texts/CopyIconText'
+import YamlCards from '../../cards/YamlCards'
 
 export default {
   components: {
@@ -161,9 +161,9 @@ export default {
   animation: tempLoadingEffect 1.5s ease-in-out infinite;
 }
 @keyframes tempLoadingEffect {
-  0% { color: var(--c-txt-grey); }
-  50% { color: var(--c-txt-secondary); }
-  100% { color: var(--c-txt-grey); }
+  0% { color: var(--sp-c-txt-grey); }
+  50% { color: var(--sp-c-txt-secondary); }
+  100% { color: var(--sp-c-txt-grey); }
 }
 
 .sheet__header {
@@ -177,7 +177,7 @@ export default {
 }
 .sheet__header-main p {
   font-size: 3.1875rem;
-  font-weight: var(--f-w-bold);  
+  font-weight: var(--sp-f-w-bold);  
 }
 
 .sheet__header-side-top {
@@ -192,7 +192,7 @@ export default {
 }
 .sheet__header-side-btm span {
   font-size: 0.8125rem;
-  color: var(--c-txt-secondary);
+  color: var(--sp-c-txt-secondary);
 }
 .sheet__main {
   height: 100%;
@@ -209,8 +209,8 @@ export default {
 }
 .txs.-is-empty p {
   font-size: 2rem;
-  font-weight: var(--f-w-light);
-  color: var(--c-txt-gray);
+  font-weight: var(--sp-f-w-light);
+  color: var(--sp-c-txt-gray);
   margin-bottom: 5rem;  
 }
 
@@ -222,16 +222,16 @@ export default {
 }
 .txs__header-title {
   font-size: 1.3125rem;
-  font-weight: var(--f-w-medium);
+  font-weight: var(--sp-f-w-medium);
   margin-right: 0.85rem;
 }
 .txs__header-note {
   font-size: 1rem;
-  color: var(--c-txt-third);
+  color: var(--sp-c-txt-third);
   margin-bottom: 1.8px;
 }
 .txs__header-note-warn {
-  color: var(--c-txt-danger);
+  color: var(--sp-c-txt-danger);
 }
 @media only screen and (max-width: 992px) {
   .txs__header {
@@ -245,7 +245,7 @@ export default {
 }
 .tx:not(:last-child) {
   padding-bottom: 3rem;
-  border-bottom: 1px solid var(--c-border-primary);
+  border-bottom: 1px solid var(--sp-c-border-primary);
 }
 .tx__main {
   flex-grow: 1;
@@ -259,16 +259,16 @@ export default {
   max-width: 180px;
 }
 .tx__error {
-  color: var(--c-txt-danger);  
+  color: var(--sp-c-txt-danger);  
   padding: 1.25rem 1.5rem;
   border-radius: 12px;
-  background-color: var(--c-danger-light);
+  background-color: var(--sp-c-danger-light);
   margin-bottom: 1.5rem;
 }
 .tx__error-title {
   display: block;
   font-size: 0.75rem;    
-  font-weight: var(--f-w-bold);
+  font-weight: var(--sp-f-w-bold);
   text-transform: uppercase;  
   margin-bottom: 0.5rem;
 }
@@ -276,12 +276,12 @@ export default {
   font-size: 0.875rem;  
 }
 .tx__title {
-  font-weight: var(--f-w-medium);
+  font-weight: var(--sp-f-w-medium);
   font-size: 0.75rem;
   line-height: 130.9%;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--c-txt-third);
+  color: var(--sp-c-txt-third);
   margin-bottom: 0.85rem;
 }
 @media only screen and (max-width: 992px) {
@@ -303,16 +303,16 @@ export default {
 }
 .tx-info__title {
   display: inline-block;
-  /* font-weight: var(--f-w-medium); */
+  /* font-weight: var(--sp-f-w-medium); */
   font-size: 0.75rem;
   line-height: 130.9%;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--c-txt-third);
+  color: var(--sp-c-txt-third);
   margin-bottom: 4px;
 }
 .tx-info__content {
-  color: var(--c-txt-secondary);
+  color: var(--sp-c-txt-secondary);
 }
 @media only screen and (max-width: 992px) {
   .tx-info:not(:last-child) {
@@ -324,7 +324,7 @@ export default {
 }
 
 .copy-icon-text >>> a {
-  font-family: var(--f-secondary);
+  font-family: var(--sp-f-secondary);
 }
 
 </style>

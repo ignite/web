@@ -48,10 +48,10 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import moment from 'moment'
 
-import { formatter as blockFormatter } from '@/helpers/block'
+import { formatter as blockFormatter } from '../../../helpers/block'
 
-import BlockCard from '@/components/cards/BlockCard'
-import IconArrow from '@/assets/icons/Arrow'
+import BlockCard from '../../cards/BlockCard'
+import IconArrow from '../../../assets/icons/Arrow'
 
 export default {
   props: {
@@ -336,21 +336,8 @@ export default {
   left: calc(var(--g-offset-side) - var(--bg-offset));
   width: calc(100% - var(--g-offset-side));
   height: 1px;
-  background-color: var(--c-border-primary);  
+  background-color: var(--sp-c-border-primary);  
 }
-/* .chain__block:before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: calc(var(--g-offset-side) - var(--bg-offset) * 3);
-  width: calc(100% - var(--g-offset-side)/2);
-  height: 100%;
-  border-radius: 16px;
-  background-color: var(--c-bg-secondary);
-  opacity: 0;
-  transition: opacity .6s ease-in;
-} */
 .chain__block:before {
   content: '';
   position: absolute;
@@ -359,8 +346,7 @@ export default {
   left: calc(var(--g-offset-side) - 1.85rem);
   width: 4px;
   height: calc(100% + 6px);
-  /* border-radius: 16px; */
-  background-color: var(--c-txt-highlight);
+  background-color: var(--sp-c-txt-highlight);
   opacity: 0;
   transition: opacity .3s ease-in;
 }
@@ -372,7 +358,7 @@ export default {
   margin-right: 1rem;
 }
 .chain__block.-has-txs >>> .card__title {
-  color: var(--c-txt-highlight);
+  color: var(--sp-c-txt-highlight);
 }
 @media only screen and (max-width: 992px) {
   .chain__block:before {
@@ -381,18 +367,18 @@ export default {
 }
 
 .block-info__text:first-child {
-  font-weight: var(--f-w-medium);
-  color: var(--c-txt-secondary);
+  font-weight: var(--sp-f-w-medium);
+  color: var(--sp-c-txt-secondary);
 }
 .block-info__text:last-child {
-  color: var(--c-txt-third);
+  color: var(--sp-c-txt-third);
 }
 .block-info__indicator {
   display: inline-block;
   width: 5px;
   height: 5px;
   border-radius: 100%;
-  background-color: var(--c-danger-primary);
+  background-color: var(--sp-c-danger-primary);
   margin-right: 6px;
   transform: translate3d(0, -2px, 0);
 }
@@ -403,7 +389,7 @@ export default {
   left: calc((100% - var(--g-offset-side)) / 2 + 22px);
   width: 22px;
   height: 22px;
-  background-color: var(--c-bg-primary);
+  background-color: var(--sp-c-bg-primary);
   border-radius: 100%;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.07), 0px 0.5px 3px rgba(0, 0, 0, 0.1), 0px 1.25px 6px rgba(0, 3, 66, 0.08);  
 }

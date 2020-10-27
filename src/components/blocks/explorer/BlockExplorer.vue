@@ -27,7 +27,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { formatter as blockFormatter } from '@/helpers/block'
+import { formatter as blockFormatter } from '../../../helpers/block'
 
 import FullWidthContainer from '../../layouts/FullWidthContainer'
 import BlockDetailSheet from './BlockDetailSheet'
@@ -174,7 +174,7 @@ export default {
 }
 .explorer__chain-header {
   font-size: 3.1875rem;
-  font-weight: var(--f-w-bold);
+  font-weight: var(--sp-f-w-bold);
   margin-bottom: 2rem;
   padding-left: calc(var(--g-offset-side) - 4px);
 }
@@ -193,7 +193,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--c-txt-light);
+  color: var(--sp-c-txt-light);
   animation: tempLoading 5s ease-in-out infinite;
 }
 .explorer.-is-empty .explorer__container svg {
@@ -201,7 +201,7 @@ export default {
   margin: 0 auto 0.5rem auto;
 }
 .explorer.-is-empty .explorer__container svg >>> path {
-  fill: var(--c-txt-light);
+  fill: var(--sp-c-txt-light);
   fill-opacity: 1;
 }
 @keyframes tempLoading {

@@ -18,7 +18,7 @@
 
 <script>
 import { uuid } from 'vue-uuid'
-import { getters } from '@/helpers/ui'
+import { getters } from '../../helpers/ui'
 
 export default {
   props: {
@@ -63,12 +63,12 @@ export default {
 <style scoped>
 
 .cards__title {
-  font-weight: var(--f-w-medium);
+  font-weight: var(--sp-f-w-medium);
   font-size: 0.75rem;
   line-height: 130.9%;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--c-txt-third);
+  color: var(--sp-c-txt-third);
   margin-bottom: 0.85rem;
 }
 
@@ -101,7 +101,7 @@ export default {
 	height: .8rem;  
 	border-style: solid;
   border-width: 2px 2px 0 0;  
-  border-color: var(--c-txt-third);
+  border-color: var(--sp-c-txt-third);
   transform: rotate(135deg);  
 
   opacity: 0;
@@ -125,12 +125,12 @@ export default {
 
 .card {
   font-size: 0.875rem;
-  font-family: var(--f-secondary);
+  font-family: var(--sp-f-secondary);
   line-height: 162.5%;
-  color: var(--c-txt-secondary);
+  color: var(--sp-c-txt-secondary);
   padding: 1.5rem 1.75rem 1.5rem 1rem;
   border-radius: 0 12px 12px 12px;
-  background-color: var(--c-bg-secondary);
+  background-color: var(--sp-c-bg-secondary);
 }
 .card:not(:last-child) {
   margin-bottom: 1rem;

@@ -71,14 +71,14 @@ export default {
 }
 .container__wrapper:before {
   content: '';
-  background-color: var(--c-bg-secondary);
+  background-color: var(--sp-c-bg-secondary);
 }
 .container__wrapper:after {
   content: 'Fetching blocks';
   display: flex;  
   justify-content: center;
   align-items: center;
-  color: var(--c-txt-grey);
+  color: var(--sp-c-txt-grey);
   animation: tempLoadingEffect 2s ease-in-out infinite;  
 }
 .container.-is-loading .container__wrapper:before {
@@ -130,9 +130,9 @@ export default {
 }
 
 @keyframes tempLoadingEffect {
-  0% { color: var(--c-txt-grey); }
-  50% { color: var(--c-txt-secondary); }
-  100% { color: var(--c-txt-grey); }
+  0% { color: var(--sp-c-txt-grey); }
+  50% { color: var(--sp-c-txt-secondary); }
+  100% { color: var(--sp-c-txt-grey); }
 }
 
 
