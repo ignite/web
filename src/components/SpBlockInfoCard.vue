@@ -38,9 +38,9 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { formatter as blockFormatter } from '../../helpers/block'
+import { formatter as blockFormatter } from '../helpers/block'
 
-import Box from "../../assets/icons/Box"
+import Box from "../assets/icons/Box"
 
 export default {
   components: {

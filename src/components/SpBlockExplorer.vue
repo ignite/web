@@ -27,12 +27,12 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { formatter as blockFormatter } from '../../../helpers/block'
+import { formatter as blockFormatter } from '../helpers/block'
 
-import FullWidthContainer from '../../layouts/FullWidthContainer'
-import BlockDetailSheet from './BlockDetailSheet'
-import BlockChain from './BlockChain'
-import IconBox from '@/assets/icons/Box'
+import FullWidthContainer from './layouts/FullWidthContainer'
+import BlockDetailSheet from './blocks/BlockDetailSheet'
+import BlockChain from './blocks/BlockChain'
+import IconBox from '../assets/icons/Box'
 
 export default {
   components: {

@@ -103,8 +103,8 @@ import moment from 'moment'
 import { uuid } from 'vue-uuid'
 import { mapGetters } from 'vuex'
 
-import CopyIconText from '../../texts/CopyIconText'
-import YamlCards from '../../cards/YamlCards'
+import CopyIconText from '../texts/CopyIconText'
+import YamlCards from '../cards/YamlCards'
 
 export default {
   components: {

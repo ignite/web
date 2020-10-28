@@ -6,12 +6,9 @@ export { default as SpInput } from "./components/SpInput";
 export { default as SpTokenSend } from "./components/SpTokenSend";
 export { default as SpTypeForm } from "./components/SpTypeForm";
 
-export { default as SpIconSpinner } from "./assets/icons/Spinner"
-export { default as SpIconText } from "./components/texts/IconText"
-export { default as SpLoaderIconText } from "./components/texts/LoaderIconText"
-export { default as SpTooltipWrapper } from "./components/tooltip/TooltipWrapper"
 
-export { default as SpBlockInfoCard } from "./components/blocks/BlockInfoCard"
-export { default as SpBlockChain } from "./components/blocks/explorer/BlockChain"
-export { default as SpBlockDetailSheet } from "./components/blocks/explorer/BlockDetailSheet"
-export { default as SpBlockExplorer } from "./components/blocks/explorer/BlockExplorer"
+export { default as SpStandardIconText } from "./components/SpStandardIconText"
+export { default as SpLoaderIconText } from "./components/SpLoaderIconText"
+
+export { default as SpBlockInfoCard } from "./components/SpBlockInfoCard"
+export { default as SpBlockExplorer } from "./components/SpBlockExplorer"
