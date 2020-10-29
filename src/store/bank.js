@@ -13,6 +13,9 @@ export default {
     client: null,
     bankBalances: []
   },
+  getters: {
+    client: state => state.client
+  },
   mutations: {
     set(state, { key, value }) {
       state[key] = value;

@@ -26,14 +26,15 @@ export default {
     },
     async entitySubmit({ state, rootGetters }, { type, body, module }) {
       const { API, CHAIN_ID } = rootGetters['cosmos/env/appEnv']
+      const client = rootGetters['cosmos/bank/client']
 
-      const creator = state.client.senderAddress;
+      const creator = client.senderAddress;
       const base_req = { CHAIN_ID, from: creator };
       const req = { base_req, creator, ...body };
       const module_name = module || CHAIN_ID;
       const { data } = await axios.post(`${API}/${module_name}/${type}`, req);
       const { msg, fee, memo } = data.value;
-      return await state.client.signAndPost(msg, fee, memo);
+      return await client.signAndPost(msg, fee, memo);
     },
   },
 };
