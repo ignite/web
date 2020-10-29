@@ -72,14 +72,10 @@ export default {
     SpH3,
   },
   created() {
-    console.log(this.type, this.module);
     this.$store.dispatch("cosmos/entityFetch", {
       type: this.type,
       module: this.module,
     });
-  },
-  data() {
-    return {};
   },
   computed: {
     instanceList() {
