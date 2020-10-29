@@ -57,6 +57,7 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
 import SpH3 from "./SpH3";
 
 export default {
@@ -71,16 +72,24 @@ export default {
   components: {
     SpH3,
   },
-  created() {
-    this.$store.dispatch("cosmos/entityFetch", {
-      type: this.type,
-      module: this.module,
-    });
-  },
   computed: {
+    ...mapGetters('cosmos/env', [ 'appEnv' ]),    
     instanceList() {
-      return this.$store.state.cosmos.data[`${this.module}/${this.type}`] || [];
+      return this.$store.state.cosmos.module.data[`${this.module}/${this.type}`] || [];
     },
   },
+  watch: {
+    appEnv: {
+      handler() {
+        if (this.appEnv.API) {
+          this.$store.dispatch("cosmos/module/entityFetch", {
+            type: this.type,
+            module: this.module,
+          })          
+        }
+      },
+      deep: true
+    }
+  }  
 };
 </script>

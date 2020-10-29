@@ -39,6 +39,8 @@ const state = {
 }
 
 const getters = {
+  chainId: state => 
+    state.CHAIN_ID,
   appEnv: state =>
     state.APP_ENV,
   backendEnv: state =>

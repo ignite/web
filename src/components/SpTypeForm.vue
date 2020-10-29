@@ -36,7 +36,6 @@
 </style>
 
 <script>
-import { mapGetters } from 'vuex'
 import SpInput from "./SpInput";
 import IconLoading2 from "./IconLoading2";
 import SpH3 from "./SpH3";
@@ -79,7 +78,6 @@ export default {
     });
   },
   computed: {
-    ...mapGetters('cosmos/env', [ 'appEnv' ]),
     hasAddress() {
       return !!this.$store.state.cosmos.bank.account.address;
     },
@@ -113,19 +111,6 @@ export default {
         });
       }
     },
-  },
-  watch: {
-    appEnv: {
-      handler() {
-        if (this.appEnv.API) {
-          this.$store.dispatch("cosmos/module/entityFetch", {
-            type: this.type,
-            module: this.module,
-          })          
-        }
-      },
-      deep: true
-    }
   }
 };
 </script>
