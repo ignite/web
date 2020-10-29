@@ -5,8 +5,6 @@
       <sp-bank-balances />
       <sp-token-send />
       <sp-type-form type="post" :fields="['title', 'body']" />
-      <sp-type-form type="post" :fields="['title', 'body']" module="foo" />
-      <sp-type-form type="post" :fields="['title', 'body']" module="bar" />
     </div>
   </div>
 </template>

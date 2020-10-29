@@ -9,8 +9,8 @@
     "build": "ADDRESS_PREFIX=xyz vue-cli-service build"
   },
   "dependencies": {
-    "@cosmjs/encoding": "^0.22.3",
-    "@cosmjs/launchpad": "^0.22.2",
+    "@cosmjs/encoding": "^0.23",
+    "@cosmjs/launchpad": "^0.23",
     "axios": "^0.20.0",
     "bip39": "^3.0.2",
     "core-js": "^3.6.5",
