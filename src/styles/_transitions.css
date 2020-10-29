@@ -1,35 +1,35 @@
-.fade-enter-active {
+.sp-fade-enter-active {
   transition: opacity .3s ease-in-out;
 }
-.fade-enter,
-.fade-leave-active {
+.sp-fade-enter,
+.sp-fade-leave-active {
   opacity: 0;
   transition: opacity .3s ease-in-out;
 }
-.fade-fast-enter-active,
-.fade-fast-leave-active {
+.sp-fade-fast-enter-active,
+.sp-fade-fast-leave-active {
   transition: opacity .3s ease-in-out;
 }
-.fade-fast-enter,
-.fade-fast-leave-active {
+.sp-fade-fast-enter,
+.sp-fade-fast-leave-active {
   opacity: 0;
   transition: opacity .3s ease-in-out;
 }
 
-.fadeMild-enter-active {
+.sp-fadeMild-enter-active {
   transition: opacity .3s ease-in-out;
 }
-.fadeMild-enter,
-.fadeMild-leave-active {
+.sp-fadeMild-enter,
+.sp-fadeMild-leave-active {
   opacity: .3;
   transition: opacity .3s ease-in-out;
 }
-.fadeMild-fast-enter-active,
-.fadeMild-fast-leave-active {
+.sp-fadeMild-fast-enter-active,
+.sp-fadeMild-fast-leave-active {
   transition: opacity .3s ease-in-out;
 }
-.fadeMild-fast-enter,
-.fadeMild-fast-leave-active {
+.sp-fadeMild-fast-enter,
+.sp-fadeMild-fast-leave-active {
   opacity: .3;
   transition: opacity .3s ease-in-out;
 }

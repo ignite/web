@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="sp-fade">
     <div v-if="blockCards.length>0" class="container" key="default">
       <transition-group name="list" tag="ul">
         <div 

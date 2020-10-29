@@ -1,9 +1,9 @@
 <template>
-  <transition name="fade" mode="out-in" key="default">
+  <transition name="sp-fade" mode="out-in" key="default">
     <div v-if="!isBlocksStackEmpty && isBackendAlive" class="explorer">
       <FullWidthContainer>
         <div slot="sideSheet" class="explorer__block">
-          <transition name="fadeMild" mode="out-in">
+          <transition name="sp-fadeMild" mode="out-in">
             <BlockDetailSheet v-if="highlightedBlock" :block="highlightedBlock" :key="blockSheetKey" />
           </transition>
         </div>
