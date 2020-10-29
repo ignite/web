@@ -42,7 +42,6 @@ export default {
     for (let i = 0; i < this.$slots.default.length; i++) {
       const e = this.$slots.default[i];
       const { category } = e.componentOptions.Ctor.extendOptions;
-      console.log(this.categories.indexOf(category));
     }
     const comps = this.$slots.default.filter((e) => {
       const { category } = e.componentOptions.Ctor.extendOptions;
