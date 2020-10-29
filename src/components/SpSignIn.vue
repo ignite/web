@@ -211,14 +211,14 @@ export default {
       return bip39.validateMnemonic(this.mnemonicClean);
     },
     address() {
-      const { client } = this.$store.state.cosmos;
+      const { client } = this.$store.state.cosmos.bank;
       return client && client.senderAddress;
     },
   },
   methods: {
     buttonClick() {
       if (this.address) {
-        this.$store.dispatch("cosmos/accountSignOut");
+        this.$store.dispatch("cosmos/bank/accountSignOut");
       } else {
         this.mnemonic = "";
         this.dropdown = !this.dropdown;
@@ -227,7 +227,7 @@ export default {
     async mnemonicImport() {
       if (this.mnemonicIsValid) {
         const mnemonic = this.mnemonicClean;
-        await this.$store.dispatch("cosmos/accountSignIn", { mnemonic });
+        await this.$store.dispatch("cosmos/bank/accountSignIn", { mnemonic });
       }
     },
     mnemonicGenerate() {

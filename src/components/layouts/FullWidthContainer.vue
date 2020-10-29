@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
-
 export default {
   props: {
     hasSideSheet: { type: Boolean, default: true },

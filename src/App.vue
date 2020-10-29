@@ -12,8 +12,8 @@ body {
 
 <script>
 export default {
-  created() {
-    this.$store.dispatch("cosmos/init");
+  async created() {
+    await this.$store.dispatch("cosmos/init");
   },
 };
 </script>

@@ -81,6 +81,7 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
 import SpInput from "./SpInput";
 import IconLoading2 from "./IconLoading2";
 import SpH3 from "./SpH3";
@@ -119,17 +120,14 @@ export default {
     (this.fields || []).forEach((field) => {
       this.$set(this.fieldsList, field, "");
     });
-    this.$store.dispatch("cosmos/entityFetch", {
-      type: this.type,
-      module: this.module,
-    });
   },
   computed: {
+    ...mapGetters('cosmos/env', [ 'appEnv' ]),
     hasAddress() {
-      return !!this.$store.state.cosmos.account.address;
+      return !!this.$store.state.cosmos.bank.account.address;
     },
     instanceList() {
-      return this.$store.state.cosmos.data[`${this.module}/${this.type}`] || [];
+      return this.$store.state.cosmos.module.data[`${this.module}/${this.type}`] || [];
     },
     valid() {
       return Object.values(this.fieldsList).every((el) => {
@@ -149,8 +147,8 @@ export default {
           body: this.preflight(this.fieldsList),
           module: this.module,
         };
-        await this.$store.dispatch("cosmos/entitySubmit", payload);
-        await this.$store.dispatch("cosmos/entityFetch", {
+        await this.$store.dispatch("cosmos/module/entitySubmit", payload);
+        await this.$store.dispatch("cosmos/module/entityFetch", {
           type: this.type,
           body: this.fieldsList,
           module: this.module,
@@ -162,5 +160,18 @@ export default {
       }
     },
   },
+  watch: {
+    appEnv: {
+      handler() {
+        if (this.appEnv.API) {
+          this.$store.dispatch("cosmos/module/entityFetch", {
+            type: this.type,
+            module: this.module,
+          })          
+        }
+      },
+      deep: true
+    }
+  }
 };
 </script>

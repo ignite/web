@@ -4,7 +4,6 @@ import blockHelpers, { formatter as blockFormatter } from '../helpers/block'
 import txHelpers from '../helpers/tx'
 
 const state = {
-  chainId: null,
   table: {
     highlightedBlock: {
       id: null,
@@ -37,8 +36,6 @@ const getters = {
     state.stackChainRange,
   lastBlock: state =>
     state.stack[state.stack.length-1],
-  chainId: state =>
-    state.chainId,
   errorsQueue: state =>
     state.errorsQueue
 }
@@ -87,29 +84,6 @@ const mutations = {
       }
     }
   },
-  /**
-   * 
-   * Set the state of table's side sheet to true/false
-   * 
-   * @param {object} state
-   * @param {boolean} [tableState=false]
-   * 
-   * 
-   */    
-  setTableSheetState(state, tableState=false) {
-    state.table.isSheetActive = tableState
-  },
-  /**
-   * Set chainId of the app (if there's no existing one yet)
-   * 
-   * @param {object} state
-   * @param {string} chainId
-   * 
-   * 
-   */    
-  setChainId(state, chainId) {
-    if (!state.chainId || state.chainId.length<=0) state.chainId = chainId
-  }, 
   /**
    * 
    * @param {object} state
@@ -411,12 +385,6 @@ const actions = {
           lowest: newBlockPosition.isLower ? blockHolder.block.height : null,
         })
       }    
-      /*
-       *
-       // 4. Set application's chainId
-       *
-       */        
-      commit('setChainId', blockHolder.block.header.chain_id)
     }     
   },
   /**

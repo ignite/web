@@ -10,6 +10,7 @@ const {
 
 const state = {
   timer: null,
+  CHAIN_ID: null,
   APP_ENV: {      
     GITPOD: '',
     STARPORT_APP: VUE_APP_CUSTOM_URL ? '' : 'http://localhost:12345',
@@ -97,11 +98,7 @@ export default {
      * 
      * 
      */      
-    setBackendRunningStates(state, {
-      frontend,
-      rpc,
-      api
-    }) {
+    setBackendRunningStates(state, { frontend, rpc, api }) {
       state.backend.running = {
         frontend,
         rpc,
@@ -118,27 +115,29 @@ export default {
      * 
      * 
      */     
-    setBackendEnv(state, {
-      node_js,
-      vue_app_custom_url
-    }) {
+    setBackendEnv(state, { node_js, vue_app_custom_url }) {
       state.backend.env = {
         node_js,
         vue_app_custom_url
       }
     },
-    setPrevStates(state, {
-      status
-    }) {
+    /**
+     * 
+     * 
+     * @param {object} state
+     * @param {object} payload
+     * @param {object} payload.status
+     * 
+     * 
+     */       
+    setPrevStates(state, { status }) {
       state.backend.prevStates = {
         frontend: status ? status.is_my_app_frontend_alive : false,
         rpc: status ? status.is_consensus_engine_alive : false,
         api: status ? status.is_my_app_backend_alive : false,
       }
     },    
-    setTimer(state, {
-      timer
-    }) {
+    setTimer(state, { timer }) {
       state.timer = timer
     },
     clearTimer(state) {
@@ -146,10 +145,12 @@ export default {
     }
   },
   actions: {
-    async setStatusState({ getters, commit }) {
+    async setStatusState({ state, getters, commit }) {
       try {
         const { data } = await axios.get(`${getters.appEnv.STARPORT_APP}/status`)
         const { status, env } = data
+
+        state.CHAIN_ID = env.chain_id
 
         commit('setAppEnv', { 
           customUrl: env.vue_app_custom_url
@@ -174,9 +175,7 @@ export default {
         if (getters.wasAppRestarted(status)) {
           window.location.reload(false)
         }
-        commit('setPrevStates', {
-          status
-        })
+        commit('setPrevStates', { status })
       } catch {
         commit('setBackendRunningStates', {
           frontend: false,
@@ -184,10 +183,24 @@ export default {
           api: false,
         })    
         
-        commit('setPrevStates', {
-          status: null
-        })
+        commit('setPrevStates', { status: null })
       }
-    }    
+    },
+    async initEnv({ commit, dispatch }) {
+      /*
+      *
+      // Fetch backend status regularly
+      *
+      */
+      commit('setTimer', {
+        timer: setInterval(() => dispatch('setStatusState'), 5000)
+      })
+      
+      try {
+        await dispatch('setStatusState')
+      } catch {
+        console.log(`Can't fetch /env`)
+      }      
+    }
   }
 }

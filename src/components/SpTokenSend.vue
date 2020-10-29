@@ -165,7 +165,7 @@ export default {
   },
   computed: {
     balances() {
-      return this.$store.state.cosmos.bankBalances;
+      return this.$store.state.cosmos.bank.bankBalances;
     },
     denoms() {
       return this.balances.map((b) => b.denom);
@@ -202,14 +202,14 @@ export default {
         };
         this.txResult = "";
         this.inFlight = true;
-        this.txResult = await this.$store.dispatch("cosmos/tokenSend", payload);
+        this.txResult = await this.$store.dispatch("cosmos/bank/tokenSend", payload);
         if (!this.txResult.code) {
           this.amount = "";
           this.to_address = "";
           this.memo = "";
         }
         this.inFlight = false;
-        await this.$store.dispatch("cosmos/bankBalancesGet");
+        await this.$store.dispatch("cosmos/bank/bankBalancesGet");
       }
     },
   },
