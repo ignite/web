@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  Secp256k1Wallet,
+  Secp256k1HdWallet,
   SigningCosmosClient,
   makeCosmoshubPath,
   coins
@@ -32,7 +32,7 @@ export default {
       const { API, ADDR_PREFIX } = rootGetters['cosmos/env/appEnv']
 
       return new Promise(async (resolve, reject) => {
-        const wallet = await Secp256k1Wallet.fromMnemonic(
+        const wallet = await Secp256k1HdWallet.fromMnemonic(
           mnemonic,
           makeCosmoshubPath(0),
           ADDR_PREFIX
@@ -75,7 +75,7 @@ export default {
         amount: coins(0, denom),
         gas: "200000",
       };
-      return await state.client.signAndPost([msg], fee, memo);
+      return await state.client.signAndBroadcast([msg], fee, memo);
     },
     async bankBalancesGet({ commit, state, rootGetters }) {
       const { API } = rootGetters['cosmos/env/appEnv']      
