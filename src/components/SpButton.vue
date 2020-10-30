@@ -64,8 +64,8 @@
 </style>
 
 <script>
-import IconPaperPlane2 from "./IconPaperPlane2";
-import IconLoading2 from "./IconLoading2";
+import IconPaperPlane2 from "./icons/IconPaperPlane2";
+import IconLoading2 from "./icons/IconLoading2";
 
 export default {
   components: {

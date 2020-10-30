@@ -32,7 +32,7 @@ import { formatter as blockFormatter } from '../helpers/block'
 import FullWidthContainer from './SpBlockExplorer/FullWidthContainer'
 import BlockDetailSheet from './SpBlockExplorer/BlockDetailSheet'
 import BlockChain from './SpBlockExplorer/BlockChain'
-import IconBox from '../assets/icons/Box'
+import IconBox from './icons/Box'
 
 export default {
   components: {

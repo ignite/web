@@ -64,7 +64,7 @@
 
 <script>
 import SpH3 from "./SpH3";
-import IconSynchronization1 from "./IconSynchronization1";
+import IconSynchronization1 from "./icons/IconSynchronization1";
 
 export default {
   components: {

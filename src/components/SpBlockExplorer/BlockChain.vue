@@ -51,7 +51,7 @@ import moment from 'moment'
 import { formatter as blockFormatter } from '../../helpers/block'
 
 import BlockCard from './BlockCard'
-import IconArrow from '../../assets/icons/Arrow'
+import IconArrow from '../icons/Arrow'
 
 export default {
   props: {

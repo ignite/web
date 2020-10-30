@@ -137,9 +137,9 @@
 
 <script>
 import SpH3 from "./SpH3";
-import IconLoading2 from "./IconLoading2";
-import IconPaperPlane2 from "./IconPaperPlane2";
-import IconCircle2 from "./IconCircle2";
+import IconLoading2 from "./icons/IconLoading2";
+import IconPaperPlane2 from "./icons/IconPaperPlane2";
+import IconCircle2 from "./icons/IconCircle2";
 import SpButton from "./SpButton";
 import { isInteger } from "lodash";
 import { Bech32 } from "@cosmjs/encoding";

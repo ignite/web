@@ -1,8 +1,8 @@
 <script>
-import IconCopy from '../assets/icons/Copy'
-import IconCheck from '../assets/icons/Check'
-import IconSpinner from '../assets/icons/Spinner'
-import IconSuccessDot from '../assets/icons/SuccessDot'
+import IconCopy from '../icons/Copy'
+import IconCheck from '../icons/Check'
+import IconSpinner from '../icons/Spinner'
+import IconSuccessDot from '../icons/SuccessDot'
 import Tooltip from './Tooltip'
 
 export default {

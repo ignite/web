@@ -187,8 +187,8 @@
 </style>
 
 <script>
-import IconLock3 from "./IconLock3";
-import IconMagic1 from "./IconMagic1";
+import IconLock3 from "./icons/IconLock3";
+import IconMagic1 from "./icons/IconMagic1";
 import * as bip39 from "bip39";
 
 export default {

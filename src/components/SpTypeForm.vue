@@ -37,7 +37,7 @@
 
 <script>
 import SpInput from "./SpInput";
-import IconLoading2 from "./IconLoading2";
+import IconLoading2 from "./icons/IconLoading2";
 import SpH3 from "./SpH3";
 import SpButton from "./SpButton";
 import SpTypeList from "./SpTypeList";
