@@ -18,7 +18,6 @@
 
 <script>
 import { uuid } from 'vue-uuid'
-import { getters } from '../../helpers/ui'
 
 export default {
   props: {
@@ -46,7 +45,21 @@ export default {
       return index + uuid.v1()
     },    
     getCardContent(msg) {
-      return getters.jsonToHtmlTree(msg)
+      const keys = []
+      let treeHolder = ''
+
+      for (let key in msg) {
+        if (typeof msg[key] === 'object') {
+          treeHolder += `<div class="wrapper">`
+          treeHolder += `<span class="wrapper__key-item">${key}:</span>`
+          treeHolder += `<div class="wrapper">${getters.jsonToHtmlTree(msg[key])}</div>`
+          treeHolder += `</div>`
+        } else {
+          treeHolder += `<span class="wrapper__item">${key}: ${msg[key]}</span>`
+        }
+        keys.push(key)
+      }
+      return treeHolder        
     }, 
     handleChevronClicked($event) {
       const $btn = $event.target
