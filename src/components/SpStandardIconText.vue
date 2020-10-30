@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import IconText from './texts/IconText'
+import IconText from './SpIconText/IconText'
 
 export default {
   components: {

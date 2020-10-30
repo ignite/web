@@ -13,8 +13,7 @@
 </template>
 
 <script>
-import IconText from './IconText'
-import TooltipWrapper from '../tooltip/TooltipWrapper'
+import IconText from '../SpIconText/IconText'
 
 const COPY_STATES = {
   EMPTY: 'EMPTY',

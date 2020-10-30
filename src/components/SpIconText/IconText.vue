@@ -1,9 +1,9 @@
 <script>
-import IconCopy from '../../assets/icons/Copy'
-import IconCheck from '../../assets/icons/Check'
-import IconSpinner from '../../assets/icons/Spinner'
-import IconSuccessDot from '../../assets/icons/SuccessDot'
-import TooltipWrapper from '../tooltip/TooltipWrapper'
+import IconCopy from '../assets/icons/Copy'
+import IconCheck from '../assets/icons/Check'
+import IconSpinner from '../assets/icons/Spinner'
+import IconSuccessDot from '../assets/icons/SuccessDot'
+import Tooltip from './Tooltip'
 
 export default {
   components: {
@@ -60,13 +60,13 @@ export default {
       switch (this.tooltipOption) {
         case 'iconWrapper':
           return (
-            <TooltipWrapper 
+            <Tooltip 
               content={this.tooltipStates.text} 
               isEventTriggerType={{ triggerActiveState: this.tooltipStates.state }}
               direction={this.tooltipDirection}
             >
               {IconContent}      
-            </TooltipWrapper>              
+            </Tooltip>              
           )
         default:
           return IconContent
