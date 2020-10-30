@@ -104,7 +104,7 @@ import { uuid } from 'vue-uuid'
 import { mapGetters } from 'vuex'
 
 import CopyIconText from '../texts/CopyIconText'
-import YamlCards from '../cards/YamlCards'
+import YamlCards from './YamlCards'
 
 export default {
   components: {

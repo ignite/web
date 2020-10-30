@@ -50,7 +50,7 @@ import moment from 'moment'
 
 import { formatter as blockFormatter } from '../../helpers/block'
 
-import BlockCard from '../cards/BlockCard'
+import BlockCard from './BlockCard'
 import IconArrow from '../../assets/icons/Arrow'
 
 export default {
