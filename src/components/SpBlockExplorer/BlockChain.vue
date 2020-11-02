@@ -126,6 +126,43 @@ export default {
 			return this.states.hasLowerBlocks
 		}
 	},
+	watch: {
+		latestBlock() {
+			/**
+       *
+       // If no block is clicked (selected),
+       // set highlighted block to be latest block.
+       *
+       */
+			if (!this.localHighlightedBlock) {
+				this.setHighlightedBlock({
+					block: {
+						id: this.latestBlock.blockMeta.block_id.hash,
+						data: this.blockFormatter.blockForTable([this.latestBlock])[0]
+					}
+				})
+			}
+
+			this.setHasHigherBlocksState()
+			this.setHasLowerBlocksState()
+		},
+		isScrolledTop() {
+			this.setHasHigherBlocksState()
+		},
+		isScrolledBottom() {
+			this.setHasLowerBlocksState()
+		}
+	},
+	mounted() {
+		if (this.latestBlock) {
+			this.setHighlightedBlock({
+				block: {
+					id: this.latestBlock.blockMeta.block_id.hash,
+					data: this.blockFormatter.blockForTable([this.latestBlock])[0]
+				}
+			})
+		}
+	},
 	methods: {
 		/*
 		 *
@@ -177,8 +214,7 @@ export default {
 
 			const isScrolledToTop = scrolledHeight <= $table.offsetHeight
 			const isScrolledToBottom = scrolledHeight + 100 >= tableScrollHeight
-			const isOnTopHalf =
-				$table.scrollTop < (tableScrollHeight - $table.offsetHeight) / 2
+			// const isOnTopHalf = $table.scrollTop < (tableScrollHeight - $table.offsetHeight) / 2
 			const isScrollAwayFromTop = scrolledHeight / tableScrollHeight > 0.2
 
 			const isCallableScrolledDistance =
@@ -287,43 +323,6 @@ export default {
 			} else {
 				this.states.hasLowerBlocks = false
 			}
-		}
-	},
-	watch: {
-		latestBlock() {
-			/**
-       *
-       // If no block is clicked (selected),
-       // set highlighted block to be latest block.
-       *
-       */
-			if (!this.localHighlightedBlock) {
-				this.setHighlightedBlock({
-					block: {
-						id: this.latestBlock.blockMeta.block_id.hash,
-						data: this.blockFormatter.blockForTable([this.latestBlock])[0]
-					}
-				})
-			}
-
-			this.setHasHigherBlocksState()
-			this.setHasLowerBlocksState()
-		},
-		isScrolledTop() {
-			this.setHasHigherBlocksState()
-		},
-		isScrolledBottom() {
-			this.setHasLowerBlocksState()
-		}
-	},
-	mounted() {
-		if (this.latestBlock) {
-			this.setHighlightedBlock({
-				block: {
-					id: this.latestBlock.blockMeta.block_id.hash,
-					data: this.blockFormatter.blockForTable([this.latestBlock])[0]
-				}
-			})
 		}
 	}
 }

@@ -50,18 +50,22 @@ export default {
 	},
 	props: {
 		type: {
-			type: String
+			type: String,
+			default: ''
 		},
 		fields: {
+			type: Array,
 			default: () => []
 		},
 		preflight: {
+			type: Function,
 			default: () => {
 				return obj => obj
 			}
 		},
 		module: {
-			type: String
+			type: String,
+			default: ''
 		}
 	},
 	data: function() {

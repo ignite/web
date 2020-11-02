@@ -74,9 +74,11 @@ export default {
 	},
 	props: {
 		disabled: {
+			type: Boolean,
 			default: false
 		},
 		loading: {
+			type: Boolean,
 			default: false
 		}
 	},

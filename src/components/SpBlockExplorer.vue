@@ -103,6 +103,15 @@ export default {
 			return this.backendRunningStates.api
 		}
 	},
+	beforeDestroy() {
+		if (this.latestBlock) {
+			this.getBlockchain({
+				blockHeight: this.latestBlock.height,
+				toReset: true,
+				toGetLowerBlocks: true
+			})
+		}
+	},
 	methods: {
 		/*
 		 *
@@ -156,15 +165,6 @@ export default {
 				blockHeight: this.lastBlock.height,
 				toGetLowerBlocks: true
 			}).then(() => (this.states.isLoading = false))
-		}
-	},
-	beforeDestroy() {
-		if (this.latestBlock) {
-			this.getBlockchain({
-				blockHeight: this.latestBlock.height,
-				toReset: true,
-				toGetLowerBlocks: true
-			})
 		}
 	}
 }

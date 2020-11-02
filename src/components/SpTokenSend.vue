@@ -181,6 +181,8 @@ export default {
 		},
 		txResultMessage() {
 			if (this.txResult.code) return `Error: ${this.txResult.rawLog}`
+
+			return ''
 		}
 	},
 	methods: {

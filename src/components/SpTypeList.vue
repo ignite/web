@@ -64,10 +64,12 @@ export default {
 	},
 	props: {
 		type: {
-			type: String
+			type: String,
+			default: ''
 		},
 		module: {
-			type: String
+			type: String,
+			default: ''
 		}
 	},
 	computed: {
