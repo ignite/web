@@ -101,8 +101,8 @@ export default {
 					body: this.preflight(this.fieldsList),
 					module: this.module
 				}
-				await this.$store.dispatch('cosmos/module/entitySubmit', payload)
-				await this.$store.dispatch('cosmos/module/entityFetch', {
+				await this.$store.dispatch('cosmos/entitySubmit', payload)
+				await this.$store.dispatch('cosmos/entityFetch', {
 					type: this.type,
 					body: this.fieldsList,
 					module: this.module

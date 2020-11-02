@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-	namespaced: true,
+	// namespaced: true,
 	state: {
 		data: []
 	},
@@ -28,7 +28,7 @@ export default {
 		async entitySubmit({ rootGetters }, { type, body, module }) {
 			const { API } = rootGetters['cosmos/appEnv']
 			const CHAIN_ID = rootGetters['cosmos/chainId']
-			const client = rootGetters['cosmos/bank/client']
+			const client = rootGetters['cosmos/client']
 
 			const creator = client.senderAddress
 			const base_req = { chain_id: CHAIN_ID, from: creator }

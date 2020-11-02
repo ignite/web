@@ -85,7 +85,7 @@ export default {
 		appEnv: {
 			handler() {
 				if (this.appEnv.API) {
-					this.$store.dispatch('cosmos/module/entityFetch', {
+					this.$store.dispatch('cosmos/entityFetch', {
 						type: this.type,
 						module: this.module
 					})
