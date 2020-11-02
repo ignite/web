@@ -96,8 +96,8 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapGetters('cosmos/env', ['appEnv']),
-		...mapGetters('cosmos/blocks', [
+		...mapGetters('cosmos', ['appEnv']),
+		...mapGetters('cosmos', [
 			'highlightedBlock',
 			'blocksStack',
 			'lastBlock',
@@ -169,7 +169,7 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapActions('cosmos/blocks', ['getBlockchain', 'setHighlightedBlock']),
+		...mapActions('cosmos', ['getBlockchain', 'setHighlightedBlock']),
 		/*
 		 *
 		 * Local

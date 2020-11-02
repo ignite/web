@@ -26,8 +26,8 @@ export default {
 				account: true
 			}
 		) {
-			await dispatch('env/initEnv')
-			if (blockExplorer !== false) await dispatch('blocks/initBlockConnection')
+			await dispatch('initEnv')
+			if (blockExplorer !== false) await dispatch('initBlockConnection')
 			if (account !== false) await dispatch('bank/accountSignInTry')
 
 			// dispatch("stakingPoolFetch");

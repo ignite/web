@@ -14,11 +14,11 @@ export default {
 	},
 	actions: {
 		async entityFetch({ commit, dispatch, rootGetters }, { type, module }) {
-			const { API } = rootGetters['cosmos/env/appEnv']
-			const CHAIN_ID = rootGetters['cosmos/env/chainId']
+			const { API } = rootGetters['cosmos/appEnv']
+			const CHAIN_ID = rootGetters['cosmos/chainId']
 
 			if (!CHAIN_ID) {
-				await dispatch('cosmos/env/setStatusState', {}, { root: true })
+				await dispatch('cosmos/setStatusState', {}, { root: true })
 			}
 			const module_name = module || CHAIN_ID
 			const url = `${API}/${module_name}/${type}`
@@ -26,8 +26,8 @@ export default {
 			commit('entitySet', { type, body, module })
 		},
 		async entitySubmit({ rootGetters }, { type, body, module }) {
-			const { API } = rootGetters['cosmos/env/appEnv']
-			const CHAIN_ID = rootGetters['cosmos/env/chainId']
+			const { API } = rootGetters['cosmos/appEnv']
+			const CHAIN_ID = rootGetters['cosmos/chainId']
 			const client = rootGetters['cosmos/bank/client']
 
 			const creator = client.senderAddress

@@ -73,7 +73,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('cosmos/env', ['appEnv']),
+		...mapGetters('cosmos', ['appEnv']),
 		instanceList() {
 			return (
 				this.$store.state.cosmos.module.data[`${this.module}/${this.type}`] ||

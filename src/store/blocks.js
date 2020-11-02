@@ -222,7 +222,7 @@ const actions = {
 		{ commit, dispatch, getters, rootGetters },
 		{ blockHeight, toGetLowerBlocks = true, toReset = false }
 	) {
-		const appEnv = rootGetters['cosmos/env/appEnv']
+		const appEnv = rootGetters['cosmos/appEnv']
 		const { getBlockByHeight, getBlockchain } = blockHelpers
 		const latestBlock = getters.latestBlock
 
@@ -308,7 +308,7 @@ const actions = {
 		{ header, blockMeta, txsData, isValidLatestBlock = false, toReset = false }
 	) {
 		const { getDecodedTx } = txHelpers
-		const appEnv = rootGetters['cosmos/env/appEnv']
+		const appEnv = rootGetters['cosmos/appEnv']
 		const blockHolder = blockFormatter.setNewBlock(header, txsData)
 
 		blockHolder.setBlockMeta(blockMeta)
@@ -391,7 +391,7 @@ const actions = {
 	 *
 	 */
 	async initBlockConnection({ commit, dispatch, getters, rootGetters }) {
-		const appEnv = rootGetters['cosmos/env/appEnv']
+		const appEnv = rootGetters['cosmos/appEnv']
 		const { data } = await axios.get(`${appEnv.STARPORT_APP}/status`)
 		const GITPOD =
 			data.env.vue_app_custom_url && new URL(data.env.vue_app_custom_url)
@@ -498,7 +498,7 @@ const actions = {
 	async setHighlightedBlockMeta({ state, rootGetters }, { block }) {
 		blockHelpers
 			.getBlockByHeight(
-				rootGetters['cosmos/env/appEnv'].RPC,
+				rootGetters['cosmos/appEnv'].RPC,
 				block.data.blockMsg.height
 			)
 			.then(blockMeta => (state.table.highlightedBlock.rawJson = blockMeta))
@@ -522,7 +522,7 @@ const actions = {
 }
 
 export default {
-	namespaced: true,
+	// namespaced: true,
 	state,
 	getters,
 	mutations,
