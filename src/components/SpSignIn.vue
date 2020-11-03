@@ -217,7 +217,7 @@ export default {
 	methods: {
 		buttonClick() {
 			if (this.address) {
-				this.$store.dispatch('cosmos/bank/accountSignOut')
+				this.$store.dispatch('cosmos/accountSignOut')
 			} else {
 				this.mnemonic = ''
 				this.dropdown = !this.dropdown
@@ -226,7 +226,7 @@ export default {
 		async mnemonicImport() {
 			if (this.mnemonicIsValid) {
 				const mnemonic = this.mnemonicClean
-				await this.$store.dispatch('cosmos/bank/accountSignIn', { mnemonic })
+				await this.$store.dispatch('cosmos/accountSignIn', { mnemonic })
 			}
 		},
 		mnemonicGenerate() {

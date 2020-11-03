@@ -73,7 +73,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('cosmos/env', ['appEnv']),
+		...mapGetters('cosmos', ['appEnv']),
 		instanceList() {
 			return (
 				this.$store.state.cosmos.module.data[`${this.module}/${this.type}`] ||
@@ -85,7 +85,7 @@ export default {
 		appEnv: {
 			handler() {
 				if (this.appEnv.API) {
-					this.$store.dispatch('cosmos/module/entityFetch', {
+					this.$store.dispatch('cosmos/entityFetch', {
 						type: this.type,
 						module: this.module
 					})

@@ -79,8 +79,8 @@ export default {
 			return Intl.NumberFormat().format(number)
 		},
 		async balancesUpdate() {
-			await this.$store.dispatch('cosmos/bank/accountSignInTry')
-			await this.$store.dispatch('cosmos/bank/bankBalancesGet')
+			await this.$store.dispatch('cosmos/accountSignInTry')
+			await this.$store.dispatch('cosmos/bankBalancesGet')
 		}
 	}
 }

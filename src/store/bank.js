@@ -7,7 +7,7 @@ import {
 } from '@cosmjs/launchpad'
 
 export default {
-	namespaced: true,
+	// namespaced: true,
 	state: {
 		account: {},
 		client: null,
@@ -29,7 +29,7 @@ export default {
 			}
 		},
 		accountSignIn({ commit, dispatch, rootGetters }, { mnemonic }) {
-			const { API, ADDR_PREFIX } = rootGetters['cosmos/env/appEnv']
+			const { API, ADDR_PREFIX } = rootGetters['cosmos/appEnv']
 
 			return async () => {
 				const wallet = await Secp256k1HdWallet.fromMnemonic(
@@ -78,7 +78,7 @@ export default {
 			return await state.client.signAndBroadcast([msg], fee, memo)
 		},
 		async bankBalancesGet({ commit, state, rootGetters }) {
-			const { API } = rootGetters['cosmos/env/appEnv']
+			const { API } = rootGetters['cosmos/appEnv']
 			const { address } = state.account
 			const url = `${API}/bank/balances/${address}`
 			const value = (await axios.get(url)).data.result

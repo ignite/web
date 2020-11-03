@@ -60,8 +60,8 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapGetters('cosmos/env', ['appEnv', 'backendRunningStates']),
-		...mapGetters('cosmos/blocks', [
+		...mapGetters('cosmos', ['appEnv', 'backendRunningStates']),
+		...mapGetters('cosmos', [
 			'highlightedBlock',
 			'blocksStack',
 			'lastBlock',
@@ -118,8 +118,8 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapMutations('cosmos/blocks', ['popOverloadBlocks']),
-		...mapActions('cosmos/blocks', [
+		...mapMutations('cosmos', ['popOverloadBlocks']),
+		...mapActions('cosmos', [
 			'addBlockEntry',
 			'getBlockchain',
 			'setHighlightedBlock'
