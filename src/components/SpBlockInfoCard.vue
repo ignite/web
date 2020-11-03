@@ -38,7 +38,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { formatter as blockFormatter } from '../helpers/block'
+import blockHelpers from '../helpers/block'
 
 import Box from './icons/Box'
 
@@ -60,7 +60,7 @@ export default {
 	},
 	data() {
 		return {
-			blockFormatter
+			blockHelpers
 		}
 	},
 	computed: {
@@ -80,7 +80,7 @@ export default {
 		 */
 		handleCardClick({ height, hash }) {
 			const blockData = this.blockByHeight(height)
-			const fmtBlockData = this.blockFormatter.blockForTable(blockData)[0]
+			const fmtBlockData = this.blockHelpers.getFormattedBlock(blockData)[0]
 			this.setHighlightedBlock({
 				block: { id: hash, data: fmtBlockData }
 			})
