@@ -31,7 +31,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { formatter as blockFormatter } from '../helpers/block'
+import blockHelpers from '../helpers/block'
 
 import FullWidthContainer from './SpBlockExplorer/FullWidthContainer'
 import BlockDetailSheet from './SpBlockExplorer/BlockDetailSheet'
@@ -48,7 +48,6 @@ export default {
 	data() {
 		return {
 			states: {
-				isHidingBlocksWithoutTxs: false,
 				isScrolledInTopHalf: true,
 				isLoading: false
 			}
@@ -60,13 +59,14 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapGetters('cosmos', ['appEnv', 'backendRunningStates']),
 		...mapGetters('cosmos', [
 			'highlightedBlock',
 			'blocksStack',
 			'lastBlock',
 			'stackChainRange',
-			'latestBlock'
+			'latestBlock',
+			'appEnv',
+			'backendRunningStates'
 		]),
 		/*
 		 *
@@ -80,17 +80,13 @@ export default {
 			return ''
 		},
 		fmtBlockData() {
-			const fmtBlockForTable = blockFormatter.blockForTable(this.blocksStack)
+			const fmtgetFormattedBlock = blockHelpers.getFormattedBlock(
+				this.blocksStack
+			)
 
-			if (!fmtBlockForTable) return null
+			if (!fmtgetFormattedBlock) return null
 
-			if (this.states.isHidingBlocksWithoutTxs) {
-				return blockFormatter
-					.filterBlock(fmtBlockForTable)
-					.hideBlocksWithoutTxs()
-			}
-
-			return fmtBlockForTable
+			return fmtgetFormattedBlock
 		},
 		isBlocksStackEmpty() {
 			return (

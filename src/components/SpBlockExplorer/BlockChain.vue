@@ -61,7 +61,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 
-import { formatter as blockFormatter } from '../../helpers/block'
+import blockHelpers from '../../helpers/block'
 
 import BlockCard from './BlockCard'
 import IconArrow from '../icons/Arrow'
@@ -76,7 +76,7 @@ export default {
 	},
 	data() {
 		return {
-			blockFormatter,
+			blockHelpers,
 			states: {
 				lastScrolledHeight: 0,
 				lastScrolledTop: 0,
@@ -138,7 +138,7 @@ export default {
 				this.setHighlightedBlock({
 					block: {
 						id: this.latestBlock.blockMeta.block_id.hash,
-						data: this.blockFormatter.blockForTable([this.latestBlock])[0]
+						data: this.blockHelpers.getFormattedBlock([this.latestBlock])[0]
 					}
 				})
 			}
@@ -158,7 +158,7 @@ export default {
 			this.setHighlightedBlock({
 				block: {
 					id: this.latestBlock.blockMeta.block_id.hash,
-					data: this.blockFormatter.blockForTable([this.latestBlock])[0]
+					data: this.blockHelpers.getFormattedBlock([this.latestBlock])[0]
 				}
 			})
 		}
@@ -201,7 +201,7 @@ export default {
 			const blockHash = event.currentTarget.id
 			const blockPayload = {
 				id: blockHash,
-				data: this.blockFormatter.blockForTable(this.blockByHash(blockHash))[0]
+				data: this.blockHelpers.getFormattedBlock(this.blockByHash(blockHash))[0]
 			}
 
 			this.setHighlightedBlock({ block: blockPayload })

@@ -1,8 +1,9 @@
 import env from './env'
+import auth from './auth'
 import bank from './bank'
 import module from './module'
 import blocks from './blocks'
-import txs from './txs'
+import tx from './tx'
 
 export default {
 	namespaced: true,
@@ -36,9 +37,10 @@ export default {
 	},
 	modules: {
 		env,
+		auth,
 		bank,
 		module,
 		blocks,
-		txs
+		tx
 	}
 }
