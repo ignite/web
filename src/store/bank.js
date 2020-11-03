@@ -7,7 +7,6 @@ import {
 } from '@cosmjs/launchpad'
 
 export default {
-	// namespaced: true,
 	state: {
 		account: {},
 		client: null,
