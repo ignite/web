@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  Secp256k1Wallet,
+  Secp256k1HdWallet,
   SigningCosmosClient,
   makeCosmoshubPath,
   coins,
@@ -43,8 +43,6 @@ export default {
   },
   actions: {
     async init({ dispatch }) {
-      // dispatch("stakingPoolFetch");
-      // dispatch("validatorsFetch");
       await dispatch("chainIdFetch");
       await dispatch("accountSignInTry");
     },
@@ -61,7 +59,7 @@ export default {
     },
     accountSignIn({ commit, dispatch }, { mnemonic }) {
       return new Promise(async (resolve, reject) => {
-        const wallet = await Secp256k1Wallet.fromMnemonic(
+        const wallet = await Secp256k1HdWallet.fromMnemonic(
           mnemonic,
           makeCosmoshubPath(0),
           ADDR_PREFIX
@@ -74,15 +72,11 @@ export default {
         commit("set", { key: "account", value: account });
         const client = new SigningCosmosClient(API, address, wallet);
         commit("set", { key: "client", value: client });
-        // // dispatch("delegationsFetch");
-        // // dispatch("transfersIncomingFetch");
-        // // dispatch("transfersOutgoingFetch");
         try {
           await dispatch("bankBalancesGet");
         } catch {
           console.log("Error in getting a bank balance.");
         }
-        // resolve(account);
       });
     },
     async tokenSend({ state }, { amount, denom, to_address, memo = "" }) {
@@ -104,7 +98,7 @@ export default {
         amount: coins(0, denom),
         gas: "200000",
       };
-      return await state.client.signAndPost([msg], fee, memo);
+      return await state.client.signAndBroadcast([msg], fee, memo);
     },
     async bankBalancesGet({ commit, state }) {
       const { address } = state.account;
@@ -133,7 +127,7 @@ export default {
       const module_name = module || chain_id;
       const { data } = await axios.post(`${API}/${module_name}/${type}`, req);
       const { msg, fee, memo } = data.value;
-      return await state.client.signAndPost(msg, fee, memo);
+      return await state.client.signAndBroadcast(msg, fee, memo);
     },
   },
 };

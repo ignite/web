@@ -1,5 +1,9 @@
 # Changelog
 
+### Fixes:
+
+* Update to CosmJS `0.23`
+
 ## `v0.1.8`
 
 ### Fixes:
