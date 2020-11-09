@@ -82,12 +82,12 @@
 										:tooltip-direction="'left'"
 									/>
 								</div>
-								<div class="tx__info-content tx-info">
+								<!-- <div class="tx__info-content tx-info">
 									<span class="tx-info__title">Gas Used / Wanted</span>
 									<p class="tx-info__content">
 										{{ `${tx.gas_used} / ${tx.gas_wanted}` }}
 									</p>
-								</div>
+								</div> -->
 								<div class="tx__info-content tx-info">
 									<span class="tx-info__title">Fee</span>
 									<p class="tx-info__content">{{ getTxFee(tx) }}</p>
@@ -135,7 +135,6 @@ export default {
 			return momentTime.format('MMM D YYYY, HH:mm:ss')
 		},
 		getTxFee(tx) {
-			console.log(tx)
 			const amount = tx.auth_info.fee.amount
 			return amount.length < 1 ? '0' : `${amount[0].amount} ${amount[0].denom}`
 		},

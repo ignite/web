@@ -406,7 +406,6 @@ actions.setBlockMeta = async (
 	}
 
 	if (txsData.txs && txsData.txs.length > 0) {
-		console.log(blockHolder)
 		const txsDecoded = txsData.txs.map(txEncoded =>
 			dispatch('getDecodedTx', {
 				txEncoded,
