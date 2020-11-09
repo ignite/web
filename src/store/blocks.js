@@ -406,6 +406,7 @@ actions.setBlockMeta = async (
 	}
 
 	if (txsData.txs && txsData.txs.length > 0) {
+		console.log(blockHolder)
 		const txsDecoded = txsData.txs.map(txEncoded =>
 			dispatch('getDecodedTx', {
 				txEncoded,
@@ -583,7 +584,6 @@ actions.initBlockConnection = async ({
 							dispatch('getDecodedTx', {
 								txEncoded: errObj.txError.txEncoded
 							}).then(txRes => {
-								console.log('🚀', txRes)
 								const isTxAlreadyDecoded =
 									errBlockInStack.txsDecoded.filter(
 										tx => tx.txHash === txRes.txHash
@@ -594,7 +594,7 @@ actions.initBlockConnection = async ({
 								}
 								getters.errorsQueue.splice(index, 1)
 								console.info(
-									`✨TX fetching error ${txRes.txhash} was resolved.`
+									`✨TX fetching error ${txRes.txHash} was resolved.`
 								)
 							})
 						}

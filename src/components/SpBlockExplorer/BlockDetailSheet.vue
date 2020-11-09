@@ -135,6 +135,7 @@ export default {
 			return momentTime.format('MMM D YYYY, HH:mm:ss')
 		},
 		getTxFee(tx) {
+			console.log(tx)
 			const amount = tx.auth_info.fee.amount
 			return amount.length < 1 ? '0' : `${amount[0].amount} ${amount[0].denom}`
 		},

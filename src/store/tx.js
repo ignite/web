@@ -37,7 +37,17 @@ const actions = {
 			txHolder.body = { messages, memo }
 			txHolder.auth_info = auth_info
 		} else {
-			// ⚠️ TODO: Sync with Launchpad version
+			const { txHash, data } = txDecoded
+			const { tx } = data
+			txHolder.txHash = txHash
+			txHolder.body = {
+				messages: tx.value.msg,
+				memo: tx.value.memo
+			}
+			txHolder.auth_info = {
+				signer_infos: tx.value.signatures,
+				fee: tx.value.fee
+			}
 		}
 
 		return txHolder
@@ -53,11 +63,11 @@ const actions = {
 	 */
 	async getRawDecodedTx({ rootGetters }, { txEncoded, errCallback }) {
 		const hashedTx = sha256(Buffer.from(txEncoded, 'base64'))
-		const { API } = rootGetters['cosmos/appEnv']
+		const { GET_TX_API } = rootGetters['cosmos/appEnv']
 		try {
 			// return await axios.post(`${API}/txs/decode`, { tx: txEncoded })
 			// return await axios.get(`${API}/txs/${hashedTx}`)
-			return await axios.get(`${API}/cosmos/tx/v1beta1/tx/${hashedTx}`)
+			return await axios.get(`${GET_TX_API}${hashedTx}`)
 		} catch (err) {
 			console.error(txEncoded, err)
 			if (errCallback) errCallback(txEncoded, err)

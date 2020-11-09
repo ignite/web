@@ -18,7 +18,8 @@ const state = {
 		RPC: '',
 		API: '',
 		WS: '',
-		ADDR_PREFIX: ''
+		ADDR_PREFIX: '',
+		GET_TX_API: ''
 	},
 	backend: {
 		sdk_version: 'Stargate',
@@ -88,6 +89,11 @@ export default {
 				'ws://localhost:26657/websocket'
 
 			state.APP_ENV.ADDR_PREFIX = VUE_APP_ADDRESS_PREFIX || 'cosmos'
+
+			state.APP_ENV.GET_TX_API =
+				state.backend.sdk_version === 'Stargate'
+					? `${state.APP_ENV.API}/cosmos/tx/v1beta1/tx/`
+					: `${state.APP_ENV.API}/txs/`
 		},
 		/**
 		 *
@@ -155,7 +161,7 @@ export default {
 				const { status, env } = data
 
 				state.CHAIN_ID = env.chain_id
-				state.sdk_version = status.sdk_version
+				state.backend.sdk_version = status.sdk_version
 
 				commit('setAppEnv', {
 					customUrl: env.vue_app_custom_url
