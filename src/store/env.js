@@ -21,6 +21,7 @@ const state = {
 		ADDR_PREFIX: ''
 	},
 	backend: {
+		sdk_version: 'Stargate',
 		env: {
 			node_js: false,
 			vue_app_custom_url: process.env.VUE_APP_CUSTOM_URL
@@ -41,6 +42,7 @@ const state = {
 const getters = {
 	chainId: state => state.CHAIN_ID,
 	appEnv: state => state.APP_ENV,
+	sdkVersion: state => state.backend.sdk_version,
 	backendEnv: state => state.backend.env,
 	backendRunningStates: state => state.backend.running,
 	wasAppRestarted: state => status => {
@@ -153,6 +155,7 @@ export default {
 				const { status, env } = data
 
 				state.CHAIN_ID = env.chain_id
+				state.sdk_version = status.sdk_version
 
 				commit('setAppEnv', {
 					customUrl: env.vue_app_custom_url

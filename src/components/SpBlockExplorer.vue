@@ -115,11 +115,7 @@ export default {
 		 *
 		 */
 		...mapMutations('cosmos', ['popOverloadBlocks']),
-		...mapActions('cosmos', [
-			'addBlockEntry',
-			'getBlockchain',
-			'setHighlightedBlock'
-		]),
+		...mapActions('cosmos', ['addBlockEntry', 'getBlockchain']),
 		/*
 		 *
 		 * Local

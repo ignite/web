@@ -96,7 +96,6 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapGetters('cosmos', ['appEnv']),
 		...mapGetters('cosmos', [
 			'highlightedBlock',
 			'blocksStack',
@@ -188,7 +187,7 @@ export default {
 		},
 		getMsgsAmount(txs) {
 			return txs
-				.map(tx => tx.tx.value.msg.length)
+				.map(tx => tx.body.messages.length)
 				.reduce((accu, curr) => accu + curr)
 		},
 		getBlockNoteCopy(count, singularUnit) {
@@ -201,7 +200,9 @@ export default {
 			const blockHash = event.currentTarget.id
 			const blockPayload = {
 				id: blockHash,
-				data: this.blockHelpers.getFormattedBlock(this.blockByHash(blockHash))[0]
+				data: this.blockHelpers.getFormattedBlock(
+					this.blockByHash(blockHash)
+				)[0]
 			}
 
 			this.setHighlightedBlock({ block: blockPayload })

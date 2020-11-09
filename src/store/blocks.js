@@ -148,10 +148,7 @@ mutations.addErrorBlock = (state, { blockHeight, errLog }) => {
  *
  *
  */
-mutations.addErrorTx = (
-	state,
-	{ blockHeight, txEncoded, errLog, txStackCallback }
-) => {
+mutations.addErrorTx = (state, { blockHeight, txEncoded, errLog }) => {
 	let isBlockInQueue = false
 
 	for (const errBlock of state.errorsQueue) {
@@ -173,8 +170,6 @@ mutations.addErrorTx = (
 				errLog
 			}
 		})
-
-		txStackCallback()
 	}
 }
 
@@ -423,12 +418,11 @@ actions.setBlockMeta = async (
 			})
 		)
 
-		txsDecoded.forEach(txRes =>
-			txRes.then(txResolved => {
-				if (txResolved) blockHolder.txsDecoded.push(txResolved.data)
-				dispatch('addTxEntry', txResolved)
+		txsDecoded.forEach(txRes => {
+			return txRes.then(txResolved => {
+				if (txResolved) blockHolder.txsDecoded.push(txResolved)
 			})
-		)
+		})
 	}
 
 	// this guards duplicated block pushed into blocksStack
@@ -492,15 +486,11 @@ actions.setBlockMeta = async (
  *
  *
  */
-actions.txErrCallback = (
-	{ commit, dispatch },
-	{ blockHeight, txEncoded, errLog }
-) => {
+actions.txErrCallback = ({ commit }, { blockHeight, txEncoded, errLog }) => {
 	commit('addErrorTx', {
 		blockHeight,
 		txEncoded,
-		errLog,
-		txStackCallback: () => dispatch('addTxEntry', null)
+		errLog
 	})
 }
 
@@ -593,17 +583,18 @@ actions.initBlockConnection = async ({
 							dispatch('getDecodedTx', {
 								txEncoded: errObj.txError.txEncoded
 							}).then(txRes => {
+								console.log('🚀', txRes)
 								const isTxAlreadyDecoded =
 									errBlockInStack.txsDecoded.filter(
-										tx => tx.txhash === txRes.data.txhash
+										tx => tx.txHash === txRes.txHash
 									).length > 0
 
 								if (!isTxAlreadyDecoded) {
-									errBlockInStack.txsDecoded.push(txRes.data)
+									errBlockInStack.txsDecoded.push(txRes)
 								}
 								getters.errorsQueue.splice(index, 1)
 								console.info(
-									`✨TX fetching error ${txRes.data.txhash} was resolved.`
+									`✨TX fetching error ${txRes.txhash} was resolved.`
 								)
 							})
 						}
@@ -612,23 +603,6 @@ actions.initBlockConnection = async ({
 			}
 		}
 	}
-}
-
-/**
- *
- * Fetch raw block's meta for highlighted block
- * and add rawJson data into highlightedBlock
- *
- * @param {object} store
- * @param {object} payload
- * @param {object} payload.block
- *
- *
- */
-actions.setHighlightedBlockMeta = async ({ state, dispatch }, { block }) => {
-	dispatch('getBlockByHeight', {
-		blockHeight: block.data.blockMsg.height
-	}).then(blockMeta => (state.table.highlightedBlock.rawJson = blockMeta))
 }
 
 /**
