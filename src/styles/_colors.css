@@ -92,6 +92,7 @@
 
   --sp-c-bg-primary: var(--c-theme-pure);
   --sp-c-bg-secondary: var(--c-theme-primary);
+  --sp-c-bg-danger: var(--c-danger-light);
 }
 
 .-sp-c-txt-primary {

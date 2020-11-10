@@ -95,8 +95,6 @@ const actions = {
 			}
 		}
 
-		console.log(txHolder)
-
 		return txHolder
 	},
 	/**

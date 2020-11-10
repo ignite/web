@@ -191,10 +191,10 @@ export default {
 				.reduce((accu, curr) => accu + curr)
 		},
 		getBlockNoteCopy(count, singularUnit) {
-			return `${count} ${singularUnit} ${count > 1 ? 's' : ''}`
+			return `${count} ${singularUnit}${count > 1 ? 's' : ''}`
 		},
 		getFailedTxsCount(txs) {
-			return txs.filter(tx => tx.code).length
+			return txs.filter(tx => tx.meta.code > 0).length
 		},
 		handleCardClicked(event) {
 			const blockHash = event.currentTarget.id
@@ -422,7 +422,7 @@ export default {
 	width: 5px;
 	height: 5px;
 	border-radius: 100%;
-	background-color: var(--sp-c-danger-primary);
+	background-color: var(--sp-c-txt-danger);
 	margin-right: 6px;
 	transform: translate3d(0, -2px, 0);
 }

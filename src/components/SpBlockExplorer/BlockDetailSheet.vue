@@ -46,9 +46,9 @@
 					class="txs__tx tx"
 				>
 					<div class="tx__main">
-						<div v-if="tx.code" class="tx__error">
+						<div v-if="tx.meta.code" class="tx__error">
 							<span class="tx__error-title">Error</span>
-							<p class="tx__error-msg">{{ tx.raw_log }}</p>
+							<p class="tx__error-msg">{{ tx.meta.log }}</p>
 						</div>
 
 						<div class="tx__main-cards">
@@ -82,12 +82,12 @@
 										:tooltip-direction="'left'"
 									/>
 								</div>
-								<!-- <div class="tx__info-content tx-info">
+								<div class="tx__info-content tx-info">
 									<span class="tx-info__title">Gas Used / Wanted</span>
 									<p class="tx-info__content">
-										{{ `${tx.gas_used} / ${tx.gas_wanted}` }}
+										{{ `${tx.meta.gas_used} / ${tx.meta.gas_wanted}` }}
 									</p>
-								</div> -->
+								</div>
 								<div class="tx__info-content tx-info">
 									<span class="tx-info__title">Fee</span>
 									<p class="tx-info__content">{{ getTxFee(tx) }}</p>
@@ -126,7 +126,7 @@ export default {
 	computed: {
 		...mapGetters('cosmos', ['appEnv']),
 		failedTxsCount() {
-			return this.block.data.txs.filter(tx => tx.code).length
+			return this.block.data.txs.filter(tx => tx.meta.code).length
 		}
 	},
 	methods: {
@@ -136,6 +136,8 @@ export default {
 		},
 		getTxFee(tx) {
 			const amount = tx.auth_info.fee.amount
+			if (!amount) return 'N/A'
+
 			return amount.length < 1 ? '0' : `${amount[0].amount} ${amount[0].denom}`
 		},
 		getEvents(tx) {
@@ -276,7 +278,7 @@ export default {
 	color: var(--sp-c-txt-danger);
 	padding: 1.25rem 1.5rem;
 	border-radius: 12px;
-	background-color: var(--sp-c-danger-light);
+	background-color: var(--sp-c-bg-danger);
 	margin-bottom: 1.5rem;
 }
 .tx__error-title {
