@@ -92,7 +92,7 @@ export default {
 
 			state.APP_ENV.GET_TX_API =
 				state.backend.sdk_version === 'Stargate'
-					? `${state.APP_ENV.API}/cosmos/tx/v1beta1/tx/`
+					? `${state.APP_ENV.RPC}/tx?hash=0x` // temp replacement of `${state.APP_ENV.API}/cosmos/tx/v1beta1/tx/`
 					: `${state.APP_ENV.API}/txs/`
 		},
 		/**

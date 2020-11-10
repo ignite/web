@@ -26,16 +26,61 @@ const actions = {
 			auth_info: {
 				signer_infos: [],
 				fee: {}
+			},
+			meta: {
+				gas_used: null,
+				gas_wanted: null,
+				height: null,
+				code: 0,
+				log: null
 			}
 		}
 
 		if (rootGetters['cosmos/sdkVersion'] === 'Stargate') {
-			const { txHash } = txDecoded
-			const { body, auth_info } = txDecoded.data.tx
-			const { messages, memo } = body
+			// const { txHash } = txDecoded
+			// const { body, auth_info } = txDecoded.data.tx
+			// const { messages, memo } = body
+			// txHolder.txHash = txHash
+			// txHolder.body = { messages, memo }
+			// txHolder.auth_info = auth_info
+
+			/**
+			 * 
+			 // temp tx holder for `:26657/tx?hash=0x{hash}` endpoint
+			 * 
+			 */
+			// ⚠️ This is temp decoder for events, which isn't decoded from 26657 query response
+			const decodedEvents = events => {
+				events.forEach(event => {
+					event.attributes.forEach(attribute => {
+						for (const property in attribute) {
+							if (property !== 'index') {
+								const val = attribute[property]
+								attribute[property] = atob(val)
+							}
+						}
+					})
+				})
+				return events
+			}
+			const { txHash, data } = txDecoded
+			const { height, tx_result } = data.result
+			const { code, log, gas_used, gas_wanted, events } = tx_result
 			txHolder.txHash = txHash
-			txHolder.body = { messages, memo }
-			txHolder.auth_info = auth_info
+			txHolder.body = {
+				messages: decodedEvents(events)
+				// ⚠️ Memo missing from 26657 query response
+			}
+			// txHolder.auth_info = {
+			// ⚠️ Fee and signatures missing from 26657 query response
+			// }
+			txHolder.meta = {
+				gas_used,
+				gas_wanted,
+				height,
+				code,
+				log
+			}
 		} else {
 			const { txHash, data } = txDecoded
 			const { tx } = data
@@ -49,6 +94,8 @@ const actions = {
 				fee: tx.value.fee
 			}
 		}
+
+		console.log(txHolder)
 
 		return txHolder
 	},
