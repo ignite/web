@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 
