@@ -167,7 +167,8 @@ export default {
 	--top-offset: 2.25rem;
 }
 .explorer {
-	height: calc(100vh - var(--header-height) - 1px - 2.25rem);
+	/* height: calc(100vh - var(--header-height) - 1px - 2.25rem); */
+	height: 100vh;
 	padding-top: 2.25rem;
 }
 @media only screen and (max-width: 992px) {
@@ -186,7 +187,7 @@ export default {
 	font-size: 3.1875rem;
 	font-weight: var(--sp-f-w-bold);
 	margin-bottom: 2rem;
-	padding-left: calc(var(--g-offset-side) - 4px);
+	padding-left: calc(var(--sp-g-offset-side) - 4px);
 }
 @media only screen and (max-width: 992px) {
 	.explorer__chain-header {
