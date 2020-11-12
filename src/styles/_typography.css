@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://rsms.me/inter/inter.css");
 
 @font-face{
   font-family: 'JetBrains Mono';
@@ -9,8 +9,8 @@
 }
 
 :root {
-  --f-family-primary: "Inter", "Helvetica", sans-serif;
-  --f-family-code: "JetBrains Mono", "Inter", "Helvetica", sans-serif;
+  --f-family-primary: "Inter Var", "Inter", "Helvetica", sans-serif;
+  --f-family-code: "JetBrains Mono", "Inter Var", "Inter", "Helvetica", sans-serif;
 
   --sp-f-primary: var(--f-family-primary);
   --sp-f-secondary: var(--f-family-code);
