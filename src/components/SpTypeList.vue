@@ -15,10 +15,10 @@
 	</div>
 </template>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;531;600;700;800&display=swap');
+@import '../styles/main.css';
 
 .container {
-	font-family: 'Inter';
+	font-family: var(--sp-f-primary);
 }
 .item {
 	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);

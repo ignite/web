@@ -13,11 +13,11 @@
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;531;600;700;800&display=swap');
+@import '../styles/main.css';
 
 .send {
 	height: 100%;
-	font-family: 'Inter', sans-serif;
+	font-family: var(--sp-f-primary);
 	min-height: 3em;
 	background: rgb(247, 247, 247);
 	align-items: center;

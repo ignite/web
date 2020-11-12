@@ -163,11 +163,13 @@ export default {
 </script>
 
 <style scoped>
+@import '../../styles/main.css';
+
 .explorer {
 	--top-offset: 2.25rem;
 }
 .explorer {
-	/* height: calc(100vh - var(--header-height) - 1px - 2.25rem); */
+	font-family: var(--sp-f-primary);
 	height: 100vh;
 	padding-top: 2.25rem;
 }
