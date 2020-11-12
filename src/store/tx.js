@@ -44,36 +44,19 @@ const actions = {
 			// txHolder.body = { messages, memo }
 			// txHolder.auth_info = auth_info
 
-			/**
-			 * 
-			 // temp tx holder for `:26657/tx?hash=0x{hash}` endpoint
-			 * 
-			 */
-			// ⚠️ This is temp decoder for events, which isn't decoded from 26657 query response
-			const decodedEvents = events => {
-				events.forEach(event => {
-					event.attributes.forEach(attribute => {
-						for (const property in attribute) {
-							if (property !== 'index') {
-								const val = attribute[property]
-								attribute[property] = atob(val)
-							}
-						}
-					})
-				})
-				return events
-			}
-			const { txHash, data } = txDecoded
+			// ⚠️ Temporarily combining two responses to get all required info
+			const { data } = txDecoded.rpcRes
 			const { height, tx_result } = data.result
-			const { code, log, gas_used, gas_wanted, events } = tx_result
-			txHolder.txHash = txHash
+			const { code, log, gas_used, gas_wanted } = tx_result
+			const { body, auth_info } = txDecoded.grpcRes.data.tx
+			const { messages, memo } = body
+
+			txHolder.txHash = txDecoded.txHash
 			txHolder.body = {
-				messages: decodedEvents(events)
-				// ⚠️ Memo missing from 26657 query response
+				messages,
+				memo
 			}
-			// txHolder.auth_info = {
-			// ⚠️ Fee and signatures missing from 26657 query response
-			// }
+			txHolder.auth_info = auth_info
 			txHolder.meta = {
 				gas_used,
 				gas_wanted,
@@ -108,16 +91,32 @@ const actions = {
 	 */
 	async getRawDecodedTx({ rootGetters }, { txEncoded, errCallback }) {
 		const hashedTx = sha256(Buffer.from(txEncoded, 'base64'))
-		const { GET_TX_API } = rootGetters['cosmos/appEnv']
-		try {
-			// return await axios.post(`${API}/txs/decode`, { tx: txEncoded })
-			// return await axios.get(`${API}/txs/${hashedTx}`)
-			return await axios.get(`${GET_TX_API}${hashedTx}`)
-		} catch (err) {
-			console.error(txEncoded, err)
-			if (errCallback) errCallback(txEncoded, err)
-			throw err
-		}
+		const { RPC, API } = rootGetters['cosmos/appEnv']
+
+		// ⚠️ Temporarily combining two responses to get all required info
+		return await axios
+			.get(`${RPC}/tx?hash=0x${hashedTx}`)
+			.then(
+				async rpcRes =>
+					await axios
+						.get(`${API}/cosmos/tx/v1beta1/tx/${hashedTx}`)
+						.then(grpcRes => ({ grpcRes, rpcRes }))
+			)
+			.catch(err => {
+				console.error(txEncoded, err)
+				if (errCallback) errCallback(txEncoded, err)
+				throw err
+			})
+
+		// try {
+		// 	// return await axios.get(`${GET_TX_API}${hashedTx}`)
+		// 	// return await axios.post(`${API}/txs/decode`, { tx: txEncoded })
+		// 	// return await axios.get(`${API}/txs/${hashedTx}`)
+		// } catch (err) {
+		// 	console.error(txEncoded, err)
+		// 	if (errCallback) errCallback(txEncoded, err)
+		// 	throw err
+		// }
 	},
 	/**
 	 *
