@@ -76,7 +76,7 @@ export default {
 	},
 	computed: {
 		hasAddress() {
-			return !!this.$store.state.cosmos.bank.account.address
+			return !!this.$store.state.cosmos.auth.account.address
 		},
 		valid() {
 			return Object.values(this.fieldsList).every(el => {
@@ -98,7 +98,7 @@ export default {
 				this.flight = true
 				const payload = {
 					type: this.type,
-					body: this.preflight(this.fieldsList),
+					body: this.fieldsList,
 					module: this.module
 				}
 				await this.$store.dispatch('cosmos/entitySubmit', payload)
