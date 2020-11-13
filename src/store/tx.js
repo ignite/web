@@ -17,25 +17,41 @@ const actions = {
 	 *
 	 */
 	setDecodedTxTemplate({ rootGetters }, { txDecoded }) {
-		const txHolder = {
-			txHash: '',
+		const txHolder = ({
+			txHash = '',
+			messages = [],
+			memo = '',
+			signer_infos = [],
+			fee = {},
+			gas_used = null,
+			gas_wanted = null,
+			height = null,
+			code = 0,
+			log = null
+		}) => ({
+			txHash,
 			body: {
-				messages: [],
-				memo: ''
+				messages,
+				memo
 			},
 			auth_info: {
-				signer_infos: [],
-				fee: {}
+				signer_infos,
+				fee
 			},
 			meta: {
-				gas_used: null,
-				gas_wanted: null,
-				height: null,
-				code: 0,
-				log: null
+				gas_used,
+				gas_wanted,
+				height,
+				code,
+				log
 			}
-		}
+		})
 
+		/**
+		 * 
+		 // Stargate 
+		 *
+		 */
 		if (rootGetters['cosmos/sdkVersion'] === 'Stargate') {
 			// const { txHash } = txDecoded
 			// const { body, auth_info } = txDecoded.data.tx
@@ -51,34 +67,40 @@ const actions = {
 			const { body, auth_info } = txDecoded.grpcRes.data.tx
 			const { messages, memo } = body
 
-			txHolder.txHash = txDecoded.txHash
-			txHolder.body = {
+			return txHolder({
+				txHash: txDecoded.txHash,
 				messages,
-				memo
-			}
-			txHolder.auth_info = auth_info
-			txHolder.meta = {
+				memo,
+				signer_infos: auth_info.signer_infos,
+				fee: auth_info.fee,
 				gas_used,
 				gas_wanted,
 				height,
 				code,
 				log
-			}
-		} else {
-			const { txHash, data } = txDecoded
-			const { tx } = data
-			txHolder.txHash = txHash
-			txHolder.body = {
-				messages: tx.value.msg,
-				memo: tx.value.memo
-			}
-			txHolder.auth_info = {
-				signer_infos: tx.value.signatures,
-				fee: tx.value.fee
-			}
+			})
 		}
 
-		return txHolder
+		/**
+		 * 
+		 // Launchpad
+		 *
+		 */
+		const { txHash, data } = txDecoded
+		const { tx, gas_used, gas_wanted, height, raw_log, code } = data
+
+		return txHolder({
+			txHash: txHash,
+			messages: tx.value.msg,
+			memo: tx.value.memo,
+			signer_infos: tx.value.signatures,
+			fee: tx.value.fee,
+			gas_used,
+			gas_wanted,
+			height,
+			code,
+			log: raw_log
+		})
 	},
 	/**
 	 *
@@ -93,30 +115,42 @@ const actions = {
 		const hashedTx = sha256(Buffer.from(txEncoded, 'base64'))
 		const { RPC, API } = rootGetters['cosmos/appEnv']
 
-		// ⚠️ Temporarily combining two responses to get all required info
-		return await axios
-			.get(`${RPC}/tx?hash=0x${hashedTx}`)
-			.then(
-				async rpcRes =>
-					await axios
-						.get(`${API}/cosmos/tx/v1beta1/tx/${hashedTx}`)
-						.then(grpcRes => ({ grpcRes, rpcRes }))
-			)
-			.catch(err => {
-				console.error(txEncoded, err)
-				if (errCallback) errCallback(txEncoded, err)
-				throw err
-			})
+		/**
+		 * 
+		 // Stargate 
+		 *
+		 */
+		if (rootGetters['cosmos/sdkVersion'] === 'Stargate') {
+			// ⚠️ Temporarily combining two responses to get all required info
+			return await axios
+				.get(`${RPC}/tx?hash=0x${hashedTx}`)
+				.then(
+					async rpcRes =>
+						await axios
+							.get(`${API}/cosmos/tx/v1beta1/tx/${hashedTx}`)
+							.then(grpcRes => ({ grpcRes, rpcRes }))
+				)
+				.catch(err => {
+					console.error(txEncoded, err)
+					if (errCallback) errCallback(txEncoded, err)
+					throw err
+				})
+		}
 
-		// try {
-		// 	// return await axios.get(`${GET_TX_API}${hashedTx}`)
-		// 	// return await axios.post(`${API}/txs/decode`, { tx: txEncoded })
-		// 	// return await axios.get(`${API}/txs/${hashedTx}`)
-		// } catch (err) {
-		// 	console.error(txEncoded, err)
-		// 	if (errCallback) errCallback(txEncoded, err)
-		// 	throw err
-		// }
+		/**
+		 * 
+		 // Launchpad
+		 *
+		 */
+		try {
+			// return await axios.get(`${GET_TX_API}${hashedTx}`)
+			// return await axios.post(`${API}/txs/decode`, { tx: txEncoded })
+			return await axios.get(`${API}/txs/${hashedTx}`)
+		} catch (err) {
+			console.error(txEncoded, err)
+			if (errCallback) errCallback(txEncoded, err)
+			throw err
+		}
 	},
 	/**
 	 *
