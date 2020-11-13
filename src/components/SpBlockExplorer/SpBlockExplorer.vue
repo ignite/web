@@ -31,12 +31,12 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import blockHelpers from '../helpers/block'
+import blockHelpers from '../../helpers/block'
 
-import FullWidthContainer from './SpBlockExplorer/FullWidthContainer'
-import BlockDetailSheet from './SpBlockExplorer/BlockDetailSheet'
-import BlockChain from './SpBlockExplorer/BlockChain'
-import IconBox from './icons/Box'
+import FullWidthContainer from './FullWidthContainer'
+import BlockDetailSheet from './BlockDetailSheet'
+import BlockChain from './BlockChain'
+import IconBox from '../icons/Box'
 
 export default {
 	components: {
@@ -115,11 +115,7 @@ export default {
 		 *
 		 */
 		...mapMutations('cosmos', ['popOverloadBlocks']),
-		...mapActions('cosmos', [
-			'addBlockEntry',
-			'getBlockchain',
-			'setHighlightedBlock'
-		]),
+		...mapActions('cosmos', ['addBlockEntry', 'getBlockchain']),
 		/*
 		 *
 		 * Local

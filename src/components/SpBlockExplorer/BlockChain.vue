@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 
@@ -96,7 +97,6 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapGetters('cosmos', ['appEnv']),
 		...mapGetters('cosmos', [
 			'highlightedBlock',
 			'blocksStack',
@@ -188,20 +188,22 @@ export default {
 		},
 		getMsgsAmount(txs) {
 			return txs
-				.map(tx => tx.tx.value.msg.length)
+				.map(tx => tx.body.messages.length)
 				.reduce((accu, curr) => accu + curr)
 		},
 		getBlockNoteCopy(count, singularUnit) {
-			return `${count} ${singularUnit} ${count > 1 ? 's' : ''}`
+			return `${count} ${singularUnit}${count > 1 ? 's' : ''}`
 		},
 		getFailedTxsCount(txs) {
-			return txs.filter(tx => tx.code).length
+			return txs.filter(tx => tx.meta.code > 0).length
 		},
 		handleCardClicked(event) {
 			const blockHash = event.currentTarget.id
 			const blockPayload = {
 				id: blockHash,
-				data: this.blockHelpers.getFormattedBlock(this.blockByHash(blockHash))[0]
+				data: this.blockHelpers.getFormattedBlock(
+					this.blockByHash(blockHash)
+				)[0]
 			}
 
 			this.setHighlightedBlock({ block: blockPayload })
@@ -421,7 +423,7 @@ export default {
 	width: 5px;
 	height: 5px;
 	border-radius: 100%;
-	background-color: var(--sp-c-danger-primary);
+	background-color: var(--sp-c-txt-danger);
 	margin-right: 6px;
 	transform: translate3d(0, -2px, 0);
 }

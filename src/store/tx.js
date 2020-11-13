@@ -6,57 +6,80 @@ const state = {
 }
 
 const getters = {
-	txsStack: state => state.stack,
 	txByHash: state => hash => state.stack.filter(tx => tx.txhash === hash),
 	txByEncodedHash: state => hash =>
 		state.stack.filter(tx => tx.txEncoded && tx.txEncoded === hash)
 }
 
-const mutations = {
-	addTxEntry(state, { tx }) {
-		/**
-		 *
-		 // 1. No txs in stack yet
-		 *
-		 */
-		if (state.stack.length === 0) {
-			state.stack.push(tx)
-			return
-		}
-
-		/**
-		 *
-		 // 2. Txs already exist in the stack
-		 *
-		 */
-		for (let txIndex = 0; txIndex < state.stack.length; txIndex++) {
-			const currentTxVal = state.stack[txIndex]
-			const nextTxVal = state.stack[txIndex + 1]
-
-			// Push tx to the end of the stack
-			if (!nextTxVal) {
-				state.stack.push(tx)
-				break
-			}
-
-			const txHeight = parseInt(tx.height)
-			const currentTxValHeight = parseInt(currentTxVal.height)
-			const nextTxValHeight = parseInt(nextTxVal.height)
-			// Add tx to the start of the stack
-			if (txHeight > currentTxValHeight && txIndex === 0) {
-				state.stack.unshift(tx)
-				break
-			}
-			// Insert tx to the stack
-			if (currentTxValHeight > txHeight && txHeight > nextTxValHeight) {
-				state.stack.splice(txIndex + 1, 0, tx)
-				break
-			}
-		}
-	}
-}
-
 const actions = {
+	/**
+	 *
+	 *
+	 */
+	setDecodedTxTemplate({ rootGetters }, { txDecoded }) {
+		const txHolder = {
+			txHash: '',
+			body: {
+				messages: [],
+				memo: ''
+			},
+			auth_info: {
+				signer_infos: [],
+				fee: {}
+			},
+			meta: {
+				gas_used: null,
+				gas_wanted: null,
+				height: null,
+				code: 0,
+				log: null
+			}
+		}
+
+		if (rootGetters['cosmos/sdkVersion'] === 'Stargate') {
+			// const { txHash } = txDecoded
+			// const { body, auth_info } = txDecoded.data.tx
+			// const { messages, memo } = body
+			// txHolder.txHash = txHash
+			// txHolder.body = { messages, memo }
+			// txHolder.auth_info = auth_info
+
+			// ⚠️ Temporarily combining two responses to get all required info
+			const { data } = txDecoded.rpcRes
+			const { height, tx_result } = data.result
+			const { code, log, gas_used, gas_wanted } = tx_result
+			const { body, auth_info } = txDecoded.grpcRes.data.tx
+			const { messages, memo } = body
+
+			txHolder.txHash = txDecoded.txHash
+			txHolder.body = {
+				messages,
+				memo
+			}
+			txHolder.auth_info = auth_info
+			txHolder.meta = {
+				gas_used,
+				gas_wanted,
+				height,
+				code,
+				log
+			}
+		} else {
+			const { txHash, data } = txDecoded
+			const { tx } = data
+			txHolder.txHash = txHash
+			txHolder.body = {
+				messages: tx.value.msg,
+				memo: tx.value.memo
+			}
+			txHolder.auth_info = {
+				signer_infos: tx.value.signatures,
+				fee: tx.value.fee
+			}
+		}
+
+		return txHolder
+	},
 	/**
 	 *
 	 *
@@ -66,53 +89,59 @@ const actions = {
 	 *
 	 *
 	 */
-	async getDecodedTx({ rootGetters }, { txEncoded, errCallback }) {
+	async getRawDecodedTx({ rootGetters }, { txEncoded, errCallback }) {
 		const hashedTx = sha256(Buffer.from(txEncoded, 'base64'))
-		const { API } = rootGetters['cosmos/appEnv']
-		try {
-			// return await axios.post(`${API}/txs/decode`, { tx: txEncoded })
-			return await axios.get(`${API}/txs/${hashedTx}`)
-		} catch (err) {
-			console.error(txEncoded, err)
-			if (errCallback) errCallback(txEncoded, err)
-		}
+		const { RPC, API } = rootGetters['cosmos/appEnv']
+
+		// ⚠️ Temporarily combining two responses to get all required info
+		return await axios
+			.get(`${RPC}/tx?hash=0x${hashedTx}`)
+			.then(
+				async rpcRes =>
+					await axios
+						.get(`${API}/cosmos/tx/v1beta1/tx/${hashedTx}`)
+						.then(grpcRes => ({ grpcRes, rpcRes }))
+			)
+			.catch(err => {
+				console.error(txEncoded, err)
+				if (errCallback) errCallback(txEncoded, err)
+				throw err
+			})
+
+		// try {
+		// 	// return await axios.get(`${GET_TX_API}${hashedTx}`)
+		// 	// return await axios.post(`${API}/txs/decode`, { tx: txEncoded })
+		// 	// return await axios.get(`${API}/txs/${hashedTx}`)
+		// } catch (err) {
+		// 	console.error(txEncoded, err)
+		// 	if (errCallback) errCallback(txEncoded, err)
+		// 	throw err
+		// }
 	},
 	/**
-	 * Add tx into txsStack
-	 *
-	 * @param {object} store
-	 * @param {object} payload
-	 * @param {object} payload.txData
 	 *
 	 *
 	 */
-	addTxEntry({ commit, getters }, txData) {
-		/*
-		 *
-		 // If tx is null, it's not decoded successfully,
-		 // and triggered from `addErrorTx` in `blocks` store mutations.
-		 *
-		 */
-		const fmtTxData =
-			txData.tx === null
-				? {
-						height: txData.height,
-						txEncoded: txData.txEncoded
-				  }
-				: txData.data.tx
-
-		const isTxInStack =
-			txData.tx === null
-				? getters.txByEncodedHash(txData.txEncoded).length > 0
-				: getters.txByHash(txData.data.tx.txhash).length > 0
-
-		if (!isTxInStack) commit('addTxEntry', { tx: fmtTxData })
+	async getDecodedTx({ dispatch }, { txEncoded, errCallback }) {
+		return await dispatch('getRawDecodedTx', {
+			txEncoded,
+			errCallback
+		})
+			.then(txRes =>
+				dispatch('setDecodedTxTemplate', {
+					txDecoded: {
+						...txRes,
+						txHash: sha256(Buffer.from(txEncoded, 'base64')).toUpperCase()
+					}
+				}).then(fmtTx => fmtTx)
+			)
+			.catch(() => null)
 	}
 }
 
 export default {
 	state,
 	getters,
-	mutations,
+	mutations: {},
 	actions
 }

@@ -46,24 +46,24 @@
 					class="txs__tx tx"
 				>
 					<div class="tx__main">
-						<div v-if="tx.code" class="tx__error">
+						<div v-if="tx.meta.code" class="tx__error">
 							<span class="tx__error-title">Error</span>
-							<p class="tx__error-msg">{{ tx.raw_log }}</p>
+							<p class="tx__error-msg">{{ tx.meta.log }}</p>
 						</div>
 
 						<div class="tx__main-cards">
 							<YamlCards
-								:contents="tx.tx.value.msg"
+								:contents="tx.body.messages"
 								:card-type="
-									getCardCounts(tx.tx.value.msg) > 1 ? 'Messages' : 'Message'
+									getCardCounts(tx.body.messages) > 1 ? 'Messages' : 'Message'
 								"
 							/>
-							<YamlCards
+							<!-- <YamlCards
 								:contents="getEvents(tx)"
 								:card-type="
 									getCardCounts(getEvents(tx)) > 1 ? 'Events' : 'Event'
 								"
-							/>
+							/> -->
 						</div>
 					</div>
 					<div class="tx__side">
@@ -75,9 +75,9 @@
 									<span class="tx-info__title">Hash</span>
 									<CopyIconText
 										class="copy-icon-text"
-										:text="tx.txhash"
-										:link="`${appEnv.RPC}/tx?hash=0x${tx.txhash}`"
-										:copy-content="tx.txhash"
+										:text="tx.txHash"
+										:link="`${appEnv.RPC}/tx?hash=0x${tx.txHash}`"
+										:copy-content="tx.txHash"
 										:tooltip-text="'TxHash is copied'"
 										:tooltip-direction="'left'"
 									/>
@@ -85,16 +85,16 @@
 								<div class="tx__info-content tx-info">
 									<span class="tx-info__title">Gas Used / Wanted</span>
 									<p class="tx-info__content">
-										{{ `${tx.gas_used} / ${tx.gas_wanted}` }}
+										{{ `${tx.meta.gas_used} / ${tx.meta.gas_wanted}` }}
 									</p>
 								</div>
 								<div class="tx__info-content tx-info">
 									<span class="tx-info__title">Fee</span>
 									<p class="tx-info__content">{{ getTxFee(tx) }}</p>
 								</div>
-								<div v-if="tx.tx.value.memo" class="tx__info-content tx-info">
+								<div v-if="tx.body.memo" class="tx__info-content tx-info">
 									<span class="tx-info__title">Memo</span>
-									<p class="tx-info__content">{{ tx.tx.value.memo }}</p>
+									<p class="tx-info__content">{{ tx.body.memo }}</p>
 								</div>
 							</div>
 						</div>
@@ -126,7 +126,7 @@ export default {
 	computed: {
 		...mapGetters('cosmos', ['appEnv']),
 		failedTxsCount() {
-			return this.block.data.txs.filter(tx => tx.code).length
+			return this.block.data.txs.filter(tx => tx.meta.code).length
 		}
 	},
 	methods: {
@@ -135,7 +135,9 @@ export default {
 			return momentTime.format('MMM D YYYY, HH:mm:ss')
 		},
 		getTxFee(tx) {
-			const amount = tx.tx.value.fee.amount
+			const amount = tx.auth_info.fee.amount
+			if (!amount) return 'N/A'
+
 			return amount.length < 1 ? '0' : `${amount[0].amount} ${amount[0].denom}`
 		},
 		getEvents(tx) {
@@ -276,7 +278,7 @@ export default {
 	color: var(--sp-c-txt-danger);
 	padding: 1.25rem 1.5rem;
 	border-radius: 12px;
-	background-color: var(--sp-c-danger-light);
+	background-color: var(--sp-c-bg-danger);
 	margin-bottom: 1.5rem;
 }
 .tx__error-title {

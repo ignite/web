@@ -10,4 +10,4 @@ export { default as SpStandardIconText } from './components/SpStandardIconText'
 export { default as SpLoaderIconText } from './components/SpLoaderIconText'
 
 export { default as SpBlockInfoCard } from './components/SpBlockInfoCard'
-export { default as SpBlockExplorer } from './components/SpBlockExplorer'
+export { default as SpBlockExplorer } from './components/SpBlockExplorer/SpBlockExplorer'
