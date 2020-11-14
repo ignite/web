@@ -369,6 +369,7 @@ export default {
 }
 
 .chain__block {
+	cursor: pointer;
 	position: relative;
 	width: 100%;
 	padding-left: var(--sp-g-offset-side);
