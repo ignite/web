@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<SpBlockExplorer />
 		<div class="container">
 			<SpSignIn />
 			<SpBankBalances />
 			<SpTokenSend />
 			<SpTypeForm type="post" :fields="['title', 'body']" />
 		</div>
+		<SpBlockExplorer />
 	</div>
 </template>
 
