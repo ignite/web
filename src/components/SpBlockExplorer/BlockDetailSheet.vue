@@ -153,7 +153,7 @@ export default {
 <style scoped>
 .sheet {
 	height: 100%;
-	padding-right: var(--g-offset-side);
+	padding-right: var(--sp-g-offset-side);
 	display: flex;
 	flex-direction: column;
 }
