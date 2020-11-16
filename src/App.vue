@@ -13,7 +13,7 @@ body {
 <script>
 export default {
 	async created() {
-		await this.$store.dispatch('cosmos/init')
+		// await this.$store.dispatch('tendermint/starport/wallet/signIn')
 	}
 }
 </script>

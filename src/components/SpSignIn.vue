@@ -226,7 +226,8 @@ export default {
 		async mnemonicImport() {
 			if (this.mnemonicIsValid) {
 				const mnemonic = this.mnemonicClean
-				await this.$store.dispatch('cosmos/accountSignIn', { mnemonic })
+				const action = 'tendermint/starport/wallet/signIn'
+				await this.$store.dispatch(action, { mnemonic })
 			}
 		},
 		mnemonicGenerate() {
