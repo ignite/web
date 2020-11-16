@@ -1,5 +1,9 @@
 # Changelog
 
+### Fixes:
+* Remove outdated `txs` module
+* Change ESLint setting
+
 ## `v0.1.9`
 
 ### Additions
