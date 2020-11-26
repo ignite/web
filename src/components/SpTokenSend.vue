@@ -180,7 +180,9 @@ export default {
 			return { amount, to_address }
 		},
 		txResultMessage() {
-			if (this.txResult.code) return `Error: ${this.txResult.rawLog}`
+			if (this.txResult && this.txResult.code) {
+				return `Error: ${this.txResult.rawLog}`
+			}
 
 			return ''
 		}
@@ -201,12 +203,13 @@ export default {
 				this.txResult = ''
 				this.inFlight = true
 				this.txResult = await this.$store.dispatch('cosmos/tokenSend', payload)
-				if (!this.txResult.code) {
-					this.amount = ''
-					this.to_address = ''
-					this.memo = ''
-				}
-				this.inFlight = false
+				console.log(this.txResult)
+				// if (!this.txResult.code) {
+				// 	this.amount = ''
+				// 	this.to_address = ''
+				// 	this.memo = ''
+				// }
+				// this.inFlight = false
 				await this.$store.dispatch('cosmos/bankBalancesGet')
 			}
 		}
