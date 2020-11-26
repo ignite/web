@@ -1,13 +1,14 @@
 {
   "name": "@tendermint/vue",
-  "version": "0.1.8",
   "description": "A library of Vue.js components for Cosmos SDK apps",
+  "version": "0.1.9",
+  "main": "src/index.js",
+  "repository": "https://github.com/tendermint/vue",
   "scripts": {
     "serve": "ADDRESS_PREFIX=xyz vue-cli-service serve",
     "build": "ADDRESS_PREFIX=xyz vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "main": "src/index.js",
   "dependencies": {
     "@cosmjs/encoding": "^0.23",
     "@cosmjs/launchpad": "^0.23",
@@ -40,6 +41,5 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "vue-template-compiler": "^2.6.11"
-  },
-  "repository": "https://github.com/tendermint/vue"
+  }
 }
