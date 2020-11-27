@@ -13,7 +13,11 @@ body {
 <script>
 export default {
 	async created() {
-		await this.$store.dispatch('cosmos/init')
+		await this.$store.dispatch('chain/init')
+		setTimeout(() => {
+			this.$store.dispatch('cosmos/cosmos-sdk/bank/init')
+			this.$store.dispatch('cosmos/cosmos-sdk/auth/init')
+		}, 1000)
 	}
 }
 </script>

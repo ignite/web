@@ -71,7 +71,7 @@ export default {
 	category: 'wallet',
 	computed: {
 		balances() {
-			return this.$store.state.cosmos.bank.bankBalances
+			return this.$store.state.chain.bank.bankBalances
 		}
 	},
 	methods: {
@@ -79,8 +79,8 @@ export default {
 			return Intl.NumberFormat().format(number)
 		},
 		async balancesUpdate() {
-			await this.$store.dispatch('cosmos/accountSignInTry')
-			await this.$store.dispatch('cosmos/bankBalancesGet')
+			await this.$store.dispatch('chain/accountSignInTry')
+			await this.$store.dispatch('chain/bankBalancesGet')
 		}
 	}
 }

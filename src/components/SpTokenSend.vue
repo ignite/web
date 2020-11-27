@@ -161,7 +161,7 @@ export default {
 	},
 	computed: {
 		balances() {
-			return this.$store.state.cosmos.bank.bankBalances
+			return this.$store.state.chain.bank.bankBalances
 		},
 		denoms() {
 			return this.balances.map(b => b.denom)
@@ -202,7 +202,7 @@ export default {
 				}
 				this.txResult = ''
 				this.inFlight = true
-				this.txResult = await this.$store.dispatch('cosmos/tokenSend', payload)
+				this.txResult = await this.$store.dispatch('chain/tokenSend', payload)
 				console.log(this.txResult)
 				// if (!this.txResult.code) {
 				// 	this.amount = ''
@@ -210,7 +210,7 @@ export default {
 				// 	this.memo = ''
 				// }
 				// this.inFlight = false
-				await this.$store.dispatch('cosmos/bankBalancesGet')
+				await this.$store.dispatch('chain/bankBalancesGet')
 			}
 		}
 	}

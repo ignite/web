@@ -27,7 +27,7 @@ export default {
 			}
 		},
 		async accountSignIn({ commit, dispatch, rootGetters }, { mnemonic }) {
-			const { API, ADDR_PREFIX } = rootGetters['cosmos/appEnv']
+			const { API, ADDR_PREFIX } = rootGetters['chain/appEnv']
 
 			const wallet = await Secp256k1HdWallet.fromMnemonic(
 				mnemonic,

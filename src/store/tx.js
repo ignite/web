@@ -52,7 +52,7 @@ const actions = {
 		 // Stargate 
 		 *
 		 */
-		if (rootGetters['cosmos/sdkVersion'] === 'Stargate') {
+		if (rootGetters['chain/sdkVersion'] === 'Stargate') {
 			// const { txHash } = txDecoded
 			// const { body, auth_info } = txDecoded.data.tx
 			// const { messages, memo } = body
@@ -113,14 +113,14 @@ const actions = {
 	 */
 	async getRawDecodedTx({ rootGetters }, { txEncoded, errCallback }) {
 		const hashedTx = sha256(Buffer.from(txEncoded, 'base64'))
-		const { RPC, API } = rootGetters['cosmos/appEnv']
+		const { RPC, API } = rootGetters['chain/appEnv']
 
 		/**
 		 * 
 		 // Stargate 
 		 *
 		 */
-		if (rootGetters['cosmos/sdkVersion'] === 'Stargate') {
+		if (rootGetters['chain/sdkVersion'] === 'Stargate') {
 			// ⚠️ Temporarily combining two responses to get all required info
 			return await axios
 				.get(`${RPC}/tx?hash=0x${hashedTx}`)

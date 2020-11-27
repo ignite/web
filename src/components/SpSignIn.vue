@@ -210,14 +210,14 @@ export default {
 			return bip39.validateMnemonic(this.mnemonicClean)
 		},
 		address() {
-			const client = this.$store.getters['cosmos/client']
+			const client = this.$store.getters['chain/client']
 			return client && client.senderAddress
 		}
 	},
 	methods: {
 		buttonClick() {
 			if (this.address) {
-				this.$store.dispatch('cosmos/accountSignOut')
+				this.$store.dispatch('chain/accountSignOut')
 			} else {
 				this.mnemonic = ''
 				this.dropdown = !this.dropdown
@@ -226,7 +226,7 @@ export default {
 		async mnemonicImport() {
 			if (this.mnemonicIsValid) {
 				const mnemonic = this.mnemonicClean
-				await this.$store.dispatch('cosmos/accountSignIn', { mnemonic })
+				await this.$store.dispatch('chain/accountSignIn', { mnemonic })
 			}
 		},
 		mnemonicGenerate() {

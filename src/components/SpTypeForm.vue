@@ -76,7 +76,7 @@ export default {
 	},
 	computed: {
 		hasAddress() {
-			return !!this.$store.state.cosmos.auth.account.address
+			return !!this.$store.state.chain.auth.account.address
 		},
 		valid() {
 			return Object.values(this.fieldsList).every(el => {
@@ -101,8 +101,8 @@ export default {
 					body: this.fieldsList,
 					module: this.module
 				}
-				await this.$store.dispatch('cosmos/entitySubmit', payload)
-				await this.$store.dispatch('cosmos/entityFetch', {
+				await this.$store.dispatch('chain/entitySubmit', payload)
+				await this.$store.dispatch('chain/entityFetch', {
 					type: this.type,
 					body: this.fieldsList,
 					module: this.module

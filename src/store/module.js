@@ -14,11 +14,11 @@ export default {
 	},
 	actions: {
 		async entityFetch({ commit, dispatch, rootGetters }, { type, module }) {
-			const { API } = rootGetters['cosmos/appEnv']
-			const CHAIN_ID = rootGetters['cosmos/chainId']
+			const { API } = rootGetters['chain/appEnv']
+			const CHAIN_ID = rootGetters['chain/chainId']
 
 			if (!CHAIN_ID) {
-				await dispatch('cosmos/setStatusState', {}, { root: true })
+				await dispatch('chain/setStatusState', {}, { root: true })
 			}
 			const module_name = module || CHAIN_ID
 			const url = `${API}/${module_name}/${type}s`
@@ -26,9 +26,9 @@ export default {
 			commit('entitySet', { type, body, module })
 		},
 		async entitySubmit({ rootGetters }, { type, body, module }) {
-			const { API } = rootGetters['cosmos/appEnv']
-			const CHAIN_ID = rootGetters['cosmos/chainId']
-			const client = rootGetters['cosmos/client']
+			const { API } = rootGetters['chain/appEnv']
+			const CHAIN_ID = rootGetters['chain/chainId']
+			const client = rootGetters['chain/client']
 
 			const creator = client.senderAddress
 			const base_req = { chain_id: CHAIN_ID, from: creator }
@@ -44,6 +44,7 @@ export default {
 			const chain_id = await client.getChainId()
 			const acc_seq = acc.sequence || '0'
 			const acc_num = acc.account_number || '0'
+			console.log(msg, fee, chain_id, memo, acc_num, acc_seq)
 			const signDoc = makeSignDoc(msg, fee, chain_id, memo, acc_num, acc_seq)
 			const { signed, signature } = await signer.sign(from_address, signDoc)
 			const signedTx = makeStdTx(signed, signature)
@@ -51,6 +52,7 @@ export default {
 				tx: signedTx,
 				mode: 'sync'
 			}
+			console.log(broadcastBody)
 			axios.post(`${API}/txs`, broadcastBody)
 
 			// return await client.signAndBroadcast(msg, fee, memo)

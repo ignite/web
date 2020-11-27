@@ -59,7 +59,7 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapGetters('cosmos', [
+		...mapGetters('chain', [
 			'highlightedBlock',
 			'blocksStack',
 			'lastBlock',
@@ -114,8 +114,8 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapMutations('cosmos', ['popOverloadBlocks']),
-		...mapActions('cosmos', ['addBlockEntry', 'getBlockchain']),
+		...mapMutations('chain', ['popOverloadBlocks']),
+		...mapActions('chain', ['addBlockEntry', 'getBlockchain']),
 		/*
 		 *
 		 * Local

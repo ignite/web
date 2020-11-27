@@ -13,8 +13,8 @@ export default {
 	},
 	actions: {
 		async tokenSend({ rootGetters }, { amount, denom, to_address, memo = '' }) {
-			const client = rootGetters['cosmos/client']
-			const { API } = rootGetters['cosmos/appEnv']
+			const client = rootGetters['chain/client']
+			const { API } = rootGetters['chain/appEnv']
 			const from_address = client.senderAddress
 			const msg = {
 				type: 'cosmos-sdk/MsgSend',
@@ -49,8 +49,8 @@ export default {
 			axios.post(`${API}/txs`, broadcastBody)
 		},
 		async bankBalancesGet({ commit, rootGetters }) {
-			const { API } = rootGetters['cosmos/appEnv']
-			const { address } = rootGetters['cosmos/account']
+			const { API } = rootGetters['chain/appEnv']
+			const { address } = rootGetters['chain/account']
 			const url = `${API}/bank/balances/${address}`
 			const value = (await axios.get(url)).data.result
 			commit('set', { key: 'bankBalances', value })

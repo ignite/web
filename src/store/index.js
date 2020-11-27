@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import cosmos from './cosmos'
+import chain from './chain'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
+	namespaced: true,
 	modules: {
-		cosmos
+		chain
 	}
 })
+
+export default store

@@ -64,7 +64,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('cosmos', ['blockByHeight'])
+		...mapGetters('chain', ['blockByHeight'])
 	},
 	methods: {
 		/*
@@ -72,7 +72,7 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapActions('cosmos', ['setHighlightedBlock']),
+		...mapActions('chain', ['setHighlightedBlock']),
 		/*
 		 *
 		 * Local

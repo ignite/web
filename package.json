@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@chainapsis/cosmosjs": "0.0.3-alpha.3",
     "@cosmjs/encoding": "^0.23",
     "@cosmjs/launchpad": "^0.23",
     "axios": "^0.20.0",
