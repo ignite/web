@@ -1,14 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import chain from './chain'
+import cosmos from './cosmos/cosmos-sdk'
+import tendermint from './tendermint/tendermint'
+import common from './common'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
 	namespaced: true,
 	modules: {
-		chain
+		chain,
+		cosmos,
+		tendermint,
+		common
 	}
 })
-
-export default store

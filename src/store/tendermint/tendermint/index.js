@@ -1,16 +1,16 @@
+import ws from './ws'
+
 export default {
-	tendermint: {
-		namespaced: true,
-		modules: {
-			tendermint: {
-				namespaced: true,
-				state: {
-					x: 1
-				},
-				actions: {
-					init() {
-						console.log('hello from tendermint')
-					}
+	namespaced: true,
+	modules: {
+		tendermint: {
+			namespaced: true,
+			modules: {
+				ws
+			},
+			actions: {
+				init({ dispatch, rootState }) {
+					dispatch('ws/subscribe')
 				}
 			}
 		}
