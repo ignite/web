@@ -2,34 +2,34 @@ import axios from 'axios'
 import ReconnectingWebSocket from 'reconnecting-websocket'
 
 const state = {
-	table: {
-		highlightedBlock: {
-			id: null,
-			data: null
-		}
-	},
-	maxBlockchainCount: 20,
-	maxStackCount: 100,
-	stack: [],
-	stackChainRange: {
-		highestHeight: null,
-		lowestHeight: null
-	},
-	latestBlock: null,
-	errorsQueue: []
+  table: {
+    highlightedBlock: {
+      id: null,
+      data: null
+    }
+  },
+  maxBlockchainCount: 20,
+  maxStackCount: 100,
+  stack: [],
+  stackChainRange: {
+    highestHeight: null,
+    lowestHeight: null
+  },
+  latestBlock: null,
+  errorsQueue: []
 }
 
 const getters = {
-	highlightedBlock: state => state.table.highlightedBlock,
-	blocksStack: state => state.stack,
-	blockByHeight: state => height =>
-		state.stack.filter(block => parseInt(block.height) === parseInt(height)),
-	blockByHash: state => hash =>
-		state.stack.filter(block => block.blockMeta.block_id.hash === hash),
-	latestBlock: state => state.latestBlock,
-	stackChainRange: state => state.stackChainRange,
-	lastBlock: state => state.stack[state.stack.length - 1],
-	errorsQueue: state => state.errorsQueue
+  highlightedBlock: state => state.table.highlightedBlock,
+  blocksStack: state => state.stack,
+  blockByHeight: state => height =>
+    state.stack.filter(block => parseInt(block.height) === parseInt(height)),
+  blockByHash: state => hash =>
+    state.stack.filter(block => block.blockMeta.block_id.hash === hash),
+  latestBlock: state => state.latestBlock,
+  stackChainRange: state => state.stackChainRange,
+  lastBlock: state => state.stack[state.stack.length - 1],
+  errorsQueue: state => state.errorsQueue
 }
 
 const mutations = {}
@@ -44,12 +44,12 @@ const mutations = {}
  *
  */
 mutations.setStackChainRange = (state, { highest, lowest }) => {
-	if (highest) {
-		state.stackChainRange.highestHeight = parseInt(highest)
-	}
-	if (lowest) {
-		state.stackChainRange.lowestHeight = parseInt(lowest)
-	}
+  if (highest) {
+    state.stackChainRange.highestHeight = parseInt(highest)
+  }
+  if (lowest) {
+    state.stackChainRange.lowestHeight = parseInt(lowest)
+  }
 }
 
 /**
@@ -66,17 +66,17 @@ mutations.setStackChainRange = (state, { highest, lowest }) => {
  *
  */
 mutations.setHighlightedBlock = (state, { block }) => {
-	if (block == null || !block) {
-		state.table.highlightedBlock = {
-			id: null,
-			data: null
-		}
-	} else {
-		state.table.highlightedBlock = {
-			...state.table.highlightedBlock,
-			...block
-		}
-	}
+  if (block == null || !block) {
+    state.table.highlightedBlock = {
+      id: null,
+      data: null
+    }
+  } else {
+    state.table.highlightedBlock = {
+      ...state.table.highlightedBlock,
+      ...block
+    }
+  }
 }
 
 /**
@@ -89,11 +89,11 @@ mutations.setHighlightedBlock = (state, { block }) => {
  *
  */
 mutations.addBlockEntry = (state, { block, toInsert = true }) => {
-	if (!toInsert) {
-		state.stack.push(block)
-	} else {
-		state.stack.unshift(block)
-	}
+  if (!toInsert) {
+    state.stack.push(block)
+  } else {
+    state.stack.unshift(block)
+  }
 }
 
 /**
@@ -105,23 +105,23 @@ mutations.addBlockEntry = (state, { block, toInsert = true }) => {
  *
  */
 mutations.popOverloadBlocks = (
-	state,
-	{ toPop, toPopOverBlockchainCount } = {
-		toPop: true,
-		toPopOverBlockchainCount: false
-	}
+  state,
+  { toPop, toPopOverBlockchainCount } = {
+    toPop: true,
+    toPopOverBlockchainCount: false
+  }
 ) => {
-	if (toPopOverBlockchainCount) {
-		state.stack.splice(state.maxBlockchainCount)
-		return
-	}
-	if (state.stack.length > state.maxStackCount) {
-		if (toPop) {
-			state.stack.splice(state.maxStackCount)
-		} else {
-			state.stack.splice(0, state.stack.length - state.maxStackCount)
-		}
-	}
+  if (toPopOverBlockchainCount) {
+    state.stack.splice(state.maxBlockchainCount)
+    return
+  }
+  if (state.stack.length > state.maxStackCount) {
+    if (toPop) {
+      state.stack.splice(state.maxStackCount)
+    } else {
+      state.stack.splice(0, state.stack.length - state.maxStackCount)
+    }
+  }
 }
 
 /**
@@ -133,7 +133,7 @@ mutations.popOverloadBlocks = (
  *
  */
 mutations.setLatestBlock = (state, block) => {
-	state.latestBlock = block
+  state.latestBlock = block
 }
 
 /**
@@ -141,7 +141,7 @@ mutations.setLatestBlock = (state, block) => {
  *
  */
 mutations.addErrorBlock = (state, { blockHeight, errLog }) => {
-	state.errorsQueue.push({ blockHeight, errLog })
+  state.errorsQueue.push({ blockHeight, errLog })
 }
 
 /**
@@ -149,28 +149,28 @@ mutations.addErrorBlock = (state, { blockHeight, errLog }) => {
  *
  */
 mutations.addErrorTx = (state, { blockHeight, txEncoded, errLog }) => {
-	let isBlockInQueue = false
+  let isBlockInQueue = false
 
-	for (const errBlock of state.errorsQueue) {
-		if (blockHeight === errBlock.blockHeight) {
-			errBlock.txError = {
-				txEncoded,
-				errLog
-			}
-			isBlockInQueue = true
-			break
-		}
-	}
+  for (const errBlock of state.errorsQueue) {
+    if (blockHeight === errBlock.blockHeight) {
+      errBlock.txError = {
+        txEncoded,
+        errLog
+      }
+      isBlockInQueue = true
+      break
+    }
+  }
 
-	if (!isBlockInQueue) {
-		state.errorsQueue.push({
-			blockHeight,
-			txError: {
-				txEncoded,
-				errLog
-			}
-		})
-	}
+  if (!isBlockInQueue) {
+    state.errorsQueue.push({
+      blockHeight,
+      txError: {
+        txEncoded,
+        errLog
+      }
+    })
+  }
 }
 
 const actions = {}
@@ -185,17 +185,17 @@ const actions = {}
  *
  */
 actions.getBlockByHeight = async (
-	{ rootGetters },
-	{ blockHeight, errCallback }
+  { rootGetters },
+  { blockHeight, errCallback }
 ) => {
-	const { RPC } = rootGetters['explorer/appEnv']
+  const { RPC } = rootGetters['explorer/appEnv']
 
-	try {
-		return await axios.get(`${RPC}/block?height=${blockHeight}`)
-	} catch (err) {
-		console.error(err)
-		if (errCallback) errCallback(err)
-	}
+  try {
+    return await axios.get(`${RPC}/block?height=${blockHeight}`)
+  } catch (err) {
+    console.error(err)
+    if (errCallback) errCallback(err)
+  }
 }
 
 /**
@@ -207,14 +207,14 @@ actions.getBlockByHeight = async (
  *
  */
 actions.getLatestBlock = async ({ rootGetters }, { errCallback }) => {
-	const { API } = rootGetters['explorer/appEnv']
+  const { API } = rootGetters['explorer/appEnv']
 
-	try {
-		return await axios.get(`${API}/blocks/latest`)
-	} catch (err) {
-		console.error(err)
-		if (errCallback) errCallback(err)
-	}
+  try {
+    return await axios.get(`${API}/blocks/latest`)
+  } catch (err) {
+    console.error(err)
+    if (errCallback) errCallback(err)
+  }
 }
 
 /**
@@ -231,47 +231,47 @@ actions.getLatestBlock = async ({ rootGetters }, { errCallback }) => {
  *
  */
 actions.getBlockchainRaw = async (
-	{ rootGetters },
-	{
-		minBlockHeight = undefined,
-		maxBlockHeight = undefined,
-		latestBlockHeight,
-		maxStackCount = 20,
-		errCallback
-	}
+  { rootGetters },
+  {
+    minBlockHeight = undefined,
+    maxBlockHeight = undefined,
+    latestBlockHeight,
+    maxStackCount = 20,
+    errCallback
+  }
 ) => {
-	const { RPC } = rootGetters['explorer/appEnv']
+  const { RPC } = rootGetters['explorer/appEnv']
 
-	if (!minBlockHeight && !maxBlockHeight) {
-		console.error('Please provide min or max block height value')
-		return
-	}
+  if (!minBlockHeight && !maxBlockHeight) {
+    console.error('Please provide min or max block height value')
+    return
+  }
 
-	const fmtMinHeight = () => {
-		if (maxBlockHeight) {
-			return maxBlockHeight - 1 - maxStackCount >= 0
-				? maxBlockHeight - 1 - maxStackCount
-				: 0
-		}
-		return minBlockHeight
-	}
-	const fmtMaxHeight = () => {
-		if (minBlockHeight) {
-			return minBlockHeight + maxStackCount >= latestBlockHeight
-				? latestBlockHeight
-				: minBlockHeight + maxStackCount
-		}
-		return maxBlockHeight - 1
-	}
+  const fmtMinHeight = () => {
+    if (maxBlockHeight) {
+      return maxBlockHeight - 1 - maxStackCount >= 0
+        ? maxBlockHeight - 1 - maxStackCount
+        : 0
+    }
+    return minBlockHeight
+  }
+  const fmtMaxHeight = () => {
+    if (minBlockHeight) {
+      return minBlockHeight + maxStackCount >= latestBlockHeight
+        ? latestBlockHeight
+        : minBlockHeight + maxStackCount
+    }
+    return maxBlockHeight - 1
+  }
 
-	try {
-		return await axios.get(
-			`${RPC}/blockchain?minHeight=${fmtMinHeight()}&maxHeight=${fmtMaxHeight()}`
-		)
-	} catch (err) {
-		console.error(err)
-		if (errCallback) errCallback(err)
-	}
+  try {
+    return await axios.get(
+      `${RPC}/blockchain?minHeight=${fmtMinHeight()}&maxHeight=${fmtMaxHeight()}`
+    )
+  } catch (err) {
+    console.error(err)
+    if (errCallback) errCallback(err)
+  }
 }
 
 /**
@@ -286,12 +286,12 @@ actions.getBlockchainRaw = async (
  *
  */
 actions.getBlockchain = async (
-	{ commit, dispatch, getters },
-	{ blockHeight, toGetLowerBlocks = true, toReset = false }
+  { commit, dispatch, getters },
+  { blockHeight, toGetLowerBlocks = true, toReset = false }
 ) => {
-	const latestBlock = getters.latestBlock
+  const latestBlock = getters.latestBlock
 
-	/**
+  /**
 	 *
 	 // minHeight to maxHeight is the range of blockchain to fetch.
 	 // To get older blocks (blocks with lower heights),
@@ -299,63 +299,63 @@ actions.getBlockchain = async (
 	 // And vise versa.
 	 *
 	 */
-	const minBlockHeight = toGetLowerBlocks ? undefined : parseInt(blockHeight)
-	const maxBlockHeight = toGetLowerBlocks ? parseInt(blockHeight) : undefined
+  const minBlockHeight = toGetLowerBlocks ? undefined : parseInt(blockHeight)
+  const maxBlockHeight = toGetLowerBlocks ? parseInt(blockHeight) : undefined
 
-	const toFetchBlockchain = async (
-		min,
-		max,
-		toInsert = false,
-		toReset = false
-	) =>
-		dispatch('getBlockchainRaw', {
-			minBlockHeight: min,
-			maxBlockHeight: max,
-			latestBlockHeight: latestBlock ? latestBlock.height : null
-		}).then(blockchainRes => {
-			const blockchain = blockchainRes.data.result.block_metas
-			const toReverse = toReset ? true : toInsert
-			const fmtBlockchainRes = toReverse ? blockchain.reverse() : blockchain
+  const toFetchBlockchain = async (
+    min,
+    max,
+    toInsert = false,
+    toReset = false
+  ) =>
+    dispatch('getBlockchainRaw', {
+      minBlockHeight: min,
+      maxBlockHeight: max,
+      latestBlockHeight: latestBlock ? latestBlock.height : null
+    }).then(blockchainRes => {
+      const blockchain = blockchainRes.data.result.block_metas
+      const toReverse = toReset ? true : toInsert
+      const fmtBlockchainRes = toReverse ? blockchain.reverse() : blockchain
 
-			return async () => {
-				for (let i = 0; i < fmtBlockchainRes.length; i++) {
-					const { header: prevHeader } = fmtBlockchainRes[i]
-					await dispatch('getBlockByHeight', {
-						blockHeight: prevHeader.height,
-						errCallback: errLog => {
-							commit('addErrorBlock', {
-								blockHeight: prevHeader.height,
-								errLog
-							})
-						}
-					}).then(blockMeta => {
-						dispatch('setBlockMeta', {
-							header: prevHeader,
-							blockMeta,
-							txsData: blockMeta.data.result.block.data,
-							toInsertBlockToFront: toInsert,
-							toReset
-						})
-					})
-				}
-			}
-		})
+      return async () => {
+        for (let i = 0; i < fmtBlockchainRes.length; i++) {
+          const { header: prevHeader } = fmtBlockchainRes[i]
+          await dispatch('getBlockByHeight', {
+            blockHeight: prevHeader.height,
+            errCallback: errLog => {
+              commit('addErrorBlock', {
+                blockHeight: prevHeader.height,
+                errLog
+              })
+            }
+          }).then(blockMeta => {
+            dispatch('setBlockMeta', {
+              header: prevHeader,
+              blockMeta,
+              txsData: blockMeta.data.result.block.data,
+              toInsertBlockToFront: toInsert,
+              toReset
+            })
+          })
+        }
+      }
+    })
 
-	await toFetchBlockchain(
-		minBlockHeight,
-		maxBlockHeight,
-		!toGetLowerBlocks,
-		toReset
-	).then(promiseLoop =>
-		promiseLoop().then(() => {
-			const isToPop = toReset ? true : !toGetLowerBlocks
-			commit('popOverloadBlocks', {
-				toPop: isToPop,
-				toPopOverBlockchainCount: toReset
-			})
-			dispatch('setStackChainRange')
-		})
-	)
+  await toFetchBlockchain(
+    minBlockHeight,
+    maxBlockHeight,
+    !toGetLowerBlocks,
+    toReset
+  ).then(promiseLoop =>
+    promiseLoop().then(() => {
+      const isToPop = toReset ? true : !toGetLowerBlocks
+      commit('popOverloadBlocks', {
+        toPop: isToPop,
+        toPopOverBlockchainCount: toReset
+      })
+      dispatch('setStackChainRange')
+    })
+  )
 }
 
 /**
@@ -363,20 +363,20 @@ actions.getBlockchain = async (
  *
  */
 actions.setStackChainRange = (
-	{ commit, getters },
-	{ highest, lowest } = {
-		highest: null,
-		lowest: null
-	}
+  { commit, getters },
+  { highest, lowest } = {
+    highest: null,
+    lowest: null
+  }
 ) => {
-	const stack = getters.blocksStack
-	const highestHeight = highest || stack[0]?.height
-	const lowestHeight = lowest || stack[stack.length - 1]?.height
+  const stack = getters.blocksStack
+  const highestHeight = highest || stack[0]?.height
+  const lowestHeight = lowest || stack[stack.length - 1]?.height
 
-	commit('setStackChainRange', {
-		highest: highestHeight ? parseInt(highestHeight) : null,
-		lowest: lowestHeight ? parseInt(lowestHeight) : null
-	})
+  commit('setStackChainRange', {
+    highest: highestHeight ? parseInt(highestHeight) : null,
+    lowest: lowestHeight ? parseInt(lowestHeight) : null
+  })
 }
 
 /**
@@ -394,91 +394,91 @@ actions.setStackChainRange = (
  *
  */
 actions.setBlockMeta = async (
-	{ dispatch, commit, getters },
-	{ header, blockMeta, txsData, isValidLatestBlock = false, toReset = false }
+  { dispatch, commit, getters },
+  { header, blockMeta, txsData, isValidLatestBlock = false, toReset = false }
 ) => {
-	const blockHolder = {
-		height: parseInt(header.height),
-		header,
-		txs: txsData.txs ? txsData.txs : 0,
-		blockMeta: blockMeta.data?.result ? blockMeta.data.result : blockMeta,
-		txsDecoded: []
-	}
+  const blockHolder = {
+    height: parseInt(header.height),
+    header,
+    txs: txsData.txs ? txsData.txs : 0,
+    blockMeta: blockMeta.data?.result ? blockMeta.data.result : blockMeta,
+    txsDecoded: []
+  }
 
-	if (txsData.txs && txsData.txs.length > 0) {
-		const txsDecoded = txsData.txs.map(txEncoded =>
-			dispatch('getDecodedTx', {
-				txEncoded,
-				errCallback: (txEncoded, errLog) =>
-					dispatch('txErrCallback', {
-						blockHeight: header.height,
-						txEncoded,
-						errLog
-					})
-			})
-		)
+  if (txsData.txs && txsData.txs.length > 0) {
+    const txsDecoded = txsData.txs.map(txEncoded =>
+      dispatch('getDecodedTx', {
+        txEncoded,
+        errCallback: (txEncoded, errLog) =>
+          dispatch('txErrCallback', {
+            blockHeight: header.height,
+            txEncoded,
+            errLog
+          })
+      })
+    )
 
-		txsDecoded.forEach(txRes => {
-			return txRes.then(txResolved => {
-				if (txResolved) blockHolder.txsDecoded.push(txResolved)
-			})
-		})
-	}
+    txsDecoded.forEach(txRes => {
+      return txRes.then(txResolved => {
+        if (txResolved) blockHolder.txsDecoded.push(txResolved)
+      })
+    })
+  }
 
-	// this guards duplicated block pushed into blocksStack
-	if (getters.blockByHeight(blockHolder.height).length <= 0) {
-		/*
+  // this guards duplicated block pushed into blocksStack
+  if (getters.blockByHeight(blockHolder.height).length <= 0) {
+    /*
  		 *
 		 // 1. Check block position
 		 *
 		 */
-		const newBlockPosition = (() => {
-			const { highestHeight, lowestHeight } = getters.stackChainRange
-			const newBlockHeight = parseInt(blockHolder.height)
+    const newBlockPosition = (() => {
+      const { highestHeight, lowestHeight } = getters.stackChainRange
+      const newBlockHeight = parseInt(blockHolder.height)
 
-			let isHigher = false
-			let isLower = false
-			let isAdjacent = false
+      let isHigher = false
+      let isLower = false
+      let isAdjacent = false
 
-			if (!highestHeight && !lowestHeight) {
-				isHigher = true
-				isAdjacent = true
-			} else if (newBlockHeight > highestHeight) {
-				isHigher = true
-				isAdjacent = !(newBlockHeight - highestHeight > 1)
-			} else if (newBlockHeight < lowestHeight) {
-				isLower = true
-				isAdjacent = !(lowestHeight - newBlockHeight > 1)
-			}
+      if (!highestHeight && !lowestHeight) {
+        isHigher = true
+        isAdjacent = true
+      } else if (newBlockHeight > highestHeight) {
+        isHigher = true
+        isAdjacent = !(newBlockHeight - highestHeight > 1)
+      } else if (newBlockHeight < lowestHeight) {
+        isLower = true
+        isAdjacent = !(lowestHeight - newBlockHeight > 1)
+      }
 
-			return { isHigher, isLower, isAdjacent }
-		})()
+      return { isHigher, isLower, isAdjacent }
+    })()
 
-		/*
+    /*
 		*
 		// 2. Save the latest block (if the block is coming from WS connection)
 		*
 		*/
-		if (isValidLatestBlock) {
-			commit('setLatestBlock', blockHolder)
-		}
+    if (isValidLatestBlock) {
+      commit('setLatestBlock', blockHolder)
+    }
 
-		/*
+    /*
 		*
 		// 3. Add block to stack (toReset is to travel to top of the chain)
 		*
 		*/
-		if (newBlockPosition.isAdjacent || toReset) {
-			commit('addBlockEntry', {
-				block: blockHolder,
-				toInsert: toReset ? true : newBlockPosition.isHigher
-			})
-			dispatch('setStackChainRange', {
-				highest: newBlockPosition.isHigher ? blockHolder.height : null,
-				lowest: newBlockPosition.isLower ? blockHolder.height : null
-			})
-		}
-	}
+    if (newBlockPosition.isAdjacent || toReset) {
+      commit('addBlockEntry', {
+        block: blockHolder,
+        toInsert: toReset ? true : newBlockPosition.isHigher
+      })
+      dispatch('setStackChainRange', {
+        highest: newBlockPosition.isHigher ? blockHolder.height : null,
+        lowest: newBlockPosition.isLower ? blockHolder.height : null
+      })
+    }
+  }
 }
 
 /**
@@ -487,11 +487,11 @@ actions.setBlockMeta = async (
  *
  */
 actions.txErrCallback = ({ commit }, { blockHeight, txEncoded, errLog }) => {
-	commit('addErrorTx', {
-		blockHeight,
-		txEncoded,
-		errLog
-	})
+  commit('addErrorTx', {
+    blockHeight,
+    txEncoded,
+    errLog
+  })
 }
 
 /**
@@ -503,105 +503,105 @@ actions.txErrCallback = ({ commit }, { blockHeight, txEncoded, errLog }) => {
  *
  */
 actions.initBlockConnection = async ({
-	commit,
-	dispatch,
-	getters,
-	rootGetters
+  commit,
+  dispatch,
+  getters,
+  rootGetters
 }) => {
-	const appEnv = rootGetters['explorer/appEnv']
-	const { data } = await axios.get(`${appEnv.STARPORT_APP}/status`)
-	const GITPOD =
-		data.env.vue_app_custom_url && new URL(data.env.vue_app_custom_url)
-	const wsUrl = GITPOD
-		? process.env.VUE_APP_WS_TENDERMINT ||
-		  (GITPOD && `wss://26657-${GITPOD.hostname}/websocket`)
-		: 'ws://localhost:26657/websocket'
+  const appEnv = rootGetters['explorer/appEnv']
+  const { data } = await axios.get(`${appEnv.STARPORT_APP}/status`)
+  const GITPOD =
+    data.env.vue_app_custom_url && new URL(data.env.vue_app_custom_url)
+  const wsUrl = GITPOD
+    ? process.env.VUE_APP_WS_TENDERMINT ||
+      (GITPOD && `wss://26657-${GITPOD.hostname}/websocket`)
+    : 'ws://localhost:26657/websocket'
 
-	const ws = new ReconnectingWebSocket(wsUrl)
+  const ws = new ReconnectingWebSocket(wsUrl)
 
-	ws.onopen = function() {
-		ws.send(
-			JSON.stringify({
-				jsonrpc: '2.0',
-				method: 'subscribe',
-				id: '1',
-				params: ["tm.event = 'NewBlock'"]
-			})
-		)
-	}
+  ws.onopen = function() {
+    ws.send(
+      JSON.stringify({
+        jsonrpc: '2.0',
+        method: 'subscribe',
+        id: '1',
+        params: ["tm.event = 'NewBlock'"]
+      })
+    )
+  }
 
-	ws.onmessage = async msg => {
-		const { result } = JSON.parse(msg.data)
+  ws.onmessage = async msg => {
+    const { result } = JSON.parse(msg.data)
 
-		if (result.data && result.events) {
-			const { data } = result
-			const { data: txsData, header } = data.value.block
+    if (result.data && result.events) {
+      const { data } = result
+      const { data: txsData, header } = data.value.block
 
-			const blockErrCallback = errLog =>
-				commit('addErrorBlock', {
-					blockHeight: header.height,
-					errLog
-				})
+      const blockErrCallback = errLog =>
+        commit('addErrorBlock', {
+          blockHeight: header.height,
+          errLog
+        })
 
-			/**
+      /**
 			*
 			// 1. Fetch previous 20 blocks initially (if there's any)
 			*
 			*/
-			if (getters.blocksStack.length <= 0) {
-				await dispatch('getBlockchain', { blockHeight: header.height })
-			}
+      if (getters.blocksStack.length <= 0) {
+        await dispatch('getBlockchain', { blockHeight: header.height })
+      }
 
-			/**
+      /**
 			*
 			// 2. Regular block fetching
 			*
 			*/
-			dispatch('getBlockByHeight', {
-				blockHeight: header.height,
-				errCallback: blockErrCallback
-			}).then(blockMeta => {
-				dispatch('setBlockMeta', {
-					header,
-					blockMeta,
-					txsData,
-					isValidLatestBlock: true
-				})
-			})
+      dispatch('getBlockByHeight', {
+        blockHeight: header.height,
+        errCallback: blockErrCallback
+      }).then(blockMeta => {
+        dispatch('setBlockMeta', {
+          header,
+          blockMeta,
+          txsData,
+          isValidLatestBlock: true
+        })
+      })
 
-			/**
+      /**
 			*
 			// 3. Check and resolve errors queue
 			*
 			*/
-			if (getters.errorsQueue.length > 0) {
-				getters.errorsQueue.forEach((errObj, index) => {
-					const errBlockInStack = getters.blockByHeight(errObj.blockHeight)[0]
+      if (getters.errorsQueue.length > 0) {
+        getters.errorsQueue.forEach((errObj, index) => {
+          const errBlockInStack = getters.blockByHeight(errObj.blockHeight)[0]
 
-					if (errBlockInStack) {
-						if (errObj.txError && errObj.txError.txEncoded) {
-							dispatch('getDecodedTx', {
-								txEncoded: errObj.txError.txEncoded
-							}).then(txRes => {
-								const isTxAlreadyDecoded =
-									errBlockInStack.txsDecoded.filter(
-										tx => tx.txHash === txRes.txHash
-									).length > 0
+          if (errBlockInStack) {
+            if (errObj.txError && errObj.txError.txEncoded) {
+              dispatch('getDecodedTx', {
+                txEncoded: errObj.txError.txEncoded
+              }).then(txRes => {
+                const isTxAlreadyDecoded =
+                  errBlockInStack.txsDecoded.filter(
+                    tx => tx.txHash === txRes.txHash
+                  ).length > 0
 
-								if (!isTxAlreadyDecoded) {
-									errBlockInStack.txsDecoded.push(txRes)
-								}
-								getters.errorsQueue.splice(index, 1)
-								console.info(
-									`✨TX fetching error ${txRes.txHash} was resolved.`
-								)
-							})
-						}
-					}
-				})
-			}
-		}
-	}
+                if (!isTxAlreadyDecoded) {
+                  errBlockInStack.txsDecoded.push(txRes)
+                }
+                getters.errorsQueue.splice(index, 1)
+                console.info(
+                  `✨TX fetching error ${txRes.txHash} was resolved.`
+                )
+              })
+            }
+          }
+        })
+      }
+    }
+  }
 }
 
 /**
@@ -614,16 +614,16 @@ actions.initBlockConnection = async ({
  *
  */
 actions.setHighlightedBlock = async ({ commit }, { block }) => {
-	if (block == null || !block) {
-		commit('setHighlightedBlock', { block: null })
-	} else {
-		commit('setHighlightedBlock', { block })
-	}
+  if (block == null || !block) {
+    commit('setHighlightedBlock', { block: null })
+  } else {
+    commit('setHighlightedBlock', { block })
+  }
 }
 
 export default {
-	state,
-	getters,
-	mutations,
-	actions
+  state,
+  getters,
+  mutations,
+  actions
 }

@@ -1,16 +1,19 @@
-@import url("https://rsms.me/inter/inter.css");
+@import url('https://rsms.me/inter/inter.css');
 
-@font-face{
+@font-face {
   font-family: 'JetBrains Mono';
-  src: url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/web/JetBrainsMono-Regular.eot') format('embedded-opentype'),
-       url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Regular.ttf') format('truetype');
+  src: url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/web/JetBrainsMono-Regular.eot')
+      format('embedded-opentype'),
+    url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Regular.ttf')
+      format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 :root {
-  --f-family-primary: "Inter Var", "Inter", "Helvetica", sans-serif;
-  --f-family-code: "JetBrains Mono", "Inter Var", "Inter", "Helvetica", sans-serif;
+  --f-family-primary: 'Inter Var', 'Inter', 'Helvetica', sans-serif;
+  --f-family-code: 'JetBrains Mono', 'Inter Var', 'Inter', 'Helvetica',
+    sans-serif;
 
   --sp-f-primary: var(--f-family-primary);
   --sp-f-secondary: var(--f-family-code);

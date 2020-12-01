@@ -1,20 +1,20 @@
 <template>
-	<div>
-		<div class="container">
-			<SpSignIn />
-			<SpBankBalances />
-			<SpTokenSend />
-			<!-- <SpTypeForm type="post" :fields="['title', 'body']" /> -->
-		</div>
-		<SpBlockExplorer />
-	</div>
+  <div>
+    <div class="container">
+      <SpSignIn />
+      <SpBankBalances />
+      <SpTokenSend />
+      <!-- <SpTypeForm type="post" :fields="['title', 'body']" /> -->
+    </div>
+    <SpBlockExplorer />
+  </div>
 </template>
 
 <style scoped>
 .container {
-	max-width: 800px;
-	margin: 2rem auto;
-	padding: 1rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 </style>
 
@@ -26,12 +26,12 @@ import SpTypeForm from '@/components/SpTypeForm'
 import SpBlockExplorer from '@/components/SpBlockExplorer/SpBlockExplorer'
 
 export default {
-	components: {
-		SpSignIn,
-		SpBankBalances,
-		SpTokenSend,
-		SpTypeForm,
-		SpBlockExplorer
-	}
+  components: {
+    SpSignIn,
+    SpBankBalances,
+    SpTokenSend,
+    SpTypeForm,
+    SpBlockExplorer
+  }
 }
 </script>

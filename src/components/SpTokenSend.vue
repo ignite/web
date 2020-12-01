@@ -1,137 +1,137 @@
 <template>
-	<div>
-		<div v-if="balances && balances.length > 0" class="container">
-			<SpH3>Send tokens</SpH3>
-			<div class="form">
-				<div class="token">
-					<div class="card token__item">
-						<div class="label h3 h3__button" @click="denomChange">
-							{{ denom }}
-							<IconCircle2 v-if="denoms.length > 1" class="h3__icon" />
-						</div>
-						<div>
-							<input
-								v-model="amount"
-								class="input"
-								placeholder="Amount of tokens"
-								type="text"
-								:disabled="inFlight"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="card">
-					<div class="label h3">Address</div>
-					<div>
-						<div>
-							<input
-								v-model="to_address"
-								type="text"
-								class="input"
-								:disabled="inFlight"
-								placeholder="To address"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="footer">
-					<div>
-						<input
-							v-model="memo"
-							type="text"
-							class="input memo"
-							:disabled="inFlight"
-							placeholder="Add a text message..."
-						/>
-					</div>
-					<SpButton
-						:disabled="!(valid.amount && valid.to_address && !inFlight)"
-						:loading="inFlight"
-						@click="send"
-						>Send tokens</SpButton
-					>
-				</div>
-				<div class="log">
-					<div class="log__text">
-						{{ txResultMessage }}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div>
+    <div v-if="balances && balances.length > 0" class="container">
+      <SpH3>Send tokens</SpH3>
+      <div class="form">
+        <div class="token">
+          <div class="card token__item">
+            <div class="label h3 h3__button" @click="denomChange">
+              {{ denom }}
+              <IconCircle2 v-if="denoms.length > 1" class="h3__icon" />
+            </div>
+            <div>
+              <input
+                v-model="amount"
+                class="input"
+                placeholder="Amount of tokens"
+                type="text"
+                :disabled="inFlight"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="label h3">Address</div>
+          <div>
+            <div>
+              <input
+                v-model="to_address"
+                type="text"
+                class="input"
+                :disabled="inFlight"
+                placeholder="To address"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div>
+            <input
+              v-model="memo"
+              type="text"
+              class="input memo"
+              :disabled="inFlight"
+              placeholder="Add a text message..."
+            />
+          </div>
+          <SpButton
+            :disabled="!(valid.amount && valid.to_address && !inFlight)"
+            :loading="inFlight"
+            @click="send"
+            >Send tokens</SpButton
+          >
+        </div>
+        <div class="log">
+          <div class="log__text">
+            {{ txResultMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 @import '../styles/main.css';
 
 .container {
-	font-family: var(--sp-f-primary);
+  font-family: var(--sp-f-primary);
 }
 .form > * {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .card {
-	background: rgb(247, 247, 247);
-	width: 100%;
-	padding: 1rem;
-	border-radius: 0.5rem;
-	box-sizing: border-box;
+  background: rgb(247, 247, 247);
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
 }
 .token__item {
-	max-width: 225px;
+  max-width: 225px;
 }
 .h3 {
-	font-size: 0.875rem;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	font-weight: 700;
-	user-select: none;
-	display: flex;
-	align-items: center;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  user-select: none;
+  display: flex;
+  align-items: center;
 }
 .h3__button {
-	cursor: pointer;
+  cursor: pointer;
 }
 .h3__icon {
-	height: 1em;
-	width: 1em;
-	margin: 0 0.25rem;
-	fill: rgba(0, 0, 0, 0.35);
+  height: 1em;
+  width: 1em;
+  margin: 0 0.25rem;
+  fill: rgba(0, 0, 0, 0.35);
 }
 .label {
-	margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .input {
-	width: 100%;
-	box-sizing: border-box;
-	padding: 0;
-	border: none;
-	background: none;
-	font-size: 1rem;
-	font-family: inherit;
-	outline: none;
-	letter-spacing: 0.02em;
-	text-transform: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 .token__item__input::-webkit-input-placeholder {
-	color: rgba(0, 0, 0, 0.35);
+  color: rgba(0, 0, 0, 0.35);
 }
 .footer {
-	display: grid;
-	grid-template-columns: 3fr 1fr;
-	grid-gap: 10px;
-	box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 10px;
+  box-sizing: border-box;
 }
 .memo {
-	padding: 0.75rem 1rem;
-	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-	border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
 }
 .log__text {
-	display: flex;
-	justify-content: flex-end;
-	font-size: 0.75rem;
-	color: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.35);
 }
 </style>
 
@@ -143,89 +143,89 @@ import { isInteger } from 'lodash'
 import { Bech32 } from '@cosmjs/encoding'
 
 export default {
-	components: {
-		SpH3,
-		IconCircle2,
-		SpButton
-	},
-	category: 'wallet',
-	data() {
-		return {
-			amount: '',
-			to_address: '',
-			memo: '',
-			denomIndex: 0,
-			inFlight: false,
-			txResult: ''
-		}
-	},
-	computed: {
-		address() {
-			return this.$store.getters['common/session/address']
-		},
-		balances() {
-			const query = 'cosmos/cosmos-sdk/bank/allBalances'
-			const address = this.address
-			const balances = this.$store.getters[query]({ address })
-			return balances ? balances.balances : []
-		},
-		denoms() {
-			return this.balances.map(b => b.denom)
-		},
-		denom() {
-			return this.denoms[this.denomIndex]
-		},
-		valid() {
-			let to_address
-			try {
-				to_address = !!Bech32.decode(this.to_address)
-			} catch {
-				to_address = false
-			}
-			const amount = +this.amount > 0 && isInteger(+this.amount)
-			return { amount, to_address }
-		},
-		txResultMessage() {
-			if (this.txResult && this.txResult.code) {
-				return `Error: ${this.txResult.rawLog}`
-			}
-			return ''
-		}
-	},
-	methods: {
-		denomChange() {
-			const inBounds = this.denomIndex < this.denoms.length - 1
-			this.denomIndex = inBounds ? this.denomIndex + 1 : 0
-		},
-		async send() {
-			if (this.valid.to_address && this.valid.amount && !this.inFlight) {
-				const amount = this.amount
-				const denom = this.denom
-				const from_address = this.address
-				const fee = {
-					amount: [{ amount: '0', denom }],
-					gas: '200000'
-				}
-				const msg = {
-					typeUrl: '/cosmos.bank.v1beta1.MsgSend',
-					value: {
-						amount: [{ amount, denom }],
-						fromAddress: from_address,
-						toAddress: this.to_address
-					}
-				}
-				const tx = { fee, msg: [msg] }
-				const action = 'tendermint/tendermint/tx/broadcast'
-				const payload = { fee, msgs: [msg], from_address }
-				this.inFlight = true
-				this.txResult = await this.$store.dispatch(action, payload)
-				this.inFlight = false
-				if (!this.txResult.code) {
-					this.amount = ''
-					this.to_address = ''
-				}
-			}
-		}
-	}
+  components: {
+    SpH3,
+    IconCircle2,
+    SpButton
+  },
+  category: 'wallet',
+  data() {
+    return {
+      amount: '',
+      to_address: '',
+      memo: '',
+      denomIndex: 0,
+      inFlight: false,
+      txResult: ''
+    }
+  },
+  computed: {
+    address() {
+      return this.$store.getters['common/session/address']
+    },
+    balances() {
+      const query = 'cosmos/cosmos-sdk/bank/allBalances'
+      const address = this.address
+      const balances = this.$store.getters[query]({ address })
+      return balances ? balances.balances : []
+    },
+    denoms() {
+      return this.balances.map(b => b.denom)
+    },
+    denom() {
+      return this.denoms[this.denomIndex]
+    },
+    valid() {
+      let to_address
+      try {
+        to_address = !!Bech32.decode(this.to_address)
+      } catch {
+        to_address = false
+      }
+      const amount = +this.amount > 0 && isInteger(+this.amount)
+      return { amount, to_address }
+    },
+    txResultMessage() {
+      if (this.txResult && this.txResult.code) {
+        return `Error: ${this.txResult.rawLog}`
+      }
+      return ''
+    }
+  },
+  methods: {
+    denomChange() {
+      const inBounds = this.denomIndex < this.denoms.length - 1
+      this.denomIndex = inBounds ? this.denomIndex + 1 : 0
+    },
+    async send() {
+      if (this.valid.to_address && this.valid.amount && !this.inFlight) {
+        const amount = this.amount
+        const denom = this.denom
+        const from_address = this.address
+        const fee = {
+          amount: [{ amount: '0', denom }],
+          gas: '200000'
+        }
+        const msg = {
+          typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+          value: {
+            amount: [{ amount, denom }],
+            fromAddress: from_address,
+            toAddress: this.to_address
+          }
+        }
+        const tx = { fee, msg: [msg] }
+        const action = 'tendermint/tendermint/tx/broadcast'
+        const payload = { fee, msgs: [msg], from_address }
+        this.inFlight = true
+        this.txResult = await this.$store.dispatch(action, payload)
+        this.inFlight = false
+        if (!this.txResult.code) {
+          this.amount = ''
+          this.to_address = ''
+        }
+      }
+    }
+  }
 }
 </script>
