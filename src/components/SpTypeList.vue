@@ -84,10 +84,10 @@ export default {
 		appEnv: {
 			handler() {
 				if (this.appEnv.API) {
-					this.$store.dispatch('chain/entityFetch', {
-						type: this.type,
-						module: this.module
-					})
+					// this.$store.dispatch('chain/entityFetch', {
+					// 	type: this.type,
+					// 	module: this.module
+					// })
 				}
 			},
 			deep: true

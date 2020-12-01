@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import chain from './chain'
+import chain from './explorer/chain'
 import cosmos from './cosmos/cosmos-sdk'
 import tendermint from './tendermint/tendermint'
 import common from './common'

@@ -4,8 +4,9 @@
 			<SpSignIn />
 			<SpBankBalances />
 			<SpTokenSend />
-			<SpTypeForm type="post" :fields="['title', 'body']" />
+			<!-- <SpTypeForm type="post" :fields="['title', 'body']" /> -->
 		</div>
+		<SpBlockExplorer />
 	</div>
 </template>
 
@@ -22,13 +23,15 @@ import SpSignIn from '@/components/SpSignIn'
 import SpBankBalances from '@/components/SpBankBalances'
 import SpTokenSend from '@/components/SpTokenSend'
 import SpTypeForm from '@/components/SpTypeForm'
+import SpBlockExplorer from '@/components/SpBlockExplorer/SpBlockExplorer'
 
 export default {
 	components: {
 		SpSignIn,
 		SpBankBalances,
 		SpTokenSend,
-		SpTypeForm
+		SpTypeForm,
+		SpBlockExplorer
 	}
 }
 </script>

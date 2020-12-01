@@ -189,7 +189,6 @@ export default {
 			if (this.txResult && this.txResult.code) {
 				return `Error: ${this.txResult.rawLog}`
 			}
-
 			return ''
 		}
 	},

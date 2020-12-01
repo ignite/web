@@ -101,12 +101,12 @@ export default {
 					body: this.fieldsList,
 					module: this.module
 				}
-				await this.$store.dispatch('chain/entitySubmit', payload)
-				await this.$store.dispatch('chain/entityFetch', {
-					type: this.type,
-					body: this.fieldsList,
-					module: this.module
-				})
+				// await this.$store.dispatch('chain/entitySubmit', payload)
+				// await this.$store.dispatch('chain/entityFetch', {
+				// 	type: this.type,
+				// 	body: this.fieldsList,
+				// 	module: this.module
+				// })
 				this.flight = false
 				Object.keys(this.fieldsList).forEach(f => {
 					this.fieldsList[f] = ''
