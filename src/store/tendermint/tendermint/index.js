@@ -1,4 +1,5 @@
 import ws from './ws'
+import tx from './tx'
 
 export default {
 	namespaced: true,
@@ -6,11 +7,12 @@ export default {
 		tendermint: {
 			namespaced: true,
 			modules: {
-				ws
+				ws,
+				tx
 			},
 			actions: {
 				init({ dispatch, rootState }) {
-					dispatch('ws/subscribe')
+					dispatch('ws/init')
 				}
 			}
 		}

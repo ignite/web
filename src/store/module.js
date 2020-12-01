@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { makeStdTx, makeSignDoc } from '@cosmjs/launchpad'
+import { makeStdTx, makeSignDoc } from '@cosmjs/stargate'
 
 export default {
 	state: {
@@ -29,14 +29,12 @@ export default {
 			const { API } = rootGetters['chain/appEnv']
 			const CHAIN_ID = rootGetters['chain/chainId']
 			const client = rootGetters['chain/client']
-
 			const creator = client.senderAddress
 			const base_req = { chain_id: CHAIN_ID, from: creator }
 			const req = { base_req, creator, ...body }
 			const module_name = module || CHAIN_ID
 			const { data } = await axios.post(`${API}/${module_name}/${type}s`, req)
 			const { msg, fee, memo } = data.value
-
 			const signer = client.signer
 			const from_address = creator
 			const acc_url = `${API}/auth/accounts/${from_address}`
@@ -44,18 +42,18 @@ export default {
 			const chain_id = await client.getChainId()
 			const acc_seq = acc.sequence || '0'
 			const acc_num = acc.account_number || '0'
-			console.log(msg, fee, chain_id, memo, acc_num, acc_seq)
-			const signDoc = makeSignDoc(msg, fee, chain_id, memo, acc_num, acc_seq)
-			const { signed, signature } = await signer.sign(from_address, signDoc)
-			const signedTx = makeStdTx(signed, signature)
-			const broadcastBody = {
-				tx: signedTx,
-				mode: 'sync'
-			}
-			console.log(broadcastBody)
-			axios.post(`${API}/txs`, broadcastBody)
-
-			// return await client.signAndBroadcast(msg, fee, memo)
+			// console.log(msg, fee, chain_id, memo, acc_num, acc_seq)
+			// console.log(makeSignDoc)
+			// const signDoc = makeSignDoc(msg, fee, chain_id, memo, acc_num, acc_seq)
+			// const { signed, signature } = await signer.sign(from_address, signDoc)
+			// const signedTx = makeStdTx(signed, signature)
+			// const broadcastBody = {
+			// 	tx: signedTx,
+			// 	mode: 'sync'
+			// }
+			// console.log(broadcastBody)
+			// axios.post(`${API}/txs`, broadcastBody)
+			return await client.signAndBroadcast([msg], fee, memo)
 		}
 	}
 }

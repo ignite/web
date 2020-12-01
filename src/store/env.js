@@ -204,7 +204,7 @@ export default {
       *
       */
 			commit('setTimer', {
-				timer: setInterval(() => dispatch('setStatusState'), 5000)
+				// timer: setInterval(() => dispatch('setStatusState'), 5000)
 			})
 
 			try {

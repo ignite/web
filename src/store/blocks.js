@@ -519,16 +519,16 @@ actions.initBlockConnection = async ({
 
 	const ws = new ReconnectingWebSocket(wsUrl)
 
-	ws.onopen = function() {
-		ws.send(
-			JSON.stringify({
-				jsonrpc: '2.0',
-				method: 'subscribe',
-				id: '1',
-				params: ["tm.event = 'NewBlock'"]
-			})
-		)
-	}
+	// ws.onopen = function() {
+	// 	ws.send(
+	// 		JSON.stringify({
+	// 			jsonrpc: '2.0',
+	// 			method: 'subscribe',
+	// 			id: '1',
+	// 			params: ["tm.event = 'NewBlock'"]
+	// 		})
+	// 	)
+	// }
 
 	ws.onmessage = async msg => {
 		const { result } = JSON.parse(msg.data)

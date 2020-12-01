@@ -3,7 +3,7 @@ import ReconnectingWebSocket from 'reconnecting-websocket'
 export default {
 	namespaced: true,
 	actions: {
-		subscribe({ rootState }) {
+		init({ rootState }) {
 			const url = rootState.common.env.api.ws
 			const ws = new ReconnectingWebSocket(url)
 			const subscribe = {
@@ -12,9 +12,9 @@ export default {
 				id: '1',
 				params: ["tm.event = 'NewBlock'"]
 			}
-			ws.onopen = function() {
-				ws.send(JSON.stringify(subscribe))
-			}
+			// ws.onopen = function() {
+			// 	ws.send(JSON.stringify(subscribe))
+			// }
 			ws.onmessage = async msg => {
 				console.log(JSON.parse(msg.data).result)
 			}

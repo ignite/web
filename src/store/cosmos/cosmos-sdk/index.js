@@ -11,8 +11,9 @@ export default {
 				bank
 			},
 			actions: {
-				init({ dispatch }) {
-					dispatch('tendermint/tendermint/init', null, { root: true })
+				async init({ dispatch }) {
+					await dispatch('common/session/init', null, { root: true })
+					await dispatch('tendermint/tendermint/init', null, { root: true })
 				}
 			}
 		}

@@ -3,7 +3,11 @@
 		<div class="container">
 			<SpH3>
 				Balance
-				<IconSynchronization1 class="h3__icon" @click.native="balancesUpdate" />
+				<IconSynchronization1
+					v-if="address"
+					class="h3__icon"
+					@click.native="balancesUpdate"
+				/>
 			</SpH3>
 			<div v-if="balances.length < 1">Account balance appears to be empty.</div>
 			<div class="list">
@@ -70,17 +74,29 @@ export default {
 	},
 	category: 'wallet',
 	computed: {
+		address() {
+			return this.$store.getters['common/session/address']
+		},
 		balances() {
-			return this.$store.state.chain.bank.bankBalances
+			const query = 'cosmos/cosmos-sdk/bank/allBalances'
+			const address = this.address
+			const balances = this.$store.getters[query]({ address })
+			return balances ? balances.balances : []
+		}
+	},
+	watch: {
+		'$store.state.common.session.client': async function() {
+			this.balancesUpdate()
 		}
 	},
 	methods: {
 		numberFormat(number) {
 			return Intl.NumberFormat().format(number)
 		},
-		async balancesUpdate() {
-			await this.$store.dispatch('chain/accountSignInTry')
-			await this.$store.dispatch('chain/bankBalancesGet')
+		balancesUpdate() {
+			const query = 'cosmos/cosmos-sdk/bank/queryAllBalances'
+			const address = this.address
+			this.$store.dispatch(query, { address })
 		}
 	}
 }

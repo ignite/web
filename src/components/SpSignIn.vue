@@ -38,7 +38,7 @@
 									'dropdown__button',
 									`button__disabled__${!mnemonicIsValid}`
 								]"
-								@click="mnemonicImport"
+								@click="importMnemonic"
 							>
 								<div class="dropdown__button__text">
 									Import mnemonic
@@ -210,8 +210,7 @@ export default {
 			return bip39.validateMnemonic(this.mnemonicClean)
 		},
 		address() {
-			const client = this.$store.getters['chain/client']
-			return client && client.senderAddress
+			return this.$store.getters['common/session/address']
 		}
 	},
 	methods: {
@@ -223,10 +222,10 @@ export default {
 				this.dropdown = !this.dropdown
 			}
 		},
-		async mnemonicImport() {
+		async importMnemonic() {
 			if (this.mnemonicIsValid) {
 				const mnemonic = this.mnemonicClean
-				await this.$store.dispatch('chain/accountSignIn', { mnemonic })
+				this.$store.dispatch('common/session/importMnemonic', { mnemonic })
 			}
 		},
 		mnemonicGenerate() {
