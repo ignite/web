@@ -49,7 +49,7 @@ export default {
       commit('setClient', { client })
     },
     async logout() {
-      localStorage.removeItem('wallet')
+      localStorage.removeItem('mnemonic')
       window.location.reload()
     }
   }
