@@ -54,12 +54,7 @@ export default {
 		}
 	},
 	computed: {
-		/*
-		 *
-		 * Vuex
-		 *
-		 */
-		...mapGetters('chain', [
+		...mapGetters('explorer', [
 			'highlightedBlock',
 			'blocksStack',
 			'lastBlock',
@@ -68,11 +63,6 @@ export default {
 			'appEnv',
 			'backendRunningStates'
 		]),
-		/*
-		 *
-		 * Local
-		 *
-		 */
 		blockSheetKey() {
 			if (this.highlightedBlock?.data) {
 				return this.highlightedBlock.data.blockMsg.blockHash
@@ -114,8 +104,8 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapMutations('chain', ['popOverloadBlocks']),
-		...mapActions('chain', ['addBlockEntry', 'getBlockchain']),
+		...mapMutations('explorer', ['popOverloadBlocks']),
+		...mapActions('explorer', ['addBlockEntry', 'getBlockchain']),
 		/*
 		 *
 		 * Local

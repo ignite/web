@@ -73,7 +73,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('chain', ['appEnv']),
+		...mapGetters('explorer', ['appEnv']),
 		instanceList() {
 			return (
 				this.$store.state.chain.module.data[`${this.module}/${this.type}`] || []

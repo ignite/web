@@ -17,13 +17,13 @@ export default new Vuex.Store({
 });
 ```
 
-Then, dispatch a `chain/init` Vuex action:
+Then, dispatch a `cosmos/cosmos-sdk/init` Vuex action:
 
 ```js
 // src/App.vue
 export default {
   created() {
-    this.$store.dispatch('chain/init");
+    this.$store.dispatch('cosmos/cosmos-sdk/init");
   },
 };
 ```

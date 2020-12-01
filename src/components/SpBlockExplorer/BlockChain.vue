@@ -97,7 +97,7 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapGetters('chain', [
+		...mapGetters('explorer', [
 			'highlightedBlock',
 			'blocksStack',
 			'lastBlock',
@@ -169,7 +169,7 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapActions('chain', ['getBlockchain', 'setHighlightedBlock']),
+		...mapActions('explorer', ['getBlockchain', 'setHighlightedBlock']),
 		/*
 		 *
 		 * Local

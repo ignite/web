@@ -216,7 +216,7 @@ export default {
 	methods: {
 		buttonClick() {
 			if (this.address) {
-				this.$store.dispatch('chain/accountSignOut')
+				this.$store.dispatch('common/session/logout')
 			} else {
 				this.mnemonic = ''
 				this.dropdown = !this.dropdown

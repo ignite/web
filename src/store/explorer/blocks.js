@@ -188,7 +188,7 @@ actions.getBlockByHeight = async (
 	{ rootGetters },
 	{ blockHeight, errCallback }
 ) => {
-	const { RPC } = rootGetters['chain/appEnv']
+	const { RPC } = rootGetters['explorer/appEnv']
 
 	try {
 		return await axios.get(`${RPC}/block?height=${blockHeight}`)
@@ -207,7 +207,7 @@ actions.getBlockByHeight = async (
  *
  */
 actions.getLatestBlock = async ({ rootGetters }, { errCallback }) => {
-	const { API } = rootGetters['chain/appEnv']
+	const { API } = rootGetters['explorer/appEnv']
 
 	try {
 		return await axios.get(`${API}/blocks/latest`)
@@ -240,7 +240,7 @@ actions.getBlockchainRaw = async (
 		errCallback
 	}
 ) => {
-	const { RPC } = rootGetters['chain/appEnv']
+	const { RPC } = rootGetters['explorer/appEnv']
 
 	if (!minBlockHeight && !maxBlockHeight) {
 		console.error('Please provide min or max block height value')
@@ -508,7 +508,7 @@ actions.initBlockConnection = async ({
 	getters,
 	rootGetters
 }) => {
-	const appEnv = rootGetters['chain/appEnv']
+	const appEnv = rootGetters['explorer/appEnv']
 	const { data } = await axios.get(`${appEnv.STARPORT_APP}/status`)
 	const GITPOD =
 		data.env.vue_app_custom_url && new URL(data.env.vue_app_custom_url)

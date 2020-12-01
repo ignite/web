@@ -64,7 +64,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters('chain', ['blockByHeight'])
+		...mapGetters('explorer', ['blockByHeight'])
 	},
 	methods: {
 		/*
@@ -72,7 +72,7 @@ export default {
 		 * Vuex
 		 *
 		 */
-		...mapActions('chain', ['setHighlightedBlock']),
+		...mapActions('explorer', ['setHighlightedBlock']),
 		/*
 		 *
 		 * Local

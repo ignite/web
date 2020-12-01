@@ -124,7 +124,7 @@ export default {
 		block: { type: Object, required: true }
 	},
 	computed: {
-		...mapGetters('chain', ['appEnv']),
+		...mapGetters('explorer', ['appEnv']),
 		failedTxsCount() {
 			return this.block.data.txs.filter(tx => tx.meta.code).length
 		}
