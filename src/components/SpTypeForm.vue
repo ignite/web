@@ -2,11 +2,11 @@
 	<div>
 		<div class="container">
 			<SpH3>New {{ type }}</SpH3>
-			<div v-for="field in fields" :key="field">
+			<div v-for="(value, key) in fieldsList" :key="key">
 				<SpInput
-					v-model="fieldsList[field]"
+					v-model="fieldsList[key]"
 					type="text"
-					:placeholder="title(field)"
+					:placeholder="title(key)"
 					:disabled="flight"
 				/>
 			</div>
@@ -19,7 +19,7 @@
 					Create {{ type }}
 				</SpButton>
 			</div>
-			<SpTypeList :type="type" :module="module" />
+			<SpTypeList :type="type" :path="path" :module="module" />
 		</div>
 	</div>
 </template>
@@ -40,6 +40,9 @@ import SpInput from './SpInput'
 import SpH3 from './SpH3'
 import SpButton from './SpButton'
 import SpTypeList from './SpTypeList'
+import { Type, Field } from 'protobufjs'
+import { SigningStargateClient } from '@cosmjs/stargate'
+import { Registry } from '@cosmjs/proto-signing'
 
 export default {
 	components: {
@@ -49,6 +52,10 @@ export default {
 		SpTypeList
 	},
 	props: {
+		path: {
+			type: String,
+			default: ''
+		},
 		type: {
 			type: String,
 			default: ''
@@ -86,7 +93,9 @@ export default {
 	},
 	created() {
 		;(this.fields || []).forEach(field => {
-			this.$set(this.fieldsList, field, '')
+			if (field[0] !== 'creator') {
+				this.$set(this.fieldsList, field[0], '')
+			}
 		})
 	},
 	methods: {
@@ -95,18 +104,44 @@ export default {
 		},
 		async submit() {
 			if (this.valid && !this.flight && this.hasAddress) {
-				this.flight = true
-				const payload = {
-					type: this.type,
-					body: this.fieldsList,
-					module: this.module
-				}
-				await this.$store.dispatch('cosmos/entitySubmit', payload)
-				await this.$store.dispatch('cosmos/entityFetch', {
-					type: this.type,
-					body: this.fieldsList,
-					module: this.module
+				const { RPC } = this.$store.getters['cosmos/appEnv']
+				const wallet = this.$store.getters['cosmos/wallet']
+				const account = this.$store.getters['cosmos/account']
+				const from_address = account.address
+				const type = this.type.charAt(0).toUpperCase() + this.type.slice(1)
+				const typeUrl = `/${this.path}.MsgCreate${type}`
+				let MsgCreate = new Type(`MsgCreate${type}`)
+				this.fields.forEach(f => {
+					MsgCreate = MsgCreate.add(new Field(f[0], f[1], f[2]))
 				})
+				const registry = new Registry([[typeUrl, MsgCreate]])
+				const client = await SigningStargateClient.connectWithWallet(
+					RPC,
+					wallet,
+					{ registry }
+				)
+				const msg = {
+					typeUrl,
+					value: {
+						creator: from_address,
+						...this.fieldsList
+					}
+				}
+				const fee = {
+					amount: [{ amount: '0', denom: 'token' }],
+					gas: '200000'
+				}
+				this.flight = true
+				try {
+					const path = this.path.replace('.', '/')
+					await client.signAndBroadcast(from_address, [msg], fee)
+					this.$store.dispatch('cosmos/entityFetch', {
+						type: this.type,
+						path: path
+					})
+				} catch (e) {
+					console.log(e)
+				}
 				this.flight = false
 				Object.keys(this.fieldsList).forEach(f => {
 					this.fieldsList[f] = ''

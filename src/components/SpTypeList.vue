@@ -70,24 +70,27 @@ export default {
 		module: {
 			type: String,
 			default: ''
+		},
+		path: {
+			type: String,
+			default: ''
 		}
 	},
 	computed: {
 		...mapGetters('cosmos', ['appEnv']),
 		instanceList() {
-			return (
-				this.$store.state.cosmos.module.data[`${this.module}/${this.type}`] ||
-				[]
-			)
+			const path = this.path.replace('.', '/')
+			return this.$store.state.cosmos.module.data[`${path}/${this.type}`] || []
 		}
 	},
 	watch: {
 		appEnv: {
 			handler() {
+				const path = this.path.replace('.', '/')
 				if (this.appEnv.API) {
 					this.$store.dispatch('cosmos/entityFetch', {
 						type: this.type,
-						module: this.module
+						path: path
 					})
 				}
 			},
