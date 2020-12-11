@@ -133,7 +133,7 @@ export default {
 				}
 				this.flight = true
 				try {
-					const path = this.path.replace('.', '/')
+					const path = this.path.replace(/\./g, '/')
 					await client.signAndBroadcast(from_address, [msg], fee)
 					this.$store.dispatch('cosmos/entityFetch', {
 						type: this.type,

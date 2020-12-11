@@ -6,7 +6,7 @@
 			<SpTokenSend />
 			<SpTypeForm
 				type="post"
-				path="foo.foo"
+				path="fadeev.foo.foo"
 				:fields="[
 					['creator', 1, 'string'],
 					['title', 2, 'string'],
