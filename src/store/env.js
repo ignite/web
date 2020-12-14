@@ -74,17 +74,20 @@ export default {
 				'http://localhost:8080'
 
 			state.APP_ENV.API =
-				VUE_APP_API_COSMOS?.replace('0.0.0.0', 'localhost') ||
+				(VUE_APP_API_COSMOS &&
+					VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
 				(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
 				'http://localhost:1317'
 
 			state.APP_ENV.RPC =
-				VUE_APP_API_TENDERMINT?.replace('0.0.0.0', 'localhost') ||
+				(VUE_APP_API_TENDERMINT &&
+					VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 				(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
 				'http://localhost:26657'
 
 			state.APP_ENV.WS =
-				VUE_APP_WS_TENDERMINT?.replace('0.0.0.0', 'localhost') ||
+				(VUE_APP_WS_TENDERMINT &&
+					VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 				(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
 				'ws://localhost:26657/websocket'
 

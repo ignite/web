@@ -370,8 +370,9 @@ actions.setStackChainRange = (
 	}
 ) => {
 	const stack = getters.blocksStack
-	const highestHeight = highest || stack[0]?.height
-	const lowestHeight = lowest || stack[stack.length - 1]?.height
+	const highestHeight = highest || (stack[0] && stack[0].height)
+	const lowestHeight =
+		lowest || (stack[stack.length - 1] && stack[stack.length - 1].height)
 
 	commit('setStackChainRange', {
 		highest: highestHeight ? parseInt(highestHeight) : null,
@@ -401,7 +402,10 @@ actions.setBlockMeta = async (
 		height: parseInt(header.height),
 		header,
 		txs: txsData.txs ? txsData.txs : 0,
-		blockMeta: blockMeta.data?.result ? blockMeta.data.result : blockMeta,
+		blockMeta:
+			blockMeta.data && blockMeta.data.result
+				? blockMeta.data.result
+				: blockMeta,
 		txsDecoded: []
 	}
 

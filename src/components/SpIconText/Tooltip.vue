@@ -27,7 +27,7 @@ export default {
 			validator: function(value) {
 				if (value == null || !value) return true
 
-				return typeof value?.triggerActiveState === 'boolean'
+				return typeof (value && value.triggerActiveState === 'boolean')
 			}
 		},
 		direction: {
