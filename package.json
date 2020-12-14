@@ -1,7 +1,7 @@
 {
   "name": "@tendermint/vue",
   "description": "A library of Vue.js components for Cosmos SDK apps",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "src/index.js",
   "repository": "https://github.com/tendermint/vue",
   "scripts": {
