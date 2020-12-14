@@ -6,29 +6,11 @@
 			<SpTokenSend />
 			<SpTypeForm
 				type="post"
-				path="fadeev.foo.foo"
+				path="foo.foo.foo"
 				:fields="[
 					['creator', 1, 'string'],
 					['title', 2, 'string'],
 					['body', 3, 'string']
-				]"
-			/>
-			<SpTypeForm
-				type="hello"
-				path="fadeev.foo.bar"
-				:fields="[
-					['creator', 1, 'string'],
-					['world', 2, 'string'],
-					['test', 3, 'string']
-				]"
-			/>
-			<SpTypeForm
-				type="whoop"
-				path="fadeev.foo.bar"
-				:fields="[
-					['creator', 1, 'string'],
-					['world', 2, 'bool'],
-					['test', 3, 'int32']
 				]"
 			/>
 		</div>
