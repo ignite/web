@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { coins } from '@cosmjs/launchpad'
 
 export default {
 	state: {
@@ -14,25 +13,25 @@ export default {
 	actions: {
 		async tokenSend({ rootGetters }, { amount, denom, to_address, memo = '' }) {
 			const client = rootGetters['cosmos/client']
-			const from_address = client.senderAddress
-			const msg = {
-				type: 'cosmos-sdk/MsgSend',
-				value: {
-					amount: [
-						{
-							amount,
-							denom
-						}
-					],
-					from_address,
-					to_address
-				}
-			}
+			const account = rootGetters['cosmos/account']
+			const from_address = account.address
 			const fee = {
-				amount: coins(0, denom),
+				amount: [{ amount: '0', denom }],
 				gas: '200000'
 			}
-			return await client.signAndBroadcast([msg], fee, memo)
+			const msg = {
+				typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+				value: {
+					amount: [{ amount, denom }],
+					fromAddress: from_address,
+					toAddress: to_address
+				}
+			}
+			try {
+				return await client.signAndBroadcast(from_address, [msg], fee, memo)
+			} catch (e) {
+				console.log(e)
+			}
 		},
 		async bankBalancesGet({ commit, rootGetters }) {
 			const { API } = rootGetters['cosmos/appEnv']
