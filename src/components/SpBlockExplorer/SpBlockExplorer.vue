@@ -74,7 +74,7 @@ export default {
 		 *
 		 */
 		blockSheetKey() {
-			if (this.highlightedBlock?.data) {
+			if (this.highlightedBlock && this.highlightedBlock.data) {
 				return this.highlightedBlock.data.blockMsg.blockHash
 			}
 			return ''
@@ -92,7 +92,7 @@ export default {
 			return (
 				this.blocksStack.length <= 0 ||
 				!this.fmtBlockData ||
-				this.fmtBlockData?.length <= 0
+				(this.fmtBlockData && this.fmtBlockData.length <= 0)
 			)
 		},
 		isBackendAlive() {

@@ -13,6 +13,7 @@
 					['body', 3, 'string']
 				]"
 			/>
+			<SpBlockExplorer />
 		</div>
 	</div>
 </template>
@@ -26,7 +27,7 @@
 </style>
 
 <script>
-// import SpBlockExplorer from '@/components/SpBlockExplorer/SpBlockExplorer'
+import SpBlockExplorer from '@/components/SpBlockExplorer/SpBlockExplorer'
 import SpSignIn from '@/components/SpSignIn'
 import SpBankBalances from '@/components/SpBankBalances'
 import SpTokenSend from '@/components/SpTokenSend'
@@ -34,7 +35,7 @@ import SpTypeForm from '@/components/SpTypeForm'
 
 export default {
 	components: {
-		// SpBlockExplorer,
+		SpBlockExplorer,
 		SpSignIn,
 		SpBankBalances,
 		SpTokenSend,

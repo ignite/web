@@ -1,7 +1,7 @@
 {
   "name": "@tendermint/vue",
   "description": "A library of Vue.js components for Cosmos SDK apps",
-  "version": "0.1.10",
+  "version": "0.1.12",
   "main": "src/index.js",
   "repository": "https://github.com/tendermint/vue",
   "scripts": {
@@ -10,10 +10,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@cosmjs/encoding": "^0.24.0-alpha.10",
-    "@cosmjs/launchpad": "^0.24.0-alpha.10",
-    "@cosmjs/proto-signing": "^0.24.0-alpha.10",
-    "@cosmjs/stargate": "^0.24.0-alpha.10",
+    "@cosmjs/encoding": "0.24.0-alpha.10",
+    "@cosmjs/launchpad": "0.24.0-alpha.10",
+    "@cosmjs/proto-signing": "0.24.0-alpha.10",
+    "@cosmjs/stargate": "0.24.0-alpha.10",
     "axios": "^0.20.0",
     "bip39": "^3.0.2",
     "core-js": "^3.6.5",
