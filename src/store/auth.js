@@ -25,9 +25,11 @@ export default {
 				await dispatch('accountSignIn', { mnemonic })
 			}
 		},
-		async accountSignIn({ commit, dispatch, rootGetters }, { mnemonic }) {
-			const { API, ADDR_PREFIX, RPC } = rootGetters['cosmos/appEnv']
-
+		async accountSignIn(
+			{ commit, dispatch, rootGetters, rootState },
+			{ mnemonic }
+		) {
+			const { API, RPC, ADDR_PREFIX } = rootState.cosmos.env.env
 			const wallet = await DirectSecp256k1HdWallet.fromMnemonic(
 				mnemonic,
 				makeCosmoshubPath(0),
