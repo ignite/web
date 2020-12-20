@@ -33,8 +33,8 @@ export default {
 				console.log(e)
 			}
 		},
-		async bankBalancesGet({ commit, rootGetters }) {
-			const { API } = rootGetters['cosmos/appEnv']
+		async bankBalancesGet({ commit, rootState, rootGetters }) {
+			const API = rootState.cosmos.env.env.API
 			const { address } = rootGetters['cosmos/account']
 			const url = `${API}/bank/balances/${address}`
 			const value = (await axios.get(url)).data.result

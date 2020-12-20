@@ -104,7 +104,7 @@ export default {
 		},
 		async submit() {
 			if (this.valid && !this.flight && this.hasAddress) {
-				const { RPC } = this.$store.getters['cosmos/appEnv']
+				const { RPC } = this.$store.state.cosmos.env.env
 				const wallet = this.$store.getters['cosmos/wallet']
 				const account = this.$store.getters['cosmos/account']
 				const from_address = account.address

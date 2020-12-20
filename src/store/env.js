@@ -8,9 +8,26 @@ const {
 	VUE_APP_ADDRESS_PREFIX
 } = process.env
 
+const GITPOD =
+	process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL)
+const API =
+	(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
+	process.env.VUE_APP_API_COSMOS ||
+	'http://localhost:1317'
+const RPC =
+	(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
+	process.env.VUE_APP_API_TENDERMINT ||
+	'http://localhost:26657'
+const ADDR_PREFIX = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
+
 const state = {
 	timer: null,
 	CHAIN_ID: null,
+	env: {
+		API,
+		RPC,
+		ADDR_PREFIX
+	},
 	APP_ENV: {
 		GITPOD: '',
 		STARPORT_APP: VUE_APP_CUSTOM_URL ? '' : 'http://localhost:12345',
