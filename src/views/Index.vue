@@ -1,45 +1,23 @@
 <template>
 	<div>
-		<div class="container">
-			<SpSignIn />
-			<SpBankBalances />
-			<SpTokenSend />
-			<SpTypeForm
-				type="post"
-				path="foo.foo.foo"
-				:fields="[
-					['creator', 1, 'string'],
-					['title', 2, 'string'],
-					['body', 3, 'string']
-				]"
-			/>
-			<SpBlockExplorer />
+		<div class="sp-container">
+			<sp-sign-in />
+			<sp-bank-balances :address="address" :refresh="true" />
+			<sp-token-send :address="address" />
+			<!-- this line is used by starport scaffolding # 4 -->
 		</div>
 	</div>
 </template>
 
-<style scoped>
-.container {
-	max-width: 800px;
-	margin: 2rem auto;
-	padding: 1rem;
-}
-</style>
-
 <script>
-import SpBlockExplorer from '@/components/SpBlockExplorer/SpBlockExplorer'
-import SpSignIn from '@/components/SpSignIn'
-import SpBankBalances from '@/components/SpBankBalances'
-import SpTokenSend from '@/components/SpTokenSend'
-import SpTypeForm from '@/components/SpTypeForm'
+import * as sp from '../index.js'
 
 export default {
-	components: {
-		SpBlockExplorer,
-		SpSignIn,
-		SpBankBalances,
-		SpTokenSend,
-		SpTypeForm
+	components: { ...sp },
+	computed: {
+		address() {
+			return this.$store.state.modules.wallet.selectedAddress
+		}
 	}
 }
 </script>
