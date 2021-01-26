@@ -21,25 +21,19 @@ export default {
 			Object.assign(state, getDefaultState())
 		},
 		Balance(state, { queryParams, balance }) {
-			if (!state.Balance[queryParams]) {
-				Vue.set(state.Balance, queryParams, {})
-			}
-			Vue.set(state.Balance[queryParams], balance)
+			state.Balance[queryParams]= balance
 		},
 		AllBalances(state, { queryParams, balances }) {
 			state.AllBalances[queryParams] = balances
 		},
 		TotalSupply(state, { supply }) {
-			Vue.set(state.TotalSupply, supply)
+			state.TotalSupply= supply
 		},
 		SupplyOf(state, { queryParams, amount }) {
-			if (!state.SupplyOf[queryParams]) {
-				Vue.set(state.SupplyOf, queryParams, {})
-			}
-			Vue.set(state.SupplyOf[queryParams], amount)
+			state.SupplyOf[queryParams]=amount
 		},
 		Params(state, { params }) {
-			Vue.set(state.Params, params)
+			state.Params=params
 		},
 		Subscribe(state, subscription) {
 			state._Subscriptions.add(subscription)
