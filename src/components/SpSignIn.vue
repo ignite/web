@@ -236,7 +236,7 @@ export default {
 			}
 		},
 		mnemonicGenerate() {
-			const mnemonic = bip39.generateMnemonic()
+			const mnemonic = bip39.generateMnemonic(256)
 			this.mnemonic = mnemonic
 		},
 		truncate(string) {
