@@ -1,9 +1,8 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Index from '@/views/Index.vue'
 
-Vue.use(VueRouter)
 
+const routerHistory = createWebHistory()
 const routes = [
 	{
 		path: '/',
@@ -11,9 +10,8 @@ const routes = [
 	}
 ]
 
-const router = new VueRouter({
-	mode: 'history',
-	base: process.env.BASE_URL,
+const router = createRouter({
+	history: routerHistory,
 	routes
 })
 
