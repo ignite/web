@@ -2,21 +2,25 @@
 	<transition key="default" name="sp-fade" mode="out-in">
 		<div v-if="!isBlocksStackEmpty && isBackendAlive" class="explorer">
 			<FullWidthContainer>
-				<div slot="sideSheet" class="explorer__block">
-					<transition name="sp-fadeMild" mode="out-in">
-						<BlockDetailSheet
-							v-if="highlightedBlock"
-							:key="blockSheetKey"
-							:block="highlightedBlock"
-						/>
-					</transition>
-				</div>
-				<div slot="mainContent" class="explorer__chain">
-					<div class="explorer__chain-header">Blocks</div>
-					<div class="explorer__chain-main">
-						<BlockChain :blocks="fmtBlockData" />
+				<template v-slot:sideSheet> 
+					<div class="explorer__block">
+						<transition name="sp-fadeMild" mode="out-in">
+							<BlockDetailSheet
+								v-if="highlightedBlock"
+								:key="blockSheetKey"
+								:block="highlightedBlock"
+							/>
+						</transition>
 					</div>
-				</div>
+				</template>
+				<template v-slot:mainContent>
+					<div class="explorer__chain">
+						<div class="explorer__chain-header">Blocks</div>
+						<div class="explorer__chain-main">
+							<BlockChain :blocks="fmtBlockData" />
+						</div>
+					</div>
+				</template>
 			</FullWidthContainer>
 		</div>
 
@@ -99,7 +103,7 @@ export default {
 			return this.backendRunningStates.api
 		}
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		if (this.latestBlock) {
 			this.getBlockchain({
 				blockHeight: this.latestBlock.height,

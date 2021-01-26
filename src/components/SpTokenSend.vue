@@ -149,6 +149,9 @@ export default {
 		SpButton
 	},
 	category: 'wallet',
+	props: {
+		address: String
+	},
 	data() {
 		return {
 			amount: '',
@@ -161,7 +164,16 @@ export default {
 	},
 	computed: {
 		balances() {
-			return this.$store.state.cosmos.bank.bankBalances
+			if (
+				this.address != '' &&
+				this.$store.state.modules.cosmos.bank.AllBalances['/' + this.address]
+			) {
+				return this.$store.state.modules.cosmos.bank.AllBalances[
+					'/' + this.address
+				].balances
+			} else {
+				return []
+			}
 		},
 		denoms() {
 			return this.balances.map(b => b.denom)
@@ -197,18 +209,25 @@ export default {
 					amount: this.amount,
 					denom: this.denom,
 					to_address: this.to_address,
+					from_address: this.address,
 					memo: this.memo
 				}
 				this.txResult = ''
 				this.inFlight = true
-				this.txResult = await this.$store.dispatch('cosmos/tokenSend', payload)
+				this.txResult = await this.$store.dispatch(
+					'modules/cosmos/bank/MsgSend',
+					payload
+				)
 				if (this.txResult && !this.txResult.code) {
 					this.amount = ''
 					this.to_address = ''
 					this.memo = ''
 				}
 				this.inFlight = false
-				await this.$store.dispatch('cosmos/bankBalancesGet')
+				await this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
+					address: this.address,
+					subscribe: false
+				})
 			}
 		}
 	}

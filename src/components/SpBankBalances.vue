@@ -3,10 +3,12 @@
 		<div class="container">
 			<SpH3>
 				Balance
-				<IconSynchronization1 class="h3__icon" @click.native="balancesUpdate" />
+				<IconSynchronization1 class="h3__icon" @click="balancesUpdate" />
 			</SpH3>
-			<div v-if="balances.length < 1">Account balance appears to be empty.</div>
-			<div class="list">
+			<div v-if="balances && balances.length < 1">
+				Account balance appears to be empty.
+			</div>
+			<div class="list" v-if="balances">
 				<div v-for="b in balances" :key="b.denom" class="list__item">
 					<div class="list__item__h3">
 						{{ b.denom }}
@@ -69,18 +71,36 @@ export default {
 		IconSynchronization1
 	},
 	category: 'wallet',
+	props: { address: String, refresh: Boolean },
 	computed: {
 		balances() {
-			return this.$store.state.cosmos.bank.bankBalances
+			if (
+				this.address != '' &&
+				this.$store.state.modules.cosmos.bank.AllBalances['/' + this.address]
+			) {
+				return this.$store.state.modules.cosmos.bank.AllBalances[
+					'/' + this.address
+				].balances
+			} else {
+				return []
+			}
 		}
+	},
+	mounted: function() {
+		this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
+			address: this.address,
+			subscribe: this.refresh
+		})
 	},
 	methods: {
 		numberFormat(number) {
 			return Intl.NumberFormat().format(number)
 		},
 		async balancesUpdate() {
-			await this.$store.dispatch('cosmos/accountSignInTry')
-			await this.$store.dispatch('cosmos/bankBalancesGet')
+			await this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
+				address: this.address,
+				subscribe: false
+			})
 		}
 	}
 }

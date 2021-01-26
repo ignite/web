@@ -210,14 +210,18 @@ export default {
 			return bip39.validateMnemonic(this.mnemonicClean)
 		},
 		address() {
-			const client = this.$store.getters['cosmos/account']
-			return client && client.address
+			const client = this.$store.getters['modules/wallet/client']
+			if (client) {
+				return this.$store.getters['modules/wallet/address']
+			} else {
+				return false
+			}
 		}
 	},
 	methods: {
 		buttonClick() {
 			if (this.address) {
-				this.$store.dispatch('cosmos/accountSignOut')
+				this.$store.dispatch('modules/wallet/signOut')
 			} else {
 				this.mnemonic = ''
 				this.dropdown = !this.dropdown
@@ -226,7 +230,9 @@ export default {
 		async mnemonicImport() {
 			if (this.mnemonicIsValid) {
 				const mnemonic = this.mnemonicClean
-				await this.$store.dispatch('cosmos/accountSignIn', { mnemonic })
+				await this.$store.dispatch('modules/wallet/createWalletWithMnemonic', {
+					mnemonic
+				})
 			}
 		},
 		mnemonicGenerate() {

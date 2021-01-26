@@ -72,7 +72,7 @@ export default {
 	mounted() {
 		this.setTooltipHeight()
 	},
-	destroyed() {
+	unmounted() {
 		window.removeEventListener('resize', this.setTooltipHeight)
 	},
 	methods: {

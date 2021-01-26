@@ -115,7 +115,7 @@ export default {
 					MsgCreate = MsgCreate.add(new Field(f[0], f[1], f[2]))
 				})
 				const registry = new Registry([[typeUrl, MsgCreate]])
-				const client = await SigningStargateClient.connectWithWallet(
+				const client = await SigningStargateClient.connectWithSigner(
 					RPC,
 					wallet,
 					{ registry }
