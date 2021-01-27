@@ -6,6 +6,8 @@ const getDefaultState = () => {
 		TotalSupply: {},
 		SupplyOf: {},
 		Params: {},
+		DenomsMetadata: {},
+		DenomMetadata: {},
 		_Subscriptions: new Set()
 	}
 }
@@ -20,19 +22,25 @@ export default {
 			Object.assign(state, getDefaultState())
 		},
 		BALANCE(state, { queryParams, balance }) {
-			state.Balance[queryParams]= balance
+			state.Balance[queryParams] = balance
 		},
 		ALL_BALANCES(state, { queryParams, balances }) {
 			state.AllBalances[queryParams] = balances
 		},
 		TOTAL_SUPPLY(state, { supply }) {
-			state.TotalSupply= supply
+			state.TotalSupply = supply
 		},
 		SUPPLY_OF(state, { queryParams, amount }) {
-			state.SupplyOf[queryParams]=amount
+			state.SupplyOf[queryParams] = amount
 		},
 		PARAMS(state, { params }) {
-			state.Params=params
+			state.Params = params
+		},
+		DENOMS_METADATA(state, { metadata }) {
+			state.DenomsMetadata = metadata
+		},
+		DENOM_METADATA(state, { queryParams, metadata }) {
+			state.DenomsMetadata[queryParams] = metadata
 		},
 		SUBSCRIBE(state, subscription) {
 			state._Subscriptions.add(subscription)
@@ -42,16 +50,41 @@ export default {
 		}
 	},
 	getters: {
-		getAllBalances: (state) => (address) => {
-			if (
-				address != '' &&
-				state.AllBalances['/'+address]
-			) {
-				return state.AllBalances[
-					'/' +address
-				].balances
+		getAllBalances: state => address => {
+			if (address != '' && state.AllBalances['/' + address]) {
+				return state.AllBalances['/' + address].balances
 			} else {
 				return []
+			}
+		},
+		getBalance: state => (address, denom) => {
+			if (address != '' && state.Balance['/' + address + '/' + denom]) {
+				return state.Balance['/' + address + '/' + denom].balance
+			} else {
+				return {}
+			}
+		},
+		getTotalSupply: state => () => {
+			return state.TotalSupply
+		},
+		getSupplyOf: state => denom => {
+			if (denom != '' && state.SupplyOf['/' + denom]) {
+				return state.SupplyOf['/' + denom].amount
+			} else {
+				return {}
+			}
+		},
+		getParams: state => () => {
+			return state.Params
+		},
+		getDenomsMetadata: state => () => {
+			return state.DenomsMetadata
+		},
+		getDenomMetadata: state => denom => {
+			if (denom != '' && state.DenomMetadata['/' + denom]) {
+				return state.DenomMetadata['/' + denom].metadata
+			} else {
+				return {}
 			}
 		}
 	},
@@ -170,6 +203,47 @@ export default {
 					commit('SUBSCRIBE', {
 						action: 'QueryParams',
 						payload: {}
+					})
+				}
+			} catch (e) {
+				throw 'API Node unavailable'
+			}
+		},
+		async QueryDenomsMetadata({ commit, rootGetters }, { subscribe = false }) {
+			const queryUrl = '/cosmos/bank/v1beta1/denoms_metadata'
+			const queryParams = ''
+			try {
+				const supply = await rootGetters['chain/common/env/apiClient'].query(
+					queryUrl,
+					queryParams
+				)
+				commit('DENOMS_METADATA', { queryParams, supply })
+				if (subscribe) {
+					commit('SUBSCRIBE', {
+						action: 'QueryDenomsMetadata',
+						payload: null
+					})
+				}
+			} catch (e) {
+				throw 'API Node unavailable'
+			}
+		},
+		async QueryDenomMetadata(
+			{ commit, rootGetters },
+			{ denom, subscribe = false }
+		) {
+			const queryUrl = '/cosmos/bank/v1beta1/denoms_metadata'
+			const queryParams = '/' + denom
+			try {
+				const amount = await rootGetters['chain/common/env/apiClient'].query(
+					queryUrl,
+					queryParams
+				)
+				commit('DENOM_METADATA', { queryParams, amount })
+				if (subscribe) {
+					commit('SUBSCRIBE', {
+						action: 'QueryDenomMetadata',
+						payload: { denom }
 					})
 				}
 			} catch (e) {
