@@ -87,10 +87,12 @@ export default {
 		}
 	},
 	mounted: function() {
-		this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
-			address: this.address,
-			subscribe: this.refresh
-		})
+		if (this.address!='') {
+			this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
+				address: this.address,
+				subscribe: this.refresh
+			})
+		}
 	},
 	methods: {
 		numberFormat(number) {
