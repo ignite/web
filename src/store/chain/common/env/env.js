@@ -28,18 +28,18 @@ export default {
 		apiTendermint: state => state.apiTendermint
 	},
 	mutations: {
-		config(state, config) {
+		SET_CONFIG(state, config) {
 			state.apiCosmos = config.apiNode
 			state.apiTendermint = config.rpcNode
 			if (config.wsNode) {
 				state.apiWS = config.wsNode
 			}
 		},
-		connect(state, clients) {
+		CONNECT(state, clients) {
 			state.clients.api = clients.apiClient
 			state.clients.ws = clients.wsClient
 		},
-		initializeWSComplete(state) {
+		INITIALIZE_WS_COMPLETE(state) {
 			state.initialized = true
 		}
 	},
@@ -87,7 +87,7 @@ export default {
 			if (config.apiNode != state.apiNode) {
 				reconnectClient = true
 			}
-			commit('config', config)
+			commit('SET_CONFIG', config)
 			if (this._actions['chain/common/starport/init']) {
 				if (rootGetters['chain/common/starport/wasAppRestarted']) {
 					reconnectWS = true
@@ -108,9 +108,9 @@ export default {
 			if (reconnectClient && config.apiNode) {
 				clients.apiClient = new Api(config.apiNode)
 			}
-			commit('connect', clients)
+			commit('CONNECT', clients)
 			if (reconnectWS) {
-				commit('initializeWSComplete')
+				commit('INITIALIZE_WS_COMPLETE')
 			}
 		}
 	}

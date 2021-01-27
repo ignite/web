@@ -6,10 +6,10 @@ export default  function init(store) {
 	}
 	store.registerModule(['chain', 'cosmos', 'bank'], bank)
 	store.subscribe(mutation => {
-		if (mutation.type == 'chain/common/env/initializeWSComplete') {
+		if (mutation.type == 'chain/common/env/INITIALIZE_WS_COMPLETE') {
 			store.dispatch('chain/cosmos/bank/init', null, { root: true })
 		}
-		if (mutation.type == 'chain/common/wallet/setActiveClient') {
+		if (mutation.type == 'chain/common/wallet/SET_ACTIVE_CLIENT') {
 			store.dispatch('chain/cosmos/bank/registerTypes', null, { root: true })
 		}
 	})

@@ -23,14 +23,14 @@ export default {
 		address: state => state.selectedAddress
 	},
 	mutations: {
-		setActiveWallet(state, wallet) {
+		SET_ACTIVE_WALET(state, wallet) {
 			state.activeWallet = wallet
 		},
-		setActiveClient(state, client) {
+		SET_ACTIVE_CLIENT(state, client) {
 			state.activeClient = client
 			state.authorized = true
 		},
-		addWallet(state, wallet) {
+		ADD_WALLET(state, wallet) {
 			state.activeWallet = wallet
 			if (state.activeWallet.name && state.activeWallet.password) {
 				if (!state.wallets) {
@@ -42,7 +42,7 @@ export default {
 				)
 			}
 		},
-		addAccount(state, account) {
+		ADD_ACCOUNT(state, account) {
 			state.activeWallet.accounts.push(account)
 			if (state.activeWallet.name && state.activeWallet.password) {
 				state.wallets[state.activeWallet.name] = CryptoJS.AES.encrypt(
@@ -51,16 +51,16 @@ export default {
 				)
 			}
 		},
-		setSelectedAddress(state, address) {
+		SET_SELECTED_ADDRESS(state, address) {
 			state.selectedAddress = address
 		},
-		setBackupState(state, backupState) {
+		SET_BACKUP_STATE(state, backupState) {
 			state.backupState = backupState
 		},
-		addMessageType(state, {typeUrl,type}) {
+		ADD_MESSAGE_TYPE(state, {typeUrl,type}) {
 			state.activeClient.registry.register(typeUrl,type) 
 		},
-		signOut(state) {
+		SIGN_OUT(state) {
 			state.selectedAddress = ''
 			state.activeClient = null
 			state.activeWallet = null
@@ -69,7 +69,7 @@ export default {
 	},
 	actions: {
 		signOut({ commit }) {
-			commit('signOut')
+			commit('SIGN_OUT')
 		},
 		async unlockWallet({ commit, state, rootGetters }, { name, password }) {
 			const encryptedWallet = state.wallets[name]
@@ -89,15 +89,15 @@ export default {
 					rootGetters['chain/common/env/apiTendermint'],
 					accountSigner
 				)
-				commit('setActiveClient', client)
+				commit('SET_ACTIVE_CLIENT', client)
 				const [account] = await wallet.getAccounts()
-				commit('setSelectedAddress', account.address)
+				commit('SET_SELECTED_ADDRESS', account.address)
 			}
 		},
 		registerType({commit,state}, payload) {
 			if (state.activeClient) {
 				if (state.activeClient.registry.lookupType(payload.typeUrl)===undefined) {
-					commit('addMessageType',payload)
+					commit('ADD_MESSAGE_TYPE',payload)
 				}else{
 					throw "Message Type already registered!"
 				}
@@ -121,9 +121,9 @@ export default {
 				rootGetters['chain/common/env/apiTendermint'],
 				accountSigner
 			)
-			commit('setActiveClient', client)
+			commit('SET_ACTIVE_CLIENT', client)
 			const [account] = await accountSigner.getAccounts()
-			commit('setSelectedAddress', account.address)
+			commit('SET_SELECTED_ADDRESS', account.address)
 		},
 		async addAccount({ commit, state, dispatch }, pathIncrement) {
 			if (!pathIncrement) {
@@ -141,7 +141,7 @@ export default {
 					acc => acc.address == account.address
 				) == -1
 			) {
-				commit('addAccount', account)
+				commit('ADD_ACCOUNT', account)
 				dispatch('storeWallets')
 			} else {
 				throw 'Account already in store.'
@@ -149,7 +149,7 @@ export default {
 		},
 		storeWallets({ commit, state }) {
 			window.localStorage.setItem('wallets', state.wallets)
-			commit('setBackupState', false)
+			commit('SET_BACKUP_STATE', false)
 		},
 		async switchAPI({ commit, state, rootGetters }) {
 			if (state.activeWallet && state.activeClient) {
@@ -168,7 +168,7 @@ export default {
 					rootGetters['chain/common/env/apiTendermint'],
 					accountSigner
 				)
-				commit('setActiveClient', client)
+				commit('SET_ACTIVE_CLIENT', client)
 			}
 		},
 		async createWalletWithMnemonic(
@@ -198,14 +198,14 @@ export default {
 			const [firstAccount] = await accountSigner.getAccounts()
 			const account = { address: firstAccount.address, pathIncrement: 0 }
 			wallet.accounts.push(account)
-			commit('addWallet', wallet)
+			commit('ADD_WALLET', wallet)
 			const client = await SigningStargateClient.connectWithSigner(
 				rootGetters['chain/common/env/apiTendermint'],
 				accountSigner
 			)
 
-			commit('setActiveClient', client)
-			commit('setSelectedAddress', firstAccount.address)
+			commit('SET_ACTIVE_CLIENT', client)
+			commit('SET_SELECTED_ADDRESS', firstAccount.address)
 			dispatch('storeWallets')
 		},
 		async sendTransaction({ state }, { message, memo, denom }) {

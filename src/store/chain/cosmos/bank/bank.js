@@ -16,28 +16,28 @@ export default {
 	namespaced: true,
 	state,
 	mutations: {
-		ResetState(state) {
+		RESET_STATE(state) {
 			Object.assign(state, getDefaultState())
 		},
-		Balance(state, { queryParams, balance }) {
+		BALANCE(state, { queryParams, balance }) {
 			state.Balance[queryParams]= balance
 		},
-		AllBalances(state, { queryParams, balances }) {
+		ALL_BALANCES(state, { queryParams, balances }) {
 			state.AllBalances[queryParams] = balances
 		},
-		TotalSupply(state, { supply }) {
+		TOTAL_SUPPLY(state, { supply }) {
 			state.TotalSupply= supply
 		},
-		SupplyOf(state, { queryParams, amount }) {
+		SUPPLY_OF(state, { queryParams, amount }) {
 			state.SupplyOf[queryParams]=amount
 		},
-		Params(state, { params }) {
+		PARAMS(state, { params }) {
 			state.Params=params
 		},
-		Subscribe(state, subscription) {
+		SUBSCRIBE(state, subscription) {
 			state._Subscriptions.add(subscription)
 		},
-		Unsubscribe(state, subscription) {
+		UNSUBSCRIBE(state, subscription) {
 			state._Subscriptions.remove(subscription)
 		}
 	},
@@ -64,7 +64,7 @@ export default {
 			}
 		},
 		resetState({ commit }) {
-			commit('ResetState')
+			commit('RESET_STATE')
 		},
 		async StoreUpdate({ state, dispatch }) {
 			state._Subscriptions.forEach(subscription => {
@@ -72,7 +72,7 @@ export default {
 			})
 		},
 		unsubscribe({ commit }, subscription) {
-			commit('Unsubscribe', subscription)
+			commit('UNSUBSCRIBE', subscription)
 		},
 		async QueryBalance(
 			{ commit, rootGetters },
@@ -85,9 +85,9 @@ export default {
 					queryUrl,
 					queryParams
 				)
-				commit('Balance', { queryParams, balance })
+				commit('BALANCE', { queryParams, balance })
 				if (subscribe) {
-					commit('Subscribe', {
+					commit('SUBSCRIBE', {
 						action: 'QueryBalance',
 						payload: { address, denom }
 					})
@@ -107,9 +107,9 @@ export default {
 					queryUrl,
 					queryParams
 				)
-				commit('AllBalances', { queryParams, balances })
+				commit('ALL_BALANCES', { queryParams, balances })
 				if (subscribe) {
-					commit('Subscribe', {
+					commit('UNSUBSCRIBE', {
 						action: 'QueryAllBalances',
 						payload: { address }
 					})
@@ -127,9 +127,9 @@ export default {
 					queryUrl,
 					queryParams
 				)
-				commit('TotalSupply', { queryParams, supply })
+				commit('TOTAL_SUPPLY', { queryParams, supply })
 				if (subscribe) {
-					commit('Subscribe', {
+					commit('SUBSCRIBE', {
 						action: 'QueryTotalSupply',
 						payload: null
 					})
@@ -146,9 +146,9 @@ export default {
 					queryUrl,
 					queryParams
 				)
-				commit('SupplyOf', { queryParams, amount })
+				commit('SUPPLY_OF', { queryParams, amount })
 				if (subscribe) {
-					commit('Subscribe', {
+					commit('SUBSCRIBE', {
 						action: 'QuerySupplyOf',
 						payload: { denom }
 					})
@@ -165,9 +165,9 @@ export default {
 					queryUrl,
 					queryParams
 				)
-				commit('Params', { params })
+				commit('PARAMS', { params })
 				if (subscribe) {
-					commit('Subscribe', {
+					commit('SUBSCRIBE', {
 						action: 'QueryParams',
 						payload: {}
 					})

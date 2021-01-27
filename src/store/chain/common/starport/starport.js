@@ -65,11 +65,11 @@ export default {
 		}
 	},
 	mutations: {
-		setStarportEnv(state, { starportUrl, frontendUrl }) {
+		SET_STARPORT_ENV(state, { starportUrl, frontendUrl }) {
 			state.starportUrl = starportUrl
 			state.frontendUrl = frontendUrl
 		},
-		setBackendRunningStates(state, { frontend, rpc, api }) {
+		SET_BACKEND_RUNNING_STATES(state, { frontend, rpc, api }) {
 			state.backend.running = {
 				frontend,
 				rpc,
@@ -86,7 +86,7 @@ export default {
 		 *
 		 *
 		 */
-		setBackendEnv(state, { node_js, vue_app_custom_url }) {
+		SET_BACKEND_ENV(state, { node_js, vue_app_custom_url }) {
 			state.backend.env = {
 				node_js,
 				vue_app_custom_url
@@ -101,17 +101,17 @@ export default {
 		 *
 		 *
 		 */
-		setPrevStates(state, { status }) {
+		SET_PREV_STATES(state, { status }) {
 			state.backend.prevStates = {
 				frontend: status ? status.is_my_app_frontend_alive : false,
 				rpc: status ? status.is_consensus_engine_alive : false,
 				api: status ? status.is_my_app_backend_alive : false
 			}
 		},
-		setTimer(state, { timer }) {
+		SET_TIMER(state, { timer }) {
 			state._timer = timer
 		},
-		clearTimer(state) {
+		CLEAR_TIMER(state) {
 			clearInterval(state._timer)
 		}
 	},
@@ -131,7 +131,7 @@ export default {
 					(GITPOD && `${GITPOD.protocol}//8080-${GITPOD.hostname}`) ||
 					'http://localhost:8080'
 
-				commit('setStarportEnv', {
+				commit('SET_STARPORT_ENV', {
 					starportUrl,
 					frontendUrl
 				})
@@ -177,12 +177,12 @@ export default {
 					{ root: true }
 				)
 
-				commit('setBackendRunningStates', {
+				commit('SET_BACKEND_RUNNING_STATES', {
 					frontend: status.is_my_app_frontend_alive,
 					rpc: status.is_consensus_engine_alive,
 					api: status.is_my_app_backend_alive
 				})
-				commit('setBackendEnv', {
+				commit('SET_BACKEND_ENV', {
 					node_js: env.node_js,
 					vue_app_custom_url: env.vue_app_custom_url
 				})
@@ -197,15 +197,15 @@ export default {
 				if (getters.wasAppRestarted(status)) {
 					window.location.reload(false)
 				}
-				commit('setPrevStates', { status })
+				commit('SET_PREV_STATES', { status })
 			} catch (error) {
-				commit('setBackendRunningStates', {
+				commit('SET_BACKEND_RUNNING_STATES', {
 					frontend: false,
 					rpc: false,
 					api: false
 				})
 
-				commit('setPrevStates', { status: null })
+				commit('SET_PREV_STATES', { status: null })
 			}
 		},
 		async init({ commit, dispatch }) {
@@ -214,7 +214,7 @@ export default {
       // Fetch backend status regularly
       *
       */
-			commit('setTimer', {
+			commit('SET_TIMER', {
 				timer: setInterval(() => dispatch('setStatusState'), 5000)
 			})
 			dispatch(
