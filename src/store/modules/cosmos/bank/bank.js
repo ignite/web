@@ -41,6 +41,20 @@ export default {
 			state._Subscriptions.remove(subscription)
 		}
 	},
+	getters: {
+		getAllBalances: (state) => (address) => {
+			if (
+				address != '' &&
+				state.AllBalances['/'+address]
+			) {
+				return state.AllBalances[
+					'/' +address
+				].balances
+			} else {
+				return []
+			}
+		}
+	},
 	actions: {
 		init({ dispatch, rootGetters }) {
 			if (rootGetters['modules/env/wsClient']) {

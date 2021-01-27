@@ -72,26 +72,36 @@ export default {
 	},
 	category: 'wallet',
 	props: { address: String, refresh: Boolean },
+	data: function() {
+		return {
+			bankAddress: ''
+		}
+	},
 	computed: {
 		balances() {
-			if (
-				this.address != '' &&
-				this.$store.state.modules.cosmos.bank.AllBalances['/' + this.address]
-			) {
-				return this.$store.state.modules.cosmos.bank.AllBalances[
-					'/' + this.address
-				].balances
-			} else {
-				return []
-			}
+			return this.$store.getters['modules/cosmos/bank/getAllBalances'](this.bankAddress)
 		}
 	},
 	mounted: function() {
-		if (this.address!='') {
+		this.bankAddress=this.address
+		if (this.bankAddress!='') {
 			this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
 				address: this.address,
 				subscribe: this.refresh
 			})
+		}
+	},
+	watch: {
+		address: function(newAddr,oldAddr) {
+			if (newAddr!=oldAddr) {
+				this.bankAddress=newAddr
+				if (this.bankAddress!='') {
+					this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
+						address: this.bankAddress,
+						subscribe: this.refresh
+					})
+				}
+			}
 		}
 	},
 	methods: {
