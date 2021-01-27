@@ -110,7 +110,7 @@ export default {
 		},
 		async balancesUpdate() {
 			await this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
-				address: this.address,
+				address: this.bankAddress,
 				subscribe: false
 			})
 		}
