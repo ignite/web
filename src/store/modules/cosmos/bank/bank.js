@@ -1,4 +1,3 @@
-import Vue from 'vue'
 //import { Type, Field } from 'protobufjs' If registering custom message types
 const getDefaultState = () => {
 	return {
