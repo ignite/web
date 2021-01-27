@@ -57,6 +57,9 @@ export default {
 		setBackupState(state, backupState) {
 			state.backupState = backupState
 		},
+		addMessageType(state, {typeUrl,type}) {
+			state.activeClient.registry.register(typeUrl,type) 
+		},
 		signOut(state) {
 			state.selectedAddress = ''
 			state.activeClient = null
@@ -89,6 +92,17 @@ export default {
 				commit('setActiveClient', client)
 				const [account] = await wallet.getAccounts()
 				commit('setSelectedAddress', account.address)
+			}
+		},
+		registerType({commit,state}, payload) {
+			if (state.activeClient) {
+				if (state.activeClient.registry.lookupType(payload.typeUrl)===undefined) {
+					commit('addMessageType',payload)
+				}else{
+					throw "Message Type already registered!"
+				}
+			}else {
+				throw "Signing client not initialized!"
 			}
 		},
 		async switchAccount({ commit, state, rootGetters }, address) {
