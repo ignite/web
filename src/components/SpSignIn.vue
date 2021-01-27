@@ -210,9 +210,9 @@ export default {
 			return bip39.validateMnemonic(this.mnemonicClean)
 		},
 		address() {
-			const client = this.$store.getters['modules/wallet/client']
+			const client = this.$store.getters['chain/common/wallet/client']
 			if (client) {
-				return this.$store.getters['modules/wallet/address']
+				return this.$store.getters['chain/common/wallet/address']
 			} else {
 				return false
 			}
@@ -221,7 +221,7 @@ export default {
 	methods: {
 		buttonClick() {
 			if (this.address) {
-				this.$store.dispatch('modules/wallet/signOut')
+				this.$store.dispatch('chain/common/wallet/signOut')
 			} else {
 				this.mnemonic = ''
 				this.dropdown = !this.dropdown
@@ -230,7 +230,7 @@ export default {
 		async mnemonicImport() {
 			if (this.mnemonicIsValid) {
 				const mnemonic = this.mnemonicClean
-				await this.$store.dispatch('modules/wallet/createWalletWithMnemonic', {
+				await this.$store.dispatch('chain/common/wallet/createWalletWithMnemonic', {
 					mnemonic
 				})
 			}

@@ -8,7 +8,7 @@ const store = createStore({
 	},
 	mutations: {},
 	actions: {},
-	modules: {},
+	chain: {},
 	plugins: [createLogger()]
 })
 init(store)

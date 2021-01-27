@@ -164,7 +164,7 @@ export default {
 						: `${state.APP_ENV.API}/txs/`
 
 				dispatch(
-					'modules/env/config',
+					'chain/common/env/config',
 					{
 						chainId,
 						sdkVersion,
@@ -218,7 +218,7 @@ export default {
 				timer: setInterval(() => dispatch('setStatusState'), 5000)
 			})
 			dispatch(
-				'modules/env/config',
+				'chain/common/env/config',
 				{
 					apiNode,
 					rpcNode,

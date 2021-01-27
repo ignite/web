@@ -1,5 +1,5 @@
-import ApiWS from '../../../apis/api-ws'
-import Api from '../../../apis/api'
+import ApiWS from '../../../../apis/api-ws'
+import Api from '../../../../apis/api'
 
 export default {
 	namespaced: true,
@@ -56,8 +56,8 @@ export default {
 				getTXApi: 'http://localhost:26657/tx?hash=0x'
 			}
 		) {
-			if (this._actions['modules/starport/init']) {
-				dispatch('modules/starport/init', null, { root: true })
+			if (this._actions['chain/common/starport/init']) {
+				dispatch('chain/common/starport/init', null, { root: true })
 			} else {
 				dispatch('config', config)
 			}
@@ -88,8 +88,8 @@ export default {
 				reconnectClient = true
 			}
 			commit('config', config)
-			if (this._actions['modules/starport/init']) {
-				if (rootGetters['modules/starport/wasAppRestarted']) {
+			if (this._actions['chain/common/starport/init']) {
+				if (rootGetters['chain/common/starport/wasAppRestarted']) {
 					reconnectWS = true
 					reconnectSigningClient = true
 				}
@@ -103,7 +103,7 @@ export default {
 				await clients.wsClient.connect()
 			}
 			if (reconnectSigningClient && config.rpcNode) {
-				dispatch('modules/wallet/switchAPI', null, { root: true })
+				dispatch('chain/common/wallet/switchAPI', null, { root: true })
 			}
 			if (reconnectClient && config.apiNode) {
 				clients.apiClient = new Api(config.apiNode)

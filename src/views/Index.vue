@@ -16,7 +16,7 @@ export default {
 	components: { ...sp },
 	computed: {
 		address() {
-			return this.$store.state.modules.wallet.selectedAddress
+			return this.$store.state.chain.common.wallet.selectedAddress
 		}
 	}
 }

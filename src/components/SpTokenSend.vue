@@ -166,9 +166,9 @@ export default {
 		balances() {
 			if (
 				this.address != '' &&
-				this.$store.state.modules.cosmos.bank.AllBalances['/' + this.address]
+				this.$store.state.chain.cosmos.bank.AllBalances['/' + this.address]
 			) {
-				return this.$store.state.modules.cosmos.bank.AllBalances[
+				return this.$store.state.chain.cosmos.bank.AllBalances[
 					'/' + this.address
 				].balances
 			} else {
@@ -215,7 +215,7 @@ export default {
 				this.txResult = ''
 				this.inFlight = true
 				this.txResult = await this.$store.dispatch(
-					'modules/cosmos/bank/MsgSend',
+					'chain/cosmos/bank/MsgSend',
 					payload
 				)
 				if (this.txResult && !this.txResult.code) {
@@ -224,7 +224,7 @@ export default {
 					this.memo = ''
 				}
 				this.inFlight = false
-				await this.$store.dispatch('modules/cosmos/bank/QueryAllBalances', {
+				await this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
 					address: this.address,
 					subscribe: false
 				})

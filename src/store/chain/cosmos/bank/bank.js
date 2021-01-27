@@ -57,8 +57,8 @@ export default {
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			if (rootGetters['modules/env/wsClient']) {
-				rootGetters['modules/env/wsClient'].on('newblock', () => {
+			if (rootGetters['chain/common/env/wsClient']) {
+				rootGetters['chain/common/env/wsClient'].on('newblock', () => {
 					dispatch('StoreUpdate')
 				})
 			}
@@ -81,7 +81,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/balances'
 			const queryParams = '/' + address + '/' + denom
 			try {
-				const balance = await rootGetters['modules/env/apiClient'].query(
+				const balance = await rootGetters['chain/common/env/apiClient'].query(
 					queryUrl,
 					queryParams
 				)
@@ -103,7 +103,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/balances'
 			const queryParams = '/' + address
 			try {
-				const balances = await rootGetters['modules/env/apiClient'].query(
+				const balances = await rootGetters['chain/common/env/apiClient'].query(
 					queryUrl,
 					queryParams
 				)
@@ -123,7 +123,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/supply'
 			const queryParams = ''
 			try {
-				const supply = await rootGetters['modules/env/apiClient'].query(
+				const supply = await rootGetters['chain/common/env/apiClient'].query(
 					queryUrl,
 					queryParams
 				)
@@ -142,7 +142,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/supply'
 			const queryParams = '/' + denom
 			try {
-				const amount = await rootGetters['modules/env/apiClient'].query(
+				const amount = await rootGetters['chain/common/env/apiClient'].query(
 					queryUrl,
 					queryParams
 				)
@@ -161,7 +161,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/params'
 			const queryParams = ''
 			try {
-				const params = await rootGetters['modules/env/apiClient'].query(
+				const params = await rootGetters['chain/common/env/apiClient'].query(
 					queryUrl,
 					queryParams
 				)
@@ -187,7 +187,7 @@ export default {
   			.add(new Field("title", 2, "string"))
 				.add(new Field("body", 3, "string"));
 
-			dispatch('modules/wallet/registerType', {typeUrl: '/foo.foo.MsgCreatePost' , type: MsgCreatePost }, { root: true })
+			dispatch('chain/common/wallet/registerType', {typeUrl: '/foo.foo.MsgCreatePost' , type: MsgCreatePost }, { root: true })
 		
 		},
 			*/
@@ -203,7 +203,7 @@ export default {
 			}
 			try {
 				await dispatch(
-					'modules/wallet/sendTransaction',
+					'chain/common/wallet/sendTransaction',
 					{
 						message: { typeUrl, value },
 						memo,
@@ -223,7 +223,7 @@ export default {
 			}
 			try {
 				await dispatch(
-					'modules/wallet/sendTransaction',
+					'chain/common/wallet/sendTransaction',
 					{
 						message: { typeUrl, value },
 						memo,

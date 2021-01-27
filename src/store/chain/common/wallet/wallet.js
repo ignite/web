@@ -86,7 +86,7 @@ export default {
 					wallet.prefix
 				)
 				const client = SigningStargateClient.connectWithSigner(
-					rootGetters['modules/env/apiTendermint'],
+					rootGetters['chain/common/env/apiTendermint'],
 					accountSigner
 				)
 				commit('setActiveClient', client)
@@ -118,7 +118,7 @@ export default {
 				state.activeWallet.prefix
 			)
 			const client = await SigningStargateClient.connectWithSigner(
-				rootGetters['modules/env/apiTendermint'],
+				rootGetters['chain/common/env/apiTendermint'],
 				accountSigner
 			)
 			commit('setActiveClient', client)
@@ -165,7 +165,7 @@ export default {
 					state.activeWallet.prefix
 				)
 				const client = await SigningStargateClient.connectWithSigner(
-					rootGetters['modules/env/apiTendermint'],
+					rootGetters['chain/common/env/apiTendermint'],
 					accountSigner
 				)
 				commit('setActiveClient', client)
@@ -200,7 +200,7 @@ export default {
 			wallet.accounts.push(account)
 			commit('addWallet', wallet)
 			const client = await SigningStargateClient.connectWithSigner(
-				rootGetters['modules/env/apiTendermint'],
+				rootGetters['chain/common/env/apiTendermint'],
 				accountSigner
 			)
 
