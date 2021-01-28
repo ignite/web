@@ -15,39 +15,13 @@
 			@scroll=";[handleTableScroll($event), updateScrollValue()]"
 		>
 			<div v-if="blocks" class="chain__blocks">
-				<button
+				<SpBlockDisplaySmall
 					v-for="block in blocks"
-					:id="block.blockMsg.blockHash"
-					:key="block.blockMsg.blockHash"
-					:class="[
-						'chain__block',
-						{
-							'-has-txs': block.txs.length > 0,
-							'-is-active': block.blockMsg.blockHash === highlightedBlock.id
-						}
-					]"
-					@click="handleCardClicked"
+					:id="'block-' + block.height"
+					:key="block.hash"
+					:block="block"
 				>
-					<BlockCard
-						:title="block.blockMsg.height"
-						:note="getFmtTime(block.blockMsg.time)"
-						:is-active="block.blockMsg.blockHash === highlightedBlock.id"
-					>
-						<div v-if="block.txs.length > 0" class="block-info">
-							<span
-								v-if="getFailedTxsCount(block.txs) > 0"
-								class="block-info__indicator"
-							></span>
-							<span class="block-info__text">{{
-								getBlockNoteCopy(block.txs.length, 'transaction')
-							}}</span>
-							·
-							<span class="block-info__text">{{
-								getBlockNoteCopy(getMsgsAmount(block.txs), 'message')
-							}}</span>
-						</div>
-					</BlockCard>
-				</button>
+				</SpBlockDisplaySmall>
 			</div>
 		</div>
 
@@ -59,21 +33,16 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 
 import blockHelpers from '../../helpers/block'
-
-import BlockCard from './BlockCard'
+import SpBlockDisplaySmall from '../block/SpBlockDisplaySmall'
 import IconArrow from '../icons/Arrow'
 
 export default {
 	components: {
-		BlockCard,
+		SpBlockDisplaySmall,
 		IconArrow
-	},
-	props: {
-		blocks: { type: Array, required: true }
 	},
 	data() {
 		return {
@@ -88,23 +57,19 @@ export default {
 				hasHigherBlocks: false,
 				hasLowerBlocks: false
 			},
-			localHighlightedBlock: null
+			highlightBlock: null,
+			viewedBlock: null
 		}
 	},
 	computed: {
-		/*
-		 *
-		 * Vuex
-		 *
-		 */
-		...mapGetters('cosmos', [
-			'highlightedBlock',
-			'blocksStack',
-			'lastBlock',
-			'stackChainRange',
-			'latestBlock',
-			'blockByHash'
-		]),
+		blocks() {
+			return this.$store.getters['chain/common/blocks/getBlocks']
+		},
+		detailedBlock() {
+			return this.$store.getters['chain/common/blocks/getBlockByHeight'](
+				this.viewedBlock
+			)
+		},
 		/*
 		 *
 		 * Local
@@ -127,54 +92,20 @@ export default {
 		}
 	},
 	watch: {
-		latestBlock() {
+		blocks() {
 			/**
        *
        // If no block is clicked (selected),
        // set highlighted block to be latest block.
        *
        */
-			if (!this.localHighlightedBlock) {
-				this.setHighlightedBlock({
-					block: {
-						id: this.latestBlock.blockMeta.block_id.hash,
-						data: this.blockHelpers.getFormattedBlock([this.latestBlock])[0]
-					}
-				})
+			if (!this.highlightBlock) {
+				this.viewedBlock = this.blocks[0].height
 			}
-
-			this.setHasHigherBlocksState()
-			this.setHasLowerBlocksState()
-		},
-		isScrolledTop() {
-			this.setHasHigherBlocksState()
-		},
-		isScrolledBottom() {
-			this.setHasLowerBlocksState()
 		}
 	},
-	mounted() {
-		if (this.latestBlock) {
-			this.setHighlightedBlock({
-				block: {
-					id: this.latestBlock.blockMeta.block_id.hash,
-					data: this.blockHelpers.getFormattedBlock([this.latestBlock])[0]
-				}
-			})
-		}
-	},
+	mounted() {},
 	methods: {
-		/*
-		 *
-		 * Vuex
-		 *
-		 */
-		...mapActions('cosmos', ['getBlockchain', 'setHighlightedBlock']),
-		/*
-		 *
-		 * Local
-		 *
-		 */
 		getFmtTime(time) {
 			const momentTime = moment(time)
 			const duration = moment.duration(moment().diff(momentTime))

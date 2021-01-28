@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
 	namespaced: true,
 	state() {
@@ -8,7 +10,10 @@ export default {
 	},
 	getters: {
 		getBlocks: state => {
-			return [...state.blocks].sort( (a,b) => b.height - a.height)
+			return [...state.blocks].sort((a, b) => b.height - a.height)
+		},
+		getBlockByHeight: state => height => {
+			return state.blocks.find( x => x.height==height) || {}
 		}
 	},
 	mutations: {
@@ -33,13 +38,19 @@ export default {
 				})
 			}
 		},
-		addBlock({ commit }, blockData) {
+		async addBlock({ commit, rootGetters }, blockData) {
+			const blockDetails = await axios.get(
+				rootGetters['chain/common/env/apiTendermint'] +
+					'/block?height=' +
+					blockData.data.value.block.header.height
+			)
 			const block = {
 				height: blockData.data.value.block.header.height,
 				timestamp: blockData.data.value.block.header.time,
-				hash: "Unconfirmed",
-				data: blockData.data.value.block
+				hash: blockDetails.data.result.block_id.hash,
+				details: blockData.data.value.block
 			}
+
 			commit('ADD_BLOCK', block)
 		},
 		resetState({ commit }) {

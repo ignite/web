@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="sp-container">
+		<div class="container">
 			<sp-sign-in />
 			<sp-bank-balances :address="address" :refresh="true" />
 			<sp-token-send :address="address" />
