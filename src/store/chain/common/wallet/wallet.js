@@ -23,7 +23,7 @@ export default {
 		address: state => state.selectedAddress
 	},
 	mutations: {
-		SET_ACTIVE_WALET(state, wallet) {
+		SET_ACTIVE_WALLET(state, wallet) {
 			state.activeWallet = wallet
 		},
 		SET_ACTIVE_CLIENT(state, client) {
@@ -78,7 +78,7 @@ export default {
 					CryptoJS.enc.Utf8
 				)
 			)
-			commit('setActiveWallet', wallet)
+			commit('SET_ACTIVE_WALLET', wallet)
 			if (wallet.accounts.length > 0) {
 				const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
 					wallet.mnemonic,
