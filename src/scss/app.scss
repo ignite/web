@@ -1,11 +1,16 @@
 body {
 	padding-top:42px;
 
-.container {
-	max-width: 800px;
-	margin: 2rem auto;
-	padding: 1rem;
-}
+	.container {
+		max-width: 800px;
+		margin: 2rem auto;
+		padding: 1rem;
+	}
+	.SpBlockDisplayFull {
+		pre {
+			font-size:12px;
+		}
+	}
 	.SpHeader {
 		position: fixed;
 		top:0;
@@ -14,11 +19,19 @@ body {
 		height:42px;
 		background: black;
 		width:100%;
-		text-align:right;
+		display:flex;
+		justify-content:flex-end;
+		align-items: center;
+		padding-left:10px;
+		padding-right:10px;
+    box-sizing: border-box;
 		.SpWallet {
 			color:white;
 			vertical-align:middle;
-			display:inline-block;
+			position:relative;
+			button {
+				color:white;
+			}
 		}
 	}
 	.SpFooter {

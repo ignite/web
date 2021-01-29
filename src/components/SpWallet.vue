@@ -2,26 +2,31 @@
 	<div class="SpWallet">
 		<div v-if="loggedIn">
 			<button @click="selectAccount()">{{ currentAccount }}</button>
-			<SpAccountList/>
+			<SpAccountList />
 		</div>
 		<div v-else>
-			Sign In
+			<button @click="showWalletList()">Sign In</button>
+			<SpWalletList v-if="showWallets" />
 		</div>
 	</div>
 </template>
 <script>
 import SpAccountList from './wallet/SpAccountList'
+import SpWalletList from './wallet/SpWalletList'
 export default {
 	name: 'SpWallet',
 	components: {
-		SpAccountList
+		SpAccountList,
+		SpWalletList
+	},
+	data() {
+		return {
+			showWallets: false
+		}
 	},
 	computed: {
 		hasWallet() {
 			return this.$store.hasModule(['chain', 'common', 'wallet'])
-		},
-		walletList() {
-			return this.$store.state.chain.common.wallet.wallets
 		},
 		currentAccount() {
 			if (this.loggedIn) {
@@ -36,6 +41,11 @@ export default {
 			} else {
 				return false
 			}
+		}
+	},
+	methods: {
+		showWalletList() {
+			this.showWallets = true
 		}
 	}
 }

@@ -1,0 +1,34 @@
+<template>
+	<div>
+		<div class="container">
+			<SpBlockDisplayFull :block="block" v-if="block" />
+		</div>
+	</div>
+</template>
+
+<script>
+import SpBlockDisplayFull from '@/components/block/SpBlockDisplayFull'
+import axios from 'axios'
+
+export default {
+	components: { SpBlockDisplayFull },
+	data() {
+		return {
+			block: null
+		}
+	},
+	async created() {
+		const blockDetails = await axios.get(
+			this.$store.getters['chain/common/env/apiTendermint'] +
+				'/block?height=' +
+				this.$route.params.block
+		)
+		this.block = {
+			height: blockDetails.data.result.block.header.height,
+			timestamp: blockDetails.data.result.block.header.time,
+			hash: blockDetails.data.result.block_id.hash,
+			details: blockDetails.data.result.block
+		}
+	}
+}
+</script>
