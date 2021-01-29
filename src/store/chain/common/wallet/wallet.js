@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing'
 import {
 	assertIsBroadcastTxSuccess,
@@ -11,7 +10,7 @@ export default {
 	namespaced: true,
 	state() {
 		return {
-			wallets: JSON.parse(window.localStorage.getItem('wallets')),
+			wallets: JSON.parse(window.localStorage.getItem('wallets')) || [],
 			activeWallet: null,
 			activeClient: null,
 			selectedAddress: '',
@@ -20,7 +19,8 @@ export default {
 	},
 	getters: {
 		client: state => state.activeClient,
-		address: state => state.selectedAddress
+		address: state => state.selectedAddress,
+		loggedIn: state => state.activeClient !== null
 	},
 	mutations: {
 		SET_ACTIVE_WALLET(state, wallet) {
@@ -33,22 +33,24 @@ export default {
 		ADD_WALLET(state, wallet) {
 			state.activeWallet = wallet
 			if (state.activeWallet.name && state.activeWallet.password) {
-				if (!state.wallets) {
-					Vue.set(state, 'wallets', {})
-				}
-				state.wallets[state.activeWallet.name] = CryptoJS.AES.encrypt(
-					JSON.stringify(state.activeWallet),
-					state.activeWallet.password
-				)
+				state.wallets.push({
+					name: state.activeWallet.name,
+					wallet: CryptoJS.AES.encrypt(
+						JSON.stringify(state.activeWallet),
+						state.activeWallet.password
+					).toString()
+				})
 			}
 		},
 		ADD_ACCOUNT(state, account) {
 			state.activeWallet.accounts.push(account)
 			if (state.activeWallet.name && state.activeWallet.password) {
-				state.wallets[state.activeWallet.name] = CryptoJS.AES.encrypt(
+				state.wallets[
+					state.wallets.findIndex(x => x.name === state.activeWallet.name)
+				].wallet = CryptoJS.AES.encrypt(
 					JSON.stringify(state.activeWallet),
 					state.activeWallet.password
-				)
+				).toString()
 			}
 		},
 		SET_SELECTED_ADDRESS(state, address) {
@@ -57,8 +59,8 @@ export default {
 		SET_BACKUP_STATE(state, backupState) {
 			state.backupState = backupState
 		},
-		ADD_MESSAGE_TYPE(state, {typeUrl,type}) {
-			state.activeClient.registry.register(typeUrl,type) 
+		ADD_MESSAGE_TYPE(state, { typeUrl, type }) {
+			state.activeClient.registry.register(typeUrl, type)
 		},
 		SIGN_OUT(state) {
 			state.selectedAddress = ''
@@ -72,7 +74,8 @@ export default {
 			commit('SIGN_OUT')
 		},
 		async unlockWallet({ commit, state, rootGetters }, { name, password }) {
-			const encryptedWallet = state.wallets[name]
+			const encryptedWallet =
+				state.wallets[state.wallets.findIndex(x => x.name === name)].wallet
 			const wallet = JSON.parse(
 				CryptoJS.AES.decrypt(encryptedWallet, password).toString(
 					CryptoJS.enc.Utf8
@@ -90,19 +93,21 @@ export default {
 					accountSigner
 				)
 				commit('SET_ACTIVE_CLIENT', client)
-				const [account] = await wallet.getAccounts()
+				const [account] = await accountSigner.getAccounts()
 				commit('SET_SELECTED_ADDRESS', account.address)
 			}
 		},
-		registerType({commit,state}, payload) {
+		registerType({ commit, state }, payload) {
 			if (state.activeClient) {
-				if (state.activeClient.registry.lookupType(payload.typeUrl)===undefined) {
-					commit('ADD_MESSAGE_TYPE',payload)
-				}else{
-					throw "Message Type already registered!"
+				if (
+					state.activeClient.registry.lookupType(payload.typeUrl) === undefined
+				) {
+					commit('ADD_MESSAGE_TYPE', payload)
+				} else {
+					throw 'Message Type already registered!'
 				}
-			}else {
-				throw "Signing client not initialized!"
+			} else {
+				throw 'Signing client not initialized!'
 			}
 		},
 		async switchAccount({ commit, state, rootGetters }, address) {
@@ -148,7 +153,7 @@ export default {
 			}
 		},
 		storeWallets({ commit, state }) {
-			window.localStorage.setItem('wallets', state.wallets)
+			window.localStorage.setItem('wallets', JSON.stringify(state.wallets))
 			commit('SET_BACKUP_STATE', false)
 		},
 		async switchAPI({ commit, state, rootGetters }) {

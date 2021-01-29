@@ -1,0 +1,18 @@
+body {
+  padding-top:42px;
+  .SpHeader {
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:42px;
+    background: black;
+    width:100%;
+    text-align:right;
+    .SpWallet {
+      color:white;
+      vertical-align:middle;
+      display:inline-block;
+    }
+  }
+}
