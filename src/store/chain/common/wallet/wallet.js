@@ -42,6 +42,9 @@ export default {
 				})
 			}
 		},
+		PATH_INCREMENT(state) {
+			state.activeWallet.pathIncrement = state.activeWallet.pathIncrement + 1
+		},
 		ADD_ACCOUNT(state, account) {
 			state.activeWallet.accounts.push(account)
 			if (state.activeWallet.name && state.activeWallet.password) {
@@ -133,6 +136,7 @@ export default {
 		async addAccount({ commit, state, dispatch }, pathIncrement) {
 			if (!pathIncrement) {
 				pathIncrement = state.activeWallet.pathIncrement + 1
+				commit('PATH_INCREMENT')
 			}
 			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
 				state.activeWallet.mnemonic,
