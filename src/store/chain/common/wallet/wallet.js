@@ -144,7 +144,7 @@ export default {
 				state.activeWallet.prefix
 			)
 			const [acc] = await accountSigner.getAccounts()
-			const account = { address: acc.address, pathIncrement: pathIncrement }
+			const account = { address: acc.address, pathIncrement: parseInt(pathIncrement) }
 			if (
 				state.activeWallet.accounts.findIndex(
 					acc => acc.address == account.address

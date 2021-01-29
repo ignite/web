@@ -21,6 +21,10 @@
 					id="SpAccountNextAvailable"
 				/>
 			</div>
+			<div class="SpAccountHDPath">
+				Use specific HD path: {{ HDPath
+				}}<input type="number" v-model="newAccount.pathIncrement" />
+			</div>
 			<div class="SpAccountCreate">
 				<button @click="createAccount()">
 					Create account
@@ -38,6 +42,9 @@ export default {
 	computed: {
 		accountList() {
 			return this.$store.state.chain.common.wallet.activeWallet.accounts
+		},
+		HDPath() {
+			return this.$store.state.chain.common.wallet.activeWallet.HDpath
 		}
 	},
 	methods: {
@@ -46,7 +53,7 @@ export default {
 				newAccount: {
 					show: false,
 					nextAvailable: true,
-					HDPath: null
+					pathIncrement: null
 				}
 			}
 		},
@@ -56,9 +63,17 @@ export default {
 		newAccountForm() {
 			this.newAccount.show = true
 		},
+		async useAccount(address) {
+			await this.$store.dispatch('chain/common/wallet/switchAccount', address)
+		},
 		async createAccount() {
-			if (this.newAccount.nextAvailable){
+			if (this.newAccount.nextAvailable) {
 				await this.$store.dispatch('chain/common/wallet/addAccount')
+			} else {
+				await this.$store.dispatch(
+					'chain/common/wallet/addAccount',
+					this.newAccount.pathIncrement
+				)
 			}
 			this.reset()
 		}
