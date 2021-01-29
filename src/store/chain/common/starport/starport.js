@@ -217,7 +217,7 @@ export default {
 			commit('SET_TIMER', {
 				timer: setInterval(() => dispatch('setStatusState'), 5000)
 			})
-			dispatch(
+			await dispatch(
 				'chain/common/env/config',
 				{
 					apiNode,

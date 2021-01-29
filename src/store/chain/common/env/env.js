@@ -57,9 +57,9 @@ export default {
 			}
 		) {
 			if (this._actions['chain/common/starport/init']) {
-				dispatch('chain/common/starport/init', null, { root: true })
+				await dispatch('chain/common/starport/init', null, { root: true })
 			} else {
-				dispatch('config', config)
+				await dispatch('config', config)
 			}
 		},
 		async config(

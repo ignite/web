@@ -1,10 +1,18 @@
 <template>
-	<div>
+	<div v-if="initialized">
 		<div class="SpHeader" v-if="hasWallet">
 			<SpWallet />
 			<SpWalletList />
 		</div>
 		<router-view />
+		<div class="SpFooter">
+			<SpBlockHeight />
+			<div class="SpStatuses">
+				<SpStatusAPI />
+				<SpStatusRPC />
+				<SpStatusWS />
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -15,14 +23,27 @@ body {
 </style>
 
 <script>
-import "./scss/app.scss";
+import './scss/app.scss'
 import SpWallet from './components/SpWallet'
 import SpWalletList from './components/wallet/SpWalletList'
+import SpBlockHeight from '@/components/block/SpBlockHeight'
+import SpStatusAPI from '@/components/env/SpStatusAPI'
+import SpStatusRPC from '@/components/env/SpStatusRPC'
+import SpStatusWS from '@/components/env/SpStatusWS'
 
 export default {
 	components: {
 		SpWallet,
-		SpWalletList
+		SpWalletList,
+		SpBlockHeight,
+		SpStatusAPI,
+		SpStatusRPC,
+		SpStatusWS
+	},
+	data() {
+		return {
+			initialized: false
+		}
 	},
 	computed: {
 		hasWallet() {
@@ -31,6 +52,7 @@ export default {
 	},
 	async created() {
 		await this.$store.dispatch('chain/common/env/init')
+		this.initialized = true
 	}
 }
 </script>

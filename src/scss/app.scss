@@ -1,18 +1,73 @@
 body {
-  padding-top:42px;
-  .SpHeader {
-    position: fixed;
-    top:0;
-    left:0;
-    right:0;
-    height:42px;
-    background: black;
-    width:100%;
-    text-align:right;
-    .SpWallet {
-      color:white;
-      vertical-align:middle;
-      display:inline-block;
-    }
-  }
+	padding-top:42px;
+
+.container {
+	max-width: 800px;
+	margin: 2rem auto;
+	padding: 1rem;
+}
+	.SpHeader {
+		position: fixed;
+		top:0;
+		left:0;
+		right:0;
+		height:42px;
+		background: black;
+		width:100%;
+		text-align:right;
+		.SpWallet {
+			color:white;
+			vertical-align:middle;
+			display:inline-block;
+		}
+	}
+	.SpFooter {
+		position: fixed;
+		bottom:0;
+		left:0;
+		right:0;
+		width:100%;
+		height:42px;
+		background: black;
+		color:white;
+		display:flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-left:10px;
+		padding-right:10px;
+    box-sizing: border-box;
+		.SpStatuses {
+			display:flex;
+			justify-content: right;
+			align-items: center;
+			.SpStatusLED {
+				display: inline-block;
+				height: 16px;
+				width:16px;
+				border-radius: 8px;
+				background: red;
+				&.active {
+					background:green;
+				}
+			}
+		}
+		.SpStatusAPI {
+			margin-left:10px;
+			em {
+				display:none;
+			}
+		}
+		.SpStatusRPC {
+			margin-left:10px;
+			em {
+				display:none;
+			}
+		}
+		.SpStatusWS {
+			margin-left:10px;
+			em {
+				display:none;
+			}
+		}
+	}
 }
