@@ -25,9 +25,9 @@ body {
   .SpButton {
     display: inline-flex;
     background: rgb(247, 247, 247);
-		padding: 0.6rem 0.75rem;
-		margin-left:2px;
-		margin-right:2px;
+    padding: 0.6rem 0.75rem;
+    margin-left: 2px;
+    margin-right: 2px;
     align-items: center;
     cursor: pointer;
     white-space: nowrap;
@@ -37,9 +37,9 @@ body {
       color: rgba(0, 0, 0, 0.25);
       cursor: not-allowed;
       fill: rgba(0, 0, 0, 0.25);
-			.SpButtonText { 
-				color: rgba(0, 0, 0, 0.25);
-			}
+      .SpButtonText {
+        color: rgba(0, 0, 0, 0.25);
+      }
     }
 
     .SpButtonIcon {
@@ -65,23 +65,23 @@ body {
   }
   .SpForm {
     margin-top: 10px;
-		.SpFormTitle {
-			margin-bottom:10px;
-		}
-		.SpCheckbox {
-			label {
-				display: flex; 
-				justify-content: center;
-				align-items: center; 
-				margin-bottom:10px;
-				input[type=checkbox] {
-					flex: none;
-					width:auto;
-					margin:0;
-					margin-left: 10px;
-				}
-			}
-		}
+    .SpFormTitle {
+      margin-bottom: 10px;
+    }
+    .SpCheckbox {
+      label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        input[type='checkbox'] {
+          flex: none;
+          width: auto;
+          margin: 0;
+          margin-left: 10px;
+        }
+      }
+    }
     input {
       border: none;
       font-size: inherit;
@@ -100,11 +100,11 @@ body {
       }
       &:disabled {
         color: rgba(0, 0, 0, 0.25);
-			}
-			&.SpInputNumber {
-				padding:0.75rem 0.25rem;
-				width:50px;
-			}
+      }
+      &.SpInputNumber {
+        padding: 0.75rem 0.25rem;
+        width: 50px;
+      }
     }
     textarea {
       border: 0;
@@ -137,75 +137,82 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     box-sizing: border-box;
-    .SpWallet {
+    .SpMenu {
       color: white;
       vertical-align: middle;
-			position: relative;
-			.SpMenu {
-        position: absolute;
-        right: 0;
-        top: 38px;
+      position: relative;
+      .SpMenuList {
+				background:white;
+        position: fixed;
+        right: 10px;
+        top: 44px;
         color: black;
         border: 1px solid black;
-				border-radius: 6px;
-				box-sizing: border-box;
+        border-radius: 6px;
+        box-sizing: border-box;
         padding: 10px;
         font-size: 14px;
         text-align: right;
         ul {
           list-style: none;
           padding: 0;
-					text-align: center;
-					margin-top:10px;
-					margin-bottom:0;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 0;
           li {
-						text-align: right;
-						margin-bottom:5px;
+            text-align: right;
+            margin-bottom: 5px;
             .SpButton {
-							width: 100%;
-							justify-content: flex-end;
-							.SpButtonText {
-								text-align:right;
-							}
+              width: 100%;
+              justify-content: flex-end;
+              .SpButtonText {
+                text-align: right;
+              }
             }
           }
-				}
-
-			}
+        }
+      }
+    }
+    .SpWallet {
+      color: white;
+      vertical-align: middle;
+      position: relative;
       .SpAccountList {
-        position: absolute;
-        right: 0;
-        top: 38px;
+				background:white;
+        position: fixed;
+        right: 10px;
+        top: 44px;
         color: black;
-        min-width: 100%;
+        min-width: 250px;
         border: 1px solid black;
-				border-radius: 6px;
-				box-sizing: border-box;
+        border-radius: 6px;
+        box-sizing: border-box;
         padding: 10px;
         font-size: 14px;
         text-align: center;
         ul {
           list-style: none;
           padding: 0;
-					text-align: center;
-					margin-top:10px;
-					margin-bottom:0;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 0;
           li {
-						text-align: center;
-						margin-bottom:5px;
+            text-align: center;
+            margin-bottom: 5px;
             .SpButton {
               width: 100%;
             }
           }
-				}
+        }
       }
       .SpWalletList {
-        position: absolute;
-        right: 0;
-        top: 38px;
+				background:white;
+        position: fixed;
+        right: 10px;
+        top: 44px;
         color: black;
-				box-sizing: border-box;
-				min-width:250px;
+        box-sizing: border-box;
+        min-width: 250px;
         border: 1px solid black;
         border-radius: 6px;
         padding: 10px;
@@ -214,12 +221,12 @@ body {
         ul {
           list-style: none;
           padding: 0;
-					text-align: center;
-					margin-top:10px;
-					margin-bottom:0;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 0;
           li {
-						text-align: center;
-						margin-bottom:5px;
+            text-align: center;
+            margin-bottom: 5px;
             .SpButton {
               width: 100%;
             }

@@ -20,7 +20,8 @@ export default {
 	getters: {
 		client: state => state.activeClient,
 		address: state => state.selectedAddress,
-		loggedIn: state => state.activeClient !== null
+		loggedIn: state => state.activeClient !== null,
+		walletName: state => state.activeWallet.name
 	},
 	mutations: {
 		SET_ACTIVE_WALLET(state, wallet) {
@@ -144,7 +145,10 @@ export default {
 				state.activeWallet.prefix
 			)
 			const [acc] = await accountSigner.getAccounts()
-			const account = { address: acc.address, pathIncrement: parseInt(pathIncrement) }
+			const account = {
+				address: acc.address,
+				pathIncrement: parseInt(pathIncrement)
+			}
 			if (
 				state.activeWallet.accounts.findIndex(
 					acc => acc.address == account.address

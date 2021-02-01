@@ -2,37 +2,12 @@
 	<div class="SpWallet">
 		<div v-if="loggedIn">
 			<button @click="toggleAccountList()" class="SpButton">
-				<div class="SpButtonText">{{ currentAccount }}</div>
-			</button>
-			<button @click="toggleMenu()" class="SpButton">
-				<div class="SpButtonText">MENU</div>
+				<div class="SpButtonText">{{ walletName }}:{{ currentAccount }}</div>
 			</button>
 			<SpAccountList
 				v-if="showAccounts"
 				v-on:account-selected="showAccounts = false"
 			/>
-			<div class="SpMenu" v-if="showMenu">
-				<ul>
-					<li>
-						<button class="SpButton" @click="goTo('/')">
-							<div class="SpButtonText">HOME</div>
-						</button>
-					</li>
-					<li>
-						<button
-							class="SpButton"
-							@click="goTo('/address/' + currentAccount)"
-						>
-							<div class="SpButtonText">ACCOUNT OVERVIEW</div>
-						</button>
-					</li>
-					<li>
-						<button class="SpButton" @click="goTo('/send/')">
-							<div class="SpButtonText">SEND TOKENS</div>
-						</button>
-					</li>
-				</ul>
-			</div>
 		</div>
 		<div v-else>
 			<button @click="toggleWalletList()" class="SpButton">
@@ -57,8 +32,7 @@ export default {
 	data() {
 		return {
 			showWallets: false,
-			showAccounts: false,
-			showMenu: false
+			showAccounts: false
 		}
 	},
 	computed: {
@@ -71,6 +45,9 @@ export default {
 			} else {
 				return null
 			}
+		},
+		walletName() {
+			return this.$store.getters['chain/common/wallet/walletName']
 		},
 		loggedIn() {
 			if (this.hasWallet) {
@@ -85,25 +62,18 @@ export default {
 			this.showWallets = !this.showWallets
 			if (this.showWallets) {
 				this.showAccounts = false
-				this.showMenu = false
+				this.$emit('dropdown-opened')
 			}
 		},
-		goTo(route) {
-			this.$router.push(route)
-			this.showMenu = false
-		},
-		toggleMenu() {
-			this.showMenu = !this.showMenu
-			if (this.showMenu) {
-				this.showAccounts = false
-				this.showWallets = false
-			}
+		closeDropdowns() {
+			this.showAccounts = false
+			this.showWallets = false
 		},
 		toggleAccountList() {
 			this.showAccounts = !this.showAccounts
 			if (this.showAccounts) {
 				this.showWallets = false
-				this.showMenu = false
+				this.$emit('dropdown-opened')
 			}
 		}
 	}

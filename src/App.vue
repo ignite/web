@@ -1,7 +1,11 @@
 <template>
 	<div v-if="initialized">
 		<div class="SpHeader" v-if="hasWallet">
-			<SpWallet />
+			<SpWallet
+				ref="wallet"
+				v-on:dropdown-opened="$refs.menu.closeDropdown()"
+			/>
+			<SpMenu v-on:menu-opened="$refs.wallet.closeDropdowns()" ref="menu" />
 		</div>
 		<router-view />
 		<div class="SpFooter">
@@ -24,6 +28,7 @@ body {
 <script>
 import './scss/app.scss'
 import SpWallet from './components/SpWallet'
+import SpMenu from './components/SpMenu'
 import SpBlockHeight from '@/components/block/SpBlockHeight'
 import SpStatusAPI from '@/components/env/SpStatusAPI'
 import SpStatusRPC from '@/components/env/SpStatusRPC'
@@ -35,7 +40,8 @@ export default {
 		SpBlockHeight,
 		SpStatusAPI,
 		SpStatusRPC,
-		SpStatusWS
+		SpStatusWS,
+		SpMenu
 	},
 	data() {
 		return {
