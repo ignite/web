@@ -1,18 +1,18 @@
 <template>
-	<div class="SpBlockDisplayLine">
-		<div class="blockHeight">
+	<tr class="SpBlockDisplayLine">
+		<td class="blockHeight">
 			{{ block.height }}
-		</div>
-		<div class="blockHash">
+		</td>
+		<td class="blockHash">
 			{{ block.hash }}
-		</div>
-		<div class="blockTime">
-			{{ block.time }}
-		</div>
-		<div class="blockTxs">
-			{{ block.num_txs }}
-		</div>
-	</div>
+		</td>
+		<td class="blockTime">
+			{{ block.timestamp }}
+		</td>
+		<td class="blockTxs">
+			{{ block.details.num_txs }}
+		</td>
+	</tr>
 </template>
 
 <script>
