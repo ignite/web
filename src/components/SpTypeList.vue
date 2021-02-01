@@ -15,8 +15,6 @@
 	</div>
 </template>
 <style scoped>
-@import '../styles/main.css';
-
 .container {
 	font-family: var(--sp-f-primary);
 }

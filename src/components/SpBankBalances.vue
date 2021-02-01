@@ -23,8 +23,6 @@
 </template>
 
 <style scoped>
-@import '../styles/main.css';
-
 .container {
 	font-family: var(--sp-f-primary);
 }
@@ -79,12 +77,14 @@ export default {
 	},
 	computed: {
 		balances() {
-			return this.$store.getters['chain/cosmos/bank/getAllBalances'](this.bankAddress)
+			return this.$store.getters['chain/cosmos/bank/getAllBalances'](
+				this.bankAddress
+			)
 		}
 	},
 	mounted: function() {
-		this.bankAddress=this.address
-		if (this.bankAddress!='') {
+		this.bankAddress = this.address
+		if (this.bankAddress != '') {
 			this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
 				address: this.address,
 				subscribe: this.refresh
@@ -92,10 +92,10 @@ export default {
 		}
 	},
 	watch: {
-		address: function(newAddr,oldAddr) {
-			if (newAddr!=oldAddr) {
-				this.bankAddress=newAddr
-				if (this.bankAddress!='') {
+		address: function(newAddr, oldAddr) {
+			if (newAddr != oldAddr) {
+				this.bankAddress = newAddr
+				if (this.bankAddress != '') {
 					this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
 						address: this.bankAddress,
 						subscribe: this.refresh

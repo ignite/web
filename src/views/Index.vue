@@ -1,10 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<sp-sign-in />
-			<sp-bank-balances :address="address" :refresh="true" />
-			<sp-token-send :address="address" />
-			<sp-blocks/>
+			<SpBlocks />
 			<!-- this line is used by starport scaffolding # 4 -->
 		</div>
 	</div>
@@ -21,11 +18,6 @@
 import * as sp from '../index.js'
 
 export default {
-	components: { ...sp },
-	computed: {
-		address() {
-			return this.$store.state.chain.common.wallet.selectedAddress
-		}
-	}
+	components: { ...sp }
 }
 </script>

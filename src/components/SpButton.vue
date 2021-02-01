@@ -13,8 +13,6 @@
 </template>
 
 <style scoped>
-@import '../styles/main.css';
-
 .send {
 	height: 100%;
 	font-family: var(--sp-f-primary);

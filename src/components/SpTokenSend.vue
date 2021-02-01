@@ -62,8 +62,6 @@
 </template>
 
 <style scoped>
-@import '../styles/main.css';
-
 .container {
 	font-family: var(--sp-f-primary);
 }
@@ -159,7 +157,30 @@ export default {
 			memo: '',
 			denomIndex: 0,
 			inFlight: false,
-			txResult: ''
+			txResult: '',
+			bankAddress: ''
+		}
+	},
+	mounted() {
+		this.bankAddress = this.address
+		if (this.bankAddress != '') {
+			this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
+				address: this.address,
+				subscribe: this.refresh
+			})
+		}
+	},
+	watch: {
+		address: function(newAddr, oldAddr) {
+			if (newAddr != oldAddr) {
+				this.bankAddress = newAddr
+				if (this.bankAddress != '') {
+					this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
+						address: this.bankAddress,
+						subscribe: this.refresh
+					})
+				}
+			}
 		}
 	},
 	computed: {

@@ -47,8 +47,6 @@ export default {
 </script>
 
 <style scoped>
-@import '../styles/main.css';
-
 .explorer {
 	--top-offset: 2.25rem;
 }

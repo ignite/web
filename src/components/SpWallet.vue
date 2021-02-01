@@ -1,12 +1,47 @@
 <template>
 	<div class="SpWallet">
 		<div v-if="loggedIn">
-			<button @click="selectAccount()">{{ currentAccount }}</button>
-			<SpAccountList />
+			<button @click="toggleAccountList()" class="SpButton">
+				<div class="SpButtonText">{{ currentAccount }}</div>
+			</button>
+			<button @click="toggleMenu()" class="SpButton">
+				<div class="SpButtonText">MENU</div>
+			</button>
+			<SpAccountList
+				v-if="showAccounts"
+				v-on:account-selected="showAccounts = false"
+			/>
+			<div class="SpMenu" v-if="showMenu">
+				<ul>
+					<li>
+						<button class="SpButton" @click="goTo('/')">
+							<div class="SpButtonText">HOME</div>
+						</button>
+					</li>
+					<li>
+						<button
+							class="SpButton"
+							@click="goTo('/address/' + currentAccount)"
+						>
+							<div class="SpButtonText">ACCOUNT OVERVIEW</div>
+						</button>
+					</li>
+					<li>
+						<button class="SpButton" @click="goTo('/send/')">
+							<div class="SpButtonText">SEND TOKENS</div>
+						</button>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<div v-else>
-			<button @click="showWalletList()">Sign In</button>
-			<SpWalletList v-if="showWallets" />
+			<button @click="toggleWalletList()" class="SpButton">
+				<div class="SpButtonText">SIGN IN</div>
+			</button>
+			<SpWalletList
+				v-if="showWallets"
+				v-on:wallet-selected="showWallets = false"
+			/>
 		</div>
 	</div>
 </template>
@@ -21,7 +56,9 @@ export default {
 	},
 	data() {
 		return {
-			showWallets: false
+			showWallets: false,
+			showAccounts: false,
+			showMenu: false
 		}
 	},
 	computed: {
@@ -44,8 +81,30 @@ export default {
 		}
 	},
 	methods: {
-		showWalletList() {
-			this.showWallets = true
+		toggleWalletList() {
+			this.showWallets = !this.showWallets
+			if (this.showWallets) {
+				this.showAccounts = false
+				this.showMenu = false
+			}
+		},
+		goTo(route) {
+			this.$router.push(route)
+			this.showMenu = false
+		},
+		toggleMenu() {
+			this.showMenu = !this.showMenu
+			if (this.showMenu) {
+				this.showAccounts = false
+				this.showWallets = false
+			}
+		},
+		toggleAccountList() {
+			this.showAccounts = !this.showAccounts
+			if (this.showAccounts) {
+				this.showWallets = false
+				this.showMenu = false
+			}
 		}
 	}
 }
