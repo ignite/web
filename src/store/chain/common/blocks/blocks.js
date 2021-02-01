@@ -13,7 +13,7 @@ export default {
 			return [...state.blocks].sort((a, b) => b.height - a.height)
 		},
 		getBlockByHeight: state => height => {
-			return state.blocks.find( x => x.height==height) || {}
+			return state.blocks.find(x => x.height == height) || {}
 		}
 	},
 	mutations: {
