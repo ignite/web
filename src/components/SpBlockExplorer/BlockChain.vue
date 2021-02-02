@@ -20,6 +20,7 @@
 					:id="'block-' + block.height"
 					:key="block.hash"
 					:block="block"
+					tsFormat="MMM D YYYY, HH:mm:ss"
 				>
 				</SpBlockDisplaySmall>
 			</div>

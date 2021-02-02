@@ -1,27 +1,46 @@
 <template>
-	<table>
-		<thead>
-			<tr>
-				<th><strong>Height</strong></th>
-				<th><strong>Hash</strong></th>
-				<th><strong>Time</strong></th>
-				<th><strong>TXs</strong></th>
-			</tr>
-		</thead>
-		<tbody>
-			<template v-for="block in blocks" v-bind:key="block.hash">
-				<SpBlockDisplayLine :block="block" />
-			</template>
-		</tbody>
-	</table>
-	<div class="pagination">
-		<span
-			class="page-link"
-			v-for="pageLink in pages"
-			v-bind:key="'page' + pageLink"
-		>
-			<router-link :to="'/blocks/' + pageLink">{{ pageLink }} </router-link>
-		</span>
+	<div class="container">
+		<table class="SpBlocksTable">
+			<thead>
+				<tr>
+					<th><strong>HEIGHT</strong></th>
+					<th><strong>HASH</strong></th>
+					<th><strong>TIME</strong></th>
+					<th><strong>TXs</strong></th>
+				</tr>
+			</thead>
+			<tbody>
+				<template v-for="block in blocks" v-bind:key="block.hash">
+					<SpBlockDisplayLine :block="block" tsFormat="YYYY-MM-DD HH:mm:ss" />
+				</template>
+			</tbody>
+		</table>
+		<div class="SpPagination">
+			<div class="SpPaginationTitle">PAGES</div>
+			<router-link to="/blocks/1" v-if="page >= 2">
+				<button class="SpButton">
+					<div class="SpButtonText">&lt;&lt;</div>
+				</button>
+			</router-link>
+			<router-link :to="'/blocks/' + (page - 1)" v-if="page >= 2">
+				<button class="SpButton">
+					<div class="SpButtonText">&lt;</div>
+				</button>
+			</router-link>
+			<span class="SpPaginationItem active">
+				{{ page }}
+			</span>
+			<router-link :to="'/blocks/' + (page + 1)" v-if="page < pages">
+				<button class="SpButton">
+					<div class="SpButtonText">&gt;</div>
+				</button>
+			</router-link>
+			<router-link :to="'/blocks/' + pages" v-if="page < pages">
+				<button class="SpButton">
+					<div class="SpButtonText">&gt;&gt;</div>
+				</button>
+			</router-link>
+		</div>
 	</div>
 </template>
 
@@ -41,7 +60,7 @@ export default {
 
 	computed: {
 		page() {
-			return this.$route.params.page || 1
+			return parseInt(this.$route.params.page) || 1
 		}
 	},
 	watch: {
@@ -57,11 +76,17 @@ export default {
 			)
 
 			const highest = parseInt(chain.data.result.last_height)
-			this.pages = Math.ceil((highest - lowest) / 20)
+			this.pages = Math.ceil((highest - lowest + 1) / 20)
+			let from
+			if (highest + 1 - this.page * 20 >= 1) {
+				from = highest + 1 - this.page * 20
+			} else {
+				from = 1
+			}
 			const page = await axios.get(
 				this.$store.getters['chain/common/env/apiTendermint'] +
 					'/blockchain?minHeight=' +
-					(highest + 1 - newPage * 20) +
+					from +
 					'&maxHeight=' +
 					(highest - (newPage - 1) * 20)
 			)
@@ -77,11 +102,6 @@ export default {
 		}
 	},
 	async mounted() {
-		if (this.$route.params.page) {
-			this.page = this.$route.params.page
-		} else {
-			this.page = 1
-		}
 		const chain = await axios.get(
 			this.$store.getters['chain/common/env/apiTendermint'] +
 				'/blockchain?minHeight=1&maxHeight=20'
@@ -92,11 +112,17 @@ export default {
 		)
 
 		const highest = parseInt(chain.data.result.last_height)
-		this.pages = Math.ceil((highest - lowest) / 20)
+		this.pages = Math.ceil((highest - lowest + 1) / 20)
+		let from
+		if (highest + 1 - this.page * 20 >= 1) {
+			from = highest + 1 - this.page * 20
+		} else {
+			from = 1
+		}
 		const page = await axios.get(
 			this.$store.getters['chain/common/env/apiTendermint'] +
 				'/blockchain?minHeight=' +
-				(highest + 1 - this.page * 20) +
+				from +
 				'&maxHeight=' +
 				(highest - (this.page - 1) * 20)
 		)

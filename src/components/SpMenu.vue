@@ -11,6 +11,11 @@
 					</button>
 				</li>
 				<li>
+					<button class="SpButton" @click="goTo('/blocks/')">
+						<div class="SpButtonText">BLOCK EXPLORER</div>
+					</button>
+				</li>
+				<li>
 					<button
 						class="SpButton"
 						@click="goTo('/address/' + currentAccount)"

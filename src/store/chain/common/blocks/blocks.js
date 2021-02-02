@@ -5,7 +5,7 @@ export default {
 	state() {
 		return {
 			blocks: [],
-			size: 20
+			size: 10
 		}
 	},
 	getters: {

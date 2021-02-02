@@ -7,7 +7,7 @@
 			{{ block.hash }}
 		</td>
 		<td class="blockTime">
-			{{ block.timestamp }}
+			{{ formatTS(block.timestamp) }}
 		</td>
 		<td class="blockTxs">
 			{{ block.details.num_txs }}
@@ -16,10 +16,19 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
 	name: 'SpBlockDisplayLine',
 	props: {
-		block: Object
+		block: Object,
+		tsFormat: String
+	},
+	methods: {
+		formatTS(timestamp) {
+			const momentTime = moment(timestamp)
+			return momentTime.format(this.tsFormat)
+		}
 	}
 }
 </script>

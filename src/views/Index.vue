@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<SpBlocks />
+			<SpLatestBlocks />
 			<!-- this line is used by starport scaffolding # 4 -->
 		</div>
 	</div>
@@ -15,9 +15,10 @@
 }
 </style>
 <script>
-import * as sp from '../index.js'
+import SpLatestBlocks from '@/components/block/SpLatestBlocks'
 
 export default {
-	components: { ...sp }
+	name: 'Index',
+	components: { SpLatestBlocks }
 }
 </script>
