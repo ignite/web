@@ -1,7 +1,9 @@
 <template>
 	<tr class="SpBlockDisplayLine">
 		<td class="blockHeight">
-			{{ block.height }}
+			<router-link :to="'/block/' + block.height"
+				>{{ block.height }}
+			</router-link>
 		</td>
 		<td class="blockHash">
 			{{ block.hash }}
