@@ -1,65 +1,44 @@
 <template>
-	<div>
-		<SpH3>List of {{ type }} items {{ module && `in module ${module}` }}</SpH3>
-		<div v-for="instance in instanceList" :key="instance.id" class="item">
-			<div v-for="(value, key) in instance" :key="key" class="item__field">
-				<div class="item__field__key">{{ key }}:</div>
-				<div class="item__field__value">
-					{{ value }}
-				</div>
-			</div>
+	<div class="SpTypeList">
+		<p>
+			<strong>
+				LIST OF TYPE: '<em>{{ type }}</em
+				>' ITEMS FROM MODULE: '<em>{{ module }}</em
+				>'
+			</strong>
+		</p>
+		<div class="SpTypeListEmpty" v-if="!typeItems || typeItems.length == 0">
+			<em>No items available</em>
 		</div>
-		<div v-if="instanceList.length < 1" class="card__empty">
-			There are no {{ type }} items yet. Create one using the form.
+		<div v-else>
+			<table class="SpTable">
+				<thead>
+					<tr>
+						<td v-for="field in fieldList" v-bind:key="field">
+							<strong>
+								{{ field.name }}
+							</strong>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+						class="SpTypeListItem"
+						v-for="item in typeItems"
+						v-bind:key="item.id"
+					>
+						<td v-for="field in fieldList" v-bind:key="field">
+							{{ item[field.name] }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </template>
-<style scoped>
-.container {
-	font-family: var(--sp-f-primary);
-}
-.item {
-	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-	margin-bottom: 1rem;
-	padding: 1rem;
-	border-radius: 0.5rem;
-	overflow: hidden;
-}
-.item__field {
-	display: grid;
-	line-height: 1.5;
-	grid-template-columns: 15% 1fr;
-	grid-template-rows: 1fr;
-	word-break: break-all;
-}
-.item__field__key {
-	color: rgba(0, 0, 0, 0.25);
-	word-break: keep-all;
-	overflow: hidden;
-}
-.card__empty {
-	margin-bottom: 1rem;
-	border: 1px dashed rgba(0, 0, 0, 0.1);
-	padding: 1rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-sizing: border-box;
-	border-radius: 8px;
-	color: rgba(0, 0, 0, 0.25);
-	text-align: center;
-	min-height: 8rem;
-}
-</style>
-
 <script>
-import { mapGetters } from 'vuex'
-import SpH3 from './SpH3'
-
 export default {
-	components: {
-		SpH3
-	},
+	name: 'SpTypeList',
 	props: {
 		type: {
 			type: String,
@@ -68,32 +47,28 @@ export default {
 		module: {
 			type: String,
 			default: ''
-		},
-		path: {
-			type: String,
-			default: ''
+		}
+	},
+	data: function() {
+		return {
+			fieldList: []
 		}
 	},
 	computed: {
-		...mapGetters('cosmos', ['appEnv']),
-		instanceList() {
-			const path = this.path.replace(/\./g, '/')
-			return this.$store.state.cosmos.module.data[`${path}/${this.type}`] || []
+		typeItems() {
+			return this.$store.getters[
+				'chain/' + this.module + '/get' + this.type + 'All'
+			]()
 		}
 	},
-	watch: {
-		appEnv: {
-			handler() {
-				const path = this.path.replace(/\./g, '/')
-				if (this.appEnv.API) {
-					this.$store.dispatch('cosmos/entityFetch', {
-						type: this.type,
-						path: path
-					})
-				}
-			},
-			deep: true
-		}
+	async created() {
+		this.fieldList = this.$store.getters[
+			'chain/' + this.module + '/getTypeStructure'
+		](this.type)
+		await this.$store.dispatch(
+			'chain/' + this.module + '/Query' + this.type + 'All',
+			{ subscribe: true }
+		)
 	}
 }
 </script>

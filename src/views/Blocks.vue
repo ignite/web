@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<table class="SpBlocksTable">
+		<table class="SpTable SpBlocksTable">
 			<thead>
 				<tr>
 					<th><strong>HEIGHT</strong></th>

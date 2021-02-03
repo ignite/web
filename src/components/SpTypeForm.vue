@@ -1,150 +1,228 @@
 <template>
-	<div>
-		<div class="container">
-			<SpH3>New {{ type }}</SpH3>
-			<div v-for="(value, key) in fieldsList" :key="key">
-				<SpInput
-					v-model="fieldsList[key]"
+	<div class="SpForm SpTypeForm {{ typeClass}}">
+		<div class="SpTypeFormCreate" v-if="action == 'create'">
+			<p>
+				<strong
+					>CREATE NEW '<em>{{ type }}</em
+					>'</strong
+				>
+			</p>
+			<div
+				class="SpTypeFormField"
+				v-for="field in createFieldList"
+				v-bind:key="field.name"
+			>
+				<input
 					type="text"
-					:placeholder="title(key)"
-					:disabled="flight"
+					:placeholder="field.name"
+					v-model="typeData[field.name]"
+					v-if="field.type == 'string'"
+				/>
+				<input
+					type="number"
+					:placeholder="field.name"
+					v-model="typeData[field.name]"
+					v-if="field.type == 'int'"
 				/>
 			</div>
-			<div class="button">
-				<SpButton
-					:loading="flight"
-					:disabled="!valid || !hasAddress || flight"
-					@click="submit"
+			<button class="SpButton" @click="createType()">
+				<div class="SpButtonText">
+					CREATE
+				</div>
+			</button>
+		</div>
+		<div class="SpTypeFormUpdate" v-if="action == 'update'">
+			<p>
+				<strong
+					>UPDATE '<em>{{ type }} {{ id ? ' WITH ID:' + id : '' }}</em
+					>'</strong
 				>
-					Create {{ type }}
-				</SpButton>
+			</p>
+			<div
+				class="SpTypeFormField"
+				v-for="field in updateFieldList"
+				v-bind:key="field.name"
+			>
+				<input
+					type="text"
+					:placeholder="field.name"
+					v-model="typeData[field.name]"
+					v-if="field.type == 'string'"
+					v-bind:readonly="id != '' && field.name == 'id'"
+				/>
+				<input
+					type="number"
+					:placeholder="field.name"
+					v-model="typeData[field.name]"
+					v-if="field.type == 'int'"
+				/>
 			</div>
-			<SpTypeList :type="type" :path="path" :module="module" />
+			<button class="SpButton" @click="updateType()">
+				<div class="SpButtonText">
+					UPDATE
+				</div>
+			</button>
+		</div>
+		<div class="SpTypeFormDelete" v-if="action == 'delete'">
+			<p>
+				<strong
+					>DELETE '<em>{{ type }}' {{ id ? ' WITH ID:' + id : '' }}</em></strong
+				>
+			</p>
+			<div
+				class="SpTypeFormField"
+				v-for="field in deleteFieldList"
+				v-bind:key="field.name"
+			>
+				<input
+					type="text"
+					:placeholder="field.name"
+					v-model="typeData[field.name]"
+					v-if="field.type == 'string'"
+					v-bind:readonly="id != '' && field.name == 'id'"
+				/>
+				<input
+					type="number"
+					:placeholder="field.name"
+					v-model="typeData[field.name]"
+					v-if="field.type == 'int'"
+				/>
+			</div>
+			<button class="SpButton" @click="deleteType()">
+				<div class="SpButtonText">
+					DELETE
+				</div>
+			</button>
 		</div>
 	</div>
 </template>
-
-<style scoped>
-.container {
-	font-family: var(--sp-f-primary);
-}
-.button {
-	display: inline-block;
-}
-</style>
-
 <script>
-import SpInput from './SpInput'
-import SpH3 from './SpH3'
-import SpButton from './SpButton'
-import SpTypeList from './SpTypeList'
-import { Type, Field } from 'protobufjs'
-import { SigningStargateClient } from '@cosmjs/stargate'
-import { Registry } from '@cosmjs/proto-signing'
-
 export default {
-	components: {
-		SpInput,
-		SpH3,
-		SpButton,
-		SpTypeList
-	},
+	name: 'SpTypeForm',
+	components: {},
 	props: {
-		path: {
+		denom: {
 			type: String,
-			default: ''
+			required: true
+		},
+		module: {
+			type: String,
+			default: '',
+			required: true
 		},
 		type: {
 			type: String,
-			default: ''
+			default: '',
+			required: true
 		},
-		fields: {
-			type: Array,
-			default: () => []
+		action: {
+			type: String,
+			default: '',
+			required: true
 		},
-		preflight: {
-			type: Function,
-			default: () => {
-				return obj => obj
-			}
-		},
-		module: {
+		id: {
 			type: String,
 			default: ''
 		}
 	},
 	data: function() {
 		return {
-			fieldsList: {},
-			flight: false
+			fieldList: [],
+			typeData: {}
+		}
+	},
+	watch: {
+		async id(newId) {
+			this.typeData['id'] = newId
+			if (this.typeData['id'] != '') {
+				await this.$store.dispatch(
+					'chain/' + this.module + '/Query' + this.type,
+					{ subscribe: true, id: this.typeData['id'] }
+				)
+				this.typeData = this.$store.getters[
+					'chain/' + this.module + '/get' + this.type
+				](this.typeData['id'])
+			}
 		}
 	},
 	computed: {
-		hasAddress() {
-			return !!this.$store.state.cosmos.auth.account.address
+		typeClass() {
+			return 'SpTypeForm' + this.type
 		},
-		valid() {
-			return Object.values(this.fieldsList).every(el => {
-				return el.trim().length > 0
-			})
+		createFieldList() {
+			return this.fieldList.filter(x => x.name != 'creator' && x.name != 'id')
+		},
+		updateFieldList() {
+			return this.fieldList.filter(x => x.name != 'creator')
+		},
+		deleteFieldList() {
+			return this.fieldList.filter(x => x.name == 'id')
+		},
+		selectedAccount() {
+			return this.$store.getters['chain/common/wallet/address']
+		},
+		createTypeData() {
+			// eslint-disable-next-line no-unused-vars
+			const { id, ...rest } = this.typeData
+			return rest
+		},
+		updateTypeData() {
+			return this.typeData
+		},
+		deleteTypeData() {
+			// eslint-disable-next-line no-unused-vars
+			const { id, creator, ...rest } = this.typeData
+			return { id, creator }
 		}
 	},
-	created() {
-		;(this.fields || []).forEach(field => {
-			if (field[0] !== 'creator') {
-				this.$set(this.fieldsList, field[0], '')
-			}
-		})
+	async created() {
+		this.fieldList = this.$store.getters[
+			'chain/' + this.module + '/getTypeStructure'
+		](this.type)
+		for (let field of this.fieldList) {
+			this.typeData[field.name] = ''
+		}
+		this.typeData['id'] = this.id
+		if (this.typeData['id'] != '') {
+			await this.$store.dispatch(
+				'chain/' + this.module + '/Query' + this.type,
+				{ subscribe: true, id: this.typeData['id'] }
+			)
+			this.typeData = this.$store.getters[
+				'chain/' + this.module + '/get' + this.type
+			](this.typeData['id'])
+		}
 	},
 	methods: {
-		title(string) {
-			return string.charAt(0).toUpperCase() + string.slice(1)
+		async createType() {
+			this.typeData['creator'] = this.selectedAccount
+			this.txResult = await this.$store.dispatch(
+				'chain/' + this.module + '/MsgCreate' + this.type,
+				{
+					...this.createTypeData,
+					denom: this.denom
+				}
+			)
 		},
-		async submit() {
-			if (this.valid && !this.flight && this.hasAddress) {
-				const { RPC } = this.$store.state.cosmos.env.env
-				const wallet = this.$store.getters['cosmos/wallet']
-				const account = this.$store.getters['cosmos/account']
-				const from_address = account.address
-				const type = this.type.charAt(0).toUpperCase() + this.type.slice(1)
-				const typeUrl = `/${this.path}.MsgCreate${type}`
-				let MsgCreate = new Type(`MsgCreate${type}`)
-				this.fields.forEach(f => {
-					MsgCreate = MsgCreate.add(new Field(f[0], f[1], f[2]))
-				})
-				const registry = new Registry([[typeUrl, MsgCreate]])
-				const client = await SigningStargateClient.connectWithSigner(
-					RPC,
-					wallet,
-					{ registry }
-				)
-				const msg = {
-					typeUrl,
-					value: {
-						creator: from_address,
-						...this.fieldsList
-					}
+		async updateType() {
+			this.typeData['creator'] = this.selectedAccount
+			this.txResult = await this.$store.dispatch(
+				'chain/' + this.module + '/MsgUpdate' + this.type,
+				{
+					...this.updateTypeData,
+					denom: this.denom
 				}
-				const fee = {
-					amount: [{ amount: '0', denom: 'token' }],
-					gas: '200000'
+			)
+		},
+		async deleteType() {
+			this.typeData['creator'] = this.selectedAccount
+			this.txResult = await this.$store.dispatch(
+				'chain/' + this.module + '/MsgDelete' + this.type,
+				{
+					...this.deleteTypeData,
+					denom: this.denom
 				}
-				this.flight = true
-				try {
-					const path = this.path.replace(/\./g, '/')
-					await client.signAndBroadcast(from_address, [msg], fee)
-					this.$store.dispatch('cosmos/entityFetch', {
-						type: this.type,
-						path: path
-					})
-				} catch (e) {
-					console.log(e)
-				}
-				this.flight = false
-				Object.keys(this.fieldsList).forEach(f => {
-					this.fieldsList[f] = ''
-				})
-			}
+			)
 		}
 	}
 }

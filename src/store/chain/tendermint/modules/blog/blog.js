@@ -2,12 +2,29 @@ import { Type, Field } from 'protobufjs'
 const getDefaultState = () => {
 	return {
 		_Structure: {
-			fields: {
-				creator: 'string',
-				id: 'string',
-				title: 'string',
-				body: 'string',
-				votes: 'int'
+			Post: {
+				fields: [
+					{
+						name: 'creator',
+						type: 'string'
+					},
+					{
+						name: 'id',
+						type: 'string'
+					},
+					{
+						name: 'title',
+						type: 'string'
+					},
+					{
+						name: 'body',
+						type: 'string'
+					},
+					{
+						name: 'votes',
+						type: 'int'
+					}
+				]
 			}
 		},
 		Post: {},
@@ -28,8 +45,8 @@ export default {
 		POST(state, { queryParams, post }) {
 			state.Post[queryParams] = post
 		},
-		POST_ALL(state, { posts }) {
-			state.PostAll = posts
+		POST_ALL(state, { post }) {
+			state.PostAll = post
 		},
 		SUBSCRIBE(state, subscription) {
 			state._Subscriptions.add(subscription)
@@ -41,16 +58,16 @@ export default {
 	getters: {
 		getPost: state => id => {
 			if (id != '' && state.Post['/' + id]) {
-				return state.Post['/' + id].post
+				return state.Post['/' + id].Post
 			} else {
 				return {}
 			}
 		},
 		getPostAll: state => () => {
-			return state.PostAll
+			return state.PostAll.Post
 		},
-		getStructure: state => {
-			return state._Structure
+		getTypeStructure: state => type => {
+			return state._Structure[type].fields
 		}
 	},
 	actions: {
@@ -96,15 +113,15 @@ export default {
 			const queryUrl = '/tendermint/modules/blog/post'
 			const queryParams = ''
 			try {
-				const supply = await rootGetters['chain/common/env/apiClient'].query(
+				const post = await rootGetters['chain/common/env/apiClient'].query(
 					queryUrl,
 					queryParams
 				)
-				commit('POST_ALL', { queryParams, supply })
+				commit('POST_ALL', { queryParams, post })
 				if (subscribe) {
 					commit('SUBSCRIBE', {
 						action: 'QueryPostAll',
-						payload: null
+						payload: {}
 					})
 				}
 			} catch (e) {
@@ -116,7 +133,7 @@ export default {
 				.add(new Field('creator', 1, 'string'))
 				.add(new Field('title', 2, 'string'))
 				.add(new Field('body', 3, 'string'))
-				.add(new Field('votes', 4, 'int'))
+				.add(new Field('votes', 4, 'int32'))
 
 			dispatch(
 				'chain/common/wallet/registerType',
@@ -132,7 +149,7 @@ export default {
 				.add(new Field('id', 2, 'string'))
 				.add(new Field('title', 3, 'string'))
 				.add(new Field('body', 4, 'string'))
-				.add(new Field('votes', 5, 'int'))
+				.add(new Field('votes', 5, 'int32'))
 
 			dispatch(
 				'chain/common/wallet/registerType',
@@ -157,11 +174,11 @@ export default {
 		},
 		async MsgCreatePost(
 			{ dispatch },
-			{ from_address, title, body, votes, memo, denom }
+			{ creator, title, body, votes, memo, denom }
 		) {
 			const typeUrl = '/tendermint.modules.blog.MsgCreatePost'
 			const value = {
-				creator: from_address,
+				creator,
 				title,
 				body,
 				votes
@@ -177,16 +194,16 @@ export default {
 					{ root: true }
 				)
 			} catch (e) {
-				throw 'Failed to broadcast transaction'
+				throw 'Failed to broadcast transaction' + e
 			}
 		},
 		async MsgUpdatePost(
 			{ dispatch },
-			{ from_address, id, title, body, votes, memo, denom }
+			{ creator, id, title, body, votes, memo, denom }
 		) {
 			const typeUrl = '/tendermint.modules.blog.MsgUpdatePost'
 			const value = {
-				creator: from_address,
+				creator,
 				id,
 				title,
 				body,
@@ -206,10 +223,10 @@ export default {
 				throw 'Failed to broadcast transaction'
 			}
 		},
-		async MsgDeletePost({ dispatch }, { from_address, id, memo, denom }) {
+		async MsgDeletePost({ dispatch }, { creator, id, memo, denom }) {
 			const typeUrl = '/tendermint.modules.blog.MsgDeletePost'
 			const value = {
-				creator: from_address,
+				creator,
 				id
 			}
 			try {
@@ -223,7 +240,7 @@ export default {
 					{ root: true }
 				)
 			} catch (e) {
-				throw 'Failed to broadcast transaction'
+				throw 'Failed to broadcast transaction' + e
 			}
 		}
 	}

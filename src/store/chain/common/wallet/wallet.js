@@ -241,7 +241,8 @@ export default {
 				)
 				assertIsBroadcastTxSuccess(result)
 			} catch (e) {
-				throw 'Failed to broadcast transaction.'
+				console.log(e)
+				throw 'Failed to broadcast transaction.' + e
 			}
 		}
 	}
