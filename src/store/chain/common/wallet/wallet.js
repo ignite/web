@@ -92,7 +92,7 @@ export default {
 					stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement),
 					wallet.prefix
 				)
-				const client = SigningStargateClient.connectWithSigner(
+				const client = await SigningStargateClient.connectWithSigner(
 					rootGetters['chain/common/env/apiTendermint'],
 					accountSigner
 				)
@@ -103,6 +103,7 @@ export default {
 		},
 		registerType({ commit, state }, payload) {
 			if (state.activeClient) {
+				console.log(state.activeClient)
 				if (
 					state.activeClient.registry.lookupType(payload.typeUrl) === undefined
 				) {
