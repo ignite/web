@@ -103,7 +103,6 @@ export default {
 		},
 		registerType({ commit, state }, payload) {
 			if (state.activeClient) {
-				console.log(state.activeClient)
 				if (
 					state.activeClient.registry.lookupType(payload.typeUrl) === undefined
 				) {
