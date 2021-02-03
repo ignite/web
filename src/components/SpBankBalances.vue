@@ -77,7 +77,7 @@ export default {
 	},
 	computed: {
 		balances() {
-			return this.$store.getters['chain/cosmos/bank/getAllBalances'](
+			return this.$store.getters['chain/cosmos/cosmos-sdk/bank/getAllBalances'](
 				this.bankAddress
 			)
 		}
@@ -85,7 +85,7 @@ export default {
 	mounted: function() {
 		this.bankAddress = this.address
 		if (this.bankAddress != '') {
-			this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
+			this.$store.dispatch('chain/cosmos/cosmos-sdk/bank/QueryAllBalances', {
 				address: this.address,
 				subscribe: this.refresh
 			})
@@ -96,10 +96,13 @@ export default {
 			if (newAddr != oldAddr) {
 				this.bankAddress = newAddr
 				if (this.bankAddress != '') {
-					this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
-						address: this.bankAddress,
-						subscribe: this.refresh
-					})
+					this.$store.dispatch(
+						'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
+						{
+							address: this.bankAddress,
+							subscribe: this.refresh
+						}
+					)
 				}
 			}
 		}
@@ -109,10 +112,13 @@ export default {
 			return Intl.NumberFormat().format(number)
 		},
 		async balancesUpdate() {
-			await this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
-				address: this.bankAddress,
-				subscribe: false
-			})
+			await this.$store.dispatch(
+				'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
+				{
+					address: this.bankAddress,
+					subscribe: false
+				}
+			)
 		}
 	}
 }

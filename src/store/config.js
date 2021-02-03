@@ -1,7 +1,7 @@
 import env from './chain/common/env'
 import starport from './chain/common/starport'
 import blocks from './chain/common/blocks'
-import bank from './chain/cosmos/bank'
+import bank from './chain/cosmos/cosmos-sdk/bank'
 import blog from './chain/tendermint/modules/blog'
 import wallet from './chain/common/wallet'
 

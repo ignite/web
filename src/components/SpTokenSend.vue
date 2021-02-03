@@ -164,7 +164,7 @@ export default {
 	mounted() {
 		this.bankAddress = this.address
 		if (this.bankAddress != '') {
-			this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
+			this.$store.dispatch('chain/cosmos/cosmos-sdk/bank/QueryAllBalances', {
 				address: this.address,
 				subscribe: this.refresh
 			})
@@ -175,10 +175,13 @@ export default {
 			if (newAddr != oldAddr) {
 				this.bankAddress = newAddr
 				if (this.bankAddress != '') {
-					this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
-						address: this.bankAddress,
-						subscribe: this.refresh
-					})
+					this.$store.dispatch(
+						'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
+						{
+							address: this.bankAddress,
+							subscribe: this.refresh
+						}
+					)
 				}
 			}
 		}
@@ -236,7 +239,7 @@ export default {
 				this.txResult = ''
 				this.inFlight = true
 				this.txResult = await this.$store.dispatch(
-					'chain/cosmos/bank/MsgSend',
+					'chain/cosmos/cosmos-sdk/bank/MsgSend',
 					payload
 				)
 				if (this.txResult && !this.txResult.code) {
@@ -245,10 +248,13 @@ export default {
 					this.memo = ''
 				}
 				this.inFlight = false
-				await this.$store.dispatch('chain/cosmos/bank/QueryAllBalances', {
-					address: this.address,
-					subscribe: false
-				})
+				await this.$store.dispatch(
+					'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
+					{
+						address: this.address,
+						subscribe: false
+					}
+				)
 			}
 		}
 	}
