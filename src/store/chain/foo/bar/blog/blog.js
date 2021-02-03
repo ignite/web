@@ -138,7 +138,7 @@ export default {
 			dispatch(
 				'chain/common/wallet/registerType',
 				{
-					typeUrl: '/tendermint.modules.blog.MsgCreatePost',
+					typeUrl: '/foo.bar.blog.MsgCreatePost',
 					type: MsgCreatePost
 				},
 				{ root: true }
@@ -154,7 +154,7 @@ export default {
 			dispatch(
 				'chain/common/wallet/registerType',
 				{
-					typeUrl: '/tendermint.modules.blog.MsgUpdatePost',
+					typeUrl: '/foo.bar.blog.MsgUpdatePost',
 					type: MsgUpdatePost
 				},
 				{ root: true }
@@ -166,7 +166,7 @@ export default {
 			dispatch(
 				'chain/common/wallet/registerType',
 				{
-					typeUrl: '/tendermint.modules.blog.MsgDeletePost',
+					typeUrl: '/foo.bar.blog.MsgDeletePost',
 					type: MsgDeletePost
 				},
 				{ root: true }
@@ -176,7 +176,7 @@ export default {
 			{ dispatch },
 			{ creator, title, body, votes, memo, denom }
 		) {
-			const typeUrl = '/tendermint.modules.blog.MsgCreatePost'
+			const typeUrl = '/foo.bar.blog.MsgCreatePost'
 			const value = {
 				creator,
 				title,
@@ -201,7 +201,7 @@ export default {
 			{ dispatch },
 			{ creator, id, title, body, votes, memo, denom }
 		) {
-			const typeUrl = '/tendermint.modules.blog.MsgUpdatePost'
+			const typeUrl = '/foo.bar.blog.MsgUpdatePost'
 			const value = {
 				creator,
 				id,
@@ -224,7 +224,7 @@ export default {
 			}
 		},
 		async MsgDeletePost({ dispatch }, { creator, id, memo, denom }) {
-			const typeUrl = '/tendermint.modules.blog.MsgDeletePost'
+			const typeUrl = '/foo.bar.blog.MsgDeletePost'
 			const value = {
 				creator,
 				id
