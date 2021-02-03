@@ -188,18 +188,9 @@ export default {
 	},
 	computed: {
 		balances() {
-			if (
-				this.address != '' &&
-				this.$store.state.chain.cosmos['cosmos-sdk'].bank.AllBalances[
-					'/' + this.address
-				]
-			) {
-				return this.$store.state.chain.cosmos['cosmos-sdk'].bank.AllBalances[
-					'/' + this.address
-				].balances
-			} else {
-				return []
-			}
+			return this.$store.getters['chain/cosmos/cosmos-sdk/bank/getAllBalances'](
+				this.bankAddress
+			)
 		},
 		denoms() {
 			return this.balances.map(b => b.denom)

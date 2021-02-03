@@ -2,6 +2,7 @@
 	<div>
 		<div class="container">
 			<SpH3>
+				{{ bankAddress }}<br />
 				Balance
 				<IconSynchronization1 class="h3__icon" @click="balancesUpdate" />
 			</SpH3>
