@@ -90,7 +90,7 @@ export default {
 			commit('UNSUBSCRIBE', subscription)
 		},
 		async QueryPost({ commit, rootGetters }, { id, subscribe = false }) {
-			const queryUrl = '/tendermint/modules/blog/post'
+			const queryUrl = '/foo/bar/blog/post'
 			const queryParams = '/' + id
 			try {
 				const post = await rootGetters['chain/common/env/apiClient'].query(
@@ -110,7 +110,7 @@ export default {
 		},
 
 		async QueryPostAll({ commit, rootGetters }, { subscribe = false }) {
-			const queryUrl = '/tendermint/modules/blog/post'
+			const queryUrl = '/foo/bar/blog/post'
 			const queryParams = ''
 			try {
 				const post = await rootGetters['chain/common/env/apiClient'].query(

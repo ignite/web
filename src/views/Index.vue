@@ -7,12 +7,12 @@
 				<h3>STARPORT MODULE COMPONENTS</h3>
 				<hr />
 				<code>SpTypeList</code>
-				<SpTypeList module="tendermint/modules/blog" type="Post" />
+				<SpTypeList module="foo/bar/blog" type="Post" />
 				<hr />
 				<code>SpTypeForm action="create"</code>
 				<SpTypeForm
 					denom="TOKEN"
-					module="tendermint/modules/blog"
+					module="foo/bar/blog"
 					type="Post"
 					action="create"
 				/>
@@ -20,7 +20,7 @@
 				<code>SpTypeForm action="delete" without id</code>
 				<SpTypeForm
 					denom="TOKEN"
-					module="tendermint/modules/blog"
+					module="foo/bar/blog"
 					type="Post"
 					action="delete"
 				/>
@@ -35,7 +35,7 @@
 				</div>
 				<SpTypeForm
 					denom="TOKEN"
-					module="tendermint/modules/blog"
+					module="foo/bar/blog"
 					type="Post"
 					action="delete"
 					:id="showcaseDeleteId"
@@ -45,7 +45,7 @@
 				<code>SpTypeForm action="update" without id</code>
 				<SpTypeForm
 					denom="TOKEN"
-					module="tendermint/modules/blog"
+					module="foo/bar/blog"
 					type="Post"
 					action="update"
 				/>
@@ -60,7 +60,7 @@
 				</div>
 				<SpTypeForm
 					denom="TOKEN"
-					module="tendermint/modules/blog"
+					module="foo/bar/blog"
 					type="Post"
 					action="update"
 					:id="showcaseUpdateId"
