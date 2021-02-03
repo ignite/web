@@ -190,9 +190,11 @@ export default {
 		balances() {
 			if (
 				this.address != '' &&
-				this.$store.state.chain.cosmos.bank.AllBalances['/' + this.address]
+				this.$store.state.chain.cosmos['cosmos-sdk'].bank.AllBalances[
+					'/' + this.address
+				]
 			) {
-				return this.$store.state.chain.cosmos.bank.AllBalances[
+				return this.$store.state.chain.cosmos['cosmos-sdk'].bank.AllBalances[
 					'/' + this.address
 				].balances
 			} else {
