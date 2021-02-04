@@ -34,6 +34,15 @@
 					</button>
 				</li>
 				<li>
+					<button
+						class="SpButton"
+						@click="goTo('/wallet/')"
+						:disabled="!loggedIn"
+					>
+						<div class="SpButtonText">WALLET INFORMATION</div>
+					</button>
+				</li>
+				<li>
 					<button class="SpButton" @click="signOut" :disabled="!loggedIn">
 						<div class="SpButtonText">SIGN OUT</div>
 					</button>

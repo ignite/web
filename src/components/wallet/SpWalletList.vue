@@ -1,6 +1,13 @@
 <template>
 	<div class="SpWalletList">
-		<div v-if="!newWallet.show && !unlockWallet.show && !keyWallet.show">
+		<div
+			v-if="
+				!newWallet.show &&
+					!unlockWallet.show &&
+					!keyWallet.show &&
+					!importWallet.show
+			"
+		>
 			<strong>AVAILABLE WALLETS:</strong>
 			<ul v-if="walletList.length > 0">
 				<li v-for="wallet in walletList" v-bind:key="wallet.name">
@@ -23,6 +30,11 @@
 			<div class="SpWalletKey">
 				<button @click="keyWalletForm()" class="SpButton SpWalletButton">
 					<div class="SpButtonText">SIGN IN WITH PRIVATE KEY</div>
+				</button>
+			</div>
+			<div class="SpWalletImport">
+				<button @click="importWalletForm()" class="SpButton SpWalletButton">
+					<div class="SpButtonText">IMPORT EXISTING WALLET</div>
 				</button>
 			</div>
 		</div>
@@ -115,12 +127,39 @@
 					v-model="keyWallet.privKey"
 				/>
 			</div>
-			<div class="SpWalletUnlock">
+			<div class="SpWalletKey">
 				<button @click="cancel()" class="SpButton">
 					<div class="SpButtonText">CANCEL</div>
 				</button>
 				<button @click="signInWithKey()" class="SpButton">
 					<div class="SpButtonText">SIGN IN</div>
+				</button>
+			</div>
+		</div>
+		<div class="SpWalletForm SpForm" v-if="importWallet.show">
+			<div class="SpFormTitle">
+				<strong>IMPORT EXISTING WALLET</strong>
+			</div>
+			<div class="SpWalletInputPassword">
+				<input
+					type="file"
+					placeholder="Select backup .bin file"
+					ref="backupFile"
+				/>
+			</div>
+			<div class="SpWalletInputPassword">
+				<input
+					type="password"
+					placeholder="Enter password"
+					v-model="importWallet.password"
+				/>
+			</div>
+			<div class="SpWalletImport">
+				<button @click="cancel()" class="SpButton">
+					<div class="SpButtonText">CANCEL</div>
+				</button>
+				<button @click="restoreBackup()" class="SpButton">
+					<div class="SpButtonText">RESTORE</div>
 				</button>
 			</div>
 		</div>
@@ -164,6 +203,11 @@ export default {
 			this.keyWallet.show = true
 			this.keyWallet.privKey = ''
 		},
+		importWalletForm() {
+			this.importWallet.show = true
+			this.importWallet.backup = ''
+			this.importWallet.password = ''
+		},
 		unlockWalletForm(name) {
 			this.unlockWallet.show = true
 			this.unlockWallet.name = name
@@ -180,6 +224,23 @@ export default {
 			this.unlockWallet.show = false
 			this.unlockWallet.name = name
 			this.unlockWallet.password = ''
+			this.keyWallet.show = false
+			this.keyWallet.privKey = ''
+			this.importWallet.show = false
+			this.importWallet.backup = ''
+			this.importWallet.password = ''
+		},
+		async restoreBackup() {
+			let file = this.$refs.backupFile.files[0]
+			if (!file) return
+			let reader = new FileReader()
+			reader.readAsText(file)
+			reader.onload = evt => {
+				this.$store.dispatch('chain/common/wallet/restoreWallet', {
+					encrypted: evt.target.result,
+					password: this.importWallet.password
+				})
+			}
 		},
 		async signInWithKey() {
 			await this.$store.dispatch('chain/common/wallet/signInWithPrivateKey', {
@@ -187,6 +248,7 @@ export default {
 			})
 			this.reset()
 			this.$emit('wallet-selected')
+			console.log(this.$store.getters['chain/common/wallet/privKey'])
 		},
 		async unlockStoreWallet() {
 			await this.$store.dispatch('chain/common/wallet/unlockWallet', {
@@ -217,6 +279,11 @@ export default {
 				keyWallet: {
 					show: false,
 					privKey: ''
+				},
+				importWallet: {
+					show: false,
+					backup: '',
+					password: ''
 				}
 			}
 		},

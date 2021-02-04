@@ -2,13 +2,14 @@ import {
 	DirectSecp256k1HdWallet,
 	DirectSecp256k1Wallet
 } from '@cosmjs/proto-signing'
-import { decode } from 'bs58'
+
 import {
 	assertIsBroadcastTxSuccess,
 	SigningStargateClient
 } from '@cosmjs/stargate'
 import { stringToPath } from '@cosmjs/crypto'
 import CryptoJS from 'crypto-js'
+import { keyFromWif, keyToWif } from '@/helpers/keys'
 
 export default {
 	namespaced: true,
@@ -23,9 +24,17 @@ export default {
 	},
 	getters: {
 		client: state => state.activeClient,
+		wallet: state => state.activeWallet,
 		address: state => state.selectedAddress,
 		loggedIn: state => state.activeClient !== null,
-		walletName: state => (state.activeWallet ? state.activeWallet.name : null)
+		walletName: state => (state.activeWallet ? state.activeWallet.name : null),
+		privKey: state => {
+			if (state.activeClient) {
+				return keyToWif(state.activeClient.signer.privkey)
+			} else {
+				return null
+			}
+		}
 	},
 	mutations: {
 		SET_ACTIVE_WALLET(state, wallet) {
@@ -192,7 +201,7 @@ export default {
 			{ commit, rootGetters },
 			{ prefix = 'cosmos', privKey }
 		) {
-			const pKey = decode(privKey.trim()).slice(1, 33)
+			const pKey = keyFromWif(privKey.trim())
 			const accountSigner = await DirectSecp256k1Wallet.fromKey(pKey, prefix)
 			const [firstAccount] = await accountSigner.getAccounts()
 
@@ -203,6 +212,36 @@ export default {
 
 			commit('SET_ACTIVE_CLIENT', client)
 			commit('SET_SELECTED_ADDRESS', firstAccount.address)
+		},
+		async restoreWallet(
+			{ commit, dispatch, rootGetters, state },
+			{ encrypted, password }
+		) {
+			const wallet = JSON.parse(
+				CryptoJS.AES.decrypt(encrypted, password).toString(CryptoJS.enc.Utf8)
+			)
+			let newName = wallet.name
+			let incr = 1
+			while (state.wallets.findIndex(x => x.name == newName) != -1) {
+				newName = wallet.name + '_' + incr
+				incr++
+			}
+			wallet.name = newName
+			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
+				wallet.mnemonic,
+				stringToPath(wallet.HDpath + '0'),
+				wallet.prefix
+			)
+			const [firstAccount] = await accountSigner.getAccounts()
+			commit('ADD_WALLET', wallet)
+			const client = await SigningStargateClient.connectWithSigner(
+				rootGetters['chain/common/env/apiTendermint'],
+				accountSigner
+			)
+
+			commit('SET_ACTIVE_CLIENT', client)
+			commit('SET_SELECTED_ADDRESS', firstAccount.address)
+			dispatch('storeWallets')
 		},
 		async createWalletWithMnemonic(
 			{ commit, dispatch, rootGetters },
