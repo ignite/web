@@ -1,4 +1,8 @@
-import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing'
+import {
+	DirectSecp256k1HdWallet,
+	DirectSecp256k1Wallet
+} from '@cosmjs/proto-signing'
+import { decode } from 'bs58'
 import {
 	assertIsBroadcastTxSuccess,
 	SigningStargateClient
@@ -21,7 +25,7 @@ export default {
 		client: state => state.activeClient,
 		address: state => state.selectedAddress,
 		loggedIn: state => state.activeClient !== null,
-		walletName: state => state.activeWallet.name
+		walletName: state => (state.activeWallet ? state.activeWallet.name : null)
 	},
 	mutations: {
 		SET_ACTIVE_WALLET(state, wallet) {
@@ -183,6 +187,22 @@ export default {
 				)
 				commit('SET_ACTIVE_CLIENT', client)
 			}
+		},
+		async signInWithPrivateKey(
+			{ commit, rootGetters },
+			{ prefix = 'cosmos', privKey }
+		) {
+			const pKey = decode(privKey.trim()).slice(1, 33)
+			const accountSigner = await DirectSecp256k1Wallet.fromKey(pKey, prefix)
+			const [firstAccount] = await accountSigner.getAccounts()
+
+			const client = await SigningStargateClient.connectWithSigner(
+				rootGetters['chain/common/env/apiTendermint'],
+				accountSigner
+			)
+
+			commit('SET_ACTIVE_CLIENT', client)
+			commit('SET_SELECTED_ADDRESS', firstAccount.address)
 		},
 		async createWalletWithMnemonic(
 			{ commit, dispatch, rootGetters },

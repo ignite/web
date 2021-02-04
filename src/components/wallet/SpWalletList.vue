@@ -1,6 +1,6 @@
 <template>
 	<div class="SpWalletList">
-		<div v-if="!newWallet.show && !unlockWallet.show">
+		<div v-if="!newWallet.show && !unlockWallet.show && !keyWallet.show">
 			<strong>AVAILABLE WALLETS:</strong>
 			<ul v-if="walletList.length > 0">
 				<li v-for="wallet in walletList" v-bind:key="wallet.name">
@@ -16,8 +16,13 @@
 			</div>
 			<hr />
 			<div class="SpWalletNew">
-				<button @click="newWalletForm()" class="SpButton">
+				<button @click="newWalletForm()" class="SpButton SpWalletButton">
 					<div class="SpButtonText">CREATE NEW WALLET</div>
+				</button>
+			</div>
+			<div class="SpWalletKey">
+				<button @click="keyWalletForm()" class="SpButton SpWalletButton">
+					<div class="SpButtonText">SIGN IN WITH PRIVATE KEY</div>
 				</button>
 			</div>
 		</div>
@@ -99,6 +104,26 @@
 				</button>
 			</div>
 		</div>
+		<div class="SpWalletForm SpForm" v-if="keyWallet.show">
+			<div class="SpFormTitle">
+				<strong>SIGN IN WITH PRIVATE KEY</strong>
+			</div>
+			<div class="SpWalletInputPassword">
+				<input
+					type="name"
+					placeholder="Enter private key (WIF)"
+					v-model="keyWallet.privKey"
+				/>
+			</div>
+			<div class="SpWalletUnlock">
+				<button @click="cancel()" class="SpButton">
+					<div class="SpButtonText">CANCEL</div>
+				</button>
+				<button @click="signInWithKey()" class="SpButton">
+					<div class="SpButtonText">SIGN IN</div>
+				</button>
+			</div>
+		</div>
 	</div>
 </template>
 <script>
@@ -135,6 +160,10 @@ export default {
 			this.newWallet.name = ''
 			this.newWallet.mnemonic = ''
 		},
+		keyWalletForm() {
+			this.keyWallet.show = true
+			this.keyWallet.privKey = ''
+		},
 		unlockWalletForm(name) {
 			this.unlockWallet.show = true
 			this.unlockWallet.name = name
@@ -151,6 +180,13 @@ export default {
 			this.unlockWallet.show = false
 			this.unlockWallet.name = name
 			this.unlockWallet.password = ''
+		},
+		async signInWithKey() {
+			await this.$store.dispatch('chain/common/wallet/signInWithPrivateKey', {
+				privKey: this.keyWallet.privKey
+			})
+			this.reset()
+			this.$emit('wallet-selected')
 		},
 		async unlockStoreWallet() {
 			await this.$store.dispatch('chain/common/wallet/unlockWallet', {
@@ -177,6 +213,10 @@ export default {
 					show: false,
 					name: '',
 					password: ''
+				},
+				keyWallet: {
+					show: false,
+					privKey: ''
 				}
 			}
 		},

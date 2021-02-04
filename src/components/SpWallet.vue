@@ -2,10 +2,13 @@
 	<div class="SpWallet">
 		<div v-if="loggedIn">
 			<button @click="toggleAccountList()" class="SpButton">
-				<div class="SpButtonText">{{ walletName }}:{{ currentAccount }}</div>
+				<div class="SpButtonText">
+					<template v-if="walletName">{{ walletName }}:</template
+					>{{ currentAccount }}
+				</div>
 			</button>
 			<SpAccountList
-				v-if="showAccounts"
+				v-if="showAccounts && walletName"
 				v-on:account-selected="showAccounts = false"
 			/>
 		</div>
@@ -70,10 +73,12 @@ export default {
 			this.showWallets = false
 		},
 		toggleAccountList() {
-			this.showAccounts = !this.showAccounts
-			if (this.showAccounts) {
-				this.showWallets = false
-				this.$emit('dropdown-opened')
+			if (this.walletName) {
+				this.showAccounts = !this.showAccounts
+				if (this.showAccounts) {
+					this.showWallets = false
+					this.$emit('dropdown-opened')
+				}
 			}
 		}
 	}

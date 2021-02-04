@@ -46,7 +46,7 @@ export default {
 			state._Subscriptions.add(subscription)
 		},
 		UNSUBSCRIBE(state, subscription) {
-			state._Subscriptions.remove(subscription)
+			state._Subscriptions.delete(subscription)
 		}
 	},
 	getters: {
