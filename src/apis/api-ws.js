@@ -2,7 +2,6 @@ import ReconnectingWebSocket from 'reconnecting-websocket'
 import EventEmitter from 'events'
 
 export default class ApiWS extends EventEmitter {
-	connected = false
 	constructor(url) {
 		super()
 		this._connectedPromise = new Promise((res, rej) => {
@@ -20,7 +19,6 @@ export default class ApiWS extends EventEmitter {
 		this._socket.onerror = this.onError.bind(this)
 		this._socket.onclose = this.onClose.bind(this)
 		this.subscriptions = new Map()
-		this.connected = false
 	}
 	connect() {
 		return this._connectedPromise
@@ -29,11 +27,11 @@ export default class ApiWS extends EventEmitter {
 		this._connectRej()
 	}
 	onClose() {
-		this.connected = false
+		this.emit('ws-status', false)
 	}
 	onOpen() {
 		this._connectRes()
-		this.connected = true
+		this.emit('ws-status', true)
 		this._socket.send(
 			JSON.stringify({
 				jsonrpc: '2.0',

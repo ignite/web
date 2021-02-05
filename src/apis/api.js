@@ -1,13 +1,12 @@
 import axios from 'axios'
+import EventEmitter from 'events'
 
-export default class Api {
-	apiConnected = false
-	rpcConnected = false
+export default class Api extends EventEmitter {
 	constructor(apiCosmos, apiTendermint) {
+		super()
 		this.apiCosmos = apiCosmos
 		this.apiTendermint = apiTendermint
-		this.apiConnected = false
-		this.rpcConnected = false
+
 		const poll = this.connectivityTest.bind(this)
 		this._timer = setInterval(poll, 5000)
 		this.connectivityTest()
@@ -15,22 +14,22 @@ export default class Api {
 	async connectivityTest() {
 		try {
 			await axios.get(this.apiCosmos)
-			this.apiConnected = true
+			this.emit('api-status', true)
 		} catch (error) {
 			if (!error.response) {
-				this.apiConnected = false
+				this.emit('api-status', false)
 			} else {
-				this.apiConnected = true
+				this.emit('api-status', true)
 			}
 		}
 		try {
 			await axios.get(this.apiTendermint)
-			this.rpcConnected = true
+			this.emit('rpc-status', true)
 		} catch (error) {
 			if (!error.response) {
-				this.apiConnected = false
+				this.emit('rpc-status', false)
 			} else {
-				this.apiConnected = true
+				this.emit('api-status', true)
 			}
 		}
 	}

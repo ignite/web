@@ -17,7 +17,7 @@ export default {
 			return this.$store.state.chain.common.env.apiTendermint
 		},
 		nodeStatus() {
-			return this.$store.state.chain.common.env.clients.api.rpcConnected
+			return this.$store.state.chain.common.env.rpcConnected
 		}
 	}
 }

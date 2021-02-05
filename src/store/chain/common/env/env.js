@@ -11,10 +11,9 @@ export default {
 			apiCosmos: null,
 			apiTendermint: null,
 			apiWS: null,
-			clients: {
-				api: { apiConnected: false, rpcConnected: false },
-				ws: { connected: false }
-			},
+			apiConnected: false,
+			rpcConnected: false,
+			wsConnected: false,
 			wallet: null,
 			getTXApi: '',
 			account: '',
@@ -23,8 +22,8 @@ export default {
 		}
 	},
 	getters: {
-		apiClient: state => state.clients.api,
-		wsClient: state => state.clients.ws,
+		apiClient: state => state.apiClient,
+		wsClient: state => state.wsClient,
 		apiTendermint: state => state.apiTendermint
 	},
 	mutations: {
@@ -35,12 +34,21 @@ export default {
 				state.apiWS = config.wsNode
 			}
 		},
-		CONNECT(state, clients) {
-			state.clients.api = clients.apiClient
-			state.clients.ws = clients.wsClient
+		CONNECT(state, { apiClient, wsClient }) {
+			state.apiClient = apiClient
+			state.wsClient = wsClient
 		},
 		INITIALIZE_WS_COMPLETE(state) {
 			state.initialized = true
+		},
+		SET_WS_STATUS(state, status) {
+			state.wsConnected = status
+		},
+		SET_API_STATUS(state, status) {
+			state.apiConnected = status
+		},
+		SET_RPC_STATUS(state, status) {
+			state.rpcConnected = status
 		}
 	},
 	actions: {
@@ -60,6 +68,19 @@ export default {
 				await dispatch('chain/common/starport/init', null, { root: true })
 			} else {
 				await dispatch('config', config)
+			}
+		},
+		async setConnectivity({ commit }, payload) {
+			switch (payload.connection) {
+				case 'ws':
+					commit('SET_WS_STATUS', payload.status)
+					break
+				case 'api':
+					commit('SET_API_STATUS', payload.status)
+					break
+				case 'rpc':
+					commit('SET_RPC_STATUS', payload.status)
+					break
 			}
 		},
 		async config(
@@ -94,14 +115,17 @@ export default {
 					reconnectSigningClient = true
 				}
 			}
-			const clients = {
-				wsClient: state.clients.ws,
-				apiClient: state.clients.api
-			}
+
+			let wsClient = state.wsClient
+			let apiClient = state.apiClient
+
 			if (reconnectWS && config.wsNode) {
-				clients.wsClient = new ApiWS(config.wsNode)
+				wsClient = new ApiWS(config.wsNode)
+				wsClient.on('ws-status', status =>
+					dispatch('setConnectivity', { connection: 'ws', status: status })
+				)
 				try {
-					await clients.wsClient.connect()
+					await wsClient.connect()
 				} catch (e) {
 					console.log('WS Connection failed')
 				}
@@ -113,9 +137,15 @@ export default {
 				(reconnectClient && config.apiNode && config.rpcNode) ||
 				(reconnectSigningClient && config.apiNode && config.rpcNode)
 			) {
-				clients.apiClient = new Api(config.apiNode, config.rpcNode)
+				apiClient = new Api(config.apiNode, config.rpcNode)
+				apiClient.on('api-status', status =>
+					dispatch('setConnectivity', { connection: 'api', status: status })
+				)
+				apiClient.on('rpc-status', status =>
+					dispatch('setConnectivity', { connection: 'rpc', status: status })
+				)
 			}
-			commit('CONNECT', clients)
+			commit('CONNECT', { apiClient, wsClient })
 			if (reconnectWS) {
 				commit('INITIALIZE_WS_COMPLETE')
 			}

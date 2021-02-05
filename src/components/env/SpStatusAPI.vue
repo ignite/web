@@ -17,7 +17,7 @@ export default {
 			return this.$store.state.chain.common.env.apiCosmos
 		},
 		nodeStatus() {
-			return this.$store.state.chain.common.env.clients.api.apiConnected
+			return this.$store.state.chain.common.env.apiConnected
 		}
 	}
 }
