@@ -1,6 +1,7 @@
 <template>
 	<div class="SpStatusAPI">
-		API <em>{{ apiNode }}</em>: <SpStatusLED :status="nodeStatus" />
+		API <em>{{ apiNode }}</em
+		>: <SpStatusLED :status="nodeStatus" />
 	</div>
 </template>
 <script>

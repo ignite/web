@@ -1,6 +1,5 @@
-import { createStore,createLogger } from 'vuex'
+import { createStore, createLogger } from 'vuex'
 import init from './config'
-
 
 const store = createStore({
 	state() {

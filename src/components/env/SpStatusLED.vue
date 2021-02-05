@@ -1,9 +1,9 @@
 <template>
-	<div class="SpStatusLED" :class="{ 'active': status }" />
+	<div class="SpStatusLED" :class="{ active: status }" />
 </template>
 <script>
 export default {
-  name: 'SpStatusLED',
-  props: ['status']
+	name: 'SpStatusLED',
+	props: ['status']
 }
 </script>

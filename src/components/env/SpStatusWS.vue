@@ -1,6 +1,7 @@
 <template>
 	<div class="SpStatusWS">
-		WS <em>{{ wsNode }}</em>: <SpStatusLED :status="nodeStatus" />
+		WS <em>{{ wsNode }}</em
+		>: <SpStatusLED :status="nodeStatus" />
 	</div>
 </template>
 <script>

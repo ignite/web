@@ -202,7 +202,7 @@ export default {
 				if (subscribe) {
 					commit('SUBSCRIBE', {
 						action: 'QueryParams',
-						payload: {}
+						payload: null
 					})
 				}
 			} catch (e) {

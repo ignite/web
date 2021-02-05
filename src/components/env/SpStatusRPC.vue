@@ -1,6 +1,7 @@
 <template>
 	<div class="SpStatusRPC">
-		RPC <em>{{ rpcNode }}</em>: <SpStatusLED :status="nodeStatus" />
+		RPC <em>{{ rpcNode }}</em
+		>: <SpStatusLED :status="nodeStatus" />
 	</div>
 </template>
 <script>

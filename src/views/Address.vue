@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<SpBankBalances :address="address" :refresh="true" v-if="address"/>
+			<SpBankBalances :address="address" :refresh="true" v-if="address" />
 		</div>
 	</div>
 </template>
