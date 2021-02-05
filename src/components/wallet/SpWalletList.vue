@@ -48,8 +48,13 @@
 			<div class="SpWalletInputMnemonic">
 				<textarea
 					v-model="newWallet.mnemonic"
-					placeholder="Mnemonic..."
+					placeholder="Mnemonic (enter or click below to generate)"
 				></textarea>
+			</div>
+			<div class="SpWalletGenerateMnemonic">
+				<button @click="generateMnemonic()" class="SpButton">
+					<div class="SpButtonText">GENERATE MNEMONIC</div>
+				</button>
 			</div>
 			<div class="SpWalletNext">
 				<button @click="cancel()" class="SpButton">
@@ -166,7 +171,8 @@
 	</div>
 </template>
 <script>
-import { validateMnemonic } from 'bip39'
+import * as bip39 from 'bip39'
+
 export default {
 	name: 'SpWalletList',
 	data() {
@@ -179,7 +185,7 @@ export default {
 		validStep1() {
 			return (
 				this.newWallet.name.trim() !== '' &&
-				validateMnemonic(this.newWallet.mnemonic)
+				bip39.validateMnemonic(this.newWallet.mnemonic)
 			)
 		},
 		validStep2() {
@@ -286,6 +292,10 @@ export default {
 					password: ''
 				}
 			}
+		},
+		generateMnemonic() {
+			const mnemonic = bip39.generateMnemonic(256)
+			this.newWallet.mnemonic = mnemonic
 		},
 		async createWallet() {
 			await this.$store.dispatch(

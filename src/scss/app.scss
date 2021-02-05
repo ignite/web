@@ -148,7 +148,7 @@ body {
       box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
       outline: none;
       width: 100%;
-      height: 72px;
+      height: 140px;
       box-sizing: border-box;
       resize: none;
       letter-spacing: 0.02em;
@@ -402,6 +402,10 @@ body {
               width: 100%;
             }
           }
+        }
+        
+        .SpWalletGenerateMnemonic {
+          margin-bottom: 10px;
         }
         .SpWalletButton {
           width: 100%;
