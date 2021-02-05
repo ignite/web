@@ -17,11 +17,7 @@ export default {
 			return this.$store.state.chain.common.env.apiTendermint
 		},
 		nodeStatus() {
-			if (this.rpcNode != '') {
-				return true
-			} else {
-				return false
-			}
+			return this.$store.state.chain.common.env.clients.api.rpcConnected
 		}
 	}
 }

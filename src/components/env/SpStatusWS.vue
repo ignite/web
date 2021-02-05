@@ -17,11 +17,7 @@ export default {
 			return this.$store.state.chain.common.env.apiWS
 		},
 		nodeStatus() {
-			if (this.$store.getters['chain/common/env/wsClient']) {
-				return true
-			} else {
-				return false
-			}
+			return this.$store.state.chain.common.env.clients.ws.connected
 		}
 	}
 }

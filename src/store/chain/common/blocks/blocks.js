@@ -39,19 +39,23 @@ export default {
 			}
 		},
 		async addBlock({ commit, rootGetters }, blockData) {
-			const blockDetails = await axios.get(
-				rootGetters['chain/common/env/apiTendermint'] +
-					'/block?height=' +
-					blockData.data.value.block.header.height
-			)
-			const block = {
-				height: blockData.data.value.block.header.height,
-				timestamp: blockData.data.value.block.header.time,
-				hash: blockDetails.data.result.block_id.hash,
-				details: blockData.data.value.block
-			}
+			try {
+				const blockDetails = await axios.get(
+					rootGetters['chain/common/env/apiTendermint'] +
+						'/block?height=' +
+						blockData.data.value.block.header.height
+				)
+				const block = {
+					height: blockData.data.value.block.header.height,
+					timestamp: blockData.data.value.block.header.time,
+					hash: blockDetails.data.result.block_id.hash,
+					details: blockData.data.value.block
+				}
 
-			commit('ADD_BLOCK', block)
+				commit('ADD_BLOCK', block)
+			} catch (e) {
+				console.log('Cannot add new block. RPC node unavailable')
+			}
 		},
 		resetState({ commit }) {
 			commit('RESET_STATE')

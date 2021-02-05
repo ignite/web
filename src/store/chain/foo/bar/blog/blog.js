@@ -105,7 +105,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 
@@ -125,7 +125,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		registerTypes({ dispatch }) {

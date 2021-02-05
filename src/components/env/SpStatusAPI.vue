@@ -17,11 +17,7 @@ export default {
 			return this.$store.state.chain.common.env.apiCosmos
 		},
 		nodeStatus() {
-			if (this.$store.getters['chain/common/env/apiClient']) {
-				return true
-			} else {
-				return false
-			}
+			return this.$store.state.chain.common.env.clients.api.apiConnected
 		}
 	}
 }

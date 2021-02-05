@@ -1,11 +1,38 @@
 import axios from 'axios'
 
 export default class Api {
-	constructor(apiCosmos) {
+	apiConnected = false
+	rpcConnected = false
+	constructor(apiCosmos, apiTendermint) {
 		this.apiCosmos = apiCosmos
+		this.apiTendermint = apiTendermint
+		this.apiConnected = false
+		this.rpcConnected = false
+		const poll = this.connectivityTest.bind(this)
+		this._timer = setInterval(poll, 5000)
+		this.connectivityTest()
 	}
-	changeUrl(apiCosmos) {
-		this.apiCosmos = apiCosmos
+	async connectivityTest() {
+		try {
+			await axios.get(this.apiCosmos)
+			this.apiConnected = true
+		} catch (error) {
+			if (!error.response) {
+				this.apiConnected = false
+			} else {
+				this.apiConnected = true
+			}
+		}
+		try {
+			await axios.get(this.apiTendermint)
+			this.rpcConnected = true
+		} catch (error) {
+			if (!error.response) {
+				this.apiConnected = false
+			} else {
+				this.apiConnected = true
+			}
+		}
 	}
 	async query(url, params = '') {
 		try {

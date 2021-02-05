@@ -126,7 +126,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		async QueryAllBalances(
@@ -149,7 +149,7 @@ export default {
 				}
 			} catch (e) {
 				console.log(e)
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		async QueryTotalSupply({ commit, rootGetters }, { subscribe = false }) {
@@ -168,7 +168,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		async QuerySupplyOf({ commit, rootGetters }, { denom, subscribe = false }) {
@@ -187,7 +187,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		async QueryParams({ commit, rootGetters }, { subscribe = false }) {
@@ -206,7 +206,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		async QueryDenomsMetadata({ commit, rootGetters }, { subscribe = false }) {
@@ -225,7 +225,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		async QueryDenomMetadata(
@@ -247,7 +247,7 @@ export default {
 					})
 				}
 			} catch (e) {
-				throw 'API Node unavailable'
+				console.log('Query Failed: API node unavailable')
 			}
 		},
 		registerTypes() {},

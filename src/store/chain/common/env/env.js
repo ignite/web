@@ -12,8 +12,8 @@ export default {
 			apiTendermint: null,
 			apiWS: null,
 			clients: {
-				api: null,
-				ws: null
+				api: { apiConnected: false, rpcConnected: false },
+				ws: { connected: false }
 			},
 			wallet: null,
 			getTXApi: '',
@@ -100,13 +100,20 @@ export default {
 			}
 			if (reconnectWS && config.wsNode) {
 				clients.wsClient = new ApiWS(config.wsNode)
-				await clients.wsClient.connect()
+				try {
+					await clients.wsClient.connect()
+				} catch (e) {
+					console.log('WS Connection failed')
+				}
 			}
 			if (reconnectSigningClient && config.rpcNode) {
 				dispatch('chain/common/wallet/switchAPI', null, { root: true })
 			}
-			if (reconnectClient && config.apiNode) {
-				clients.apiClient = new Api(config.apiNode)
+			if (
+				(reconnectClient && config.apiNode && config.rpcNode) ||
+				(reconnectSigningClient && config.apiNode && config.rpcNode)
+			) {
+				clients.apiClient = new Api(config.apiNode, config.rpcNode)
 			}
 			commit('CONNECT', clients)
 			if (reconnectWS) {
