@@ -1,6 +1,6 @@
 <template>
 	<div class="SpLatestBlocksWrapper">
-		<div class="SpLatestBlocks">
+		<div class="SpLatestBlocks" ref="blockList">
 			<h2>LATEST BLOCKS</h2>
 			<div v-if="blocks.length >= 10" class="SpLatestBlockList">
 				<SpBlockDisplaySmall
@@ -36,7 +36,16 @@ export default {
 	},
 	computed: {
 		blocks() {
-			return this.$store.getters['chain/common/blocks/getBlocks']
+			return this.$store.getters['chain/common/blocks/getBlocks'](10)
+		}
+	},
+	watch: {
+		blocks() {
+			let initialPos = window.scrollY
+			let vm = this
+			vm.$nextTick(() => {
+				window.scrollTo(0, initialPos)
+			})
 		}
 	}
 }

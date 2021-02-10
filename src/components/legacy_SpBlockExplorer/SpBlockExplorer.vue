@@ -1,22 +1,26 @@
 <template>
 	<transition key="default" name="sp-fade" mode="out-in">
-		<div v-if="!isBlocksStackEmpty && isBackendAlive" class="explorer">
+		<div v-if="blocks.length >= 20" class="explorer">
 			<FullWidthContainer>
-				<div slot="sideSheet" class="explorer__block">
-					<transition name="sp-fadeMild" mode="out-in">
-						<BlockDetailSheet
-							v-if="highlightedBlock"
-							:key="blockSheetKey"
-							:block="highlightedBlock"
-						/>
-					</transition>
-				</div>
-				<div slot="mainContent" class="explorer__chain">
-					<div class="explorer__chain-header">Blocks</div>
-					<div class="explorer__chain-main">
-						<BlockChain :blocks="fmtBlockData" />
+				<template v-slot:sideSheet>
+					<div class="explorer__block">
+						<transition name="sp-fadeMild" mode="out-in">
+							<BlockDetailSheet
+								v-if="highlightedBlock"
+								:key="blockSheetKey"
+								:block="highlightedBlock"
+							/>
+						</transition>
 					</div>
-				</div>
+				</template>
+				<template v-slot:mainContent>
+					<div class="explorer__chain">
+						<div class="explorer__chain-header">Blocks</div>
+						<div class="explorer__chain-main">
+							<BlockChain :blocks="blocks" />
+						</div>
+					</div>
+				</template>
 			</FullWidthContainer>
 		</div>
 
@@ -30,8 +34,10 @@
 </template>
 
 <script>
+/*
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import blockHelpers from '../../helpers/block'
+*/
 
 import FullWidthContainer from './FullWidthContainer'
 import BlockDetailSheet from './BlockDetailSheet'
@@ -48,115 +54,14 @@ export default {
 	data() {
 		return {
 			states: {
-				isScrolledInTopHalf: true,
-				isLoading: false
+				isLoading: false,
+				highlightedBlock: {}
 			}
 		}
 	},
 	computed: {
-		/*
-		 *
-		 * Vuex
-		 *
-		 */
-		...mapGetters('cosmos', [
-			'highlightedBlock',
-			'blocksStack',
-			'lastBlock',
-			'stackChainRange',
-			'latestBlock',
-			'appEnv',
-			'backendRunningStates'
-		]),
-		/*
-		 *
-		 * Local
-		 *
-		 */
-		blockSheetKey() {
-			if (this.highlightedBlock && this.highlightedBlock.data) {
-				return this.highlightedBlock.data.blockMsg.blockHash
-			}
-			return ''
-		},
-		fmtBlockData() {
-			const fmtgetFormattedBlock = blockHelpers.getFormattedBlock(
-				this.blocksStack
-			)
-
-			if (!fmtgetFormattedBlock) return null
-
-			return fmtgetFormattedBlock
-		},
-		isBlocksStackEmpty() {
-			return (
-				this.blocksStack.length <= 0 ||
-				!this.fmtBlockData ||
-				(this.fmtBlockData && this.fmtBlockData.length <= 0)
-			)
-		},
-		isBackendAlive() {
-			return this.backendRunningStates.api
-		}
-	},
-	beforeDestroy() {
-		if (this.latestBlock) {
-			this.getBlockchain({
-				blockHeight: this.latestBlock.height,
-				toReset: true,
-				toGetLowerBlocks: true
-			})
-		}
-	},
-	methods: {
-		/*
-		 *
-		 * Vuex
-		 *
-		 */
-		...mapMutations('cosmos', ['popOverloadBlocks']),
-		...mapActions('cosmos', ['addBlockEntry', 'getBlockchain']),
-		/*
-		 *
-		 * Local
-		 *
-		 */
-		/*
-     *
-     // Pop overloaded blocks (over maxStackCount)
-     // only when scrolling to upperhalf of the table
-     *
-     */
-		async handleScrollTop() {
-			this.states.isScrolledInTopHalf = true
-			if (!this.latestBlock) return
-
-			const isShowingLatestBlock =
-				parseInt(this.latestBlock.height) === this.stackChainRange.highestHeight
-
-			if (!isShowingLatestBlock && !this.states.isLoading) {
-				this.states.isLoading = true
-
-				await this.getBlockchain({
-					blockHeight: this.stackChainRange.highestHeight,
-					toGetLowerBlocks: false
-				}).then(() => (this.states.isLoading = false))
-			}
-		},
-		/*
-     *
-     // Load extra 20 blocks
-     // only when scrolling to bottom of the table
-     *
-     */
-		async handleScrollBottom() {
-			this.states.isScrolledInTopHalf = false
-			this.states.isLoading = true
-
-			await this.getBlockchain({
-				blockHeight: this.lastBlock.height,
-				toGetLowerBlocks: true
-			}).then(() => (this.states.isLoading = false))
+		blocks() {
+			return this.$store.getters['chain/common/blocks/getBlocks'](20)
 		}
 	}
 }

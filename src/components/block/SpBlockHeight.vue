@@ -8,7 +8,7 @@ export default {
 	name: 'SpBlockHeight',
 	computed: {
 		blocks() {
-			return this.$store.getters['chain/common/blocks/getBlocks']
+			return this.$store.getters['chain/common/blocks/getBlocks'](10)
 		},
 		blockHeight() {
 			if (this.blocks.length > 0) {

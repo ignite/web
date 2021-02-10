@@ -9,8 +9,10 @@ export default {
 		}
 	},
 	getters: {
-		getBlocks: state => {
-			return [...state.blocks].sort((a, b) => b.height - a.height)
+		getBlocks: state => howmany => {
+			return [...state.blocks]
+				.sort((a, b) => b.height - a.height)
+				.slice(0, howmany)
 		},
 		getBlockByHeight: state => height => {
 			return state.blocks.find(x => x.height == height) || {}
@@ -19,9 +21,9 @@ export default {
 	mutations: {
 		ADD_BLOCK(state, block) {
 			state.blocks.push(block)
-			if (state.blocks.length > state.size) {
-				state.blocks.shift()
-			}
+			//	if (state.blocks.length > state.size) {
+			//		state.blocks.shift()
+			//	}
 		},
 		RESET_STATE(state) {
 			state.blocks = []

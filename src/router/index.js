@@ -5,6 +5,7 @@ import Block from '@/views/Block.vue'
 import Blocks from '@/views/Blocks.vue'
 import Send from '@/views/Send.vue'
 import Wallet from '@/views/Wallet.vue'
+import Legacy from '@/views/Legacy.vue'
 
 const routerHistory = createWebHistory()
 const routes = [
@@ -16,7 +17,8 @@ const routes = [
 	{ path: '/block/:block', component: Block },
 	{ path: '/blocks/:page?', component: Blocks },
 	{ path: '/send/', component: Send },
-	{ path: '/wallet/', component: Wallet }
+	{ path: '/wallet/', component: Wallet },
+	{ path: '/legacy/', component: Legacy }
 ]
 
 const router = createRouter({

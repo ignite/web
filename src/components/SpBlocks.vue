@@ -40,7 +40,7 @@ export default {
 	},
 	computed: {
 		blocks() {
-			return this.$store.getters['chain/common/blocks/getBlocks']
+			return this.$store.getters['chain/common/blocks/getBlocks'](10)
 		}
 	}
 }
