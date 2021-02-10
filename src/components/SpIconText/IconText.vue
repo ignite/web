@@ -87,9 +87,7 @@ export default {
 		const textContent = !link ? (
 			<span>{text}</span>
 		) : (
-			<a href={link} target="_blank">
-				{text}
-			</a>
+			<router-link to={link}>{text}</router-link>
 		)
 
 		return (

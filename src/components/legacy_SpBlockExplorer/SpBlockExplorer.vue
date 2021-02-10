@@ -6,9 +6,9 @@
 					<div class="explorer__block">
 						<transition name="sp-fadeMild" mode="out-in">
 							<BlockDetailSheet
-								v-if="highlightedBlock"
+								v-if="states.highlightedBlock"
 								:key="blockSheetKey"
-								:block="highlightedBlock"
+								:block="states.highlightedBlock"
 							/>
 						</transition>
 					</div>
@@ -17,7 +17,7 @@
 					<div class="explorer__chain">
 						<div class="explorer__chain-header">Blocks</div>
 						<div class="explorer__chain-main">
-							<BlockChain :blocks="blocks" />
+							<BlockChain :blocks="blocks" v-on:block-selected="setBlock" />
 						</div>
 					</div>
 				</template>
@@ -62,6 +62,19 @@ export default {
 	computed: {
 		blocks() {
 			return this.$store.getters['chain/common/blocks/getBlocks'](20)
+		},
+
+		blockSheetKey() {
+			if (this.highlightedBlock && this.highlightedBlock.data) {
+				return this.highlightedBlock.data.blockMsg.blockHash
+			}
+			return ''
+		}
+	},
+	methods: {
+		setBlock(block) {
+			console.log('here')
+			this.states.highlightedBlock = block
 		}
 	}
 }
@@ -75,7 +88,7 @@ export default {
 }
 .explorer {
 	font-family: var(--sp-f-primary);
-	height: 100vh;
+	height: calc(100vh - 84px);
 	padding-top: 2.25rem;
 }
 @media only screen and (max-width: 992px) {

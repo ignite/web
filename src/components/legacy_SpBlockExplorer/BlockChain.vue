@@ -14,36 +14,39 @@
 			:class="['chain']"
 			@scroll=";[handleTableScroll($event), updateScrollValue()]"
 		>
-			<div v-if="blocks" class="chain__blocks">
+			<div v-if="viewedBlocks" class="chain__blocks">
 				<button
-					v-for="block in blocks"
-					:id="block.blockMsg.blockHash"
-					:key="block.blockMsg.blockHash"
+					v-for="block in viewedBlocks"
+					:id="block.hash"
+					:key="block.hash"
 					:class="[
 						'chain__block',
 						{
-							'-has-txs': block.txs.length > 0,
-							'-is-active': block.blockMsg.blockHash === highlightedBlock.id
+							'-has-txs': block.details.data.txs.length > 0,
+							'-is-active': block.hash === highlightedBlock.hash
 						}
 					]"
 					@click="handleCardClicked"
 				>
 					<BlockCard
-						:title="block.blockMsg.height"
-						:note="getFmtTime(block.blockMsg.time)"
-						:is-active="block.blockMsg.blockHash === highlightedBlock.id"
+						:title="block.height"
+						:note="getFmtTime(block.timestamp)"
+						:is-active="block.hash === highlightedBlock.hash"
 					>
-						<div v-if="block.txs.length > 0" class="block-info">
+						<div v-if="block.details.data.txs.length > 0" class="block-info">
 							<span
-								v-if="getFailedTxsCount(block.txs) > 0"
+								v-if="getFailedTxsCount(block.details.data.txs) > 0"
 								class="block-info__indicator"
 							></span>
 							<span class="block-info__text">{{
-								getBlockNoteCopy(block.txs.length, 'transaction')
+								getBlockNoteCopy(block.details.data.txs.length, 'transaction')
 							}}</span>
 							·
 							<span class="block-info__text">{{
-								getBlockNoteCopy(getMsgsAmount(block.txs), 'message')
+								getBlockNoteCopy(
+									getMsgsAmount(block.details.data.txs),
+									'message'
+								)
 							}}</span>
 						</div>
 					</BlockCard>
@@ -59,7 +62,6 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 
 import blockHelpers from '../../helpers/block'
@@ -88,23 +90,25 @@ export default {
 				hasHigherBlocks: false,
 				hasLowerBlocks: false
 			},
+			olderBlocks: [],
 			localHighlightedBlock: null
 		}
 	},
 	computed: {
-		/*
-		 *
-		 * Vuex
-		 *
-		 */
-		...mapGetters('cosmos', [
-			'highlightedBlock',
-			'blocksStack',
-			'lastBlock',
-			'stackChainRange',
-			'latestBlock',
-			'blockByHash'
-		]),
+		viewedBlocks() {
+			return this.blocks.concat(this.olderBlocks)
+		},
+		latestBlock() {
+			return this.viewedBlocks[0]
+		},
+		highlightedBlock() {
+			return (
+				this.localHighlightedBlock || {
+					hash: this.viewedBlocks[0].hash,
+					data: this.getFormattedBlock(this.viewedBlocks[0])
+				}
+			)
+		},
 		/*
 		 *
 		 * Local
@@ -120,29 +124,25 @@ export default {
 			return this.states.isScrolledBottom
 		},
 		hasHigherBlocks() {
-			return this.states.hasHigherBlocks
+			return !this.states.isScrolledTop
 		},
 		hasLowerBlocks() {
 			return this.states.hasLowerBlocks
 		}
 	},
 	watch: {
-		latestBlock() {
-			/**
-       *
-       // If no block is clicked (selected),
-       // set highlighted block to be latest block.
-       *
-       */
-			if (!this.localHighlightedBlock) {
-				this.setHighlightedBlock({
-					block: {
-						id: this.latestBlock.blockMeta.block_id.hash,
-						data: this.blockHelpers.getFormattedBlock([this.latestBlock])[0]
-					}
-				})
+		blocks(newList, oldList) {
+			if (oldList.length >= 20) {
+				this.olderBlocks.unshift(oldList[oldList.length - 1])
 			}
-
+		},
+		highlightedBlock(newBlock, oldBlock) {
+			if (newBlock != oldBlock) {
+				console.log('block changed')
+				this.$emit('block-selected', newBlock)
+			}
+		},
+		latestBlock() {
 			this.setHasHigherBlocksState()
 			this.setHasLowerBlocksState()
 		},
@@ -153,28 +153,8 @@ export default {
 			this.setHasLowerBlocksState()
 		}
 	},
-	mounted() {
-		if (this.latestBlock) {
-			this.setHighlightedBlock({
-				block: {
-					id: this.latestBlock.blockMeta.block_id.hash,
-					data: this.blockHelpers.getFormattedBlock([this.latestBlock])[0]
-				}
-			})
-		}
-	},
+	mounted() {},
 	methods: {
-		/*
-		 *
-		 * Vuex
-		 *
-		 */
-		...mapActions('cosmos', ['getBlockchain', 'setHighlightedBlock']),
-		/*
-		 *
-		 * Local
-		 *
-		 */
 		getFmtTime(time) {
 			const momentTime = moment(time)
 			const duration = moment.duration(moment().diff(momentTime))
@@ -197,16 +177,33 @@ export default {
 		getFailedTxsCount(txs) {
 			return txs.filter(tx => tx.meta.code > 0).length
 		},
+		getFormattedBlock(block) {
+			return {
+				blockMsg: {
+					time_formatted: moment(block.timestamp).fromNow(true),
+					time: block.timestamp,
+					height: parseInt(block.height),
+					proposer: `${block.details.header.proposer_address.slice(0, 10)}...`,
+					blockHash_sliced: `${block.hash.slice(0, 15)}...`,
+					blockHash: block.hash,
+					txs: block.details.data.txs ? block.details.data.txs.length : 0
+				},
+				tableData: {
+					id: block.height,
+					isActive: false
+				},
+				txs: block.txsDecoded
+			}
+		},
 		handleCardClicked(event) {
 			const blockHash = event.currentTarget.id
 			const blockPayload = {
-				id: blockHash,
-				data: this.blockHelpers.getFormattedBlock(
-					this.blockByHash(blockHash)
-				)[0]
+				hash: blockHash,
+				data: this.getFormattedBlock(
+					this.viewedBlocks.find(x => x.hash == blockHash)
+				)
 			}
 
-			this.setHighlightedBlock({ block: blockPayload })
 			this.localHighlightedBlock = blockPayload
 		},
 		handleTableScroll: _.debounce(function(event) {
@@ -238,7 +235,7 @@ export default {
 					this.handleScrollTop()
 				}
 			}
-		}, 200),
+		}, 50),
 		updateScrollValue() {
 			const $table = event.target
 			const scrolledHeight = $table.scrollTop + $table.offsetHeight
@@ -310,21 +307,24 @@ export default {
 			}
 		},
 		setHasHigherBlocksState() {
+			/*
 			if (
-				this.stackChainRange.highestHeight !== this.latestBlock.height ||
 				(this.isScrolledAwayFromTop && !this.isScrolledTop)
 			) {
 				this.states.hasHigherBlocks = true
 			} else {
 				this.states.hasHigherBlocks = false
 			}
+			*/
 		},
 		setHasLowerBlocksState() {
+			/*
 			if (this.stackChainRange.highestHeight !== 1) {
 				this.states.hasLowerBlocks = true
 			} else {
 				this.states.hasLowerBlocks = false
 			}
+			*/
 		}
 	}
 }

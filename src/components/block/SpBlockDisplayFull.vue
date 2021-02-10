@@ -1,5 +1,9 @@
 <template>
 	<div class="SpBlockDisplayFull">
+		<pre>
+			{{ block }}
+		</pre
+		>
 		<div v-for="tx in txs" v-bind:key="tx.txHash">
 			{{ tx }}
 		</div>

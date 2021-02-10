@@ -50,10 +50,13 @@ body {
   }
   .container {
     max-width: 900px;
-    margin: 2rem auto;
-    padding: 1rem;
+    margin: 0rem auto;
+    padding: 0rem 1rem;
   }
-
+  .explorer  {
+    height: calc(100vh - 118px) !important;
+    padding-top:16px !important;
+  }
   .SpButton {
     display: inline-flex;
     background: rgb(247, 247, 247);

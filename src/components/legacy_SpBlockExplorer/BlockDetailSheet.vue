@@ -10,10 +10,8 @@
 				<div class="sheet__header-side-top">
 					<CopyIconText
 						class="copy-icon-text"
-						:text="block.data.blockMsg.blockHash"
-						:link="
-							`${appEnv.RPC}/block_by_hash?hash=0x${block.data.blockMsg.blockHash}`
-						"
+						:text="block.data.blockMsg.blockHash_sliced"
+						:link="`/block/${block.data.blockMsg.height}`"
 						:copy-content="block.data.blockMsg.blockHash"
 						:tooltip-text="'BlockHash is copied'"
 					/>
@@ -110,7 +108,6 @@
 
 <script>
 import moment from 'moment'
-import { mapGetters } from 'vuex'
 
 import CopyIconText from './CopyIconText'
 import YamlCards from './YamlCards'
@@ -124,7 +121,6 @@ export default {
 		block: { type: Object, required: true }
 	},
 	computed: {
-		...mapGetters('cosmos', ['appEnv']),
 		failedTxsCount() {
 			return this.block.data.txs.filter(tx => tx.meta.code).length
 		}
