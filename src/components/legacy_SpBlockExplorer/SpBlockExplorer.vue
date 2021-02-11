@@ -73,7 +73,6 @@ export default {
 	},
 	methods: {
 		setBlock(block) {
-			console.log('here')
 			this.states.highlightedBlock = block
 		}
 	}

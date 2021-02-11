@@ -5,7 +5,7 @@ export default {
 	state() {
 		return {
 			blocks: [],
-			size: 10
+			size: 20
 		}
 	},
 	getters: {
@@ -21,9 +21,9 @@ export default {
 	mutations: {
 		ADD_BLOCK(state, block) {
 			state.blocks.push(block)
-			//	if (state.blocks.length > state.size) {
-			//		state.blocks.shift()
-			//	}
+			if (state.blocks.length > state.size) {
+				state.blocks.shift()
+			}
 		},
 		RESET_STATE(state) {
 			state.blocks = []

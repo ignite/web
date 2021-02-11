@@ -9,11 +9,7 @@
 			}
 		]"
 	>
-		<div
-			ref="chain"
-			:class="['chain']"
-			@scroll=";[handleTableScroll($event), updateScrollValue()]"
-		>
+		<div ref="chain" :class="['chain']" @scroll="handleTableScroll">
 			<div v-if="viewedBlocks" class="chain__blocks">
 				<button
 					v-for="block in viewedBlocks"
@@ -64,6 +60,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 
+import axios from 'axios'
 import blockHelpers from '../../helpers/block'
 
 import BlockCard from './BlockCard'
@@ -80,16 +77,14 @@ export default {
 	data() {
 		return {
 			blockHelpers,
-			states: {
-				lastScrolledHeight: 0,
-				lastScrolledTop: 0,
-				isScrolledTop: false,
-				isScrolledBottom: false,
-				isScrolledAwayFromTop: false,
-				isLoading: false,
-				hasHigherBlocks: false,
-				hasLowerBlocks: false
-			},
+			lastScrolledHeight: 0,
+			lastScrolledTop: 0,
+			isScrolledTop: false,
+			isScrolledBottom: false,
+			isScrolledAwayFromTop: false,
+			isLoading: false,
+			hasHigherBlocks: false,
+			hasLowerBlocks: false,
 			olderBlocks: [],
 			localHighlightedBlock: null
 		}
@@ -108,26 +103,6 @@ export default {
 					data: this.getFormattedBlock(this.viewedBlocks[0])
 				}
 			)
-		},
-		/*
-		 *
-		 * Local
-		 *
-		 */
-		isLoading() {
-			return this.states.isLoading
-		},
-		isScrolledTop() {
-			return this.states.isScrolledTop
-		},
-		isScrolledBottom() {
-			return this.states.isScrolledBottom
-		},
-		hasHigherBlocks() {
-			return !this.states.isScrolledTop
-		},
-		hasLowerBlocks() {
-			return this.states.hasLowerBlocks
 		}
 	},
 	watch: {
@@ -138,19 +113,17 @@ export default {
 		},
 		highlightedBlock(newBlock, oldBlock) {
 			if (newBlock != oldBlock) {
-				console.log('block changed')
 				this.$emit('block-selected', newBlock)
 			}
 		},
-		latestBlock() {
-			this.setHasHigherBlocksState()
-			this.setHasLowerBlocksState()
-		},
-		isScrolledTop() {
-			this.setHasHigherBlocksState()
-		},
-		isScrolledBottom() {
-			this.setHasLowerBlocksState()
+		hasLowerBlocks(newVal) {
+			console.log(newVal)
+			if (!newVal) {
+				const start = this.olderBlocks[this.olderBlocks.length - 1].height
+				if (!this.isLoading) {
+					this.getLowerBlocks(start)
+				}
+			}
 		}
 	},
 	mounted() {},
@@ -213,34 +186,36 @@ export default {
 
 			const isScrolledToTop = scrolledHeight <= $table.offsetHeight
 			const isScrolledToBottom = scrolledHeight + 100 >= tableScrollHeight
+			
+
+			this.hasHigherBlocks = !isScrolledToTop
+			this.hasLowerBlocks = !isScrolledToBottom
+
 			// const isOnTopHalf = $table.scrollTop < (tableScrollHeight - $table.offsetHeight) / 2
+			/*
 			const isScrollAwayFromTop = scrolledHeight / tableScrollHeight > 0.2
 
 			const isCallableScrolledDistance =
 				$table.offsetHeight /
-					Math.abs(scrolledHeight - this.states.lastScrolledHeight) >
+					Math.abs(scrolledHeight - this.lastScrolledHeight) >
 				25
 
 			if (isCallableScrolledDistance) {
 				this.isScrolledAwayFromTop = isScrollAwayFromTop
 
 				if (isScrolledToBottom) {
-					this.states.isScrolledTop = false
-					this.states.isScrolledBottom = true
+					this.isScrolledTop = false
+					this.isScrolledBottom = true
 					this.handleScrollBottom()
 				}
 				if (isScrolledToTop) {
-					this.states.isScrolledTop = true
-					this.states.isScrolledBottom = false
+					this.isScrolledTop = true
+					this.isScrolledBottom = false
 					this.handleScrollTop()
 				}
 			}
-		}, 50),
-		updateScrollValue() {
-			const $table = event.target
-			const scrolledHeight = $table.scrollTop + $table.offsetHeight
-			this.states.lastScrolledHeight = scrolledHeight
-		},
+			*/
+		}, 250),
 		/*
      *
      // Pop overloaded blocks (over maxStackCount)
@@ -253,14 +228,14 @@ export default {
 			const isShowingLatestBlock =
 				parseInt(this.latestBlock.height) === this.stackChainRange.highestHeight
 
-			if (!isShowingLatestBlock && !this.states.isLoading) {
-				this.states.isLoading = true
+			if (!isShowingLatestBlock && !this.isLoading) {
+				this.isLoading = true
 
 				await this.getBlockchain({
 					blockHeight: this.stackChainRange.highestHeight,
 					toGetLowerBlocks: false
 				}).then(() => {
-					this.states.isLoading = false
+					this.isLoading = false
 					this.setHasHigherBlocksState()
 					setTimeout(() => {
 						this.$refs.chain.scrollBy({
@@ -278,20 +253,31 @@ export default {
      // only when scrolling to bottom of the table
      *
      */
-		async getLowerBlocks() {
-			this.states.isLoading = true
+		async getLowerBlocks(start) {
+			this.isLoading = true
+			let i = 1
+			while (i <= 20 && start - i > 0) {
+				const resp = await axios.get(
+					this.$store.getters['chain/common/env/apiTendermint'] +
+						'/block?height=' +
+						(start - i)
+				)
+				const block = {
+					height: resp.data.result.block.header.height,
+					timestamp: resp.data.result.block.header.time,
+					hash: resp.data.result.block_id.hash,
+					details: resp.data.result.block
+				}
 
-			await this.getBlockchain({
-				blockHeight: this.lastBlock.height,
-				toGetLowerBlocks: true
-			}).then(() => {
-				this.states.isLoading = false
-				this.setHasHigherBlocksState()
-				this.$refs.chain.scrollBy({
-					bottom: 24,
-					left: 0,
-					behavior: 'smooth'
-				})
+				this.olderBlocks.push(block)
+				i++
+			}
+			this.isLoading = false
+
+			this.$refs.chain.scrollBy({
+				bottom: 24,
+				left: 0,
+				behavior: 'smooth'
 			})
 		},
 		handleScrollTop() {
@@ -301,7 +287,7 @@ export default {
 			this.getLowerBlocks()
 		},
 		handleNavClick(dir) {
-			if (dir === 'top' && this.states.hasHigherBlocks) {
+			if (dir === 'top' && this.hasHigherBlocks) {
 				this.getHigherBlocks()
 				this.$refs.chain.scrollTo(0, 0)
 			}
@@ -311,18 +297,18 @@ export default {
 			if (
 				(this.isScrolledAwayFromTop && !this.isScrolledTop)
 			) {
-				this.states.hasHigherBlocks = true
+				this.hasHigherBlocks = true
 			} else {
-				this.states.hasHigherBlocks = false
+				this.hasHigherBlocks = false
 			}
 			*/
 		},
 		setHasLowerBlocksState() {
 			/*
 			if (this.stackChainRange.highestHeight !== 1) {
-				this.states.hasLowerBlocks = true
+				this.hasLowerBlocks = true
 			} else {
-				this.states.hasLowerBlocks = false
+				this.hasLowerBlocks = false
 			}
 			*/
 		}
