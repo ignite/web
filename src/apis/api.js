@@ -13,7 +13,7 @@ export default class Api extends EventEmitter {
 	}
 	async connectivityTest() {
 		try {
-			await axios.get(this.apiCosmos)
+			await axios.get(this.apiCosmos+'/node_info')
 			this.emit('api-status', true)
 		} catch (error) {
 			if (!error.response) {
