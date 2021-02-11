@@ -47,11 +47,15 @@ export default {
 						'/block?height=' +
 						blockData.data.value.block.header.height
 				)
+				const txDecoded = blockData.data.value.block.data.txs.map(
+					rootGetters['chain/common/env/apiClient'].decodeTx
+				)
 				const block = {
 					height: blockData.data.value.block.header.height,
 					timestamp: blockData.data.value.block.header.time,
 					hash: blockDetails.data.result.block_id.hash,
-					details: blockData.data.value.block
+					details: blockData.data.value.block,
+					txDecoded: txDecoded
 				}
 
 				commit('ADD_BLOCK', block)

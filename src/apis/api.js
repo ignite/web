@@ -13,7 +13,7 @@ export default class Api extends EventEmitter {
 	}
 	async connectivityTest() {
 		try {
-			await axios.get(this.apiCosmos+'/node_info')
+			await axios.get(this.apiCosmos + '/node_info')
 			this.emit('api-status', true)
 		} catch (error) {
 			if (!error.response) {
@@ -71,7 +71,7 @@ export default class Api extends EventEmitter {
 				this.apiTendermint + '/tx?hash=0x' + txHash
 			)
 			const apiRes = await axios.get(
-				this.apiCosmos + '/cosmos/tx/v1beta1/tx/' + txHash
+				this.apiCosmos + '/cosmos/tx/v1beta1/txs/' + txHash
 			)
 			return { rpcRes, apiRes, txHash: txHash.toUpperCase() }
 		} catch (e) {

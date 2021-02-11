@@ -23,11 +23,17 @@ export default {
 				'/block?height=' +
 				this.$route.params.block
 		)
+
+		const txDecoded = blockDetails.data.result.block.data.txs.map(async x => {
+			await this.$store.getters['chain/common/env/apiClient'].decodeTx(x)
+		})
+		await Promise.all(txDecoded)
 		this.block = {
 			height: blockDetails.data.result.block.header.height,
 			timestamp: blockDetails.data.result.block.header.time,
 			hash: blockDetails.data.result.block_id.hash,
-			details: blockDetails.data.result.block
+			details: blockDetails.data.result.block,
+			txDecoded: txDecoded
 		}
 	}
 }
