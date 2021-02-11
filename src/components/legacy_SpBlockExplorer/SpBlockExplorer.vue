@@ -6,9 +6,9 @@
 					<div class="explorer__block">
 						<transition name="sp-fadeMild" mode="out-in">
 							<BlockDetailSheet
-								v-if="states.highlightedBlock"
+								v-if="highlightedBlock"
 								:key="blockSheetKey"
-								:block="states.highlightedBlock"
+								:block="highlightedBlock"
 							/>
 						</transition>
 					</div>
@@ -53,10 +53,8 @@ export default {
 	},
 	data() {
 		return {
-			states: {
-				isLoading: false,
-				highlightedBlock: {}
-			}
+			isLoading: false,
+			highlightedBlock: {}
 		}
 	},
 	computed: {
@@ -73,7 +71,7 @@ export default {
 	},
 	methods: {
 		setBlock(block) {
-			this.states.highlightedBlock = block
+			this.highlightedBlock = block
 		}
 	}
 }
