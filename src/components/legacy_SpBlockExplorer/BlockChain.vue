@@ -31,18 +31,15 @@
 					>
 						<div v-if="block.details.data.txs.length > 0" class="block-info">
 							<span
-								v-if="getFailedTxsCount(block.details.data.txs) > 0"
+								v-if="getFailedTxsCount(block.txDecoded) > 0"
 								class="block-info__indicator"
 							></span>
 							<span class="block-info__text">{{
-								getBlockNoteCopy(block.details.data.txs.length, 'transaction')
+								getBlockNoteCopy(block.txDecoded.length, 'transaction')
 							}}</span>
 							·
 							<span class="block-info__text">{{
-								getBlockNoteCopy(
-									getMsgsAmount(block.details.data.txs),
-									'message'
-								)
+								getBlockNoteCopy(getMsgsAmount(block.txDecoded), 'message')
 							}}</span>
 						</div>
 					</BlockCard>
@@ -97,12 +94,7 @@ export default {
 			return this.viewedBlocks[0]
 		},
 		highlightedBlock() {
-			return (
-				this.localHighlightedBlock || {
-					hash: this.viewedBlocks[0].hash,
-					data: this.getFormattedBlock(this.viewedBlocks[0])
-				}
-			)
+			return this.localHighlightedBlock || this.viewedBlocks[0]
 		}
 	},
 	watch: {
@@ -170,12 +162,7 @@ export default {
 		},
 		handleCardClicked(event) {
 			const blockHash = event.currentTarget.id
-			const blockPayload = {
-				hash: blockHash,
-				data: this.getFormattedBlock(
-					this.viewedBlocks.find(x => x.hash == blockHash)
-				)
-			}
+			const blockPayload = this.viewedBlocks.find(x => x.hash == blockHash)
 
 			this.localHighlightedBlock = blockPayload
 		},
@@ -186,7 +173,6 @@ export default {
 
 			const isScrolledToTop = scrolledHeight <= $table.offsetHeight
 			const isScrolledToBottom = scrolledHeight + 100 >= tableScrollHeight
-			
 
 			this.hasHigherBlocks = !isScrolledToTop
 			this.hasLowerBlocks = !isScrolledToBottom

@@ -1,36 +1,38 @@
 <template>
-	<div v-if="!block.data" :class="['sheet -is-empty']">Fetching block data</div>
+	<div v-if="!block.details" :class="['sheet -is-empty']">
+		Fetching block data
+	</div>
 
 	<div v-else class="sheet">
 		<div class="sheet__header">
 			<div class="sheet__header-main">
-				<p>{{ block.data.blockMsg.height }}</p>
+				<p>{{ block.height }}</p>
 			</div>
 			<div class="sheet__header-side">
 				<div class="sheet__header-side-top">
 					<CopyIconText
 						class="copy-icon-text"
-						:text="block.data.blockMsg.blockHash_sliced"
-						:link="`/block/${block.data.blockMsg.height}`"
-						:copy-content="block.data.blockMsg.blockHash"
+						:text="block.hash"
+						:link="`/block/${block.height}`"
+						:copy-content="block.hash"
 						:tooltip-text="'BlockHash is copied'"
 					/>
 				</div>
 				<div class="sheet__header-side-btm">
-					<span>{{ getFmtTime(block.data.blockMsg.time) }}</span>
+					<span>{{ getFmtTime(block.timestamp) }}</span>
 				</div>
 			</div>
 		</div>
 
 		<div class="sheet__main">
 			<div
-				v-if="block.data.blockMsg.txs > 0 && block.data.txs.length > 0"
+				v-if="block.details.data.txs && block.details.data.txs.length > 0"
 				class="txs"
 			>
 				<div class="txs__header">
 					<p class="txs__header-title">Transactions</p>
 					<p class="txs__header-note">
-						<span>{{ block.data.txs.length }}</span>
+						<span>{{ block.details.data.txs.length }}</span>
 						<span v-if="failedTxsCount"> / </span>
 						<span v-if="failedTxsCount" class="txs__header-note-warn"
 							>{{ failedTxsCount }} error</span
@@ -39,7 +41,7 @@
 				</div>
 
 				<div
-					v-for="(tx, txIndex) in block.data.txs"
+					v-for="(tx, txIndex) in block.txDecoded"
 					:key="txIndex + tx.txhash"
 					class="txs__tx tx"
 				>
@@ -74,7 +76,7 @@
 									<CopyIconText
 										class="copy-icon-text"
 										:text="tx.txHash"
-										:link="`${appEnv.RPC}/tx?hash=0x${tx.txHash}`"
+										:link="'/transaction/' + tx.txHash"
 										:copy-content="tx.txHash"
 										:tooltip-text="'TxHash is copied'"
 										:tooltip-direction="'left'"
@@ -122,7 +124,12 @@ export default {
 	},
 	computed: {
 		failedTxsCount() {
-			return this.block.data.txs.filter(tx => tx.meta.code).length
+			return this.block.txDecoded.filter(tx => tx.meta.code).length
+		}
+	},
+	watch: {
+		block(newBlock) {
+			console.log(newBlock)
 		}
 	},
 	methods: {
