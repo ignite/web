@@ -1,12 +1,6 @@
 <template>
 	<div class="SpBlockDisplayFull">
-		<pre>
-			{{ block }}
-		</pre
-		>
-		<div v-for="tx in txs" v-bind:key="tx.txHash">
-			{{ tx }}
-		</div>
+		<pre>{{ block }}</pre>
 	</div>
 </template>
 <script>
@@ -18,14 +12,6 @@ export default {
 	data() {
 		return {
 			txs: []
-		}
-	},
-	async created() {
-		for (let tx of this.block.details.data.txs) {
-			const fullTx = await this.$store.getters[
-				'chain/common/env/apiClient'
-			].decodeTx(tx)
-			this.txs.push(fullTx)
 		}
 	}
 }

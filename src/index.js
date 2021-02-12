@@ -11,4 +11,4 @@ export { default as SpLoaderIconText } from './components/SpLoaderIconText'
 
 export { default as SpBlockInfoCard } from './components/SpBlockInfoCard'
 export { default as SpBlocks } from './components/SpBlocks'
-export { default as SpBlockExplorer } from './components/SpBlockExplorer/SpBlockExplorer'
+export { default as SpBlockExplorer } from './components/legacy_SpBlockExplorer/SpBlockExplorer'

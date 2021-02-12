@@ -25,16 +25,18 @@ export default {
 		)
 
 		const txDecoded = blockDetails.data.result.block.data.txs.map(async x => {
-			const dec = await this.$store.getters['chain/common/env/apiClient'].decodeTx(x)
+			const dec = await this.$store.getters[
+				'chain/common/env/apiClient'
+			].decodeTx(x)
 			return dec
 		})
-		await Promise.all(txDecoded)
+		const txs = await Promise.all(txDecoded)
 		this.block = {
 			height: blockDetails.data.result.block.header.height,
 			timestamp: blockDetails.data.result.block.header.time,
 			hash: blockDetails.data.result.block_id.hash,
 			details: blockDetails.data.result.block,
-			txDecoded: txDecoded
+			txDecoded: [...txs]
 		}
 	}
 }

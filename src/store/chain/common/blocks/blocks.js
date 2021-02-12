@@ -54,7 +54,7 @@ export default {
 					return dec
 				})
 				const txs = await Promise.all(txDecoded)
-				
+
 				const block = {
 					height: blockData.data.value.block.header.height,
 					timestamp: blockData.data.value.block.header.time,

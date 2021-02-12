@@ -12,7 +12,7 @@
 				<div class="sheet__header-side-top">
 					<CopyIconText
 						class="copy-icon-text"
-						:text="block.hash"
+						:text="block.hash.slice(0, 15) + '...'"
 						:link="`/block/${block.height}`"
 						:copy-content="block.hash"
 						:tooltip-text="'BlockHash is copied'"
