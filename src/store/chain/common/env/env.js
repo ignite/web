@@ -131,7 +131,9 @@ export default {
 				}
 			}
 			if (reconnectSigningClient && config.rpcNode) {
-				dispatch('chain/common/wallet/switchAPI', null, { root: true })
+				if (this._actions['chain/common/wallet/switchAPI']) {
+					dispatch('chain/common/wallet/switchAPI', null, { root: true })
+				}
 			}
 			if (
 				(reconnectClient && config.apiNode && config.rpcNode) ||

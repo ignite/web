@@ -52,6 +52,7 @@ export default {
 	},
 	getters: {
 		backendEnv: state => state.backend.env,
+		frontendUrl: state => state.frontendUrl,
 		backendRunningStates: state => state.backend.running,
 		wasAppRestarted: state => status => {
 			return (

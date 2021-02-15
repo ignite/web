@@ -28,8 +28,8 @@
 	<div></div>
 </template>
 <script>
-import BlockChain from './SpBlockExplorer/BlockChain'
-import FullWidthContainer from './SpBlockExplorer/FullWidthContainer'
+import BlockChain from './legacy_SpBlockExplorer/BlockChain'
+import FullWidthContainer from './legacy_SpBlockExplorer/FullWidthContainer'
 import IconBox from './icons/Box'
 
 export default {

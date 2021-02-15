@@ -42,6 +42,9 @@ export default class ApiWS extends EventEmitter {
 		)
 	}
 	async onMessage(msg) {
-		this.emit('newblock', JSON.parse(msg.data).result)
+		const result = JSON.parse(msg.data).result
+		if (result.data && result.data.type == 'tendermint/event/NewBlock') {
+			this.emit('newblock', JSON.parse(msg.data).result)
+		}
 	}
 }
