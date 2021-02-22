@@ -1,0 +1,15 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   dev: true,
+0 silly argv   D: true,
+0 silly argv   scope: '@starport/vue',
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '3.20.2',
+0 silly argv   '$0': 'C:\\Users\\sagge\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
+0 silly argv   pkg: 'vue--uuid'
+0 silly argv }
+1 notice cli v3.20.2
+2 verbose rootPath L:\Projects\tmmonorepo
+3 info versioning independent
+4 error Error: 404 Not Found - GET https://registry.npmjs.org/vue--uuid - Not found
+4 error     at C:\Users\sagge\AppData\Roaming\npm\node_modules\lerna\node_modules\@evocateur\npm-registry-fetch\check-response.js:104:15
