@@ -1,5 +1,5 @@
 <template>
-	<div class="SpWalletList">
+	<div class="SpWalletList" v-if="depsLoaded">
 		<div
 			v-if="
 				!newWallet.show &&
@@ -180,7 +180,11 @@ export default {
 	},
 	computed: {
 		walletList() {
-			return this.$store.state.chain.common.wallet.wallets
+			if (this._depsLoaded) {
+				return this.$store.state.chain.common.wallet.wallets
+			} else {
+				return []
+			}
 		},
 		validStep1() {
 			return (
@@ -196,6 +200,20 @@ export default {
 		},
 		validUnlock() {
 			return this.unlockWallet.password.trim() !== ''
+		},
+		depsLoaded() {
+			return this._depsLoaded
+		}
+	},
+	beforeCreate() {
+		const module = ['chain', 'common', 'wallet']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module ' + this.module + ' has not been registered!')
+				this._depsLoaded = false
+				break
+			}
 		}
 	},
 	methods: {
@@ -237,32 +255,37 @@ export default {
 			this.importWallet.password = ''
 		},
 		async restoreBackup() {
-			let file = this.$refs.backupFile.files[0]
-			if (!file) return
-			let reader = new FileReader()
-			reader.readAsText(file)
-			reader.onload = (evt) => {
-				this.$store.dispatch('chain/common/wallet/restoreWallet', {
-					encrypted: evt.target.result,
-					password: this.importWallet.password
-				})
+			if (this._depsLoaded) {
+				let file = this.$refs.backupFile.files[0]
+				if (!file) return
+				let reader = new FileReader()
+				reader.readAsText(file)
+				reader.onload = (evt) => {
+					this.$store.dispatch('chain/common/wallet/restoreWallet', {
+						encrypted: evt.target.result,
+						password: this.importWallet.password
+					})
+				}
 			}
 		},
 		async signInWithKey() {
-			await this.$store.dispatch('chain/common/wallet/signInWithPrivateKey', {
-				privKey: this.keyWallet.privKey
-			})
-			this.reset()
-			this.$emit('wallet-selected')
-			console.log(this.$store.getters['chain/common/wallet/privKey'])
+			if (this._depsLoaded) {
+				await this.$store.dispatch('chain/common/wallet/signInWithPrivateKey', {
+					privKey: this.keyWallet.privKey
+				})
+				this.reset()
+				this.$emit('wallet-selected')
+			}
 		},
 		async unlockStoreWallet() {
-			await this.$store.dispatch('chain/common/wallet/unlockWallet', {
-				name: this.unlockWallet.name,
-				password: this.unlockWallet.password
-			})
-			this.reset()
-			this.$emit('wallet-selected')
+			if (this._depsLoaded) {
+				await this.$store.dispatch('chain/common/wallet/unlockWallet', {
+					name: this.unlockWallet.name,
+					password: this.unlockWallet.password
+				})
+				this.reset()
+				this.$emit('wallet-selected')
+			}
 		},
 		reset() {
 			Object.assign(this.$data, this.defaultState())
@@ -298,15 +321,17 @@ export default {
 			this.newWallet.mnemonic = mnemonic
 		},
 		async createWallet() {
-			await this.$store.dispatch(
-				'chain/common/wallet/createWalletWithMnemonic',
-				{
-					name: this.newWallet.name,
-					mnemonic: this.newWallet.mnemonic,
-					password: this.newWallet.password
-				}
-			)
-			this.reset()
+			if (this._depsLoaded) {
+				await this.$store.dispatch(
+					'chain/common/wallet/createWalletWithMnemonic',
+					{
+						name: this.newWallet.name,
+						mnemonic: this.newWallet.mnemonic,
+						password: this.newWallet.password
+					}
+				)
+				this.reset()
+			}
 		}
 	}
 }

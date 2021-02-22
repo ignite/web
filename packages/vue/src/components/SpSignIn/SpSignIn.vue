@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="depsLoaded">
 		<div class="container">
 			<div class="row">
 				<div v-if="address" class="button">
@@ -56,7 +56,7 @@ import SpIconMagic1 from '../SpIconMagic1'
 import * as bip39 from 'bip39'
 
 export default {
-	name: "SpSignIn",
+	name: 'SpSignIn',
 	components: {
 		SpIconLock3,
 		SpIconMagic1
@@ -75,32 +75,54 @@ export default {
 			return bip39.validateMnemonic(this.mnemonicClean)
 		},
 		address() {
-			const client = this.$store.getters['chain/common/wallet/client']
-			if (client) {
-				return this.$store.getters['chain/common/wallet/address']
+			if (this._depsLoaded) {
+				const client = this.$store.getters['chain/common/wallet/client']
+				if (client) {
+					return this.$store.getters['chain/common/wallet/address']
+				} else {
+					return false
+				}
 			} else {
 				return false
+			}
+		},
+		depsLoaded() {
+			return this._depsLoaded
+		}
+	},
+	beforeCreate() {
+		const module = ['chain', 'common', 'wallet']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module `chain.common.wallet` has not been registered!')
+				this._depsLoaded = false
+				break
 			}
 		}
 	},
 	methods: {
 		buttonClick() {
-			if (this.address) {
-				this.$store.dispatch('chain/common/wallet/signOut')
-			} else {
-				this.mnemonic = ''
-				this.dropdown = !this.dropdown
+			if (this._depsLoaded) {
+				if (this.address) {
+					this.$store.dispatch('chain/common/wallet/signOut')
+				} else {
+					this.mnemonic = ''
+					this.dropdown = !this.dropdown
+				}
 			}
 		},
 		async mnemonicImport() {
-			if (this.mnemonicIsValid) {
-				const mnemonic = this.mnemonicClean
-				await this.$store.dispatch(
-					'chain/common/wallet/createWalletWithMnemonic',
-					{
-						mnemonic
-					}
-				)
+			if (this._depsLoaded) {
+				if (this.mnemonicIsValid) {
+					const mnemonic = this.mnemonicClean
+					await this.$store.dispatch(
+						'chain/common/wallet/createWalletWithMnemonic',
+						{
+							mnemonic
+						}
+					)
+				}
 			}
 		},
 		mnemonicGenerate() {

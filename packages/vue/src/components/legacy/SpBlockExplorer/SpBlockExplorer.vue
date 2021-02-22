@@ -1,5 +1,5 @@
 <template>
-	<transition key="default" name="sp-fade" mode="out-in">
+	<transition key="default" name="sp-fade" mode="out-in" v-if="depsLoaded">
 		<div v-if="blocks.length >= 20" class="explorer">
 			<SpFullWidthContainer>
 				<template v-slot:sideSheet>
@@ -58,11 +58,28 @@ export default {
 			highlightedBlock: {}
 		}
 	},
+	beforeCreate() {
+		const module = ['chain', 'common', 'blocks']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module `chain.common.blocks` has not been registered!')
+				this._depsLoaded = false
+				break
+			}
+		}
+	},
 	computed: {
 		blocks() {
-			return this.$store.getters['chain/common/blocks/getBlocks'](20)
+			if (this._depsLoaded) {
+				return this.$store.getters['chain/common/blocks/getBlocks'](20)
+			} else {
+				return []
+			}
 		},
-
+		depsLoaded() {
+			return this._depsLoaded
+		},
 		blockSheetKey() {
 			if (this.highlightedBlock && this.highlightedBlock.data) {
 				return this.highlightedBlock.data.blockMsg.blockHash

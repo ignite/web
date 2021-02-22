@@ -8,6 +8,7 @@
 				'-has-lower': hasLowerBlocks
 			}
 		]"
+		v-if="depsLoaded"
 	>
 		<div ref="chain" :class="['chain']" @scroll="handleTableScroll">
 			<div v-if="viewedBlocks" class="chain__blocks">
@@ -107,6 +108,9 @@ export default {
 		},
 		highlightedBlock() {
 			return this.localHighlightedBlock || this.viewedBlocks[0]
+		},
+		depsLoaded() {
+			return this._depsLoaded
 		}
 	},
 	watch: {
@@ -130,7 +134,17 @@ export default {
 			}
 		}
 	},
-	mounted() {},
+	beforeCreate() {
+		const module = ['chain', 'common', 'env']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module `chain.common.env` has not been registered!')
+				this._depsLoaded = false
+				break
+			}
+		}
+	},
 	methods: {
 		getFmtTime(time) {
 			const momentTime = moment(time)
@@ -229,21 +243,22 @@ export default {
 
 			if (!isShowingLatestBlock && !this.isLoading) {
 				this.isLoading = true
-
-				await this.getBlockchain({
-					blockHeight: this.stackChainRange.highestHeight,
-					toGetLowerBlocks: false
-				}).then(() => {
-					this.isLoading = false
-					this.setHasHigherBlocksState()
-					setTimeout(() => {
-						this.$refs.chain.scrollBy({
-							top: 24,
-							left: 0,
-							behavior: 'smooth'
-						})
-					}, 100)
-				})
+				if (this._depsLoaded) {
+					await this.getBlockchain({
+						blockHeight: this.stackChainRange.highestHeight,
+						toGetLowerBlocks: false
+					}).then(() => {
+						this.isLoading = false
+						this.setHasHigherBlocksState()
+						setTimeout(() => {
+							this.$refs.chain.scrollBy({
+								top: 24,
+								left: 0,
+								behavior: 'smooth'
+							})
+						}, 100)
+					})
+				}
 			}
 		},
 		/*
@@ -253,31 +268,33 @@ export default {
      *
      */
 		async getLowerBlocks(start) {
-			this.isLoading = true
-			let i = 1
-			while (i <= 20 && start - i > 0) {
-				const resp = await axios.get(
-					this.$store.getters['chain/common/env/apiTendermint'] +
-						'/block?height=' +
-						(start - i)
-				)
-				const block = {
-					height: resp.data.result.block.header.height,
-					timestamp: resp.data.result.block.header.time,
-					hash: resp.data.result.block_id.hash,
-					details: resp.data.result.block
+			if (this._depsLoaded) {
+				this.isLoading = true
+				let i = 1
+				while (i <= 20 && start - i > 0) {
+					const resp = await axios.get(
+						this.$store.getters['chain/common/env/apiTendermint'] +
+							'/block?height=' +
+							(start - i)
+					)
+					const block = {
+						height: resp.data.result.block.header.height,
+						timestamp: resp.data.result.block.header.time,
+						hash: resp.data.result.block_id.hash,
+						details: resp.data.result.block
+					}
+
+					this.olderBlocks.push(block)
+					i++
 				}
+				this.isLoading = false
 
-				this.olderBlocks.push(block)
-				i++
+				this.$refs.chain.scrollBy({
+					bottom: 24,
+					left: 0,
+					behavior: 'smooth'
+				})
 			}
-			this.isLoading = false
-
-			this.$refs.chain.scrollBy({
-				bottom: 24,
-				left: 0,
-				behavior: 'smooth'
-			})
 		},
 		handleScrollTop() {
 			this.getHigherBlocks()

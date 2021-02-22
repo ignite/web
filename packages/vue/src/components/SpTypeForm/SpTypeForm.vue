@@ -1,5 +1,5 @@
 <template>
-	<div class="SpForm SpTypeForm {{ typeClass}}">
+	<div class="SpForm SpTypeForm {{ typeClass}}" v-if="depsLoaded">
 		<div class="SpTypeFormCreate" v-if="action == 'create'">
 			<p>
 				<strong
@@ -128,14 +128,16 @@ export default {
 	watch: {
 		async id(newId) {
 			this.typeData['id'] = newId
-			if (this.typeData['id'] != '') {
-				await this.$store.dispatch(
-					'chain/' + this.module + '/Query' + this.type,
-					{ subscribe: true, id: this.typeData['id'] }
-				)
-				this.typeData = this.$store.getters[
-					'chain/' + this.module + '/get' + this.type
-				](this.typeData['id'])
+			if (this._depsLoaded) {
+				if (this.typeData['id'] != '') {
+					await this.$store.dispatch(
+						'chain/' + this.module + '/Query' + this.type,
+						{ subscribe: true, id: this.typeData['id'] }
+					)
+					this.typeData = this.$store.getters[
+						'chain/' + this.module + '/get' + this.type
+					](this.typeData['id'])
+				}
 			}
 		}
 	},
@@ -153,7 +155,11 @@ export default {
 			return this.fieldList.filter((x) => x.name == 'id')
 		},
 		selectedAccount() {
-			return this.$store.getters['chain/common/wallet/address']
+			if (this._depsLoaded) {
+				return this.$store.getters['chain/common/wallet/address']
+			} else {
+				return null
+			}
 		},
 		createTypeData() {
 			// eslint-disable-next-line no-unused-vars
@@ -167,64 +173,78 @@ export default {
 			// eslint-disable-next-line no-unused-vars
 			const { id, creator, ...rest } = this.typeData
 			return { id, creator }
+		},
+		depsLoaded() {
+			return this._depsLoaded
 		}
 	},
 	beforeCreate() {
 		const module = ['chain', ...this.module.split('/')]
-		if (!this.$store.hasModule(module)) {
-			console.log('Module ' + this.module + ' has not been registered!')
-			this.$destroy();
-			throw 'Module ' + this.module + ' has not been registered!'
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module ' + this.module + ' has not been registered!')
+				this._depsLoaded = false
+				break
+			}
 		}
 	},
 	async created() {
-		this.fieldList = this.$store.getters[
-			'chain/' + this.module + '/getTypeStructure'
-		](this.type)
-		for (let field of this.fieldList) {
-			this.typeData[field.name] = ''
-		}
-		this.typeData['id'] = this.id
-		if (this.typeData['id'] != '') {
-			await this.$store.dispatch(
-				'chain/' + this.module + '/Query' + this.type,
-				{ subscribe: true, id: this.typeData['id'] }
-			)
-			this.typeData = this.$store.getters[
-				'chain/' + this.module + '/get' + this.type
-			](this.typeData['id'])
+		if (this._depsLoaded) {
+			this.fieldList = this.$store.getters[
+				'chain/' + this.module + '/getTypeStructure'
+			](this.type)
+			for (let field of this.fieldList) {
+				this.typeData[field.name] = ''
+			}
+			this.typeData['id'] = this.id
+			if (this.typeData['id'] != '') {
+				await this.$store.dispatch(
+					'chain/' + this.module + '/Query' + this.type,
+					{ subscribe: true, id: this.typeData['id'] }
+				)
+				this.typeData = this.$store.getters[
+					'chain/' + this.module + '/get' + this.type
+				](this.typeData['id'])
+			}
 		}
 	},
 	methods: {
 		async createType() {
-			this.typeData['creator'] = this.selectedAccount
-			this.txResult = await this.$store.dispatch(
-				'chain/' + this.module + '/MsgCreate' + this.type,
-				{
-					...this.createTypeData,
-					denom: this.denom
-				}
-			)
+			if (this._depsLoaded) {
+				this.typeData['creator'] = this.selectedAccount
+				this.txResult = await this.$store.dispatch(
+					'chain/' + this.module + '/MsgCreate' + this.type,
+					{
+						...this.createTypeData,
+						denom: this.denom
+					}
+				)
+			}
 		},
 		async updateType() {
-			this.typeData['creator'] = this.selectedAccount
-			this.txResult = await this.$store.dispatch(
-				'chain/' + this.module + '/MsgUpdate' + this.type,
-				{
-					...this.updateTypeData,
-					denom: this.denom
-				}
-			)
+			if (this._depsLoaded) {
+				this.typeData['creator'] = this.selectedAccount
+				this.txResult = await this.$store.dispatch(
+					'chain/' + this.module + '/MsgUpdate' + this.type,
+					{
+						...this.updateTypeData,
+						denom: this.denom
+					}
+				)
+			}
 		},
 		async deleteType() {
-			this.typeData['creator'] = this.selectedAccount
-			this.txResult = await this.$store.dispatch(
-				'chain/' + this.module + '/MsgDelete' + this.type,
-				{
-					...this.deleteTypeData,
-					denom: this.denom
-				}
-			)
+			if (this._depsLoaded) {
+				this.typeData['creator'] = this.selectedAccount
+				this.txResult = await this.$store.dispatch(
+					'chain/' + this.module + '/MsgDelete' + this.type,
+					{
+						...this.deleteTypeData,
+						denom: this.denom
+					}
+				)
+			}
 		}
 	}
 }

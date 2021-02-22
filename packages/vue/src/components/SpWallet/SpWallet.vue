@@ -1,5 +1,5 @@
 <template>
-	<div class="SpWallet">
+	<div class="SpWallet" v-if="depsLoaded">
 		<div v-if="loggedIn">
 			<button @click="toggleAccountList()" class="SpButton">
 				<div class="SpButtonText">
@@ -39,24 +39,43 @@ export default {
 		}
 	},
 	computed: {
-		hasWallet() {
-			return this.$store.hasModule(['chain', 'common', 'wallet'])
-		},
 		currentAccount() {
-			if (this.loggedIn) {
-				return this.$store.getters['chain/common/wallet/address']
+			if (this._depsLoaded) {
+				if (this.loggedIn) {
+					return this.$store.getters['chain/common/wallet/address']
+				} else {
+					return null
+				}
 			} else {
 				return null
 			}
 		},
 		walletName() {
-			return this.$store.getters['chain/common/wallet/walletName']
+			if (this._depsLoaded) {
+				return this.$store.getters['chain/common/wallet/walletName']
+			} else {
+				return ''
+			}
 		},
 		loggedIn() {
-			if (this.hasWallet) {
+			if (this._depsLoaded) {
 				return this.$store.getters['chain/common/wallet/loggedIn']
 			} else {
 				return false
+			}
+		},
+		depsLoaded() {
+			return this._depsLoaded
+		}
+	},
+	beforeCreate() {
+		const module = ['chain', 'common', 'wallet']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module ' + this.module + ' has not been registered!')
+				this._depsLoaded = false
+				break
 			}
 		}
 	},

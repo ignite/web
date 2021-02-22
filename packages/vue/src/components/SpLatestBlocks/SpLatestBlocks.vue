@@ -1,5 +1,5 @@
 <template>
-	<div class="SpLatestBlocksWrapper">
+	<div class="SpLatestBlocksWrapper" v-if="depsLoaded">
 		<div class="SpLatestBlocks" ref="blockList">
 			<h2>LATEST BLOCKS</h2>
 			<div v-if="blocks.length >= 10" class="SpLatestBlockList">
@@ -34,7 +34,23 @@ export default {
 	},
 	computed: {
 		blocks() {
-			return this.$store.getters['chain/common/blocks/getBlocks'](10)
+			if (this._depsLoaded) {
+				return this.$store.getters['chain/common/blocks/getBlocks'](10)
+			}
+		},
+		depsLoaded() {
+			return this._depsLoaded
+		}
+	},
+	beforeCreate() {
+		const module = ['chain', 'common', 'blocks']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module `chain.common.blocks` has not been registered!')
+				this._depsLoaded = false
+				break
+			}
 		}
 	},
 	watch: {

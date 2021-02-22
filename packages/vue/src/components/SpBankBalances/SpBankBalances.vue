@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="depsLoaded">
 		<div class="container">
 			<SpH3>
 				{{ bankAddress }}<br />
@@ -82,20 +82,38 @@ export default {
 			return this.$store.getters['chain/cosmos/cosmos-sdk/bank/getAllBalances'](
 				this.bankAddress
 			)
+		},
+		depsLoaded() {
+			return this._depsLoaded
+		}
+	},
+	beforeCreate() {
+		const module = ['chain', 'cosmos', 'cosmos-sdk', 'bank']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log(
+					'Module `chain.cosmos.cosmos-sdk.bank` has not been registered!'
+				)
+				this._depsLoaded = false
+				break
+			}
 		}
 	},
 	mounted: function () {
-		this.bankAddress = this.address
-		if (this.bankAddress != '') {
-			this.$store.dispatch('chain/cosmos/cosmos-sdk/bank/QueryAllBalances', {
-				address: this.address,
-				subscribe: this.refresh
-			})
+		if (this._depsLoaded) {
+			this.bankAddress = this.address
+			if (this.bankAddress != '') {
+				this.$store.dispatch('chain/cosmos/cosmos-sdk/bank/QueryAllBalances', {
+					address: this.address,
+					subscribe: this.refresh
+				})
+			}
 		}
 	},
 	watch: {
 		address: function (newAddr, oldAddr) {
-			if (newAddr != oldAddr) {
+			if (newAddr != oldAddr && this._depsLoaded) {
 				this.bankAddress = newAddr
 				if (this.bankAddress != '') {
 					this.$store.dispatch(
@@ -114,13 +132,15 @@ export default {
 			return Intl.NumberFormat().format(number)
 		},
 		async balancesUpdate() {
-			await this.$store.dispatch(
-				'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
-				{
-					address: this.bankAddress,
-					subscribe: false
-				}
-			)
+			if (this._depsLoaded) {
+				await this.$store.dispatch(
+					'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
+					{
+						address: this.bankAddress,
+						subscribe: false
+					}
+				)
+			}
 		}
 	}
 }

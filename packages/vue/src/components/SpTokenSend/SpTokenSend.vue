@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="depsLoaded">
 		<div v-if="balances && balances.length > 0" class="container">
 			<SpH3>Send tokens</SpH3>
 			<div class="form">
@@ -161,42 +161,66 @@ export default {
 			bankAddress: ''
 		}
 	},
+	beforeCreate() {
+		const module = ['chain', 'cosmos', 'cosmos-sdk', 'bank']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log(
+					'Module `chain.cosmos.cosmos-sdk.bank` has not been registered!'
+				)
+				this._depsLoaded = false
+				break
+			}
+		}
+	},
 	mounted() {
 		this.bankAddress = this.address
-		if (this.bankAddress != '') {
-			this.$store.dispatch('chain/cosmos/cosmos-sdk/bank/QueryAllBalances', {
-				address: this.address,
-				subscribe: this.refresh
-			})
+		if (this._depsLoaded) {
+			if (this.bankAddress != '') {
+				this.$store.dispatch('chain/cosmos/cosmos-sdk/bank/QueryAllBalances', {
+					address: this.address,
+					subscribe: this.refresh
+				})
+			}
 		}
 	},
 	watch: {
 		address: function (newAddr, oldAddr) {
-			if (newAddr != oldAddr) {
-				this.bankAddress = newAddr
-				if (this.bankAddress != '') {
-					this.$store.dispatch(
-						'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
-						{
-							address: this.bankAddress,
-							subscribe: this.refresh
-						}
-					)
+			if (this._depsLoaded) {
+				if (newAddr != oldAddr) {
+					this.bankAddress = newAddr
+					if (this.bankAddress != '') {
+						this.$store.dispatch(
+							'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
+							{
+								address: this.bankAddress,
+								subscribe: this.refresh
+							}
+						)
+					}
 				}
 			}
 		}
 	},
 	computed: {
 		balances() {
-			return this.$store.getters['chain/cosmos/cosmos-sdk/bank/getAllBalances'](
-				this.bankAddress
-			)
+			if (this._depsLoaded) {
+				return this.$store.getters[
+					'chain/cosmos/cosmos-sdk/bank/getAllBalances'
+				](this.bankAddress)
+			} else {
+				return []
+			}
 		},
 		denoms() {
 			return this.balances.map((b) => b.denom)
 		},
 		denom() {
 			return this.denoms[this.denomIndex]
+		},
+		depsLoaded() {
+			return this._depsLoaded
 		},
 		valid() {
 			let to_address
@@ -221,33 +245,35 @@ export default {
 			this.denomIndex = inBounds ? this.denomIndex + 1 : 0
 		},
 		async send() {
-			if (this.valid.to_address && this.valid.amount && !this.inFlight) {
-				const payload = {
-					amount: this.amount,
-					denom: this.denom,
-					to_address: this.to_address,
-					from_address: this.address,
-					memo: this.memo
-				}
-				this.txResult = ''
-				this.inFlight = true
-				this.txResult = await this.$store.dispatch(
-					'chain/cosmos/cosmos-sdk/bank/MsgSend',
-					payload
-				)
-				if (this.txResult && !this.txResult.code) {
-					this.amount = ''
-					this.to_address = ''
-					this.memo = ''
-				}
-				this.inFlight = false
-				await this.$store.dispatch(
-					'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
-					{
-						address: this.address,
-						subscribe: false
+			if (this._depsLoaded) {
+				if (this.valid.to_address && this.valid.amount && !this.inFlight) {
+					const payload = {
+						amount: this.amount,
+						denom: this.denom,
+						to_address: this.to_address,
+						from_address: this.address,
+						memo: this.memo
 					}
-				)
+					this.txResult = ''
+					this.inFlight = true
+					this.txResult = await this.$store.dispatch(
+						'chain/cosmos/cosmos-sdk/bank/MsgSend',
+						payload
+					)
+					if (this.txResult && !this.txResult.code) {
+						this.amount = ''
+						this.to_address = ''
+						this.memo = ''
+					}
+					this.inFlight = false
+					await this.$store.dispatch(
+						'chain/cosmos/cosmos-sdk/bank/QueryAllBalances',
+						{
+							address: this.address,
+							subscribe: false
+						}
+					)
+				}
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 <template>
-	<div class="SpAccountList">
+	<div class="SpAccountList" v-if="depsLoaded">
 		<div v-if="!newAccount.show">
 			<strong>AVAILABLE ACCOUNTS:</strong>
 			<ul v-if="accountList.length > 0">
@@ -60,6 +60,20 @@ export default {
 		},
 		HDPath() {
 			return this.$store.state.chain.common.wallet.activeWallet.HDpath
+		},
+		depsLoaded() {
+			return this._depsLoaded
+		}
+	},
+	beforeCreate() {
+		const module = ['chain', 'common', 'wallet']
+		for (let i = 1; i <= module.length; i++) {
+			let submod = module.slice(0, i)
+			if (!this.$store.hasModule(submod)) {
+				console.log('Module `chain.common.wallet` has not been registered!')
+				this._depsLoaded = false
+				break
+			}
 		}
 	},
 	methods: {
@@ -79,17 +93,21 @@ export default {
 			this.newAccount.show = true
 		},
 		async useAccount(address) {
-			await this.$store.dispatch('chain/common/wallet/switchAccount', address)
-			this.$emit('account-selected')
+			if (this._depsLoaded) {
+				await this.$store.dispatch('chain/common/wallet/switchAccount', address)
+				this.$emit('account-selected')
+			}
 		},
 		async createAccount() {
-			if (this.newAccount.nextAvailable) {
-				await this.$store.dispatch('chain/common/wallet/addAccount')
-			} else {
-				await this.$store.dispatch(
-					'chain/common/wallet/addAccount',
-					this.newAccount.pathIncrement
-				)
+			if (this._depsLoaded) {
+				if (this.newAccount.nextAvailable) {
+					await this.$store.dispatch('chain/common/wallet/addAccount')
+				} else {
+					await this.$store.dispatch(
+						'chain/common/wallet/addAccount',
+						this.newAccount.pathIncrement
+					)
+				}
 			}
 			this.reset()
 		}
