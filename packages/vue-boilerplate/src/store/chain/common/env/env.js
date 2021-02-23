@@ -25,13 +25,13 @@ export default {
 		client: (state) => state.client,
 		apiTendermint: (state) => state.apiTendermint,
 		apiCosmos: (state) => state.apiCosmos,
-		apiWS: (state) => state.apiWS,
+		apiWS: (state) => state.apiWS
 	},
 	mutations: {
 		SET_CONFIG(state, config) {
 			state.apiCosmos = config.apiNode
 			if (config.rpcNode) {
-				state.apiTendermint=config.rpcNode	
+				state.apiTendermint = config.rpcNode
 			}
 			if (config.wsNode) {
 				state.apiWS = config.wsNode

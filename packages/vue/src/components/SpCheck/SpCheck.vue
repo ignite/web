@@ -12,3 +12,8 @@
 	margin-top: -2px;
 }
 </style>
+<script>
+export default {
+	name: 'SpCheck'
+}
+</script>

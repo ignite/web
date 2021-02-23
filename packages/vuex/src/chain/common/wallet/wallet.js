@@ -91,7 +91,7 @@ export default {
 		signOut({ commit }) {
 			commit('SIGN_OUT')
 		},
-		async unlockWallet({ commit, state, rootGetters }, { name, password }) {
+		async unlockWallet({ commit, state, dispatch, rootGetters }, { name, password }) {
 			const encryptedWallet =
 				state.wallets[state.wallets.findIndex((x) => x.name === name)].wallet
 			const wallet = JSON.parse(
@@ -107,7 +107,7 @@ export default {
 					wallet.prefix
 				)
 				try {
-					await dispatch('chain/common/env/signIn', accountSigner)
+					await dispatch('chain/common/env/signIn', accountSigner, {root:true})
 					let client = rootGetters['chain/common/env/signingClient']
 					commit('SET_ACTIVE_CLIENT', client)
 					const [account] = await accountSigner.getAccounts()
@@ -117,7 +117,7 @@ export default {
 				}
 			}
 		},
-		async switchAccount({ commit, state, rootGetters }, address) {
+		async switchAccount({ commit, state, rootGetters ,dispatch}, address) {
 			const accountIndex = state.activeWallet.accounts.findIndex(
 				(acc) => acc.address == address
 			)
@@ -131,7 +131,7 @@ export default {
 			)
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner)
+				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				const [account] = await accountSigner.getAccounts()
@@ -171,7 +171,7 @@ export default {
 			commit('SET_BACKUP_STATE', false)
 		},
 		async signInWithPrivateKey(
-			{ commit, rootGetters },
+			{ commit, rootGetters, dispatch },
 			{ prefix = 'cosmos', privKey }
 		) {
 			const pKey = keyFromWif(privKey.trim())
@@ -179,7 +179,7 @@ export default {
 			const [firstAccount] = await accountSigner.getAccounts()
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner)
+				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				commit('SET_SELECTED_ADDRESS', firstAccount.address)
@@ -210,7 +210,7 @@ export default {
 			commit('ADD_WALLET', wallet)
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner)
+				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
 
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
@@ -251,7 +251,7 @@ export default {
 			commit('ADD_WALLET', wallet)
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner)
+				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
 
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)

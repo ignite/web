@@ -1,6 +1,6 @@
 {
   "name": "@starport/vuex",
-  "version": "0.1.12",
+  "version": "0.1.16",
   "description": "A library of Vuex 4 (for Vue 3) standard store modules for state management of cosmos-sdk chains' frontends",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
@@ -11,14 +11,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "main": "lib/vuex.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
+  "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
@@ -26,7 +19,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@starport/client-js": "^0.1.12",
+    "@starport/client-js": "^0.1.14",
     "axios": "^0.21.1"
   }
 }

@@ -14,10 +14,5 @@ export default function init(store) {
 		if (mutation.type == 'chain/common/env/INITIALIZE_WS_COMPLETE') {
 			store.dispatch('chain/cosmos/cosmos-sdk/bank/init', null, { root: true })
 		}
-		if (mutation.type == 'chain/common/wallet/SET_ACTIVE_CLIENT') {
-			store.dispatch('chain/cosmos/cosmos-sdk/bank/registerTypes', null, {
-				root: true
-			})
-		}
 	})
 }

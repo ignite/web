@@ -3,8 +3,8 @@ import './scss/app.scss'
 
 const install = (instance) => {
 	for (let componentKey in components) {
-		instance.component(components[componentKey].name,components[componentKey])
-	}	
+		instance.component(components[componentKey].name, components[componentKey])
+	}
 }
 
 export default install

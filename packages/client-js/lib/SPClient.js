@@ -216,7 +216,9 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
 
                 registry = _objectSpread({}, this.signingClient.registry);
                 _context3.next = 5;
-                return _stargate.SigningStargateClient.connectWithSigner(this.rpcAddr, this.signer, registry);
+                return _stargate.SigningStargateClient.connectWithSigner(this.rpcAddr, this.signer, {
+                  registry: registry
+                });
 
               case 5:
                 this.signingClient = _context3.sent;

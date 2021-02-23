@@ -4,7 +4,7 @@ import axios, { AxiosPromise, AxiosResponse } from "axios";
 import {
     SigningStargateClient,
 } from "@cosmjs/stargate";
-import { OfflineDirectSigner } from "@cosmjs/proto-signing";
+import { OfflineDirectSigner, Registry } from "@cosmjs/proto-signing";
 
 export interface IClientConfig {
     apiAddr: string;
@@ -88,11 +88,11 @@ export default class SPClient extends EventEmitter {
     public async switchRPC(rpcAddr: string): Promise<void> {
         this.rpcAddr = rpcAddr;
         if (this.signingClient) {
-            const registry = { ...this.signingClient.registry };
+            const registry:Registry = { ...this.signingClient.registry };
             this.signingClient = await SigningStargateClient.connectWithSigner(
                 this.rpcAddr,
                 this.signer,
-                registry
+                {registry}
             );
         }
     }

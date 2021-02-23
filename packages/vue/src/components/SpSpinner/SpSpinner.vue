@@ -45,3 +45,8 @@
 	}
 }
 </style>
+<script>
+export default {
+	name: 'SpSpinner'
+}
+</script>

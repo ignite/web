@@ -27,6 +27,7 @@ body {
 
 <script>
 import './scss/app.scss'
+import '@starport/vue/lib/starport-vue.css'
 import SpMenu from './components/SpMenu'
 
 export default {

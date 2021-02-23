@@ -12,3 +12,8 @@
 		</svg>
 	</div>
 </template>
+<script>
+export default {
+	name: 'SpIconLoading2'
+}
+</script>

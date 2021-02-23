@@ -12,3 +12,8 @@
 		</svg>
 	</div>
 </template>
+<script>
+export default {
+	name: 'SpIconCircle2'
+}
+</script>

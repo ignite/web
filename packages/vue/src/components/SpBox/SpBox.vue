@@ -15,3 +15,8 @@
 		/>
 	</svg>
 </template>
+<script>
+export default {
+	name: 'SpBox'
+}
+</script>

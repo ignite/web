@@ -26,8 +26,8 @@
     "@cosmjs/encoding": "^0.23.2",
     "@cosmjs/proto-signing": "^0.24.0-alpha.25",
     "@cosmjs/stargate": "^0.24.0-alpha.25",
-    "@starport/client-js": "^0.1.12",
-    "@starport/vue": "^0.1.12",
+    "@starport/vue": "^0.1.14",
+    "@starport/vuex": "^0.1.16",
     "bip39": "^3.0.3",
     "bs58": "^4.0.1",
     "core-js": "^3.8.3",
@@ -41,8 +41,8 @@
     "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.17",
-    "@babel/node": "^7.12.17",
+    "@babel/core": "^7.13.1",
+    "@babel/node": "^7.13.0",
     "@vue/cli-plugin-babel": "^4.5.11",
     "@vue/cli-plugin-eslint": "^4.5.11",
     "@vue/cli-plugin-vuex": "^4.5.11",

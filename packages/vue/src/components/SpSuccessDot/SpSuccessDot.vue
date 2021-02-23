@@ -11,3 +11,8 @@
 	background-color: var(--sp-c-txt-success);
 }
 </style>
+<script>
+export default {
+	name: 'SpSuccessDot'
+}
+</script>

@@ -19,3 +19,8 @@
 		</defs>
 	</svg>
 </template>
+<script>
+export default {
+	name: 'SpArrow'
+}
+</script>
