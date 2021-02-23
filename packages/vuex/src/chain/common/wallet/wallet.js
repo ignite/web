@@ -23,12 +23,13 @@ export default {
 		}
 	},
 	getters: {
-		client: state => state.activeClient,
-		wallet: state => state.activeWallet,
-		address: state => state.selectedAddress,
-		loggedIn: state => state.activeClient !== null,
-		walletName: state => (state.activeWallet ? state.activeWallet.name : null),
-		privKey: state => {
+		client: (state) => state.activeClient,
+		wallet: (state) => state.activeWallet,
+		address: (state) => state.selectedAddress,
+		loggedIn: (state) => state.activeClient !== null,
+		walletName: (state) =>
+			state.activeWallet ? state.activeWallet.name : null,
+		privKey: (state) => {
 			if (state.activeClient) {
 				return keyToWif(state.activeClient.signer.privkey)
 			} else {
@@ -63,7 +64,7 @@ export default {
 			state.activeWallet.accounts.push(account)
 			if (state.activeWallet.name && state.activeWallet.password) {
 				state.wallets[
-					state.wallets.findIndex(x => x.name === state.activeWallet.name)
+					state.wallets.findIndex((x) => x.name === state.activeWallet.name)
 				].wallet = CryptoJS.AES.encrypt(
 					JSON.stringify(state.activeWallet),
 					state.activeWallet.password
@@ -92,7 +93,7 @@ export default {
 		},
 		async unlockWallet({ commit, state, rootGetters }, { name, password }) {
 			const encryptedWallet =
-				state.wallets[state.wallets.findIndex(x => x.name === name)].wallet
+				state.wallets[state.wallets.findIndex((x) => x.name === name)].wallet
 			const wallet = JSON.parse(
 				CryptoJS.AES.decrypt(encryptedWallet, password).toString(
 					CryptoJS.enc.Utf8
@@ -105,31 +106,20 @@ export default {
 					stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement),
 					wallet.prefix
 				)
-				const client = await SigningStargateClient.connectWithSigner(
-					rootGetters['chain/common/env/apiTendermint'],
-					accountSigner
-				)
-				commit('SET_ACTIVE_CLIENT', client)
-				const [account] = await accountSigner.getAccounts()
-				commit('SET_SELECTED_ADDRESS', account.address)
-			}
-		},
-		registerType({ commit, state }, payload) {
-			if (state.activeClient) {
-				if (
-					state.activeClient.registry.lookupType(payload.typeUrl) === undefined
-				) {
-					commit('ADD_MESSAGE_TYPE', payload)
-				} else {
-					throw 'Message Type already registered!'
+				try {
+					await dispatch('chain/common/env/signIn', accountSigner)
+					let client = rootGetters['chain/common/env/signingClient']
+					commit('SET_ACTIVE_CLIENT', client)
+					const [account] = await accountSigner.getAccounts()
+					commit('SET_SELECTED_ADDRESS', account.address)
+				} catch (e) {
+					console.log(e)
 				}
-			} else {
-				throw 'Signing client not initialized!'
 			}
 		},
 		async switchAccount({ commit, state, rootGetters }, address) {
 			const accountIndex = state.activeWallet.accounts.findIndex(
-				acc => acc.address == address
+				(acc) => acc.address == address
 			)
 			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
 				state.activeWallet.mnemonic,
@@ -139,13 +129,16 @@ export default {
 				),
 				state.activeWallet.prefix
 			)
-			const client = await SigningStargateClient.connectWithSigner(
-				rootGetters['chain/common/env/apiTendermint'],
-				accountSigner
-			)
-			commit('SET_ACTIVE_CLIENT', client)
-			const [account] = await accountSigner.getAccounts()
-			commit('SET_SELECTED_ADDRESS', account.address)
+
+			try {
+				await dispatch('chain/common/env/signIn', accountSigner)
+				let client = rootGetters['chain/common/env/signingClient']
+				commit('SET_ACTIVE_CLIENT', client)
+				const [account] = await accountSigner.getAccounts()
+				commit('SET_SELECTED_ADDRESS', account.address)
+			} catch (e) {
+				console.log(e)
+			}
 		},
 		async addAccount({ commit, state, dispatch }, pathIncrement) {
 			if (!pathIncrement) {
@@ -164,7 +157,7 @@ export default {
 			}
 			if (
 				state.activeWallet.accounts.findIndex(
-					acc => acc.address == account.address
+					(acc) => acc.address == account.address
 				) == -1
 			) {
 				commit('ADD_ACCOUNT', account)
@@ -177,26 +170,6 @@ export default {
 			window.localStorage.setItem('wallets', JSON.stringify(state.wallets))
 			commit('SET_BACKUP_STATE', false)
 		},
-		async switchAPI({ commit, state, rootGetters }) {
-			if (state.activeWallet && state.activeClient) {
-				const accountIndex = state.activeWallet.accounts.findIndex(
-					acc => acc.address == state.selectedAddress
-				)
-				const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
-					state.wallet.mnemonic,
-					stringToPath(
-						state.activeWallet.HDpath +
-							state.activeWallet.accounts[accountIndex].pathIncrement
-					),
-					state.activeWallet.prefix
-				)
-				const client = await SigningStargateClient.connectWithSigner(
-					rootGetters['chain/common/env/apiTendermint'],
-					accountSigner
-				)
-				commit('SET_ACTIVE_CLIENT', client)
-			}
-		},
 		async signInWithPrivateKey(
 			{ commit, rootGetters },
 			{ prefix = 'cosmos', privKey }
@@ -205,13 +178,14 @@ export default {
 			const accountSigner = await DirectSecp256k1Wallet.fromKey(pKey, prefix)
 			const [firstAccount] = await accountSigner.getAccounts()
 
-			const client = await SigningStargateClient.connectWithSigner(
-				rootGetters['chain/common/env/apiTendermint'],
-				accountSigner
-			)
-
-			commit('SET_ACTIVE_CLIENT', client)
-			commit('SET_SELECTED_ADDRESS', firstAccount.address)
+			try {
+				await dispatch('chain/common/env/signIn', accountSigner)
+				let client = rootGetters['chain/common/env/signingClient']
+				commit('SET_ACTIVE_CLIENT', client)
+				commit('SET_SELECTED_ADDRESS', firstAccount.address)
+			} catch (e) {
+				console.log(e)
+			}
 		},
 		async restoreWallet(
 			{ commit, dispatch, rootGetters, state },
@@ -222,7 +196,7 @@ export default {
 			)
 			let newName = wallet.name
 			let incr = 1
-			while (state.wallets.findIndex(x => x.name == newName) != -1) {
+			while (state.wallets.findIndex((x) => x.name == newName) != -1) {
 				newName = wallet.name + '_' + incr
 				incr++
 			}
@@ -234,13 +208,17 @@ export default {
 			)
 			const [firstAccount] = await accountSigner.getAccounts()
 			commit('ADD_WALLET', wallet)
-			const client = await SigningStargateClient.connectWithSigner(
-				rootGetters['chain/common/env/apiTendermint'],
-				accountSigner
-			)
 
-			commit('SET_ACTIVE_CLIENT', client)
-			commit('SET_SELECTED_ADDRESS', firstAccount.address)
+			try {
+				await dispatch('chain/common/env/signIn', accountSigner)
+
+				let client = rootGetters['chain/common/env/signingClient']
+				commit('SET_ACTIVE_CLIENT', client)
+				commit('SET_SELECTED_ADDRESS', firstAccount.address)
+			} catch (e) {
+				console.log(e)
+			}
+
 			dispatch('storeWallets')
 		},
 		async createWalletWithMnemonic(
@@ -271,13 +249,16 @@ export default {
 			const account = { address: firstAccount.address, pathIncrement: 0 }
 			wallet.accounts.push(account)
 			commit('ADD_WALLET', wallet)
-			const client = await SigningStargateClient.connectWithSigner(
-				rootGetters['chain/common/env/apiTendermint'],
-				accountSigner
-			)
 
-			commit('SET_ACTIVE_CLIENT', client)
-			commit('SET_SELECTED_ADDRESS', firstAccount.address)
+			try {
+				await dispatch('chain/common/env/signIn', accountSigner)
+
+				let client = rootGetters['chain/common/env/signingClient']
+				commit('SET_ACTIVE_CLIENT', client)
+				commit('SET_SELECTED_ADDRESS', firstAccount.address)
+			} catch (e) {
+				console.log(e)
+			}
 			dispatch('storeWallets')
 		},
 		async sendTransaction({ state }, { message, memo, denom }) {

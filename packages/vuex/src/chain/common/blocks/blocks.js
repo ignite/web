@@ -1,5 +1,71 @@
 import axios from 'axios'
 
+function formatTx({
+	txHash = '',
+	messages = [],
+	memo = '',
+	signer_infos = [],
+	fee = {},
+	gas_used = null,
+	gas_wanted = null,
+	height = null,
+	code = 0,
+	log = null
+}) {
+	return {
+		txHash,
+		body: {
+			messages,
+			memo
+		},
+		auth_info: {
+			signer_infos,
+			fee
+		},
+		meta: {
+			gas_used,
+			gas_wanted,
+			height,
+			code,
+			log
+		}
+	}
+}
+
+async function getTx(apiCosmos, apiTendermint, encodedTx) {
+	const txHash = sha256(Buffer.from(encodedTx, 'base64'))
+	try {
+		const rpcRes = await axios.get(apiTendermint + '/tx?hash=0x' + txHash)
+		const apiRes = await axios.get(
+			apiCosmos + '/cosmos/tx/v1beta1/txs/' + txHash
+		)
+		return { rpcRes, apiRes, txHash: txHash.toUpperCase() }
+	} catch (e) {
+		throw 'Error fetching TX data'
+	}
+}
+async function decodeTx(apiCosmos, apiTendermint, encodedTx) {
+	const fullTx = await getTx(apiCosmos, apiTendermint, encodedTx)
+	const { data } = fullTx.rpcRes
+	const { height, tx_result } = data.result
+	const { code, log, gas_used, gas_wanted } = tx_result
+	const { body, auth_info } = fullTx.apiRes.data.tx
+	const { messages, memo } = body
+
+	return formatTx({
+		txHash: fullTx.txHash,
+		messages,
+		memo,
+		signer_infos: auth_info.signer_infos,
+		fee: auth_info.fee,
+		gas_used,
+		gas_wanted,
+		height,
+		code,
+		log
+	})
+}
+
 export default {
 	namespaced: true,
 	state() {
@@ -9,13 +75,13 @@ export default {
 		}
 	},
 	getters: {
-		getBlocks: state => howmany => {
+		getBlocks: (state) => (howmany) => {
 			return [...state.blocks]
 				.sort((a, b) => b.height - a.height)
 				.slice(0, howmany)
 		},
-		getBlockByHeight: state => height => {
-			return state.blocks.find(x => x.height == height) || {}
+		getBlockByHeight: (state) => (height) => {
+			return state.blocks.find((x) => x.height == height) || {}
 		}
 	},
 	mutations: {
@@ -34,8 +100,8 @@ export default {
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			if (rootGetters['chain/common/env/wsClient']) {
-				rootGetters['chain/common/env/wsClient'].on('newblock', data => {
+			if (rootGetters['chain/common/env/client']) {
+				rootGetters['chain/common/env/client'].on('newblock', (data) => {
 					dispatch('addBlock', data)
 				})
 			}
@@ -47,12 +113,16 @@ export default {
 						'/block?height=' +
 						blockData.data.value.block.header.height
 				)
-				const txDecoded = blockData.data.value.block.data.txs.map(async tx => {
-					const dec = await rootGetters['chain/common/env/apiClient'].decodeTx(
-						tx
-					)
-					return dec
-				})
+				const txDecoded = blockData.data.value.block.data.txs.map(
+					async (tx) => {
+						const dec = await decodeTx(
+							rootGetters['chain/common/env/apiCosmos'],
+							rootGetters['chain/common/env/apiTendermint'],
+							tx
+						)
+						return dec
+					}
+				)
 				const txs = await Promise.all(txDecoded)
 
 				const block = {

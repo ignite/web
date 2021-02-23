@@ -10,6 +10,7 @@ export default {
 			apiCosmos: null,
 			apiTendermint: null,
 			apiWS: null,
+			client: null,
 			apiConnected: false,
 			rpcConnected: false,
 			wsConnected: false,
@@ -21,21 +22,23 @@ export default {
 		}
 	},
 	getters: {
-		apiClient: (state) => state.apiClient,
-		wsClient: (state) => state.wsClient,
-		apiTendermint: (state) => state.apiTendermint
+		client: (state) => state.client,
+		apiTendermint: (state) => state.apiTendermint,
+		apiCosmos: (state) => state.apiCosmos,
+		apiWS: (state) => state.apiWS,
 	},
 	mutations: {
 		SET_CONFIG(state, config) {
 			state.apiCosmos = config.apiNode
-			state.apiTendermint = config.rpcNode
+			if (config.rpcNode) {
+				state.apiTendermint=config.rpcNode	
+			}
 			if (config.wsNode) {
 				state.apiWS = config.wsNode
 			}
 		},
-		CONNECT(state, { apiClient, wsClient }) {
-			state.apiClient = apiClient
-			state.wsClient = wsClient
+		CONNECT(state, { client }) {
+			state.client = client
 		},
 		INITIALIZE_WS_COMPLETE(state) {
 			state.initialized = true

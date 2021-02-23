@@ -36,6 +36,8 @@ export default {
 		blocks() {
 			if (this._depsLoaded) {
 				return this.$store.getters['chain/common/blocks/getBlocks'](10)
+			} else {
+				return []
 			}
 		},
 		depsLoaded() {

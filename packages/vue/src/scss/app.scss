@@ -1,0 +1,493 @@
+@import './_normalize.css';
+@import './_layouts.css';
+@import './_colors.css';
+@import './_typography.css';
+@import './_transitions.css';
+
+:root {
+  --sp-border-radius-primary: 12px;
+}
+
+body {
+  padding-top: 42px;
+  font-family: var(--sp-f-primary);
+  font-weight: 500;
+  padding-bottom: 60px;
+  a {
+    text-decoration: none;
+  }
+  .moduleShowcase {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    code {
+      margin-bottom: 10px;
+    }
+    h3 {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+    hr {
+      width: 100%;
+    }
+
+    .SpTypeForm {
+      text-align: center;
+      margin-bottom: 10px;
+      p {
+        margin-bottom: 10px;
+      }
+    }
+    .SpTypeList {
+      text-align: center;
+      margin-bottom: 10px;
+      p {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .container {
+    max-width: 900px;
+    margin: 0rem auto;
+    padding: 0rem 1rem;
+  }
+  .explorer  {
+    height: calc(100vh - 118px) !important;
+    padding-top:16px !important;
+  }
+  .SpButton {
+    display: inline-flex;
+    background: rgb(247, 247, 247);
+    padding: 0.6rem 0.75rem;
+    margin-left: 2px;
+    margin-right: 2px;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+    justify-content: center;
+    border-radius: 6px;
+    &:disabled {
+      color: rgba(0, 0, 0, 0.25);
+      cursor: not-allowed;
+      fill: rgba(0, 0, 0, 0.25);
+      .SpButtonText {
+        color: rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    .SpButtonIcon {
+      width: 0.75rem;
+      height: 0.75rem;
+      padding: 0 0.1rem;
+      display: flex;
+      align-items: center;
+    }
+    .SpButtonText {
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      padding: 0 0.2rem;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.85);
+      text-align: center;
+    }
+  }
+  .SpBlockDisplayFull {
+    pre {
+      font-size: 12px;
+      width:100%;
+    white-space: break-spaces;
+    word-break: break-all;
+    }
+  }
+  .SpForm {
+    margin-top: 10px;
+    .SpFormTitle {
+      margin-bottom: 10px;
+    }
+    .SpCheckbox {
+      label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        input[type='checkbox'] {
+          flex: none;
+          width: auto;
+          margin: 0;
+          margin-left: 10px;
+        }
+      }
+    }
+    input {
+      border: none;
+      font-size: inherit;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      width: 100%;
+      max-width: 500px;
+      /* box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); */
+      border-radius: 6px;
+      box-sizing: border-box;
+      background: rgb(247, 247, 247);
+      font-family: inherit;
+      &:read-only {
+        color: rgba(0, 0, 0, 0.25);
+      }
+      &:focus {
+        outline: none;
+        /* box-shadow: 0 0 0 2.5px #d5e7fe, inset 0 0 0 1px #a5cafd; */
+      }
+      &:disabled {
+        color: rgba(0, 0, 0, 0.25);
+      }
+      &.SpInputNumber {
+        padding: 0.75rem 0.25rem;
+        width: 50px;
+      }
+    }
+    textarea {
+      border: 0;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      outline: none;
+      width: 100%;
+      height: 140px;
+      box-sizing: border-box;
+      resize: none;
+      letter-spacing: 0.02em;
+      font-family: inherit;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: rgba(0, 0, 0, 0.85);
+    }
+  }
+  .SpPagination {
+    text-align: center;
+    .SpPaginationTitle {
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 10px;
+    }
+    .SpPaginationItem {
+      display: inline-block;
+      padding: 0px 5px;
+      color: black;
+      text-decoration: underline;
+      &.active {
+        text-decoration: none;
+        color: gray;
+      }
+    }
+  }
+  .SpTable {
+    font-size: 12px;
+    width: 100%;
+    margin-bottom: 10px;
+    thead {
+      tr {
+        vertical-align: middle;
+        text-align: center;
+        th {
+          padding: 8px 5px;
+          border-bottom: 1px solid black;
+          margin: 0;
+        }
+      }
+    }
+    tr {
+      vertical-align: middle;
+      text-align: center;
+      td {
+        padding: 8px 5px;
+        border-bottom: 1px solid lightgray;
+        margin: 0;
+      }
+    }
+  }
+
+  .SpLatestBlocksWrapper {
+    text-align: center;
+    .SpLatestBlocks {
+      height: 608px;
+      border: 1px solid lightgray;
+      border-radius: 6px;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-bottom: 10px;
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .SpLatestBlockList {
+        .SpBlockDisplaySmall {
+          display: block;
+          text-decoration: none;
+          color: black;
+          text-align: right;
+          width: 100%;
+          height: 44px;
+          padding: 5px 0px;
+          border-bottom: 1px dashed lightgray;
+          .SpBlockDisplaySmallHeight {
+            float: left;
+            line-height: 44px;
+            font-size: 22px;
+            padding: 0 10px;
+          }
+          .SpBlockDisplaySmallHash {
+            line-height: 22px;
+            padding: 0 10px;
+            flex-shrink: 1;
+            font-size: 14px;
+          }
+          .SpBlockDisplaySmallTime {
+            line-height: 22px;
+            padding: 0 10px;
+            flex-shrink: 1;
+            font-size: 12px;
+            font-style: italic;
+            vertical-align: bottom;
+            display: inline-block;
+            border-right: 1px solid black;
+          }
+          .SpBlockDisplaySmallTxs {
+            line-height: 22px;
+            padding: 0 10px;
+            flex-shrink: 1;
+            font-size: 12px;
+            font-weight: bold;
+            vertical-align: bottom;
+            display: inline-block;
+          }
+        }
+      }
+      .SpLatestBlockListEmpty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--sp-c-txt-light);
+        animation: tempLoading 5s ease-in-out infinite;
+        flex-direction: column;
+        height: 100%;
+        svg {
+          display: block;
+          margin: 0 auto 0.5rem auto;
+        }
+        svg >>> path {
+          fill: var(--sp-c-txt-light);
+          fill-opacity: 1;
+        }
+      }
+    }
+  }
+  .SpWalletInfo {
+    text-align: center;
+    .SpWalletInfoMnemonic {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .SpTable {
+      line-height: 16px;
+    }
+    .SpWalletInfoTitle {
+      margin-bottom: 20px;
+    }
+    .SpWideCell {
+      width: 100%;
+    }
+  }
+  .SpHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 42px;
+    background: black;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    .SpMenu {
+      color: white;
+      vertical-align: middle;
+      position: relative;
+      .SpMenuList {
+        background: white;
+        position: fixed;
+        right: 10px;
+        top: 44px;
+        color: black;
+        border: 1px solid black;
+        border-radius: 6px;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 14px;
+        text-align: right;
+        ul {
+          list-style: none;
+          padding: 0;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 0;
+          li {
+            text-align: right;
+            margin-bottom: 5px;
+            .SpButton {
+              width: 100%;
+              justify-content: flex-end;
+              .SpButtonText {
+                text-align: right;
+              }
+            }
+          }
+        }
+      }
+    }
+    .SpWallet {
+      color: white;
+      vertical-align: middle;
+      position: relative;
+      .SpAccountList {
+        background: white;
+        position: fixed;
+        right: 10px;
+        top: 44px;
+        color: black;
+        min-width: 250px;
+        border: 1px solid black;
+        border-radius: 6px;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        ul {
+          list-style: none;
+          padding: 0;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 0;
+          li {
+            text-align: center;
+            margin-bottom: 5px;
+            .SpButton {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .SpWalletList {
+        background: white;
+        position: fixed;
+        right: 10px;
+        top: 44px;
+        color: black;
+        box-sizing: border-box;
+        min-width: 250px;
+        border: 1px solid black;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        ul {
+          list-style: none;
+          padding: 0;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 0;
+          li {
+            text-align: center;
+            margin-bottom: 5px;
+            .SpButton {
+              width: 100%;
+            }
+          }
+        }
+        
+        .SpWalletGenerateMnemonic {
+          margin-bottom: 10px;
+        }
+        .SpWalletButton {
+          width: 100%;
+        }
+        .SpWalletKey {
+          margin-top: 5px;
+        }
+        .SpWalletImport {
+          margin-top: 5px;
+        }
+        .SpWalletListEmpty {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  .SpFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 42px;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    .SpStatuses {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      .SpStatusLED {
+        display: inline-block;
+        height: 16px;
+        width: 16px;
+        border-radius: 8px;
+        background: red;
+        &.active {
+          background: green;
+        }
+      }
+    }
+    .SpStatusAPI {
+      margin-left: 10px;
+      em {
+        display: none;
+      }
+    }
+    .SpStatusRPC {
+      margin-left: 10px;
+      em {
+        display: none;
+      }
+    }
+    .SpStatusWS {
+      margin-left: 10px;
+      em {
+        display: none;
+      }
+    }
+  }
+}
+
+@keyframes tempLoading {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.8;
+  }
+}

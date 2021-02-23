@@ -57,24 +57,24 @@ export default {
 		}
 	},
 	getters: {
-		getPost: state => id => {
+		getPost: (state) => (id) => {
 			if (id != '' && state.Post['/' + id]) {
 				return state.Post['/' + id].Post
 			} else {
 				return {}
 			}
 		},
-		getPostAll: state => () => {
+		getPostAll: (state) => () => {
 			return state.PostAll.Post
 		},
-		getTypeStructure: state => type => {
+		getTypeStructure: (state) => (type) => {
 			return state._Structure[type].fields
 		}
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			if (rootGetters['chain/common/env/wsClient']) {
-				rootGetters['chain/common/env/wsClient'].on('newblock', () => {
+			if (rootGetters['chain/common/env/client']) {
+				rootGetters['chain/common/env/client'].on('newblock', () => {
 					dispatch('StoreUpdate')
 				})
 			}
@@ -83,7 +83,7 @@ export default {
 			commit('RESET_STATE')
 		},
 		async StoreUpdate({ state, dispatch }) {
-			state._Subscriptions.forEach(subscription => {
+			state._Subscriptions.forEach((subscription) => {
 				dispatch(subscription.action, subscription.payload)
 			})
 		},
@@ -93,7 +93,7 @@ export default {
 		async QueryPost({ commit, rootGetters }, { id, subscribe = false }) {
 			try {
 				const post = await blog
-					.QueryClient(rootGetters['chain/common/env/apiClient'])
+					.QueryClient(rootGetters['chain/common/env/client'])
 					.queryPost(id)
 				commit('POST', { id, post })
 				if (subscribe) {
@@ -110,7 +110,7 @@ export default {
 		async QueryPostAll({ commit, rootGetters }, { subscribe = false }) {
 			try {
 				const post = await blog
-					.QueryClient(rootGetters['chain/common/env/apiClient'])
+					.QueryClient(rootGetters['chain/common/env/client'])
 					.queryPostAll()
 				commit('POST_ALL', { post })
 				if (subscribe) {

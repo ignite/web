@@ -1,4 +1,3 @@
-//import { Type, Field } from 'protobufjs' If registering custom message types
 const getDefaultState = () => {
 	return {
 		Balance: {},
@@ -50,37 +49,37 @@ export default {
 		}
 	},
 	getters: {
-		getAllBalances: state => address => {
+		getAllBalances: (state) => (address) => {
 			if (address != '' && state.AllBalances['/' + address]) {
 				return state.AllBalances['/' + address].balances
 			} else {
 				return []
 			}
 		},
-		getBalance: state => (address, denom) => {
+		getBalance: (state) => (address, denom) => {
 			if (address != '' && state.Balance['/' + address + '/' + denom]) {
 				return state.Balance['/' + address + '/' + denom].balance
 			} else {
 				return {}
 			}
 		},
-		getTotalSupply: state => () => {
+		getTotalSupply: (state) => () => {
 			return state.TotalSupply
 		},
-		getSupplyOf: state => denom => {
+		getSupplyOf: (state) => (denom) => {
 			if (denom != '' && state.SupplyOf['/' + denom]) {
 				return state.SupplyOf['/' + denom].amount
 			} else {
 				return {}
 			}
 		},
-		getParams: state => () => {
+		getParams: (state) => () => {
 			return state.Params
 		},
-		getDenomsMetadata: state => () => {
+		getDenomsMetadata: (state) => () => {
 			return state.DenomsMetadata
 		},
-		getDenomMetadata: state => denom => {
+		getDenomMetadata: (state) => (denom) => {
 			if (denom != '' && state.DenomMetadata['/' + denom]) {
 				return state.DenomMetadata['/' + denom].metadata
 			} else {
@@ -90,8 +89,8 @@ export default {
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			if (rootGetters['chain/common/env/wsClient']) {
-				rootGetters['chain/common/env/wsClient'].on('newblock', () => {
+			if (rootGetters['chain/common/env/client']) {
+				rootGetters['chain/common/env/client'].on('newblock', () => {
 					dispatch('StoreUpdate')
 				})
 			}
@@ -100,7 +99,7 @@ export default {
 			commit('RESET_STATE')
 		},
 		async StoreUpdate({ state, dispatch }) {
-			state._Subscriptions.forEach(subscription => {
+			state._Subscriptions.forEach((subscription) => {
 				dispatch(subscription.action, subscription.payload)
 			})
 		},
@@ -114,7 +113,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/balances'
 			const queryParams = '/' + address + '/' + denom
 			try {
-				const balance = await rootGetters['chain/common/env/apiClient'].query(
+				const balance = await rootGetters['chain/common/env/client'].query(
 					queryUrl,
 					queryParams
 				)
@@ -136,7 +135,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/balances'
 			const queryParams = '/' + address
 			try {
-				const balances = await rootGetters['chain/common/env/apiClient'].query(
+				const balances = await rootGetters['chain/common/env/client'].query(
 					queryUrl,
 					queryParams
 				)
@@ -156,7 +155,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/supply'
 			const queryParams = ''
 			try {
-				const supply = await rootGetters['chain/common/env/apiClient'].query(
+				const supply = await rootGetters['chain/common/env/client'].query(
 					queryUrl,
 					queryParams
 				)
@@ -175,7 +174,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/supply'
 			const queryParams = '/' + denom
 			try {
-				const amount = await rootGetters['chain/common/env/apiClient'].query(
+				const amount = await rootGetters['chain/common/env/client'].query(
 					queryUrl,
 					queryParams
 				)
@@ -194,7 +193,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/params'
 			const queryParams = ''
 			try {
-				const params = await rootGetters['chain/common/env/apiClient'].query(
+				const params = await rootGetters['chain/common/env/client'].query(
 					queryUrl,
 					queryParams
 				)
@@ -213,7 +212,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/denoms_metadata'
 			const queryParams = ''
 			try {
-				const supply = await rootGetters['chain/common/env/apiClient'].query(
+				const supply = await rootGetters['chain/common/env/client'].query(
 					queryUrl,
 					queryParams
 				)
@@ -235,7 +234,7 @@ export default {
 			const queryUrl = '/cosmos/bank/v1beta1/denoms_metadata'
 			const queryParams = '/' + denom
 			try {
-				const amount = await rootGetters['chain/common/env/apiClient'].query(
+				const amount = await rootGetters['chain/common/env/client'].query(
 					queryUrl,
 					queryParams
 				)
@@ -250,21 +249,6 @@ export default {
 				console.log('Query Failed: API node unavailable')
 			}
 		},
-		registerTypes() {},
-		/*
-		registerTypes({ dispatch }) {
-			/*
-			Generate type definitions and dispatch action to register them
-
-			const MsgCreatePost = new Type("MsgCreatePost")
-  			.add(new Field("creator", 1, "string"))
-  			.add(new Field("title", 2, "string"))
-				.add(new Field("body", 3, "string"));
-
-			dispatch('chain/common/wallet/registerType', {typeUrl: '/foo.foo.MsgCreatePost' , type: MsgCreatePost }, { root: true })
-		
-		},
-			*/
 		async MsgSend(
 			{ dispatch },
 			{ from_address, to_address, amount, denom, memo }

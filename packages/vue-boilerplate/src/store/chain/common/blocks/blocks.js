@@ -34,8 +34,8 @@ export default {
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			if (rootGetters['chain/common/env/wsClient']) {
-				rootGetters['chain/common/env/wsClient'].on('newblock', (data) => {
+			if (rootGetters['chain/common/env/client']) {
+				rootGetters['chain/common/env/client'].on('newblock', (data) => {
 					dispatch('addBlock', data)
 				})
 			}

@@ -1,6 +1,6 @@
 {
   "name": "@starport/vue-boilerplate",
-  "version": "0.2.0",
+  "version": "0.1.12",
   "description": "A Vue 3 boilerplate project utilizing @starport/vue and @starport/vuex",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
@@ -22,12 +22,12 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@starport/client-js": "^0.2.0",
-    "@starport/vue": "^0.2.0",
     "@cosmjs/crypto": "^0.23.2",
     "@cosmjs/encoding": "^0.23.2",
     "@cosmjs/proto-signing": "^0.24.0-alpha.25",
     "@cosmjs/stargate": "^0.24.0-alpha.25",
+    "@starport/client-js": "^0.1.12",
+    "@starport/vue": "^0.1.12",
     "bip39": "^3.0.3",
     "bs58": "^4.0.1",
     "core-js": "^3.8.3",
