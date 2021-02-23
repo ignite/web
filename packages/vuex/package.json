@@ -1,6 +1,6 @@
 {
   "name": "@starport/vuex",
-  "version": "0.1.16",
+  "version": "0.1.18",
   "description": "A library of Vuex 4 (for Vue 3) standard store modules for state management of cosmos-sdk chains' frontends",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
@@ -20,6 +20,9 @@
   },
   "dependencies": {
     "@starport/client-js": "^0.1.14",
+    "bs58": "^4.0.1",
+    "crypto-js": "^4.0.0",
+    "js-sha256": "^0.9.0",
     "axios": "^0.21.1"
   }
 }

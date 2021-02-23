@@ -1,4 +1,4 @@
-import blog from 'dao_modules/foo/bar/blog'
+import {txClient, queryClient} from './module'
 
 const getDefaultState = () => {
 	return {
@@ -92,9 +92,7 @@ export default {
 		},
 		async QueryPost({ commit, rootGetters }, { id, subscribe = false }) {
 			try {
-				const post = await blog
-					.QueryClient(rootGetters['chain/common/env/client'])
-					.queryPost(id)
+				const post = await queryClient({addr: rootGetters['chain/common/env/apiCosmos']}).queryPost(id)
 				commit('POST', { id, post })
 				if (subscribe) {
 					commit('SUBSCRIBE', {
@@ -109,9 +107,7 @@ export default {
 
 		async QueryPostAll({ commit, rootGetters }, { subscribe = false }) {
 			try {
-				const post = await blog
-					.QueryClient(rootGetters['chain/common/env/client'])
-					.queryPostAll()
+				const post = await queryClient({addr: rootGetters['chain/common/env/apiCosmos']}).queryPostAll()
 				commit('POST_ALL', { post })
 				if (subscribe) {
 					commit('SUBSCRIBE', {
@@ -123,80 +119,28 @@ export default {
 				console.log('Query Failed: API node unavailable')
 			}
 		},
-		registerTypes({ dispatch }) {
-			dispatch(
-				'chain/common/wallet/registerType',
-				{
-					typeUrl: '/foo.bar.blog.MsgCreatePost',
-					type: blog.MsgCreatePost
-				},
-				{ root: true }
-			)
-
-			dispatch(
-				'chain/common/wallet/registerType',
-				{
-					typeUrl: '/foo.bar.blog.MsgUpdatePost',
-					type: blog.MsgUpdatePost
-				},
-				{ root: true }
-			)
-			dispatch(
-				'chain/common/wallet/registerType',
-				{
-					typeUrl: '/foo.bar.blog.MsgDeletePost',
-					type: blog.MsgDeletePost
-				},
-				{ root: true }
-			)
-		},
-		async MsgCreatePost({ dispatch }, { value, memo, denom }) {
-			const typeUrl = '/foo.bar.blog.MsgCreatePost'
+		async MsgCreatePost(context, { value }) {
+			
 			try {
-				await dispatch(
-					'chain/common/wallet/sendTransaction',
-					{
-						message: { typeUrl, value },
-						memo,
-						denom
-					},
-					{ root: true }
-				)
+				txClient(rootGetters['chain/common/wallet/signer'], {addr: rootGetters['chain/common/env/apiTendermint']}).MsgCreatePost(value)
 			} catch (e) {
-				throw 'Failed to broadcast transaction' + e
+				throw 'Failed to broadcast transaction: ' + e
 			}
 		},
-		async MsgUpdatePost({ dispatch }, { value, memo, denom }) {
-			const typeUrl = '/foo.bar.blog.MsgUpdatePost'
-
+		async MsgUpdatePost(context, { value }) {
+			
 			try {
-				await dispatch(
-					'chain/common/wallet/sendTransaction',
-					{
-						message: { typeUrl, value },
-						memo,
-						denom
-					},
-					{ root: true }
-				)
+				txClient(rootGetters['chain/common/wallet/signer'], {addr: rootGetters['chain/common/env/apiTendermint']}).MsgUpdatePost(value)
 			} catch (e) {
-				throw 'Failed to broadcast transaction'
+				throw 'Failed to broadcast transaction: '
 			}
 		},
-		async MsgDeletePost({ dispatch }, { value, memo, denom }) {
-			const typeUrl = '/foo.bar.blog.MsgDeletePost'
+		async MsgDeletePost(context, { value }) {
+			
 			try {
-				await dispatch(
-					'chain/common/wallet/sendTransaction',
-					{
-						message: { typeUrl, value },
-						memo,
-						denom
-					},
-					{ root: true }
-				)
+				txClient(rootGetters['chain/common/wallet/signer'], {addr: rootGetters['chain/common/env/apiTendermint']}).MsgUpdatePost(value)
 			} catch (e) {
-				throw 'Failed to broadcast transaction' + e
+				throw 'Failed to broadcast transaction: ' + e
 			}
 		}
 	}

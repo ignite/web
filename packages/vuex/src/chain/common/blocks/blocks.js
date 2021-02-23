@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { sha256 } from 'js-sha256'
 
 function formatTx({
 	txHash = '',

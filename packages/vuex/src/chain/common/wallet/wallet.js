@@ -4,12 +4,11 @@ import {
 } from '@cosmjs/proto-signing'
 
 import {
-	assertIsBroadcastTxSuccess,
-	SigningStargateClient
+	assertIsBroadcastTxSuccess
 } from '@cosmjs/stargate'
 import { stringToPath } from '@cosmjs/crypto'
 import CryptoJS from 'crypto-js'
-import { keyFromWif, keyToWif } from '@/helpers/keys'
+import { keyFromWif, keyToWif } from '../../../helpers/keys'
 
 export default {
 	namespaced: true,
@@ -27,7 +26,14 @@ export default {
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
 		loggedIn: (state) => state.activeClient !== null,
-		walletName: (state) =>
+		signer: (state) => {			
+			if (state.activeClient) {
+				return state.activeClient.signer
+			}else{
+				return null
+			}
+		},
+		walletName: (state) => 
 			state.activeWallet ? state.activeWallet.name : null,
 		privKey: (state) => {
 			if (state.activeClient) {
