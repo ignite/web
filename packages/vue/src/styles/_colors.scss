@@ -1,0 +1,12 @@
+body {
+  color: #111111;
+  .link {
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+    &.active {
+      opacity:1;
+    }
+  }
+}

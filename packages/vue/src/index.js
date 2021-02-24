@@ -1,5 +1,5 @@
 import * as components from './components/index'
-import './scss/app.scss'
+import './styles/app.scss'
 
 const install = (instance) => {
 	for (let componentKey in components) {

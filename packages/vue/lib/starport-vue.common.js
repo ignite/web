@@ -7285,13 +7285,6 @@ module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undef
 
 /***/ }),
 
-/***/ "4f87":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "4fd1":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14094,6 +14087,13 @@ exports.fromUtf8 = fromUtf8;
 exports.pbkdf2 = __webpack_require__("206d")
 exports.pbkdf2Sync = __webpack_require__("e07b")
 
+
+/***/ }),
+
+/***/ "a1a3":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -26318,8 +26318,8 @@ var SpWallet = __webpack_require__("bd65");
 
 
 
-// EXTERNAL MODULE: ./src/scss/app.scss
-var app = __webpack_require__("4f87");
+// EXTERNAL MODULE: ./src/styles/app.scss
+var app = __webpack_require__("a1a3");
 
 // CONCATENATED MODULE: ./src/index.js
 
