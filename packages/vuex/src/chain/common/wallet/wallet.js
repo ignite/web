@@ -25,6 +25,13 @@ export default {
 		client: (state) => state.activeClient,
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
+		lastWallet: (state) => { 
+			if (state.activeWallet) { 
+				return state.activeWallet.name
+			}else{
+				window.localStorage.getItem('lastWallet')
+			}
+		},
 		loggedIn: (state) => state.activeClient !== null,
 		signer: (state) => {			
 			if (state.activeClient) {
@@ -46,6 +53,7 @@ export default {
 	mutations: {
 		SET_ACTIVE_WALLET(state, wallet) {
 			state.activeWallet = wallet
+			window.localStorage.setItem('lastWallet',wallet.name);
 		},
 		SET_ACTIVE_CLIENT(state, client) {
 			state.activeClient = client

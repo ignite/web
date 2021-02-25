@@ -1,5 +1,5 @@
 <template>
-	<div class="SpWallet" v-if="depsLoaded">
+	<div class="sp-wallet" v-if="depsLoaded">
 		<div v-if="loggedIn">
 			<button @click="toggleAccountList()" class="SpButton">
 				<div class="SpButtonText">

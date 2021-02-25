@@ -2826,6 +2826,42 @@ module.exports = function (iterable, unboundFunction, options) {
 
 /***/ }),
 
+/***/ "234e":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export install */
+/* harmony import */ var _SpWalletMenu_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("da4d6");
+ // Declare install function executed by Vue.use()
+
+function install(Vue) {
+  if (install.installed) return;
+  install.installed = true;
+  Vue.component('SpWalletMenu', _SpWalletMenu_vue__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
+} // Create module definition for Vue.use()
+
+var plugin = {
+  install: install
+}; // Auto-install when vue is found (eg. in browser via <script> tag)
+
+var GlobalVue = null;
+
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+} // To allow use as module (npm/webpack/etc.) export component
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_SpWalletMenu_vue__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
+
+/***/ }),
+
 /***/ "23cb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6553,13 +6589,13 @@ function debounce(func, wait, immediate) {
 
       /*
       const isScrollAwayFromTop = scrolledHeight / tableScrollHeight > 0.2
-      	const isCallableScrolledDistance =
+      		const isCallableScrolledDistance =
       	$table.offsetHeight /
       		Math.abs(scrolledHeight - this.lastScrolledHeight) >
       	25
-      	if (isCallableScrolledDistance) {
+      		if (isCallableScrolledDistance) {
       	this.isScrolledAwayFromTop = isScrollAwayFromTop
-      		if (isScrolledToBottom) {
+      			if (isScrolledToBottom) {
       		this.isScrolledTop = false
       		this.isScrolledBottom = true
       		this.handleScrollBottom()
@@ -21581,11 +21617,11 @@ exports.fromAscii = fromAscii;
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWallet/SpWallet.vue?vue&type=template&id=00cc0c42
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWallet/SpWallet.vue?vue&type=template&id=ee56f358
 
 var _hoisted_1 = {
   key: 0,
-  class: "SpWallet"
+  class: "sp-wallet"
 };
 var _hoisted_2 = {
   key: 0
@@ -21630,7 +21666,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   })) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]))])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpWallet/SpWallet.vue?vue&type=template&id=00cc0c42
+// CONCATENATED MODULE: ./src/components/SpWallet/SpWallet.vue?vue&type=template&id=ee56f358
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
@@ -22912,6 +22948,340 @@ SpBlockCopyIconTextvue_type_script_lang_js.render = render
 SpBlockCopyIconTextvue_type_script_lang_js.__scopeId = "data-v-c94dedde"
 
 /* harmony default export */ var SpBlockCopyIconText = __webpack_exports__["a"] = (SpBlockCopyIconTextvue_type_script_lang_js);
+
+/***/ }),
+
+/***/ "da4d6":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__("b0c0");
+
+// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
+var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=template&id=eccccb24
+
+
+var _hoisted_1 = {
+  class: "sp-wallet-menu-items"
+};
+var _hoisted_2 = {
+  key: 0,
+  class: "sp-wallet-menu-item"
+};
+var _hoisted_3 = {
+  class: "sp-wallet-menu-item__info"
+};
+var _hoisted_4 = {
+  class: "sp-text sp-bold"
+};
+
+var _hoisted_5 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br", null, null, -1);
+
+var _hoisted_6 = {
+  key: 0,
+  class: "sp-text"
+};
+var _hoisted_7 = {
+  key: 1,
+  class: "sp-text"
+};
+var _hoisted_8 = {
+  class: "sp-wallet-menu-item__status"
+};
+var _hoisted_9 = {
+  class: "sp-wallet-menu-item__info"
+};
+
+var _hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br", null, null, -1);
+
+var _hoisted_11 = {
+  key: 0,
+  class: "sp-text"
+};
+var _hoisted_12 = {
+  key: 1,
+  class: "sp-text"
+};
+var _hoisted_13 = {
+  class: "sp-wallet-menu-item__status"
+};
+
+var _hoisted_14 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createStaticVNode"])("<div class=\"sp-dash\"></div><div class=\"sp-wallet-menu-action\"><div class=\"sp-wallet-menu-action__icon\"><span class=\"sp-icon sp-icon-Settings\"></span></div><div class=\"sp-wallet-menu-action__text sp-text\">Manage Wallets</div></div><div class=\"sp-wallet-menu-action\"><div class=\"sp-wallet-menu-action__icon\"><span class=\"sp-icon sp-icon-AddNew\"></span></div><div class=\"sp-wallet-menu-action__text sp-text\">Add New Wallet</div></div>", 3);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
+    key: 0,
+    class: ["sp-wallet-menu sp-rounded", {
+      'sp-opened': $data.opened
+    }]
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+    class: "sp-wallet-menu__toggle",
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $data.opened = !$data.opened;
+    })
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
+    class: ["sp-icon", {
+      'sp-icon-DownCaret': !$data.opened,
+      'sp-icon-UpCaret': $data.opened
+    }]
+  }, null, 2)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_1, [$options.topWallet ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+    class: "sp-wallet-menu-item__avatar",
+    innerHTML: $options.getAvatar($options.topWallet.name)
+  }, null, 8, ["innerHTML"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+    class: "sp-wallet-menu-item__avatar-shadow",
+    innerHTML: $options.getAvatar($options.topWallet.name)
+  }, null, 8, ["innerHTML"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_3, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", _hoisted_4, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.topWallet.name), 1), _hoisted_5, $options.topWallet.name == $options.walletName ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("span", _hoisted_6, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.currentAccount), 1)) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("span", _hoisted_7, " Locked "))]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
+    class: ["sp-icon", {
+      'sp-icon-Unlock': $options.topWallet.name == $options.walletName,
+      'sp-icon-Lock': $options.topWallet.name != $options.walletName
+    }]
+  }, null, 2)])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.restWallets, function (wallet, index) {
+    return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
+      class: "sp-wallet-menu-item",
+      key: wallet.name
+    }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+      class: "sp-wallet-menu-item__avatar",
+      innerHTML: $options.getAvatar(wallet.name)
+    }, null, 8, ["innerHTML"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+      class: "sp-wallet-menu-item__avatar-shadow",
+      innerHTML: $options.getAvatar(wallet.name)
+    }, null, 8, ["innerHTML"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_9, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
+      class: ["sp-text sp-bold", {
+        'sp-active': !$options.topWallet && index == 0
+      }]
+    }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(wallet.name), 3), _hoisted_10, wallet.name == $options.walletName ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("span", _hoisted_11, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.currentAccount), 1)) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("span", _hoisted_12, " Locked "))]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
+      class: ["sp-icon", {
+        'sp-icon-Unock': wallet.name == $options.walletName,
+        'sp-icon-Lock': wallet.name != $options.walletName
+      }]
+    }, null, 2)])]);
+  }), 128)), _hoisted_14])], 2)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
+}
+// CONCATENATED MODULE: ./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=template&id=eccccb24
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
+var es_array_filter = __webpack_require__("4de4");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
+var es_array_slice = __webpack_require__("fb6a");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__("d3b7");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
+var es_regexp_exec = __webpack_require__("ac1f");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
+var es_regexp_to_string = __webpack_require__("25f0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.replace.js
+var es_string_replace = __webpack_require__("5319");
+
+// EXTERNAL MODULE: ./node_modules/gradient-avatar/index.js
+var gradient_avatar = __webpack_require__("7ee7");
+var gradient_avatar_default = /*#__PURE__*/__webpack_require__.n(gradient_avatar);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=script&lang=js
+
+
+
+
+
+
+
+//import * as bip39 from 'bip39'
+
+
+function hash(e) {
+  function h(a, b) {
+    var c, d, e, f, g;
+    e = a & 2147483648;
+    f = b & 2147483648;
+    c = a & 1073741824;
+    d = b & 1073741824;
+    g = (a & 1073741823) + (b & 1073741823);
+    return c & d ? g ^ 2147483648 ^ e ^ f : c | d ? g & 1073741824 ? g ^ 3221225472 ^ e ^ f : g ^ 1073741824 ^ e ^ f : g ^ e ^ f;
+  }
+
+  function k(a, b, c, d, e, f, g) {
+    a = h(a, h(h(b & c | ~b & d, e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function l(a, b, c, d, e, f, g) {
+    a = h(a, h(h(b & d | c & ~d, e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function m(a, b, d, c, e, f, g) {
+    a = h(a, h(h(b ^ d ^ c, e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function n(a, b, d, c, e, f, g) {
+    a = h(a, h(h(d ^ (b | ~c), e), g));
+    return h(a << f | a >>> 32 - f, b);
+  }
+
+  function p(a) {
+    var b = '',
+        d = '',
+        c;
+
+    for (c = 0; 3 >= c; c++) {
+      d = a >>> 8 * c & 255, d = '0' + d.toString(16), b += d.substr(d.length - 2, 2);
+    }
+
+    return b;
+  }
+
+  var f = [],
+      q,
+      r,
+      s,
+      t,
+      a,
+      b,
+      c,
+      d;
+
+  e = function (a) {
+    a = a.replace(/\r\n/g, '\n');
+
+    for (var b = '', d = 0; d < a.length; d++) {
+      var c = a.charCodeAt(d);
+      128 > c ? b += String.fromCharCode(c) : (127 < c && 2048 > c ? b += String.fromCharCode(c >> 6 | 192) : (b += String.fromCharCode(c >> 12 | 224), b += String.fromCharCode(c >> 6 & 63 | 128)), b += String.fromCharCode(c & 63 | 128));
+    }
+
+    return b;
+  }(e);
+
+  f = function (b) {
+    var a,
+        c = b.length;
+    a = c + 8;
+
+    for (var d = 16 * ((a - a % 64) / 64 + 1), e = Array(d - 1), f = 0, g = 0; g < c;) {
+      a = (g - g % 4) / 4, f = g % 4 * 8, e[a] |= b.charCodeAt(g) << f, g++;
+    }
+
+    a = (g - g % 4) / 4;
+    e[a] |= 128 << g % 4 * 8;
+    e[d - 2] = c << 3;
+    e[d - 1] = c >>> 29;
+    return e;
+  }(e);
+
+  a = 1732584193;
+  b = 4023233417;
+  c = 2562383102;
+  d = 271733878;
+
+  for (e = 0; e < f.length; e += 16) {
+    q = a, r = b, s = c, t = d, a = k(a, b, c, d, f[e + 0], 7, 3614090360), d = k(d, a, b, c, f[e + 1], 12, 3905402710), c = k(c, d, a, b, f[e + 2], 17, 606105819), b = k(b, c, d, a, f[e + 3], 22, 3250441966), a = k(a, b, c, d, f[e + 4], 7, 4118548399), d = k(d, a, b, c, f[e + 5], 12, 1200080426), c = k(c, d, a, b, f[e + 6], 17, 2821735955), b = k(b, c, d, a, f[e + 7], 22, 4249261313), a = k(a, b, c, d, f[e + 8], 7, 1770035416), d = k(d, a, b, c, f[e + 9], 12, 2336552879), c = k(c, d, a, b, f[e + 10], 17, 4294925233), b = k(b, c, d, a, f[e + 11], 22, 2304563134), a = k(a, b, c, d, f[e + 12], 7, 1804603682), d = k(d, a, b, c, f[e + 13], 12, 4254626195), c = k(c, d, a, b, f[e + 14], 17, 2792965006), b = k(b, c, d, a, f[e + 15], 22, 1236535329), a = l(a, b, c, d, f[e + 1], 5, 4129170786), d = l(d, a, b, c, f[e + 6], 9, 3225465664), c = l(c, d, a, b, f[e + 11], 14, 643717713), b = l(b, c, d, a, f[e + 0], 20, 3921069994), a = l(a, b, c, d, f[e + 5], 5, 3593408605), d = l(d, a, b, c, f[e + 10], 9, 38016083), c = l(c, d, a, b, f[e + 15], 14, 3634488961), b = l(b, c, d, a, f[e + 4], 20, 3889429448), a = l(a, b, c, d, f[e + 9], 5, 568446438), d = l(d, a, b, c, f[e + 14], 9, 3275163606), c = l(c, d, a, b, f[e + 3], 14, 4107603335), b = l(b, c, d, a, f[e + 8], 20, 1163531501), a = l(a, b, c, d, f[e + 13], 5, 2850285829), d = l(d, a, b, c, f[e + 2], 9, 4243563512), c = l(c, d, a, b, f[e + 7], 14, 1735328473), b = l(b, c, d, a, f[e + 12], 20, 2368359562), a = m(a, b, c, d, f[e + 5], 4, 4294588738), d = m(d, a, b, c, f[e + 8], 11, 2272392833), c = m(c, d, a, b, f[e + 11], 16, 1839030562), b = m(b, c, d, a, f[e + 14], 23, 4259657740), a = m(a, b, c, d, f[e + 1], 4, 2763975236), d = m(d, a, b, c, f[e + 4], 11, 1272893353), c = m(c, d, a, b, f[e + 7], 16, 4139469664), b = m(b, c, d, a, f[e + 10], 23, 3200236656), a = m(a, b, c, d, f[e + 13], 4, 681279174), d = m(d, a, b, c, f[e + 0], 11, 3936430074), c = m(c, d, a, b, f[e + 3], 16, 3572445317), b = m(b, c, d, a, f[e + 6], 23, 76029189), a = m(a, b, c, d, f[e + 9], 4, 3654602809), d = m(d, a, b, c, f[e + 12], 11, 3873151461), c = m(c, d, a, b, f[e + 15], 16, 530742520), b = m(b, c, d, a, f[e + 2], 23, 3299628645), a = n(a, b, c, d, f[e + 0], 6, 4096336452), d = n(d, a, b, c, f[e + 7], 10, 1126891415), c = n(c, d, a, b, f[e + 14], 15, 2878612391), b = n(b, c, d, a, f[e + 5], 21, 4237533241), a = n(a, b, c, d, f[e + 12], 6, 1700485571), d = n(d, a, b, c, f[e + 3], 10, 2399980690), c = n(c, d, a, b, f[e + 10], 15, 4293915773), b = n(b, c, d, a, f[e + 1], 21, 2240044497), a = n(a, b, c, d, f[e + 8], 6, 1873313359), d = n(d, a, b, c, f[e + 15], 10, 4264355552), c = n(c, d, a, b, f[e + 6], 15, 2734768916), b = n(b, c, d, a, f[e + 13], 21, 1309151649), a = n(a, b, c, d, f[e + 4], 6, 4149444226), d = n(d, a, b, c, f[e + 11], 10, 3174756917), c = n(c, d, a, b, f[e + 2], 15, 718787259), b = n(b, c, d, a, f[e + 9], 21, 3951481745), a = h(a, q), b = h(b, r), c = h(c, s), d = h(d, t);
+  }
+
+  return (p(a) + p(b) + p(c) + p(d)).toLowerCase();
+}
+
+/* harmony default export */ var SpWalletMenuvue_type_script_lang_js = ({
+  name: 'SpWalletMenu',
+  components: {},
+  data: function data() {
+    return {
+      opened: false
+    };
+  },
+  computed: {
+    walletList: function walletList() {
+      if (this._depsLoaded) {
+        return this.$store.state.chain.common.wallet.wallets;
+      } else {
+        return [];
+      }
+    },
+    currentAccount: function currentAccount() {
+      if (this._depsLoaded) {
+        if (this.loggedIn) {
+          return this.$store.getters['chain/common/wallet/address'];
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    },
+    walletName: function walletName() {
+      if (this._depsLoaded) {
+        return this.$store.getters['chain/common/wallet/walletName'];
+      } else {
+        return '';
+      }
+    },
+    loggedIn: function loggedIn() {
+      if (this._depsLoaded) {
+        return this.$store.getters['chain/common/wallet/loggedIn'];
+      } else {
+        return false;
+      }
+    },
+    lastWallet: function lastWallet() {
+      if (this._depsLoaded) {
+        return this.$store.getters['chain/common/wallet/lastWallet'];
+      } else {
+        return null;
+      }
+    },
+    topWallet: function topWallet() {
+      var _this = this;
+
+      return this.walletList.filter(function (x) {
+        return x.name == _this.lastWallet;
+      })[0];
+    },
+    restWallets: function restWallets() {
+      var _this2 = this;
+
+      return this.walletList.filter(function (x) {
+        return x.name != _this2.lastWallet;
+      });
+    },
+    depsLoaded: function depsLoaded() {
+      return this._depsLoaded;
+    }
+  },
+  beforeCreate: function beforeCreate() {
+    var module = ['chain', 'common', 'wallet'];
+
+    for (var i = 1; i <= module.length; i++) {
+      var submod = module.slice(0, i);
+
+      if (!this.$store.hasModule(submod)) {
+        console.log('Module ' + this.module + ' has not been registered!');
+        this._depsLoaded = false;
+        break;
+      }
+    }
+  },
+  methods: {
+    getAvatar: function getAvatar(name) {
+      return gradient_avatar_default()(hash(name) + '', 64);
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=script&lang=js
+ 
+// CONCATENATED MODULE: ./src/components/SpWalletMenu/SpWalletMenu.vue
+
+
+
+SpWalletMenuvue_type_script_lang_js.render = render
+
+/* harmony default export */ var SpWalletMenu = __webpack_exports__["a"] = (SpWalletMenuvue_type_script_lang_js);
 
 /***/ }),
 
@@ -26459,6 +26829,7 @@ __webpack_require__.d(__webpack_exports__, "SpTooltip", function() { return /* r
 __webpack_require__.d(__webpack_exports__, "SpTypeForm", function() { return /* reexport */ SpTypeForm["a" /* default */]; });
 __webpack_require__.d(__webpack_exports__, "SpTypeList", function() { return /* reexport */ SpTypeList["a" /* default */]; });
 __webpack_require__.d(__webpack_exports__, "SpWallet", function() { return /* reexport */ SpWallet["a" /* default */]; });
+__webpack_require__.d(__webpack_exports__, "SpWalletMenu", function() { return /* reexport */ SpWalletMenu["a" /* default */]; });
 
 // NAMESPACE OBJECT: ./src/components/index.js
 var components_namespaceObject = {};
@@ -26506,6 +26877,7 @@ __webpack_require__.d(components_namespaceObject, "SpTooltip", function() { retu
 __webpack_require__.d(components_namespaceObject, "SpTypeForm", function() { return SpTypeForm["a" /* default */]; });
 __webpack_require__.d(components_namespaceObject, "SpTypeList", function() { return SpTypeList["a" /* default */]; });
 __webpack_require__.d(components_namespaceObject, "SpWallet", function() { return SpWallet["a" /* default */]; });
+__webpack_require__.d(components_namespaceObject, "SpWalletMenu", function() { return SpWalletMenu["a" /* default */]; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -26663,7 +27035,11 @@ var SpTypeList = __webpack_require__("fb76");
 // EXTERNAL MODULE: ./src/components/SpWallet/index.js
 var SpWallet = __webpack_require__("bd65");
 
+// EXTERNAL MODULE: ./src/components/SpWalletMenu/index.js
+var SpWalletMenu = __webpack_require__("234e");
+
 // CONCATENATED MODULE: ./src/components/index.js
+
 
 
 
