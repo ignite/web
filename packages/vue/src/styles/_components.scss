@@ -1,16 +1,19 @@
+.sp-wallet {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+}
 .sp-wallet-menu {
   background: white;
   min-width: 30rem;
   max-width: 40rem;
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
   padding-left: 1.4rem;
-  padding-right:1.4rem;
+  padding-right: 1.4rem;
   max-height: 6rem;
-  overflow:hidden;
+  transition: max-height 0.4s;
+  overflow: hidden;
   &.sp-opened {
-    max-height: none;
+    max-height: 130rem;
   }
   .sp-wallet-menu__toggle {
     position: absolute;
@@ -20,31 +23,30 @@
     top: 1.4rem;
     width: 3.2rem;
     text-align: center;
-    opacity:0.4;
-    z-index:10;
+    opacity: 0.4;
+    z-index: 10;
   }
   .sp-wallet-menu-item {
     height: 6rem;
-    padding-top:1.4rem;
-    padding-bottom:1.4rem;
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
     position: relative;
     display: flex;
-    opacity:0.5;
-    
-    .sp-wallet-menu-item__info  {
+    opacity: 0.5;
+
+    .sp-wallet-menu-item__info {
       line-height: 1.6rem;
       vertical-align: baseline;
-      margin-left: 1rem;      
+      margin-left: 1rem;
       width: calc(100% - 6.4rem);
     }
     &:first-child {
       opacity: 1;
-      
-      .sp-wallet-menu-item__info  {
+
+      .sp-wallet-menu-item__info {
         width: calc(100% - 9.6rem);
       }
     }
-    
 
     .sp-wallet-menu-item__avatar {
       width: 3.2rem;
@@ -52,18 +54,34 @@
       border-radius: 1.6rem;
       overflow: hidden;
       z-index: 1;
-      position:relative;
+      position: relative;
       svg {
         width: 100%;
         height: 100%;
       }
-      &:before {
-        position:absolute;
-        display:block;
+
+      &:after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: ' ';
+        display: block;
         width: 3.2rem;
         height: 3.2rem;
-        mix-blend-mode: multiply;
-        box-shadow: inset 0px -8px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 1.6rem;
+        mix-blend-mode: overlay;
+        box-shadow: inset 0px -10px 20px rgba(0, 0, 0, 0.8);
+        z-index: 999;
+      }
+      &:before {
+        position: absolute;
+        content: ' ';
+        display: block;
+        width: 3.2rem;
+        height: 3.2rem;
+        border-radius: 1.6rem;
+        mix-blend-mode: overlay;
+        box-shadow: inset 0px 8px 20px rgba(255, 255, 255, 0.5);
       }
     }
     .sp-wallet-menu-item__avatar-shadow {
@@ -82,14 +100,14 @@
       }
     }
     .sp-wallet-menu-item__status {
-      font-size:1.6rem;
+      font-size: 1.6rem;
       line-height: 3.2rem;
-      width:3.2rem;
+      width: 3.2rem;
       text-align: center;
-      opacity:0.4;
+      opacity: 0.4;
     }
   }
-  
+
   .sp-wallet-menu-action {
     height: 6rem;
     position: relative;
@@ -99,13 +117,266 @@
     padding-bottom: 0.8rem;
     .sp-wallet-menu-action__icon {
       opacity: 0.5;
-      width:1.6rem;
-      height:1.6rem;
+      width: 1.6rem;
+      height: 1.6rem;
       font-size: 1.6rem;
     }
     .sp-wallet-menu-action__text {
-      margin-left:1rem;
-      line-height:1.6rem;
+      margin-left: 1rem;
+      line-height: 1.6rem;
     }
+  }
+}
+.sp-sidebar {
+  height: 100vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3.2rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  transition: width 0.4s;
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+  .sp_sidebar__header {
+    width: 1.6rem;
+    overflow: hidden;
+    transition: width 0.4s;
+    white-space: nowrap;
+  }
+  .sp-sidebar__content {
+    width: 1.6rem;
+    overflow: hidden;
+    transition: width 0.4s;
+    white-space: nowrap;
+  }
+  .sp-sidebar__footer {
+    width: 1.6rem;
+    overflow: hidden;
+    transition: width 0.4s;
+    white-space: nowrap;
+    .sp-status-api {
+      margin: 1rem 0rem;
+    }
+    .sp-status-rpc {
+      margin: 1rem 0rem;
+    }
+    .sp-status-ws {
+      margin: 1rem 0rem;
+    }
+  }
+  .sp-sidebar__back {
+    position: absolute;
+    bottom: 4rem;
+    right: -2rem;
+  }
+  &.sp-opened {
+    width: 30rem;
+    .sp-sidebar__header {
+      width: 22rem;
+    }
+    .sp-sidebar__content {
+      width: 22rem;
+    }
+    .sp-sidebar__footer {
+      width: 22rem;
+    }
+  }
+}
+
+.sp-link-icon {
+  margin-top: 1.4rem;
+  margin-bottom: 1.4rem;
+  cursor: pointer;
+  .sp-link-icon-wrapper {
+    display: flex;
+    text-decoration: none;
+    color: #111111;
+    opacity: 0.6;
+    .sp-link-icon__icon {
+      font-size: 1.6rem;
+    }
+    .sp-link-icon__text {
+      margin-left: 1rem;
+      font-size: 1.4rem;
+    }
+    &.router-link-active {
+      opacity: 1;
+      font-weight: 600;
+    }
+    &:hover {
+      opacity: 1;
+      font-weight: 600;
+    }
+    &:active {
+      opacity: 1;
+      font-weight: 600;
+    }
+  }
+}
+.sp-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+.sp-badge-button {
+  display: flex;
+  width: 4rem;
+  height: 4rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  box-shadow: 0px 1rem 2.5rem -0.5rem rgba(140, 148, 159, 0.18);
+  background: white;
+  text-decoration: none;
+  color: #111111;
+  .sp-badge-button__icon {
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+    &:active {
+      opacity: 1;
+    }
+  }
+}
+.sp-status-led {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  color: red;
+  &.sp-active {
+    color: green;
+  }
+}
+.sp-status-api {
+  display: flex;
+  align-items: center;
+  .sp-status-api__text {
+    margin-left: 1rem;
+    font-size: 1.4rem;
+    opacity: 0.6;
+  }
+}
+
+.sp-status-ws {
+  display: flex;
+  align-items: center;
+  .sp-status-ws__text {
+    margin-left: 1rem;
+    font-size: 1.4rem;
+    opacity: 0.6;
+  }
+}
+
+.sp-status-rpc {
+  display: flex;
+  align-items: center;
+  .sp-status-rpc__text {
+    margin-left: 1rem;
+    font-size: 1.4rem;
+    opacity: 0.6;
+  }
+}
+.sp-logo {
+  display: flex;
+  align-items: center;
+  .sp-logo__icon {
+    font-size: 2.2rem;
+    margin-right: 1rem;
+    line-height: 2.2rem;
+    .sp-icon {
+      vertical-align: middle;
+    }
+  }
+}
+.sp-button {
+  display: inline-block;
+  height: 4rem;
+  padding: 0rem 2rem;
+  background: #111111;
+  border: 0.2rem solid #111111;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border-radius: 0.8rem;
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.025);
+  }
+}
+.sp-wallet-create {
+  background: white;
+  border-radius: 2rem;
+  width: 30rem;
+  height: auto;
+  padding: 2.8rem;
+  position: relative;
+  .sp-wallet-create__close {
+    text-align: right;
+    .sp-icon {
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+  }
+  .sp-wallet-create__title {
+    margin: 1rem 0rem;
+  }
+  .sp-button {
+    width: 100%;
+  }
+  .sp-wallet-create__text {
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+  }
+  .sp-wallet-create__cards {
+    display: flex;
+    justify-content: space-between;
+    .sp-card {
+      width: calc(50% - 0.6rem);
+    }
+  }
+}
+.sp-card {
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  border: 0.2rem solid #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  outline: none;
+  text-decoration: none;
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.025);
+  }
+  .sp-card__icon {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  .sp-card__text {
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    font-weight: 700;
+  }
+  &.sp-card-primary {
+    background: #111111;
+    color: white;
+  }
+  &.sp-card-secondary {
+    background: white;
+    color: #111111;
   }
 }

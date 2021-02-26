@@ -1,67 +1,30 @@
 <template>
 	<div class="sp-wallet" v-if="depsLoaded">
-		<div v-if="loggedIn">
-			<button @click="toggleAccountList()" class="SpButton">
-				<div class="SpButtonText">
-					<template v-if="walletName">{{ walletName }}:</template
-					>{{ currentAccount }}
-				</div>
-			</button>
-			<SpAccountList
-				v-if="showAccounts && walletName"
-				v-on:account-selected="showAccounts = false"
-			/>
-		</div>
-		<div v-else>
-			<button @click="toggleWalletList()" class="SpButton">
-				<div class="SpButtonText">SIGN IN</div>
-			</button>
-			<SpWalletList
-				v-if="showWallets"
-				v-on:wallet-selected="showWallets = false"
-			/>
-		</div>
+		<SpWalletMenu v-if="walletList.length > 0 && !create" />
+		<SpButton
+			v-else-if="walletList.length == 0 && !create"
+			v-on:click="create = true"
+			>Get Started</SpButton
+		>
+		<SpWalletCreate title="Get Started" v-else v-on:close="create = false">
+			Create or import an existing wallet to manage your DeFi portfolio.
+		</SpWalletCreate>
 	</div>
 </template>
 <script>
-import SpAccountList from '../SpAccountList'
-import SpWalletList from '../SpWalletList'
 export default {
 	name: 'SpWallet',
-	components: {
-		SpAccountList,
-		SpWalletList
-	},
 	data() {
 		return {
-			showWallets: false,
-			showAccounts: false
+			create: false
 		}
 	},
 	computed: {
-		currentAccount() {
+		walletList() {
 			if (this._depsLoaded) {
-				if (this.loggedIn) {
-					return this.$store.getters['chain/common/wallet/address']
-				} else {
-					return null
-				}
+				return this.$store.state.chain.common.wallet.wallets
 			} else {
-				return null
-			}
-		},
-		walletName() {
-			if (this._depsLoaded) {
-				return this.$store.getters['chain/common/wallet/walletName']
-			} else {
-				return ''
-			}
-		},
-		loggedIn() {
-			if (this._depsLoaded) {
-				return this.$store.getters['chain/common/wallet/loggedIn']
-			} else {
-				return false
+				return []
 			}
 		},
 		depsLoaded() {
@@ -79,27 +42,6 @@ export default {
 			}
 		}
 	},
-	methods: {
-		toggleWalletList() {
-			this.showWallets = !this.showWallets
-			if (this.showWallets) {
-				this.showAccounts = false
-				this.$emit('dropdown-opened')
-			}
-		},
-		closeDropdowns() {
-			this.showAccounts = false
-			this.showWallets = false
-		},
-		toggleAccountList() {
-			if (this.walletName) {
-				this.showAccounts = !this.showAccounts
-				if (this.showAccounts) {
-					this.showWallets = false
-					this.$emit('dropdown-opened')
-				}
-			}
-		}
-	}
+	methods: {}
 }
 </script>

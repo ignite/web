@@ -1,7 +1,18 @@
 <template>
-	<div class="SpStatusRPC">
-		RPC <em>{{ rpcNode }}</em
-		>: <SpStatusLED :status="nodeStatus" />
+	<div class="sp-status-rpc">
+		<SpStatusLED
+			:status="nodeStatus"
+			:alt="'RPC ' + rpcNode"
+			:title="'RPC ' + rpcNode"
+		/>
+		<div
+			class="sp-status-rpc__text"
+			v-if="showText"
+			:alt="'RPC ' + rpcNode"
+			:title="'RPC ' + rpcNode"
+		>
+			RPC
+		</div>
 	</div>
 </template>
 <script>
@@ -11,6 +22,11 @@ export default {
 	name: 'SpStatusRPC',
 	components: {
 		SpStatusLED
+	},
+	props: {
+		showText: {
+			type: Boolean
+		}
 	},
 	computed: {
 		rpcNode() {

@@ -1,7 +1,18 @@
 <template>
-	<div class="SpStatusAPI">
-		API <em>{{ apiNode }}</em
-		>: <SpStatusLED :status="nodeStatus" />
+	<div class="sp-status-api">
+		<SpStatusLED
+			:status="nodeStatus"
+			:alt="'API ' + apiNode"
+			:title="'API ' + apiNode"
+		/>
+		<div
+			class="sp-status-api__text"
+			v-if="showText"
+			:alt="'API ' + apiNode"
+			:title="'API ' + apiNode"
+		>
+			API
+		</div>
 	</div>
 </template>
 <script>
@@ -11,6 +22,11 @@ export default {
 	name: 'SpStatusAPI',
 	components: {
 		SpStatusLED
+	},
+	props: {
+		showText: {
+			type: Boolean
+		}
 	},
 	computed: {
 		apiNode() {

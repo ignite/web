@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('../fonts/icomoon.eot?mp7e3s');
-  src: url('../fonts/icomoon.eot?mp7e3s#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?mp7e3s') format('truetype'),
-    url('../fonts/icomoon.woff?mp7e3s') format('woff'),
-    url('../fonts/icomoon.svg?mp7e3s#icomoon') format('svg');
+  src: url('../fonts/icomoon.eot?7cjcaw');
+  src: url('../fonts/icomoon.eot?7cjcaw#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?7cjcaw') format('truetype'),
+    url('../fonts/icomoon.woff?7cjcaw') format('woff'),
+    url('../fonts/icomoon.svg?7cjcaw#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,6 +26,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.sp-icon-Starport:before {
+  content: '\e918';
+}
 .sp-icon-Download:before {
   content: '\e900';
 }
@@ -74,7 +77,7 @@
 .sp-icon-DownCaret:before {
   content: '\e90f';
 }
-.sp-icon-RightArrow1:before {
+.sp-icon-RightCaret:before {
   content: '\e910';
 }
 .sp-icon-Status:before {

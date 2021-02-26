@@ -1,5 +1,7 @@
 <template>
-	<div class="SpStatusLED" :class="{ active: status }" />
+	<div class="sp-status-led" :class="{ 'sp-active': status }">
+		<span class="sp-icon sp-icon-Status" />
+	</div>
 </template>
 <script>
 export default {

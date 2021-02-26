@@ -1,24 +1,77 @@
 .sp-text {
-  font-size: 1.4rem;  
+  font-size: 1.4rem;
   font-weight: 400;
   font-size: 1.4rem;
   letter-spacing: 0.01rem;
-  opacity:0.6;  
+  opacity: 0.6;
 }
 .sp-bold {
-  font-weight: 600;  
+  font-weight: 600;
 }
 .sp-active {
-  opacity:1;
+  opacity: 1;
 }
 .sp-rounded {
   border-radius: 1.8rem;
 }
 .sp-dash {
-  height:0.3rem;
-  width:2rem;
+  height: 0.3rem;
+  width: 2rem;
   background: #111111;
-  opacity:0.1;
-  margin-top:2rem;
-  margin-bottom:2rem;
+  opacity: 0.1;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.sp-fill {
+  flex: 1;
+}
+.sp-header-text {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 2.6rem;
+  color: #111111;
+}
+.sp-input {
+  background: white;
+  outline: none;
+  box-shadow: none;
+  font-size: 1.4rem;
+  width: 100%;
+  line-height: 2.2rem;
+  border: 0.2rem solid rgba(17, 17, 17, 0.4);
+
+  padding: 0.9rem 1.2rem;
+  color: rgba(17, 17, 17, 1);
+  appearance: none;
+  &:focus {
+    outline: none;
+    font-weight: 600;
+    border-color: rgba(17, 17, 17, 1);
+    z-index: 12;
+  }
+  &:active {
+    outline: none;
+    font-weight: 600;
+    border-color: rgba(17, 17, 17, 1);
+    z-index: 12;
+  }
+  display: inline-block;
+}
+.sp-form-group {
+  margin: 1rem 0rem;
+  display: flex;
+  flex-direction: column;
+  .sp-input {
+    position: relative;
+    &:first-child {
+      border-top-left-radius: 0.8rem;
+      border-top-right-radius: 0.8rem;
+      top: 0.1rem;
+    }
+    &:last-child {
+      top: -0.1rem;
+      border-bottom-left-radius: 0.8rem;
+      border-bottom-right-radius: 0.8rem;
+    }
+  }
 }

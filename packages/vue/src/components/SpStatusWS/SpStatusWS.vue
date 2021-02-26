@@ -1,7 +1,18 @@
 <template>
-	<div class="SpStatusWS">
-		WS <em>{{ wsNode }}</em
-		>: <SpStatusLED :status="nodeStatus" />
+	<div class="sp-status-ws">
+		<SpStatusLED
+			:status="nodeStatus"
+			:alt="'WS ' + wsNode"
+			:title="'WS ' + wsNode"
+		/>
+		<div
+			class="sp-status-ws__text"
+			v-if="showText"
+			:alt="'WS ' + wsNode"
+			:title="'WS ' + wsNode"
+		>
+			WS
+		</div>
 	</div>
 </template>
 <script>
@@ -11,6 +22,11 @@ export default {
 	name: 'SpStatusWS',
 	components: {
 		SpStatusLED
+	},
+	props: {
+		showText: {
+			type: Boolean
+		}
 	},
 	computed: {
 		wsNode() {
