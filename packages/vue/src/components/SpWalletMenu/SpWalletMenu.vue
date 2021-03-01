@@ -2,7 +2,7 @@
 	<div
 		class="sp-wallet-menu sp-rounded"
 		:class="{ 'sp-opened': opened }"
-		v-if="depsLoaded"
+		v-if="depsLoaded && !unlocking"
 	>
 		<div class="sp-wallet-menu__toggle" v-on:click="opened = !opened">
 			<span
@@ -41,6 +41,7 @@
 								'sp-icon-Unlock': topWallet.name == walletName,
 								'sp-icon-Lock': topWallet.name != walletName
 							}"
+							v-on:click="toggleWallet(topWallet.name)"
 						/>
 					</div>
 				</div>
@@ -74,9 +75,10 @@
 					<span
 						class="sp-icon"
 						:class="{
-							'sp-icon-Unock': wallet.name == walletName,
+							'sp-icon-Unlock': wallet.name == walletName,
 							'sp-icon-Lock': wallet.name != walletName
 						}"
+						v-on:click="toggleWallet(wallet.name)"
 					/>
 				</div>
 			</div>
@@ -93,6 +95,61 @@
 				</div>
 				<div class="sp-wallet-menu-action__text sp-text">Add New Wallet</div>
 			</div>
+		</div>
+	</div>
+	<div
+		class="sp-wallet-menu sp-rounded sp-opened"
+		v-else-if="depsLoaded && unlocking"
+	>
+		<div
+			class="sp-wallet-menu__toggle"
+			v-on:click=";(unlocking = false), (toUnlock = null)"
+		>
+			<span
+				class="sp-icon"
+				:class="{
+					'sp-icon-DownCaret': !unlocking,
+					'sp-icon-Close': unlocking
+				}"
+			/>
+		</div>
+		<div class="sp-wallet-menu-items">
+			<div class="sp-wallet-menu-item">
+				<div
+					class="sp-wallet-menu-item__avatar"
+					v-html="getAvatar(walletToUnlock.name)"
+				></div>
+				<div
+					class="sp-wallet-menu-item__avatar-shadow"
+					v-html="getAvatar(walletToUnlock.name)"
+				></div>
+				<div class="sp-wallet-menu-item__info">
+					<span class="sp-text sp-bold sp-active">{{
+						walletToUnlock.name
+					}}</span>
+					<br />
+					<span class="sp-text"> Locked </span>
+				</div>
+			</div>
+		</div>
+		<div class="sp-wallet-menu-unlock__title sp-header-text">Unlock Wallet</div>
+		<div class="sp-wallet-menu-unlock__text">
+			Enter your Wallet password below to unlock and access your addresses.
+		</div>
+		<div class="sp-wallet-menu-unlock__form">
+			<div class="sp-form-group">
+				<input
+					class="sp-input"
+					v-model="password"
+					type="password"
+					name="password"
+					placeholder="Password"
+				/>
+			</div>
+
+			<SpButton v-on:click="unlockStoreWallet" type="primary"
+				>Unlock Wallet</SpButton
+			>
 		</div>
 	</div>
 </template>
@@ -272,7 +329,9 @@ export default {
 	components: {},
 	data() {
 		return {
-			opened: false
+			opened: false,
+			unlocking: false,
+			toUnlock: null
 		}
 	},
 	computed: {
@@ -282,6 +341,9 @@ export default {
 			} else {
 				return []
 			}
+		},
+		walletToUnlock() {
+			return this.walletList.find((x) => x.name == this.toUnlock)
 		},
 		shortAddress() {
 			if (this.currentAccount) {
@@ -350,6 +412,23 @@ export default {
 	methods: {
 		getAvatar(name) {
 			return avatar(hash(name) + '', 64)
+		},
+		async unlockStoreWallet() {
+			if (this._depsLoaded) {
+				await this.$store.dispatch('chain/common/wallet/unlockWallet', {
+					name: this.walletToUnlock.name,
+					password: this.password
+				})
+				this.unlocking = false
+			}
+		},
+		toggleWallet(name) {
+			if (name != this.walletName) {
+				this.toUnlock = name
+				this.unlocking = true
+			} else {
+				this.$store.dispatch('chain/common/wallet/signOut')
+			}
 		}
 	}
 }

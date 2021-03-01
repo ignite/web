@@ -216,8 +216,7 @@ export default {
 				this.txResult = await this.$store.dispatch(
 					'chain/' + this.module + '/MsgCreate' + this.type,
 					{
-						...this.createTypeData,
-						denom: this.denom
+						value: { ...this.createTypeData }
 					}
 				)
 			}
@@ -228,8 +227,7 @@ export default {
 				this.txResult = await this.$store.dispatch(
 					'chain/' + this.module + '/MsgUpdate' + this.type,
 					{
-						...this.updateTypeData,
-						denom: this.denom
+						value: { ...this.updateTypeData }
 					}
 				)
 			}
@@ -240,8 +238,7 @@ export default {
 				this.txResult = await this.$store.dispatch(
 					'chain/' + this.module + '/MsgDelete' + this.type,
 					{
-						...this.deleteTypeData,
-						denom: this.denom
+						value: { ...this.deleteTypeData }
 					}
 				)
 			}

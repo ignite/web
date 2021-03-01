@@ -57,7 +57,9 @@
 						placeholder="Confirm password"
 					/>
 				</div>
-				<SpButton v-on:click="createStep2">Create Wallet</SpButton>
+				<SpButton v-on:click="createStep2" type="primary"
+					>Create Wallet</SpButton
+				>
 			</div>
 		</template>
 		<template v-if="createform && create.step2">
@@ -82,10 +84,44 @@
 			<div class="sp-wallet-create__text">
 				Paste your recovery phrase or private key below to import your wallet.
 			</div>
-			<SpKeyArea
-				class="sp-wallet-create__importarea"
-				v-model="imported.mnemonicOrKey"
-			/>
+			<textarea class="sp-key-area" v-model="imported.mnemonicOrKey"></textarea>
+			<SpButton type="primary" v-on:click="importStep2">Import wallet</SpButton>
+		</template>
+		<template v-if="importform && imported.step2">
+			<div class="sp-wallet-create__title sp-header-text">
+				Import existing wallet
+			</div>
+			<div class="sp-wallet-create__text">
+				Please name your wallet and choose a password
+			</div>
+			<div class="sp-wallet-create__form">
+				<div class="sp-form-group">
+					<input
+						class="sp-input"
+						v-model="imported.name"
+						type="text"
+						name="walletname"
+						placeholder="Wallet name"
+					/>
+				</div>
+				<div class="sp-form-group">
+					<input
+						class="sp-input"
+						v-model="imported.password"
+						name="password"
+						type="password"
+						placeholder="Password"
+					/>
+					<input
+						class="sp-input"
+						v-model="imported.confirm"
+						name="confirm"
+						type="password"
+						placeholder="Confirm password"
+					/>
+				</div>
+				<SpButton v-on:click="doneImport">Done</SpButton>
+			</div>
 		</template>
 	</div>
 </template>
@@ -180,9 +216,32 @@ export default {
 			await this.createWallet()
 			//this.downloadBackup()
 		},
+		importStep2() {
+			this.imported.step1 = false
+			this.imported.step2 = true
+		},
 		done() {
 			this.reset()
 			this.close()
+		},
+		async doneImport() {
+			await this.importWallet()
+			this.reset()
+			this.close()
+		},
+
+		async importWallet() {
+			if (this._depsLoaded) {
+				await this.$store.dispatch(
+					'chain/common/wallet/createWalletWithMnemonic',
+					{
+						name: this.imported.name,
+						mnemonic: this.imported.mnemonicOrKey,
+						password: this.imported.password
+					}
+				)
+				//this.reset()
+			}
 		},
 		async createWallet() {
 			if (this._depsLoaded) {

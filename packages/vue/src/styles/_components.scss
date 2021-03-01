@@ -6,7 +6,7 @@
 .sp-wallet-menu {
   background: white;
   min-width: 30rem;
-  max-width: 40rem;
+  max-width: 30rem;
   padding-left: 1.4rem;
   padding-right: 1.4rem;
   max-height: 6rem;
@@ -25,6 +25,17 @@
     text-align: center;
     opacity: 0.4;
     z-index: 10;
+  }
+  .sp-wallet-menu-unlock__title {
+    margin: 1rem 0rem;
+  }
+  .sp-button {
+    width: 100%;
+  }
+  .sp-wallet-menu-unlock__text {
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
   }
   .sp-wallet-menu-item {
     height: 6rem;
