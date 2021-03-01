@@ -132,7 +132,7 @@
   top: 0;
   bottom: 0;
   left: 0;
-  width: 3.2rem;
+  width: 3.6rem;
   background: white;
   display: flex;
   flex-direction: column;
@@ -142,20 +142,20 @@
   transition: width 0.4s;
   padding-top: 4rem;
   padding-bottom: 5rem;
-  .sp_sidebar__header {
-    width: 1.6rem;
+  .sp-sidebar__header {
+    width: 2rem;
     overflow: hidden;
     transition: width 0.4s;
     white-space: nowrap;
   }
   .sp-sidebar__content {
-    width: 1.6rem;
+    width: 2rem;
     overflow: hidden;
     transition: width 0.4s;
     white-space: nowrap;
   }
   .sp-sidebar__footer {
-    width: 1.6rem;
+    width: 2rem;
     overflow: hidden;
     transition: width 0.4s;
     white-space: nowrap;
@@ -285,14 +285,16 @@
   }
 }
 .sp-logo {
-  display: flex;
-  align-items: center;
-  .sp-logo__icon {
-    font-size: 2.2rem;
-    margin-right: 1rem;
-    line-height: 2.2rem;
-    .sp-icon {
-      vertical-align: middle;
+  .sp-logo-wrapper {
+    display: flex;
+    align-items: center;
+    .sp-logo__icon {
+      font-size: 2.2rem;
+      margin-right: 1rem;
+      line-height: 2.2rem;
+      .sp-icon {
+        vertical-align: middle;
+      }
     }
   }
 }
@@ -311,6 +313,16 @@
   &:hover {
     transform: scale(1.025);
   }
+  &.sp-button-primary {
+    background: #111111;
+    border: 0.2rem solid #111111;
+    color: white;
+  }
+  &.sp-button-secondary {
+    background: white;
+    border: 0.2rem solid #111111;
+    color: #111111;
+  }
 }
 .sp-wallet-create {
   background: white;
@@ -322,6 +334,19 @@
   .sp-wallet-create__close {
     text-align: right;
     .sp-icon {
+      font-size: 1.6rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+  }
+  .sp-button {
+    margin-top: 1rem;
+  }
+  .sp-wallet-create__back {
+    text-align: left;
+    .sp-icon {
+      font-size: 1.6rem;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
@@ -378,5 +403,62 @@
   &.sp-card-secondary {
     background: white;
     color: #111111;
+  }
+}
+.sp-mnemonic {
+  background: rgba(17, 17, 17, 0.03);
+  border-radius: 0.8rem;
+  padding: 1rem 0rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  .sp-mnemonic__list {
+    padding: 2rem;
+    flex: 50%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.4rem;
+    padding-top: 1rem;
+    padding-bottom: 0.8rem;
+    &:first-child {
+      padding-left: 2rem;
+    }
+    &:last-child {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .sp-mnemonic__list__item {
+      margin-bottom: 0.8rem;
+      span {
+        opacity: 0.6;
+        display: inline-block;
+        width: 1.9rem;
+        font-size: 1.3rem;
+      }
+    }
+  }
+  .sp-mnemonic__copy {
+    flex: 100%;
+    display: flex;
+    justify-content: center;
+    border-top: 0.1rem dashed rgba(17, 17, 17, 0.2);
+    font-size: 1.2rem;
+    .sp-link-icon {
+      margin-bottom: 0;
+      .sp-link-icon-wrapper {
+        opacity: 1;
+        font-weight: 600;
+        align-items: center;
+        .sp-link-icon__icon {
+          font-size: 1.4rem;
+          line-height: 1.6rem;
+        }
+        .sp-link-icon__text {
+          font-size: 1.2rem;
+          line-height: 1.6rem;
+        }
+      }
+    }
   }
 }

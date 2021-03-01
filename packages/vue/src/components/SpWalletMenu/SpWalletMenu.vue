@@ -22,10 +22,15 @@
 						v-html="getAvatar(topWallet.name)"
 					></div>
 					<div class="sp-wallet-menu-item__info">
-						<span class="sp-text sp-bold">{{ topWallet.name }}</span>
+						<span class="sp-text sp-bold sp-active">{{ topWallet.name }}</span>
 						<br />
-						<span class="sp-text" v-if="topWallet.name == walletName">
-							{{ currentAccount }}
+						<span
+							class="sp-text"
+							v-if="topWallet.name == walletName"
+							:alt="currentAccount"
+							:title="currentAccount"
+						>
+							{{ shortAddress }}
 						</span>
 						<span class="sp-text" v-else> Locked </span>
 					</div>
@@ -276,6 +281,17 @@ export default {
 				return this.$store.state.chain.common.wallet.wallets
 			} else {
 				return []
+			}
+		},
+		shortAddress() {
+			if (this.currentAccount) {
+				return (
+					this.currentAccount.substr(0, 10) +
+					'...' +
+					this.currentAccount.slice(-5)
+				)
+			} else {
+				return null
 			}
 		},
 		currentAccount() {

@@ -1,8 +1,13 @@
 <template>
-	<router-link :to="link" v-if="link" class="sp-button">
+	<router-link
+		:to="link"
+		v-if="link"
+		class="sp-button"
+		:class="'sp-button-' + type"
+	>
 		<slot></slot>
 	</router-link>
-	<button type="button" v-else class="sp-button">
+	<button type="button" v-else class="sp-button" :class="'sp-button-' + type">
 		<slot></slot>
 	</button>
 </template>
@@ -12,6 +17,9 @@ export default {
 	name: 'SpButton',
 	props: {
 		link: {
+			type: String
+		},
+		type: {
 			type: String
 		},
 		disabled: {
