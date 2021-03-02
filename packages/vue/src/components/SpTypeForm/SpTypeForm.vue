@@ -3,7 +3,7 @@
 		<div class="SpTypeFormCreate" v-if="action == 'create'">
 			<p>
 				<strong
-					>CREATE NEW '<em>{{ type }}</em
+					>CREATE NEW '<em>{{ moduleType }}</em
 					>'</strong
 				>
 			</p>
@@ -32,7 +32,7 @@
 		<div class="SpTypeFormUpdate" v-if="action == 'update'">
 			<p>
 				<strong
-					>UPDATE '<em>{{ type }} {{ id ? ' WITH ID:' + id : '' }}</em
+					>UPDATE '<em>{{ moduleType }} {{ id ? ' WITH ID:' + id : '' }}</em
 					>'</strong
 				>
 			</p>
@@ -62,7 +62,9 @@
 		<div class="SpTypeFormDelete" v-if="action == 'delete'">
 			<p>
 				<strong
-					>DELETE '<em>{{ type }}' {{ id ? ' WITH ID:' + id : '' }}</em></strong
+					>DELETE '<em
+						>{{ moduleType }}' {{ id ? ' WITH ID:' + id : '' }}</em
+					></strong
 				>
 			</p>
 			<div
@@ -95,16 +97,12 @@ export default {
 	name: 'SpTypeForm',
 	components: {},
 	props: {
-		denom: {
-			type: String,
-			required: true
-		},
-		module: {
+		modulePath: {
 			type: String,
 			default: '',
 			required: true
 		},
-		type: {
+		moduleType: {
 			type: String,
 			default: '',
 			required: true
@@ -131,11 +129,11 @@ export default {
 			if (this._depsLoaded) {
 				if (this.typeData['id'] != '') {
 					await this.$store.dispatch(
-						'chain/' + this.module + '/Query' + this.type,
+						'chain/' + this.modulePath + '/Query' + this.moduleType,
 						{ subscribe: true, id: this.typeData['id'] }
 					)
 					this.typeData = this.$store.getters[
-						'chain/' + this.module + '/get' + this.type
+						'chain/' + this.modulePath + '/get' + this.moduleType
 					](this.typeData['id'])
 				}
 			}
@@ -143,7 +141,7 @@ export default {
 	},
 	computed: {
 		typeClass() {
-			return 'SpTypeForm' + this.type
+			return 'SpTypeForm' + this.moduleType
 		},
 		createFieldList() {
 			return this.fieldList.filter((x) => x.name != 'creator' && x.name != 'id')
@@ -179,11 +177,11 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', ...this.module.split('/')]
+		const module = ['chain', ...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module ' + this.module + ' has not been registered!')
+				console.log('Module ' + this.modulePath + ' has not been registered!')
 				this._depsLoaded = false
 				break
 			}
@@ -192,19 +190,19 @@ export default {
 	async created() {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
-				'chain/' + this.module + '/getTypeStructure'
-			](this.type)
+				'chain/' + this.modulePath + '/getTypeStructure'
+			](this.moduleType)
 			for (let field of this.fieldList) {
 				this.typeData[field.name] = ''
 			}
 			this.typeData['id'] = this.id
 			if (this.typeData['id'] != '') {
 				await this.$store.dispatch(
-					'chain/' + this.module + '/Query' + this.type,
+					'chain/' + this.modulePath + '/Query' + this.moduleType,
 					{ subscribe: true, id: this.typeData['id'] }
 				)
 				this.typeData = this.$store.getters[
-					'chain/' + this.module + '/get' + this.type
+					'chain/' + this.modulePath + '/get' + this.moduleType
 				](this.typeData['id'])
 			}
 		}
@@ -214,7 +212,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					'chain/' + this.module + '/MsgCreate' + this.type,
+					'chain/' + this.modulePath + '/MsgCreate' + this.moduleType,
 					{
 						value: { ...this.createTypeData }
 					}
@@ -225,7 +223,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					'chain/' + this.module + '/MsgUpdate' + this.type,
+					'chain/' + this.modulePath + '/MsgUpdate' + this.moduleType,
 					{
 						value: { ...this.updateTypeData }
 					}
@@ -236,7 +234,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					'chain/' + this.module + '/MsgDelete' + this.type,
+					'chain/' + this.modulePath + '/MsgDelete' + this.moduleType,
 					{
 						value: { ...this.deleteTypeData }
 					}

@@ -6433,7 +6433,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=28983602
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=532d7d8f
 
 
 var _hoisted_1 = {
@@ -6461,7 +6461,7 @@ var _hoisted_8 = {
   class: "SpTable"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.type), 1), _hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.module), 1), _hoisted_4])]), !$options.typeItems || $options.typeItems.length == 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_5, [_hoisted_6])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_7, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("table", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("thead", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("tr", null, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.fieldList, function (field) {
+  return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType), 1), _hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.modulePath), 1), _hoisted_4])]), !$options.typeItems || $options.typeItems.length == 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_5, [_hoisted_6])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_7, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("table", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("thead", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("tr", null, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.fieldList, function (field) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("td", {
       key: field
     }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(field.name), 1)]);
@@ -6476,7 +6476,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }), 128))]);
   }), 128))])])]))])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=28983602
+// CONCATENATED MODULE: ./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=532d7d8f
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -6510,11 +6510,11 @@ var toConsumableArray = __webpack_require__("2909");
 /* harmony default export */ var SpTypeListvue_type_script_lang_js = ({
   name: 'SpTypeList',
   props: {
-    type: {
+    moduleType: {
       type: String,
       default: ''
     },
-    module: {
+    modulePath: {
       type: String,
       default: ''
     }
@@ -6527,7 +6527,7 @@ var toConsumableArray = __webpack_require__("2909");
   computed: {
     typeItems: function typeItems() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/' + this.module + '/get' + this.type + 'All']();
+        return this.$store.getters['chain/' + this.modulePath + '/get' + this.moduleType + 'All']();
       } else {
         return [];
       }
@@ -6537,13 +6537,13 @@ var toConsumableArray = __webpack_require__("2909");
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain'].concat(Object(toConsumableArray["a" /* default */])(this.module.split('/')));
+    var module = ['chain'].concat(Object(toConsumableArray["a" /* default */])(this.modulePath.split('/')));
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
 
       if (!this.$store.hasModule(submod)) {
-        console.log('Module ' + this.module + ' has not been registered!');
+        console.log('Module ' + this.modulePath + ' has not been registered!');
         this._depsLoaded = false;
         break;
       }
@@ -6562,9 +6562,9 @@ var toConsumableArray = __webpack_require__("2909");
                 break;
               }
 
-              _this.fieldList = _this.$store.getters['chain/' + _this.module + '/getTypeStructure'](_this.type);
+              _this.fieldList = _this.$store.getters['chain/' + _this.modulePath + '/getTypeStructure'](_this.moduleType);
               _context.next = 4;
-              return _this.$store.dispatch('chain/' + _this.module + '/Query' + _this.type + 'All', {
+              return _this.$store.dispatch('chain/' + _this.modulePath + '/Query' + _this.moduleType + 'All', {
                 subscribe: true
               });
 
@@ -7835,6 +7835,17 @@ module.exports = function (exec, SKIP_CLOSING) {
 var userAgent = __webpack_require__("342f");
 
 module.exports = /(iphone|ipod|ipad).*applewebkit/i.test(userAgent);
+
+
+/***/ }),
+
+/***/ "1d45":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpIconText_vue_vue_type_style_index_0_id_6a3f8fcb_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("d50b");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpIconText_vue_vue_type_style_index_0_id_6a3f8fcb_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpIconText_vue_vue_type_style_index_0_id_6a3f8fcb_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
 
 
 /***/ }),
@@ -10008,7 +10019,7 @@ function done(stream, er, data) {
 /***/ "2801":
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.4\",\"/home/clockwork/Tendermint/vue/packages/vue\"]],\"_development\":true,\"_from\":\"elliptic@6.5.4\",\"_id\":\"elliptic@6.5.4\",\"_inBundle\":false,\"_integrity\":\"sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.4\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.4\",\"saveSpec\":null,\"fetchSpec\":\"6.5.4\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz\",\"_spec\":\"6.5.4\",\"_where\":\"/home/clockwork/Tendermint/vue/packages/vue\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.11.9\",\"brorand\":\"^1.1.0\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.1\",\"inherits\":\"^2.0.4\",\"minimalistic-assert\":\"^1.0.1\",\"minimalistic-crypto-utils\":\"^1.0.1\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^2.0.2\",\"coveralls\":\"^3.1.0\",\"eslint\":\"^7.6.0\",\"grunt\":\"^1.2.1\",\"grunt-browserify\":\"^5.3.0\",\"grunt-cli\":\"^1.3.2\",\"grunt-contrib-connect\":\"^3.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^5.0.0\",\"grunt-mocha-istanbul\":\"^5.0.2\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.5\",\"mocha\":\"^8.0.1\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"lint\":\"eslint lib test\",\"lint:fix\":\"npm run lint -- --fix\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.4\"}");
+module.exports = JSON.parse("{\"_from\":\"elliptic@^6.5.3\",\"_id\":\"elliptic@6.5.4\",\"_inBundle\":false,\"_integrity\":\"sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"range\",\"registry\":true,\"raw\":\"elliptic@^6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"^6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"^6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz\",\"_shasum\":\"da37cebd31e79a1367e941b592ed1fbebd58abbb\",\"_spec\":\"elliptic@^6.5.3\",\"_where\":\"L:\\\\Projects\\\\overhaul\\\\tmmonorepo\\\\packages\\\\vue\\\\node_modules\\\\browserify-sign\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"bundleDependencies\":false,\"dependencies\":{\"bn.js\":\"^4.11.9\",\"brorand\":\"^1.1.0\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.1\",\"inherits\":\"^2.0.4\",\"minimalistic-assert\":\"^1.0.1\",\"minimalistic-crypto-utils\":\"^1.0.1\"},\"deprecated\":false,\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^2.0.2\",\"coveralls\":\"^3.1.0\",\"eslint\":\"^7.6.0\",\"grunt\":\"^1.2.1\",\"grunt-browserify\":\"^5.3.0\",\"grunt-cli\":\"^1.3.2\",\"grunt-contrib-connect\":\"^3.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^5.0.0\",\"grunt-mocha-istanbul\":\"^5.0.2\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.5\",\"mocha\":\"^8.0.1\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"lint\":\"eslint lib test\",\"lint:fix\":\"npm run lint -- --fix\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.4\"}");
 
 /***/ }),
 
@@ -21399,7 +21410,11 @@ function _isSlot(s) {
 /* harmony default export */ var SpIconTextvue_type_script_lang_js = ({
   name: 'SpIconText',
   components: {
-    SpCopy: SpCopy["a" /* default */]
+    SpCopy: SpCopy["a" /* default */],
+    SpCheck: SpCheck["a" /* default */],
+    SpSpinner: SpSpinner["a" /* default */],
+    SpSuccessDot: SpSuccessDot["a" /* default */],
+    SpTooltip: SpTooltip["a" /* default */]
   },
   props: {
     text: {
@@ -21514,15 +21529,15 @@ function _isSlot(s) {
 });
 // CONCATENATED MODULE: ./src/components/SpIconText/SpIconText.vue?vue&type=script&lang=js
  
-// EXTERNAL MODULE: ./src/components/SpIconText/SpIconText.vue?vue&type=style&index=0&id=15f0a243&scoped=true&lang=css
-var SpIconTextvue_type_style_index_0_id_15f0a243_scoped_true_lang_css = __webpack_require__("ee58");
+// EXTERNAL MODULE: ./src/components/SpIconText/SpIconText.vue?vue&type=style&index=0&id=6a3f8fcb&scoped=true&lang=css
+var SpIconTextvue_type_style_index_0_id_6a3f8fcb_scoped_true_lang_css = __webpack_require__("1d45");
 
 // CONCATENATED MODULE: ./src/components/SpIconText/SpIconText.vue
 
 
 
 
-SpIconTextvue_type_script_lang_js.__scopeId = "data-v-15f0a243"
+SpIconTextvue_type_script_lang_js.__scopeId = "data-v-6a3f8fcb"
 
 /* harmony default export */ var SpIconText = __webpack_exports__["a"] = (SpIconTextvue_type_script_lang_js);
 
@@ -25506,13 +25521,13 @@ function debounce(func, wait, immediate) {
 
       /*
       const isScrollAwayFromTop = scrolledHeight / tableScrollHeight > 0.2
-      	const isCallableScrolledDistance =
+      		const isCallableScrolledDistance =
       	$table.offsetHeight /
       		Math.abs(scrolledHeight - this.lastScrolledHeight) >
       	25
-      	if (isCallableScrolledDistance) {
+      		if (isCallableScrolledDistance) {
       	this.isScrolledAwayFromTop = isScrollAwayFromTop
-      		if (isScrolledToBottom) {
+      			if (isScrolledToBottom) {
       		this.isScrolledTop = false
       		this.isScrolledBottom = true
       		this.handleScrollBottom()
@@ -26063,7 +26078,7 @@ module.exports = {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpSidebar/SpSidebar.vue?vue&type=template&id=61aff141
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpSidebar/SpSidebar.vue?vue&type=template&id=bd66a47a
 
 var _hoisted_1 = {
   class: "sp-sidebar__header"
@@ -26087,11 +26102,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     class: "sp-sidebar__back"
   }, null, 8, ["icon", "onClick"])], 2);
 }
-// CONCATENATED MODULE: ./src/components/SpSidebar/SpSidebar.vue?vue&type=template&id=61aff141
+// CONCATENATED MODULE: ./src/components/SpSidebar/SpSidebar.vue?vue&type=template&id=bd66a47a
+
+// EXTERNAL MODULE: ./src/components/SpBadgeButton/index.js
+var SpBadgeButton = __webpack_require__("9e6a");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpSidebar/SpSidebar.vue?vue&type=script&lang=js
+
 /* harmony default export */ var SpSidebarvue_type_script_lang_js = ({
   name: 'SpSidebar',
+  components: {
+    SpBadgeButton: SpBadgeButton["a" /* default */]
+  },
   data: function data() {
     return {
       opened: true
@@ -36267,6 +36289,106 @@ module.exports.makeKey = makeKey
 
 /***/ }),
 
+/***/ "6ffb":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
+var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpType/SpType.vue?vue&type=template&id=63caa67a
+
+var _hoisted_1 = {
+  class: "sp-type"
+};
+
+var _hoisted_2 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+  class: "sp-header-text"
+}, "List", -1);
+
+var _hoisted_3 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("hr", null, null, -1);
+
+var _hoisted_4 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+  class: "sp-header-text"
+}, "Create", -1);
+
+var _hoisted_5 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("hr", null, null, -1);
+
+var _hoisted_6 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+  class: "sp-header-text"
+}, "Delete", -1);
+
+var _hoisted_7 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("hr", null, null, -1);
+
+var _hoisted_8 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+  class: "sp-header-text"
+}, "Update", -1);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_SpTypeList = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpTypeList");
+
+  var _component_SpTypeForm = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpTypeForm");
+
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [_hoisted_2, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeList, {
+    modulePath: $props.modulePath,
+    moduleType: $props.moduleType
+  }, null, 8, ["modulePath", "moduleType"]), _hoisted_3, _hoisted_4, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeForm, {
+    modulePath: $props.modulePath,
+    moduleType: $props.moduleType,
+    action: "create"
+  }, null, 8, ["modulePath", "moduleType"]), _hoisted_5, _hoisted_6, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeForm, {
+    modulePath: $props.modulePath,
+    moduleType: $props.moduleType,
+    action: "delete"
+  }, null, 8, ["modulePath", "moduleType"]), _hoisted_7, _hoisted_8, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeForm, {
+    modulePath: $props.modulePath,
+    moduleType: $props.moduleType,
+    action: "update"
+  }, null, 8, ["modulePath", "moduleType"])]);
+}
+// CONCATENATED MODULE: ./src/components/SpType/SpType.vue?vue&type=template&id=63caa67a
+
+// EXTERNAL MODULE: ./src/components/SpTypeList/index.js
+var SpTypeList = __webpack_require__("fb76");
+
+// EXTERNAL MODULE: ./src/components/SpTypeForm/index.js
+var SpTypeForm = __webpack_require__("be97");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpType/SpType.vue?vue&type=script&lang=js
+
+
+/* harmony default export */ var SpTypevue_type_script_lang_js = ({
+  name: 'SpType',
+  components: {
+    SpTypeList: SpTypeList["a" /* default */],
+    SpTypeForm: SpTypeForm["a" /* default */]
+  },
+  props: {
+    modulePath: {
+      type: String,
+      default: '',
+      required: true
+    },
+    moduleType: {
+      type: String,
+      default: '',
+      required: true
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/SpType/SpType.vue?vue&type=script&lang=js
+ 
+// CONCATENATED MODULE: ./src/components/SpType/SpType.vue
+
+
+
+SpTypevue_type_script_lang_js.render = render
+
+/* harmony default export */ var SpType = __webpack_exports__["a"] = (SpTypevue_type_script_lang_js);
+
+/***/ }),
+
 /***/ 7:
 /***/ (function(module, exports) {
 
@@ -36995,13 +37117,6 @@ utils.encode = function encode(arr, enc) {
     return arr;
 };
 
-
-/***/ }),
-
-/***/ "7724":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -45756,7 +45871,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=14d44b6b
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=0636aa8e
 
 
 var _hoisted_1 = {
@@ -45998,7 +46113,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["onClick"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=14d44b6b
+// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=0636aa8e
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.assign.js
 var es_object_assign = __webpack_require__("cca6");
@@ -46029,7 +46144,19 @@ var FileSaver_min = __webpack_require__("21a6");
 var crypto_js = __webpack_require__("3452");
 var crypto_js_default = /*#__PURE__*/__webpack_require__.n(crypto_js);
 
+// EXTERNAL MODULE: ./src/components/SpCard/index.js
+var SpCard = __webpack_require__("8e7a");
+
+// EXTERNAL MODULE: ./src/components/SpButton/index.js
+var SpButton = __webpack_require__("7549");
+
+// EXTERNAL MODULE: ./src/components/SpMnemonic/index.js
+var SpMnemonic = __webpack_require__("a1e8");
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=script&lang=js
+
+
+
 
 
 
@@ -46042,6 +46169,11 @@ var crypto_js_default = /*#__PURE__*/__webpack_require__.n(crypto_js);
 
 /* harmony default export */ var SpWalletCreatevue_type_script_lang_js = ({
   name: 'SpWalletCreate',
+  components: {
+    SpCard: SpCard["a" /* default */],
+    SpButton: SpButton["a" /* default */],
+    SpMnemonic: SpMnemonic["a" /* default */]
+  },
   props: {
     title: {
       type: String
@@ -53221,6 +53353,42 @@ module.exports = {
 
 /***/ }),
 
+/***/ "b6fe":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export install */
+/* harmony import */ var _SpType_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("6ffb");
+ // Declare install function executed by Vue.use()
+
+function install(Vue) {
+  if (install.installed) return;
+  install.installed = true;
+  Vue.component('SpType', _SpType_vue__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
+} // Create module definition for Vue.use()
+
+var plugin = {
+  install: install
+}; // Auto-install when vue is found (eg. in browser via <script> tag)
+
+var GlobalVue = null;
+
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+} // To allow use as module (npm/webpack/etc.) export component
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_SpType_vue__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
+
+/***/ }),
+
 /***/ "b727":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -54459,7 +54627,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=653a05c3
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=688beb90
 
 
 var _hoisted_1 = {
@@ -54504,7 +54672,7 @@ var _hoisted_12 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_V
 }, "DELETE", -1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [$props.action == 'create' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.type), 1), _hoisted_4])]), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.createFieldList, function (field) {
+  return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [$props.action == 'create' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType), 1), _hoisted_4])]), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.createFieldList, function (field) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       class: "SpTypeFormField",
       key: field.name
@@ -54528,7 +54696,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $options.createType();
     })
-  }, [_hoisted_5])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'update' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_6, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_7, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.type) + " " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.id ? ' WITH ID:' + $props.id : ''), 1), _hoisted_8])]), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.updateFieldList, function (field) {
+  }, [_hoisted_5])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'update' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_6, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_7, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType) + " " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.id ? ' WITH ID:' + $props.id : ''), 1), _hoisted_8])]), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.updateFieldList, function (field) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       class: "SpTypeFormField",
       key: field.name
@@ -54553,7 +54721,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $options.updateType();
     })
-  }, [_hoisted_9])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'delete' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_10, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_11, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.type) + "' " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.id ? ' WITH ID:' + $props.id : ''), 1)])]), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.deleteFieldList, function (field) {
+  }, [_hoisted_9])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'delete' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_10, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("p", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, [_hoisted_11, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("em", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType) + "' " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.id ? ' WITH ID:' + $props.id : ''), 1)])]), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.deleteFieldList, function (field) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       class: "SpTypeFormField",
       key: field.name
@@ -54580,7 +54748,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [_hoisted_12])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=653a05c3
+// CONCATENATED MODULE: ./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=688beb90
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -54818,16 +54986,12 @@ var asyncToGenerator = __webpack_require__("1da1");
   name: 'SpTypeForm',
   components: {},
   props: {
-    denom: {
-      type: String,
-      required: true
-    },
-    module: {
+    modulePath: {
       type: String,
       default: '',
       required: true
     },
-    type: {
+    moduleType: {
       type: String,
       default: '',
       required: true
@@ -54870,13 +55034,13 @@ var asyncToGenerator = __webpack_require__("1da1");
                 }
 
                 _context.next = 5;
-                return _this.$store.dispatch('chain/' + _this.module + '/Query' + _this.type, {
+                return _this.$store.dispatch('chain/' + _this.modulePath + '/Query' + _this.moduleType, {
                   subscribe: true,
                   id: _this.typeData['id']
                 });
 
               case 5:
-                _this.typeData = _this.$store.getters['chain/' + _this.module + '/get' + _this.type](_this.typeData['id']);
+                _this.typeData = _this.$store.getters['chain/' + _this.modulePath + '/get' + _this.moduleType](_this.typeData['id']);
 
               case 6:
               case "end":
@@ -54889,7 +55053,7 @@ var asyncToGenerator = __webpack_require__("1da1");
   },
   computed: {
     typeClass: function typeClass() {
-      return 'SpTypeForm' + this.type;
+      return 'SpTypeForm' + this.moduleType;
     },
     createFieldList: function createFieldList() {
       return this.fieldList.filter(function (x) {
@@ -54941,13 +55105,13 @@ var asyncToGenerator = __webpack_require__("1da1");
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain'].concat(Object(toConsumableArray["a" /* default */])(this.module.split('/')));
+    var module = ['chain'].concat(Object(toConsumableArray["a" /* default */])(this.modulePath.split('/')));
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
 
       if (!this.$store.hasModule(submod)) {
-        console.log('Module ' + this.module + ' has not been registered!');
+        console.log('Module ' + this.modulePath + ' has not been registered!');
         this._depsLoaded = false;
         break;
       }
@@ -54968,7 +55132,7 @@ var asyncToGenerator = __webpack_require__("1da1");
                 break;
               }
 
-              _this2.fieldList = _this2.$store.getters['chain/' + _this2.module + '/getTypeStructure'](_this2.type);
+              _this2.fieldList = _this2.$store.getters['chain/' + _this2.modulePath + '/getTypeStructure'](_this2.moduleType);
               _iterator = _createForOfIteratorHelper(_this2.fieldList);
 
               try {
@@ -54990,13 +55154,13 @@ var asyncToGenerator = __webpack_require__("1da1");
               }
 
               _context2.next = 8;
-              return _this2.$store.dispatch('chain/' + _this2.module + '/Query' + _this2.type, {
+              return _this2.$store.dispatch('chain/' + _this2.modulePath + '/Query' + _this2.moduleType, {
                 subscribe: true,
                 id: _this2.typeData['id']
               });
 
             case 8:
-              _this2.typeData = _this2.$store.getters['chain/' + _this2.module + '/get' + _this2.type](_this2.typeData['id']);
+              _this2.typeData = _this2.$store.getters['chain/' + _this2.modulePath + '/get' + _this2.moduleType](_this2.typeData['id']);
 
             case 9:
             case "end":
@@ -55022,7 +55186,7 @@ var asyncToGenerator = __webpack_require__("1da1");
 
                 _this3.typeData['creator'] = _this3.selectedAccount;
                 _context3.next = 4;
-                return _this3.$store.dispatch('chain/' + _this3.module + '/MsgCreate' + _this3.type, {
+                return _this3.$store.dispatch('chain/' + _this3.modulePath + '/MsgCreate' + _this3.moduleType, {
                   value: _objectSpread2({}, _this3.createTypeData)
                 });
 
@@ -55052,7 +55216,7 @@ var asyncToGenerator = __webpack_require__("1da1");
 
                 _this4.typeData['creator'] = _this4.selectedAccount;
                 _context4.next = 4;
-                return _this4.$store.dispatch('chain/' + _this4.module + '/MsgUpdate' + _this4.type, {
+                return _this4.$store.dispatch('chain/' + _this4.modulePath + '/MsgUpdate' + _this4.moduleType, {
                   value: _objectSpread2({}, _this4.updateTypeData)
                 });
 
@@ -55082,7 +55246,7 @@ var asyncToGenerator = __webpack_require__("1da1");
 
                 _this5.typeData['creator'] = _this5.selectedAccount;
                 _context5.next = 4;
-                return _this5.$store.dispatch('chain/' + _this5.module + '/MsgDelete' + _this5.type, {
+                return _this5.$store.dispatch('chain/' + _this5.modulePath + '/MsgDelete' + _this5.moduleType, {
                   value: _objectSpread2({}, _this5.deleteTypeData)
                 });
 
@@ -60403,7 +60567,7 @@ module.exports = function (key, value) {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpMnemonic/SpMnemonic.vue?vue&type=template&id=92543946
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpMnemonic/SpMnemonic.vue?vue&type=template&id=0eb0543b
 
 var _hoisted_1 = {
   class: "sp-mnemonic"
@@ -60436,7 +60600,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: $options.copyMnemonic
   }, null, 8, ["onClick"])])]);
 }
-// CONCATENATED MODULE: ./src/components/SpMnemonic/SpMnemonic.vue?vue&type=template&id=92543946
+// CONCATENATED MODULE: ./src/components/SpMnemonic/SpMnemonic.vue?vue&type=template&id=0eb0543b
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
@@ -60447,7 +60611,11 @@ var es_regexp_exec = __webpack_require__("ac1f");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.split.js
 var es_string_split = __webpack_require__("1276");
 
+// EXTERNAL MODULE: ./src/components/SpLinkIcon/index.js
+var SpLinkIcon = __webpack_require__("2d24");
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpMnemonic/SpMnemonic.vue?vue&type=script&lang=js
+
 
 
 
@@ -60469,6 +60637,9 @@ var copyToClipboard = function copyToClipboard(str) {
       type: String,
       required: true
     }
+  },
+  components: {
+    SpLinkIcon: SpLinkIcon["a" /* default */]
   },
   computed: {
     words: function words() {
@@ -61686,7 +61857,7 @@ function indexOf(xs, x) {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWallet/SpWallet.vue?vue&type=template&id=4fea253b
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWallet/SpWallet.vue?vue&type=template&id=c3e56ee2
 
 var _hoisted_1 = {
   key: 0,
@@ -61732,15 +61903,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }))])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpWallet/SpWallet.vue?vue&type=template&id=4fea253b
+// CONCATENATED MODULE: ./src/components/SpWallet/SpWallet.vue?vue&type=template&id=c3e56ee2
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
 
+// EXTERNAL MODULE: ./src/components/SpWalletMenu/index.js
+var SpWalletMenu = __webpack_require__("234e");
+
+// EXTERNAL MODULE: ./src/components/SpButton/index.js
+var SpButton = __webpack_require__("7549");
+
+// EXTERNAL MODULE: ./src/components/SpWalletCreate/index.js
+var SpWalletCreate = __webpack_require__("a09c");
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWallet/SpWallet.vue?vue&type=script&lang=js
+
+
+
 
 /* harmony default export */ var SpWalletvue_type_script_lang_js = ({
   name: 'SpWallet',
+  components: {
+    SpWalletMenu: SpWalletMenu["a" /* default */],
+    SpButton: SpButton["a" /* default */],
+    SpWalletCreate: SpWalletCreate["a" /* default */]
+  },
   data: function data() {
     return {
       create: false
@@ -66284,6 +66472,13 @@ Stream.prototype.pipe = function(dest, options) {
 
 /***/ }),
 
+/***/ "d50b":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "d58f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -67465,7 +67660,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=template&id=f3c3604e
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=template&id=6a0b67dc
 
 
 var _hoisted_1 = {
@@ -67602,7 +67797,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 2)])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $options.topWallet.name == $options.walletName ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpAccountList)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.restWallets, function (wallet, index) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       class: "sp-wallet-menu-item",
-      key: wallet.name
+      key: wallet.name,
+      onClick: function onClick($event) {
+        return $options.toggleWallet(wallet.name);
+      }
     }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
       class: "sp-wallet-menu-item__avatar",
       innerHTML: $options.getAvatar(wallet.name)
@@ -67621,7 +67819,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.toggleWallet(wallet.name);
       }
-    }, null, 10, ["onClick"])])]);
+    }, null, 10, ["onClick"])])], 8, ["onClick"]);
   }), 128)), _hoisted_14, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_16, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpLinkIcon, {
     icon: "AddNew",
     text: "Add New Wallet",
@@ -67661,7 +67859,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["onClick"])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=template&id=f3c3604e
+// CONCATENATED MODULE: ./src/components/SpWalletMenu/SpWalletMenu.vue?vue&type=template&id=6a0b67dc
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
@@ -67690,6 +67888,15 @@ var runtime = __webpack_require__("96cf");
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("1da1");
 
+// EXTERNAL MODULE: ./src/components/SpAccountList/index.js
+var SpAccountList = __webpack_require__("8243");
+
+// EXTERNAL MODULE: ./src/components/SpButton/index.js
+var SpButton = __webpack_require__("7549");
+
+// EXTERNAL MODULE: ./src/components/SpLinkIcon/index.js
+var SpLinkIcon = __webpack_require__("2d24");
+
 // EXTERNAL MODULE: ./node_modules/gradient-avatar/index.js
 var gradient_avatar = __webpack_require__("7ee7");
 var gradient_avatar_default = /*#__PURE__*/__webpack_require__.n(gradient_avatar);
@@ -67706,6 +67913,9 @@ var gradient_avatar_default = /*#__PURE__*/__webpack_require__.n(gradient_avatar
 
 
 //import * as bip39 from 'bip39'
+
+
+
 
 
 function hash(e) {
@@ -67802,7 +68012,11 @@ function hash(e) {
 
 /* harmony default export */ var SpWalletMenuvue_type_script_lang_js = ({
   name: 'SpWalletMenu',
-  components: {},
+  components: {
+    SpAccountList: SpAccountList["a" /* default */],
+    SpButton: SpButton["a" /* default */],
+    SpLinkIcon: SpLinkIcon["a" /* default */]
+  },
   data: function data() {
     return {
       opened: false,
@@ -67934,12 +68148,38 @@ function hash(e) {
       this.$emit('createNew');
     },
     toggleWallet: function toggleWallet(name) {
-      if (name != this.walletName) {
-        this.toUnlock = name;
-        this.unlocking = true;
-      } else {
-        this.$store.dispatch('chain/common/wallet/signOut');
-      }
+      var _this5 = this;
+
+      return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(name != _this5.walletName)) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                _this5.toUnlock = name;
+                _this5.unlocking = true;
+                _context2.next = 9;
+                break;
+
+              case 5:
+                _context2.next = 7;
+                return _this5.$store.dispatch('chain/common/wallet/signOut');
+
+              case 7:
+                _this5.toUnlock = '';
+                _this5.unlocking = false;
+
+              case 9:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 });
@@ -71564,17 +71804,6 @@ BlockHash.prototype._pad = function pad() {
 
 /***/ }),
 
-/***/ "ee58":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpIconText_vue_vue_type_style_index_0_id_15f0a243_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("7724");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpIconText_vue_vue_type_style_index_0_id_15f0a243_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpIconText_vue_vue_type_style_index_0_id_15f0a243_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
 /***/ "ee93":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -73234,6 +73463,7 @@ __webpack_require__.d(__webpack_exports__, "SpWalletCreate", function() { return
 __webpack_require__.d(__webpack_exports__, "SpCard", function() { return /* reexport */ SpCard["a" /* default */]; });
 __webpack_require__.d(__webpack_exports__, "SpMnemonic", function() { return /* reexport */ SpMnemonic["a" /* default */]; });
 __webpack_require__.d(__webpack_exports__, "SpKeyArea", function() { return /* reexport */ SpKeyArea["a" /* default */]; });
+__webpack_require__.d(__webpack_exports__, "SpType", function() { return /* reexport */ SpType["a" /* default */]; });
 
 // NAMESPACE OBJECT: ./src/components/index.js
 var components_namespaceObject = {};
@@ -73291,6 +73521,7 @@ __webpack_require__.d(components_namespaceObject, "SpWalletCreate", function() {
 __webpack_require__.d(components_namespaceObject, "SpCard", function() { return SpCard["a" /* default */]; });
 __webpack_require__.d(components_namespaceObject, "SpMnemonic", function() { return SpMnemonic["a" /* default */]; });
 __webpack_require__.d(components_namespaceObject, "SpKeyArea", function() { return SpKeyArea["a" /* default */]; });
+__webpack_require__.d(components_namespaceObject, "SpType", function() { return SpType["a" /* default */]; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -73478,7 +73709,11 @@ var SpMnemonic = __webpack_require__("a1e8");
 // EXTERNAL MODULE: ./src/components/SpKeyArea/index.js
 var SpKeyArea = __webpack_require__("f987");
 
+// EXTERNAL MODULE: ./src/components/SpType/index.js
+var SpType = __webpack_require__("b6fe");
+
 // CONCATENATED MODULE: ./src/components/index.js
+
 
 
 

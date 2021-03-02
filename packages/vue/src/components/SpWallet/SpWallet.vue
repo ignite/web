@@ -15,8 +15,17 @@
 	</div>
 </template>
 <script>
+import SpWalletMenu from '../SpWalletMenu'
+import SpButton from '../SpButton'
+import SpWalletCreate from '../SpWalletCreate'
+
 export default {
 	name: 'SpWallet',
+	components: {
+		SpWalletMenu,
+		SpButton,
+		SpWalletCreate
+	},
 	data() {
 		return {
 			create: false

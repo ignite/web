@@ -55,6 +55,7 @@
 				class="sp-wallet-menu-item"
 				v-for="(wallet, index) in restWallets"
 				v-bind:key="wallet.name"
+				v-on:click="toggleWallet(wallet.name)"
 			>
 				<div
 					class="sp-wallet-menu-item__avatar"
@@ -161,6 +162,10 @@
 </template>
 <script>
 //import * as bip39 from 'bip39'
+import SpAccountList from '../SpAccountList'
+import SpButton from '../SpButton'
+import SpLinkIcon from '../SpLinkIcon'
+
 import avatar from 'gradient-avatar'
 function hash(e) {
 	function h(a, b) {
@@ -332,7 +337,11 @@ function hash(e) {
 }
 export default {
 	name: 'SpWalletMenu',
-	components: {},
+	components: {
+		SpAccountList,
+		SpButton,
+		SpLinkIcon
+	},
 	data() {
 		return {
 			opened: false,
@@ -432,12 +441,14 @@ export default {
 		createNewWallet() {
 			this.$emit('createNew')
 		},
-		toggleWallet(name) {
+		async toggleWallet(name) {
 			if (name != this.walletName) {
 				this.toUnlock = name
 				this.unlocking = true
 			} else {
-				this.$store.dispatch('chain/common/wallet/signOut')
+				await this.$store.dispatch('chain/common/wallet/signOut')
+				this.toUnlock = ''
+				this.unlocking = false
 			}
 		}
 	}

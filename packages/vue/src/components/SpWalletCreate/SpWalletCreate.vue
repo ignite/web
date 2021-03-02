@@ -131,9 +131,17 @@ import * as bip39 from 'bip39'
 import moment from 'moment'
 import { saveAs } from 'file-saver'
 import CryptoJS from 'crypto-js'
+import SpCard from '../SpCard'
+import SpButton from '../SpButton'
+import SpMnemonic from '../SpMnemonic'
 
 export default {
 	name: 'SpWalletCreate',
+	components: {
+		SpCard,
+		SpButton,
+		SpMnemonic
+	},
 	props: {
 		title: {
 			type: String

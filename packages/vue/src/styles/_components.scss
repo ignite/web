@@ -179,6 +179,11 @@
     .sp-status-ws {
       margin: 1rem 0rem;
     }
+    .sp-build {
+      margin-top:3rem;
+      opacity:0;
+      transition: all 0.4s;
+    }
   }
   .sp-sidebar__back {
     position: absolute;
@@ -195,6 +200,10 @@
     }
     .sp-sidebar__footer {
       width: 22rem;
+      .sp-build {
+        margin-top:0;
+        opacity:1
+      }
     }
   }
 }

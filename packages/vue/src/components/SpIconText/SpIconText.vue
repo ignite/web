@@ -8,7 +8,11 @@ import SpTooltip from '../SpTooltip'
 export default {
 	name: 'SpIconText',
 	components: {
-		SpCopy
+		SpCopy,
+		SpCheck,
+		SpSpinner,
+		SpSuccessDot,
+		SpTooltip
 	},
 	props: {
 		text: { type: String, required: true },

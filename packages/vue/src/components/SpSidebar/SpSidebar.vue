@@ -17,8 +17,12 @@
 	</div>
 </template>
 <script>
+import SpBadgeButton from '../SpBadgeButton'
 export default {
 	name: 'SpSidebar',
+	components: {
+		SpBadgeButton
+	},
 	data() {
 		return {
 			opened: true

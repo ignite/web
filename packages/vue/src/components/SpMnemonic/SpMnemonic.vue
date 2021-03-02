@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import SpLinkIcon from '../SpLinkIcon'
 const copyToClipboard = (str) => {
 	const el = document.createElement('textarea')
 	el.value = str
@@ -41,6 +42,9 @@ export default {
 			type: String,
 			required: true
 		}
+	},
+	components: {
+		SpLinkIcon
 	},
 	computed: {
 		words() {

@@ -2,8 +2,8 @@
 	<div class="SpTypeList" v-if="depsLoaded">
 		<p>
 			<strong>
-				LIST OF TYPE: '<em>{{ type }}</em
-				>' ITEMS FROM MODULE: '<em>{{ module }}</em
+				LIST OF TYPE: '<em>{{ moduleType }}</em
+				>' ITEMS FROM MODULE: '<em>{{ modulePath }}</em
 				>'
 			</strong>
 		</p>
@@ -40,11 +40,11 @@
 export default {
 	name: 'SpTypeList',
 	props: {
-		type: {
+		moduleType: {
 			type: String,
 			default: ''
 		},
-		module: {
+		modulePath: {
 			type: String,
 			default: ''
 		}
@@ -58,7 +58,7 @@ export default {
 		typeItems() {
 			if (this._depsLoaded) {
 				return this.$store.getters[
-					'chain/' + this.module + '/get' + this.type + 'All'
+					'chain/' + this.modulePath + '/get' + this.moduleType + 'All'
 				]()
 			} else {
 				return []
@@ -69,11 +69,11 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', ...this.module.split('/')]
+		const module = ['chain', ...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module ' + this.module + ' has not been registered!')
+				console.log('Module ' + this.modulePath + ' has not been registered!')
 				this._depsLoaded = false
 				break
 			}
@@ -82,10 +82,10 @@ export default {
 	async created() {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
-				'chain/' + this.module + '/getTypeStructure'
-			](this.type)
+				'chain/' + this.modulePath + '/getTypeStructure'
+			](this.moduleType)
 			await this.$store.dispatch(
-				'chain/' + this.module + '/Query' + this.type + 'All',
+				'chain/' + this.modulePath + '/Query' + this.moduleType + 'All',
 				{ subscribe: true }
 			)
 		}
