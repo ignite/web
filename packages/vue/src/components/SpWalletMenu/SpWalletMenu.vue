@@ -46,6 +46,11 @@
 					</div>
 				</div>
 			</template>
+			<template v-if="topWallet.name == walletName">
+				<div class="sp-wallet-menu__accounts">
+					<SpAccountList />
+				</div>
+			</template>
 			<div
 				class="sp-wallet-menu-item"
 				v-for="(wallet, index) in restWallets"
@@ -90,10 +95,11 @@
 				<div class="sp-wallet-menu-action__text sp-text">Manage Wallets</div>
 			</div>
 			<div class="sp-wallet-menu-action">
-				<div class="sp-wallet-menu-action__icon">
-					<span class="sp-icon sp-icon-AddNew" />
-				</div>
-				<div class="sp-wallet-menu-action__text sp-text">Add New Wallet</div>
+				<SpLinkIcon
+					icon="AddNew"
+					text="Add New Wallet"
+					v-on:click="createNewWallet"
+				/>
 			</div>
 		</div>
 	</div>
@@ -331,7 +337,8 @@ export default {
 		return {
 			opened: false,
 			unlocking: false,
-			toUnlock: null
+			toUnlock: null,
+			password: ''
 		}
 	},
 	computed: {
@@ -421,6 +428,9 @@ export default {
 				})
 				this.unlocking = false
 			}
+		},
+		createNewWallet() {
+			this.$emit('createNew')
 		},
 		toggleWallet(name) {
 			if (name != this.walletName) {

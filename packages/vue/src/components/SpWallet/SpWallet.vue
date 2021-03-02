@@ -1,6 +1,9 @@
 <template>
 	<div class="sp-wallet" v-if="depsLoaded">
-		<SpWalletMenu v-if="walletList.length > 0 && !create" />
+		<SpWalletMenu
+			v-if="walletList.length > 0 && !create"
+			v-on:createNew="create = true"
+		/>
 		<SpButton
 			v-else-if="walletList.length == 0 && !create"
 			v-on:click="create = true"

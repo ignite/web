@@ -3,9 +3,7 @@ import {
 	DirectSecp256k1Wallet
 } from '@cosmjs/proto-signing'
 
-import {
-	assertIsBroadcastTxSuccess
-} from '@cosmjs/stargate'
+import { assertIsBroadcastTxSuccess } from '@cosmjs/stargate'
 import { stringToPath } from '@cosmjs/crypto'
 import CryptoJS from 'crypto-js'
 import { keyFromWif, keyToWif } from '../../../helpers/keys'
@@ -25,22 +23,22 @@ export default {
 		client: (state) => state.activeClient,
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
-		lastWallet: (state) => { 
-			if (state.activeWallet) { 
+		lastWallet: (state) => {
+			if (state.activeWallet) {
 				return state.activeWallet.name
-			}else{
-				window.localStorage.getItem('lastWallet')
+			} else {
+				return window.localStorage.getItem('lastWallet')
 			}
 		},
 		loggedIn: (state) => state.activeClient !== null,
-		signer: (state) => {			
+		signer: (state) => {
 			if (state.activeClient) {
 				return state.activeClient.signer
-			}else{
+			} else {
 				return null
 			}
 		},
-		walletName: (state) => 
+		walletName: (state) =>
 			state.activeWallet ? state.activeWallet.name : null,
 		privKey: (state) => {
 			if (state.activeClient) {
@@ -53,7 +51,7 @@ export default {
 	mutations: {
 		SET_ACTIVE_WALLET(state, wallet) {
 			state.activeWallet = wallet
-			window.localStorage.setItem('lastWallet',wallet.name);
+			window.localStorage.setItem('lastWallet', wallet.name)
 		},
 		SET_ACTIVE_CLIENT(state, client) {
 			state.activeClient = client
@@ -105,7 +103,10 @@ export default {
 		signOut({ commit }) {
 			commit('SIGN_OUT')
 		},
-		async unlockWallet({ commit, state, dispatch, rootGetters }, { name, password }) {
+		async unlockWallet(
+			{ commit, state, dispatch, rootGetters },
+			{ name, password }
+		) {
 			const encryptedWallet =
 				state.wallets[state.wallets.findIndex((x) => x.name === name)].wallet
 			const wallet = JSON.parse(
@@ -121,7 +122,9 @@ export default {
 					wallet.prefix
 				)
 				try {
-					await dispatch('chain/common/env/signIn', accountSigner, {root:true})
+					await dispatch('chain/common/env/signIn', accountSigner, {
+						root: true
+					})
 					let client = rootGetters['chain/common/env/signingClient']
 					commit('SET_ACTIVE_CLIENT', client)
 					const [account] = await accountSigner.getAccounts()
@@ -131,7 +134,7 @@ export default {
 				}
 			}
 		},
-		async switchAccount({ commit, state, rootGetters ,dispatch}, address) {
+		async switchAccount({ commit, state, rootGetters, dispatch }, address) {
 			const accountIndex = state.activeWallet.accounts.findIndex(
 				(acc) => acc.address == address
 			)
@@ -145,7 +148,7 @@ export default {
 			)
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
+				await dispatch('chain/common/env/signIn', accountSigner, { root: true })
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				const [account] = await accountSigner.getAccounts()
@@ -193,7 +196,7 @@ export default {
 			const [firstAccount] = await accountSigner.getAccounts()
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
+				await dispatch('chain/common/env/signIn', accountSigner, { root: true })
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				commit('SET_SELECTED_ADDRESS', firstAccount.address)
@@ -224,7 +227,7 @@ export default {
 			commit('ADD_WALLET', wallet)
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
+				await dispatch('chain/common/env/signIn', accountSigner, { root: true })
 
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
@@ -265,7 +268,7 @@ export default {
 			commit('ADD_WALLET', wallet)
 
 			try {
-				await dispatch('chain/common/env/signIn', accountSigner, {root:true})
+				await dispatch('chain/common/env/signIn', accountSigner, { root: true })
 
 				let client = rootGetters['chain/common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
