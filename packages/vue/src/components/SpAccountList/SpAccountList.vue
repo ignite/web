@@ -1,14 +1,23 @@
 <template>
-	<div class="SpAccountList" v-if="depsLoaded">
+	<div class="sp-accounts-list" v-if="depsLoaded">
 		<div v-if="!newAccount.show">
-			<strong>AVAILABLE ACCOUNTS:</strong>
-			<ul v-if="accountList.length > 0">
-				<li v-for="account in accountList" v-bind:key="account.address">
-					<button @click="useAccount(account.address)" class="SpButton">
-						<div class="SpButtonText">
-							{{ account.address }}
+			<ul v-if="accountList.length > 0" class="sp-accounts-list-items">
+				<li
+					v-for="account in accountList"
+					v-bind:key="account.address"
+					class="sp-accounts-list-item"
+				>
+					<a
+						@click="useAccount(account.address)"
+						class="sp-accounts-list-item__use"
+					>
+						<div class="sp-accounts-list-item__path">
+							{{ account.pathIncrement }}
 						</div>
-					</button>
+						<div class="sp-accounts-list-item__address">
+							{{ shortenAddress(account.address) }}
+						</div>
+					</a>
 				</li>
 			</ul>
 			<hr />
@@ -91,6 +100,9 @@ export default {
 		},
 		newAccountForm() {
 			this.newAccount.show = true
+		},
+		shortenAddress(addr) {
+			return addr.substr(0, 10) + '...' + addr.slice(-5)
 		},
 		async useAccount(address) {
 			if (this._depsLoaded) {

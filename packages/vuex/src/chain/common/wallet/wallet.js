@@ -23,6 +23,9 @@ export default {
 		client: (state) => state.activeClient,
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
+		nameAvailable: (state) => (name) => {
+			return state.wallets.findIndex((x) => x.name == name) == -1
+		},
 		lastWallet: (state) => {
 			if (state.activeWallet) {
 				return state.activeWallet.name
@@ -59,6 +62,7 @@ export default {
 		},
 		ADD_WALLET(state, wallet) {
 			state.activeWallet = wallet
+			window.localStorage.setItem('lastWallet', wallet.name)
 			if (state.activeWallet.name && state.activeWallet.password) {
 				state.wallets.push({
 					name: state.activeWallet.name,

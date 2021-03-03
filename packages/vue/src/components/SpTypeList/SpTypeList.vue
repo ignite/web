@@ -57,9 +57,11 @@ export default {
 	computed: {
 		typeItems() {
 			if (this._depsLoaded) {
-				return this.$store.getters[
-					'chain/' + this.modulePath + '/get' + this.moduleType + 'All'
-				]()
+				return (
+					this.$store.getters[
+						'chain/' + this.modulePath + '/get' + this.moduleType + 'All'
+					]()?.Post ?? []
+				)
 			} else {
 				return []
 			}

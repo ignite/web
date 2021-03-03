@@ -139,24 +139,28 @@
 				</div>
 			</div>
 		</div>
-		<div class="sp-wallet-menu-unlock__title sp-header-text">Unlock Wallet</div>
-		<div class="sp-wallet-menu-unlock__text">
-			Enter your Wallet password below to unlock and access your addresses.
-		</div>
-		<div class="sp-wallet-menu-unlock__form">
-			<div class="sp-form-group">
-				<input
-					class="sp-input"
-					v-model="password"
-					type="password"
-					name="password"
-					placeholder="Password"
-				/>
+		<div class="sp-wallet-menu-unlock">
+			<div class="sp-wallet-menu-unlock__title sp-header-text">
+				Unlock Wallet
 			</div>
+			<div class="sp-wallet-menu-unlock__text">
+				Enter your Wallet password below to unlock and access your addresses.
+			</div>
+			<div class="sp-wallet-menu-unlock__form">
+				<div class="sp-form-group">
+					<input
+						class="sp-input"
+						v-model="password"
+						type="password"
+						name="password"
+						placeholder="Password"
+					/>
+				</div>
 
-			<SpButton v-on:click="unlockStoreWallet" type="primary"
-				>Unlock Wallet</SpButton
-			>
+				<SpButton v-on:click="unlockStoreWallet" type="primary"
+					>Unlock Wallet</SpButton
+				>
+			</div>
 		</div>
 	</div>
 </template>

@@ -24,7 +24,7 @@
 }
 .sp-fill {
   flex: 1;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 .sp-header-text {
   font-size: 2.2rem;
@@ -44,6 +44,9 @@
   padding: 0.9rem 1.2rem;
   color: rgba(17, 17, 17, 1);
   appearance: none;
+  &.sp-error {
+    border-color: red;
+  }
   &:focus {
     outline: none;
     font-weight: 600;

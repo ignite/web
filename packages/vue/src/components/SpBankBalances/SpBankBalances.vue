@@ -79,9 +79,11 @@ export default {
 	},
 	computed: {
 		balances() {
-			return this.$store.getters[
-				'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
-			](this.bankAddress)
+			return (
+				this.$store.getters[
+					'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
+				]({ address: this.bankAddress })?.balances ?? []
+			)
 		},
 		depsLoaded() {
 			return this._depsLoaded

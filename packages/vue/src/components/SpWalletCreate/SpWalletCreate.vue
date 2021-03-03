@@ -35,6 +35,7 @@
 				<div class="sp-form-group">
 					<input
 						class="sp-input"
+						:class="{ 'sp-error': !walletNameAvailable }"
 						v-model="create.name"
 						type="text"
 						name="walletname"
@@ -98,6 +99,7 @@
 				<div class="sp-form-group">
 					<input
 						class="sp-input"
+						:class="{ 'sp-error': !walletNameAvailable }"
 						v-model="imported.name"
 						type="text"
 						name="walletname"
@@ -151,6 +153,14 @@ export default {
 		return this.defaultState()
 	},
 	computed: {
+		nameToCreate() {
+			return this.createform ? this.create.name : this.imported.name
+		},
+		walletNameAvailable() {
+			return this.$store.getters['chain/common/wallet/nameAvailable'](
+				this.nameToCreate
+			)
+		},
 		wallet() {
 			return this.$store.getters['chain/common/wallet/wallet']
 		}
@@ -218,10 +228,12 @@ export default {
 			this.create.mnemonic = mnemonic
 		},
 		async createStep2() {
-			this.create.step1 = false
-			this.create.step2 = true
-			this.generateMnemonic()
-			await this.createWallet()
+			if (this.walletNameAvailable) {
+				this.create.step1 = false
+				this.create.step2 = true
+				this.generateMnemonic()
+				await this.createWallet()
+			}
 			//this.downloadBackup()
 		},
 		importStep2() {
@@ -233,9 +245,11 @@ export default {
 			this.close()
 		},
 		async doneImport() {
-			await this.importWallet()
-			this.reset()
-			this.close()
+			if (this.walletNameAvailable) {
+				await this.importWallet()
+				this.reset()
+				this.close()
+			}
 		},
 
 		async importWallet() {

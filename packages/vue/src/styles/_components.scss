@@ -7,8 +7,6 @@
   background: white;
   min-width: 30rem;
   max-width: 30rem;
-  padding-left: 1.4rem;
-  padding-right: 1.4rem;
   max-height: 6rem;
   transition: max-height 0.4s;
   overflow: hidden;
@@ -37,6 +35,9 @@
     font-size: 1.4rem;
     line-height: 2.2rem;
   }
+  .sp-dash {
+    margin-left: 1.4rem;
+  }
   .sp-wallet-menu-item {
     height: 6rem;
     padding-top: 1.4rem;
@@ -44,7 +45,8 @@
     position: relative;
     display: flex;
     opacity: 0.5;
-
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
     .sp-wallet-menu-item__info {
       line-height: 1.6rem;
       vertical-align: baseline;
@@ -99,7 +101,7 @@
       opacity: 0.8;
       position: absolute;
       top: 2.2rem;
-      left: 0.5rem;
+      left: 1.9rem;
       filter: blur(1.1rem);
       width: 2.4rem;
       height: 2.4rem;
@@ -123,6 +125,8 @@
     position: relative;
     align-items: center;
     display: flex;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
     height: 3.8rem;
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
@@ -135,6 +139,48 @@
     .sp-wallet-menu-action__text {
       margin-left: 1rem;
       line-height: 1.6rem;
+    }
+  }
+  .sp-wallet-menu__accounts {
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    box-shadow: inset 0px 1.4rem 2rem -0.5rem rgba(140, 148, 159, 0.15),
+      inset 0px -1.4rem 2rem -0.5rem rgba(140, 148, 159, 0.15);
+  }
+  .sp-wallet-menu-unlock {
+    padding: 1.4rem;
+    padding-top: 0;
+  }
+}
+.sp-accounts-list {
+  .sp-accounts-list-items {
+    list-style: none;
+    padding: 0;
+    .sp-accounts-list-item {
+      margin: 1rem 0rem;
+      border-radius: 0.8rem;
+      &:hover {
+        background: rgba(17, 17, 17, 0.05);
+      }
+      .sp-accounts-list-item__use {
+        display: flex;
+        align-items: center;
+        &:hover {
+          .sp-accounts-list-item__address {
+            opacity: 1;
+            font-weight: 600;
+          }
+        }
+        .sp-accounts-list-item__path {
+          width: 2rem;
+          font-size: 1.3rem;
+          opacity: 0.5;
+        }
+        .sp-accounts-list-item__address {
+          font-size: 1.4rem;
+          opacity: 0.5;
+        }
+      }
     }
   }
 }
@@ -180,8 +226,8 @@
       margin: 1rem 0rem;
     }
     .sp-build {
-      margin-top:3rem;
-      opacity:0;
+      margin-top: 3rem;
+      opacity: 0;
       transition: all 0.4s;
     }
   }
@@ -201,8 +247,8 @@
     .sp-sidebar__footer {
       width: 22rem;
       .sp-build {
-        margin-top:0;
-        opacity:1
+        margin-top: 0;
+        opacity: 1;
       }
     }
   }
