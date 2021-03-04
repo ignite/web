@@ -8,6 +8,20 @@ import { stringToPath } from '@cosmjs/crypto'
 import CryptoJS from 'crypto-js'
 import { keyFromWif, keyToWif } from '../../../helpers/keys'
 
+/* START TODO: Integrate closure below for additional security */
+function getDecryptor(password) {
+	let secret=password;
+	return async function(encryptedMnemonic, HDpath) {
+		const mnemonic = CryptoJS.AES.decrypt(encryptedMnemonic, secret).toString(
+			CryptoJS.enc.Utf8
+		)
+		return await DirectSecp256k1HdWallet.fromMnemonic(
+			mnemonic,
+			HDpath
+		)
+	}
+}
+/* END TODO */
 export default {
 	namespaced: true,
 	state() {

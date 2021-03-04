@@ -136,7 +136,7 @@ export default {
 
 				commit('ADD_BLOCK', block)
 			} catch (e) {
-				console.log('Cannot add new block. RPC node unavailable')
+				throw new SpVuexError('Blocks:AddBlock','Could not add block. RPC node unavailable')
 			}
 		},
 		resetState({ commit }) {

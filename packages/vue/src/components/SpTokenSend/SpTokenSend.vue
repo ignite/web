@@ -211,7 +211,7 @@ export default {
 			if (this._depsLoaded) {
 				return this.$store.getters[
 					'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
-				](this.bankAddress)
+				]({ addr: this.bankAddress })
 			} else {
 				return []
 			}

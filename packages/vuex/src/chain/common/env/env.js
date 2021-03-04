@@ -1,4 +1,5 @@
 import Client from '@starport/client-js'
+import SpVuexError from '../../../errors/SpVuexError'
 
 export default {
 	namespaced: true,
@@ -65,9 +66,17 @@ export default {
 			}
 		) {
 			if (this._actions['chain/common/starport/init']) {
-				await dispatch('chain/common/starport/init', null, { root: true })
+				try {
+					await dispatch('chain/common/starport/init', null, { root: true })
+				}catch(e) {
+					throw new SpVuexError('Env:Init:Starport','Could not initialize chain/common/starport module')
+				}
 			} else {
-				await dispatch('config', config)
+				try {
+					await dispatch('config', config)
+				}catch(e) {
+					throw new SpVuexError('Env:Config','Could not configure environment')
+				}
 			}
 		},
 		async setConnectivity({ commit }, payload) {
@@ -87,7 +96,7 @@ export default {
 			try {
 				await state.client.useSigner(signer)
 			}catch(e) {
-				throw("Could not create signing client with signer: "+signer)
+				throw new SpVuexError('Env:Client:Wallet','Could not create signing client with signer: '+signer)
 			}
 		},
 		async config(
@@ -150,8 +159,8 @@ export default {
 				if (reconnectWS && config.wsNode) {
 					try {
 						await client.switchWS(config.wsNode)
-					} catch (e) {
-						console.log('WS Connection failed')
+					}catch(e) {
+						throw new SpVuexError('Env:Client:Websocket','Could not switch to websocket node:'+config.wsNode)
 					}
 				}
 				if (reconnectClient && config.apiNode) {
@@ -161,7 +170,7 @@ export default {
 					try {
 						await client.switchRPC(config.rpcNode)
 					}catch(e) {
-						console.log("Tendermint RPC connection failed")
+						throw new SpVuexError('Env:Client:TendermintRPC','Could not switch to Tendermint RPC node:'+config.rpcNode)
 					}
 				}
 			}
