@@ -12,11 +12,11 @@ const GITPOD =
 	process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL)
 const API =
 	(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
-	process.env.VUE_APP_API_COSMOS ||
+	process.env.VUE_APP_API_COSMOS.replace('0.0.0.0','localhost') ||
 	'http://localhost:1317'
 const RPC =
 	(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
-	process.env.VUE_APP_API_TENDERMINT ||
+	process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0','localhost') ||
 	'http://localhost:26657'
 const ADDR_PREFIX = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
 
