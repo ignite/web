@@ -156,32 +156,52 @@
   .sp-accounts-list-items {
     list-style: none;
     padding: 0.8rem 0rem;
+    .sp-accounts-new {
+      padding:0rem 0.5rem;
+    }
     .sp-accounts-list-item {
-      margin: 1rem 0rem;
+      margin: 0rem 0rem;
       border-radius: 0.8rem;
-      padding: 0.8rem 0.5rem;
       &:hover {
         background: rgba(17, 17, 17, 0.05);
       }
       .sp-accounts-list-item__use {
         display: flex;
         align-items: center;
-        &:hover {
-          .sp-accounts-list-item__address {
+        padding: 0rem 0.5rem;
+
+        .sp-accounts-list-item__address {
+          display:block;
+          padding:0.8rem 0rem;
+          cursor: pointer;
+          flex-grow:1;
+          font-size: 1.4rem;
+          opacity: 0.5;
+          line-height: 1.6rem;
+          &.sp-active {
             opacity: 1;
             font-weight: 600;
           }
         }
         .sp-accounts-list-item__path {
           width: 2rem;
+          padding:0.8rem 0rem;
+          text-align: center;
           font-size: 1.3rem;
           opacity: 0.5;
           line-height: 1.6rem;
         }
-        .sp-accounts-list-item__address {
-          font-size: 1.4rem;
-          opacity: 0.5;
+        .sp-accounts-list-item__copy {
+          width: 2rem;
+          padding:0.8rem 0rem;
+          text-align: center;
+          font-size: 1.6rem;
+          opacity: 0.4;
           line-height: 1.6rem;
+          cursor:pointer;
+          &:hover {
+            opacity:1;
+          }
         }
       }
     }

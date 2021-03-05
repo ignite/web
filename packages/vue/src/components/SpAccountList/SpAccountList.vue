@@ -7,24 +7,32 @@
 					v-bind:key="account.address"
 					class="sp-accounts-list-item"
 				>
-					<a
-						@click="useAccount(account.address)"
-						class="sp-accounts-list-item__use"
-					>
+					<div class="sp-accounts-list-item__use">
 						<div class="sp-accounts-list-item__path">
 							{{ account.pathIncrement }}
 						</div>
-						<div class="sp-accounts-list-item__address">
+						<div
+							class="sp-accounts-list-item__address"
+							@click="useAccount(account.address)"
+							:class="{ 'sp-active': account.address == currentAccount }"
+						>
 							{{ shortenAddress(account.address) }}
 						</div>
-					</a>
+						<div
+							class="sp-accounts-list-item__copy"
+							@click="copyToClipboard(account.address)"
+						>
+							<span class="sp-icon sp-icon-Copy" />
+						</div>
+					</div>
 				</li>
 			</ul>
-			<hr />
-			<div class="SpAccountNew">
-				<button @click="newAccountForm()" class="SpButton">
-					<div class="SpButtonText">ADD NEW ACCOUNT</div>
-				</button>
+			<div class="sp-accounts-new">
+				<SpLinkIcon
+					icon="AddNew"
+					text="Generate new address"
+					v-on:click="newAccountForm"
+				/>
 			</div>
 		</div>
 		<div class="SpAccountForm SpForm" v-if="newAccount.show">
@@ -58,10 +66,15 @@
 	</div>
 </template>
 <script>
+import SpLinkIcon from '../SpLinkIcon'
+
 export default {
 	name: 'SpAccountList',
 	data() {
 		return this.defaultState()
+	},
+	components: {
+		SpLinkIcon
 	},
 	computed: {
 		accountList() {
@@ -72,6 +85,13 @@ export default {
 		},
 		depsLoaded() {
 			return this._depsLoaded
+		},
+		currentAccount() {
+			if (this._depsLoaded) {
+				return this.$store.getters['chain/common/wallet/address']
+			} else {
+				return null
+			}
 		}
 	},
 	beforeCreate() {
@@ -86,6 +106,15 @@ export default {
 		}
 	},
 	methods: {
+		copyToClipboard(str) {
+			const el = document.createElement('textarea')
+			el.value = str
+			document.body.appendChild(el)
+			el.select()
+			el.setSelectionRange(0, 999999)
+			document.execCommand('copy')
+			document.body.removeChild(el)
+		},
 		defaultState() {
 			return {
 				newAccount: {

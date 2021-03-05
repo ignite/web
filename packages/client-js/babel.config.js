@@ -1,4 +1,4 @@
-module.exports = {
+module.exports={
   presets: [
     '@babel/preset-typescript',
     '@babel/preset-env'

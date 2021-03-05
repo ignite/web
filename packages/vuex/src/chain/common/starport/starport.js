@@ -210,8 +210,7 @@ export default {
 					window.location.reload(false)
 				}
 				commit('SET_PREV_STATES', { status })
-			} catch (error) {
-				console.log(error)
+			} catch (error) {				
 				commit('SET_BACKEND_RUNNING_STATES', {
 					frontend: false,
 					rpc: false,

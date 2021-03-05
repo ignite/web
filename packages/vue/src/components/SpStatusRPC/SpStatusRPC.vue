@@ -30,10 +30,10 @@ export default {
 	},
 	computed: {
 		rpcNode() {
-			return this.$store.state.chain.common.env.apiTendermint
+			return this.$store.getters['chain/common/env/apiTendermint'] 
 		},
 		nodeStatus() {
-			return this.$store.state.chain.common.env.rpcConnected
+			return this.$store.getters['chain/common/env/rpcConnected'] 
 		}
 	}
 }

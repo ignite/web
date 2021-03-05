@@ -8,9 +8,9 @@ export default {
 			chainId: null,
 			addrPrefix: '',
 			sdkVersion: 'Stargate',
-			apiCosmos: null,
-			apiTendermint: null,
-			apiWS: null,
+			apiNode: null,
+			rpcNode: null,
+			wsNode: null,
 			client: null,
 			apiConnected: false,
 			rpcConnected: false,
@@ -22,19 +22,22 @@ export default {
 	getters: {
 		client: (state) => state.client,
 		signingClient: (state) => state.client.signingClient,
-		apiTendermint: (state) => state.apiTendermint,
-		apiCosmos: (state) => state.apiCosmos,
-		apiWS: (state) => state.apiWS,
-		sdkVersion: (state) => state.sdkVersion
+		apiTendermint: (state) => state.rpcNode,
+		apiCosmos: (state) => state.apiNode,
+		apiWS: (state) => state.wsNode,
+		sdkVersion: (state) => state.sdkVersion,
+		apiConnected: (state) => state.apiConnected,
+		rpcConnected: (state) => state.rpcConnected,
+		wsConnected: (state) => state.wsConnected,
 	},
 	mutations: {
 		SET_CONFIG(state, config) {
-			state.apiCosmos = config.apiNode
+			state.apiNode = config.apiNode
 			if (config.rpcNode) {
-				state.apiTendermint = config.rpcNode
+				state.rpcNode = config.rpcNode
 			}
 			if (config.wsNode) {
-				state.apiWS = config.wsNode
+				state.wsNode = config.wsNode
 			}
 		},
 		CONNECT(state, { client }) {
@@ -87,7 +90,6 @@ export default {
 			}
 		},
 		setTxAPI({ commit }, payload) {
-			console.log(payload)
 			commit('SET_TX_API', payload)
 		},
 		async setConnectivity({ commit }, payload) {
@@ -125,74 +127,68 @@ export default {
 				getTXApi: 'http://localhost:26657/tx?hash=0x'
 			}
 		) {
-			let client
-			if (!state.client) {
-				client = new Client({
-					apiAddr: config.apiNode,
-					rpcAddr: config.rpcNode,
-					wsAddr: config.wsNode
-				})
-				client.on('ws-status', (status) =>
-					dispatch('setConnectivity', { connection: 'ws', status: status })
-				)
-				client.on('api-status', (status) =>
-					dispatch('setConnectivity', { connection: 'api', status: status })
-				)
-				client.on('rpc-status', (status) =>
-					dispatch('setConnectivity', { connection: 'rpc', status: status })
-				)
-				commit('SET_CONFIG', config)
-				commit('CONNECT', { client })
-				commit('INITIALIZE_WS_COMPLETE')
-			} else {
-				client = state.client
-				let reconnectWS = false
-				let reconnectSigningClient = false
-				let reconnectClient = false
-
-				if (config.wsNode != state.wsNode) {
-					reconnectWS = true
-				}
-				if (config.rpcNode != state.rpcNode) {
-					reconnectSigningClient = true
-				}
-				if (config.apiNode != state.apiNode) {
-					reconnectClient = true
-				}
-				commit('SET_CONFIG', config)
-
-				if (this._actions['chain/common/starport/init']) {
-					if (rootGetters['chain/common/starport/wasAppRestarted']) {
+			try {
+				let client
+				if (!state.client) {
+					client = new Client({
+						apiAddr: config.apiNode,
+						rpcAddr: config.rpcNode,
+						wsAddr: config.wsNode
+					})
+					client.on('ws-status', (status) =>
+						dispatch('setConnectivity', { connection: 'ws', status: status })
+					)
+					client.on('api-status', (status) =>
+						dispatch('setConnectivity', { connection: 'api', status: status })
+					)
+					client.on('rpc-status', (status) =>
+						dispatch('setConnectivity', { connection: 'rpc', status: status })
+					)
+					commit('SET_CONFIG', config)
+					commit('CONNECT', { client })
+					commit('INITIALIZE_WS_COMPLETE')
+				} else {
+					client = state.client
+					let reconnectWS = false
+					let reconnectSigningClient = false
+					let reconnectClient = false
+					if (config.wsNode != state.wsNode) {
 						reconnectWS = true
+					}
+					if (config.rpcNode != state.rpcNode) {
 						reconnectSigningClient = true
+					}
+					if (config.apiNode != state.apiNode) {
 						reconnectClient = true
 					}
-				}
+					commit('SET_CONFIG', config)
 
-				if (reconnectWS && config.wsNode) {
-					try {
-						await client.switchWS(config.wsNode)
-					} catch (e) {
-						console.log(e)
-						throw new SpVuexError(
-							'Env:Client:Websocket',
-							'Could not switch to websocket node:' + config.wsNode
-						)
+					if (reconnectWS && config.wsNode) {
+						try {
+							await client.switchWS(config.wsNode)
+						} catch (e) {						
+							throw new SpVuexError(
+								'Env:Client:Websocket',
+								'Could not switch to websocket node:' + config.wsNode
+							)
+						}
+					}
+					if (reconnectClient && config.apiNode) {
+						client.switchAPI(config.apiNode)
+					}
+					if (reconnectSigningClient && config.rpcNode) {
+						try {
+							await client.switchRPC(config.rpcNode)
+						} catch (e) {
+							throw new SpVuexError(
+								'Env:Client:TendermintRPC',
+								'Could not switch to Tendermint RPC node:' + config.rpcNode
+							)
+						}
 					}
 				}
-				if (reconnectClient && config.apiNode) {
-					client.switchAPI(config.apiNode)
-				}
-				if (reconnectSigningClient && config.rpcNode) {
-					try {
-						await client.switchRPC(config.rpcNode)
-					} catch (e) {
-						throw new SpVuexError(
-							'Env:Client:TendermintRPC',
-							'Could not switch to Tendermint RPC node:' + config.rpcNode
-						)
-					}
-				}
+			}catch (e) {
+				console.error(e)
 			}
 		}
 	}

@@ -13,6 +13,8 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _stargate = require("@cosmjs/stargate");
 
+var _SpClientError = _interopRequireDefault(require("./errors/SpClientError"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -69,13 +71,7 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
 
     _defineProperty(_assertThisInitialized(_this), "wsAddr", void 0);
 
-    _defineProperty(_assertThisInitialized(_this), "connectedPromise", void 0);
-
     _defineProperty(_assertThisInitialized(_this), "socket", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "connectRes", void 0);
-
-    _defineProperty(_assertThisInitialized(_this), "connectRej", void 0);
 
     _defineProperty(_assertThisInitialized(_this), "signingClient", void 0);
 
@@ -94,19 +90,7 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
     _this.connectivityTest();
 
     if (_this.wsAddr) {
-      _this.connectedPromise = new Promise(function (res, rej) {
-        _this.connectRes = res;
-        _this.connectRej = rej;
-      });
-
-      try {
-        _this.socket = new _reconnectingWebsocket["default"](_this.wsAddr);
-      } catch (e) {
-        _this.connectRej();
-
-        throw "WS node unavailable";
-      }
-
+      _this.socket = new _reconnectingWebsocket["default"](_this.wsAddr);
       _this.socket.onopen = _this.onOpenWS.bind(_assertThisInitialized(_this));
       _this.socket.onmessage = _this.onMessageWS.bind(_assertThisInitialized(_this));
       _this.socket.onerror = _this.onErrorWS.bind(_assertThisInitialized(_this));
@@ -152,82 +136,45 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
     }
   }, {
     key: "switchWS",
+    value: function switchWS(wsAddr) {
+      this.emit('ws-status', false);
+      this.wsAddr = wsAddr;
+      this.socket = new _reconnectingWebsocket["default"](this.wsAddr);
+    }
+  }, {
+    key: "switchRPC",
     value: function () {
-      var _switchWS = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(wsAddr) {
-        var _this2 = this;
-
+      var _switchRPC = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(rpcAddr) {
+        var registry;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                this.emit("ws-status", false);
-                this.wsAddr = wsAddr;
-                this.connectedPromise = new Promise(function (res, rej) {
-                  _this2.connectRes = res;
-                  _this2.connectRej = rej;
-                });
-                _context2.prev = 3;
-                this.socket = new _reconnectingWebsocket["default"](this.wsAddr);
-                _context2.next = 11;
-                break;
-
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](3);
-                this.connectRej();
-                throw "WS node unavailable";
-
-              case 11:
-                return _context2.abrupt("return", this.connectedPromise);
-
-              case 12:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[3, 7]]);
-      }));
-
-      function switchWS(_x2) {
-        return _switchWS.apply(this, arguments);
-      }
-
-      return switchWS;
-    }()
-  }, {
-    key: "switchRPC",
-    value: function () {
-      var _switchRPC = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(rpcAddr) {
-        var registry;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
                 this.rpcAddr = rpcAddr;
 
                 if (!this.signingClient) {
-                  _context3.next = 6;
+                  _context2.next = 6;
                   break;
                 }
 
                 registry = _objectSpread({}, this.signingClient.registry);
-                _context3.next = 5;
+                _context2.next = 5;
                 return _stargate.SigningStargateClient.connectWithSigner(this.rpcAddr, this.signer, {
                   registry: registry
                 });
 
               case 5:
-                this.signingClient = _context3.sent;
+                this.signingClient = _context2.sent;
 
               case 6:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
-      function switchRPC(_x3) {
+      function switchRPC(_x2) {
         return _switchRPC.apply(this, arguments);
       }
 
@@ -236,66 +183,68 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "connectivityTest",
     value: function () {
-      var _connectivityTest = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      var _connectivityTest = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 if (!this.apiAddr) {
-                  _context4.next = 10;
+                  _context3.next = 10;
                   break;
                 }
 
-                _context4.prev = 1;
-                _context4.next = 4;
-                return _axios["default"].get(this.apiAddr + "/node_info");
+                _context3.prev = 1;
+                _context3.next = 4;
+                return _axios["default"].get(this.apiAddr + '/node_info');
 
               case 4:
-                this.emit("api-status", true);
-                _context4.next = 10;
+                this.emit('api-status', true);
+                _context3.next = 10;
                 break;
 
               case 7:
-                _context4.prev = 7;
-                _context4.t0 = _context4["catch"](1);
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](1);
 
-                if (!_context4.t0.response) {
-                  this.emit("api-status", false);
+                if (!_context3.t0.response) {
+                  this.emit('api-status', false);
+                  console.error(new _SpClientError["default"]('Client-js:API', 'API Node unavailable'));
                 } else {
-                  this.emit("api-status", true);
+                  this.emit('api-status', true);
                 }
 
               case 10:
                 if (!this.rpcAddr) {
-                  _context4.next = 20;
+                  _context3.next = 20;
                   break;
                 }
 
-                _context4.prev = 11;
-                _context4.next = 14;
+                _context3.prev = 11;
+                _context3.next = 14;
                 return _axios["default"].get(this.rpcAddr);
 
               case 14:
-                this.emit("rpc-status", true);
-                _context4.next = 20;
+                this.emit('rpc-status', true);
+                _context3.next = 20;
                 break;
 
               case 17:
-                _context4.prev = 17;
-                _context4.t1 = _context4["catch"](11);
+                _context3.prev = 17;
+                _context3.t1 = _context3["catch"](11);
 
-                if (!_context4.t1.response) {
-                  this.emit("rpc-status", false);
+                if (!_context3.t1.response) {
+                  console.error(new _SpClientError["default"]('Client-js:API', 'RPC Node unavailable'));
+                  this.emit('rpc-status', false);
                 } else {
-                  this.emit("api-status", true);
+                  this.emit('api-status', true);
                 }
 
               case 20:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4, this, [[1, 7], [11, 17]]);
+        }, _callee3, this, [[1, 7], [11, 17]]);
       }));
 
       function connectivityTest() {
@@ -305,29 +254,23 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
       return connectivityTest;
     }()
   }, {
-    key: "connectWS",
-    value: function connectWS() {
-      return this.connectedPromise;
-    }
-  }, {
     key: "onErrorWS",
     value: function onErrorWS() {
-      this.connectRej();
+      console.error(new _SpClientError["default"]('Client-js:WS', 'Could not connect to websocket.'));
     }
   }, {
     key: "onCloseWS",
     value: function onCloseWS() {
-      this.emit("ws-status", false);
+      this.emit('ws-status', false);
     }
   }, {
     key: "onOpenWS",
     value: function onOpenWS() {
-      this.connectRes();
-      this.emit("ws-status", true);
+      this.emit('ws-status', true);
       this.socket.send(JSON.stringify({
-        jsonrpc: "2.0",
-        method: "subscribe",
-        id: "1",
+        jsonrpc: '2.0',
+        method: 'subscribe',
+        id: '1',
         params: ["tm.event = 'NewBlock'"]
       }));
     }
@@ -336,44 +279,44 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
     value: function onMessageWS(msg) {
       var result = JSON.parse(msg.data).result;
 
-      if (result.data && result.data.type === "tendermint/event/NewBlock") {
-        this.emit("newblock", JSON.parse(msg.data).result);
+      if (result.data && result.data.type === 'tendermint/event/NewBlock') {
+        this.emit('newblock', JSON.parse(msg.data).result);
       }
     }
   }, {
     key: "query",
     value: function () {
-      var _query = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(url) {
+      var _query = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(url) {
         var params,
             response,
-            _args5 = arguments;
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            _args4 = arguments;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                params = _args5.length > 1 && _args5[1] !== undefined ? _args5[1] : "";
-                _context5.prev = 1;
-                _context5.next = 4;
+                params = _args4.length > 1 && _args4[1] !== undefined ? _args4[1] : '';
+                _context4.prev = 1;
+                _context4.next = 4;
                 return _axios["default"].get(this.apiAddr + url + params);
 
               case 4:
-                response = _context5.sent;
-                return _context5.abrupt("return", response.data);
+                response = _context4.sent;
+                return _context4.abrupt("return", response.data);
 
               case 8:
-                _context5.prev = 8;
-                _context5.t0 = _context5["catch"](1);
-                throw "Could not access API: " + this.apiAddr + url + params;
+                _context4.prev = 8;
+                _context4.t0 = _context4["catch"](1);
+                console.error(new _SpClientError["default"]('Client-js:API', 'Could not access API: ' + url));
 
               case 11:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5, this, [[1, 8]]);
+        }, _callee4, this, [[1, 8]]);
       }));
 
-      function query(_x4) {
+      function query(_x3) {
         return _query.apply(this, arguments);
       }
 
@@ -383,69 +326,69 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
     key: "addQueryParam",
     value: function addQueryParam(query, key) {
       var value = query[key];
-      return encodeURIComponent(key) + "=" + encodeURIComponent(Array.isArray(value) ? value.join(",") : typeof value === "number" ? value : "".concat(value));
+      return encodeURIComponent(key) + '=' + encodeURIComponent(Array.isArray(value) ? value.join(',') : typeof value === 'number' ? value : "".concat(value));
     }
   }, {
     key: "toQueryString",
     value: function toQueryString(rawQuery) {
-      var _this3 = this;
+      var _this2 = this;
 
       var query = rawQuery || {};
       var keys = Object.keys(query).filter(function (key) {
-        return "undefined" !== typeof query[key];
+        return 'undefined' !== typeof query[key];
       });
       return keys.map(function (key) {
-        return _typeof(query[key]) === "object" && !Array.isArray(query[key]) ? _this3.toQueryString(query[key]) : _this3.addQueryParam(query, key);
-      }).join("&");
+        return _typeof(query[key]) === 'object' && !Array.isArray(query[key]) ? _this2.toQueryString(query[key]) : _this2.addQueryParam(query, key);
+      }).join('&');
     }
   }, {
     key: "addQueryParams",
     value: function addQueryParams(rawQuery) {
       var queryString = this.toQueryString(rawQuery);
-      return queryString ? "?".concat(queryString) : "";
+      return queryString ? "?".concat(queryString) : '';
     }
   }, {
     key: "request",
     value: function () {
-      var _request = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_ref2) {
+      var _request = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_ref2) {
         var body, path, query, method, url, response, data;
-        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 body = _ref2.body, path = _ref2.path, query = _ref2.query, method = _ref2.method;
                 url = this.apiAddr + path + this.addQueryParams(query);
-                _context6.prev = 2;
+                _context5.prev = 2;
                 response = (0, _axios["default"])({
                   url: url,
                   method: method,
                   data: body,
                   headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json;charset=UTF-8"
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
                   }
                 });
-                _context6.next = 6;
+                _context5.next = 6;
                 return response;
 
               case 6:
-                data = _context6.sent;
-                return _context6.abrupt("return", data);
+                data = _context5.sent;
+                return _context5.abrupt("return", data);
 
               case 10:
-                _context6.prev = 10;
-                _context6.t0 = _context6["catch"](2);
-                throw "Could not access API: " + url;
+                _context5.prev = 10;
+                _context5.t0 = _context5["catch"](2);
+                console.error(new _SpClientError["default"]('Client-js:API', 'Could not access API: ' + url));
 
               case 13:
               case "end":
-                return _context6.stop();
+                return _context5.stop();
             }
           }
-        }, _callee6, this, [[2, 10]]);
+        }, _callee5, this, [[2, 10]]);
       }));
 
-      function request(_x5) {
+      function request(_x4) {
         return _request.apply(this, arguments);
       }
 
@@ -457,3 +400,4 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
 }(_events.EventEmitter);
 
 exports["default"] = SPClient;
+//# sourceMappingURL=SPClient.js.map

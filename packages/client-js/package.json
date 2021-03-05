@@ -16,8 +16,8 @@
 				"access": "public"
 		},
 		"scripts": {
-				"watch": "babel src --out-dir lib --extensions \".ts,.tsx\" --watch",
-				"build": "babel src --out-dir lib --extensions \".ts,.tsx\"",
+				"watch": "babel src --out-dir lib --extensions \".ts,.tsx\" --watch --source-maps",
+				"build": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps",
 				"tsc": "tsc",
 				"test": "echo \"Error: run tests from root\" && exit 1"
 		},
@@ -35,6 +35,9 @@
 				"@typescript-eslint/parser": "^4.15.1",
 				"babel-loader": "^8.2.2",
 				"eslint": "^7.20.0",
+				"eslint-config-prettier": "^8.1.0",
+				"eslint-plugin-prettier": "^3.3.1",
+				"prettier": "^2.2.1",
 				"typescript": "^4.1.5"
 		},
 		"dependencies": {
