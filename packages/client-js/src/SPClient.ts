@@ -1,9 +1,7 @@
 import { EventEmitter } from "events";
 import ReconnectingWebSocket from "reconnecting-websocket";
 import axios, { AxiosPromise, AxiosResponse } from "axios";
-import {
-    SigningStargateClient,
-} from "@cosmjs/stargate";
+import { SigningStargateClient } from "@cosmjs/stargate";
 import { OfflineDirectSigner, Registry } from "@cosmjs/proto-signing";
 
 export interface IClientConfig {
@@ -63,7 +61,7 @@ export default class SPClient extends EventEmitter {
         );
         this.signer = signer;
     }
-    public switchAPI(apiAddr: string):void {
+    public switchAPI(apiAddr: string): void {
         this.apiAddr = apiAddr;
     }
     public async switchWS(wsAddr: string): Promise<void> {
@@ -79,20 +77,22 @@ export default class SPClient extends EventEmitter {
             this.connectRej();
             throw "WS node unavailable";
         }
+        /*
         this.socket.onopen = this.onOpenWS.bind(this);
         this.socket.onmessage = this.onMessageWS.bind(this);
         this.socket.onerror = this.onErrorWS.bind(this);
         this.socket.onclose = this.onCloseWS.bind(this);
+        */
         return this.connectedPromise;
     }
     public async switchRPC(rpcAddr: string): Promise<void> {
         this.rpcAddr = rpcAddr;
         if (this.signingClient) {
-            const registry:Registry = { ...this.signingClient.registry };
+            const registry: Registry = { ...this.signingClient.registry };
             this.signingClient = await SigningStargateClient.connectWithSigner(
                 this.rpcAddr,
                 this.signer,
-                {registry}
+                { registry }
             );
         }
     }

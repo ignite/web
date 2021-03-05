@@ -25,12 +25,13 @@ export default {
 		apiTendermint: (state) => state.apiTendermint,
 		apiCosmos: (state) => state.apiCosmos,
 		apiWS: (state) => state.apiWS,
+		sdkVersion: (state) => state.sdkVersion
 	},
 	mutations: {
 		SET_CONFIG(state, config) {
 			state.apiCosmos = config.apiNode
 			if (config.rpcNode) {
-				state.apiTendermint=config.rpcNode
+				state.apiTendermint = config.rpcNode
 			}
 			if (config.wsNode) {
 				state.apiWS = config.wsNode
@@ -50,6 +51,9 @@ export default {
 		},
 		SET_RPC_STATUS(state, status) {
 			state.rpcConnected = status
+		},
+		SET_TX_API(state, txapi) {
+			state.getTXApi = txapi
 		}
 	},
 	actions: {
@@ -68,16 +72,23 @@ export default {
 			if (this._actions['chain/common/starport/init']) {
 				try {
 					await dispatch('chain/common/starport/init', null, { root: true })
-				}catch(e) {
-					throw new SpVuexError('Env:Init:Starport','Could not initialize chain/common/starport module')
+				} catch (e) {
+					throw new SpVuexError(
+						'Env:Init:Starport',
+						'Could not initialize chain/common/starport module'
+					)
 				}
 			} else {
 				try {
 					await dispatch('config', config)
-				}catch(e) {
-					throw new SpVuexError('Env:Config','Could not configure environment')
+				} catch (e) {
+					throw new SpVuexError('Env:Config', 'Could not configure environment')
 				}
 			}
+		},
+		setTxAPI({ commit }, payload) {
+			console.log(payload)
+			commit('SET_TX_API', payload)
 		},
 		async setConnectivity({ commit }, payload) {
 			switch (payload.connection) {
@@ -92,11 +103,14 @@ export default {
 					break
 			}
 		},
-		async signIn({commit,state}, signer) {
+		async signIn({ commit, state }, signer) {
 			try {
 				await state.client.useSigner(signer)
-			}catch(e) {
-				throw new SpVuexError('Env:Client:Wallet','Could not create signing client with signer: '+signer)
+			} catch (e) {
+				throw new SpVuexError(
+					'Env:Client:Wallet',
+					'Could not create signing client with signer: ' + signer
+				)
 			}
 		},
 		async config(
@@ -111,7 +125,6 @@ export default {
 				getTXApi: 'http://localhost:26657/tx?hash=0x'
 			}
 		) {
-		
 			let client
 			if (!state.client) {
 				client = new Client({
@@ -131,8 +144,8 @@ export default {
 				commit('SET_CONFIG', config)
 				commit('CONNECT', { client })
 				commit('INITIALIZE_WS_COMPLETE')
-			}else{
-
+			} else {
+				client = state.client
 				let reconnectWS = false
 				let reconnectSigningClient = false
 				let reconnectClient = false
@@ -159,8 +172,12 @@ export default {
 				if (reconnectWS && config.wsNode) {
 					try {
 						await client.switchWS(config.wsNode)
-					}catch(e) {
-						throw new SpVuexError('Env:Client:Websocket','Could not switch to websocket node:'+config.wsNode)
+					} catch (e) {
+						console.log(e)
+						throw new SpVuexError(
+							'Env:Client:Websocket',
+							'Could not switch to websocket node:' + config.wsNode
+						)
 					}
 				}
 				if (reconnectClient && config.apiNode) {
@@ -169,8 +186,11 @@ export default {
 				if (reconnectSigningClient && config.rpcNode) {
 					try {
 						await client.switchRPC(config.rpcNode)
-					}catch(e) {
-						throw new SpVuexError('Env:Client:TendermintRPC','Could not switch to Tendermint RPC node:'+config.rpcNode)
+					} catch (e) {
+						throw new SpVuexError(
+							'Env:Client:TendermintRPC',
+							'Could not switch to Tendermint RPC node:' + config.rpcNode
+						)
 					}
 				}
 			}

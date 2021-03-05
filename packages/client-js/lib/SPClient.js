@@ -178,13 +178,9 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
                 throw "WS node unavailable";
 
               case 11:
-                this.socket.onopen = this.onOpenWS.bind(this);
-                this.socket.onmessage = this.onMessageWS.bind(this);
-                this.socket.onerror = this.onErrorWS.bind(this);
-                this.socket.onclose = this.onCloseWS.bind(this);
                 return _context2.abrupt("return", this.connectedPromise);
 
-              case 16:
+              case 12:
               case "end":
                 return _context2.stop();
             }

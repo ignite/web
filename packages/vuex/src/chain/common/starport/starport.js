@@ -1,4 +1,5 @@
 import axios from 'axios'
+import SpVuexError from '../../../errors/SpVuexError'
 
 const {
 	VUE_APP_CUSTOM_URL,
@@ -12,17 +13,19 @@ const GITPOD =
 	process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL)
 const apiNode =
 	(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
-	process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost') ||
+	(process.env.VUE_APP_API_COSMOS &&
+		process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
 	'http://localhost:1317'
 const rpcNode =
 	(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
-	process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost') ||
+	(process.env.VUE_APP_API_TENDERMINT &&
+		process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'http://localhost:26657'
 const addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
 const wsNode =
-	(VUE_APP_WS_TENDERMINT &&
-		VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
+	(process.env.VUE_APP_WS_TENDERMINT &&
+		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
 
 export default {
@@ -51,10 +54,10 @@ export default {
 		}
 	},
 	getters: {
-		backendEnv: state => state.backend.env,
-		frontendUrl: state => state.frontendUrl,
-		backendRunningStates: state => state.backend.running,
-		wasAppRestarted: state => status => {
+		backendEnv: (state) => state.backend.env,
+		frontendUrl: (state) => state.frontendUrl,
+		backendRunningStates: (state) => state.backend.running,
+		wasAppRestarted: (state) => (status) => {
 			return (
 				state.backend.prevStates.rpc !== null &&
 				state.backend.prevStates.api !== null &&
@@ -117,7 +120,7 @@ export default {
 		}
 	},
 	actions: {
-		async setStatusState({ state, getters, commit, dispatch }) {
+		async setStatusState({ state, getters, commit, dispatch, rootGetters }) {
 			try {
 				const { data } = await axios.get(`${state.starportUrl}/status`)
 				const { status, env } = data
@@ -160,9 +163,17 @@ export default {
 				const addrPrefix = VUE_APP_ADDRESS_PREFIX || 'cosmos'
 
 				const getTXApi =
-					state.backend.sdk_version === 'Stargate'
-						? `${state.APP_ENV.RPC}/tx?hash=0x` // temp replacement of `${state.APP_ENV.API}/cosmos/tx/v1beta1/tx/`
-						: `${state.APP_ENV.API}/txs/`
+					rootGetters['chain/common/env/sdkVersion'] === 'Stargate'
+						? dispatch(
+								'chain/common/env/setTxAPI',
+								rootGetters['chain/common/env/apiTendermint'] + '/tx?hash=0x',
+								{ root: true }
+						  )
+						: dispatch(
+								'chain/common/env/setTxAPI',
+								rootGetters['chain/common/env/apiCosmos'] + '/txs/',
+								{ root: true }
+						  )
 
 				dispatch(
 					'chain/common/env/config',
@@ -200,7 +211,7 @@ export default {
 				}
 				commit('SET_PREV_STATES', { status })
 			} catch (error) {
-				
+				console.log(error)
 				commit('SET_BACKEND_RUNNING_STATES', {
 					frontend: false,
 					rpc: false,
@@ -208,8 +219,11 @@ export default {
 				})
 
 				commit('SET_PREV_STATES', { status: null })
-				
-				throw new SpVuexError('Starport:Status','Could not set status from starport')
+
+				throw new SpVuexError(
+					'Starport:Status',
+					'Could not set status from starport'
+				)
 			}
 		},
 		async init({ commit, dispatch }) {
@@ -219,7 +233,13 @@ export default {
       *
       */
 			commit('SET_TIMER', {
-				timer: setInterval(() => dispatch('setStatusState'), 5000)
+				timer: setInterval(async () => {
+					try {
+						await dispatch('setStatusState')
+					} catch (e) {
+						console.error(e)
+					}
+				}, 5000)
 			})
 			await dispatch(
 				'chain/common/env/config',

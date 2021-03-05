@@ -22,7 +22,7 @@
 					type="number"
 					:placeholder="field.name"
 					v-model="typeData[field.name]"
-					v-if="field.type == 'int'"
+					v-if="field.type == 'number'"
 				/>
 			</div>
 			<button class="SpButton" @click="createType()">
@@ -52,7 +52,7 @@
 					type="number"
 					:placeholder="field.name"
 					v-model="typeData[field.name]"
-					v-if="field.type == 'int'"
+					v-if="field.type == 'number'"
 				/>
 			</div>
 			<button class="SpButton" @click="updateType()">
@@ -83,7 +83,7 @@
 					type="number"
 					:placeholder="field.name"
 					v-model="typeData[field.name]"
-					v-if="field.type == 'int'"
+					v-if="field.type == 'number'"
 				/>
 			</div>
 			<button class="SpButton" @click="deleteType()">

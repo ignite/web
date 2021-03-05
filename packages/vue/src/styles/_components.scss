@@ -155,10 +155,11 @@
 .sp-accounts-list {
   .sp-accounts-list-items {
     list-style: none;
-    padding: 0;
+    padding: 0.8rem 0rem;
     .sp-accounts-list-item {
       margin: 1rem 0rem;
       border-radius: 0.8rem;
+      padding: 0.8rem 0.5rem;
       &:hover {
         background: rgba(17, 17, 17, 0.05);
       }
@@ -175,10 +176,12 @@
           width: 2rem;
           font-size: 1.3rem;
           opacity: 0.5;
+          line-height: 1.6rem;
         }
         .sp-accounts-list-item__address {
           font-size: 1.4rem;
           opacity: 0.5;
+          line-height: 1.6rem;
         }
       }
     }
