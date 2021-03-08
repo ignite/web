@@ -258,7 +258,7 @@ export default {
 					this.txResult = ''
 					this.inFlight = true
 					this.txResult = await this.$store.dispatch(
-						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/MsgSend',
+						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/sendMsgSend',
 						payload
 					)
 					if (this.txResult && !this.txResult.code) {

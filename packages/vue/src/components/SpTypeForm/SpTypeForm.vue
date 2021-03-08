@@ -212,7 +212,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					this.modulePath + '/MsgCreate' + this.moduleType,
+					this.modulePath + '/sendMsgCreate' + this.moduleType,
 					{
 						value: { ...this.createTypeData }
 					}
@@ -223,7 +223,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					this.modulePath + '/MsgUpdate' + this.moduleType,
+					this.modulePath + '/sendMsgUpdate' + this.moduleType,
 					{
 						value: { ...this.updateTypeData }
 					}
@@ -234,7 +234,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					this.modulePath + '/MsgDelete' + this.moduleType,
+					this.modulePath + '/sendMsgDelete' + this.moduleType,
 					{
 						value: { ...this.deleteTypeData }
 					}
