@@ -153,12 +153,16 @@
   }
 }
 .sp-accounts-list {
+  .sp-accounts-new {
+    padding:0rem 0.5rem;
+    .sp-link-icon {
+      margin:0;
+    }
+  }
   .sp-accounts-list-items {
     list-style: none;
+    margin:0;
     padding: 0.8rem 0rem;
-    .sp-accounts-new {
-      padding:0rem 0.5rem;
-    }
     .sp-accounts-list-item {
       margin: 0rem 0rem;
       border-radius: 0.8rem;

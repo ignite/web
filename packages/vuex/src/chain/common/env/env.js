@@ -72,9 +72,9 @@ export default {
 				getTXApi: 'http://localhost:26657/tx?hash=0x'
 			}
 		) {
-			if (this._actions['chain/common/starport/init']) {
+			if (this._actions[common/starport/init']) {
 				try {
-					await dispatch('chain/common/starport/init', null, { root: true })
+					await dispatch(common/starport/init', null, { root: true })
 				} catch (e) {
 					throw new SpVuexError(
 						'Env:Init:Starport',

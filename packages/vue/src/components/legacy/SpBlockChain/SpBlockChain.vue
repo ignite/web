@@ -135,7 +135,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', 'common', 'env']
+		const module = [ 'common', 'env']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -273,7 +273,7 @@ export default {
 				let i = 1
 				while (i <= 20 && start - i > 0) {
 					const resp = await axios.get(
-						this.$store.getters['chain/common/env/apiTendermint'] +
+						this.$store.getters[common/env/apiTendermint'] +
 							'/block?height=' +
 							(start - i)
 					)

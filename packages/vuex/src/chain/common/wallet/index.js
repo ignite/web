@@ -1,8 +1,8 @@
 import wallet from './wallet.js'
 
 export default function init(store) {
-	if (!store.hasModule(['chain', 'common'])) {
-		store.registerModule(['chain', 'common'], { namespaced: true })
+	if (!store.hasModule([, 'common'])) {
+		store.registerModule([, 'common'], { namespaced: true })
 	}
-	store.registerModule(['chain', 'common', 'wallet'], wallet)
+	store.registerModule([, 'common', 'wallet'], wallet)
 }

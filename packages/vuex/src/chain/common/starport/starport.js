@@ -163,20 +163,20 @@ export default {
 				const addrPrefix = VUE_APP_ADDRESS_PREFIX || 'cosmos'
 
 				const getTXApi =
-					rootGetters['chain/common/env/sdkVersion'] === 'Stargate'
+					rootGetters[common/env/sdkVersion'] === 'Stargate'
 						? dispatch(
-								'chain/common/env/setTxAPI',
-								rootGetters['chain/common/env/apiTendermint'] + '/tx?hash=0x',
+								common/env/setTxAPI',
+								rootGetters[common/env/apiTendermint'] + '/tx?hash=0x',
 								{ root: true }
 						  )
 						: dispatch(
-								'chain/common/env/setTxAPI',
-								rootGetters['chain/common/env/apiCosmos'] + '/txs/',
+								common/env/setTxAPI',
+								rootGetters[common/env/apiCosmos'] + '/txs/',
 								{ root: true }
 						  )
 
 				dispatch(
-					'chain/common/env/config',
+					common/env/config',
 					{
 						chainId,
 						sdkVersion,
@@ -241,7 +241,7 @@ export default {
 				}, 5000)
 			})
 			await dispatch(
-				'chain/common/env/config',
+				common/env/config',
 				{
 					apiNode,
 					rpcNode,

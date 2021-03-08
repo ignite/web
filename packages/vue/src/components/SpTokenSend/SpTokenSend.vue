@@ -162,7 +162,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', 'cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1']
+		const module = [ 'cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -179,7 +179,7 @@ export default {
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
 				this.$store.dispatch(
-					'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
+					cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 					{
 						address: this.address,
 						subscribe: this.refresh
@@ -195,7 +195,7 @@ export default {
 					this.bankAddress = newAddr
 					if (this.bankAddress != '') {
 						this.$store.dispatch(
-							'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
+							cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 							{
 								address: this.bankAddress,
 								subscribe: this.refresh
@@ -210,7 +210,7 @@ export default {
 		balances() {
 			if (this._depsLoaded) {
 				return this.$store.getters[
-					'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
+					cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
 				]({ addr: this.bankAddress })
 			} else {
 				return []
@@ -260,7 +260,7 @@ export default {
 					this.txResult = ''
 					this.inFlight = true
 					this.txResult = await this.$store.dispatch(
-						'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/MsgSend',
+						cosmos/cosmos-sdk/cosmos.bank.v1beta1/MsgSend',
 						payload
 					)
 					if (this.txResult && !this.txResult.code) {
@@ -270,7 +270,7 @@ export default {
 					}
 					this.inFlight = false
 					await this.$store.dispatch(
-						'chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
+						cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 						{
 							address: this.address,
 							subscribe: false

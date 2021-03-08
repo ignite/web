@@ -30,10 +30,10 @@ export default {
 	},
 	computed: {
 		apiNode() {
-			return this.$store.getters['chain/common/env/apiCosmos']
+			return this.$store.getters[common/env/apiCosmos']
 		},
 		nodeStatus() {
-			return this.$store.getters['chain/common/env/apiConnected']
+			return this.$store.getters[common/env/apiConnected']
 		}
 	}
 }

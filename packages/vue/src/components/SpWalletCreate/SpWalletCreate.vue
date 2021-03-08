@@ -157,12 +157,12 @@ export default {
 			return this.createform ? this.create.name : this.imported.name
 		},
 		walletNameAvailable() {
-			return this.$store.getters['chain/common/wallet/nameAvailable'](
+			return this.$store.getters[common/wallet/nameAvailable'](
 				this.nameToCreate
 			)
 		},
 		wallet() {
-			return this.$store.getters['chain/common/wallet/wallet']
+			return this.$store.getters[common/wallet/wallet']
 		}
 	},
 	methods: {
@@ -255,7 +255,7 @@ export default {
 		async importWallet() {
 			if (this._depsLoaded) {
 				await this.$store.dispatch(
-					'chain/common/wallet/createWalletWithMnemonic',
+					common/wallet/createWalletWithMnemonic',
 					{
 						name: this.imported.name,
 						mnemonic: this.imported.mnemonicOrKey,
@@ -268,7 +268,7 @@ export default {
 		async createWallet() {
 			if (this._depsLoaded) {
 				await this.$store.dispatch(
-					'chain/common/wallet/createWalletWithMnemonic',
+					common/wallet/createWalletWithMnemonic',
 					{
 						name: this.create.name,
 						mnemonic: this.create.mnemonic,

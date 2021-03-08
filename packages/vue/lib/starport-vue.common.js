@@ -6536,7 +6536,7 @@ var toConsumableArray = __webpack_require__("2909");
       if (this._depsLoaded) {
         var _this$$store$getters$, _this$$store$getters;
 
-        return (_this$$store$getters$ = (_this$$store$getters = this.$store.getters['chain/' + this.modulePath + '/get' + this.moduleType + 'All']()) === null || _this$$store$getters === void 0 ? void 0 : _this$$store$getters.Post) !== null && _this$$store$getters$ !== void 0 ? _this$$store$getters$ : [];
+        return (_this$$store$getters$ = (_this$$store$getters = this.$store.getters[' + this.modulePath + '/get' + this.moduleType + 'All']()) === null || _this$$store$getters === void 0 ? void 0 : _this$$store$getters.Post) !== null && _this$$store$getters$ !== void 0 ? _this$$store$getters$ : [];
       } else {
         return [];
       }
@@ -6571,9 +6571,9 @@ var toConsumableArray = __webpack_require__("2909");
                 break;
               }
 
-              _this.fieldList = _this.$store.getters['chain/' + _this.modulePath + '/getTypeStructure'](_this.moduleType);
+              _this.fieldList = _this.$store.getters[' + _this.modulePath + '/getTypeStructure'](_this.moduleType);
               _context.next = 4;
-              return _this.$store.dispatch('chain/' + _this.modulePath + '/Query' + _this.moduleType + 'All', {
+              return _this.$store.dispatch(' + _this.modulePath + '/Query' + _this.moduleType + 'All', {
                 subscribe: true
               });
 
@@ -10028,7 +10028,7 @@ function done(stream, er, data) {
 /***/ "2801":
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_from\":\"elliptic@^6.5.3\",\"_id\":\"elliptic@6.5.4\",\"_inBundle\":false,\"_integrity\":\"sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"range\",\"registry\":true,\"raw\":\"elliptic@^6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"^6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"^6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz\",\"_shasum\":\"da37cebd31e79a1367e941b592ed1fbebd58abbb\",\"_spec\":\"elliptic@^6.5.3\",\"_where\":\"L:\\\\Projects\\\\overhaul\\\\tmmonorepo\\\\packages\\\\vue\\\\node_modules\\\\browserify-sign\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"bundleDependencies\":false,\"dependencies\":{\"bn.js\":\"^4.11.9\",\"brorand\":\"^1.1.0\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.1\",\"inherits\":\"^2.0.4\",\"minimalistic-assert\":\"^1.0.1\",\"minimalistic-crypto-utils\":\"^1.0.1\"},\"deprecated\":false,\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^2.0.2\",\"coveralls\":\"^3.1.0\",\"eslint\":\"^7.6.0\",\"grunt\":\"^1.2.1\",\"grunt-browserify\":\"^5.3.0\",\"grunt-cli\":\"^1.3.2\",\"grunt-contrib-connect\":\"^3.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^5.0.0\",\"grunt-mocha-istanbul\":\"^5.0.2\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.5\",\"mocha\":\"^8.0.1\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"lint\":\"eslint lib test\",\"lint:fix\":\"npm run lint -- --fix\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.4\"}");
+module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.4\",\"/home/clockwork/Tendermint/vue/packages/vue\"]],\"_development\":true,\"_from\":\"elliptic@6.5.4\",\"_id\":\"elliptic@6.5.4\",\"_inBundle\":false,\"_integrity\":\"sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.4\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.4\",\"saveSpec\":null,\"fetchSpec\":\"6.5.4\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz\",\"_spec\":\"6.5.4\",\"_where\":\"/home/clockwork/Tendermint/vue/packages/vue\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.11.9\",\"brorand\":\"^1.1.0\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.1\",\"inherits\":\"^2.0.4\",\"minimalistic-assert\":\"^1.0.1\",\"minimalistic-crypto-utils\":\"^1.0.1\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^2.0.2\",\"coveralls\":\"^3.1.0\",\"eslint\":\"^7.6.0\",\"grunt\":\"^1.2.1\",\"grunt-browserify\":\"^5.3.0\",\"grunt-cli\":\"^1.3.2\",\"grunt-contrib-connect\":\"^3.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^5.0.0\",\"grunt-mocha-istanbul\":\"^5.0.2\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.5\",\"mocha\":\"^8.0.1\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"lint\":\"eslint lib test\",\"lint:fix\":\"npm run lint -- --fix\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.4\"}");
 
 /***/ }),
 
@@ -10729,10 +10729,10 @@ var SpStatusLED = __webpack_require__("ae78");
   },
   computed: {
     apiNode: function apiNode() {
-      return this.$store.getters['chain/common/env/apiCosmos'];
+      return this.$store.getters[common/env/apiCosmos'];
     },
     nodeStatus: function nodeStatus() {
-      return this.$store.getters['chain/common/env/apiConnected'];
+      return this.$store.getters[common/env/apiConnected'];
     }
   }
 });
@@ -21318,7 +21318,7 @@ var SpBox = __webpack_require__("b907");
   computed: {
     blocks: function blocks() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/blocks/getBlocks'](10);
+        return this.$store.getters[common/blocks/getBlocks'](10);
       } else {
         return [];
       }
@@ -21328,7 +21328,7 @@ var SpBox = __webpack_require__("b907");
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'blocks'];
+    var module = [ 'common', 'blocks'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -23727,10 +23727,10 @@ var SpStatusLED = __webpack_require__("ae78");
   },
   computed: {
     wsNode: function wsNode() {
-      return this.$store.getters['chain/common/env/apiWS'];
+      return this.$store.getters[common/env/apiWS'];
     },
     nodeStatus: function nodeStatus() {
-      return this.$store.getters['chain/common/env/wsConnected'];
+      return this.$store.getters[common/env/wsConnected'];
     }
   }
 });
@@ -25447,7 +25447,7 @@ function debounce(func, wait, immediate) {
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'env'];
+    var module = [ 'common', 'env'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -25523,13 +25523,13 @@ function debounce(func, wait, immediate) {
 
       /*
       const isScrollAwayFromTop = scrolledHeight / tableScrollHeight > 0.2
-      		const isCallableScrolledDistance =
+      	const isCallableScrolledDistance =
       	$table.offsetHeight /
       		Math.abs(scrolledHeight - this.lastScrolledHeight) >
       	25
-      		if (isCallableScrolledDistance) {
+      	if (isCallableScrolledDistance) {
       	this.isScrolledAwayFromTop = isScrollAwayFromTop
-      			if (isScrolledToBottom) {
+      		if (isScrolledToBottom) {
       		this.isScrolledTop = false
       		this.isScrolledBottom = true
       		this.handleScrollBottom()
@@ -25637,7 +25637,7 @@ function debounce(func, wait, immediate) {
                 }
 
                 _context2.next = 6;
-                return external_commonjs_axios_commonjs2_axios_root_axios_amd_axios_default.a.get(_this2.$store.getters['chain/common/env/apiTendermint'] + '/block?height=' + (start - i));
+                return external_commonjs_axios_commonjs2_axios_root_axios_amd_axios_default.a.get(_this2.$store.getters[common/env/apiTendermint'] + '/block?height=' + (start - i));
 
               case 6:
                 resp = _context2.sent;
@@ -30567,7 +30567,7 @@ var es_array_slice = __webpack_require__("fb6a");
   computed: {
     blocks: function blocks() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/blocks/getBlocks'](10);
+        return this.$store.getters[common/blocks/getBlocks'](10);
       } else {
         return [];
       }
@@ -30584,7 +30584,7 @@ var es_array_slice = __webpack_require__("fb6a");
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'blocks'];
+    var module = [ 'common', 'blocks'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -31457,7 +31457,7 @@ var build = __webpack_require__("9705");
     };
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1'];
+    var module = [ 'cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -31474,7 +31474,7 @@ var build = __webpack_require__("9705");
 
     if (this._depsLoaded) {
       if (this.bankAddress != '') {
-        this.$store.dispatch('chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
+        this.$store.dispatch(cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
           address: this.address,
           subscribe: this.refresh
         });
@@ -31488,7 +31488,7 @@ var build = __webpack_require__("9705");
           this.bankAddress = newAddr;
 
           if (this.bankAddress != '') {
-            this.$store.dispatch('chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
+            this.$store.dispatch(cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
               address: this.bankAddress,
               subscribe: this.refresh
             });
@@ -31500,7 +31500,7 @@ var build = __webpack_require__("9705");
   computed: {
     balances: function balances() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances']({
+        return this.$store.getters[cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances']({
           addr: this.bankAddress
         });
       } else {
@@ -31575,7 +31575,7 @@ var build = __webpack_require__("9705");
                 _this.txResult = '';
                 _this.inFlight = true;
                 _context.next = 7;
-                return _this.$store.dispatch('chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/MsgSend', payload);
+                return _this.$store.dispatch(cosmos/cosmos-sdk/cosmos.bank.v1beta1/MsgSend', payload);
 
               case 7:
                 _this.txResult = _context.sent;
@@ -31588,7 +31588,7 @@ var build = __webpack_require__("9705");
 
                 _this.inFlight = false;
                 _context.next = 12;
-                return _this.$store.dispatch('chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
+                return _this.$store.dispatch(cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
                   address: _this.address,
                   subscribe: false
                 });
@@ -33295,7 +33295,7 @@ var SpIconSynchronization1 = __webpack_require__("21ad");
     balances: function balances() {
       var _this$$store$getters$, _this$$store$getters$2;
 
-      return (_this$$store$getters$ = (_this$$store$getters$2 = this.$store.getters['chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances']({
+      return (_this$$store$getters$ = (_this$$store$getters$2 = this.$store.getters[cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances']({
         address: this.bankAddress
       })) === null || _this$$store$getters$2 === void 0 ? void 0 : _this$$store$getters$2.balances) !== null && _this$$store$getters$ !== void 0 ? _this$$store$getters$ : [];
     },
@@ -33304,7 +33304,7 @@ var SpIconSynchronization1 = __webpack_require__("21ad");
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1'];
+    var module = [ 'cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -33321,7 +33321,7 @@ var SpIconSynchronization1 = __webpack_require__("21ad");
       this.bankAddress = this.address;
 
       if (this.bankAddress != '') {
-        this.$store.dispatch('chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
+        this.$store.dispatch(cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
           address: this.address,
           subscribe: this.refresh
         });
@@ -33334,7 +33334,7 @@ var SpIconSynchronization1 = __webpack_require__("21ad");
         this.bankAddress = newAddr;
 
         if (this.bankAddress != '') {
-          this.$store.dispatch('chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
+          this.$store.dispatch(cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
             address: this.bankAddress,
             subscribe: this.refresh
           });
@@ -33360,7 +33360,7 @@ var SpIconSynchronization1 = __webpack_require__("21ad");
                 }
 
                 _context.next = 3;
-                return _this.$store.dispatch('chain/cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
+                return _this.$store.dispatch(cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances', {
                   address: _this.bankAddress,
                   subscribe: false
                 });
@@ -36517,10 +36517,10 @@ var SpStatusLED = __webpack_require__("ae78");
   },
   computed: {
     rpcNode: function rpcNode() {
-      return this.$store.getters['chain/common/env/apiTendermint'];
+      return this.$store.getters[common/env/apiTendermint'];
     },
     nodeStatus: function nodeStatus() {
-      return this.$store.getters['chain/common/env/rpcConnected'];
+      return this.$store.getters[common/env/rpcConnected'];
     }
   }
 });
@@ -46195,10 +46195,10 @@ var SpMnemonic = __webpack_require__("a1e8");
       return this.createform ? this.create.name : this.imported.name;
     },
     walletNameAvailable: function walletNameAvailable() {
-      return this.$store.getters['chain/common/wallet/nameAvailable'](this.nameToCreate);
+      return this.$store.getters[common/wallet/nameAvailable'](this.nameToCreate);
     },
     wallet: function wallet() {
-      return this.$store.getters['chain/common/wallet/wallet'];
+      return this.$store.getters[common/wallet/wallet'];
     }
   },
   methods: {
@@ -46338,7 +46338,7 @@ var SpMnemonic = __webpack_require__("a1e8");
                 }
 
                 _context3.next = 3;
-                return _this3.$store.dispatch('chain/common/wallet/createWalletWithMnemonic', {
+                return _this3.$store.dispatch(common/wallet/createWalletWithMnemonic', {
                   name: _this3.imported.name,
                   mnemonic: _this3.imported.mnemonicOrKey,
                   password: _this3.imported.password
@@ -46366,7 +46366,7 @@ var SpMnemonic = __webpack_require__("a1e8");
                 }
 
                 _context4.next = 3;
-                return _this4.$store.dispatch('chain/common/wallet/createWalletWithMnemonic', {
+                return _this4.$store.dispatch(common/wallet/createWalletWithMnemonic', {
                   name: _this4.create.name,
                   mnemonic: _this4.create.mnemonic,
                   password: _this4.create.password
@@ -54106,14 +54106,14 @@ var SpLinkIcon = __webpack_require__("2d24");
     },
     currentAccount: function currentAccount() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/wallet/address'];
+        return this.$store.getters[common/wallet/address'];
       } else {
         return null;
       }
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'wallet'];
+    var module = [ 'common', 'wallet'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -54167,7 +54167,7 @@ var SpLinkIcon = __webpack_require__("2d24");
                 }
 
                 _context.next = 3;
-                return _this.$store.dispatch('chain/common/wallet/switchAccount', address);
+                return _this.$store.dispatch(common/wallet/switchAccount', address);
 
               case 3:
                 _this.$emit('account-selected');
@@ -54199,7 +54199,7 @@ var SpLinkIcon = __webpack_require__("2d24");
                 }
 
                 _context2.next = 4;
-                return _this2.$store.dispatch('chain/common/wallet/addAccount');
+                return _this2.$store.dispatch(common/wallet/addAccount');
 
               case 4:
                 _context2.next = 8;
@@ -54207,7 +54207,7 @@ var SpLinkIcon = __webpack_require__("2d24");
 
               case 6:
                 _context2.next = 8;
-                return _this2.$store.dispatch('chain/common/wallet/addAccount', _this2.newAccount.pathIncrement);
+                return _this2.$store.dispatch(common/wallet/addAccount', _this2.newAccount.pathIncrement);
 
               case 8:
                 _this2.reset();
@@ -55091,13 +55091,13 @@ var asyncToGenerator = __webpack_require__("1da1");
                 }
 
                 _context.next = 5;
-                return _this.$store.dispatch('chain/' + _this.modulePath + '/Query' + _this.moduleType, {
+                return _this.$store.dispatch(' + _this.modulePath + '/Query' + _this.moduleType, {
                   subscribe: true,
                   id: _this.typeData['id']
                 });
 
               case 5:
-                _this.typeData = _this.$store.getters['chain/' + _this.modulePath + '/get' + _this.moduleType](_this.typeData['id']);
+                _this.typeData = _this.$store.getters[' + _this.modulePath + '/get' + _this.moduleType](_this.typeData['id']);
 
               case 6:
               case "end":
@@ -55129,7 +55129,7 @@ var asyncToGenerator = __webpack_require__("1da1");
     },
     selectedAccount: function selectedAccount() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/wallet/address'];
+        return this.$store.getters[common/wallet/address'];
       } else {
         return null;
       }
@@ -55189,7 +55189,7 @@ var asyncToGenerator = __webpack_require__("1da1");
                 break;
               }
 
-              _this2.fieldList = _this2.$store.getters['chain/' + _this2.modulePath + '/getTypeStructure'](_this2.moduleType);
+              _this2.fieldList = _this2.$store.getters[' + _this2.modulePath + '/getTypeStructure'](_this2.moduleType);
               _iterator = _createForOfIteratorHelper(_this2.fieldList);
 
               try {
@@ -55211,13 +55211,13 @@ var asyncToGenerator = __webpack_require__("1da1");
               }
 
               _context2.next = 8;
-              return _this2.$store.dispatch('chain/' + _this2.modulePath + '/Query' + _this2.moduleType, {
+              return _this2.$store.dispatch(' + _this2.modulePath + '/Query' + _this2.moduleType, {
                 subscribe: true,
                 id: _this2.typeData['id']
               });
 
             case 8:
-              _this2.typeData = _this2.$store.getters['chain/' + _this2.modulePath + '/get' + _this2.moduleType](_this2.typeData['id']);
+              _this2.typeData = _this2.$store.getters[' + _this2.modulePath + '/get' + _this2.moduleType](_this2.typeData['id']);
 
             case 9:
             case "end":
@@ -55243,7 +55243,7 @@ var asyncToGenerator = __webpack_require__("1da1");
 
                 _this3.typeData['creator'] = _this3.selectedAccount;
                 _context3.next = 4;
-                return _this3.$store.dispatch('chain/' + _this3.modulePath + '/MsgCreate' + _this3.moduleType, {
+                return _this3.$store.dispatch(' + _this3.modulePath + '/MsgCreate' + _this3.moduleType, {
                   value: _objectSpread2({}, _this3.createTypeData)
                 });
 
@@ -55273,7 +55273,7 @@ var asyncToGenerator = __webpack_require__("1da1");
 
                 _this4.typeData['creator'] = _this4.selectedAccount;
                 _context4.next = 4;
-                return _this4.$store.dispatch('chain/' + _this4.modulePath + '/MsgUpdate' + _this4.moduleType, {
+                return _this4.$store.dispatch(' + _this4.modulePath + '/MsgUpdate' + _this4.moduleType, {
                   value: _objectSpread2({}, _this4.updateTypeData)
                 });
 
@@ -55303,7 +55303,7 @@ var asyncToGenerator = __webpack_require__("1da1");
 
                 _this5.typeData['creator'] = _this5.selectedAccount;
                 _context5.next = 4;
-                return _this5.$store.dispatch('chain/' + _this5.modulePath + '/MsgDelete' + _this5.moduleType, {
+                return _this5.$store.dispatch(' + _this5.modulePath + '/MsgDelete' + _this5.moduleType, {
                   value: _objectSpread2({}, _this5.deleteTypeData)
                 });
 
@@ -59057,7 +59057,7 @@ import blockHelpers from '../../helpers/block'
     };
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'blocks'];
+    var module = [ 'common', 'blocks'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -59072,7 +59072,7 @@ import blockHelpers from '../../helpers/block'
   computed: {
     blocks: function blocks() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/blocks/getBlocks'](20);
+        return this.$store.getters[common/blocks/getBlocks'](20);
       } else {
         return [];
       }
@@ -62008,7 +62008,7 @@ var SpWalletCreate = __webpack_require__("a09c");
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'wallet'];
+    var module = [ 'common', 'wallet'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -68115,7 +68115,7 @@ function hash(e) {
     currentAccount: function currentAccount() {
       if (this._depsLoaded) {
         if (this.loggedIn) {
-          return this.$store.getters['chain/common/wallet/address'];
+          return this.$store.getters[common/wallet/address'];
         } else {
           return null;
         }
@@ -68125,21 +68125,21 @@ function hash(e) {
     },
     walletName: function walletName() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/wallet/walletName'];
+        return this.$store.getters[common/wallet/walletName'];
       } else {
         return '';
       }
     },
     loggedIn: function loggedIn() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/wallet/loggedIn'];
+        return this.$store.getters[common/wallet/loggedIn'];
       } else {
         return false;
       }
     },
     lastWallet: function lastWallet() {
       if (this._depsLoaded) {
-        return this.$store.getters['chain/common/wallet/lastWallet'];
+        return this.$store.getters[common/wallet/lastWallet'];
       } else {
         return null;
       }
@@ -68163,7 +68163,7 @@ function hash(e) {
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'wallet'];
+    var module = [ 'common', 'wallet'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -68193,7 +68193,7 @@ function hash(e) {
                 }
 
                 _context.next = 3;
-                return _this4.$store.dispatch('chain/common/wallet/unlockWallet', {
+                return _this4.$store.dispatch(common/wallet/unlockWallet', {
                   name: _this4.walletToUnlock.name,
                   password: _this4.password
                 });
@@ -68232,7 +68232,7 @@ function hash(e) {
 
               case 5:
                 _context2.next = 7;
-                return _this5.$store.dispatch('chain/common/wallet/signOut');
+                return _this5.$store.dispatch(common/wallet/signOut');
 
               case 7:
                 _this5.toUnlock = '';
@@ -69936,10 +69936,10 @@ var src = __webpack_require__("29c9");
     },
     address: function address() {
       if (this._depsLoaded) {
-        var client = this.$store.getters['chain/common/wallet/client'];
+        var client = this.$store.getters[common/wallet/client'];
 
         if (client) {
-          return this.$store.getters['chain/common/wallet/address'];
+          return this.$store.getters[common/wallet/address'];
         } else {
           return false;
         }
@@ -69952,7 +69952,7 @@ var src = __webpack_require__("29c9");
     }
   },
   beforeCreate: function beforeCreate() {
-    var module = ['chain', 'common', 'wallet'];
+    var module = [ 'common', 'wallet'];
 
     for (var i = 1; i <= module.length; i++) {
       var submod = module.slice(0, i);
@@ -69968,7 +69968,7 @@ var src = __webpack_require__("29c9");
     buttonClick: function buttonClick() {
       if (this._depsLoaded) {
         if (this.address) {
-          this.$store.dispatch('chain/common/wallet/signOut');
+          this.$store.dispatch(common/wallet/signOut');
         } else {
           this.mnemonic = '';
           this.dropdown = !this.dropdown;
@@ -69996,7 +69996,7 @@ var src = __webpack_require__("29c9");
 
                 mnemonic = _this.mnemonicClean;
                 _context.next = 5;
-                return _this.$store.dispatch('chain/common/wallet/createWalletWithMnemonic', {
+                return _this.$store.dispatch(common/wallet/createWalletWithMnemonic', {
                   mnemonic: mnemonic
                 });
 

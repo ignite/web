@@ -44,7 +44,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', 'common', 'wallet']
+		const module = [ 'common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {

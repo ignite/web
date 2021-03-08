@@ -101,8 +101,8 @@ export default {
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			if (rootGetters['chain/common/env/client']) {
-				rootGetters['chain/common/env/client'].on('newblock', (data) => {
+			if (rootGetters[common/env/client']) {
+				rootGetters[common/env/client'].on('newblock', (data) => {
 					dispatch('addBlock', data)
 				})
 			}
@@ -110,15 +110,15 @@ export default {
 		async addBlock({ commit, rootGetters }, blockData) {
 			try {
 				const blockDetails = await axios.get(
-					rootGetters['chain/common/env/apiTendermint'] +
+					rootGetters[common/env/apiTendermint'] +
 						'/block?height=' +
 						blockData.data.value.block.header.height
 				)
 				const txDecoded = blockData.data.value.block.data.txs.map(
 					async (tx) => {
 						const dec = await decodeTx(
-							rootGetters['chain/common/env/apiCosmos'],
-							rootGetters['chain/common/env/apiTendermint'],
+							rootGetters[common/env/apiCosmos'],
+							rootGetters[common/env/apiTendermint'],
 							tx
 						)
 						return dec

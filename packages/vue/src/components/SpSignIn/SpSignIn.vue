@@ -76,9 +76,9 @@ export default {
 		},
 		address() {
 			if (this._depsLoaded) {
-				const client = this.$store.getters['chain/common/wallet/client']
+				const client = this.$store.getters[common/wallet/client']
 				if (client) {
-					return this.$store.getters['chain/common/wallet/address']
+					return this.$store.getters[common/wallet/address']
 				} else {
 					return false
 				}
@@ -91,7 +91,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', 'common', 'wallet']
+		const module = [ 'common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -105,7 +105,7 @@ export default {
 		buttonClick() {
 			if (this._depsLoaded) {
 				if (this.address) {
-					this.$store.dispatch('chain/common/wallet/signOut')
+					this.$store.dispatch(common/wallet/signOut')
 				} else {
 					this.mnemonic = ''
 					this.dropdown = !this.dropdown
@@ -117,7 +117,7 @@ export default {
 				if (this.mnemonicIsValid) {
 					const mnemonic = this.mnemonicClean
 					await this.$store.dispatch(
-						'chain/common/wallet/createWalletWithMnemonic',
+						common/wallet/createWalletWithMnemonic',
 						{
 							mnemonic
 						}

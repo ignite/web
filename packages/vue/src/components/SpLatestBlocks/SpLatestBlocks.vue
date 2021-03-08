@@ -35,7 +35,7 @@ export default {
 	computed: {
 		blocks() {
 			if (this._depsLoaded) {
-				return this.$store.getters['chain/common/blocks/getBlocks'](10)
+				return this.$store.getters[common/blocks/getBlocks'](10)
 			} else {
 				return []
 			}
@@ -45,7 +45,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', 'common', 'blocks']
+		const module = [ 'common', 'blocks']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {

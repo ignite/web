@@ -30,10 +30,10 @@ export default {
 	},
 	computed: {
 		wsNode() {
-			return this.$store.getters['chain/common/env/apiWS'] 
+			return this.$store.getters[common/env/apiWS'] 
 		},
 		nodeStatus() {
-			return this.$store.getters['chain/common/env/wsConnected'] 
+			return this.$store.getters[common/env/wsConnected'] 
 		}
 	}
 }

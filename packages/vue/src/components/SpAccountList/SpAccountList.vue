@@ -88,14 +88,14 @@ export default {
 		},
 		currentAccount() {
 			if (this._depsLoaded) {
-				return this.$store.getters['chain/common/wallet/address']
+				return this.$store.getters[common/wallet/address']
 			} else {
 				return null
 			}
 		}
 	},
 	beforeCreate() {
-		const module = ['chain', 'common', 'wallet']
+		const module = [ 'common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -135,17 +135,17 @@ export default {
 		},
 		async useAccount(address) {
 			if (this._depsLoaded) {
-				await this.$store.dispatch('chain/common/wallet/switchAccount', address)
+				await this.$store.dispatch(common/wallet/switchAccount', address)
 				this.$emit('account-selected')
 			}
 		},
 		async createAccount() {
 			if (this._depsLoaded) {
 				if (this.newAccount.nextAvailable) {
-					await this.$store.dispatch('chain/common/wallet/addAccount')
+					await this.$store.dispatch(common/wallet/addAccount')
 				} else {
 					await this.$store.dispatch(
-						'chain/common/wallet/addAccount',
+						common/wallet/addAccount',
 						this.newAccount.pathIncrement
 					)
 				}
