@@ -129,11 +129,11 @@ export default {
 			if (this._depsLoaded) {
 				if (this.typeData['id'] != '') {
 					await this.$store.dispatch(
-						' + this.modulePath + '/Query' + this.moduleType,
+						this.modulePath + '/Query' + this.moduleType,
 						{ subscribe: true, id: this.typeData['id'] }
 					)
 					this.typeData = this.$store.getters[
-						' + this.modulePath + '/get' + this.moduleType
+						this.modulePath + '/get' + this.moduleType
 					](this.typeData['id'])
 				}
 			}
@@ -154,7 +154,7 @@ export default {
 		},
 		selectedAccount() {
 			if (this._depsLoaded) {
-				return this.$store.getters[common/wallet/address']
+				return this.$store.getters['common/wallet/address']
 			} else {
 				return null
 			}
@@ -177,7 +177,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ ...this.modulePath.split('/')]
+		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -190,7 +190,7 @@ export default {
 	async created() {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
-				' + this.modulePath + '/getTypeStructure'
+				this.modulePath + '/getTypeStructure'
 			](this.moduleType)
 			for (let field of this.fieldList) {
 				this.typeData[field.name] = ''
@@ -198,11 +198,11 @@ export default {
 			this.typeData['id'] = this.id
 			if (this.typeData['id'] != '') {
 				await this.$store.dispatch(
-					' + this.modulePath + '/Query' + this.moduleType,
+					this.modulePath + '/Query' + this.moduleType,
 					{ subscribe: true, id: this.typeData['id'] }
 				)
 				this.typeData = this.$store.getters[
-					' + this.modulePath + '/get' + this.moduleType
+					this.modulePath + '/get' + this.moduleType
 				](this.typeData['id'])
 			}
 		}
@@ -212,7 +212,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					' + this.modulePath + '/MsgCreate' + this.moduleType,
+					this.modulePath + '/MsgCreate' + this.moduleType,
 					{
 						value: { ...this.createTypeData }
 					}
@@ -223,7 +223,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					' + this.modulePath + '/MsgUpdate' + this.moduleType,
+					this.modulePath + '/MsgUpdate' + this.moduleType,
 					{
 						value: { ...this.updateTypeData }
 					}
@@ -234,7 +234,7 @@ export default {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
-					' + this.modulePath + '/MsgDelete' + this.moduleType,
+					this.modulePath + '/MsgDelete' + this.moduleType,
 					{
 						value: { ...this.deleteTypeData }
 					}

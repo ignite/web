@@ -59,11 +59,11 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ 'common', 'blocks']
+		const module = ['common', 'blocks']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module `chain.common.blocks` has not been registered!')
+				console.log('Module `common.blocks` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
@@ -72,7 +72,7 @@ export default {
 	computed: {
 		blocks() {
 			if (this._depsLoaded) {
-				return this.$store.getters[common/blocks/getBlocks'](20)
+				return this.$store.getters['common/blocks/getBlocks'](20)
 			} else {
 				return []
 			}

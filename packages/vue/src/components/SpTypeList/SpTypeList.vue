@@ -59,7 +59,7 @@ export default {
 			if (this._depsLoaded) {
 				return (
 					this.$store.getters[
-						' + this.modulePath + '/get' + this.moduleType + 'All'
+						this.modulePath + '/get' + this.moduleType + 'All'
 					]()?.Post ?? []
 				)
 			} else {
@@ -71,7 +71,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ ...this.modulePath.split('/')]
+		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -84,10 +84,10 @@ export default {
 	async created() {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
-				' + this.modulePath + '/getTypeStructure'
+				this.modulePath + '/getTypeStructure'
 			](this.moduleType)
 			await this.$store.dispatch(
-				' + this.modulePath + '/Query' + this.moduleType + 'All',
+				this.modulePath + '/Query' + this.moduleType + 'All',
 				{ subscribe: true }
 			)
 		}

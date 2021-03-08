@@ -81,7 +81,7 @@ export default {
 		balances() {
 			return (
 				this.$store.getters[
-					cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
+					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
 				]({ address: this.bankAddress })?.balances ?? []
 			)
 		},
@@ -90,13 +90,11 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ 'cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1']
+		const module = ['cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log(
-					'Module `chain.cosmos.cosmos-sdk.bank` has not been registered!'
-				)
+				console.log('Module `cosmos.cosmos-sdk.bank` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
@@ -107,7 +105,7 @@ export default {
 			this.bankAddress = this.address
 			if (this.bankAddress != '') {
 				this.$store.dispatch(
-					cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
+					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 					{
 						address: this.address,
 						subscribe: this.refresh
@@ -122,7 +120,7 @@ export default {
 				this.bankAddress = newAddr
 				if (this.bankAddress != '') {
 					this.$store.dispatch(
-						cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
+						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 						{
 							address: this.bankAddress,
 							subscribe: this.refresh
@@ -139,7 +137,7 @@ export default {
 		async balancesUpdate() {
 			if (this._depsLoaded) {
 				await this.$store.dispatch(
-					cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
+					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 					{
 						address: this.bankAddress,
 						subscribe: false

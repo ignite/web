@@ -140,10 +140,10 @@ export default {
 					wallet.prefix
 				)
 				try {
-					await dispatch(common/env/signIn', accountSigner, {
+					await dispatch('common/env/signIn', accountSigner, {
 						root: true
 					})
-					let client = rootGetters[common/env/signingClient']
+					let client = rootGetters['common/env/signingClient']
 					commit('SET_ACTIVE_CLIENT', client)
 					const [account] = await accountSigner.getAccounts()
 					commit('SET_SELECTED_ADDRESS', account.address)
@@ -166,8 +166,8 @@ export default {
 			)
 
 			try {
-				await dispatch(common/env/signIn', accountSigner, { root: true })
-				let client = rootGetters[common/env/signingClient']
+				await dispatch('common/env/signIn', accountSigner, { root: true })
+				let client = rootGetters['common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				const [account] = await accountSigner.getAccounts()
 				commit('SET_SELECTED_ADDRESS', account.address)
@@ -214,8 +214,8 @@ export default {
 			const [firstAccount] = await accountSigner.getAccounts()
 
 			try {
-				await dispatch(common/env/signIn', accountSigner, { root: true })
-				let client = rootGetters[common/env/signingClient']
+				await dispatch('common/env/signIn', accountSigner, { root: true })
+				let client = rootGetters['common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				commit('SET_SELECTED_ADDRESS', firstAccount.address)
 			} catch (e) {
@@ -245,9 +245,9 @@ export default {
 			commit('ADD_WALLET', wallet)
 
 			try {
-				await dispatch(common/env/signIn', accountSigner, { root: true })
+				await dispatch('common/env/signIn', accountSigner, { root: true })
 
-				let client = rootGetters[common/env/signingClient']
+				let client = rootGetters['common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				commit('SET_SELECTED_ADDRESS', firstAccount.address)
 			} catch (e) {
@@ -286,9 +286,9 @@ export default {
 			commit('ADD_WALLET', wallet)
 
 			try {
-				await dispatch(common/env/signIn', accountSigner, { root: true })
+				await dispatch('common/env/signIn', accountSigner, { root: true })
 
-				let client = rootGetters[common/env/signingClient']
+				let client = rootGetters['common/env/signingClient']
 				commit('SET_ACTIVE_CLIENT', client)
 				commit('SET_SELECTED_ADDRESS', firstAccount.address)
 			} catch (e) {

@@ -351,7 +351,7 @@ export default {
 	computed: {
 		walletList() {
 			if (this._depsLoaded) {
-				return this.$store.state.chain.common.wallet.wallets
+				return this.$store.state.common.wallet.wallets
 			} else {
 				return []
 			}
@@ -376,7 +376,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ 'common', 'wallet']
+		const module = ['common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -434,7 +434,7 @@ export default {
 				let reader = new FileReader()
 				reader.readAsText(file)
 				reader.onload = (evt) => {
-					this.$store.dispatch(common/wallet/restoreWallet', {
+					this.$store.dispatch('common/wallet/restoreWallet', {
 						encrypted: evt.target.result,
 						password: this.importWallet.password
 					})
@@ -443,7 +443,7 @@ export default {
 		},
 		async signInWithKey() {
 			if (this._depsLoaded) {
-				await this.$store.dispatch(common/wallet/signInWithPrivateKey', {
+				await this.$store.dispatch('common/wallet/signInWithPrivateKey', {
 					privKey: this.keyWallet.privKey
 				})
 				this.reset()
@@ -452,7 +452,7 @@ export default {
 		},
 		async unlockStoreWallet() {
 			if (this._depsLoaded) {
-				await this.$store.dispatch(common/wallet/unlockWallet', {
+				await this.$store.dispatch('common/wallet/unlockWallet', {
 					name: this.unlockWallet.name,
 					password: this.unlockWallet.password
 				})
@@ -495,14 +495,11 @@ export default {
 		},
 		async createWallet() {
 			if (this._depsLoaded) {
-				await this.$store.dispatch(
-					common/wallet/createWalletWithMnemonic',
-					{
-						name: this.newWallet.name,
-						mnemonic: this.newWallet.mnemonic,
-						password: this.newWallet.password
-					}
-				)
+				await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
+					name: this.newWallet.name,
+					mnemonic: this.newWallet.mnemonic,
+					password: this.newWallet.password
+				})
 				this.reset()
 			}
 		}

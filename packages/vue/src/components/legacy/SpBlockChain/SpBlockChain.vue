@@ -135,11 +135,11 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ 'common', 'env']
+		const module = ['common', 'env']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module `chain.common.env` has not been registered!')
+				console.log('Module `common.env` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
@@ -273,7 +273,7 @@ export default {
 				let i = 1
 				while (i <= 20 && start - i > 0) {
 					const resp = await axios.get(
-						this.$store.getters[common/env/apiTendermint'] +
+						this.$store.getters['common/env/apiTendermint'] +
 							'/block?height=' +
 							(start - i)
 					)

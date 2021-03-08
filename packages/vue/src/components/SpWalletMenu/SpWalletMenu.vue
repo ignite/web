@@ -357,7 +357,7 @@ export default {
 	computed: {
 		walletList() {
 			if (this._depsLoaded) {
-				return this.$store.state.chain.common.wallet.wallets
+				return this.$store.state.common.wallet.wallets
 			} else {
 				return []
 			}
@@ -379,7 +379,7 @@ export default {
 		currentAccount() {
 			if (this._depsLoaded) {
 				if (this.loggedIn) {
-					return this.$store.getters[common/wallet/address']
+					return this.$store.getters['common/wallet/address']
 				} else {
 					return null
 				}
@@ -389,21 +389,21 @@ export default {
 		},
 		walletName() {
 			if (this._depsLoaded) {
-				return this.$store.getters[common/wallet/walletName']
+				return this.$store.getters['common/wallet/walletName']
 			} else {
 				return ''
 			}
 		},
 		loggedIn() {
 			if (this._depsLoaded) {
-				return this.$store.getters[common/wallet/loggedIn']
+				return this.$store.getters['common/wallet/loggedIn']
 			} else {
 				return false
 			}
 		},
 		lastWallet() {
 			if (this._depsLoaded) {
-				return this.$store.getters[common/wallet/lastWallet']
+				return this.$store.getters['common/wallet/lastWallet']
 			} else {
 				return null
 			}
@@ -419,7 +419,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ 'common', 'wallet']
+		const module = ['common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -435,7 +435,7 @@ export default {
 		},
 		async unlockStoreWallet() {
 			if (this._depsLoaded) {
-				await this.$store.dispatch(common/wallet/unlockWallet', {
+				await this.$store.dispatch('common/wallet/unlockWallet', {
 					name: this.walletToUnlock.name,
 					password: this.password
 				})
@@ -450,7 +450,7 @@ export default {
 				this.toUnlock = name
 				this.unlocking = true
 			} else {
-				await this.$store.dispatch(common/wallet/signOut')
+				await this.$store.dispatch('common/wallet/signOut')
 				this.toUnlock = ''
 				this.unlocking = false
 			}

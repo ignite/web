@@ -76,9 +76,9 @@ export default {
 		},
 		address() {
 			if (this._depsLoaded) {
-				const client = this.$store.getters[common/wallet/client']
+				const client = this.$store.getters['common/wallet/client']
 				if (client) {
-					return this.$store.getters[common/wallet/address']
+					return this.$store.getters['common/wallet/address']
 				} else {
 					return false
 				}
@@ -91,11 +91,11 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = [ 'common', 'wallet']
+		const module = ['common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module `chain.common.wallet` has not been registered!')
+				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
@@ -105,7 +105,7 @@ export default {
 		buttonClick() {
 			if (this._depsLoaded) {
 				if (this.address) {
-					this.$store.dispatch(common/wallet/signOut')
+					this.$store.dispatch('common/wallet/signOut')
 				} else {
 					this.mnemonic = ''
 					this.dropdown = !this.dropdown
@@ -116,12 +116,9 @@ export default {
 			if (this._depsLoaded) {
 				if (this.mnemonicIsValid) {
 					const mnemonic = this.mnemonicClean
-					await this.$store.dispatch(
-						common/wallet/createWalletWithMnemonic',
-						{
-							mnemonic
-						}
-					)
+					await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
+						mnemonic
+					})
 				}
 			}
 		},
