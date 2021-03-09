@@ -207,9 +207,11 @@ export default {
 	computed: {
 		balances() {
 			if (this._depsLoaded) {
-				return this.$store.getters[
-					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
-				]({ addr: this.bankAddress })
+				return (
+					this.$store.getters[
+						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
+					]({ address: this.bankAddress })?.balances ?? []
+				)
 			} else {
 				return []
 			}
@@ -248,18 +250,18 @@ export default {
 		async send() {
 			if (this._depsLoaded) {
 				if (this.valid.to_address && this.valid.amount && !this.inFlight) {
-					const payload = {
+					const value = {
 						amount: this.amount,
 						denom: this.denom,
-						to_address: this.to_address,
-						from_address: this.address,
+						toAddress: this.to_address,
+						fromAddress: this.address,
 						memo: this.memo
 					}
 					this.txResult = ''
 					this.inFlight = true
 					this.txResult = await this.$store.dispatch(
 						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/sendMsgSend',
-						payload
+						{ value }
 					)
 					if (this.txResult && !this.txResult.code) {
 						this.amount = ''
