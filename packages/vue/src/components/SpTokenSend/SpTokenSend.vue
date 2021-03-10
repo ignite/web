@@ -176,10 +176,12 @@ export default {
 		this.bankAddress = this.address
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
+
 				this.$store.dispatch(
 					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 					{
 						address: this.address,
+						all: true,
 						subscribe: this.refresh
 					}
 				)
@@ -192,6 +194,8 @@ export default {
 				if (newAddr != oldAddr) {
 					this.bankAddress = newAddr
 					if (this.bankAddress != '') {
+
+						this.$store.dispatch('common/transfers/QueryTransactions', {address:this.bankAddress }).then(data=> (console.log(data)))
 						this.$store.dispatch(
 							'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 							{
@@ -251,11 +255,9 @@ export default {
 			if (this._depsLoaded) {
 				if (this.valid.to_address && this.valid.amount && !this.inFlight) {
 					const value = {
-						amount: this.amount,
-						denom: this.denom,
+						amount: [{ amount: this.amount, denom: this.denom }],
 						toAddress: this.to_address,
-						fromAddress: this.address,
-						memo: this.memo
+						fromAddress: this.address
 					}
 					this.txResult = ''
 					this.inFlight = true
@@ -273,6 +275,7 @@ export default {
 						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 						{
 							address: this.address,
+							all: true,
 							subscribe: false
 						}
 					)

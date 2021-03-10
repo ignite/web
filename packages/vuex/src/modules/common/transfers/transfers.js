@@ -1,3 +1,4 @@
+import axios from 'axios'
 import SpVuexError from '../../../errors/SpVuexError';
 
 const getDefaultState = () => {
@@ -16,6 +17,9 @@ export default {
 			Object.assign(state, getDefaultState());
 		},
 		STORE_TRANSACTIONS(state, { address, page, txs,total }) {
+			if(!state.Transactions[address]) {
+				state.Transactions[address]={}
+			}
 			state.Transactions[address][page] = txs;
 			state.Transactions[address]['total']=total
 		},
@@ -28,8 +32,8 @@ export default {
 	},
 	getters: {
 		getTransactions: (state) => (address,page) => {
-			let res = { total: state.Transactions[address][total] }
-			res[page]=state.Transactions[page];
+			let res = { total: state.Transactions[address]['total'] }
+			res[page]=state.Transactions[address][page];
 			return res;
 		}
 	},
@@ -51,20 +55,23 @@ export default {
 		async StoreUpdate({ state, dispatch }) {
 			state._Subscriptions.forEach((subscription) => {
 				dispatch(subscription.action, subscription.payload);
-			});
+			}); 
 		},
-		async QueryTransactions({ commit,  state }, { subscribe = false, address, page = 1 }) {
+		async QueryTransactions({ commit, rootGetters,getters,  state }, { subscribe = false, address, page = 1 }) {
 			try {
-				let received = await axios.get(apiTendermint + '/tx_search?query="transfer.recipient=%27'+address+'%27"&prove=false&per_page=10&page='+page)
-				let sent = await axios.get(apiTendermint + '/tx_search?query="transfer.sender=%27'+address+'%27"&prove=false&per_page=10&page='+page)
+				let received = (await axios.get(
+					rootGetters['common/env/apiTendermint'] + '/tx_search?query="transfer.recipient=%27'+address+'%27"&prove=false&per_page=10&page='+page)).data.result
+					
+				let sent = (await axios.get(
+					rootGetters['common/env/apiTendermint'] + '/tx_search?query="transfer.sender=%27'+address+'%27"&prove=false&per_page=10&page='+page)).data.result
+					
 				let total = Number(received.total_count)+Number(sent.total_count)
 				let txs=[...received.txs, ...sent.txs].sort((a,b) => { return a.height==b.height?b.index-a.index:b.height-a.height })
 				commit('STORE_TRANSACTIONS', { address, page, txs,total });
 				if (subscribe)
 					commit('SUBSCRIBE', { action: 'QueryTransactions', payload: { address, page } });
-				let res = { total: state.Transactions[address][total] }
-				res[page]=state.Transactions[page];
-				return res;
+				
+				return getters['getTransactions'](address,page)
 			}
 			catch (e) {
 				console.error(new SpVuexError('Common:Transfers:QueryTransactions', 'RPC Node Unavailable. Could not perform query.'));
