@@ -31,11 +31,10 @@ export default {
 		}
 	},
 	getters: {
-		getTransactions: (state) => (address,page) => {
-			let res = { total: state.Transactions[address]['total'] }
-			res[page]=state.Transactions[address][page];
-			return res;
-		}
+		getTransactions: (state) => (address) => {
+			
+			return state.Transactions[address]?state.Transactions[address]:null
+		}		
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
@@ -57,7 +56,7 @@ export default {
 				dispatch(subscription.action, subscription.payload);
 			}); 
 		},
-		async QueryTransactions({ commit, rootGetters,getters,  state }, { subscribe = false, address, page = 1 }) {
+		async QueryTransactions({ commit, rootGetters,getters }, { subscribe = false, address, page = 1 }) {
 			try {
 				let received = (await axios.get(
 					rootGetters['common/env/apiTendermint'] + '/tx_search?query="transfer.recipient=%27'+address+'%27"&prove=false&per_page=10&page='+page)).data.result
