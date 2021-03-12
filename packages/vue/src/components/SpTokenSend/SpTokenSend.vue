@@ -1,5 +1,45 @@
 <template>
 	<div v-if="depsLoaded">
+		<div class="sp-token-send">
+			<div class="sp-token-send__header sp-component-title">
+				<h3>Send Tokens</h3>
+				<span>| Send transaction with one or multiple tokens.</span>
+			</div>
+			<div class="sp-token-send__main sp-box">
+				<form class="sp-token-send__main__form">
+					<div class="sp-token-send__main__rcpt__header sp-box-header">
+						SEND TO
+					</div>
+					<div class="sp-token-send__main__rcpt__wrapper">
+						<div class="sp-token-send__main__rcpt__icon">
+							<span class="sp-icon sp-icon-UpArrow" />
+						</div>
+						<div class="sp-token-send__main__rcpt__input sp-form-group">
+							<input
+								class="sp-input"
+								name="rcpt"
+								v-model="transfer.recipient"
+							/>
+						</div>
+					</div>
+					<div class="sp-token-send__main__amt__header sp-box-header">
+						AMOUNT
+					</div>
+					<div
+						class="sp-token-send__main__amt__wrapper"
+						v-if="balances.length > 0"
+					>
+						<SpAmountSelect
+							v-for="(amount, index) in transfer.amount"
+							v-model="transfer.amount[index]"
+							:available="balances"
+							v-bind:key="'amount' + index"
+							v-on:self-remove="transfer.amount.splice(index, 1)"
+						/>
+					</div>
+				</form>
+			</div>
+		</div>
 		<div v-if="balances && balances.length > 0" class="container">
 			<SpH3>Send tokens</SpH3>
 			<div class="form">
@@ -137,6 +177,7 @@
 import SpH3 from '../SpH3'
 import SpIconCircle2 from '../SpIconCircle2'
 import SpButton from '../SpButton'
+import SpAmountSelect from '../SpAmountSelect'
 import { Bech32 } from '@cosmjs/encoding'
 
 export default {
@@ -144,7 +185,8 @@ export default {
 	components: {
 		SpH3,
 		SpIconCircle2,
-		SpButton
+		SpButton,
+		SpAmountSelect
 	},
 	category: 'wallet',
 	props: {
@@ -152,6 +194,13 @@ export default {
 	},
 	data() {
 		return {
+			transfer: {
+				recipient: '',
+				amount: [
+					{ amount: 2, denom: 'token' },
+					{ amount: 3, denom: 'stake' }
+				]
+			},
 			amount: '',
 			to_address: '',
 			memo: '',
@@ -176,7 +225,6 @@ export default {
 		this.bankAddress = this.address
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
-
 				this.$store.dispatch(
 					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 					{
@@ -194,8 +242,6 @@ export default {
 				if (newAddr != oldAddr) {
 					this.bankAddress = newAddr
 					if (this.bankAddress != '') {
-
-						this.$store.dispatch('common/transfers/QueryTransactions', {address:this.bankAddress }).then(data=> (console.log(data)))
 						this.$store.dispatch(
 							'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
 							{

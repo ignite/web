@@ -59,6 +59,12 @@
     border-color: rgba(17, 17, 17, 1);
     z-index: 12;
   }
+  &.sp-input-large {
+    font-size:2.8rem;
+    font-weight: 700;
+    line-height: 3.4rem;
+    padding: 0.8rem 1.5rem;
+  }
   display: inline-block;
 }
 .sp-form-group {
@@ -78,4 +84,12 @@
       border-bottom-right-radius: 0.8rem;
     }
   }
+}
+.sp-denom-marker {
+  display:inline-block;
+  height:1.2rem;
+  width:1.2rem;
+  border-radius:0.4rem;
+  vertical-align: middle;
+  margin-right:0.5rem;
 }
