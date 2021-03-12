@@ -1,43 +1,100 @@
 <template>
 	<div v-if="depsLoaded">
-		<div class="sp-token-send">
-			<div class="sp-token-send__header sp-component-title">
-				<h3>Send Tokens</h3>
-				<span>| Send transaction with one or multiple tokens.</span>
-			</div>
-			<div class="sp-token-send__main sp-box">
-				<form class="sp-token-send__main__form">
-					<div class="sp-token-send__main__rcpt__header sp-box-header">
-						SEND TO
-					</div>
-					<div class="sp-token-send__main__rcpt__wrapper">
-						<div class="sp-token-send__main__rcpt__icon">
-							<span class="sp-icon sp-icon-UpArrow" />
+		<div class="sp-token-send__holder">
+			<div class="sp-token-send">
+				<div class="sp-token-send__header sp-component-title">
+					<h3>Send Tokens</h3>
+					<span>| Send transaction with one or multiple tokens.</span>
+				</div>
+				<div class="sp-token-send__main sp-box">
+					<form class="sp-token-send__main__form">
+						<div class="sp-token-send__main__rcpt__header sp-box-header">
+							SEND TO
 						</div>
-						<div class="sp-token-send__main__rcpt__input sp-form-group">
-							<input
-								class="sp-input"
-								name="rcpt"
-								v-model="transfer.recipient"
+						<div class="sp-token-send__main__rcpt__wrapper">
+							<div class="sp-token-send__main__rcpt__icon">
+								<span class="sp-icon sp-icon-UpArrow" />
+							</div>
+							<div class="sp-token-send__main__rcpt__input sp-form-group">
+								<input
+									class="sp-input"
+									name="rcpt"
+									v-model="transfer.recipient"
+								/>
+							</div>
+						</div>
+						<div class="sp-token-send__main__amt__header sp-box-header">
+							AMOUNT
+						</div>
+						<div
+							class="sp-token-send__main__amt__wrapper"
+							v-if="balances.length > 0"
+						>
+							<SpAmountSelect
+								v-for="(amount, index) in transfer.amount"
+								v-model="transfer.amount[index]"
+								:available="balances"
+								v-bind:key="'amount' + index"
+								v-on:self-remove="transfer.amount.splice(index, 1)"
 							/>
+							<div
+								class="sp-token-send__main__amt__add"
+								v-on:click="
+									transfer.amount.push({ amount: 0, denom: balances[0].denom })
+								"
+							>
+								+ Add Token
+							</div>
 						</div>
-					</div>
-					<div class="sp-token-send__main__amt__header sp-box-header">
-						AMOUNT
-					</div>
-					<div
-						class="sp-token-send__main__amt__wrapper"
-						v-if="balances.length > 0"
-					>
-						<SpAmountSelect
-							v-for="(amount, index) in transfer.amount"
-							v-model="transfer.amount[index]"
-							:available="balances"
-							v-bind:key="'amount' + index"
-							v-on:self-remove="transfer.amount.splice(index, 1)"
-						/>
-					</div>
-				</form>
+						<div class="sp-dashed-line"></div>
+						<div class="sp-token-send__main__footer">
+							<div class="sp-token-send__main__fees__header sp-box-header">
+								FEES <span class="sp-circle">?</span>
+							</div>
+							<div class="sp-token-send__main__fees__content">
+								<div v-if="feesOpen">
+									<div
+										class="sp-token-send__main__amt__wrapper"
+										v-if="balances.length > 0"
+									>
+										<SpAmountSelect
+											v-for="(amount, index) in transfer.fees"
+											v-model="transfer.fees[index]"
+											:available="balances"
+											v-bind:key="'fee' + index"
+											v-on:self-remove="transfer.fees.splice(index, 1)"
+										/>
+										<div
+											class="sp-token-send__main__amt__add"
+											v-on:click="
+												transfer.fees.push({
+													amount: 0,
+													denom: balances[0].denom
+												})
+											"
+										>
+											+ Add Fee Token
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="sp-token-send__main__btns">
+								<div
+									class="sp-token-send__main__btns__reset"
+									v-on:click="resetTransaction"
+								>
+									Reset
+								</div>
+								<SpButton v-on:click="sendTransaction" type="primary"
+									>Send Transaction</SpButton
+								>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="sp-assets__wrapper">
+				<SpAssets :balances="balances" />
 			</div>
 		</div>
 		<div v-if="balances && balances.length > 0" class="container">
@@ -177,6 +234,7 @@
 import SpH3 from '../SpH3'
 import SpIconCircle2 from '../SpIconCircle2'
 import SpButton from '../SpButton'
+import SpAssets from '../SpAssets'
 import SpAmountSelect from '../SpAmountSelect'
 import { Bech32 } from '@cosmjs/encoding'
 
@@ -186,7 +244,8 @@ export default {
 		SpH3,
 		SpIconCircle2,
 		SpButton,
-		SpAmountSelect
+		SpAmountSelect,
+		SpAssets
 	},
 	category: 'wallet',
 	props: {
@@ -196,11 +255,11 @@ export default {
 		return {
 			transfer: {
 				recipient: '',
-				amount: [
-					{ amount: 2, denom: 'token' },
-					{ amount: 3, denom: 'stake' }
-				]
+				amount: [],
+				memo: '',
+				fees: []
 			},
+			feesOpen: false,
 			amount: '',
 			to_address: '',
 			memo: '',
@@ -237,6 +296,12 @@ export default {
 		}
 	},
 	watch: {
+		balances: function (newBal, oldBal) {
+			if (newBal != oldBal && newBal[0].denom) {
+				this.transfer.amount = [{ amount: 0, denom: newBal[0].denom }]
+				this.transfer.fees = [{ amount: 0, denom: newBal[0].denom }]
+			}
+		},
 		address: function (newAddr, oldAddr) {
 			if (this._depsLoaded) {
 				if (newAddr != oldAddr) {
@@ -293,6 +358,12 @@ export default {
 		}
 	},
 	methods: {
+		resetTransaction() {
+			this.transfer.amount = [{ amount: 0, denom: this.balances[0].denom }]
+			this.transfer.recipient = ''
+			this.transfer.memo = ''
+			this.transfer.fees = [{ amount: 0, denom: this.balances[0].denom }]
+		},
 		denomChange() {
 			const inBounds = this.denomIndex < this.denoms.length - 1
 			this.denomIndex = inBounds ? this.denomIndex + 1 : 0

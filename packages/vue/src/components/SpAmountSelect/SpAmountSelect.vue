@@ -5,9 +5,20 @@
 			class="sp-form-group"
 			:class="{ 'sp-amount-select__overlay__open': modalOpen }"
 		>
-			<div class="sp-amount-select__denom">
+			<div class="sp-amount-select__denom" :class="{ 'sp-focused': focused }">
 				<div class="sp-amount-select__denom__selected" v-on:click="toggleModal">
 					<div class="sp-amount-select__denom__name">
+						<div
+							class="sp-amount-select__denom__balance"
+							:class="{
+								'sp-amount-select__denom__balance__fail':
+									fulldenom.amount - amount < 0
+							}"
+						>
+							<strong>Available</strong> {{ fulldenom.amount - amount }}/{{
+								fulldenom.amount
+							}}
+						</div>
 						<div
 							class="sp-denom-marker"
 							:style="'background: #' + fulldenom.color"
@@ -66,7 +77,14 @@
 					</div>
 				</div>
 			</div>
-			<input class="sp-input sp-input-large" name="rcpt" v-model="amount" />
+			<input
+				class="sp-input sp-input-large"
+				:class="{ 'sp-error': fulldenom.amount - amount < 0 }"
+				name="rcpt"
+				v-model="amount"
+				v-on:focus="focused = true"
+				v-on:blur="focused = false"
+			/>
 		</div>
 	</div>
 </template>
@@ -77,6 +95,7 @@ export default {
 		return {
 			amount: 0,
 			denom: null,
+			focused: false,
 			modalOpen: false,
 			searchTerm: ''
 		}

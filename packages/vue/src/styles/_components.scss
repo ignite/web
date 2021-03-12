@@ -579,151 +579,242 @@
   padding: 1.2rem;
   font-size: 1.4rem;
   .sp-box-header {
-    opacity: 0.6;
+    opacity: 0.4;
     font-weight: 600;
     font-size: 1.3rem;
+    display: flex;
+    line-height: 2.2rem;
   }
 }
-.sp-token-send {
-  .sp-token-send__main__form {
-    padding: 1.2rem;
-    .sp-token-send__main__rcpt__wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .sp-token-send__main__rcpt__icon {
-        width: 4.4rem;
-        height: 4.4rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 1.2rem;
-        font-size: 1.2rem;
-        background: rgba(10, 166, 73, 0.15);
-        color: rgba(10, 166, 73, 1);
-      }
-      .sp-token-send__main__rcpt__input {
-        .sp-input {
-          width: 100%;
+.sp-token-send__holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
+  .sp-assets__wrapper {
+    flex-basis: 38%;
+    width: 38%;
+    .sp-assets {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+      .sp-assets__main {
+        padding: 1.6rem 0.6rem;
+				font-weight:600;
+				height:100%;
+        .sp-assets__main__header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 1.3rem;
+          padding: 0rem 1rem;
+          opacity: 0.4;
+        }
+        .sp-assets__main__item {
+          display: flex;
+          justify-content: space-between;
+          cursor: pointer;
+          align-items: center;
+          padding: 0rem 1rem;
+          height: 3.3rem;
+          margin: 0.8rem 0rem;
+          border-radius: 0.8rem;
+					
+					.sp-assets__main__denom__name {
+						display: flex;
+						align-items: center;
+					}
         }
       }
     }
-    .sp-amount-select {
-			font-weight:600;
-      .sp-form-group {
-        position: relative;
-        .sp-input {
-          &:last-child {
-            top: 0;
-            border-top-left-radius: 0.8rem;
-            border-top-right-radius: 0.8rem;
-            border-bottom-left-radius: 0.8rem;
-            border-bottom-right-radius: 0.8rem;
+  }
+  .sp-token-send {
+    flex-basis: 62%;
+    width: 62%;
+    padding-right: 1.6rem;
+    .sp-token-send__main__form {
+      padding: 0.4rem;
+      .sp-token-send__main__rcpt__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .sp-token-send__main__rcpt__icon {
+          width: 4.4rem;
+          height: 4.4rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 1.2rem;
+          font-size: 1.2rem;
+          margin-right: 1rem;
+          background: rgba(10, 166, 73, 0.15);
+          color: rgba(10, 166, 73, 1);
+        }
+        .sp-token-send__main__rcpt__input {
+          flex-grow: 1;
+          .sp-input {
+            width: 100%;
           }
         }
-
-        .sp-amount-select__denom {
-          position: absolute;
-          z-index: 1;
-          right: 0;
-          display: flex;
-					flex-direction: column;
-					z-index: 100;
-					justify-content: center;
-					.sp-amount-select__denom__name {
-						display: flex;
-						align-items: center;
-						margin-right: 0.5rem;
-					}
-					.sp-amount-select__denom__selected {						
-						display: flex;
-						align-items: center;
-						padding-right: 2rem;
-            border: 0.2rem solid transparent;
-						height: 5.4rem;
-						.sp-amount-select__denom__controls {
-							display: flex;
-							align-items: center;
-							.sp-amount-select__denom__remove {
-								color: rgba(242,55,55,1);
-								background: rgba(242,55,55,0.1);
-								padding: 0.6rem 1.2rem;
-								text-align:center;
-								border-radius:0.8rem;
-								margin-right: 1.6rem;
-								cursor: pointer;
-								font-weight:700;
-								font-size:1.4rem;
-							}
-						}
-					}
-					.sp-amount-select__denom__modal {
-						background:white;
-						border:0.2rem solid white;
-						box-shadow: 0rem 0.8px 1.6rem -0.3rem rgba(140, 148, 159, 0.1);
-						border-radius:0.8rem;
-						padding:0rem 1rem;
-						margin-top:0.7rem;
-						.sp-amount-select__denom__modal__header {
-							display:flex;
-							justify-content: space-between;
-							align-items:center;
-							font-size:1.3rem;
-              padding:0rem 1rem;
-							opacity:0.4;
-						}
-						.sp-amount-select__denom__modal__item {
-							display:flex;
-							justify-content:space-between;
-              cursor:pointer;
-							align-items:center;
-              padding:0rem 1rem;
-							height:3.3rem; 
-              margin: 0.8rem 0rem;
-              border-radius: 0.8rem;
-              &.sp-amount-select__denom__modal__item__selected {                
-                background: rgba(17, 17, 17, 0.04);
-              }
-						}
-					}
-        }
-        &.sp-amount-select__overlay__open {
-          z-index: 101;
+      }
+      .sp-amount-select {
+        font-weight: 600;
+        .sp-form-group {
+          position: relative;
+          .sp-input {
+            &:last-child {
+              top: 0;
+              border-top-left-radius: 0.8rem;
+              border-top-right-radius: 0.8rem;
+              border-bottom-left-radius: 0.8rem;
+              border-bottom-right-radius: 0.8rem;
+            }
+          }
 
           .sp-amount-select__denom {
-            width: 100%;
+            position: absolute;
+            z-index: 1;
             right: 0;
-            left: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            justify-content: center;
+            .sp-amount-select__denom__balance {
+              opacity: 0.4;
+              margin-right: 1rem;
+              display: none;
+              &.sp-amount-select__denom__balance__fail {
+                color: red;
+              }
+            }
+            &.sp-focused {
+              .sp-amount-select__denom__balance {
+                display: inline;
+              }
+            }
+            .sp-amount-select__denom__name {
+              display: flex;
+              align-items: center;
+              margin-right: 0.5rem;
+            }
+            .sp-amount-select__denom__selected {
+              display: flex;
+              align-items: center;
+              padding-right: 2rem;
+              border: 0.2rem solid transparent;
+              height: 5.4rem;
+              .sp-amount-select__denom__controls {
+                display: flex;
+                align-items: center;
+                .sp-amount-select__denom__remove {
+                  color: rgba(242, 55, 55, 1);
+                  background: rgba(242, 55, 55, 0.1);
+                  padding: 0.6rem 1.2rem;
+                  text-align: center;
+                  border-radius: 0.8rem;
+                  margin-right: 1.6rem;
+                  cursor: pointer;
+                  font-weight: 700;
+                  font-size: 1.4rem;
+                }
+              }
+            }
+            .sp-amount-select__denom__modal {
+              background: white;
+              border: 0.2rem solid white;
+              box-shadow: 0rem 0.8px 1.6rem -0.3rem rgba(140, 148, 159, 0.1);
+              border-radius: 0.8rem;
+              padding: 0rem 1rem;
+              margin-top: 0.7rem;
+              .sp-amount-select__denom__modal__header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 1.3rem;
+                padding: 0rem 1rem;
+                opacity: 0.4;
+              }
+              .sp-amount-select__denom__modal__item {
+                display: flex;
+                justify-content: space-between;
+                cursor: pointer;
+                align-items: center;
+                padding: 0rem 1rem;
+                height: 3.3rem;
+                margin: 0.8rem 0rem;
+                border-radius: 0.8rem;
+                &.sp-amount-select__denom__modal__item__selected {
+                  background: rgba(17, 17, 17, 0.04);
+                }
+              }
+            }
+          }
+          &.sp-amount-select__overlay__open {
+            z-index: 101;
 
-						.sp-amount-select__denom__selected {
-							line-height:2rem;
-							border-radius:0.8rem;
-							border: 0.2rem solid white;
-							box-shadow: 0rem 0.8px 1.6rem -0.3rem rgba(140, 148, 159, 0.1);
-							padding-left:2rem;
-							padding-right: 2rem;
-							background: white;
-							width:100%;
-							justify-content:space-between; 
-						}
+            .sp-amount-select__denom {
+              width: 100%;
+              right: 0;
+              left: 0;
+
+              .sp-amount-select__denom__balance {
+                display: none !important;
+              }
+              .sp-amount-select__denom__selected {
+                line-height: 2rem;
+                border-radius: 0.8rem;
+                border: 0.2rem solid white;
+                box-shadow: 0rem 0.8px 1.6rem -0.3rem rgba(140, 148, 159, 0.1);
+                padding-left: 2rem;
+                padding-right: 2rem;
+                background: white;
+                width: 100%;
+                justify-content: space-between;
+              }
+            }
           }
         }
+        .sp-amount-select__overlay {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(17, 17, 17, 0.1);
+          display: block;
+          z-index: 100;
+        }
       }
-      .sp-amount-select__overlay {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(17, 17, 17, 0.1);
-        display: block;
-        z-index: 100;
+      .sp-token-send__main__amt__add {
+        font-weight: 600;
+        font-size: 1.4rem;
+        opacity: 0.4;
       }
+			.sp-token-send__main__footer {
+				display:flex;
+				justify-content: space-between;
+				align-items: center;
+				.sp-token-send__main__fees__content {
+					opacity:1;
+				}
+				.sp-token-send__main__btns{
+					display:flex;
+					align-items: center;
+					justify-content: flex-end;
+					.sp-token-send__main__btns__reset {
+						opacity: 0.4;
+						font-weight:700;
+						cursor:pointer;
+						margin-right:2rem;
+					}
+				}
+			}
     }
   }
 }
 .sp-transfer-list {
   .sp-transfer-list__table {
+    width: 100%;
     .sp-transfer-list__status {
       text-align: left;
 

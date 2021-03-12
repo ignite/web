@@ -33,8 +33,23 @@
   color: #111111;
 }
 .sp-line {
-  background: rgba(17, 17, 17, 0.15);
-  height:0.1rem;
+  border-bottom: 0.2rem solid rgba(17, 17, 17, 0.15);
+  margin: 1.5rem 0rem;
+}
+.sp-dashed-line {
+  border-bottom: 0.2rem dashed rgba(17, 17, 17, 0.15);
+  margin: 1.5rem 0rem;
+}
+.sp-circle {
+  display:inline-block;
+  width:2.2rem;
+  height:2.2rem;
+  background: rgba(17,17,17,0.05);
+  border-radius: 1.1rem;
+  margin-left: 1rem;
+  line-height:2.2rem;
+  vertical-align:middle;
+  text-align:center;
 }
 .sp-input {
   background: white;
