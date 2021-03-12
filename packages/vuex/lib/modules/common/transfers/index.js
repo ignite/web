@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = init;
 
-var _transfers_codegen = _interopRequireDefault(require("./transfers_codegen.js"));
+var _transfers = _interopRequireDefault(require("./transfers.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -16,7 +16,7 @@ function init(store) {
     });
   }
 
-  store.registerModule(['common', 'transfers'], _transfers_codegen["default"]);
+  store.registerModule(['common', 'transfers'], _transfers["default"]);
   store.subscribe(function (mutation) {
     if (mutation.type == 'common/env/INITIALIZE_WS_COMPLETE') {
       store.dispatch('common/transfers/init', null, {

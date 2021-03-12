@@ -1,15 +1,207 @@
 0 silly argv {
-0 silly argv   _: [ 'add' ],
-0 silly argv   dev: true,
-0 silly argv   D: true,
-0 silly argv   scope: '@starport/vue',
-0 silly argv   globs: [],
+0 silly argv   _: [ 'bootstrap' ],
 0 silly argv   lernaVersion: '3.20.2',
-0 silly argv   '$0': 'C:\\Users\\sagge\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
-0 silly argv   pkg: 'vue--uuid'
+0 silly argv   '$0': 'C:\\Users\\sagge\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js'
 0 silly argv }
 1 notice cli v3.20.2
-2 verbose rootPath L:\Projects\tmmonorepo
+2 verbose rootPath L:\Projects\vue
 3 info versioning independent
-4 error Error: 404 Not Found - GET https://registry.npmjs.org/vue--uuid - Not found
-4 error     at C:\Users\sagge\AppData\Roaming\npm\node_modules\lerna\node_modules\@evocateur\npm-registry-fetch\check-response.js:104:15
+4 silly npmConfig {
+4 silly npmConfig   registry: undefined,
+4 silly npmConfig   npmClient: 'npm',
+4 silly npmConfig   npmClientArgs: [],
+4 silly npmConfig   mutex: undefined
+4 silly npmConfig }
+5 info Bootstrapping 3 packages
+6 verbose lifecycle preinstall
+7 silly lifecycle No script for "preinstall" in "@starport/client-js", continuing
+8 silly lifecycle No script for "preinstall" in "@starport/vue", continuing
+9 silly lifecycle No script for "preinstall" in "@starport/vuex", continuing
+10 silly hasDependencyInstalled @starport/client-js @babel/cli
+11 silly hasDependencyInstalled @starport/vuex @babel/cli
+12 silly hasDependencyInstalled @starport/client-js @babel/core
+13 silly hasDependencyInstalled @starport/vue @babel/core
+14 silly hasDependencyInstalled @starport/vuex @babel/core
+15 silly hasDependencyInstalled @starport/client-js @babel/plugin-proposal-class-properties
+16 silly hasDependencyInstalled @starport/client-js @babel/preset-env
+17 silly hasDependencyInstalled @starport/vuex @babel/preset-env
+18 silly hasDependencyInstalled @starport/client-js @babel/preset-typescript
+19 silly hasDependencyInstalled @starport/client-js @cosmjs/proto-signing
+20 silly hasDependencyInstalled @starport/client-js @types/axios
+21 silly hasDependencyInstalled @starport/client-js @types/node
+22 silly hasDependencyInstalled @starport/client-js @types/reconnectingwebsocket
+23 silly hasDependencyInstalled @starport/client-js @typescript-eslint/eslint-plugin
+24 silly hasDependencyInstalled @starport/client-js @typescript-eslint/parser
+25 silly hasDependencyInstalled @starport/client-js babel-loader
+26 silly hasDependencyInstalled @starport/client-js eslint
+27 silly hasDependencyInstalled @starport/vue eslint
+28 silly hasDependencyInstalled @starport/client-js eslint-config-prettier
+29 silly hasDependencyInstalled @starport/client-js eslint-plugin-prettier
+30 silly hasDependencyInstalled @starport/vue eslint-plugin-prettier
+31 silly hasDependencyInstalled @starport/client-js prettier
+32 silly hasDependencyInstalled @starport/vue prettier
+33 silly hasDependencyInstalled @starport/client-js typescript
+34 silly hasDependencyInstalled @starport/client-js @cosmjs/stargate
+35 silly hasDependencyInstalled @starport/client-js axios
+36 silly hasDependencyInstalled @starport/vuex axios
+37 silly hasDependencyInstalled @starport/client-js reconnecting-websocket
+38 silly hasDependencyInstalled @starport/vue @babel/node
+39 silly hasDependencyInstalled @starport/vue @cosmjs/encoding
+40 silly hasDependencyInstalled @starport/vue @vue/cli-plugin-babel
+41 silly hasDependencyInstalled @starport/vue @vue/cli-plugin-eslint
+42 silly hasDependencyInstalled @starport/vue @vue/cli-plugin-vuex
+43 silly hasDependencyInstalled @starport/vue @vue/cli-service
+44 silly hasDependencyInstalled @starport/vue @vue/compiler-sfc
+45 silly hasDependencyInstalled @starport/vue @vue/eslint-config-prettier
+46 silly hasDependencyInstalled @starport/vue babel-eslint
+47 silly hasDependencyInstalled @starport/vue bip39
+48 silly hasDependencyInstalled @starport/vue eslint-plugin-vue
+49 silly hasDependencyInstalled @starport/vue moment
+50 silly hasDependencyInstalled @starport/vue node-sass
+51 silly hasDependencyInstalled @starport/vue sass-loader
+52 silly hasDependencyInstalled @starport/vue vue
+53 silly hasDependencyInstalled @starport/vue vue-uuid
+54 silly hasDependencyInstalled @starport/vue webpack-bundle-analyzer
+55 silly hasDependencyInstalled @starport/vue crypto-js
+56 silly hasDependencyInstalled @starport/vuex crypto-js
+57 silly hasDependencyInstalled @starport/vue dayjs
+58 silly hasDependencyInstalled @starport/vue file-saver
+59 silly hasDependencyInstalled @starport/vue gradient-avatar
+60 silly hasDependencyInstalled @starport/vuex bs58
+61 silly hasDependencyInstalled @starport/vuex js-sha256
+62 silly root dependencies {}
+63 silly leaf dependencies {}
+64 info Installing external dependencies
+65 verbose actions 2 actions, concurrency 8
+66 silly npmInstallDependencies @starport/vuex [
+66 silly npmInstallDependencies   '@babel/cli@^7.13.10',
+66 silly npmInstallDependencies   '@babel/core@^7.13.10',
+66 silly npmInstallDependencies   '@babel/preset-env@^7.13.10',
+66 silly npmInstallDependencies   'axios@^0.21.1',
+66 silly npmInstallDependencies   'crypto-js@^4.0.0',
+66 silly npmInstallDependencies   'bs58@^4.0.1',
+66 silly npmInstallDependencies   'js-sha256@^0.9.0'
+66 silly npmInstallDependencies ]
+67 silly npmInstallDependencies backup L:\Projects\vue\packages\vuex\package.json
+68 silly npmInstallDependencies @starport/vue [
+68 silly npmInstallDependencies   '@babel/core@^7.13.8',
+68 silly npmInstallDependencies   'eslint@^7.21.0',
+68 silly npmInstallDependencies   'eslint-plugin-prettier@^3.3.1',
+68 silly npmInstallDependencies   'prettier@^2.2.1',
+68 silly npmInstallDependencies   '@babel/node@^7.13.0',
+68 silly npmInstallDependencies   '@cosmjs/encoding@^0.23.2',
+68 silly npmInstallDependencies   '@vue/cli-plugin-babel@^4.5.11',
+68 silly npmInstallDependencies   '@vue/cli-plugin-eslint@^4.5.11',
+68 silly npmInstallDependencies   '@vue/cli-plugin-vuex@^4.5.11',
+68 silly npmInstallDependencies   '@vue/cli-service@^4.5.11',
+68 silly npmInstallDependencies   '@vue/compiler-sfc@^3.0.7',
+68 silly npmInstallDependencies   '@vue/eslint-config-prettier@^6.0.0',
+68 silly npmInstallDependencies   'babel-eslint@^10.1.0',
+68 silly npmInstallDependencies   'bip39@^3.0.3',
+68 silly npmInstallDependencies   'eslint-plugin-vue@^7.7.0',
+68 silly npmInstallDependencies   'moment@^2.29.1',
+68 silly npmInstallDependencies   'node-sass@^5.0.0',
+68 silly npmInstallDependencies   'sass-loader@^10.1.1',
+68 silly npmInstallDependencies   'vue@^3.0.7',
+68 silly npmInstallDependencies   'vue-uuid@^2.0.2',
+68 silly npmInstallDependencies   'webpack-bundle-analyzer@^4.4.0',
+68 silly npmInstallDependencies   'crypto-js@^4.0.0',
+68 silly npmInstallDependencies   'dayjs@^1.10.4',
+68 silly npmInstallDependencies   'file-saver@^2.0.5',
+68 silly npmInstallDependencies   'gradient-avatar@^1.0.2'
+68 silly npmInstallDependencies ]
+69 silly npmInstallDependencies backup L:\Projects\vue\packages\vue\package.json
+70 silly npmInstallDependencies writing tempJson {
+70 silly npmInstallDependencies   name: '@starport/vuex',
+70 silly npmInstallDependencies   version: '0.1.27',
+70 silly npmInstallDependencies   description: "A library of Vuex 4 (for Vue 3) standard store modules for state management of cosmos-sdk chains' frontends",
+70 silly npmInstallDependencies   author: 'Tendermint, Inc <hello@tendermint.com>',
+70 silly npmInstallDependencies   homepage: 'https://github.com/tendermint/vue',
+70 silly npmInstallDependencies   license: 'Apache-2.0',
+70 silly npmInstallDependencies   licenses: [
+70 silly npmInstallDependencies     {
+70 silly npmInstallDependencies       type: 'Apache-2.0',
+70 silly npmInstallDependencies       url: 'http://www.apache.org/licenses/LICENSE-2.0'
+70 silly npmInstallDependencies     }
+70 silly npmInstallDependencies   ],
+70 silly npmInstallDependencies   main: 'lib/index.js',
+70 silly npmInstallDependencies   publishConfig: { access: 'public' },
+70 silly npmInstallDependencies   dependencies: {
+70 silly npmInstallDependencies     axios: '^0.21.1',
+70 silly npmInstallDependencies     bs58: '^4.0.1',
+70 silly npmInstallDependencies     'crypto-js': '^4.0.0',
+70 silly npmInstallDependencies     'js-sha256': '^0.9.0'
+70 silly npmInstallDependencies   },
+70 silly npmInstallDependencies   devDependencies: {
+70 silly npmInstallDependencies     '@babel/cli': '^7.13.10',
+70 silly npmInstallDependencies     '@babel/core': '^7.13.10',
+70 silly npmInstallDependencies     '@babel/preset-env': '^7.13.10'
+70 silly npmInstallDependencies   }
+70 silly npmInstallDependencies }
+71 silly npmInstallDependencies writing tempJson {
+71 silly npmInstallDependencies   name: '@starport/vue',
+71 silly npmInstallDependencies   version: '0.1.25',
+71 silly npmInstallDependencies   description: 'A library of Vue 3 components for building frontends for cosmos-sdk chains',
+71 silly npmInstallDependencies   author: 'Tendermint, Inc <hello@tendermint.com>',
+71 silly npmInstallDependencies   homepage: 'https://github.com/tendermint/vue',
+71 silly npmInstallDependencies   license: 'Apache-2.0',
+71 silly npmInstallDependencies   licenses: [
+71 silly npmInstallDependencies     {
+71 silly npmInstallDependencies       type: 'Apache-2.0',
+71 silly npmInstallDependencies       url: 'http://www.apache.org/licenses/LICENSE-2.0'
+71 silly npmInstallDependencies     }
+71 silly npmInstallDependencies   ],
+71 silly npmInstallDependencies   main: 'lib/starport-vue.common.js',
+71 silly npmInstallDependencies   publishConfig: { access: 'public' },
+71 silly npmInstallDependencies   devDependencies: {
+71 silly npmInstallDependencies     '@babel/core': '^7.13.8',
+71 silly npmInstallDependencies     '@babel/node': '^7.13.0',
+71 silly npmInstallDependencies     '@cosmjs/encoding': '^0.23.2',
+71 silly npmInstallDependencies     '@vue/cli-plugin-babel': '^4.5.11',
+71 silly npmInstallDependencies     '@vue/cli-plugin-eslint': '^4.5.11',
+71 silly npmInstallDependencies     '@vue/cli-plugin-vuex': '^4.5.11',
+71 silly npmInstallDependencies     '@vue/cli-service': '^4.5.11',
+71 silly npmInstallDependencies     '@vue/compiler-sfc': '^3.0.7',
+71 silly npmInstallDependencies     '@vue/eslint-config-prettier': '^6.0.0',
+71 silly npmInstallDependencies     'babel-eslint': '^10.1.0',
+71 silly npmInstallDependencies     bip39: '^3.0.3',
+71 silly npmInstallDependencies     eslint: '^7.21.0',
+71 silly npmInstallDependencies     'eslint-plugin-prettier': '^3.3.1',
+71 silly npmInstallDependencies     'eslint-plugin-vue': '^7.7.0',
+71 silly npmInstallDependencies     moment: '^2.29.1',
+71 silly npmInstallDependencies     'node-sass': '^5.0.0',
+71 silly npmInstallDependencies     prettier: '^2.2.1',
+71 silly npmInstallDependencies     'sass-loader': '^10.1.1',
+71 silly npmInstallDependencies     vue: '^3.0.7',
+71 silly npmInstallDependencies     'vue-uuid': '^2.0.2',
+71 silly npmInstallDependencies     'webpack-bundle-analyzer': '^4.4.0'
+71 silly npmInstallDependencies   },
+71 silly npmInstallDependencies   peerDependencies: {
+71 silly npmInstallDependencies     '@cosmjs/encoding': '^0.23.2',
+71 silly npmInstallDependencies     '@cosmjs/launchpad': '^0.23.2',
+71 silly npmInstallDependencies     '@starport/vuex': '^0.1.17',
+71 silly npmInstallDependencies     axios: '^0.21.1',
+71 silly npmInstallDependencies     bip39: '^3.0.3',
+71 silly npmInstallDependencies     moment: '^2.29.1',
+71 silly npmInstallDependencies     vue: '^3.0.5',
+71 silly npmInstallDependencies     'vue-router': '^4.0.3',
+71 silly npmInstallDependencies     'vue-uuid': '^2.0.2',
+71 silly npmInstallDependencies     vuex: '^4.0.0'
+71 silly npmInstallDependencies   },
+71 silly npmInstallDependencies   dependencies: {
+71 silly npmInstallDependencies     'crypto-js': '^4.0.0',
+71 silly npmInstallDependencies     dayjs: '^1.10.4',
+71 silly npmInstallDependencies     'file-saver': '^2.0.5',
+71 silly npmInstallDependencies     'gradient-avatar': '^1.0.2'
+71 silly npmInstallDependencies   }
+71 silly npmInstallDependencies }
+72 silly getExecOpts L:\Projects\vue\packages\vue undefined
+73 silly npmInstall [ 'npm', [ 'install' ] ]
+74 silly getExecOpts L:\Projects\vue\packages\vuex undefined
+75 silly npmInstall [ 'npm', [ 'install' ] ]
+76 silly npmInstallDependencies cleanup L:\Projects\vue\packages\vue\package.json
+77 error Error: EPERM: operation not permitted, rename 'L:\Projects\vue\packages\vue\package.json.lerna_backup' -> 'L:\Projects\vue\packages\vue\package.json'
+77 error     at Object.renameSync (fs.js:770:3)
+77 error     at cleanup (C:\Users\sagge\AppData\Roaming\npm\node_modules\lerna\node_modules\@lerna\npm-install\npm-install.js:70:10)
+77 error     at done (C:\Users\sagge\AppData\Roaming\npm\node_modules\lerna\node_modules\@lerna\npm-install\npm-install.js:78:7)
+77 error     at C:\Users\sagge\AppData\Roaming\npm\node_modules\lerna\node_modules\@lerna\npm-install\npm-install.js:94:19

@@ -31,7 +31,11 @@
 					</div>
 				</div>
 				<div class="sp-amount-select__denom__modal" v-if="modalOpen">
-					<div class="sp-amount-select__denom__modal__header"> 
+					<div class="sp-amount-select__denom__modal__search">
+						<input type="text" v-model="searchTerm" />
+					</div>
+					<div class="sp-line"></div>
+					<div class="sp-amount-select__denom__modal__header">
 						<div class="sp-amount-select__denom__modal__header__token">
 							TOKEN
 						</div>
@@ -41,8 +45,13 @@
 					</div>
 					<div
 						class="sp-amount-select__denom__modal__item"
-						v-for="avail in denoms"
-						v-bind:key="'denom_' + avail"
+						:class="{
+							'sp-amount-select__denom__modal__item__selected':
+								avail.denom == fulldenom.denom
+						}"
+						v-on:click=";(denom = avail.denom), (modalOpen = false)"
+						v-for="avail in filtered_denoms"
+						v-bind:key="'denom_' + avail.denom"
 					>
 						<div class="sp-amount-select__denom__name">
 							<div
@@ -68,7 +77,8 @@ export default {
 		return {
 			amount: 0,
 			denom: null,
-			modalOpen: false
+			modalOpen: false,
+			searchTerm: ''
 		}
 	},
 	props: {
@@ -92,6 +102,11 @@ export default {
 				x.color = this.str2rgba(x.denom.toUpperCase())
 				return x
 			})
+		},
+		filtered_denoms() {
+			return this.searchTerm == ''
+				? this.denoms
+				: this.denoms.filter((x) => x.denom.indexOf(this.searchTerm) !== -1)
 		}
 	},
 	methods: {

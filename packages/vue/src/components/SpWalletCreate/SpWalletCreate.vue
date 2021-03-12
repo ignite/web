@@ -130,7 +130,7 @@
 
 <script>
 import * as bip39 from 'bip39'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { saveAs } from 'file-saver'
 import CryptoJS from 'crypto-js'
 import SpCard from '../SpCard'
@@ -179,7 +179,7 @@ export default {
 		},
 		backupName() {
 			return (
-				this.wallet.name + '_Backup_' + moment().format('YYYY-MM-DD') + '.bin'
+				this.wallet.name + '_Backup_' + dayjs().format('YYYY-MM-DD') + '.bin'
 			)
 		},
 		close() {

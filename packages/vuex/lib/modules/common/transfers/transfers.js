@@ -11,17 +11,9 @@ var _SpVuexError = _interopRequireDefault(require("../../../errors/SpVuexError")
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -29,7 +21,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var getDefaultState = function getDefaultState() {
   return {
-    Transactions: {},
+    GetTxsEvent: {},
     _Subscriptions: new Set()
   };
 }; // initial state
@@ -43,18 +35,11 @@ var _default = {
     RESET_STATE: function RESET_STATE(state) {
       Object.assign(state, getDefaultState());
     },
-    STORE_TRANSACTIONS: function STORE_TRANSACTIONS(state, _ref) {
-      var address = _ref.address,
-          page = _ref.page,
-          txs = _ref.txs,
-          total = _ref.total;
-
-      if (!state.Transactions[address]) {
-        state.Transactions[address] = {};
-      }
-
-      state.Transactions[address][page] = txs;
-      state.Transactions[address]['total'] = total;
+    QUERY: function QUERY(state, _ref) {
+      var query = _ref.query,
+          key = _ref.key,
+          value = _ref.value;
+      state[query][JSON.stringify(key)] = value;
     },
     SUBSCRIBE: function SUBSCRIBE(state, subscription) {
       state._Subscriptions.add(subscription);
@@ -64,9 +49,12 @@ var _default = {
     }
   },
   getters: {
-    getTransactions: function getTransactions(state) {
-      return function (address) {
-        return state.Transactions[address] ? state.Transactions[address] : null;
+    getGetTxsEvent: function getGetTxsEvent(state) {
+      return function () {
+        var _state$GetTxsEvent$JS;
+
+        var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return (_state$GetTxsEvent$JS = state.GetTxsEvent[JSON.stringify(params)]) !== null && _state$GetTxsEvent$JS !== void 0 ? _state$GetTxsEvent$JS : {};
       };
     }
   },
@@ -111,58 +99,61 @@ var _default = {
         }, _callee);
       }))();
     },
-    QueryTransactions: function QueryTransactions(_ref6, _ref7) {
+    ServiceGetTxsEvent: function ServiceGetTxsEvent(_ref6, _ref7) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var commit, rootGetters, getters, _ref7$subscribe, subscribe, address, _ref7$page, page, received, sent, total, txs;
+        var commit, rootGetters, _ref7$subscribe, subscribe, _ref7$all, all, key, params, value;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                commit = _ref6.commit, rootGetters = _ref6.rootGetters, getters = _ref6.getters;
-                _ref7$subscribe = _ref7.subscribe, subscribe = _ref7$subscribe === void 0 ? false : _ref7$subscribe, address = _ref7.address, _ref7$page = _ref7.page, page = _ref7$page === void 0 ? 1 : _ref7$page;
+                commit = _ref6.commit, rootGetters = _ref6.rootGetters;
+                _ref7$subscribe = _ref7.subscribe, subscribe = _ref7$subscribe === void 0 ? false : _ref7$subscribe, _ref7$all = _ref7.all, all = _ref7$all === void 0 ? true : _ref7$all, key = _objectWithoutProperties(_ref7, ["subscribe", "all"]);
                 _context2.prev = 2;
-                _context2.next = 5;
-                return _axios["default"].get(rootGetters['common/env/apiTendermint'] + '/tx_search?query="transfer.recipient=%27' + address + '%27"&prove=false&per_page=10&page=' + page);
+                params = Object.values(key);
+                _context2.next = 6;
+                return _axios["default"].get(rootGetters['common/env/apiCosmos'] + '/cosmos/tx/v1beta1/txs?events=' + key.event);
 
-              case 5:
-                received = _context2.sent.data.result;
-                _context2.next = 8;
-                return _axios["default"].get(rootGetters['common/env/apiTendermint'] + '/tx_search?query="transfer.sender=%27' + address + '%27"&prove=false&per_page=10&page=' + page);
+              case 6:
+                value = _context2.sent.data;
 
-              case 8:
-                sent = _context2.sent.data.result;
-                total = Number(received.total_count) + Number(sent.total_count);
-                txs = [].concat(_toConsumableArray(received.txs), _toConsumableArray(sent.txs)).sort(function (a, b) {
-                  return a.height == b.height ? b.index - a.index : b.height - a.height;
-                });
-                commit('STORE_TRANSACTIONS', {
-                  address: address,
-                  page: page,
-                  txs: txs,
-                  total: total
+                /*
+                while (all && value.pagination && value.pagination.next_key!=null) {
+                    let next_values=(await (await initQueryClient(rootGetters)).queryPostAll.apply(null,[...params, {'pagination.key':value.pagination.next_key}] )).data;
+                    
+                    for (let prop of Object.keys(next_values)) {
+                        if (Array.isArray(next_values[prop])) {
+                            value[prop]=[...value[prop], ...next_values[prop]]
+                        }else{
+                            value[prop]=next_values[prop]
+                        }
+                    }
+                    console.log(value)
+                }
+                */
+                commit('QUERY', {
+                  query: 'GetTxsEvent',
+                  key: key,
+                  value: value
                 });
                 if (subscribe) commit('SUBSCRIBE', {
-                  action: 'QueryTransactions',
-                  payload: {
-                    address: address,
-                    page: page
-                  }
+                  action: 'ServiceGetTxsEvent',
+                  payload: key
                 });
-                return _context2.abrupt("return", getters['getTransactions'](address, page));
+                _context2.next = 14;
+                break;
 
-              case 16:
-                _context2.prev = 16;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2["catch"](2);
-                console.error(new _SpVuexError["default"]('Common:Transfers:QueryTransactions', 'RPC Node Unavailable. Could not perform query.'));
-                return _context2.abrupt("return", {});
+                console.error(new _SpVuexError["default"]('QueryClient:ServiceGetTxsEvent', 'API Node Unavailable. Could not perform query.'));
 
-              case 20:
+              case 14:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[2, 16]]);
+        }, _callee2, null, [[2, 11]]);
       }))();
     }
   }

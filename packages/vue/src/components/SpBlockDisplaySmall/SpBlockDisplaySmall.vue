@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
 	name: 'SpBlockDisplaySmall',
@@ -26,7 +26,7 @@ export default {
 	},
 	methods: {
 		formatTS(timestamp) {
-			const momentTime = moment(timestamp)
+			const momentTime = dayjs(timestamp)
 			return momentTime.format(this.tsFormat)
 		}
 	}

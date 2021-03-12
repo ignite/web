@@ -1,4 +1,4 @@
-import transfers from './transfers_codegen.js'
+import transfers from './transfers.js'
 
 export default function init(store) {
 	if (!store.hasModule(['common'])) {

@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 import SpBlockCopyIconText from '../SpBlockCopyIconText'
 import SpYamlCards from '../SpYamlCards'
@@ -135,7 +135,7 @@ export default {
 	},
 	methods: {
 		getFmtTime(time) {
-			const momentTime = moment(time)
+			const momentTime = dayjs(time)
 			return momentTime.format('MMM D YYYY, HH:mm:ss')
 		},
 		getTxFee(tx) {

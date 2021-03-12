@@ -1,6 +1,6 @@
 {
 		"name": "@starport/client-js",
-		"version": "0.1.22",
+		"version": "0.1.25",
 		"description": "A generic JS client for the Websocket, high-level (Cosmos) and low-level (Tendermint) APIs",
 		"author": "Tendermint, Inc <hello@tendermint.com>",
 		"homepage": "https://github.com/tendermint/vue",
@@ -22,17 +22,17 @@
 				"test": "echo \"Error: run tests from root\" && exit 1"
 		},
 		"devDependencies": {
-				"@babel/cli": "^7.13.0",
-				"@babel/core": "^7.13.8",
+				"@babel/cli": "^7.13.10",
+				"@babel/core": "^7.13.10",
 				"@babel/plugin-proposal-class-properties": "^7.13.0",
-				"@babel/preset-env": "^7.13.9",
+				"@babel/preset-env": "^7.13.10",
 				"@babel/preset-typescript": "^7.13.0",
-				"@cosmjs/proto-signing": "^0.24.0-alpha.26",
+				"@cosmjs/proto-signing": "^0.24.0",
 				"@types/axios": "^0.14.0",
-				"@types/node": ">=12.0.0 < 13",
+				"@types/node": "^12.20.5",
 				"@types/reconnectingwebsocket": "^1.0.6",
-				"@typescript-eslint/eslint-plugin": "^4.16.1",
-				"@typescript-eslint/parser": "^4.16.1",
+				"@typescript-eslint/eslint-plugin": "^4.17.0",
+				"@typescript-eslint/parser": "^4.17.0",
 				"babel-loader": "^8.2.2",
 				"eslint": "^7.21.0",
 				"eslint-config-prettier": "^8.1.0",
@@ -41,7 +41,7 @@
 				"typescript": "^4.2.3"
 		},
 		"dependencies": {
-				"@cosmjs/stargate": "^0.24.0-alpha.26",
+				"@cosmjs/stargate": "^0.24.0",
 				"@types/axios": "^0.14.0",
 				"@types/reconnectingwebsocket": "^1.0.6",
 				"axios": "^0.21.1",

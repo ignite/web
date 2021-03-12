@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 import axios from 'axios'
 
@@ -147,8 +147,8 @@ export default {
 	},
 	methods: {
 		getFmtTime(time) {
-			const momentTime = moment(time)
-			const duration = moment.duration(moment().diff(momentTime))
+			const momentTime = dayjs(time)
+			const duration = dayjs.duration(dayjs().diff(momentTime))
 
 			if (duration.as('years') >= 1) {
 				return momentTime.format('MMM D YYYY, HH:mm:ss')
@@ -171,7 +171,7 @@ export default {
 		getFormattedBlock(block) {
 			return {
 				blockMsg: {
-					time_formatted: moment(block.timestamp).fromNow(true),
+					time_formatted: dayjs(block.timestamp).fromNow(true),
 					time: block.timestamp,
 					height: parseInt(block.height),
 					proposer: `${block.details.header.proposer_address.slice(0, 10)}...`,
