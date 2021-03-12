@@ -47,7 +47,10 @@
 							</div>
 						</div>
 						<div class="sp-dashed-line"></div>
-						<div class="sp-token-send__main__footer">
+						<div
+							class="sp-token-send__main__footer"
+							:class="{ 'sp-token-send__main__footer__open': feesOpen }"
+						>
 							<div class="sp-token-send__main__fees__header sp-box-header">
 								FEES <span class="sp-circle">?</span>
 							</div>
