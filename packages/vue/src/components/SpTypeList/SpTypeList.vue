@@ -8,7 +8,7 @@
 				<em>No items available</em>
 			</div>
 			<template v-else>
-				<div v-for="item in typeItems" v-bind:key="item.id">
+				<div v-for="(item, index) in typeItems" v-bind:key="item.id">
 					<div class="sp-type-list__item">
 						<div class="sp-type-list__item__icon">
 							<div class="sp-icon sp-icon-Docs" />
@@ -23,13 +23,54 @@
 								{{ item[field.name] }}
 							</div>
 						</div>
-						<div class="sp-type-list_item__more">
-							<div class="sp-icon sp-icon-More" />
+						<div
+							class="sp-type-list__item__more"
+							:class="{ 'sp-type-list__item__more__open': moreOpen == index }"
+						>
+							<div class="sp-icon sp-icon-More" v-on:click="moreOpen = index" />
+							<div
+								class="sp-type-list__item__options sp-box"
+								v-if="moreOpen == index"
+							>
+								<div
+									class="sp-type-list__item__options__edit"
+									v-on:click=";(editID = item['id']), (editOpen = true)"
+								>
+									Edit
+								</div>
+								<div
+									class="sp-type-list__item__options__delete"
+									v-on:click=";(deleteID = item['id']), (deleteOpen = true)"
+								>
+									Delete
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="sp-dashed-line" />
 				</div>
 			</template>
+		</div>
+		<div class="sp-type-list__overlay" v-if="editOpen || deleteOpen" />
+		<div class="sp-type-list__edit__form" v-if="editID > 0">
+			<SpTypeForm
+				:modulePath="modulePath"
+				:moduleType="moduleType"
+				:id="editID"
+				action="update"
+				v-on:cancel-update=";(editID = -1), (editOpen = false)"
+				v-on:updated=";(editID = -1), (editOpen = false)"
+			/>
+		</div>
+		<div class="sp-type-list__delete__form" v-if="deleteID > 0">
+			<SpTypeForm
+				:modulePath="modulePath"
+				:moduleType="moduleType"
+				:id="deleteID"
+				action="delete"
+				v-on:cancel-delete=";(deleteID = -1), (deleteOpen = false)"
+				v-on:deleted=";(deleteID = -1), (deleteOpen = false)"
+			/>
 		</div>
 	</div>
 </template>
@@ -48,17 +89,21 @@ export default {
 	},
 	data: function () {
 		return {
-			fieldList: []
+			fieldList: [],
+			moreOpen: -1,
+			editOpen: false,
+			deleteOpen: false,
+			editID: 0,
+			deleteID: 0
 		}
 	},
 	computed: {
 		typeItems() {
 			if (this._depsLoaded) {
-				return (
-					this.$store.getters[
-						this.modulePath + '/get' + this.moduleType + 'All'
-					]()?.Post ?? []
-				)
+				let items = this.$store.getters[
+					this.modulePath + '/get' + this.moduleType + 'All'
+				]({ params: {} })
+				return items ? items[this.capitalize(this.moduleType)] : []
 			} else {
 				return []
 			}
@@ -85,7 +130,7 @@ export default {
 			](this.moduleType)
 			await this.$store.dispatch(
 				this.modulePath + '/Query' + this.moduleType + 'All',
-				{ subscribe: true }
+				{ options: { subscribe: true } }
 			)
 		}
 	},

@@ -9,19 +9,19 @@
 		<div class="sp-sidebar__footer">
 			<slot name="footer"></slot>
 		</div>
-		<SpBadgeButton
+		<!--<SpBadgeButton
 			:icon="opened ? 'LeftCaret' : 'RightCaret'"
 			v-on:click="toggleOpen"
 			class="sp-sidebar__back"
-		/>
+		/>//-->
 	</div>
 </template>
 <script>
-import SpBadgeButton from '../SpBadgeButton'
+//import SpBadgeButton from '../SpBadgeButton'
 export default {
 	name: 'SpSidebar',
 	components: {
-		SpBadgeButton
+	//	SpBadgeButton
 	},
 	data() {
 		return {

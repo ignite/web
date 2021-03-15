@@ -578,6 +578,7 @@
   border-radius: 1.2rem;
   padding: 1.2rem;
   font-size: 1.4rem;
+  box-shadow: 0rem 0.8rem 1.6rem -0.3rem rgba(140, 148, 159, 0.1);
   .sp-box-header {
     opacity: 0.4;
     font-weight: 600;
@@ -988,6 +989,41 @@
   }
 }
 .sp-type-list {
+
+  .sp-type-list__overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(17, 17, 17, 0.1);
+    display: block;
+    z-index: 100;
+  }
+  .sp-type-list__edit__form {
+
+    z-index: 200;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    lefT: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sp-type-list__delete__form {
+
+    z-index: 200;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    lefT: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .sp-type-list__item {
     display:flex;
     justify-content:space-between;
@@ -1013,6 +1049,10 @@
       font-size: 1.4rem;
       cursor:pointer;
       position:relative;
+      .sp-type-list__item__options{
+        position:absolute;
+        right:0;
+      }
     }
     .sp-type-list__item__details {
       flex-grow:1;

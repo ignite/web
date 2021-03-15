@@ -85,7 +85,7 @@
 			<div class="sp-wallet-create__text">
 				Paste your recovery phrase or private key below to import your wallet.
 			</div>
-			<textarea class="sp-key-area" v-model="imported.mnemonicOrKey"></textarea>
+			<textarea class="sp-key-area sp-textarea" v-model="imported.mnemonicOrKey"></textarea>
 			<SpButton type="primary" v-on:click="importStep2">Import wallet</SpButton>
 		</template>
 		<template v-if="importform && imported.step2">

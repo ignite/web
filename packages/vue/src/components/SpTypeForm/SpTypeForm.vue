@@ -1,5 +1,5 @@
 <template>
-	<div class="sp-type-form sp-box {{ typeClass}}" v-if="depsLoaded">
+	<div class="sp-type-form sp-box" :class="typeClass" v-if="depsLoaded">
 		<form class="sp-type-form__main__form" v-if="action == 'create'">
 			<div class="sp-type-form__header sp-box-header">
 				CREATE NEW {{ moduleType.toUpperCase() }}
@@ -70,37 +70,43 @@
 				>
 			</div>
 		</form>
-		<div class="SpTypeFormDelete" v-if="action == 'delete'">
-			<p>
-				<strong
-					>DELETE '<em
-						>{{ moduleType }}' {{ id ? ' WITH ID:' + id : '' }}</em
-					></strong
-				>
-			</p>
+		<form class="sp-type-form__main__form" v-if="action == 'delete'">
+			<div class="sp-type-form__header sp-box-header">
+				DELETE {{ moduleType.toUpperCase() }}
+			</div>
 			<div
-				class="SpTypeFormField"
+				class="sp-type-form__field sp-form-group"
 				v-for="field in deleteFieldList"
 				v-bind:key="field.name"
 			>
 				<input
 					type="text"
-					:placeholder="field.name"
+					class="sp-input"
+					:placeholder="capitalize(field.name)"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
 					v-bind:readonly="id != '' && field.name == 'id'"
 				/>
 				<input
 					type="number"
-					:placeholder="field.name"
+					class="sp-input"
+					:placeholder="capitalize(field.name)"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>
 			</div>
-			<button class="SpButton" @click="deleteType()">
-				<div class="SpButtonText">DELETE</div>
-			</button>
-		</div>
+			<div class="sp-type-form__btns">
+				<div
+					class="sp-type-form__btns__reset"
+					v-on:click="$emit('cancel-delete')"
+				>
+					Cancel
+				</div>
+				<SpButton type="primary" v-on:click="deleteType()"
+					>Update {{ moduleType }}</SpButton
+				>
+			</div>
+		</form>
 	</div>
 </template>
 <script>
@@ -141,11 +147,15 @@ export default {
 				if (this.typeData['id'] != '') {
 					await this.$store.dispatch(
 						this.modulePath + '/Query' + this.moduleType,
-						{ subscribe: true, id: this.typeData['id'] }
+						{
+							options: { subscribe: true },
+							params: { id: this.typeData['id'] }
+						}
 					)
-					this.typeData = this.$store.getters[
+					let data=this.$store.getters[
 						this.modulePath + '/get' + this.moduleType
-					](this.typeData['id'])
+					]({ params: { id: this.typeData['id'] } })
+					this.typeData = data[this.capitalize(this.moduleType)]
 				}
 			}
 		}
@@ -210,11 +220,12 @@ export default {
 			if (this.typeData['id'] != '') {
 				await this.$store.dispatch(
 					this.modulePath + '/Query' + this.moduleType,
-					{ subscribe: true, id: this.typeData['id'] }
+					{ options: { subscribe: true }, params: { id: this.typeData['id'] } }
 				)
-				this.typeData = this.$store.getters[
+				let data= this.$store.getters[
 					this.modulePath + '/get' + this.moduleType
-				](this.typeData['id'])
+				]({ params: { id: this.typeData['id'] } })
+				this.typeData = data[this.capitalize(this.moduleType)]
 			}
 		}
 	},
@@ -232,7 +243,7 @@ export default {
 						fee: []
 					}
 				)
-				console.log(this.txResult)
+				this.$emit('created')
 			}
 		},
 		async updateType() {
@@ -245,6 +256,7 @@ export default {
 						fee: []
 					}
 				)
+				this.$emit('updated')
 			}
 		},
 		async deleteType() {
@@ -257,6 +269,7 @@ export default {
 						fee: []
 					}
 				)
+				this.$emit('deleted')
 			}
 		}
 	}
