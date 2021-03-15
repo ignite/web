@@ -634,33 +634,33 @@
     padding-right: 1.6rem;
     .sp-token-send__main__form {
       padding: 0.4rem;
-			.sp-token-send__main__rcpt__memo__header  {
-				position:relative;
-				align-items: center;
-				.sp-icon {
-					position:absolute;
-					right:1rem;
-				}
-			}
-			.sp-token-send__main__rcpt__memo{
-				margin-bottom:1rem;
-			}
+      .sp-token-send__main__rcpt__memo__header {
+        position: relative;
+        align-items: center;
+        .sp-icon {
+          position: absolute;
+          right: 1rem;
+        }
+      }
+      .sp-token-send__main__rcpt__memo {
+        margin-bottom: 1rem;
+      }
       .sp-token-send__main__rcpt__wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
-				position:relative;
-				.sp-token-send__main__rcpt__memo__btn {
-					position:absolute;
-					right:1.5rem;
-					z-index:10;
-					opacity:0.4;
-					font-weight:700;
-					font-size:1.4rem;
-				}
-				.sp-token-send__main__rcpt__memo__close {
-					justify-self: flex-end;
-				}
+        position: relative;
+        .sp-token-send__main__rcpt__memo__btn {
+          position: absolute;
+          right: 1.5rem;
+          z-index: 10;
+          opacity: 0.4;
+          font-weight: 700;
+          font-size: 1.4rem;
+        }
+        .sp-token-send__main__rcpt__memo__close {
+          justify-self: flex-end;
+        }
         .sp-token-send__main__rcpt__icon {
           width: 4.4rem;
           height: 4.4rem;
@@ -866,9 +866,9 @@
             }
           }
 
-					.sp-token-send__main__fees__content {
-						overflow:visible;
-					}
+          .sp-token-send__main__fees__content {
+            overflow: visible;
+          }
           .sp-token-send__main__btns {
             margin-top: 0.5rem;
             width: 100%;
@@ -961,24 +961,68 @@
   }
 }
 .sp-type {
-  display:flex;
-  justify-content: space-between;
-  align-items:flex-start;
-  .sp-type-form__holder {    
-    flex-basis: 38%;
-    width: 38%;
-    padding-right: 1.6rem;
+  .sp-type__holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    .sp-type-form__holder {
+      flex-basis: 38%;
+      width: 38%;
+      padding-right: 1.6rem;
+    }
+    .sp-type__list {
+      flex-grow:1
+    }
   }
 }
 .sp-type-form {
   .sp-type-form__btns {
-    display:flex;
+    display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     .sp-type-form__btns__reset {
       opacity: 0.4;
       font-weight: 700;
       cursor: pointer;
     }
+  }
+}
+.sp-type-list {
+  .sp-type-list__item {
+    display:flex;
+    justify-content:space-between;
+    align-items: flex-start;    
+    .sp-type-list__item__icon { 
+      width: 4.8rem;
+      height: 4.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 1.2rem;
+      font-size: 1.2rem;
+      background: rgba(255,164,27,0.15);
+      color: rgba(255,164,27,1);
+      margin-right:2rem;
+    } 
+    .sp-type-list__item__more { 
+      width: 4.8rem;
+      height: 4.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      cursor:pointer;
+      position:relative;
+    }
+    .sp-type-list__item__details {
+      flex-grow:1;
+      margin-right:2rem;
+      .sp-type-list__item__details__field {
+        margin-bottom:0.8rem;
+      }
+    }    
+  }
+  .sp-dashed-line {
+    margin:2rem 0rem;
   }
 }

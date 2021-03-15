@@ -35,7 +35,7 @@ module.exports = {
 		},
 		plugins: [
 			new webpack.IgnorePlugin(/^\.\/wordlists\/(?!english)/)
-		//	,new BundleAnalyzerPlugin()
+			//	,new BundleAnalyzerPlugin()
 		],
 		stats: {
 			logging: 'verbose',

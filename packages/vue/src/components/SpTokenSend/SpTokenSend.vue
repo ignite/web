@@ -259,7 +259,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		const module = ['cosmos', 'cosmos-sdk', 'cosmos.bank.v1beta1']
+		const module = ['cosmos.bank.v1beta1']
 		for (let i = 1; i <= module.length; i++) {
 			let submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
@@ -273,20 +273,16 @@ export default {
 		this.bankAddress = this.address
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
-				this.$store.dispatch(
-					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
-					{
-						address: this.address,
-						all: true,
-						subscribe: this.refresh
-					}
-				)
+				this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+					params: { address: this.address },
+					options: { all: true, subscribe: this.refresh }
+				})
 			}
 		}
 	},
 	watch: {
 		balances: function (newBal, oldBal) {
-			if (newBal != oldBal && newBal[0].denom) {
+			if (newBal != oldBal && newBal[0]?.denom) {
 				this.transfer.amount = [{ amount: 0, denom: newBal[0].denom }]
 				this.transfer.fees = [{ amount: 0, denom: newBal[0].denom }]
 			}
@@ -296,13 +292,10 @@ export default {
 				if (newAddr != oldAddr) {
 					this.bankAddress = newAddr
 					if (this.bankAddress != '') {
-						this.$store.dispatch(
-							'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
-							{
-								address: this.bankAddress,
-								subscribe: this.refresh
-							}
-						)
+						this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+							params: { address: this.bankAddress },
+							options: { subscribe: this.refresh }
+						})
 					}
 				}
 			}
@@ -312,9 +305,9 @@ export default {
 		balances() {
 			if (this._depsLoaded) {
 				return (
-					this.$store.getters[
-						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
-					]({ address: this.bankAddress })?.balances ?? []
+					this.$store.getters['cosmos.bank.v1beta1/getAllBalances']({
+						params: { address: this.bankAddress }
+					})?.balances ?? []
 				)
 			} else {
 				return []
@@ -336,9 +329,13 @@ export default {
 			let valid = true
 			let required = {}
 			for (let amount of this.transfer.amount) {
-				if (Number(amount.amount) > 0 && Number.isInteger(Number(amount.amount))) {
+				if (
+					Number(amount.amount) > 0 &&
+					Number.isInteger(Number(amount.amount))
+				) {
 					if (required[amount.denom]) {
-						required[amount.denom] = required[amount.denom] + Number(amount.amount)
+						required[amount.denom] =
+							required[amount.denom] + Number(amount.amount)
 					} else {
 						required[amount.denom] = Number(amount.amount)
 					}
@@ -368,8 +365,8 @@ export default {
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
 			this.transfer.fees = [{ amount: 0, denom: this.balances[0].denom }]
-			this.feesOpen=false
-			this.memoOpen=false
+			this.feesOpen = false
+			this.memoOpen = false
 		},
 		resetFees() {
 			this.transfer.fees = [{ amount: 0, denom: this.balances[0].denom }]
@@ -389,21 +386,17 @@ export default {
 					this.txResult = ''
 					this.inFlight = true
 					this.txResult = await this.$store.dispatch(
-						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/sendMsgSend',
+						'cosmos.bank.v1beta1/sendMsgSend',
 						{ value, fee: this.transfer.fees, memo: this.transfer.memo }
 					)
 					if (this.txResult && !this.txResult.code) {
 						this.resetTransaction()
 					}
 					this.inFlight = false
-					await this.$store.dispatch(
-						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
-						{
-							address: this.address,
-							all: true,
-							subscribe: false
-						}
-					)
+					await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+						params: { address: this.address },
+						options: { all: true, subscribe: false }
+					})
 				}
 			}
 		}

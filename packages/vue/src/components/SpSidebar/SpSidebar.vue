@@ -1,6 +1,6 @@
 <template>
 	<div class="sp-sidebar" :class="{ 'sp-opened': opened }">
-		<div class="sp-sidebar__header">
+		<div class="sp-sidebar__header" v-if="$slots.header">
 			<slot name="header"></slot>
 		</div>
 		<div class="sp-sidebar__content">

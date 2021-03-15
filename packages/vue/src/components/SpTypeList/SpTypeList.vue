@@ -7,30 +7,29 @@
 			<div class="SpTypeListEmpty" v-if="!typeItems || typeItems.length == 0">
 				<em>No items available</em>
 			</div>
-			<div v-else>
-				<table class="SpTable">
-					<thead>
-						<tr>
-							<td v-for="field in fieldList" v-bind:key="field">
-								<strong>
-									{{ field.name }}
-								</strong>
-							</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr
-							class="SpTypeListItem"
-							v-for="item in typeItems"
-							v-bind:key="item.id"
-						>
-							<td v-for="field in fieldList" v-bind:key="field">
+			<template v-else>
+				<div v-for="item in typeItems" v-bind:key="item.id">
+					<div class="sp-type-list__item">
+						<div class="sp-type-list__item__icon">
+							<div class="sp-icon sp-icon-Docs" />
+						</div>
+						<div class="sp-type-list__item__details">
+							<div
+								class="sp-type-list__item__details__field"
+								v-for="field in fieldList"
+								v-bind:key="field"
+							>
+								<strong> {{ capitalize(field.name) }} </strong><br />
 								{{ item[field.name] }}
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+							</div>
+						</div>
+						<div class="sp-type-list_item__more">
+							<div class="sp-icon sp-icon-More" />
+						</div>
+					</div>
+					<div class="sp-dashed-line" />
+				</div>
+			</template>
 		</div>
 	</div>
 </template>
@@ -88,6 +87,11 @@ export default {
 				this.modulePath + '/Query' + this.moduleType + 'All',
 				{ subscribe: true }
 			)
+		}
+	},
+	methods: {
+		capitalize(str) {
+			return str.charAt(0).toUpperCase() + str.slice(1)
 		}
 	}
 }

@@ -12,14 +12,14 @@
 				<input
 					type="text"
 					class="sp-input"
-					:placeholder="field.name"
+					:placeholder="capitalize(field.name)"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
 				/>
 				<input
 					type="number"
 					class="sp-input"
-					:placeholder="field.name"
+					:placeholder="capitalize(field.name)"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>
@@ -45,7 +45,7 @@
 				<input
 					type="text"
 					class="sp-input"
-					:placeholder="field.name"
+					:placeholder="capitalize(field.name)"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
 					v-bind:readonly="id != '' && field.name == 'id'"
@@ -53,7 +53,7 @@
 				<input
 					type="number"
 					class="sp-input"
-					:placeholder="field.name"
+					:placeholder="capitalize(field.name)"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>
@@ -219,15 +219,20 @@ export default {
 		}
 	},
 	methods: {
+		capitalize(str) {
+			return str.charAt(0).toUpperCase() + str.slice(1)
+		},
 		async createType() {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
 					this.modulePath + '/sendMsgCreate' + this.moduleType,
 					{
-						value: { ...this.createTypeData }
+						value: { ...this.createTypeData },
+						fee: []
 					}
 				)
+				console.log(this.txResult)
 			}
 		},
 		async updateType() {
@@ -236,7 +241,8 @@ export default {
 				this.txResult = await this.$store.dispatch(
 					this.modulePath + '/sendMsgUpdate' + this.moduleType,
 					{
-						value: { ...this.updateTypeData }
+						value: { ...this.updateTypeData },
+						fee: []
 					}
 				)
 			}
@@ -247,7 +253,8 @@ export default {
 				this.txResult = await this.$store.dispatch(
 					this.modulePath + '/sendMsgDelete' + this.moduleType,
 					{
-						value: { ...this.deleteTypeData }
+						value: { ...this.deleteTypeData },
+						fee: []
 					}
 				)
 			}

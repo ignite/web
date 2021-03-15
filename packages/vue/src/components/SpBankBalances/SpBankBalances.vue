@@ -80,9 +80,9 @@ export default {
 	computed: {
 		balances() {
 			return (
-				this.$store.getters[
-					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/getAllBalances'
-				]({ address: this.bankAddress })?.balances ?? []
+				this.$store.getters['cosmos.bank.v1beta1/getAllBalances']({
+					address: this.bankAddress
+				})?.balances ?? []
 			)
 		},
 		depsLoaded() {
@@ -104,13 +104,10 @@ export default {
 		if (this._depsLoaded) {
 			this.bankAddress = this.address
 			if (this.bankAddress != '') {
-				this.$store.dispatch(
-					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
-					{
-						address: this.address,
-						subscribe: this.refresh
-					}
-				)
+				this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+					address: this.address,
+					subscribe: this.refresh
+				})
 			}
 		}
 	},
@@ -119,13 +116,10 @@ export default {
 			if (newAddr != oldAddr && this._depsLoaded) {
 				this.bankAddress = newAddr
 				if (this.bankAddress != '') {
-					this.$store.dispatch(
-						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
-						{
-							address: this.bankAddress,
-							subscribe: this.refresh
-						}
-					)
+					this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+						address: this.bankAddress,
+						subscribe: this.refresh
+					})
 				}
 			}
 		}
@@ -136,13 +130,10 @@ export default {
 		},
 		async balancesUpdate() {
 			if (this._depsLoaded) {
-				await this.$store.dispatch(
-					'cosmos/cosmos-sdk/cosmos.bank.v1beta1/QueryAllBalances',
-					{
-						address: this.bankAddress,
-						subscribe: false
-					}
-				)
+				await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+					address: this.bankAddress,
+					subscribe: false
+				})
 			}
 		}
 	}
