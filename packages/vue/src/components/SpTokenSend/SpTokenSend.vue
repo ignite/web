@@ -22,6 +22,29 @@
 									v-model="transfer.recipient"
 								/>
 							</div>
+							<div
+								class="sp-token-send__main__rcpt__memo__btn"
+								v-on:click="memoOpen = true"
+								v-if="!memoOpen"
+							>
+								+Add memo
+							</div>
+						</div>
+						<div
+							class="sp-token-send__main__rcpt__memo__header sp-box-header"
+							v-if="memoOpen"
+						>
+							MEMO
+							<span
+								class="sp-icon sp-icon-Close"
+								v-on:click="memoOpen = false"
+							></span>
+						</div>
+						<div class="sp-token-send__main__rcpt__memo" v-if="memoOpen">
+							<textarea
+								class="sp-token-send__main__rcpt__memo__content sp-textarea"
+								v-model="transfer.memo"
+							/>
 						</div>
 						<div class="sp-token-send__main__amt__header sp-box-header">
 							AMOUNT
@@ -53,9 +76,14 @@
 						>
 							<div class="sp-token-send__main__fees__header sp-box-header">
 								FEES <span class="sp-circle">?</span>
+								<span
+									v-if="feesOpen"
+									v-on:click="feesOpen = false"
+									class="sp-icon sp-icon-UpCaret"
+								></span>
 							</div>
 							<div class="sp-token-send__main__fees__content">
-								<div v-if="feesOpen">
+								<template v-if="feesOpen">
 									<div
 										class="sp-token-send__main__amt__wrapper"
 										v-if="balances.length > 0"
@@ -78,19 +106,44 @@
 										>
 											+ Add Fee Token
 										</div>
+										<div class="sp-dashed-line"></div>
 									</div>
-								</div>
+								</template>
+								<template v-else>
+									<div class="sp-token-send__main__fees__small">
+										<span
+											v-for="(fee, index) in transfer.fees"
+											v-bind:key="'fee_small' + index"
+										>
+											<strong>{{ fee.amount }}</strong>
+											{{ fee.denom.toUpperCase() }},
+										</span>
+										<span
+											v-on:click="feesOpen = true"
+											class="sp-icon sp-icon-DownCaret"
+										></span>
+									</div>
+								</template>
 							</div>
 							<div class="sp-token-send__main__btns">
 								<div
-									class="sp-token-send__main__btns__reset"
-									v-on:click="resetTransaction"
+									class="sp-token-send__main__btns__reset__fees"
+									v-on:click="resetFees"
+									v-if="feesOpen"
 								>
-									Reset
+									Reset Fees
 								</div>
-								<SpButton v-on:click="sendTransaction" type="primary"
-									>Send Transaction</SpButton
-								>
+								<div class="sp-token-send__main__btns__tx">
+									<div
+										class="sp-token-send__main__btns__reset"
+										v-on:click="resetTransaction"
+									>
+										Reset
+									</div>
+									<SpButton v-on:click="sendTransaction" type="primary"
+										>Send Transaction</SpButton
+									>
+								</div>
 							</div>
 						</div>
 					</form>
@@ -98,64 +151,6 @@
 			</div>
 			<div class="sp-assets__wrapper">
 				<SpAssets :balances="balances" />
-			</div>
-		</div>
-		<div v-if="balances && balances.length > 0" class="container">
-			<SpH3>Send tokens</SpH3>
-			<div class="form">
-				<div class="token">
-					<div class="card token__item">
-						<div class="label h3 h3__button" @click="denomChange">
-							{{ denom }}
-							<SpIconCircle2 v-if="denoms.length > 1" class="h3__icon" />
-						</div>
-						<div>
-							<input
-								v-model="amount"
-								class="input"
-								placeholder="Amount of tokens"
-								type="text"
-								:disabled="inFlight"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="card">
-					<div class="label h3">Address</div>
-					<div>
-						<div>
-							<input
-								v-model="to_address"
-								type="text"
-								class="input"
-								:disabled="inFlight"
-								placeholder="To address"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="footer">
-					<div>
-						<input
-							v-model="memo"
-							type="text"
-							class="input memo"
-							:disabled="inFlight"
-							placeholder="Add a text message..."
-						/>
-					</div>
-					<SpButton
-						:disabled="!(valid.amount && valid.to_address && !inFlight)"
-						:loading="inFlight"
-						@click="send"
-						>Send tokens</SpButton
-					>
-				</div>
-				<div class="log">
-					<div class="log__text">
-						{{ txResultMessage }}
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -234,8 +229,6 @@
 </style>
 
 <script>
-import SpH3 from '../SpH3'
-import SpIconCircle2 from '../SpIconCircle2'
 import SpButton from '../SpButton'
 import SpAssets from '../SpAssets'
 import SpAmountSelect from '../SpAmountSelect'
@@ -244,13 +237,10 @@ import { Bech32 } from '@cosmjs/encoding'
 export default {
 	name: 'SpTokenSend',
 	components: {
-		SpH3,
-		SpIconCircle2,
 		SpButton,
 		SpAmountSelect,
 		SpAssets
 	},
-	category: 'wallet',
 	props: {
 		address: String
 	},
@@ -263,12 +253,8 @@ export default {
 				fees: []
 			},
 			feesOpen: false,
-			amount: '',
-			to_address: '',
-			memo: '',
-			denomIndex: 0,
+			memoOpen: false,
 			inFlight: false,
-			txResult: '',
 			bankAddress: ''
 		}
 	},
@@ -334,24 +320,40 @@ export default {
 				return []
 			}
 		},
-		denoms() {
-			return this.balances.map((b) => b.denom)
-		},
-		denom() {
-			return this.denoms[this.denomIndex]
-		},
 		depsLoaded() {
 			return this._depsLoaded
 		},
-		valid() {
+		validAddress() {
 			let to_address
 			try {
-				to_address = !!Bech32.decode(this.to_address)
+				to_address = !!Bech32.decode(this.transfer.recipient)
 			} catch {
 				to_address = false
 			}
-			const amount = +this.amount > 0 && Number.isInteger(+this.amount)
-			return { amount, to_address }
+			return to_address
+		},
+		validAmounts() {
+			let valid = true
+			let required = {}
+			for (let amount of this.transfer.amount) {
+				if (Number(amount.amount) > 0 && Number.isInteger(Number(amount.amount))) {
+					if (required[amount.denom]) {
+						required[amount.denom] = required[amount.denom] + Number(amount.amount)
+					} else {
+						required[amount.denom] = Number(amount.amount)
+					}
+				} else {
+					valid = false
+				}
+			}
+			for (let denom in required) {
+				if (
+					required[denom] > this.balances.find((x) => x.denom == denom).amount
+				) {
+					valid = false
+				}
+			}
+			return valid
 		},
 		txResultMessage() {
 			if (this.txResult && this.txResult.code) {
@@ -366,29 +368,32 @@ export default {
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
 			this.transfer.fees = [{ amount: 0, denom: this.balances[0].denom }]
+			this.feesOpen=false
+			this.memoOpen=false
+		},
+		resetFees() {
+			this.transfer.fees = [{ amount: 0, denom: this.balances[0].denom }]
 		},
 		denomChange() {
 			const inBounds = this.denomIndex < this.denoms.length - 1
 			this.denomIndex = inBounds ? this.denomIndex + 1 : 0
 		},
-		async send() {
+		async sendTransaction() {
 			if (this._depsLoaded) {
-				if (this.valid.to_address && this.valid.amount && !this.inFlight) {
+				if (this.validAddress && this.validAmounts && !this.inFlight) {
 					const value = {
-						amount: [{ amount: this.amount, denom: this.denom }],
-						toAddress: this.to_address,
-						fromAddress: this.address
+						amount: this.transfer.amount,
+						toAddress: this.transfer.recipient,
+						fromAddress: this.bankAddress
 					}
 					this.txResult = ''
 					this.inFlight = true
 					this.txResult = await this.$store.dispatch(
 						'cosmos/cosmos-sdk/cosmos.bank.v1beta1/sendMsgSend',
-						{ value }
+						{ value, fee: this.transfer.fees, memo: this.transfer.memo }
 					)
 					if (this.txResult && !this.txResult.code) {
-						this.amount = ''
-						this.to_address = ''
-						this.memo = ''
+						this.resetTransaction()
 					}
 					this.inFlight = false
 					await this.$store.dispatch(

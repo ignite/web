@@ -46,10 +46,34 @@
   height:2.2rem;
   background: rgba(17,17,17,0.05);
   border-radius: 1.1rem;
-  margin-left: 1rem;
+  margin-left: 0.6rem;
+  margin-right:1rem;
   line-height:2.2rem;
   vertical-align:middle;
   text-align:center;
+}
+.sp-textarea {
+  background: white;
+  outline: none;
+  box-shadow: none;
+  font-size: 1.4rem;
+  width: 100%;
+  line-height: 2.2rem;
+  height:8.4rem;
+  border: 0.2rem solid rgba(17, 17, 17, 0.4);
+  padding: 0.9rem 1.2rem;
+  color: rgba(17, 17, 17, 1);
+  appearance: none;
+  border-radius:0.8rem;
+  &.sp-error {
+    border-color: red;
+  }
+  &:focus {
+    outline: none;
+    font-weight: 600;
+    border-color: rgba(17, 17, 17, 1);
+    z-index: 12;
+  }
 }
 .sp-input {
   background: white;

@@ -1,48 +1,50 @@
 <template>
-	<div class="SpForm SpTypeForm {{ typeClass}}" v-if="depsLoaded">
-		<div class="SpTypeFormCreate" v-if="action == 'create'">
-			<p>
-				<strong
-					>CREATE NEW '<em>{{ moduleType }}</em
-					>'</strong
-				>
-			</p>
+	<div class="sp-type-form sp-box {{ typeClass}}" v-if="depsLoaded">
+		<form class="sp-type-form__main__form" v-if="action == 'create'">
+			<div class="sp-type-form__header sp-box-header">
+				CREATE NEW {{ moduleType.toUpperCase() }}
+			</div>
 			<div
-				class="SpTypeFormField"
+				class="sp-type-form__field sp-form-group"
 				v-for="field in createFieldList"
 				v-bind:key="field.name"
 			>
 				<input
 					type="text"
+					class="sp-input"
 					:placeholder="field.name"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
 				/>
 				<input
 					type="number"
+					class="sp-input"
 					:placeholder="field.name"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>
 			</div>
-			<button class="SpButton" @click="createType()">
-				<div class="SpButtonText">CREATE</div>
-			</button>
-		</div>
-		<div class="SpTypeFormUpdate" v-if="action == 'update'">
-			<p>
-				<strong
-					>UPDATE '<em>{{ moduleType }} {{ id ? ' WITH ID:' + id : '' }}</em
-					>'</strong
+			<div class="sp-type-form__btns">
+				<div class="sp-type-form__btns__reset" v-on:click="resetForm">
+					Reset
+				</div>
+				<SpButton type="primary" v-on:click="createType()"
+					>Create {{ moduleType }}</SpButton
 				>
-			</p>
+			</div>
+		</form>
+		<form class="sp-type-form__main__form" v-if="action == 'update'">
+			<div class="sp-type-form__header sp-box-header">
+				UPDATE {{ moduleType.toUpperCase() }}
+			</div>
 			<div
-				class="SpTypeFormField"
+				class="sp-type-form__field sp-form-group"
 				v-for="field in updateFieldList"
 				v-bind:key="field.name"
 			>
 				<input
 					type="text"
+					class="sp-input"
 					:placeholder="field.name"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
@@ -50,15 +52,24 @@
 				/>
 				<input
 					type="number"
+					class="sp-input"
 					:placeholder="field.name"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>
 			</div>
-			<button class="SpButton" @click="updateType()">
-				<div class="SpButtonText">UPDATE</div>
-			</button>
-		</div>
+			<div class="sp-type-form__btns">
+				<div
+					class="sp-type-form__btns__reset"
+					v-on:click="$emit('cancel-update')"
+				>
+					Cancel
+				</div>
+				<SpButton type="primary" v-on:click="updateType()"
+					>Update {{ moduleType }}</SpButton
+				>
+			</div>
+		</form>
 		<div class="SpTypeFormDelete" v-if="action == 'delete'">
 			<p>
 				<strong
@@ -141,7 +152,7 @@ export default {
 	},
 	computed: {
 		typeClass() {
-			return 'SpTypeForm' + this.moduleType
+			return 'sp-type-form-' + this.moduleType
 		},
 		createFieldList() {
 			return this.fieldList.filter((x) => x.name != 'creator' && x.name != 'id')

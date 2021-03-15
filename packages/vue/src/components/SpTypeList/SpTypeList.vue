@@ -1,38 +1,36 @@
 <template>
-	<div class="SpTypeList" v-if="depsLoaded">
-		<p>
-			<strong>
-				LIST OF TYPE: '<em>{{ moduleType }}</em
-				>' ITEMS FROM MODULE: '<em>{{ modulePath }}</em
-				>'
-			</strong>
-		</p>
-		<div class="SpTypeListEmpty" v-if="!typeItems || typeItems.length == 0">
-			<em>No items available</em>
-		</div>
-		<div v-else>
-			<table class="SpTable">
-				<thead>
-					<tr>
-						<td v-for="field in fieldList" v-bind:key="field">
-							<strong>
-								{{ field.name }}
-							</strong>
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr
-						class="SpTypeListItem"
-						v-for="item in typeItems"
-						v-bind:key="item.id"
-					>
-						<td v-for="field in fieldList" v-bind:key="field">
-							{{ item[field.name] }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
+	<div class="sp-type-list" v-if="depsLoaded">
+		<div class="sp-type-list__main sp-box">
+			<div class="sp-type-list__header sp-box-header">
+				{{ moduleType.toUpperCase() + 'S' }}
+			</div>
+			<div class="SpTypeListEmpty" v-if="!typeItems || typeItems.length == 0">
+				<em>No items available</em>
+			</div>
+			<div v-else>
+				<table class="SpTable">
+					<thead>
+						<tr>
+							<td v-for="field in fieldList" v-bind:key="field">
+								<strong>
+									{{ field.name }}
+								</strong>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							class="SpTypeListItem"
+							v-for="item in typeItems"
+							v-bind:key="item.id"
+						>
+							<td v-for="field in fieldList" v-bind:key="field">
+								{{ item[field.name] }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </template>
