@@ -1,0 +1,63 @@
+{
+  "name": "@starport/vue",
+  "version": "0.1.31",
+  "description": "A library of Vue 3 components for building frontends for cosmos-sdk chains",
+  "author": "Tendermint, Inc <hello@tendermint.com>",
+  "homepage": "https://github.com/tendermint/vue",
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "main": "lib/starport-vue.common.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@cosmjs/encoding": "^0.23.2",
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-vuex": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "@vue/compiler-sfc": "^3.0.7",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "bip39": "^3.0.3",
+    "eslint": "^7.21.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.7.0",
+    "moment": "^2.29.1",
+    "node-sass": "^5.0.0",
+    "prettier": "^2.2.1",
+    "sass-loader": "^10.1.1",
+    "vue": "^3.0.7",
+    "vue-uuid": "^2.0.2",
+    "webpack-bundle-analyzer": "^4.4.0"
+  },
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name starport-vue src/index.js --dest lib",
+    "lint": "vue-cli-service lint",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "peerDependencies": {
+    "@cosmjs/encoding": "^0.23.2",
+    "@cosmjs/launchpad": "^0.23.2",
+    "@starport/vuex": "^0.1.17",
+    "axios": "^0.21.1",
+    "bip39": "^3.0.3",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.3",
+    "vue-uuid": "^2.0.2",
+    "vuex": "^4.0.0"
+  },
+  "dependencies": {
+    "crypto-js": "^4.0.0",
+    "dayjs": "^1.10.4",
+    "file-saver": "^2.0.5",
+    "gradient-avatar": "^1.0.2"
+  }
+}
