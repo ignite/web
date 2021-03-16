@@ -89,12 +89,14 @@
 				</div>
 			</div>
 			<div class="sp-dash"></div>
+			<!--
 			<div class="sp-wallet-menu-action">
 				<div class="sp-wallet-menu-action__icon">
 					<span class="sp-icon sp-icon-Settings" />
 				</div>
 				<div class="sp-wallet-menu-action__text sp-text">Manage Wallets</div>
 			</div>
+			//-->
 			<div class="sp-wallet-menu-action">
 				<SpLinkIcon
 					icon="AddNew"

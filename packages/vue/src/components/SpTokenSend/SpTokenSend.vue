@@ -20,12 +20,14 @@
 									class="sp-input"
 									name="rcpt"
 									v-model="transfer.recipient"
+									placeholder="Recipient address..."
+									:disabled="!address"
 								/>
 							</div>
 							<div
 								class="sp-token-send__main__rcpt__memo__btn"
 								v-on:click="memoOpen = true"
-								v-if="!memoOpen"
+								v-if="!memoOpen && address"
 							>
 								+Add memo
 							</div>
@@ -51,7 +53,7 @@
 						</div>
 						<div
 							class="sp-token-send__main__amt__wrapper"
-							v-if="balances.length > 0"
+							v-if="balances.length > 0 && address"
 						>
 							<SpAmountSelect
 								v-for="(amount, index) in transfer.amount"
@@ -69,10 +71,34 @@
 								+ Add Token
 							</div>
 						</div>
+						<div class="sp-token-send__main__amt__wrapper" v-if="!address">
+							<div class="sp-amount-select sp-amount-select__dummy">
+								<div class="sp-form-group">
+									<div class="sp-amount-select__denom">
+										<div class="sp-amount-select__denom__selected">
+											<div class="sp-amount-select__denom__name">
+												<div
+													class="sp-denom-marker"
+													style="background: #809cff"
+												/>
+												<div class="sp-dummy-fill" />
+											</div>
+										</div>
+									</div>
+									<input
+										class="sp-input sp-input-large"
+										value="0"
+										name="rcpt"
+										disabled="true"
+									/>
+								</div>
+							</div>
+						</div>
 						<div class="sp-dashed-line"></div>
 						<div
 							class="sp-token-send__main__footer"
 							:class="{ 'sp-token-send__main__footer__open': feesOpen }"
+							v-if="address"
 						>
 							<div class="sp-token-send__main__fees__header sp-box-header">
 								FEES <span class="sp-circle">?</span>
@@ -141,6 +167,35 @@
 										Reset
 									</div>
 									<SpButton v-on:click="sendTransaction" type="primary"
+										>Send Transaction</SpButton
+									>
+								</div>
+							</div>
+						</div>
+						<div class="sp-token-send__main__footer" v-else>
+							<div class="sp-token-send__main__fees__header sp-box-header">
+								Add or unlock a wallet to send transactions
+							</div>
+							<div class="sp-token-send__main__fees__content"></div>
+							<div class="sp-token-send__main__btns">
+								<div
+									class="sp-token-send__main__btns__reset__fees"
+									v-on:click="resetFees"
+									v-if="feesOpen"
+								>
+									Reset Fees
+								</div>
+								<div class="sp-token-send__main__btns__tx">
+									<div
+										class="sp-token-send__main__btns__reset"
+										v-on:click="resetTransaction"
+									>
+										Reset
+									</div>
+									<SpButton
+										v-on:click="sendTransaction"
+										type="primary"
+										:disabled="!address"
 										>Send Transaction</SpButton
 									>
 								</div>
@@ -283,8 +338,8 @@ export default {
 	watch: {
 		balances: function (newBal, oldBal) {
 			if (newBal != oldBal && newBal[0]?.denom) {
-				this.transfer.amount = [{ amount: 0, denom: newBal[0].denom }]
-				this.transfer.fees = [{ amount: 0, denom: newBal[0].denom }]
+				this.transfer.amount = [{ amount: '0', denom: newBal[0].denom }]
+				this.transfer.fees = [{ amount: '0', denom: newBal[0].denom }]
 			}
 		},
 		address: function (newAddr, oldAddr) {
@@ -361,22 +416,22 @@ export default {
 	},
 	methods: {
 		resetTransaction() {
-			this.transfer.amount = [{ amount: 0, denom: this.balances[0].denom }]
+			this.transfer.amount = [{ amount: '0', denom: this.balances[0].denom }]
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
-			this.transfer.fees = [{ amount: 0, denom: this.balances[0].denom }]
+			this.transfer.fees = [{ amount: '0', denom: this.balances[0].denom }]
 			this.feesOpen = false
 			this.memoOpen = false
 		},
 		resetFees() {
-			this.transfer.fees = [{ amount: 0, denom: this.balances[0].denom }]
+			this.transfer.fees = [{ amount: '0', denom: this.balances[0].denom }]
 		},
 		denomChange() {
 			const inBounds = this.denomIndex < this.denoms.length - 1
 			this.denomIndex = inBounds ? this.denomIndex + 1 : 0
 		},
 		async sendTransaction() {
-			if (this._depsLoaded) {
+			if (this._depsLoaded && this.address) {
 				if (this.validAddress && this.validAmounts && !this.inFlight) {
 					const value = {
 						amount: this.transfer.amount,

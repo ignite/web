@@ -4,7 +4,10 @@
 			<h3>Transfer List</h3>
 			<span>| A list of your recent transfers</span>
 		</div>
-		<table class="sp-transfer-list__table sp-box">
+		<table
+			class="sp-transfer-list__table sp-box"
+			v-if="address && transactions.length > 0"
+		>
 			<thead>
 				<tr>
 					<th class="sp-transfer-list__status">STATUS</th>
@@ -77,6 +80,35 @@
 							}}
 						</div>
 					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table class="sp-transfer-list__table sp-box" v-else>
+			<tbody>
+				<tr>
+					<td class="sp-transfer-list__status">
+						<div class="sp-transfer-list__status__wrapper">
+							<div
+								class="sp-transfer-list__status__icon sp-transfer-list__status__icon__empty"
+							>
+								<span class="sp-icon sp-icon-Transactions" />
+							</div>
+							<div class="sp-transfer-list__status__action">
+								<div class="sp-transfer-list__status__action__text">
+									No Transactions Yet
+								</div>
+								<div
+									class="sp-transfer-list__status__action__date"
+									v-if="!address"
+								>
+									Add or unlock a wallet to see recent transactions
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="sp-transfer-list__table__address"></td>
+					<td class="sp-transfer-list__table__amount"></td>
 				</tr>
 			</tbody>
 		</table>

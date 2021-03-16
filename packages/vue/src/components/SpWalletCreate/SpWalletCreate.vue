@@ -35,12 +35,15 @@
 				<div class="sp-form-group">
 					<input
 						class="sp-input"
-						:class="{ 'sp-error': !walletNameAvailable }"
+						:class="{ 'sp-error': !walletNameAvailable && !creating }"
 						v-model="create.name"
 						type="text"
 						name="walletname"
 						placeholder="Wallet name"
 					/>
+				</div>
+				<div class="sp-error-message" v-if="!walletNameAvailable && !creating">
+					A wallet by this name already exist. Please choose a different one.
 				</div>
 				<div class="sp-form-group">
 					<input
@@ -57,6 +60,12 @@
 						type="password"
 						placeholder="Confirm password"
 					/>
+				</div>
+				<div
+					class="sp-error-message"
+					v-if="create.password != '' && create.password != create.confirm"
+				>
+					Passwords do not match
 				</div>
 				<SpButton v-on:click="createStep2" type="primary"
 					>Create Wallet</SpButton
@@ -85,7 +94,16 @@
 			<div class="sp-wallet-create__text">
 				Paste your recovery phrase or private key below to import your wallet.
 			</div>
-			<textarea class="sp-key-area sp-textarea" v-model="imported.mnemonicOrKey"></textarea>
+			<textarea
+				class="sp-key-area sp-textarea"
+				v-model="imported.mnemonicOrKey"
+			></textarea>
+			<div
+				class="sp-error-message"
+				v-if="imported.mnemonicOrKey != '' && !validMnemonic"
+			>
+				You have not entered a valid mnemonic or private key.
+			</div>
 			<SpButton type="primary" v-on:click="importStep2">Import wallet</SpButton>
 		</template>
 		<template v-if="importform && imported.step2">
@@ -99,7 +117,7 @@
 				<div class="sp-form-group">
 					<input
 						class="sp-input"
-						:class="{ 'sp-error': !walletNameAvailable }"
+						:class="{ 'sp-error': !walletNameAvailable && !creating }"
 						v-model="imported.name"
 						type="text"
 						name="walletname"
@@ -163,6 +181,9 @@ export default {
 		},
 		wallet() {
 			return this.$store.getters['common/wallet/wallet']
+		},
+		validMnemonic() {
+			return bip39.validateMnemonic(this.imported.mnemonicOrKey)
 		}
 	},
 	methods: {
@@ -200,11 +221,24 @@ export default {
 					return
 				}
 			}
+
+			if (this.importform) {
+				if (this.imported.step1) {
+					this.reset()
+					return
+				}
+				if (this.imported.step2) {
+					this.imported.step2 = false
+					this.imported.step1 = true
+					return
+				}
+			}
 		},
 		defaultState() {
 			return {
 				createform: false,
 				importform: false,
+				creating: false,
 				create: {
 					step1: true,
 					step2: false,
@@ -228,11 +262,13 @@ export default {
 			this.create.mnemonic = mnemonic
 		},
 		async createStep2() {
+			this.creating = true
 			if (this.walletNameAvailable) {
 				this.create.step1 = false
 				this.create.step2 = true
 				this.generateMnemonic()
 				await this.createWallet()
+				this.creating = false
 			}
 			//this.downloadBackup()
 		},
@@ -245,8 +281,10 @@ export default {
 			this.close()
 		},
 		async doneImport() {
+			this.creating = true
 			if (this.walletNameAvailable) {
 				await this.importWallet()
+				this.creating = false
 				this.reset()
 				this.close()
 			}

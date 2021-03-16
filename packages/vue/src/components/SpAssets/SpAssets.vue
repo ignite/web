@@ -4,10 +4,44 @@
 			<h3>Assets</h3>
 		</div>
 		<div class="sp-assets__main sp-box">
-			<div class="sp-assets__main__header">
+			<div class="sp-assets__main__header" v-if="address">
 				<div class="sp-assets__main__header__token">TOKEN</div>
 				<div class="sp-assets__main__header__amount">AMOUNT</div>
 			</div>
+			<div class="sp-assets__main__header" v-else>
+				<div class="sp-assets__main__header__message">
+					Add or unlock a wallet to see your balances
+				</div>
+			</div>
+			<template v-if="!address">
+				<div class="sp-assets__main__item">
+					<div class="sp-assets__main__denom__name">
+						<div class="sp-denom-marker" style="background: #809cff" />
+						<div class="sp-dummy-fill" />
+					</div>
+					<div class="sp-assets__main__denom__balance">
+						<div class="sp-dummy-fill" />
+					</div>
+				</div>
+				<div class="sp-assets__main__item">
+					<div class="sp-assets__main__denom__name">
+						<div class="sp-denom-marker" style="background: #80d1ff" />
+						<div class="sp-dummy-fill" />
+					</div>
+					<div class="sp-assets__main__denom__balance">
+						<div class="sp-dummy-fill" />
+					</div>
+				</div>
+				<div class="sp-assets__main__item">
+					<div class="sp-assets__main__denom__name">
+						<div class="sp-denom-marker" style="background: #ffbd80" />
+						<div class="sp-dummy-fill" />
+					</div>
+					<div class="sp-assets__main__denom__balance">
+						<div class="sp-dummy-fill" />
+					</div>
+				</div>
+			</template>
 			<div
 				class="sp-assets__main__item"
 				v-for="balance in fullBalances"
@@ -35,6 +69,9 @@ export default {
 		balances: Array
 	},
 	computed: {
+		address() {
+			return this.$store.getters['common/wallet/address']
+		},
 		fullBalances() {
 			return this.balances.map((x) => {
 				x.color = this.str2rgba(x.denom.toUpperCase())

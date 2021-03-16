@@ -2,6 +2,7 @@
   position: fixed;
   top: 2rem;
   right: 2rem;
+  z-index: 90;
 }
 .sp-wallet-menu {
   background: white;
@@ -254,10 +255,11 @@
     .sp-status-ws {
       margin: 1rem 0rem;
     }
-    .sp-build {
+    .sp-text {
       margin-top: 3rem;
       opacity: 0;
       transition: all 0.4s;
+      display:none !important;
     }
   }
   .sp-sidebar__back {
@@ -275,9 +277,10 @@
     }
     .sp-sidebar__footer {
       width: 22rem;
-      .sp-build {
+      .sp-text {
         margin-top: 0;
         opacity: 1;
+        display:none !important;
       }
     }
   }
@@ -404,6 +407,7 @@
   font-weight: 700;
   border-radius: 0.8rem;
   outline: none;
+  transition: 200ms ease;
   cursor: pointer;
   &:hover {
     transform: scale(1.025);
@@ -418,6 +422,15 @@
     border: 0.2rem solid #111111;
     color: #111111;
   }
+  &:disabled {
+    transition: none;
+    background: rgba(17, 17, 17, 0.04) !important;
+    color:rgba(17,17,17,0.4)!important;
+    border: 0.2rem solid rgba(17,17,17,0.04)!important;
+    &:hover {
+      transform: none;
+    }
+  }
 }
 .sp-wallet-create {
   background: white;
@@ -426,6 +439,9 @@
   height: auto;
   padding: 2.8rem;
   position: relative;
+  .sp-textarea {
+    margin-bottom:0.8rem;
+  }
   .sp-wallet-create__close {
     text-align: right;
     .sp-icon {
@@ -433,10 +449,14 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
+      opacity:0.4;
+      &:hover {
+        opacity:1;
+      }
     }
   }
   .sp-button {
-    margin-top: 1rem;
+    margin-top: 0rem;
   }
   .sp-wallet-create__back {
     text-align: left;
@@ -624,6 +644,11 @@
           .sp-assets__main__denom__name {
             display: flex;
             align-items: center;
+            flex-grow:3;
+          }
+          .sp-assets__main__denom__balance {
+            flex-grow:1;
+            text-align:right;
           }
         }
       }
@@ -808,6 +833,21 @@
           display: block;
           z-index: 100;
         }
+        &.sp-amount-select__dummy {
+          .sp-form-group {
+            .sp-amount-select__denom {
+              .sp-amount-select__denom__selected {
+                width:10rem;
+                .sp-amount-select__denom__name {
+                  width:100%;
+                  .sp-dummy-fill {
+                    width:4.7rem;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
       .sp-token-send__main__amt__add {
         font-weight: 600;
@@ -869,6 +909,7 @@
 
           .sp-token-send__main__fees__content {
             overflow: visible;
+            width:100%;
           }
           .sp-token-send__main__btns {
             margin-top: 0.5rem;
@@ -904,6 +945,10 @@
           align-items: center;
           border-radius: 1.2rem;
           font-size: 1.2rem;
+          &.sp-transfer-list__status__icon__empty {
+            background: rgba(10,166,73, 0.15);
+            color: rgba(10,166,73,1);
+          }
           &.sp-transfer-list__status__icon__failed {
             background: rgba(242, 55, 55, 0.15);
             color: rgba(242, 55, 55, 1);
@@ -977,6 +1022,10 @@
   }
 }
 .sp-type-form {
+  .sp-type-form__message {
+    margin: 1rem 0rem;
+    opacity: 0.4;
+  }
   .sp-type-form__btns {
     display: flex;
     justify-content: space-between;

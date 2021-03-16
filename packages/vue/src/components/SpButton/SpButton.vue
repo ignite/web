@@ -4,10 +4,17 @@
 		v-if="link"
 		class="sp-button"
 		:class="'sp-button-' + type"
+		:disabled="disabled"
 	>
 		<slot></slot>
 	</router-link>
-	<button type="button" v-else class="sp-button" :class="'sp-button-' + type">
+	<button
+		type="button"
+		v-else
+		class="sp-button"
+		:class="'sp-button-' + type"
+		:disabled="disabled"
+	>
 		<slot></slot>
 	</button>
 </template>

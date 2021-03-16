@@ -9,6 +9,7 @@
 			</div>
 			<template v-else>
 				<div v-for="(item, index) in typeItems" v-bind:key="item.id">
+					<div class="sp-dashed-line" v-if="index != 0" />
 					<div class="sp-type-list__item">
 						<div class="sp-type-list__item__icon">
 							<div class="sp-icon sp-icon-Docs" />
@@ -26,6 +27,7 @@
 						<div
 							class="sp-type-list__item__more"
 							:class="{ 'sp-type-list__item__more__open': moreOpen == index }"
+							v-if="address"
 						>
 							<div class="sp-icon sp-icon-More" v-on:click="moreOpen = index" />
 							<div
@@ -47,7 +49,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="sp-dashed-line" />
 				</div>
 			</template>
 		</div>
@@ -98,6 +99,9 @@ export default {
 		}
 	},
 	computed: {
+		address() {
+			return this.$store.getters['common/wallet/address']
+		},
 		typeItems() {
 			if (this._depsLoaded) {
 				let items = this.$store.getters[

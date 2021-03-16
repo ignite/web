@@ -24,11 +24,14 @@
 					v-if="field.type == 'number'"
 				/>
 			</div>
+			<div class="sp-type-form__message" v-if="!address">
+				Add or unlock a wallet to create a {{ moduleType }}
+			</div>
 			<div class="sp-type-form__btns">
 				<div class="sp-type-form__btns__reset" v-on:click="resetForm">
 					Reset
 				</div>
-				<SpButton type="primary" v-on:click="createType()"
+				<SpButton type="primary" v-on:click="createType" :disabled="!address"
 					>Create {{ moduleType }}</SpButton
 				>
 			</div>
@@ -103,7 +106,7 @@
 					Cancel
 				</div>
 				<SpButton type="primary" v-on:click="deleteType()"
-					>Update {{ moduleType }}</SpButton
+					>Delete {{ moduleType }}</SpButton
 				>
 			</div>
 		</form>
@@ -152,7 +155,7 @@ export default {
 							params: { id: this.typeData['id'] }
 						}
 					)
-					let data=this.$store.getters[
+					let data = this.$store.getters[
 						this.modulePath + '/get' + this.moduleType
 					]({ params: { id: this.typeData['id'] } })
 					this.typeData = data[this.capitalize(this.moduleType)]
@@ -161,6 +164,9 @@ export default {
 		}
 	},
 	computed: {
+		address() {
+			return this.$store.getters['common/wallet/address']
+		},
 		typeClass() {
 			return 'sp-type-form-' + this.moduleType
 		},
@@ -222,7 +228,7 @@ export default {
 					this.modulePath + '/Query' + this.moduleType,
 					{ options: { subscribe: true }, params: { id: this.typeData['id'] } }
 				)
-				let data= this.$store.getters[
+				let data = this.$store.getters[
 					this.modulePath + '/get' + this.moduleType
 				]({ params: { id: this.typeData['id'] } })
 				this.typeData = data[this.capitalize(this.moduleType)]
@@ -234,7 +240,7 @@ export default {
 			return str.charAt(0).toUpperCase() + str.slice(1)
 		},
 		async createType() {
-			if (this._depsLoaded) {
+			if (this._depsLoaded && this.address) {
 				this.typeData['creator'] = this.selectedAccount
 				this.txResult = await this.$store.dispatch(
 					this.modulePath + '/sendMsgCreate' + this.moduleType,
