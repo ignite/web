@@ -83,6 +83,8 @@ const result = await client.signingClient.sendTokens(account.address, recipient,
 
 Finally, the client provides two querying methods for the cosmos API:
 
+### query()
+
 `.query(endpoint,queryparams)` 
 
 A VERY basic wrapper around axios, so querying the bank module for an address's balances would be: 
@@ -90,6 +92,7 @@ A VERY basic wrapper around axios, so querying the bank module for an address's 
 ```
 let balances = await client.query('/cosmos/bank/v1beta1/balances/','cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5');
 ```
+### request()
 
 ```
 .request({
