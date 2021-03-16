@@ -104,7 +104,12 @@
 			>
 				You have not entered a valid mnemonic or private key.
 			</div>
-			<SpButton type="primary" v-on:click="importStep2">Import wallet</SpButton>
+			<SpButton
+				type="primary"
+				v-on:click="importStep2"
+				:disabled="imported.mnemonicOrKey == '' || !validMnemonic"
+				>Import wallet</SpButton
+			>
 		</template>
 		<template v-if="importform && imported.step2">
 			<div class="sp-wallet-create__title sp-header-text">
@@ -140,7 +145,15 @@
 						placeholder="Confirm password"
 					/>
 				</div>
-				<SpButton v-on:click="doneImport">Done</SpButton>
+				<SpButton
+					v-on:click="doneImport"
+					:disabled="
+						imported.name == '' ||
+						imported.password == '' ||
+						imported.password != imported.confirm
+					"
+					>Done</SpButton
+				>
 			</div>
 		</template>
 	</div>
