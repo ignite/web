@@ -2,10 +2,18 @@ body {
   font-family: 'Inter', sans-serif;
   color: #111111;
 }
+
 h1 {
   font-size: 2rem;
   line-height: 2.2rem;
   font-weight: 600;
   letter-spacing: -0.018rem;
   margin: 0;
+}
+
+h3 {
+  white-space: nowrap;
+  font-weight: 800;
+  margin: 0;
+  font-size: 2.2rem;
 }

@@ -1,9 +1,14 @@
+.sp-component {
+  margin-bottom: 5rem;
+}
+
 .sp-wallet {
   position: fixed;
   top: 2rem;
   right: 2rem;
   z-index: 90;
 }
+
 .sp-wallet-menu {
   background: white;
   min-width: 30rem;
@@ -37,6 +42,7 @@
     line-height: 2.2rem;
   }
   .sp-dash {
+    display: inline-block;
     margin-left: 1.4rem;
   }
   .sp-wallet-menu-item {
@@ -216,19 +222,14 @@
 }
 .sp-sidebar {
   height: 100vh;
-  top: 0;
-  bottom: 0;
-  left: 0;
   width: 3.6rem;
   background: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   position: relative;
-  transition: width 0.4s;
-  padding-top: 4rem;
-  padding-bottom: 5rem;
+  padding: 4rem;
+
   .sp-sidebar__header {
     width: 2rem;
     overflow: hidden;
@@ -236,30 +237,26 @@
     white-space: nowrap;
   }
   .sp-sidebar__content {
-    width: 2rem;
     overflow: hidden;
-    transition: width 0.4s;
     white-space: nowrap;
   }
+
   .sp-sidebar__footer {
     width: 2rem;
     overflow: hidden;
     transition: width 0.4s;
     white-space: nowrap;
-    .sp-status-api {
-      margin: 1rem 0rem;
-    }
-    .sp-status-rpc {
-      margin: 1rem 0rem;
-    }
+
+    .sp-status-api,
+    .sp-status-rpc,
     .sp-status-ws {
-      margin: 1rem 0rem;
+      margin-bottom: 1rem;
     }
+
     .sp-text {
-      margin-top: 3rem;
       opacity: 0;
       transition: all 0.4s;
-      display:none !important;
+      display: none !important;
     }
   }
   .sp-sidebar__back {
@@ -280,21 +277,21 @@
       .sp-text {
         margin-top: 0;
         opacity: 1;
-        display:none !important;
+        display: none !important;
       }
     }
   }
 }
 
 .sp-link-icon {
-  margin-top: 1.4rem;
-  margin-bottom: 1.4rem;
-  cursor: pointer;
+  margin-bottom: 2.3em;
+
   .sp-link-icon-wrapper {
-    display: flex;
+    display: inline-flex;
     text-decoration: none;
     color: #111111;
     opacity: 0.6;
+
     .sp-link-icon__icon {
       font-size: 1.6rem;
     }
@@ -308,7 +305,6 @@
     }
     &:hover {
       opacity: 1;
-      font-weight: 600;
     }
     &:active {
       opacity: 1;
@@ -344,21 +340,26 @@
   }
 }
 .sp-status-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
-  color: red;
+  background-color: #f23737;
+
   &.sp-active {
-    color: green;
+    background-color: #0aa649;
   }
 }
 .sp-status-api {
   display: flex;
   align-items: center;
+
   .sp-status-api__text {
-    margin-left: 1rem;
-    font-size: 1.4rem;
+    margin-left: 0.8rem;
+    font-size: 1.3rem;
     opacity: 0.6;
   }
 }
@@ -367,7 +368,7 @@
   display: flex;
   align-items: center;
   .sp-status-ws__text {
-    margin-left: 1rem;
+    margin-left: 0.8rem;
     font-size: 1.4rem;
     opacity: 0.6;
   }
@@ -377,7 +378,7 @@
   display: flex;
   align-items: center;
   .sp-status-rpc__text {
-    margin-left: 1rem;
+    margin-left: 0.8rem;
     font-size: 1.4rem;
     opacity: 0.6;
   }
@@ -425,8 +426,8 @@
   &:disabled {
     transition: none;
     background: rgba(17, 17, 17, 0.04) !important;
-    color:rgba(17,17,17,0.4)!important;
-    border: 0.2rem solid rgba(17,17,17,0.04)!important;
+    color: rgba(17, 17, 17, 0.4) !important;
+    border: 0.2rem solid rgba(17, 17, 17, 0.04) !important;
     &:hover {
       transform: none;
     }
@@ -434,13 +435,15 @@
 }
 .sp-wallet-create {
   background: white;
-  border-radius: 2rem;
   width: 30rem;
   height: auto;
   padding: 2.8rem;
   position: relative;
+  border-radius: 2rem;
+  box-shadow: 0rem 0.8rem 1.6rem -0.3rem rgba(140, 148, 159, 0.15);
+
   .sp-textarea {
-    margin-bottom:0.8rem;
+    margin-bottom: 0.8rem;
   }
   .sp-wallet-create__close {
     text-align: right;
@@ -449,9 +452,9 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      opacity:0.4;
+      opacity: 0.4;
       &:hover {
-        opacity:1;
+        opacity: 1;
       }
     }
   }
@@ -580,15 +583,11 @@
 .sp-component-title {
   display: flex;
   align-items: center;
-  margin: 2rem 0rem;
-  h3 {
-    font-weight: 800;
-    margin: 0;
-    font-size: 2.2rem;
-  }
+  margin-bottom: 2.3rem;
+
   span {
     display: block;
-    margin-left: 1rem;
+    margin-left: 1.1rem;
     font-size: 1.4rem;
     opacity: 0.6;
   }
@@ -596,9 +595,10 @@
 .sp-box {
   background: white;
   border-radius: 1.2rem;
-  padding: 1.2rem;
+  padding: 2rem;
   font-size: 1.4rem;
-  box-shadow: 0rem 0.8rem 1.6rem -0.3rem rgba(140, 148, 159, 0.1);
+  box-shadow: 0rem 0.8rem 1.6rem -0.3rem rgba(140, 148, 159, 0.15);
+
   .sp-box-header {
     opacity: 0.4;
     font-weight: 600;
@@ -644,11 +644,11 @@
           .sp-assets__main__denom__name {
             display: flex;
             align-items: center;
-            flex-grow:3;
+            flex-grow: 3;
           }
           .sp-assets__main__denom__balance {
-            flex-grow:1;
-            text-align:right;
+            flex-grow: 1;
+            text-align: right;
           }
         }
       }
@@ -657,7 +657,8 @@
   .sp-token-send {
     flex-basis: 62%;
     width: 62%;
-    padding-right: 1.6rem;
+    padding-right: clamp(1rem, 2vw, 3.2rem);
+
     .sp-token-send__main__form {
       padding: 0.4rem;
       .sp-token-send__main__rcpt__memo__header {
@@ -837,11 +838,11 @@
           .sp-form-group {
             .sp-amount-select__denom {
               .sp-amount-select__denom__selected {
-                width:10rem;
+                width: 10rem;
                 .sp-amount-select__denom__name {
-                  width:100%;
+                  width: 100%;
                   .sp-dummy-fill {
-                    width:4.7rem;
+                    width: 4.7rem;
                   }
                 }
               }
@@ -909,7 +910,7 @@
 
           .sp-token-send__main__fees__content {
             overflow: visible;
-            width:100%;
+            width: 100%;
           }
           .sp-token-send__main__btns {
             margin-top: 0.5rem;
@@ -946,8 +947,8 @@
           border-radius: 1.2rem;
           font-size: 1.2rem;
           &.sp-transfer-list__status__icon__empty {
-            background: rgba(10,166,73, 0.15);
-            color: rgba(10,166,73,1);
+            background: rgba(10, 166, 73, 0.15);
+            color: rgba(10, 166, 73, 1);
           }
           &.sp-transfer-list__status__icon__failed {
             background: rgba(242, 55, 55, 0.15);
@@ -994,7 +995,6 @@
       }
     }
     td {
-      padding: 1.2rem;
       vertical-align: middle;
       &.sp-transfer-list__table__amount {
         text-align: right;
@@ -1014,10 +1014,10 @@
     .sp-type-form__holder {
       flex-basis: 38%;
       width: 38%;
-      padding-right: 1.6rem;
+      padding-right: clamp(1rem, 2vw, 3.2rem);
     }
     .sp-type__list {
-      flex-grow:1
+      flex-grow: 1;
     }
   }
 }
@@ -1038,7 +1038,6 @@
   }
 }
 .sp-type-list {
-
   .sp-type-list__overlay {
     position: fixed;
     top: 0;
@@ -1050,34 +1049,32 @@
     z-index: 100;
   }
   .sp-type-list__edit__form {
-
     z-index: 200;
     position: fixed;
     top: 0;
     bottom: 0;
-    lefT: 0;
+    left: 0;
     right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .sp-type-list__delete__form {
-
     z-index: 200;
     position: fixed;
     top: 0;
     bottom: 0;
-    lefT: 0;
+    left: 0;
     right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .sp-type-list__item {
-    display:flex;
-    justify-content:space-between;
-    align-items: flex-start;    
-    .sp-type-list__item__icon { 
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    .sp-type-list__item__icon {
       width: 4.8rem;
       height: 4.8rem;
       display: flex;
@@ -1085,33 +1082,33 @@
       align-items: center;
       border-radius: 1.2rem;
       font-size: 1.2rem;
-      background: rgba(255,164,27,0.15);
-      color: rgba(255,164,27,1);
-      margin-right:2rem;
-    } 
-    .sp-type-list__item__more { 
+      background: rgba(255, 164, 27, 0.15);
+      color: rgba(255, 164, 27, 1);
+      margin-right: 2rem;
+    }
+    .sp-type-list__item__more {
       width: 4.8rem;
       height: 4.8rem;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 1.4rem;
-      cursor:pointer;
-      position:relative;
-      .sp-type-list__item__options{
-        position:absolute;
-        right:0;
+      cursor: pointer;
+      position: relative;
+      .sp-type-list__item__options {
+        position: absolute;
+        right: 0;
       }
     }
     .sp-type-list__item__details {
-      flex-grow:1;
-      margin-right:2rem;
+      flex-grow: 1;
+      margin-right: 2rem;
       .sp-type-list__item__details__field {
-        margin-bottom:0.8rem;
+        margin-bottom: 0.8rem;
       }
-    }    
+    }
   }
   .sp-dashed-line {
-    margin:2rem 0rem;
+    margin: 2rem 0rem;
   }
 }

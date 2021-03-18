@@ -4,9 +4,10 @@
 @import './_responsive';
 @import './_utility';
 @import './_components';
+
 #app {
   background: #f5f6f8;
-  height: 100vh;
+
   * {
     box-sizing: border-box;
   }

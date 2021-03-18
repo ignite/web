@@ -1,10 +1,11 @@
 <template>
-	<div v-if="depsLoaded">
+	<div class="sp-component" v-if="depsLoaded">
 		<div class="sp-token-send__holder">
 			<div class="sp-token-send">
 				<div class="sp-token-send__header sp-component-title">
-					<h3>Send Tokens</h3>
-					<span>| Send transaction with one or multiple tokens.</span>
+					<h3>Send tokens</h3>
+					<span>|</span>
+					<span>Transfer one or multiple tokens</span>
 				</div>
 				<div class="sp-token-send__main sp-box">
 					<form class="sp-token-send__main__form">
@@ -94,7 +95,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="sp-dashed-line"></div>
+						<div class="sp-line"></div>
 						<div
 							class="sp-token-send__main__footer"
 							:class="{ 'sp-token-send__main__footer__open': feesOpen }"
@@ -132,7 +133,7 @@
 										>
 											+ Add Fee Token
 										</div>
-										<div class="sp-dashed-line"></div>
+										<div class="sp-line"></div>
 									</div>
 								</template>
 								<template v-else>
@@ -167,7 +168,7 @@
 										Reset
 									</div>
 									<SpButton v-on:click="sendTransaction" type="primary"
-										>Send Transaction</SpButton
+										>Send transaction</SpButton
 									>
 								</div>
 							</div>
@@ -196,7 +197,7 @@
 										v-on:click="sendTransaction"
 										type="primary"
 										:disabled="!address"
-										>Send Transaction</SpButton
+										>Send transaction</SpButton
 									>
 								</div>
 							</div>

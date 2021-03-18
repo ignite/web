@@ -18,10 +18,10 @@
 			</div>
 			<div class="sp-wallet-create__cards">
 				<SpCard type="primary" icon="Add" v-on:click="createform = true"
-					>Create New Wallet</SpCard
+					>Create new wallet</SpCard
 				>
 				<SpCard type="secondary" icon="Upload" v-on:click="importform = true"
-					>Import Existing Wallet</SpCard
+					>Import existing wallet</SpCard
 				>
 			</div>
 		</template>
@@ -89,7 +89,7 @@
 		</template>
 		<template v-if="importform && imported.step1">
 			<div class="sp-wallet-create__title sp-header-text">
-				Import existing wallet
+				Import<br> existing wallet
 			</div>
 			<div class="sp-wallet-create__text">
 				Paste your recovery phrase or private key below to import your wallet.
@@ -108,7 +108,7 @@
 				type="primary"
 				v-on:click="importStep2"
 				:disabled="imported.mnemonicOrKey == '' || !validMnemonic"
-				>Import wallet</SpButton
+				>Import</SpButton
 			>
 		</template>
 		<template v-if="importform && imported.step2">

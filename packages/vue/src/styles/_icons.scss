@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?t69unb');
-  src:  url('../fonts/icomoon.eot?t69unb#iefix') format('embedded-opentype'),
+  src: url('../fonts/icomoon.eot?t69unb');
+  src: url('../fonts/icomoon.eot?t69unb#iefix') format('embedded-opentype'),
     url('../fonts/icomoon.ttf?t69unb') format('truetype'),
     url('../fonts/icomoon.woff?t69unb') format('woff'),
     url('../fonts/icomoon.svg?t69unb#icomoon') format('svg');
@@ -10,7 +10,8 @@
   font-display: block;
 }
 
-[class^="sp-icon-"], [class*=" sp-icon-"] {
+[class^='sp-icon-'],
+[class*=' sp-icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: never;
@@ -26,92 +27,92 @@
 }
 
 .sp-icon-Download:before {
-  content: "\e900";
+  content: '\e900';
 }
 .sp-icon-Upload:before {
-  content: "\e901";
+  content: '\e901';
 }
 .sp-icon-Key:before {
-  content: "\e902";
+  content: '\e902';
 }
 .sp-icon-Copy:before {
-  content: "\e903";
+  content: '\e903';
 }
 .sp-icon-Unlock:before {
-  content: "\e904";
+  content: '\e904';
 }
 .sp-icon-Lock:before {
-  content: "\e905";
+  content: '\e905';
 }
 .sp-icon-AddNew:before {
-  content: "\e906";
+  content: '\e906';
 }
 .sp-icon-Add:before {
-  content: "\e907";
+  content: '\e907';
 }
 .sp-icon-Close:before {
-  content: "\e908";
+  content: '\e908';
 }
 .sp-icon-LeftArrow:before {
-  content: "\e909";
+  content: '\e909';
 }
 .sp-icon-UpArrow:before {
-  content: "\e90a";
+  content: '\e90a';
 }
 .sp-icon-DownArrow:before {
-  content: "\e90b";
+  content: '\e90b';
 }
 .sp-icon-RightArrow:before {
-  content: "\e90c";
+  content: '\e90c';
 }
 .sp-icon-LeftCaret:before {
-  content: "\e90d";
+  content: '\e90d';
 }
 .sp-icon-UpCaret:before {
-  content: "\e90e";
+  content: '\e90e';
 }
 .sp-icon-DownCaret:before {
-  content: "\e90f";
+  content: '\e90f';
 }
 .sp-icon-RightCaret:before {
-  content: "\e910";
+  content: '\e910';
 }
-.sp-icon-Status:before {
-  content: "\e911";
+.sp-icon-Status {
+  content: '\e911';
 }
 .sp-icon-Docs:before {
-  content: "\e912";
+  content: '\e912';
 }
 .sp-icon-Settings:before {
-  content: "\e913";
+  content: '\e913';
 }
 .sp-icon-Form:before {
-  content: "\e914";
+  content: '\e914';
 }
 .sp-icon-Transactions:before {
-  content: "\e915";
+  content: '\e915';
 }
 .sp-icon-Modules:before {
-  content: "\e916";
+  content: '\e916';
 }
 .sp-icon-Dashboard:before {
-  content: "\e917";
+  content: '\e917';
 }
 .sp-icon-More:before {
-  content: "\e918";
+  content: '\e918';
 }
 .sp-icon-Delete:before {
-  content: "\e919";
+  content: '\e919';
 }
 .sp-icon-Hash:before {
-  content: "\e91a";
+  content: '\e91a';
 }
 .sp-icon-Reload:before {
-  content: "\e91b";
+  content: '\e91b';
 }
 .sp-icon-Search:before {
-  content: "\e91c";
+  content: '\e91c';
 }
 .sp-icon-Token:before {
-  content: "\e91d";
+  content: '\e91d';
 }
