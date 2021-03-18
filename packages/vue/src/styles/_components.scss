@@ -222,65 +222,18 @@
 }
 .sp-sidebar {
   height: 100vh;
-  width: 3.6rem;
+  
   background: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
-  padding: 4rem;
-
-  .sp-sidebar__header {
-    width: 2rem;
-    overflow: hidden;
-    transition: width 0.4s;
-    white-space: nowrap;
-  }
-  .sp-sidebar__content {
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .sp-sidebar__footer {
-    width: 2rem;
-    overflow: hidden;
-    transition: width 0.4s;
-    white-space: nowrap;
-
-    .sp-status-api,
-    .sp-status-rpc,
-    .sp-status-ws {
-      margin-bottom: 1rem;
-    }
-
-    .sp-text {
-      opacity: 0;
-      transition: all 0.4s;
-      display: none !important;
-    }
-  }
+  
   .sp-sidebar__back {
     position: absolute;
     bottom: 4rem;
     right: -2rem;
   }
-  &.sp-opened {
-    width: 30rem;
-    .sp-sidebar__header {
-      width: 22rem;
-    }
-    .sp-sidebar__content {
-      width: 22rem;
-    }
-    .sp-sidebar__footer {
-      width: 22rem;
-      .sp-text {
-        margin-top: 0;
-        opacity: 1;
-        display: none !important;
-      }
-    }
-  }
+  
 }
 
 .sp-link-icon {
@@ -610,11 +563,7 @@
 .sp-token-send__holder {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
-
   .sp-assets__wrapper {
-    flex-basis: 38%;
-    width: 38%;
     .sp-assets {
       height: 100%;
       display: flex;
@@ -655,9 +604,7 @@
     }
   }
   .sp-token-send {
-    flex-basis: 62%;
-    width: 62%;
-    padding-right: clamp(1rem, 2vw, 3.2rem);
+    
 
     .sp-token-send__main__form {
       padding: 0.4rem;

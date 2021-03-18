@@ -1,7 +1,7 @@
 <template>
-	<div class="sp-component" v-if="depsLoaded">
+	<div v-if="depsLoaded">
 		<div class="sp-token-send__holder">
-			<div class="sp-token-send">
+			<div class="sp-component sp-token-send">
 				<div class="sp-token-send__header sp-component-title">
 					<h3>Send tokens</h3>
 					<span>|</span>
@@ -205,7 +205,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="sp-assets__wrapper">
+			<div class="sp-component sp-assets__wrapper">
 				<SpAssets :balances="balances" />
 			</div>
 		</div>
