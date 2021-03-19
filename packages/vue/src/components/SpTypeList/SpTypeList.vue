@@ -52,7 +52,7 @@
 				</div>
 			</template>
 		</div>
-		<div class="sp-type-list__overlay" v-if="editOpen || deleteOpen" />
+		<div class="sp-type-list__overlay" v-if="editOpen || deleteOpen" v-on:click="editOpen=false,deleteOpen=false" />
 		<div class="sp-type-list__edit__form" v-if="editID > 0">
 			<SpTypeForm
 				:modulePath="modulePath"
