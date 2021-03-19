@@ -15,12 +15,15 @@
 .sp-bold {
   font-weight: 600;
 }
+
 .sp-active {
   opacity: 1;
 }
+
 .sp-rounded {
   border-radius: 1.8rem;
 }
+
 .sp-dash {
   height: 0.3rem;
   width: 2rem;
@@ -28,18 +31,20 @@
   opacity: 0.1;
   margin-bottom: 2.3rem;
 }
+
 .sp-dummy-fill {
   background: rgba(17, 17, 17, 0.04);
   border-radius: 0.4rem;
-  height: 0.7rem;
-  width: 100%;
-  margin: 0rem 0.6rem;
+  height: 0.8rem;
+  flex: 1;
 }
+
 .sp-fill {
   flex: 1;
   overflow-y: auto;
   padding-top: 9rem;
 }
+
 .sp-header-text {
   font-size: 2.2rem;
   font-weight: 800;
@@ -150,14 +155,16 @@
     }
   }
 }
+
 .sp-denom-marker {
   display: inline-block;
   height: 1.2rem;
   width: 1.2rem;
   border-radius: 0.4rem;
   vertical-align: middle;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
+
 .container {
   max-width: 130rem;
   padding: 0 4vw;

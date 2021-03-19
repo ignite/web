@@ -10,9 +10,11 @@
 			</div>
 			<div class="sp-assets__main__header" v-else>
 				<div class="sp-assets__main__header__message">
-					Add or unlock a wallet to see your balances
+					Your current account balance will appear here
 				</div>
 			</div>
+
+			<!-- Empty Assets -->
 			<template v-if="!address">
 				<div class="sp-assets__main__item">
 					<div class="sp-assets__main__denom__name">
@@ -42,6 +44,7 @@
 					</div>
 				</div>
 			</template>
+
 			<div
 				class="sp-assets__main__item"
 				v-for="balance in fullBalances"
