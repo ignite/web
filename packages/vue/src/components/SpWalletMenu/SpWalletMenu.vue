@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="sp-wallet-menu sp-rounded"
+		class="sp-wallet-menu sp-rounded sp-shadow"
 		:class="{ 'sp-opened': opened }"
 		v-if="depsLoaded && !unlocking"
 		v-click-outside="()=> {opened=false}"

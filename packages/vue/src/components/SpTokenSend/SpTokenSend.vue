@@ -7,7 +7,7 @@
 					<span>|</span>
 					<span>Transfer one or multiple tokens</span>
 				</div>
-				<div class="sp-token-send__main sp-box">
+				<div class="sp-token-send__main sp-box sp-shadow">
 					<form class="sp-token-send__main__form">
 						<div class="sp-token-send__main__rcpt__header sp-box-header">
 							SEND TO

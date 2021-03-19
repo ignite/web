@@ -3,7 +3,7 @@
 		<div class="sp-assets__header sp-component-title">
 			<h3>Assets</h3>
 		</div>
-		<div class="sp-assets__main sp-box">
+		<div class="sp-assets__main sp-box sp-shadow">
 			<div class="sp-assets__main__header" v-if="address">
 				<div class="sp-assets__main__header__token">TOKEN</div>
 				<div class="sp-assets__main__header__amount">AMOUNT</div>

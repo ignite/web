@@ -16,9 +16,11 @@
   max-height: 6rem;
   transition: max-height 0.4s;
   overflow: hidden;
+
   &.sp-opened {
     max-height: 130rem;
   }
+
   .sp-wallet-menu__toggle {
     position: absolute;
     font-size: 1.6rem;
@@ -30,21 +32,26 @@
     opacity: 0.4;
     z-index: 10;
   }
+
   .sp-wallet-menu-unlock__title {
     margin: 1rem 0rem;
   }
+
   .sp-button {
     width: 100%;
   }
+
   .sp-wallet-menu-unlock__text {
     margin-bottom: 2rem;
     font-size: 1.4rem;
     line-height: 2.2rem;
   }
+
   .sp-dash {
     display: inline-block;
     margin-left: 1.4rem;
   }
+
   .sp-wallet-menu-item {
     height: 6rem;
     padding-top: 1.4rem;
@@ -241,7 +248,7 @@
 }
 
 .sp-link-icon {
-  margin-bottom: 2.3em;
+  margin-bottom: 2em;
 
   .sp-link-icon-wrapper {
     display: inline-flex;
@@ -399,7 +406,6 @@
   padding: 2.8rem;
   position: relative;
   border-radius: 2rem;
-  box-shadow: 0rem 0.8rem 1.6rem -0.3rem rgba(140, 148, 159, 0.15);
 
   .sp-textarea {
     margin-bottom: 0.8rem;
@@ -542,7 +548,7 @@
 .sp-component-title {
   display: flex;
   align-items: center;
-  margin-bottom: 2.3rem;
+  margin-bottom: 1.8rem;
 
   span {
     display: block;
@@ -556,7 +562,6 @@
   border-radius: 1.2rem;
   padding: 2rem;
   font-size: 1.4rem;
-  box-shadow: 0rem 0.8rem 1.6rem -0.3rem rgba(140, 148, 159, 0.15);
 
   .sp-box-header {
     opacity: 0.4;

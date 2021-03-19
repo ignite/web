@@ -1,5 +1,5 @@
 <template>
-	<div class="sp-wallet-create">
+	<div class="sp-wallet-create sp-shadow">
 		<div class="sp-wallet-create__close" v-if="!createform && !importform">
 			<a class="sp-icon sp-icon-Close" v-on:click="close" />
 		</div>

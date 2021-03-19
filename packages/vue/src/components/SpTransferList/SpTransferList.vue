@@ -6,7 +6,7 @@
 			<span>A list of your recent transactions</span>
 		</div>
 		<table
-			class="sp-transfer-list__table sp-box"
+			class="sp-transfer-list__table sp-box sp-shadow"
 			v-if="address && transactions.length > 0"
 		>
 			<thead>
@@ -85,7 +85,7 @@
 			</tbody>
 		</table>
 
-		<table class="sp-transfer-list__table sp-box" v-else>
+		<table class="sp-transfer-list__table sp-box sp-shadow" v-else>
 			<tbody>
 				<tr>
 					<td class="sp-transfer-list__status">
