@@ -308,7 +308,8 @@ export default {
 				await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
 					name: this.imported.name,
 					mnemonic: this.imported.mnemonicOrKey,
-					password: this.imported.password
+					password: this.imported.password,
+					prefix: this.$store.state.common.env.addrPrefix
 				})
 				//this.reset()
 			}
@@ -318,7 +319,8 @@ export default {
 				await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
 					name: this.create.name,
 					mnemonic: this.create.mnemonic,
-					password: this.create.password
+					password: this.create.password,
+					prefix: this.$store.state.common.env.addrPrefix
 				})
 				//this.reset()
 			}

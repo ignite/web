@@ -46624,7 +46624,11 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
+<<<<<<< HEAD
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=621483b4
+=======
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=54695ae6
+>>>>>>> 4c6ffd37c3b84b0b7a57299832496f2c56961089
 
 
 var _hoisted_1 = {
@@ -46885,7 +46889,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["onClick", "disabled"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=621483b4
+// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=54695ae6
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.assign.js
 var es_object_assign = __webpack_require__("cca6");
@@ -47131,7 +47135,8 @@ var SpMnemonic = __webpack_require__("a1e8");
                 return _this3.$store.dispatch('common/wallet/createWalletWithMnemonic', {
                   name: _this3.imported.name,
                   mnemonic: _this3.imported.mnemonicOrKey,
-                  password: _this3.imported.password
+                  password: _this3.imported.password,
+                  prefix: _this3.$store.state.common.env.addrPrefix
                 });
 
               case 3:
@@ -47159,7 +47164,8 @@ var SpMnemonic = __webpack_require__("a1e8");
                 return _this4.$store.dispatch('common/wallet/createWalletWithMnemonic', {
                   name: _this4.create.name,
                   mnemonic: _this4.create.mnemonic,
-                  password: _this4.create.password
+                  password: _this4.create.password,
+                  prefix: _this4.$store.state.common.env.addrPrefix
                 });
 
               case 3:
@@ -54913,7 +54919,11 @@ if (GlobalVue) {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
+<<<<<<< HEAD
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpAccountList/SpAccountList.vue?vue&type=template&id=c0d37c14
+=======
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpAccountList/SpAccountList.vue?vue&type=template&id=bb6f7fdc
+>>>>>>> 4c6ffd37c3b84b0b7a57299832496f2c56961089
 
 var _hoisted_1 = {
   key: 0,
@@ -54996,7 +55006,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128))])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_7, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpLinkIcon, {
     icon: "AddNew",
     text: "Generate new address",
-    onClick: $options.newAccountForm
+    onClick: $options.createAccount
   }, null, 8, ["onClick"])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.newAccount.show ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_8, [_hoisted_9, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_10, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("label", _hoisted_11, [_hoisted_12, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     type: "checkbox",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -55016,7 +55026,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     class: "SpButton"
   }, [_hoisted_16])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpAccountList/SpAccountList.vue?vue&type=template&id=c0d37c14
+// CONCATENATED MODULE: ./src/components/SpAccountList/SpAccountList.vue?vue&type=template&id=bb6f7fdc
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");

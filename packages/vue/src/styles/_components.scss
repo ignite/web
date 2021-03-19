@@ -188,6 +188,7 @@
           padding: 0.8rem 0rem;
           cursor: pointer;
           flex-grow: 1;
+          margin-left: 1rem;
           font-size: 1.4rem;
           opacity: 0.5;
           line-height: 1.6rem;
@@ -246,6 +247,8 @@
 
     .sp-link-icon__icon {
       font-size: 1.6rem;
+      width:2rem;
+      text-align:center;
     }
     .sp-link-icon__text {
       margin-left: 1rem;
