@@ -11046,7 +11046,7 @@ if (GlobalVue) {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusAPI/SpStatusAPI.vue?vue&type=template&id=3c368e54
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusAPI/SpStatusAPI.vue?vue&type=template&id=2312815c
 
 var _hoisted_1 = {
   class: "sp-status-api"
@@ -11056,16 +11056,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpStatusLED, {
     status: $options.nodeStatus,
-    alt: 'API ' + $options.apiNode,
-    title: 'API ' + $options.apiNode
+    alt: 'Cosmos SDK API ' + $options.apiNode,
+    title: 'Cosmos SDK API ' + $options.apiNode
   }, null, 8, ["status", "alt", "title"]), $props.showText ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
     key: 0,
     class: "sp-status-api__text",
-    alt: 'API ' + $options.apiNode,
-    title: 'API ' + $options.apiNode
-  }, " API ", 8, ["alt", "title"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
+    alt: 'Cosmos SDK API ' + $options.apiNode,
+    title: 'Cosmos SDK API ' + $options.apiNode
+  }, " Cosmos SDK API ", 8, ["alt", "title"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpStatusAPI/SpStatusAPI.vue?vue&type=template&id=3c368e54
+// CONCATENATED MODULE: ./src/components/SpStatusAPI/SpStatusAPI.vue?vue&type=template&id=2312815c
 
 // EXTERNAL MODULE: ./src/components/SpStatusLED/index.js
 var SpStatusLED = __webpack_require__("ae78");
@@ -24062,7 +24062,7 @@ base.Node = __webpack_require__("8360");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusWS/SpStatusWS.vue?vue&type=template&id=19bf161c
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusWS/SpStatusWS.vue?vue&type=template&id=a0c6f72a
 
 var _hoisted_1 = {
   class: "sp-status-ws"
@@ -24072,16 +24072,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpStatusLED, {
     status: $options.nodeStatus,
-    alt: 'WS ' + $options.wsNode,
-    title: 'WS ' + $options.wsNode
+    alt: 'WebSocket ' + $options.wsNode,
+    title: 'WebSocket ' + $options.wsNode
   }, null, 8, ["status", "alt", "title"]), $props.showText ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
     key: 0,
     class: "sp-status-ws__text",
-    alt: 'WS ' + $options.wsNode,
-    title: 'WS ' + $options.wsNode
-  }, " WS ", 8, ["alt", "title"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
+    alt: 'WebSocket ' + $options.wsNode,
+    title: 'WebSocket ' + $options.wsNode
+  }, " WebSocket ", 8, ["alt", "title"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpStatusWS/SpStatusWS.vue?vue&type=template&id=19bf161c
+// CONCATENATED MODULE: ./src/components/SpStatusWS/SpStatusWS.vue?vue&type=template&id=a0c6f72a
 
 // EXTERNAL MODULE: ./src/components/SpStatusLED/index.js
 var SpStatusLED = __webpack_require__("ae78");
@@ -37145,7 +37145,7 @@ module.exports = function ($this, dummy, Wrapper) {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusRPC/SpStatusRPC.vue?vue&type=template&id=68945bc4
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusRPC/SpStatusRPC.vue?vue&type=template&id=2071ac0e
 
 var _hoisted_1 = {
   class: "sp-status-rpc"
@@ -37155,16 +37155,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpStatusLED, {
     status: $options.nodeStatus,
-    alt: 'RPC ' + $options.rpcNode,
-    title: 'RPC ' + $options.rpcNode
+    alt: 'RPCTendermint RPC' + $options.rpcNode,
+    title: 'Tendermint RPC ' + $options.rpcNode
   }, null, 8, ["status", "alt", "title"]), $props.showText ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
     key: 0,
     class: "sp-status-rpc__text",
-    alt: 'RPC ' + $options.rpcNode,
-    title: 'RPC ' + $options.rpcNode
-  }, " RPC ", 8, ["alt", "title"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
+    alt: 'Tendermint RPC ' + $options.rpcNode,
+    title: 'Tendermint RPC ' + $options.rpcNode
+  }, " Tendermint RPC ", 8, ["alt", "title"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpStatusRPC/SpStatusRPC.vue?vue&type=template&id=68945bc4
+// CONCATENATED MODULE: ./src/components/SpStatusRPC/SpStatusRPC.vue?vue&type=template&id=2071ac0e
 
 // EXTERNAL MODULE: ./src/components/SpStatusLED/index.js
 var SpStatusLED = __webpack_require__("ae78");

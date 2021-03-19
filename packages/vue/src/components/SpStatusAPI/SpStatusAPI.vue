@@ -2,16 +2,16 @@
 	<div class="sp-status-api">
 		<SpStatusLED
 			:status="nodeStatus"
-			:alt="'API ' + apiNode"
-			:title="'API ' + apiNode"
+			:alt="'Cosmos SDK API ' + apiNode"
+			:title="'Cosmos SDK API ' + apiNode"
 		/>
 		<div
 			class="sp-status-api__text"
 			v-if="showText"
-			:alt="'API ' + apiNode"
-			:title="'API ' + apiNode"
+			:alt="'Cosmos SDK API ' + apiNode"
+			:title="'Cosmos SDK API ' + apiNode"
 		>
-			API
+			Cosmos SDK API
 		</div>
 	</div>
 </template>
