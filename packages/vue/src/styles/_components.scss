@@ -139,7 +139,7 @@
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
     .sp-link-icon {
-      margin:0 0.5rem;
+      margin: 0 0.5rem;
     }
     .sp-wallet-menu-action__icon {
       opacity: 0.5;
@@ -586,7 +586,6 @@
       .sp-assets__main__item {
         display: flex;
         justify-content: space-between;
-        cursor: pointer;
         align-items: center;
         margin-top: 1.5rem;
         border-radius: 0.8rem;
@@ -911,20 +910,24 @@
             color: rgba(255, 164, 27, 1);
           }
         }
+
         .sp-transfer-list__status__action {
           display: flex;
           margin-left: 1.5rem;
           line-height: 2.2rem;
           flex-direction: column;
           justify-content: center;
+
           .sp-transfer-list__status__action__text {
+            opacity: 0.6;
             font-weight: 600;
             line-height: 2.1rem;
           }
+
           .sp-transfer-list__status__action__date {
             font-size: 1.3rem;
             line-height: 1.8rem;
-            opacity: 0.6;
+            opacity: 0.4;
           }
         }
       }
