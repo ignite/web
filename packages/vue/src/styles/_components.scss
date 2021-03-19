@@ -247,8 +247,8 @@
 
     .sp-link-icon__icon {
       font-size: 1.6rem;
-      width:2rem;
-      text-align:center;
+      width: 2rem;
+      text-align: center;
     }
     .sp-link-icon__text {
       margin-left: 1rem;
@@ -591,7 +591,7 @@
           display: flex;
           align-items: center;
           flex-grow: 3;
-          margin-right: 1rem;
+          margin-right: 0.8rem;
         }
 
         .sp-assets__main__denom__balance {
@@ -603,7 +603,6 @@
   }
   .sp-token-send {
     .sp-token-send__main__form {
-      padding: 0.4rem;
       .sp-token-send__main__rcpt__memo__header {
         position: relative;
         align-items: center;
@@ -926,23 +925,30 @@
         }
       }
     }
+
     th {
       opacity: 0.6;
       padding: 1.2rem;
       vertical-align: middle;
+
       &.sp-transfer-list__table__amount {
         text-align: right;
       }
+
       &.sp-transfer-list__table__address {
         text-align: left;
       }
     }
+
     td {
+      padding: 0;
       vertical-align: middle;
+
       &.sp-transfer-list__table__amount {
         text-align: right;
         font-weight: 600;
       }
+
       &.sp-transfer-list__table__address {
         text-align: left;
       }
