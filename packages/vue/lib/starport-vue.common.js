@@ -46629,7 +46629,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=621483b4
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=54695ae6
 
 
 var _hoisted_1 = {
@@ -46890,7 +46890,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["onClick", "disabled"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=621483b4
+// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=54695ae6
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.assign.js
 var es_object_assign = __webpack_require__("cca6");
@@ -47136,7 +47136,8 @@ var SpMnemonic = __webpack_require__("a1e8");
                 return _this3.$store.dispatch('common/wallet/createWalletWithMnemonic', {
                   name: _this3.imported.name,
                   mnemonic: _this3.imported.mnemonicOrKey,
-                  password: _this3.imported.password
+                  password: _this3.imported.password,
+                  prefix: _this3.$store.state.common.env.addrPrefix
                 });
 
               case 3:
@@ -47164,7 +47165,8 @@ var SpMnemonic = __webpack_require__("a1e8");
                 return _this4.$store.dispatch('common/wallet/createWalletWithMnemonic', {
                   name: _this4.create.name,
                   mnemonic: _this4.create.mnemonic,
-                  password: _this4.create.password
+                  password: _this4.create.password,
+                  prefix: _this4.$store.state.common.env.addrPrefix
                 });
 
               case 3:
