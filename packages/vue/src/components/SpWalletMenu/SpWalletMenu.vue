@@ -3,6 +3,7 @@
 		class="sp-wallet-menu sp-rounded"
 		:class="{ 'sp-opened': opened }"
 		v-if="depsLoaded && !unlocking"
+		v-click-outside="()=> {opened=false}"
 	>
 		<div class="sp-wallet-menu__toggle" v-on:click="opened = !opened">
 			<span
@@ -41,6 +42,7 @@
 								'sp-icon-Unlock': topWallet.name == walletName,
 								'sp-icon-Lock': topWallet.name != walletName
 							}"
+							v-if="opened"
 							v-on:click="toggleWallet(topWallet.name)"
 						/>
 					</div>
@@ -84,6 +86,7 @@
 							'sp-icon-Unlock': wallet.name == walletName,
 							'sp-icon-Lock': wallet.name != walletName
 						}"
+						 v-if="topWallet || index > 0 || opened"
 						v-on:click="toggleWallet(wallet.name)"
 					/>
 				</div>

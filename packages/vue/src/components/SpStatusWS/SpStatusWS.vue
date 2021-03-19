@@ -2,16 +2,16 @@
 	<div class="sp-status-ws">
 		<SpStatusLED
 			:status="nodeStatus"
-			:alt="'WS ' + wsNode"
-			:title="'WS ' + wsNode"
+			:alt="'WebSocket ' + wsNode"
+			:title="'WebSocket ' + wsNode"
 		/>
 		<div
 			class="sp-status-ws__text"
 			v-if="showText"
-			:alt="'WS ' + wsNode"
-			:title="'WS ' + wsNode"
+			:alt="'WebSocket ' + wsNode"
+			:title="'WebSocket ' + wsNode"
 		>
-			WS
+			WebSocket
 		</div>
 	</div>
 </template>

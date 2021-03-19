@@ -2,16 +2,16 @@
 	<div class="sp-status-rpc">
 		<SpStatusLED
 			:status="nodeStatus"
-			:alt="'RPC ' + rpcNode"
-			:title="'RPC ' + rpcNode"
+			:alt="'RPCTendermint RPC' + rpcNode"
+			:title="'Tendermint RPC ' + rpcNode"
 		/>
 		<div
 			class="sp-status-rpc__text"
 			v-if="showText"
-			:alt="'RPC ' + rpcNode"
-			:title="'RPC ' + rpcNode"
+			:alt="'Tendermint RPC ' + rpcNode"
+			:title="'Tendermint RPC ' + rpcNode"
 		>
-			RPC
+			Tendermint RPC
 		</div>
 	</div>
 </template>
