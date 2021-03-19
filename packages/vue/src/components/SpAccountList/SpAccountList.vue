@@ -31,7 +31,7 @@
 				<SpLinkIcon
 					icon="AddNew"
 					text="Generate new address"
-					v-on:click="newAccountForm"
+					v-on:click="createAccount"
 				/>
 			</div>
 		</div>
