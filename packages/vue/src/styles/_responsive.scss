@@ -1,10 +1,12 @@
 html {
+  -webkit-font-smoothing: antialiased;
   font-size: 11px;
 
   .app {
     display: flex;
   }
 }
+
 .sp-token-send__holder {
   flex-direction: column;
   .sp-token-send {

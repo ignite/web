@@ -379,9 +379,10 @@
   outline: none;
   transition: 180ms ease;
   cursor: pointer;
+  transform: translateZ(0);
 
   &:hover {
-    transform: scale(1.025);
+    transform: translateZ(0) scale(1.025);
   }
 
   &.sp-button-primary {
@@ -477,9 +478,10 @@
   text-align: left;
   transition: transform 180ms ease;
   cursor: pointer;
+  transform: translateZ(0);
 
   &:hover {
-    transform: scale(1.025);
+    transform: translateZ(0) scale(1.025);
   }
 
   .sp-card__icon {
