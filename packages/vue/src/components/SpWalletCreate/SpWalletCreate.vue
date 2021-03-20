@@ -108,7 +108,7 @@
 				type="primary"
 				v-on:click="importStep2"
 				:disabled="imported.mnemonicOrKey == '' || !validMnemonic"
-				>Import</SpButton
+				>Next</SpButton
 			>
 		</template>
 		<template v-if="importform && imported.step2">
@@ -152,7 +152,7 @@
 						imported.password == '' ||
 						imported.password != imported.confirm
 					"
-					>Done</SpButton
+					>Import</SpButton
 				>
 			</div>
 		</template>

@@ -169,7 +169,7 @@
 
 .container {
   max-width: 130rem;
-  padding: 0 4vw;
+  padding: 0 clamp(1rem, 5vw, 5rem);
   margin: auto;
 }
 

@@ -175,7 +175,7 @@
 						</div>
 						<div class="sp-token-send__main__footer" v-else>
 							<div class="sp-token-send__main__fees__header sp-box-header">
-								Add or unlock a wallet to send transactions
+								Access a wallet to send transactions
 							</div>
 							<div class="sp-token-send__main__fees__content"></div>
 							<div class="sp-token-send__main__btns">

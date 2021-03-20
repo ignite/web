@@ -13,11 +13,11 @@ html {
 .sp-sidebar {
   position: fixed;
   z-index: 1000;
-  width: 0;
   padding-left: 0rem;
   padding-right: 0rem;
   padding-top: 9rem;
   padding-bottom: 4rem;
+
   .sp-hamburger {
     position: fixed;
     font-size: 2rem;
@@ -99,18 +99,26 @@ html {
 
 @media only screen and (min-width: 768px) {
   html {
-    font-size: 9px;
+    font-size: 10px;
     .app {
       display: flex;
     }
   }
+
   .sp-sidebar {
     position: relative;
-    width: 3.6rem;
     padding-left: 4rem;
     padding-right: 4rem;
     padding-top: 4rem;
     z-index: auto;
+
+    &.sp-opened {
+      .sp-sidebar__header,
+      .sp-sidebar__content,
+      .sp-sidebar__footer {
+        width: clamp(15rem, 15vw, 20rem);
+      }
+    }
 
     .sp-link-icon {
       .sp-link-icon-wrapper {
@@ -129,16 +137,14 @@ html {
 
     .sp-sidebar__header {
       width: 2rem;
-      transition: width 0.4s;
     }
+
     .sp-sidebar__content {
       width: 2rem;
-      transition: width 0.4s;
     }
 
     .sp-sidebar__footer {
       width: 2rem;
-      transition: width 0.4s;
 
       .sp-status-api,
       .sp-status-rpc,
@@ -146,56 +152,17 @@ html {
         margin-bottom: 1rem;
       }
     }
-
-    &.sp-opened {
-      width: 22rem;
-
-      .sp-sidebar__header {
-        width: 18rem;
-      }
-
-      .sp-sidebar__content {
-        width: 18rem;
-      }
-
-      .sp-sidebar__footer {
-        width: 18rem;
-        display: block;
-      }
-    }
-  }
-}
-@media only screen and (min-width: 1024px) {
-  html {
-    font-size: 10px;
-    .app {
-      display: flex;
-    }
-  }
-  .sp-sidebar {
-    &.sp-opened {
-      width: 30rem;
-
-      .sp-sidebar__header {
-        width: 22rem;
-      }
-      .sp-sidebar__content {
-        width: 22rem;
-      }
-      .sp-sidebar__footer {
-        width: 22rem;
-      }
-    }
   }
 }
 
-@media only screen and (min-width: 1366px) {
+// @media only screen and (min-width: 1024px) {
+// }
+
+@media only screen and (min-width: 1380px) {
   html {
-    font-size: 10px;
-    .app {
-      display: flex;
-    }
+    font-size: clamp(10px, 0.5vw, 11px);
   }
+
   .sp-token-send__holder {
     flex-direction: row;
 
@@ -203,20 +170,14 @@ html {
       flex-basis: 38%;
       width: 38%;
     }
+
     .sp-token-send {
       flex-basis: 62%;
       width: 62%;
-      padding-right: clamp(1rem, 2vw, 3.2rem);
+      padding-right: 2rem;
     }
   }
 }
 
-@media only screen and (min-width: 1680px) {
-  html {
-    font-size: 10.5px;
-
-    .app {
-      display: flex;
-    }
-  }
-}
+// @media only screen and (min-width: 1900px) {
+// }
