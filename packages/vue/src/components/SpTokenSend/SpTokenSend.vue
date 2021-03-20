@@ -174,7 +174,7 @@
 							</div>
 						</div>
 						<div class="sp-token-send__main__footer" v-else>
-							<div class="sp-token-send__main__fees__header sp-box-header">
+							<div class="sp-token-send__main__fees__header sp-box-message">
 								Access a wallet to send transactions
 							</div>
 							<div class="sp-token-send__main__fees__content"></div>

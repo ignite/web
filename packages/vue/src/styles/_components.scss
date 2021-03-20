@@ -584,7 +584,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         opacity: 0.4;
       }
 
@@ -815,6 +815,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .sp-box-message {
+          opacity: 0.4;
+        }
+
         .sp-token-send__main__fees__content {
           opacity: 1;
           overflow: hidden;
@@ -936,7 +941,7 @@
           }
 
           .sp-transfer-list__status__action__date {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             line-height: 1.8rem;
             opacity: 0.4;
           }
