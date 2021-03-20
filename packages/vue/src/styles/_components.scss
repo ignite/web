@@ -326,29 +326,32 @@
   .sp-status-api__text {
     margin-left: 0.8rem;
     font-size: 1.3rem;
-    opacity: 0.6;
+    opacity: 0.4;
   }
 }
 
 .sp-status-ws {
   display: flex;
   align-items: center;
+
   .sp-status-ws__text {
     margin-left: 0.8rem;
     font-size: 1.4rem;
-    opacity: 0.6;
+    opacity: 0.4;
   }
 }
 
 .sp-status-rpc {
   display: flex;
   align-items: center;
+
   .sp-status-rpc__text {
     margin-left: 0.8rem;
     font-size: 1.4rem;
-    opacity: 0.6;
+    opacity: 0.4;
   }
 }
+
 .sp-logo {
   .sp-logo-wrapper {
     display: flex;
@@ -374,26 +377,31 @@
   font-weight: 700;
   border-radius: 0.8rem;
   outline: none;
-  transition: 200ms ease;
+  transition: 180ms ease;
   cursor: pointer;
+
   &:hover {
     transform: scale(1.025);
   }
+
   &.sp-button-primary {
     background: #111111;
     border: 0.2rem solid #111111;
     color: white;
   }
+
   &.sp-button-secondary {
     background: white;
     border: 0.2rem solid #111111;
     color: #111111;
   }
+
   &:disabled {
     transition: none;
     background: rgba(17, 17, 17, 0.04) !important;
     color: rgba(17, 17, 17, 0.4) !important;
-    border: 0.2rem solid rgba(17, 17, 17, 0.04) !important;
+    border: 0.2rem solid rgba(17, 17, 17, 0) !important;
+
     &:hover {
       transform: none;
     }
@@ -449,11 +457,13 @@
   .sp-wallet-create__cards {
     display: flex;
     justify-content: space-between;
+
     .sp-card {
       width: calc(50% - 0.6rem);
     }
   }
 }
+
 .sp-card {
   padding: 1.5rem;
   border-radius: 0.8rem;
@@ -465,11 +475,13 @@
   text-decoration: none;
   position: relative;
   text-align: left;
+  transition: transform 180ms ease;
   cursor: pointer;
 
   &:hover {
     transform: scale(1.025);
   }
+
   .sp-card__icon {
     font-size: 1.6rem;
     margin-bottom: 2rem;
