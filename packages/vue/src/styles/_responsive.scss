@@ -1,5 +1,6 @@
 html {
-  font-size: 12px;
+  font-size: 11px;
+
   .app {
     display: flex;
   }
@@ -94,8 +95,6 @@ html {
     }
   }
 }
-@media only screen and (min-width: 576px) {
-}
 
 @media only screen and (min-width: 768px) {
   html {
@@ -155,10 +154,7 @@ html {
   }
 }
 
-// @media only screen and (min-width: 1024px) {
-// }
-
-@media only screen and (min-width: 1380px) {
+@media only screen and (min-width: 1366px) {
   html {
     font-size: clamp(10px, 0.5vw, 11px);
   }
@@ -178,6 +174,3 @@ html {
     }
   }
 }
-
-// @media only screen and (min-width: 1900px) {
-// }
