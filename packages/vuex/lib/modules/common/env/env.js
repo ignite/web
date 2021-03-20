@@ -73,6 +73,22 @@ var _default = {
       if (config.wsNode) {
         state.wsNode = config.wsNode;
       }
+
+      if (config.chainId) {
+        state.chainId = config.chainId;
+      }
+
+      if (config.addrPrefix) {
+        state.addrPrefix = config.addrPrefix;
+      }
+
+      if (config.sdkVersion) {
+        state.sdkVersion = config.sdkVersion;
+      }
+
+      if (config.getTXApi) {
+        state.getTXApi = config.getTXApi;
+      }
     },
     CONNECT: function CONNECT(state, _ref) {
       var client = _ref.client;

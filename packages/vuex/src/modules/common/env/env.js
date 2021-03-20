@@ -38,6 +38,18 @@ export default {
 			}
 			if (config.wsNode) {
 				state.wsNode = config.wsNode
+			}	
+			if (config.chainId) {
+				state.chainId=config.chainId
+			}	
+			if (config.addrPrefix) {
+				state.addrPrefix=config.addrPrefix
+			}	
+			if (config.sdkVersion) {
+				state.sdkVersion=config.sdkVersion
+			}
+			if (config.getTXApi) {
+				state.getTXApi=config.getTXApi
 			}
 		},
 		CONNECT(state, { client }) {
