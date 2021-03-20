@@ -14,12 +14,13 @@
   min-width: 30rem;
   max-width: 30rem;
   max-height: 6rem;
-  transition: max-height 0.4s;
   overflow: hidden;
+  cursor: pointer;
 
   &.sp-opened {
     width: 30rem;
     max-height: 130rem;
+    cursor: default;
   }
 
   .sp-wallet-menu__toggle {
@@ -62,13 +63,14 @@
     opacity: 0.5;
     padding-left: 1.4rem;
     padding-right: 1.4rem;
-    cursor: pointer;
+
     .sp-wallet-menu-item__info {
       line-height: 1.6rem;
       vertical-align: baseline;
       margin-left: 1rem;
       width: calc(100% - 6.4rem);
     }
+
     &:first-child {
       opacity: 1;
 
@@ -146,9 +148,12 @@
     height: 3.8rem;
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
+
     .sp-link-icon {
+      cursor: pointer;
       margin: 0 0.5rem;
     }
+
     .sp-wallet-menu-action__icon {
       opacity: 0.5;
       width: 1.6rem;
