@@ -10,13 +10,13 @@ Assuming you have a Vue 3 project, just run:
 npm install --save @starport/vue
 ```
 
-The components also require `@starport/vuex` to be installed which is set as a peer dependency. More information [here](https://github.com/tendermint/vue/tree/develop/packages/vuex)
+The components also require `@starport/vuex` to be installed which is set as a peer dependency. More information [here](../packages/vuex)
 
 ## Usage
 
 If you want to import the entire library, in your `main.js` file:
 
-```
+```js
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store' // See @starport/vuex documentation
@@ -29,7 +29,7 @@ app.use(store).use(vueLib).mount('#app')
 
 You can also import only specific components in your `main.js` file:
 
-```
+```js
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store' // See @starport/vuex documentation
