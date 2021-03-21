@@ -13,62 +13,60 @@ npm install --save @starport/vuex
 
 ## Usage
 
-First you need to create a config file in your store root `./store/config.js`
+First you need to create a config file in your store root `./src/store/config.js`:
 
-```
-// config.js
-import { env, starport, blocks, wallet,transfers } from '@starport/vuex' // Import the modules you require
+```js
+ // import modules
+import { env, starport, blocks, wallet,transfers } from '@starport/vuex'
 
-export default function init(store) { // Init just the modules you require
-	transfers(store)
-	starport(store)
-	blocks(store)
-	env(store)
-	wallet(store)
+// init modules you need
+export default function init(store) {
+  transfers(store)
+  starport(store)
+  blocks(store)
+  env(store)
+  wallet(store)
 }
 ```
 
-Then, in your app's `./store/index.js` file:
+Then, in your app's `./src/store/index.js` file:
 
-```
-// index.js
+```js
 import { createStore } from 'vuex'
 import init from './config'
 
-// Create your own app's store as usual
 const store = createStore({  
-	state() {
-		return {}
-	},
-	mutations: {},
-	actions: {}
+  state() {
+    return {}
+   },
+  mutations: {},
+  actions: {}
 });
 
-// Init @starport/vuex
+// init @starport/vuex
 init(store);
 
-// Export your store
 export default store;
 ```
 
 Finally, you can initialize the `env` store by dispatching the init action in the appropriate part of your app:
 
-```
+```js
 await this.$store.dispatch('common/env/init')
 ```
 
 or with a specific configuration:
 
-```
-await this.$store.dispatch('common/env/init',{
-				apiNode: 'http://localhost:1317',
-				rpcNode: 'http://localhost:26657',
-				wsNode: 'ws://localhost:26657/websocket',
-				chainId: 'my-chain',
-				addrPrefix: 'cosmos',
-				sdkVersion: 'Stargate',
-				getTXApi: 'http://localhost:26657/tx?hash=0x'
-			})
+```js
+await this.$store.dispatch('common/env/init', {
+  apiNode: 'http://localhost:1317',
+  rpcNode: 'http://localhost:26657',
+  wsNode: 'ws://localhost:26657/websocket',
+  chainId: 'my-chain',
+  addrPrefix: 'cosmos',
+  sdkVersion: 'Stargate',
+  getTXApi: 'http://localhost:26657/tx?hash=0x'
+})
 ```
 
 ## Modules
@@ -77,19 +75,19 @@ await this.$store.dispatch('common/env/init',{
 
 Registered as `common/env` provides basic environment setup, connection to API, RPC and WS nodes, connection statuses as well as access to the underlying `@starport/client-js` [client](https://github.com/tendermint/vue/tree/develop/packages/client-js)
 
-```
+```js
 // Getter signatures
-	getters: {
-		client: (state) => state.client,
-		signingClient: (state) => state.client.signingClient,
-		apiTendermint: (state) => state.rpcNode,
-		apiCosmos: (state) => state.apiNode,
-		apiWS: (state) => state.wsNode,
-		sdkVersion: (state) => state.sdkVersion,
-		apiConnected: (state) => state.apiConnected,
-		rpcConnected: (state) => state.rpcConnected,
-		wsConnected: (state) => state.wsConnected,
-	},
+  getters: {
+    client: (state) => state.client,
+    signingClient: (state) => state.client.signingClient,
+    apiTendermint: (state) => state.rpcNode,
+    apiCosmos: (state) => state.apiNode,
+    apiWS: (state) => state.wsNode,
+    sdkVersion: (state) => state.sdkVersion,
+    apiConnected: (state) => state.apiConnected,
+    rpcConnected: (state) => state.rpcConnected,
+    wsConnected: (state) => state.wsConnected,
+  },
 ```
 
 ### Starport
@@ -100,15 +98,17 @@ Registered as `common/starport`, use this if you are doing local development on 
 
 Registered as `common/blocks`, this module will receive, store and decode the latest 20 blocks (configurable) as they appear in the websocket API.
 
-Provides:
+Get the latest 10 blocks:
 
-`getBlocks(no_of_latest_blocks_to_get)`
+```js
+await this.$store.getters["common/blocks/getBlocks"](10)
+```
 
-and 
+Get the block at height 15:
 
-`getBlockByHeight(height)`
-
-getters.
+```js
+await this.$store.getters["common/blocks/getBlocks"](15)
+```
 
 ### Transfers
 
@@ -116,30 +116,28 @@ Registered as `common/transfers`, this is a temporary handcoded version of the s
 
 The querying action is:
 
-```
+```js
 ServiceGetTxsEvent({ commit, rootGetters }, { subscribe = false, all=true,  ...key })
 ```
 
 and the getter is:
 
-```
+```js
 getGetTxsEvent(params)
 ```
 
-So if you wanted to query for all token transfers received by `cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5`
+So if you wanted to query for all token transfers received by `cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5`, you would first dispatch the querying action like so: 
 
-You would first dispatch the querying action like so: 
-
-```
+```js
 await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
   subscribe: true,
   event: 'transfer.recipient%3D%27cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5%27'
 });
 ```
 
-and access the resulting state anywhere in your app like so:
+And access the resulting state anywhere in your app like so:
 
-```
+```js
 this.$store.getters['common/transfers/getGetTxsEvent']({
   event: 'transfer.recipient%3D%27cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5%27'
 })
@@ -154,75 +152,90 @@ The `subscribe` flag in the action dispatch sets whether the store should auto-u
 Registered as `common/wallet` this module provides wallet-handling and sign-in/out fuctionalities as well as encrypted persistence in the browser's local storage.
 
 Creating a new wallet
-```
-await this.$store.dispatch('common/wallet/createWalletWithMnemonic', 		{
-				name: "My Wallet",
-				mnemonic: "web fat decorate draw waste shiver toddler entire knee until board rent robust acid spatial hockey tobacco buddy buffalo flavor mass bridge report pioneer",
-				HDpath: "m/44'/118'/0'/0/", // BIP32/44 derivation path
-				prefix: "cosmos", // Address prfix for this chain
-				password: "password" 
-			}
+
+```js
+await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
+  name: "My Wallet",
+  mnemonic: "web fat decorate draw waste shiver toddler entire knee until board rent robust acid spatial hockey tobacco buddy buffalo flavor mass bridge report pioneer",
+  HDpath: "m/44'/118'/0'/0/", // BIP32/44 derivation path
+  prefix: "cosmos", // Address prfix for this chain
+  password: "password" 
+}
 ```
 
 Listing wallets in local storage
-```
+
+```js
 const walletList = this.$store.common.wallet.wallets
 ```
 
 Unlocking a specific wallet from the wallet list and logging in
-```
+
+```js
 await this.$store.dispatch('common/wallet/unlockWallet', {
   name: "My Wallet",
   password: "password"
 });
 ```
 
-Accessing logged-in/out status
-```
+Accessing logged-in/out status:
+
+```js
 const loggedInStatus = this.$store.getters['common/wallet/loggedIn'];
 ```
 
-Signing out
-```
+Signing out:
+
+```js
 await this.$store.dispatch('common/wallet/signOut');
 ``` 
 
-Adding next available account to the current wallet
-```
+Adding next available account to the current wallet:
+
+```js
 await this.$store.dispatch('common/wallet/addAccount');
 ```
 
-Adding an account with a specific HD Path increment to the current wallet
-```
-await this.$store.dispatch('common/wallet/addAccount', 3); // Assuming wallet's HD Path is "m/44'/118'/0'/0/", will add account corresponding to "m/44'/118'/0'/0/3"
+Adding an account with a specific HD Path increment to the current wallet:
+
+```js
+await this.$store.dispatch('common/wallet/addAccount', 3);
 ```
 
-Switch to using a different account in the current wallet
-```
-await this.$store.dispatch('common/wallet/switchAccount', 'cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5'); // Account with this address must exist in the current wallet
+In the example above we are assuming wallet's HD Path is `m/44'/118'/0'/0/`, will add account corresponding to `m/44'/118'/0'/0/3`.
+
+Switch to using a different account in the current wallet (account with this address must exist in the current wallet):
+
+```js
+await this.$store.dispatch('common/wallet/switchAccount', 'cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5');
 ```
 
-Accessing current wallet name
-```
+Accessing current wallet name:
+
+```js
 const walletName = this.$store.getters['common/wallet/walletName'];
 ```
 
-Accessing name of last wallet used
-```
+Accessing name of last wallet used:
+
+```js
 const lastWallet = this.$store.getters['common/wallet/lastWallet'];
 ```
 
-Accessing currently active unlocked wallet
-```
+Accessing currently active unlocked wallet:
+
+```js
 const wallet = this.$store.getters['common/wallet/wallet'];
 ```
 
-Accessing currently active address in wallet
-```
+Accessing currently active address in wallet:
+
+```js
 const address = this.$store.getters['common/wallet/address'];
 ```
 
-Inquiring if a wallet name is already in use
-```
+Inquiring if a wallet name is already in use:
+
+```js
 const isAvailable = this.$store.getters['common/wallet/nameAvailable'](walletNameToCheck);
 ```
