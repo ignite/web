@@ -10,7 +10,7 @@ Assuming you have a Vue 3 project, just run:
 npm install --save @starport/vue
 ```
 
-The components also require `@starport/vuex` to be installed which is set as a peer dependency. More information [here](../packages/vuex)
+The components also require `@starport/vuex` to be installed which is set as a peer dependency. More information [here](https://github.com/tendermint/vue/tree/develop/packages/vuex)
 
 ## Usage
 
