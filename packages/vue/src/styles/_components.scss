@@ -402,6 +402,7 @@
   }
 
   &:disabled {
+    cursor: not-allowed;
     transition: none;
     background: rgba($black, 0.04) !important;
     color: rgba($black, 0.4) !important;

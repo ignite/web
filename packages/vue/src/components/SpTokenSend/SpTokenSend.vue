@@ -187,12 +187,6 @@
 									Reset Fees
 								</div>
 								<div class="sp-token-send__main__btns__tx">
-									<div
-										class="sp-token-send__main__btns__reset"
-										v-on:click="resetTransaction"
-									>
-										Reset
-									</div>
 									<SpButton
 										v-on:click="sendTransaction"
 										type="primary"

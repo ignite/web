@@ -105,31 +105,30 @@
   width: 100%;
   line-height: 2.2rem;
   border: 0.2rem solid rgba($black, 0.2);
-
   padding: 0.9rem 1.2rem;
   color: rgba($black, 1);
   appearance: none;
+
   &.sp-error {
     border-color: red;
   }
+
   &:focus {
     outline: none;
     font-weight: 600;
     border-color: rgba($black, 1);
     z-index: 12;
+
     &::placeholder {
       font-weight: 400;
     }
   }
-  &:active {
-    outline: none;
-    font-weight: 600;
-    border-color: rgba($black, 1);
-    z-index: 12;
-    &::placeholder {
-      font-weight: 400;
-    }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: rgba($black, 0.4);
   }
+
   &.sp-input-large {
     font-size: 2.8rem;
     font-weight: 700;
