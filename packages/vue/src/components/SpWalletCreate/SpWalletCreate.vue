@@ -12,7 +12,7 @@
 			/>
 		</div>
 		<template v-if="!createform && !importform">
-			<div class="sp-wallet-create__title sp-header-text">{{ title }}</div>
+			<h3>{{ title }}</h3>
 			<div class="sp-wallet-create__text">
 				<slot></slot>
 			</div>
@@ -26,7 +26,7 @@
 			</div>
 		</template>
 		<template v-if="createform && create.step1">
-			<div class="sp-wallet-create__title sp-header-text">Create Wallet</div>
+			<h3>Create Wallet</h3>
 			<div class="sp-wallet-create__text">
 				Generate your own unique wallet. Receive a public address (0x...) and
 				choose a method for access and recovery.
@@ -73,9 +73,7 @@
 			</div>
 		</template>
 		<template v-if="createform && create.step2">
-			<div class="sp-wallet-create__title sp-header-text">
-				Here is your recovery phrase
-			</div>
+			<h3>Here is your recovery phrase</h3>
 			<div class="sp-wallet-create__text">
 				You can restore your wallet using your recovery phrase. <br />
 				Write it down on paper. Resist temptation to email it to yourself or
@@ -88,9 +86,7 @@
 			<SpButton type="primary" v-on:click="done">Done</SpButton>
 		</template>
 		<template v-if="importform && imported.step1">
-			<div class="sp-wallet-create__title sp-header-text">
-				Import<br> existing wallet
-			</div>
+			<h3>Import<br> existing wallet</h3>
 			<div class="sp-wallet-create__text">
 				Paste your recovery phrase or private key below to import your wallet.
 			</div>
@@ -112,9 +108,7 @@
 			>
 		</template>
 		<template v-if="importform && imported.step2">
-			<div class="sp-wallet-create__title sp-header-text">
-				Import existing wallet
-			</div>
+			<h3>Import existing wallet</h3>
 			<div class="sp-wallet-create__text">
 				Please name your wallet and choose a password
 			</div>
