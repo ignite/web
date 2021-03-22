@@ -10,7 +10,7 @@
   font-size: 1.3rem;
   line-height: 1.8rem;
   margin: 0.8rem 0rem;
-  color: #f23737;
+  color: $red;
 }
 .sp-bold {
   font-weight: 600;
@@ -27,13 +27,13 @@
 .sp-dash {
   height: 0.3rem;
   width: 2rem;
-  background: #111111;
+  background: $black;
   opacity: 0.1;
   margin-bottom: 2em;
 }
 
 .sp-dummy-fill {
-  background: rgba(17, 17, 17, 0.04);
+  background: rgba($black, 0.04);
   border-radius: 0.4rem;
   height: 0.8rem;
   flex: 1;
@@ -49,23 +49,23 @@
   font-size: 2.2rem;
   font-weight: 800;
   line-height: 2.6rem;
-  color: #111111;
+  color: $black;
 }
 
 .sp-line {
-  border-bottom: 2px solid rgba(#111111, 0.05);
+  border-bottom: 2px solid rgba($black, 0.05);
   margin: 1.5rem 0rem;
 }
 
 .sp-dashed-line {
-  border-bottom: 2px dashed rgba(#111111, 0.1);
+  border-bottom: 2px dashed rgba($black, 0.1);
   margin: 1.5rem 0rem;
 }
 .sp-circle {
   display: inline-block;
   width: 2.2rem;
   height: 2.2rem;
-  background: rgba(17, 17, 17, 0.05);
+  background: rgba($black, 0.05);
   border-radius: 1.1rem;
   margin-left: 0.6rem;
   margin-right: 1rem;
@@ -81,9 +81,9 @@
   width: 100%;
   line-height: 2.2rem;
   height: 8.4rem;
-  border: 0.2rem solid rgba(17, 17, 17, 0.4);
+  border: 0.2rem solid rgba($black, 0.4);
   padding: 0.9rem 1.2rem;
-  color: rgba(17, 17, 17, 1);
+  color: rgba($black, 1);
   appearance: none;
   border-radius: 0.8rem;
   &.sp-error {
@@ -92,7 +92,7 @@
   &:focus {
     outline: none;
     font-weight: 600;
-    border-color: rgba(17, 17, 17, 1);
+    border-color: rgba($black, 1);
     z-index: 12;
   }
 }
@@ -104,10 +104,10 @@
   font-size: 1.4rem;
   width: 100%;
   line-height: 2.2rem;
-  border: 0.2rem solid rgba(17, 17, 17, 0.2);
+  border: 0.2rem solid rgba($black, 0.2);
 
   padding: 0.9rem 1.2rem;
-  color: rgba(17, 17, 17, 1);
+  color: rgba($black, 1);
   appearance: none;
   &.sp-error {
     border-color: red;
@@ -115,7 +115,7 @@
   &:focus {
     outline: none;
     font-weight: 600;
-    border-color: rgba(17, 17, 17, 1);
+    border-color: rgba($black, 1);
     z-index: 12;
     &::placeholder {
       font-weight: 400;
@@ -124,7 +124,7 @@
   &:active {
     outline: none;
     font-weight: 600;
-    border-color: rgba(17, 17, 17, 1);
+    border-color: rgba($black, 1);
     z-index: 12;
     &::placeholder {
       font-weight: 400;

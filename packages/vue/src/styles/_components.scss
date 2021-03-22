@@ -193,7 +193,7 @@
       margin: 0rem 0rem;
       border-radius: 0.8rem;
       &:hover {
-        background: rgba(17, 17, 17, 0.05);
+        background: rgba($black, 0.05);
       }
       .sp-accounts-list-item__use {
         display: flex;
@@ -258,7 +258,7 @@
   .sp-link-icon-wrapper {
     display: inline-flex;
     text-decoration: none;
-    color: #111111;
+    color: $black;
     opacity: 0.6;
 
     .sp-link-icon__icon {
@@ -298,7 +298,7 @@
   box-shadow: 0px 1rem 2.5rem -0.5rem rgba(140, 148, 159, 0.18);
   background: white;
   text-decoration: none;
-  color: #111111;
+  color: $black;
   .sp-badge-button__icon {
     opacity: 0.6;
 
@@ -318,10 +318,10 @@
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
-  background-color: #f23737;
+  background-color: $red;
 
   &.sp-active {
-    background-color: #0aa649;
+    background-color: $green;
   }
 }
 .sp-status-api {
@@ -375,8 +375,8 @@
   display: inline-block;
   height: 4rem;
   padding: 0rem 2rem;
-  background: #111111;
-  border: 0.2rem solid #111111;
+  background: $black;
+  border: 0.2rem solid $black;
   color: white;
   font-size: 1.4rem;
   font-weight: 700;
@@ -391,22 +391,22 @@
   }
 
   &.sp-button-primary {
-    background: #111111;
-    border: 0.2rem solid #111111;
+    background: $black;
+    border: 0.2rem solid $black;
     color: white;
   }
 
   &.sp-button-secondary {
     background: white;
-    border: 0.2rem solid #111111;
-    color: #111111;
+    border: 0.2rem solid $black;
+    color: $black;
   }
 
   &:disabled {
     transition: none;
-    background: rgba(17, 17, 17, 0.04) !important;
-    color: rgba(17, 17, 17, 0.4) !important;
-    border: 0.2rem solid rgba(17, 17, 17, 0) !important;
+    background: rgba($black, 0.04) !important;
+    color: rgba($black, 0.4) !important;
+    border: 0.2rem solid rgba($black, 0) !important;
 
     &:hover {
       transform: none;
@@ -473,7 +473,7 @@
 .sp-card {
   padding: 1.5rem;
   border-radius: 0.8rem;
-  border: 0.2rem solid #111111;
+  border: 0.2rem solid $black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -499,16 +499,16 @@
     font-weight: 700;
   }
   &.sp-card-primary {
-    background: #111111;
+    background: $black;
     color: white;
   }
   &.sp-card-secondary {
     background: white;
-    color: #111111;
+    color: $black;
   }
 }
 .sp-mnemonic {
-  background: rgba(17, 17, 17, 0.03);
+  background: rgba($black, 0.03);
   border-radius: 0.8rem;
   padding: 1rem 0rem;
   display: flex;
@@ -544,7 +544,7 @@
     flex: 100%;
     display: flex;
     justify-content: center;
-    border-top: 0.1rem dashed rgba(17, 17, 17, 0.2);
+    border-top: 0.1rem dashed rgba($black, 0.2);
     font-size: 1.2rem;
     .sp-link-icon {
       margin-bottom: 0;
@@ -769,7 +769,7 @@
                 margin: 0.8rem 0rem;
                 border-radius: 0.8rem;
                 &.sp-amount-select__denom__modal__item__selected {
-                  background: rgba(17, 17, 17, 0.04);
+                  background: rgba($black, 0.04);
                 }
               }
             }
@@ -805,7 +805,7 @@
           bottom: 0;
           left: 0;
           right: 0;
-          background: rgba(17, 17, 17, 0.1);
+          background: rgba($black, 0.1);
           display: block;
           z-index: 100;
         }
@@ -1036,7 +1036,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(17, 17, 17, 0.1);
+    background: rgba($black, 0.1);
     display: block;
     z-index: 100;
   }
