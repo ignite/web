@@ -24,6 +24,7 @@
   }
 
   .sp-wallet-menu__toggle {
+    cursor: pointer;
     position: absolute;
     font-size: 1.6rem;
     line-height: 3.2rem;
@@ -33,6 +34,10 @@
     text-align: center;
     opacity: 0.4;
     z-index: 10;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .sp-wallet-menu-unlock__title {
@@ -130,12 +135,19 @@
         height: 100%;
       }
     }
+
     .sp-wallet-menu-item__status {
+      cursor: pointer;
+      margin-right: 2.5rem;
       font-size: 1.6rem;
       line-height: 3.2rem;
       width: 3.2rem;
       text-align: center;
       opacity: 0.4;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 
@@ -263,10 +275,12 @@
       width: 2rem;
       text-align: center;
     }
+
     .sp-link-icon__text {
-      margin-left: 1rem;
+      margin-left: 0.5rem;
       font-size: 1.4rem;
     }
+
     &.router-link-active {
       opacity: 1;
       font-weight: 600;
