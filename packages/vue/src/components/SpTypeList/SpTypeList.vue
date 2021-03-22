@@ -1,6 +1,6 @@
 <template>
 	<div class="sp-type-list" v-if="depsLoaded">
-		<div class="sp-type-list__main sp-box">
+		<div class="sp-type-list__main sp-box sp-shadow">
 			<div class="sp-type-list__header sp-box-header">
 				{{ moduleType.toUpperCase() + 'S' }}
 			</div>

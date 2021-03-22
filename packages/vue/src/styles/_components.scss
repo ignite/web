@@ -368,7 +368,9 @@
     }
   }
 }
+
 .sp-button {
+  cursor: pointer;
   display: inline-block;
   height: 4rem;
   padding: 0rem 2rem;
@@ -379,8 +381,8 @@
   font-weight: 700;
   border-radius: 0.8rem;
   outline: none;
+  white-space: nowrap;
   transition: 180ms ease;
-  cursor: pointer;
   transform: translateZ(0);
 
   &:hover {
