@@ -104,7 +104,7 @@
   font-size: 1.4rem;
   width: 100%;
   line-height: 2.2rem;
-  border: 0.2rem solid rgba($black, 0.2);
+  border: 0.2rem solid rgba($black, 0.1);
   padding: 0.9rem 1.2rem;
   color: rgba($black, 1);
   appearance: none;
@@ -126,7 +126,7 @@
 
   &:disabled {
     cursor: not-allowed;
-    color: rgba($black, 0.4);
+    color: rgba($black, 0.6);
   }
 
   &.sp-input-large {

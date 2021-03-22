@@ -68,7 +68,7 @@
 					Passwords do not match
 				</div>
 				<SpButton v-on:click="createStep2" type="primary"
-					>Create Wallet</SpButton
+					>Create</SpButton
 				>
 			</div>
 		</template>
