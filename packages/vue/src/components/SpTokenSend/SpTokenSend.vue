@@ -95,7 +95,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="sp-line"></div>
+						
 						<div
 							class="sp-token-send__main__footer"
 							:class="{ 'sp-token-send__main__footer__open': feesOpen }"

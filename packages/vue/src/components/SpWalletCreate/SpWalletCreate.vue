@@ -26,7 +26,7 @@
 			</div>
 		</template>
 		<template v-if="createform && create.step1">
-			<h3>Create Wallet</h3>
+			<h3>Create wallet</h3>
 			<div class="sp-wallet-create__text">
 				Generate your own unique wallet. Receive a public address (0x...) and
 				choose a method for access and recovery.
