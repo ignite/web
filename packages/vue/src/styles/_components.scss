@@ -17,6 +17,10 @@
   overflow: hidden;
   cursor: pointer;
 
+  &:hover .sp-wallet-menu__toggle {
+    opacity: 1;
+  }
+
   &.sp-opened {
     width: 30rem;
     max-height: 130rem;
