@@ -657,6 +657,7 @@
         .sp-token-send__main__rcpt__memo__close {
           justify-self: flex-end;
         }
+
         .sp-token-send__main__rcpt__icon {
           width: 4.4rem;
           height: 4.4rem;
@@ -664,11 +665,12 @@
           justify-content: center;
           align-items: center;
           border-radius: 1.2rem;
-          font-size: 1.2rem;
+          font-size: 1.4rem;
           margin-right: 1rem;
           background: rgba(10, 166, 73, 0.15);
           color: rgba(10, 166, 73, 1);
         }
+
         .sp-token-send__main__rcpt__input {
           flex-grow: 1;
           .sp-input {
@@ -925,7 +927,8 @@
           justify-content: center;
           align-items: center;
           border-radius: 1.2rem;
-          font-size: 1.2rem;
+          font-size: 1.4rem;
+
           &.sp-transfer-list__status__icon__empty {
             background: rgba(10, 166, 73, 0.15);
             color: rgba(10, 166, 73, 1);

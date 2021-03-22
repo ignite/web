@@ -1,6 +1,6 @@
 html {
   -webkit-font-smoothing: antialiased;
-  font-size: 11px;
+  font-size: 10.5px;
 
   .app {
     display: flex;
@@ -157,10 +157,6 @@ html {
 }
 
 @media only screen and (min-width: 1366px) {
-  html {
-    font-size: clamp(10px, 0.5vw, 11px);
-  }
-
   .sp-token-send__holder {
     flex-direction: row;
 
