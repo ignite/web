@@ -147,15 +147,16 @@
     }
 
     .sp-wallet-menu-item__avatar-shadow {
-      opacity: 0.8;
+      opacity: 0.3;
       position: absolute;
-      top: 2.2rem;
-      left: 1.9rem;
-      filter: blur(1.1rem);
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 1.2rem;
+      top: 1.1rem;
+      left: 1.7rem;
+      filter: blur(0.4rem);
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: 2rem;
       overflow: hidden;
+
       svg {
         width: 100%;
         height: 100%;
