@@ -3,7 +3,11 @@
 		class="sp-wallet-menu sp-rounded sp-shadow"
 		:class="{ 'sp-opened': opened }"
 		v-if="depsLoaded && !unlocking"
-		v-click-outside="()=> {opened=false}"
+		v-click-outside="
+			() => {
+				opened = false
+			}
+		"
 	>
 		<div class="sp-wallet-menu__toggle" v-on:click="opened = !opened">
 			<span
@@ -13,7 +17,12 @@
 		</div>
 		<div class="sp-wallet-menu-items">
 			<template v-if="topWallet">
-				<div class="sp-wallet-menu-item">
+				<div
+					class="sp-wallet-menu-item"
+					:class="{
+						'sp-wallet-menu-item__locked': topWallet.name != walletName
+					}"
+				>
 					<div
 						class="sp-wallet-menu-item__avatar"
 						v-html="getAvatar(topWallet.name)"
@@ -55,6 +64,7 @@
 			</template>
 			<div
 				class="sp-wallet-menu-item"
+				:class="{ 'sp-wallet-menu-item__locked': wallet.name != walletName }"
 				v-for="(wallet, index) in restWallets"
 				v-bind:key="wallet.name"
 				v-on:click="toggleWallet(wallet.name)"
@@ -86,7 +96,7 @@
 							'sp-icon-Unlock': wallet.name == walletName,
 							'sp-icon-Lock': wallet.name != walletName
 						}"
-						 v-if="topWallet || index > 0 || opened"
+						v-if="topWallet || index > 0 || opened"
 						v-on:click="toggleWallet(wallet.name)"
 					/>
 				</div>
