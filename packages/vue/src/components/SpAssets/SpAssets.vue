@@ -15,7 +15,7 @@
 			</div>
 
 			<!-- Empty Assets -->
-			<template v-if="!address">
+			<template v-if="!address || fullBalances.length == 0">
 				<div class="sp-assets__main__item">
 					<div class="sp-assets__main__denom__name">
 						<div class="sp-denom-marker" style="background: #809cff" />
