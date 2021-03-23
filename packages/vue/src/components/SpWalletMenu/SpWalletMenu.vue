@@ -22,6 +22,7 @@
 					:class="{
 						'sp-wallet-menu-item__locked': topWallet.name != walletName
 					}"
+					 v-on:click="opened = !opened"
 				>
 					<div
 						class="sp-wallet-menu-item__avatar"
