@@ -67,15 +67,13 @@
 				>
 					Passwords do not match
 				</div>
-				<SpButton v-on:click="createStep2" type="primary"
-					>Create</SpButton
-				>
+				<SpButton v-on:click="createStep2" type="primary">Create</SpButton>
 			</div>
 		</template>
 		<template v-if="createform && create.step2">
-			<h3>Here is your<br>recovery phrase</h3>
+			<h3>Here is your<br />recovery phrase</h3>
 			<div class="sp-wallet-create__text">
-				You can restore your wallet using your recovery phrase. 
+				You can restore your wallet using your recovery phrase.
 			</div>
 			<div class="sp-wallet-create__text">
 				Write it down on paper. Resist temptation to email it to yourself or
@@ -88,7 +86,10 @@
 			<SpButton type="primary" v-on:click="done">Done</SpButton>
 		</template>
 		<template v-if="importform && imported.step1">
-			<h3>Import<br> existing wallet</h3>
+			<h3>
+				Import<br />
+				existing wallet
+			</h3>
 			<div class="sp-wallet-create__text">
 				Paste your recovery phrase or private key below to import your wallet.
 			</div>
@@ -96,6 +97,12 @@
 				class="sp-key-area sp-textarea"
 				v-model="imported.mnemonicOrKey"
 			></textarea>
+			<!--
+			<SpMnemonicInput
+				class="sp-key-area sp-textarea"
+				v-model="imported.mnemonicOrKey"
+			></SpMnemonicInput>
+			//-->
 			<div
 				class="sp-error-message"
 				v-if="imported.mnemonicOrKey != '' && !validMnemonic"
@@ -163,6 +170,7 @@ import CryptoJS from 'crypto-js'
 import SpCard from '../SpCard'
 import SpButton from '../SpButton'
 import SpMnemonic from '../SpMnemonic'
+//import SpMnemonicInput from '../SpMnemonicInput'
 
 export default {
 	name: 'SpWalletCreate',
@@ -170,6 +178,7 @@ export default {
 		SpCard,
 		SpButton,
 		SpMnemonic
+		//SpMnemonicInput
 	},
 	props: {
 		title: {

@@ -1179,6 +1179,17 @@
       }
     }
   }
+
+  .sp-type-list-empty {
+    .sp-type-list__item {
+      align-items: center;
+
+      .sp-type-list__item__details {
+        opacity: 0.4;
+        margin: 0;
+      }
+    }
+  }
   .sp-dashed-line {
     margin: 2rem 0rem;
   }
