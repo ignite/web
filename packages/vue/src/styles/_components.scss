@@ -25,6 +25,22 @@
     width: 30rem;
     max-height: 130rem;
     cursor: default;
+
+    &:hover .sp-wallet-menu__toggle {
+      opacity: 0.4;
+    }
+
+    .sp-wallet-menu-item {
+      padding-bottom: 0.3rem;
+    }
+
+    .sp-wallet-menu__toggle:hover {
+      opacity: 1 !important;
+    }
+
+    .sp-wallet-menu__accounts {
+      display: block;
+    }
   }
 
   .sp-wallet-menu__toggle {
@@ -64,14 +80,16 @@
   }
 
   .sp-wallet-menu-item {
-    height: 6rem;
-    padding-top: 1.4rem;
-    padding-bottom: 1.4rem;
+    cursor: pointer;
+    margin-top: 1.4rem;
     position: relative;
     display: flex;
-    opacity: 0.5;
     padding-left: 1.4rem;
     padding-right: 1.4rem;
+
+    &:hover .sp-wallet-menu-item__status {
+      opacity: 1;
+    }
 
     .sp-wallet-menu-item__info {
       line-height: 1.6rem;
@@ -81,10 +99,12 @@
     }
 
     &:first-child {
-      opacity: 1;
-
       .sp-wallet-menu-item__info {
         width: calc(100% - 9.6rem);
+      }
+
+      .sp-wallet-menu-item__status {
+        margin-right: 2.5rem;
       }
     }
 
@@ -113,6 +133,7 @@
         box-shadow: inset 0px -10px 20px rgba(0, 0, 0, 0.8);
         z-index: 999;
       }
+
       &:before {
         position: absolute;
         content: ' ';
@@ -124,6 +145,7 @@
         box-shadow: inset 0px 8px 20px rgba(255, 255, 255, 0.5);
       }
     }
+
     .sp-wallet-menu-item__avatar-shadow {
       opacity: 0.8;
       position: absolute;
@@ -142,7 +164,6 @@
 
     .sp-wallet-menu-item__status {
       cursor: pointer;
-      margin-right: 2.5rem;
       font-size: 1.6rem;
       line-height: 3.2rem;
       width: 3.2rem;
@@ -180,6 +201,8 @@
   }
 
   .sp-wallet-menu__accounts {
+    display: none;
+    margin-top: 0.9rem;
     padding: 0.5rem 0.5rem 1rem;
     border-top: 1px solid rgba($black, 0.1);
     border-bottom: 1px solid rgba($black, 0.1);
