@@ -250,6 +250,7 @@ export default {
 				},
 				{ root: true }
 			)
+			console.log('Vuex nodule: common.starport initialized!')
 		}
 	}
 }

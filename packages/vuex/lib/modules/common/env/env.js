@@ -171,6 +171,9 @@ var _default = {
                 throw new _SpVuexError["default"]('Env:Config', 'Could not configure environment');
 
               case 21:
+                console.log('Vuex nodule: common.env initialized!');
+
+              case 22:
               case "end":
                 return _context.stop();
             }
@@ -264,7 +267,7 @@ var _default = {
                 _context4.prev = 2;
 
                 if (state.client) {
-                  _context4.next = 13;
+                  _context4.next = 14;
                   break;
                 }
 
@@ -273,6 +276,7 @@ var _default = {
                   rpcAddr: config.rpcNode,
                   wsAddr: config.wsNode
                 });
+                client.setMaxListeners(0);
                 client.on('ws-status', function (status) {
                   return dispatch('setConnectivity', {
                     connection: 'ws',
@@ -296,10 +300,10 @@ var _default = {
                   client: client
                 });
                 commit('INITIALIZE_WS_COMPLETE');
-                _context4.next = 40;
+                _context4.next = 41;
                 break;
 
-              case 13:
+              case 14:
                 client = state.client;
                 reconnectWS = false;
                 reconnectSigningClient = false;
@@ -320,61 +324,61 @@ var _default = {
                 commit('SET_CONFIG', config);
 
                 if (!(reconnectWS && config.wsNode)) {
-                  _context4.next = 30;
+                  _context4.next = 31;
                   break;
                 }
 
-                _context4.prev = 22;
-                _context4.next = 25;
+                _context4.prev = 23;
+                _context4.next = 26;
                 return client.switchWS(config.wsNode);
 
-              case 25:
-                _context4.next = 30;
+              case 26:
+                _context4.next = 31;
                 break;
 
-              case 27:
-                _context4.prev = 27;
-                _context4.t0 = _context4["catch"](22);
+              case 28:
+                _context4.prev = 28;
+                _context4.t0 = _context4["catch"](23);
                 throw new _SpVuexError["default"]('Env:Client:Websocket', 'Could not switch to websocket node:' + config.wsNode);
 
-              case 30:
+              case 31:
                 if (reconnectClient && config.apiNode) {
                   client.switchAPI(config.apiNode);
                 }
 
                 if (!(reconnectSigningClient && config.rpcNode)) {
-                  _context4.next = 40;
+                  _context4.next = 41;
                   break;
                 }
 
-                _context4.prev = 32;
-                _context4.next = 35;
+                _context4.prev = 33;
+                _context4.next = 36;
                 return client.switchRPC(config.rpcNode);
 
-              case 35:
-                _context4.next = 40;
+              case 36:
+                _context4.next = 41;
                 break;
 
-              case 37:
-                _context4.prev = 37;
-                _context4.t1 = _context4["catch"](32);
+              case 38:
+                _context4.prev = 38;
+                _context4.t1 = _context4["catch"](33);
                 throw new _SpVuexError["default"]('Env:Client:TendermintRPC', 'Could not switch to Tendermint RPC node:' + config.rpcNode);
 
-              case 40:
-                _context4.next = 45;
+              case 41:
+                _context4.next = 46;
                 break;
 
-              case 42:
-                _context4.prev = 42;
+              case 43:
+                _context4.prev = 43;
                 _context4.t2 = _context4["catch"](2);
                 console.error(_context4.t2);
 
-              case 45:
+              case 46:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[2, 42], [22, 27], [32, 37]]);
+        }, _callee4, null, [[2, 43], [23, 28], [33, 38]]);
       }))();
     }
   }
