@@ -73,9 +73,11 @@
 			</div>
 		</template>
 		<template v-if="createform && create.step2">
-			<h3>Here is your recovery phrase</h3>
+			<h3>Here is your<br>recovery phrase</h3>
 			<div class="sp-wallet-create__text">
-				You can restore your wallet using your recovery phrase. <br />
+				You can restore your wallet using your recovery phrase. 
+			</div>
+			<div class="sp-wallet-create__text">
 				Write it down on paper. Resist temptation to email it to yourself or
 				sceenshot it.
 			</div>

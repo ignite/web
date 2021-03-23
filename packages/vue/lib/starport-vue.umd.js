@@ -46619,7 +46619,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=98e5cf1e
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=685ba96a
 
 
 var _hoisted_1 = {
@@ -46670,46 +46670,50 @@ var _hoisted_14 = {
 
 var _hoisted_15 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create");
 
-var _hoisted_16 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Here is your recovery phrase", -1);
+var _hoisted_16 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Here is your"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("recovery phrase")], -1);
 
 var _hoisted_17 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
-}, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" You can restore your wallet using your recovery phrase. "), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" Write it down on paper. Resist temptation to email it to yourself or sceenshot it. ")], -1);
+}, " You can restore your wallet using your recovery phrase. ", -1);
 
-var _hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Download Backup");
+var _hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+  class: "sp-wallet-create__text"
+}, " Write it down on paper. Resist temptation to email it to yourself or sceenshot it. ", -1);
 
-var _hoisted_19 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
+var _hoisted_19 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Download Backup");
 
-var _hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Import"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" existing wallet")], -1);
+var _hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
 
-var _hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Import"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" existing wallet")], -1);
+
+var _hoisted_22 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Paste your recovery phrase or private key below to import your wallet. ", -1);
 
-var _hoisted_22 = {
+var _hoisted_23 = {
   key: 0,
   class: "sp-error-message"
 };
 
-var _hoisted_23 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Next");
+var _hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Next");
 
-var _hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Import existing wallet", -1);
+var _hoisted_25 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Import existing wallet", -1);
 
-var _hoisted_25 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_26 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Please name your wallet and choose a password ", -1);
 
-var _hoisted_26 = {
-  class: "sp-wallet-create__form"
-};
 var _hoisted_27 = {
-  class: "sp-form-group"
+  class: "sp-wallet-create__form"
 };
 var _hoisted_28 = {
   class: "sp-form-group"
 };
+var _hoisted_29 = {
+  class: "sp-form-group"
+};
 
-var _hoisted_29 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Import");
+var _hoisted_30 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Import");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SpCard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpCard");
@@ -46797,14 +46801,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["onClick"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.createform && _ctx.create.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 4
-  }, [_hoisted_16, _hoisted_17, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpMnemonic, {
+  }, [_hoisted_16, _hoisted_17, _hoisted_18, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpMnemonic, {
     mnemonic: _ctx.create.mnemonic
   }, null, 8, ["mnemonic"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "secondary",
     onClick: $options.downloadBackup
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_18];
+      return [_hoisted_19];
     }),
     _: 1
   }, 8, ["onClick"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
@@ -46812,28 +46816,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: $options.done
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_19];
+      return [_hoisted_20];
     }),
     _: 1
   }, 8, ["onClick"])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.importform && _ctx.imported.step1 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 5
-  }, [_hoisted_20, _hoisted_21, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
+  }, [_hoisted_21, _hoisted_22, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
     class: "sp-key-area sp-textarea",
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return _ctx.imported.mnemonicOrKey = $event;
     })
-  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.mnemonicOrKey]]), _ctx.imported.mnemonicOrKey != '' && !$options.validMnemonic ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_22, " You have not entered a valid mnemonic or private key. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.mnemonicOrKey]]), _ctx.imported.mnemonicOrKey != '' && !$options.validMnemonic ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_23, " You have not entered a valid mnemonic or private key. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "primary",
     onClick: $options.importStep2,
     disabled: _ctx.imported.mnemonicOrKey == '' || !$options.validMnemonic
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_23];
+      return [_hoisted_24];
     }),
     _: 1
   }, 8, ["onClick", "disabled"])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.importform && _ctx.imported.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 6
-  }, [_hoisted_24, _hoisted_25, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_26, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, [_hoisted_25, _hoisted_26, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_28, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: ["sp-input", {
       'sp-error': !$options.walletNameAvailable && !_ctx.creating
     }],
@@ -46843,7 +46847,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     name: "walletname",
     placeholder: "Wallet name"
-  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.name]])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_28, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.name]])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_29, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: "sp-input",
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return _ctx.imported.password = $event;
@@ -46864,12 +46868,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     disabled: _ctx.imported.name == '' || _ctx.imported.password == '' || _ctx.imported.password != _ctx.imported.confirm
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_29];
+      return [_hoisted_30];
     }),
     _: 1
   }, 8, ["onClick", "disabled"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=98e5cf1e
+// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=685ba96a
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.assign.js
 var es_object_assign = __webpack_require__("cca6");

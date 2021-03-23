@@ -178,55 +178,67 @@
       line-height: 1.6rem;
     }
   }
+
   .sp-wallet-menu__accounts {
-    padding-left: 1.4rem;
-    padding-right: 1.4rem;
-    /*
-		box-shadow: inset 0px 1.4rem 2rem -0.5rem rgba(140, 148, 159, 0.15),
-			inset 0px -1.4rem 2rem -0.5rem rgba(140, 148, 159, 0.15);
-		*/
+    padding: 0.5rem 0.5rem 1rem;
+    border-top: 1px solid rgba($black, 0.1);
+    border-bottom: 1px solid rgba($black, 0.1);
   }
+
   .sp-wallet-menu-unlock {
     padding: 1.4rem;
     padding-top: 0;
   }
 }
+
 .sp-accounts-list {
   .sp-accounts-new {
     padding: 0rem 0.5rem;
+
     .sp-link-icon {
       margin: 0;
     }
+
+    .sp-link-icon-wrapper {
+      cursor: pointer;
+    }
   }
+
   .sp-accounts-list-items {
     list-style: none;
+    padding: 0;
     margin: 0;
-    padding: 0.8rem 0rem;
+    margin-bottom: 1rem;
+
     .sp-accounts-list-item {
       margin: 0rem 0rem;
       border-radius: 0.8rem;
+
       &:hover {
         background: rgba($black, 0.05);
       }
+
       .sp-accounts-list-item__use {
         display: flex;
         align-items: center;
-        padding: 0rem 0.5rem;
+        padding: 0 0.8rem 0 0.5rem;
 
         .sp-accounts-list-item__address {
           display: block;
           padding: 0.8rem 0rem;
           cursor: pointer;
           flex-grow: 1;
-          margin-left: 1rem;
+          margin-left: 0.3rem;
           font-size: 1.4rem;
           opacity: 0.5;
           line-height: 1.6rem;
+
           &.sp-active {
             opacity: 1;
             font-weight: 600;
           }
         }
+
         .sp-accounts-list-item__path {
           width: 2rem;
           padding: 0.8rem 0rem;
@@ -235,6 +247,7 @@
           opacity: 0.5;
           line-height: 1.6rem;
         }
+
         .sp-accounts-list-item__copy {
           width: 2rem;
           padding: 0.8rem 0rem;
@@ -417,6 +430,7 @@
     background: white;
     border: 0.2rem solid $black;
     color: $black;
+    margin-bottom: 1rem;
   }
 
   &:disabled {
@@ -563,7 +577,8 @@
       padding-right: 1rem;
     }
     .sp-mnemonic__list__item {
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.9rem;
+
       span {
         opacity: 0.6;
         display: inline-block;
@@ -573,23 +588,27 @@
     }
   }
   .sp-mnemonic__copy {
+    cursor: pointer;
     flex: 100%;
     display: flex;
     justify-content: center;
     border-top: 0.1rem dashed rgba($black, 0.2);
-    font-size: 1.2rem;
+    padding: 1.5rem 0 0.2rem;
+
     .sp-link-icon {
       margin-bottom: 0;
+
       .sp-link-icon-wrapper {
         opacity: 1;
         font-weight: 600;
         align-items: center;
+
         .sp-link-icon__icon {
           font-size: 1.4rem;
           line-height: 1.6rem;
         }
+
         .sp-link-icon__text {
-          font-size: 1.2rem;
           line-height: 1.6rem;
         }
       }
