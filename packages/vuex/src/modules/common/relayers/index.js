@@ -6,7 +6,7 @@ export default function init(store) {
 	}
 	store.registerModule(['common', 'relayers'], relayers)
 	store.subscribe(mutation => {
-		if (mutation.type == 'common/wallet/SET_ACTIVE_WALLET') {
+		if (mutation.type == 'common/wallet/SET_SELECTED_ADDRESS') {
 			store.dispatch('common/relayers/init', null, { root: true })
 		}
 	})

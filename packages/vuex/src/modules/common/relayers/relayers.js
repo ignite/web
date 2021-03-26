@@ -50,18 +50,20 @@ function ibcRegistry() {
     ["/ibc.applications.transfer.v1.MsgTransfer", MsgTransfer],
   ]);
 }
-
+const getDefaultState = () => {
+	return {
+		relayers: [],
+		transientLog: {
+			msg: ''
+		},
+		relayerLinks:{}
+	};
+};
+// initial state
+const state = getDefaultState();
 export default {
 	namespaced: true,
-	state() {
-		return {
-			relayers:JSON.parse(window.localStorage.getItem('relayers')) || [],
-			transientLog: {
-				msg: ''
-			},
-			relayerLinks:{}
-		}
-	},
+	state,
 	getters: {
 		getRelayer: (state) => (name) => {
 			return state.relayers.find(x => x.name==name)
@@ -72,6 +74,9 @@ export default {
 		}
 	},
 	mutations: {
+		RESET_STATE(state) {
+				Object.assign(state, getDefaultState());
+		},
 		SET_RELAYERS(state,relayers) {
 			state.relayers=relayers
 		},
@@ -102,6 +107,7 @@ export default {
 	},
 	actions: {
 		init({commit,rootGetters,dispatch}) {
+			commit('RESET_STATE')
 			const relayers=rootGetters['common/wallet/relayers']
 			commit('SET_RELAYERS',relayers)
 			relayers.forEach((relayer)=> {
