@@ -74,12 +74,16 @@ var _default = {
       activeWallet: null,
       activeClient: null,
       selectedAddress: '',
-      authorized: false
+      authorized: false,
+      gasPrice: '0.025ustake'
     };
   },
   getters: {
     client: function client(state) {
       return state.activeClient;
+    },
+    gasPrice: function gasPrice(state) {
+      return state.gasPrice;
     },
     wallet: function wallet(state) {
       return state.activeWallet;

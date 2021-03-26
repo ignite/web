@@ -665,6 +665,99 @@
     line-height: 2.2rem;
   }
 }
+.sp-relayers__holder  {
+  display: flex;
+  justify-content: space-between;
+  .sp-relayers__main {
+    .sp-relayer {
+      display:column;
+      .sp-relayer__basic {
+        display: flex;
+        .sp-relayer__details {
+          flex-grow: 1;
+          .sp-relayer__name {
+            font-size:1.8rem;
+            font-weight: 700;
+            display:inline-block;
+            line-height:2rem;
+            vertical-align:middle;
+          }
+          .sp-relayer__path {
+            font-size:1.4rem;
+            opacity:0.6;
+            display:inline-block;
+            margin-left:1rem;
+            line-height:2rem;
+            vertical-align:middle;
+          }
+          .sp-relayer__status {
+            margin-top:0.3rem;
+            font-size:1.3rem;
+            font-weight:800;
+            opacity:0.4;
+          }
+        }
+      }
+      .sp-relayer__advanced{
+                
+        .sp-relayer__advanced__header {
+          display:flex;
+          align-items:center;
+          .sp-relayer__advanced__header__title {
+            padding-right:1.5rem;
+            opacity:0.6;
+            font-weight:600;
+          }
+          .sp-line {
+            flex-grow:1;
+          }
+          .sp-relayer__advanced__header__icon {
+            padding-left:1.5rem;
+            font-weight:1.8rem;
+            opacity:0.4;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        .sp-relayer__advanced__contents {
+          display:flex;
+          flex-wrap: wrap;
+          .sp-relayer__advanced__contents__item {
+            padding:0.5rem;
+            flex-basis:25%;
+            width:25%;
+            .sp-relayer__advanced__contents__item__key {
+              font-weight: 700;
+              font-size:1.3rem;
+              opacity:0.6;
+            }
+            .sp-relayer__advanced__contents__item__value {
+              font-size:1.3rem;
+              font-weight:500;
+              opacity:0.6;
+            }
+          }
+        }
+      }
+    }
+  }
+  .sp-relayers__add {
+    display:flex;
+    flex-direction:column;
+    .sp-relayers__add__or {
+      text-align:center;
+      font-size: 1.6rem;
+      opacity:0.4;
+      font-weight:600;
+      margin:1rem 0rem;
+    }
+    .sp-relayers__add__btns {
+      display:flex;
+      justify-content: space-between;
+    }
+  }
+}
 .sp-token-send__holder {
   display: flex;
   justify-content: space-between;

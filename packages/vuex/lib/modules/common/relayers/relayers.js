@@ -101,6 +101,9 @@ var _default = {
       return function (name) {
         return state.relayerLinks[name];
       };
+    },
+    log: function log(state) {
+      return state.transientLog.msg;
     }
   },
   mutations: {
@@ -121,9 +124,9 @@ var _default = {
       var relayerIndex = state.relayers.findIndex(function (x) {
         return x.name == name;
       });
-      state.relayers[relayerIndex] = _objectSpread(_objectSpread({
+      state.relayers[relayerIndex] = _objectSpread(_objectSpread(_objectSpread({}, state.relayers[relayerIndex]), linkDetails), {}, {
         status: 'linked'
-      }, state.relayers[relayerIndex]), linkDetails);
+      });
       state.relayerLinks[name] = link;
     },
     CONNECT_RELAYER: function CONNECT_RELAYER(state, _ref2) {
@@ -133,9 +136,9 @@ var _default = {
       var relayerIndex = state.relayers.findIndex(function (x) {
         return x.name == name;
       });
-      state.relayers[relayerIndex] = _objectSpread(_objectSpread({
+      state.relayers[relayerIndex] = _objectSpread(_objectSpread(_objectSpread({}, state.relayers[relayerIndex]), channelDetails), {}, {
         status: 'connected'
-      }, state.relayers[relayerIndex]), channelDetails);
+      });
     },
     RUN_RELAYER: function RUN_RELAYER(state, name) {
       state.relayers.find(function (x) {
@@ -148,7 +151,7 @@ var _default = {
       }).running = false;
     },
     SET_LOG_MSG: function SET_LOG_MSG(state, msg) {
-      state.transientLog.message = msg;
+      state.transientLog.msg = msg;
     },
     LAST_QUERIED_HEIGHTS: function LAST_QUERIED_HEIGHTS(state, _ref3) {
       var name = _ref3.name,
@@ -174,13 +177,13 @@ var _default = {
     },
     createRelayer: function createRelayer(_ref5, _ref6) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var commit, rootGetters, dispatch, name, prefix, endpoint, gasPrice, relayer, signerB, _yield$signerB$getAcc, _yield$signerB$getAcc2, accountB;
+        var commit, rootGetters, getters, dispatch, name, prefix, endpoint, gasPrice, relayer, signerB, _yield$signerB$getAcc, _yield$signerB$getAcc2, accountB;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref5.commit, rootGetters = _ref5.rootGetters, dispatch = _ref5.dispatch;
+                commit = _ref5.commit, rootGetters = _ref5.rootGetters, getters = _ref5.getters, dispatch = _ref5.dispatch;
                 name = _ref6.name, prefix = _ref6.prefix, endpoint = _ref6.endpoint, gasPrice = _ref6.gasPrice;
                 relayer = {
                   name: name,
@@ -217,59 +220,68 @@ var _default = {
         }, _callee);
       }))();
     },
-    loadRelayer: function loadRelayer(_ref7, _ref8) {
+    loadRelayer: function loadRelayer(_ref7, name) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var commit, rootGetters, getters, dispatch, name, relayer, signerA, signerB, _yield$signerA$getAcc, _yield$signerA$getAcc2, accountA, _yield$signerB$getAcc3, _yield$signerB$getAcc4, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
+        var commit, rootGetters, getters, dispatch, relayer, signerA, signerB, _yield$signerA$getAcc, _yield$signerA$getAcc2, accountA, _yield$signerB$getAcc3, _yield$signerB$getAcc4, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 commit = _ref7.commit, rootGetters = _ref7.rootGetters, getters = _ref7.getters, dispatch = _ref7.dispatch;
-                name = _ref8.name;
                 relayer = getters['getRelayer'](name);
 
                 if (!(relayer.status !== 'linked' && relayer.status !== 'connected')) {
-                  _context2.next = 5;
+                  _context2.next = 4;
                   break;
                 }
 
                 throw new _SpVuexError["default"]('relayers:connectRelayer', 'Relayer already connected.');
 
-              case 5:
-                _context2.prev = 5;
-                _context2.next = 8;
+              case 4:
+                _context2.prev = 4;
+                _context2.next = 7;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), rootGetters['common/env/addrPrefix']);
 
-              case 8:
+              case 7:
                 signerA = _context2.sent;
-                _context2.next = 11;
+                _context2.next = 10;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), relayer.prefix);
 
-              case 11:
+              case 10:
                 signerB = _context2.sent;
-                _context2.next = 14;
+                _context2.next = 13;
                 return signerA.getAccounts();
 
-              case 14:
+              case 13:
                 _yield$signerA$getAcc = _context2.sent;
                 _yield$signerA$getAcc2 = _slicedToArray(_yield$signerA$getAcc, 1);
                 accountA = _yield$signerA$getAcc2[0];
-                _context2.next = 19;
+                _context2.next = 18;
                 return signerB.getAccounts();
 
-              case 19:
+              case 18:
                 _yield$signerB$getAcc3 = _context2.sent;
                 _yield$signerB$getAcc4 = _slicedToArray(_yield$signerB$getAcc3, 1);
                 accountB = _yield$signerB$getAcc4[0];
                 transientLog = {
+                  log: function log(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
                   info: function info(msg) {
                     commit('SET_LOG_MSG', msg);
                   },
-                  error: function error() {},
-                  warn: function warn() {},
-                  verbose: function verbose() {},
-                  debug: function debug() {}
+                  error: function error(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
+                  warn: function warn(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
+                  verbose: function verbose(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
+                  debug: function debug(msg) {//commit('SET_LOG_MSG',msg)
+                  }
                 };
                 optionsA = {
                   prefix: rootGetters['common/env/addrPrefix'],
@@ -277,16 +289,16 @@ var _default = {
                   gasPrice: _launchpad.GasPrice.fromString("0.00000025token"),
                   registry: ibcRegistry()
                 };
-                _context2.next = 26;
+                _context2.next = 25;
                 return _tendermintRpc.Tendermint34Client.connect(rootGetters['common/env/apiTendermint']);
 
-              case 26:
+              case 25:
                 tmClientA = _context2.sent;
                 signingClientA = new _starportSigningClient["default"](tmClientA, signerA, optionsA);
-                _context2.next = 30;
+                _context2.next = 29;
                 return signingClientA.getChainId();
 
-              case 30:
+              case 29:
                 chainIdA = _context2.sent;
                 optionsB = {
                   prefix: relayer.prefix,
@@ -294,23 +306,23 @@ var _default = {
                   gasPrice: _launchpad.GasPrice.fromString(relayer.gasPrice),
                   registry: ibcRegistry()
                 };
-                _context2.next = 34;
+                _context2.next = 33;
                 return _tendermintRpc.Tendermint34Client.connect(relayer.endpoint);
 
-              case 34:
+              case 33:
                 tmClientB = _context2.sent;
                 signingClientB = new _starportSigningClient["default"](tmClientB, signerB, optionsB);
-                _context2.next = 38;
+                _context2.next = 37;
                 return signingClientB.getChainId();
 
-              case 38:
+              case 37:
                 chainIdB = _context2.sent;
                 clientA = new _tsRelayer.IbcClient(signingClientA, tmClientA, accountA.address, chainIdA, optionsA);
                 clientB = new _tsRelayer.IbcClient(signingClientB, tmClientB, accountB.address, chainIdB, optionsB);
-                _context2.next = 43;
+                _context2.next = 42;
                 return _tsRelayer.Link.createWithExistingConnections(clientA, clientB, relayer.endA.connectionID, relayer.endB.connectionID);
 
-              case 43:
+              case 42:
                 link = _context2.sent;
                 linkData = {
                   name: name,
@@ -332,39 +344,40 @@ var _default = {
                 });
 
                 if (!(relayer.status != 'connected')) {
-                  _context2.next = 52;
+                  _context2.next = 51;
                   break;
                 }
 
-                _context2.next = 50;
+                _context2.next = 49;
                 return dispatch('connectRelayer', relayer.name);
 
-              case 50:
-                _context2.next = 53;
+              case 49:
+                _context2.next = 52;
                 break;
 
-              case 52:
+              case 51:
                 if (relayer.running) {
                   dispatch('runRelayer', relayer.name);
                 }
 
-              case 53:
+              case 52:
                 _context2.next = 57;
                 break;
 
-              case 55:
-                _context2.prev = 55;
-                _context2.t0 = _context2["catch"](5);
+              case 54:
+                _context2.prev = 54;
+                _context2.t0 = _context2["catch"](4);
+                console.error(_context2.t0);
 
               case 57:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[5, 55]]);
+        }, _callee2, null, [[4, 54]]);
       }))();
     },
-    linkRelayer: function linkRelayer(_ref9, _ref10) {
+    linkRelayer: function linkRelayer(_ref8, _ref9) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
         var commit, rootGetters, getters, dispatch, name, relayer, signerA, signerB, _yield$signerA$getAcc3, _yield$signerA$getAcc4, accountA, _yield$signerB$getAcc5, _yield$signerB$getAcc6, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
 
@@ -372,8 +385,8 @@ var _default = {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                commit = _ref9.commit, rootGetters = _ref9.rootGetters, getters = _ref9.getters, dispatch = _ref9.dispatch;
-                name = _ref10.name;
+                commit = _ref8.commit, rootGetters = _ref8.rootGetters, getters = _ref8.getters, dispatch = _ref8.dispatch;
+                name = _ref9.name;
                 relayer = getters['getRelayer'](name);
 
                 if (!(relayer.status !== 'created')) {
@@ -410,13 +423,23 @@ var _default = {
                 _yield$signerB$getAcc6 = _slicedToArray(_yield$signerB$getAcc5, 1);
                 accountB = _yield$signerB$getAcc6[0];
                 transientLog = {
+                  log: function log(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
                   info: function info(msg) {
                     commit('SET_LOG_MSG', msg);
                   },
-                  error: function error() {},
-                  warn: function warn() {},
-                  verbose: function verbose() {},
-                  debug: function debug() {}
+                  error: function error(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
+                  warn: function warn(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
+                  verbose: function verbose(msg) {
+                    commit('SET_LOG_MSG', msg);
+                  },
+                  debug: function debug(msg) {//commit('SET_LOG_MSG',msg)
+                  }
                 };
                 optionsA = {
                   prefix: rootGetters['common/env/addrPrefix'],
@@ -481,14 +504,15 @@ var _default = {
                 return dispatch('connectRelayer', name);
 
               case 49:
-                _context3.next = 53;
+                _context3.next = 54;
                 break;
 
               case 51:
                 _context3.prev = 51;
                 _context3.t0 = _context3["catch"](5);
+                console.error(_context3.t0);
 
-              case 53:
+              case 54:
               case "end":
                 return _context3.stop();
             }
@@ -496,14 +520,14 @@ var _default = {
         }, _callee3, null, [[5, 51]]);
       }))();
     },
-    connectRelayer: function connectRelayer(_ref11, name) {
+    connectRelayer: function connectRelayer(_ref10, name) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
         var commit, getters, dispatch, relayerLink, channels, channelData;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                commit = _ref11.commit, getters = _ref11.getters, dispatch = _ref11.dispatch;
+                commit = _ref10.commit, getters = _ref10.getters, dispatch = _ref10.dispatch;
                 relayerLink = getters['getRelayerLink'](name);
                 _context4.next = 4;
                 return relayerLink.createChannel("A", "transfer", "transfer", 1, "ics20-1");
@@ -527,23 +551,27 @@ var _default = {
         }, _callee4);
       }))();
     },
-    runRelayer: function runRelayer(_ref12, name) {
+    runRelayer: function runRelayer(_ref11, name) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
         var commit, getters, dispatch, relayerLink;
         return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                commit = _ref12.commit, getters = _ref12.getters, dispatch = _ref12.dispatch;
+                commit = _ref11.commit, getters = _ref11.getters, dispatch = _ref11.dispatch;
                 relayerLink = getters['getRelayerLink'](name);
                 commit("RUN_RELAYER", name);
                 dispatch('common/wallet/updateRelayers', getters['getRelayers'], {
                   root: true
                 });
-                dispatch('relayerLoop', name, relayerLink, {
-                  poll: 1,
-                  maxAgeDest: 86400,
-                  maxAgeSrc: 86400
+                dispatch('relayerLoop', {
+                  name: name,
+                  link: relayerLink,
+                  options: {
+                    poll: 1,
+                    maxAgeDest: 86400,
+                    maxAgeSrc: 86400
+                  }
                 });
 
               case 5:
@@ -554,14 +582,14 @@ var _default = {
         }, _callee5);
       }))();
     },
-    stopRelayer: function stopRelayer(_ref13, name) {
+    stopRelayer: function stopRelayer(_ref12, name) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
         var commit;
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                commit = _ref13.commit;
+                commit = _ref12.commit;
                 commit("STOP_RELAYER", name);
 
               case 2:
@@ -572,7 +600,7 @@ var _default = {
         }, _callee6);
       }))();
     },
-    relayerLoop: function relayerLoop(_ref14, _ref15) {
+    relayerLoop: function relayerLoop(_ref13, _ref14) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
         var _relayer$heights;
 
@@ -581,8 +609,8 @@ var _default = {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                getters = _ref14.getters, commit = _ref14.commit, dispatch = _ref14.dispatch;
-                name = _ref15.name, link = _ref15.link, options = _ref15.options;
+                getters = _ref13.getters, commit = _ref13.commit, dispatch = _ref13.dispatch;
+                name = _ref14.name, link = _ref14.link, options = _ref14.options;
                 relayer = getters['getRelayer'](name);
                 nextRelay = (_relayer$heights = relayer.heights) !== null && _relayer$heights !== void 0 ? _relayer$heights : {};
 

@@ -71,7 +71,8 @@ export default {
 		getRelayers: (state) => state.relayers,
 		getRelayerLink: (state) => (name) => {
 			return state.relayerLinks[name]
-		}
+		},
+		log: (state)=> state.transientLog.msg
 	},
 	mutations: {
 		RESET_STATE(state) {
@@ -85,12 +86,12 @@ export default {
 		},
 		LINK_RELAYER(state,{name, link, ...linkDetails}) {
 			let relayerIndex = state.relayers.findIndex(x => x.name==name)
-			state.relayers[relayerIndex]={status: 'linked', ...state.relayers[relayerIndex],...linkDetails}
+			state.relayers[relayerIndex]={ ...state.relayers[relayerIndex],...linkDetails,status: 'linked',}
 			state.relayerLinks[name]=link
 		},
 		CONNECT_RELAYER(state, {name, ...channelDetails}) {
 			let relayerIndex = state.relayers.findIndex(x => x.name==name)
-			state.relayers[relayerIndex]={status: 'connected', ...state.relayers[relayerIndex],...channelDetails}
+			state.relayers[relayerIndex]={ ...state.relayers[relayerIndex],...channelDetails, status: 'connected'}
 		},
 		RUN_RELAYER(state, name) {        
 			state.relayers.find(x => x.name==name).running=true
@@ -99,7 +100,7 @@ export default {
 			state.relayers.find(x => x.name==name).running=false
 		},
 		SET_LOG_MSG(state, msg) {
-			state.transientLog.message=msg
+			state.transientLog.msg=msg
 		},
 		LAST_QUERIED_HEIGHTS(state, {name,heights}) {
 			state.relayers.find(x => x.name==name).heights=heights
@@ -116,7 +117,7 @@ export default {
 				}
 			})
 		},
-		async createRelayer({commit, rootGetters, dispatch},{ name, prefix, endpoint, gasPrice}) {
+		async createRelayer({commit, rootGetters, getters, dispatch},{ name, prefix, endpoint, gasPrice}) {
 			let relayer = {
 				name,prefix,endpoint,gasPrice,
 				status: "created",
@@ -133,7 +134,7 @@ export default {
 			commit('CREATE_RELAYER',relayer)
 			dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 		},
-		async loadRelayer({commit, rootGetters, getters,dispatch},{name}) {
+		async loadRelayer({commit, rootGetters, getters,dispatch},name) {
 			const relayer=getters['getRelayer'](name)
 			if (relayer.status!=='linked' && relayer.status!=='connected') {
 				throw new SpVuexError(
@@ -153,20 +154,28 @@ export default {
 				const [accountA] = await signerA.getAccounts();
 				const [accountB] = await signerB.getAccounts();
 				const  transientLog = {
+					log: (msg) => {
+						
+						commit('SET_LOG_MSG',msg)
+					},
 					info: (msg) => {
 						commit('SET_LOG_MSG',msg)
 					},
-					error: () => {
+					error: (msg) => {
 
+						commit('SET_LOG_MSG',msg)
 					},
-					warn: () => {
+					warn: (msg) => {
 
+						commit('SET_LOG_MSG',msg)
 					},
-					verbose: () => {
+					verbose: (msg) => {
 
+						commit('SET_LOG_MSG',msg)
 					},
-					debug: () => {
+					debug: (msg) => {
 
+						//commit('SET_LOG_MSG',msg)
 					},
 				}
 				const optionsA = {
@@ -240,7 +249,7 @@ export default {
 				}
 				
 			}catch(e) {
-
+				console.error(e)
 			}
 		},
 		async linkRelayer({commit, rootGetters, getters,dispatch},{name}) {
@@ -263,20 +272,28 @@ export default {
 				const [accountA] = await signerA.getAccounts();
 				const [accountB] = await signerB.getAccounts();
 				const  transientLog = {
+					log: (msg) => {
+						
+						commit('SET_LOG_MSG',msg)
+					},
 					info: (msg) => {
 						commit('SET_LOG_MSG',msg)
 					},
-					error: () => {
+					error: (msg) => {
 
+						commit('SET_LOG_MSG',msg)
 					},
-					warn: () => {
+					warn: (msg) => {
 
+						commit('SET_LOG_MSG',msg)
 					},
-					verbose: () => {
+					verbose: (msg) => {
 
+						commit('SET_LOG_MSG',msg)
 					},
-					debug: () => {
+					debug: (msg) => {
 
+						//commit('SET_LOG_MSG',msg)
 					},
 				}
 				const optionsA = {
@@ -343,7 +360,7 @@ export default {
 				dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 				await dispatch('connectRelayer',name)
 			}catch(e) {
-
+				console.error(e)
 			}
 		},
 		async connectRelayer({commit, getters,dispatch}, name) {
@@ -367,8 +384,8 @@ export default {
 			const relayerLink=getters['getRelayerLink'](name)
 			commit("RUN_RELAYER",name)
 			dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
-			dispatch('relayerLoop',name,relayerLink,
-			{ poll: 1, maxAgeDest: 86400, maxAgeSrc: 86400 })
+			dispatch('relayerLoop',{name,link: relayerLink,
+			options: { poll: 1, maxAgeDest: 86400, maxAgeSrc: 86400 }})
 		},
 		async stopRelayer({commit},name) {
 			commit("STOP_RELAYER",name)

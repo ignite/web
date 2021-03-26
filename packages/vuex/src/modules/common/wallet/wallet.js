@@ -30,11 +30,13 @@ export default {
 			activeWallet: null,
 			activeClient: null,
 			selectedAddress: '',
-			authorized: false
+			authorized: false,
+			gasPrice: '0.025ustake'
 		}
 	},
 	getters: {
 		client: (state) => state.activeClient,
+		gasPrice:(state) => state.gasPrice,
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
 		getMnemonic: (state) => state.activeWallet.mnemonic,
