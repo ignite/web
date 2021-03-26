@@ -66,11 +66,15 @@ export default {
 		getRelayer: (state) => (name) => {
 			return state.relayers.find(x => x.name==name)
 		},
+		getRelayers: (state) => state.relayers,
 		getRelayerLink: (state) => (name) => {
 			return state.relayerLinks[name]
 		}
 	},
 	mutations: {
+		SET_RELAYERS(state,relayers) {
+			state.relayers=relayers
+		},
 		CREATE_RELAYER(state,relayer) {
 			state.relayers = [...state.relayers,relayer]
 		},
@@ -91,26 +95,37 @@ export default {
 		},
 		SET_LOG_MSG(state, msg) {
 			state.transientLog.message=msg
+		},
+		LAST_QUERIED_HEIGHTS(state, {name,heights}) {
+			state.relayers.find(x => x.name==name).heights=heights
 		}
 	},
 	actions: {
-		init() {
-
+		init({commit,rootGetters,dispatch}) {
+			const relayers=rootGetters['common/wallet/relayers']
+			commit('SET_RELAYERS',relayers)
+			relayers.forEach((relayer)=> {
+				if (relayer.status=='linked' || relayer.status=='connected') {
+					dispatch('loadRelayer',relayer.name)
+				}
+			})
 		},
-		async createRelayer({commit, rootGetters},{ name, prefix, endpoint, gasPrice}) {
+		async createRelayer({commit, rootGetters, dispatch},{ name, prefix, endpoint, gasPrice}) {
 			let relayer = {
 				name,prefix,endpoint,gasPrice,
 				status: "created",
+				heights: {},
 				running: false
 			}
 
 			const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
-				stringToPath("m/44'/118'/0'/0/0"),
+				stringToPath(rootGetters['common/wallet/getPath']),
 				prefix
 			);
 			const [accountB] = await signerB.getAccounts();
 			relayer.targetAddress=accountB.address
 			commit('CREATE_RELAYER',relayer)
+			dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 		},
 		async loadRelayer({commit, rootGetters, getters,dispatch},{name}) {
 			const relayer=getters['getRelayer'](name)
@@ -120,22 +135,13 @@ export default {
 					'Relayer already connected.'
 				)
 			}
-		},
-		async linkRelayer({commit, rootGetters, getters,dispatch},{name}) {
-			const relayer=getters['getRelayer'](name)
-			if (relayer.status!=='created') {
-				throw new SpVuexError(
-					'relayers:connectRelayer',
-					'Relayer already connected.'
-				)
-			}
 			try {
 				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
-				stringToPath("m/44'/118'/0'/0/0"),
-				rootGetters['common/env/getPrefix']
+				stringToPath(rootGetters['common/wallet/getPath']),
+				rootGetters['common/env/addrPrefix']
 				);
 				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
-				stringToPath("m/44'/118'/0'/0/0"),
+				stringToPath(rootGetters['common/wallet/getPath']),
 				relayer.prefix
 				);
 				const [accountA] = await signerA.getAccounts();
@@ -158,7 +164,117 @@ export default {
 					},
 				}
 				const optionsA = {
-					prefix: rootGetters['common/env/getPrefix'],
+					prefix: rootGetters['common/env/addrPrefix'],
+					logger: transientLog,
+					gasPrice: GasPrice.fromString("0.00000025token"),
+					registry: ibcRegistry(),
+				};
+				const tmClientA = await Tendermint34Client.connect(
+					rootGetters['common/env/apiTendermint']
+				);
+				const signingClientA = new StarportSigningClient(
+					tmClientA,
+					signerA,
+					optionsA
+				);
+				const chainIdA = await signingClientA.getChainId();
+				const optionsB = {
+					prefix: relayer.prefix,
+					logger: transientLog,
+					gasPrice: GasPrice.fromString(relayer.gasPrice),
+					registry: ibcRegistry(),
+				};
+				const tmClientB = await Tendermint34Client.connect(
+					relayer.endpoint
+				);
+				const signingClientB = new StarportSigningClient(
+					tmClientB,
+					signerB,
+					optionsB
+				);
+				const chainIdB = await signingClientB.getChainId();
+		
+				let clientA = new IbcClient(
+					signingClientA,
+					tmClientA,
+					accountA.address,
+					chainIdA,
+					optionsA
+				);
+				let clientB = new IbcClient(
+					signingClientB,
+					tmClientB,
+					accountB.address,
+					chainIdB,
+					optionsB
+				);
+				const link = await Link.createWithExistingConnections(clientA, clientB,relayer.endA.connectionID,relayer.endB.connectionID)
+				const linkData = {
+					name,
+					link,
+					chainIdA,
+					chainIdB,
+					endA: {
+						clientID: link.endA.clientID,
+						connectionID: link.endA.connectionID
+					},
+					endB: {
+						clientID: link.endB.clientID,
+						connectionID: link.endB.connectionID
+					}
+				}
+				commit('LINK_RELAYER',linkData)
+				dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
+				if (relayer.status!='connected') {
+					await dispatch('connectRelayer',relayer.name)
+				}else{
+					if (relayer.running) {
+						dispatch('runRelayer',relayer.name)
+					}
+				}
+				
+			}catch(e) {
+
+			}
+		},
+		async linkRelayer({commit, rootGetters, getters,dispatch},{name}) {
+			const relayer=getters['getRelayer'](name)
+			if (relayer.status!=='created') {
+				throw new SpVuexError(
+					'relayers:connectRelayer',
+					'Relayer already connected.'
+				)
+			}
+			try {
+				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
+				stringToPath(rootGetters['common/wallet/getPath']),
+				rootGetters['common/env/addrPrefix']
+				);
+				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
+				stringToPath(rootGetters['common/wallet/getPath']),
+				relayer.prefix
+				);
+				const [accountA] = await signerA.getAccounts();
+				const [accountB] = await signerB.getAccounts();
+				const  transientLog = {
+					info: (msg) => {
+						commit('SET_LOG_MSG',msg)
+					},
+					error: () => {
+
+					},
+					warn: () => {
+
+					},
+					verbose: () => {
+
+					},
+					debug: () => {
+
+					},
+				}
+				const optionsA = {
+					prefix: rootGetters['common/env/addrPrefix'],
 					logger: transientLog,
 					gasPrice: GasPrice.fromString("0.00000025token"),
 					registry: ibcRegistry(),
@@ -218,6 +334,7 @@ export default {
 					}
 				}
 				commit('LINK_RELAYER',linkData)
+				dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 				await dispatch('connectRelayer',name)
 			}catch(e) {
 
@@ -237,26 +354,28 @@ export default {
 				...channels
 			}
 			commit("CONNECT_RELAYER",channelData)
+			dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 			dispatch('runRelayer',name)
 		},
 		async runRelayer({commit,getters,dispatch},name) {
 			const relayerLink=getters['getRelayerLink'](name)
 			commit("RUN_RELAYER",name)
+			dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 			dispatch('relayerLoop',name,relayerLink,
 			{ poll: 1, maxAgeDest: 86400, maxAgeSrc: 86400 })
 		},
 		async stopRelayer({commit},name) {
 			commit("STOP_RELAYER",name)
 		},
-		async relayerLoop({ getters }, { name, link, options }) {
+		async relayerLoop({ getters,commit,dispatch }, { name, link, options }) {
 			let relayer=getters['getRelayer'](name)
 			let nextRelay = relayer.heights ?? {};
 			while (getters['getRelayer'](name).running) {
 				try {
 					// TODO: make timeout windows more configurable
 					nextRelay = await link.checkAndRelayPacketsAndAcks(nextRelay, 2, 6);
-					window.localStorage.setItem(name+'-lastQueriedHeight', JSON.stringify(nextRelay, null, 2)
-					);
+					commit("LAST_QUERIED_HEIGHTS", {name,heights: nextRelay})
+					dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 					await link.updateClientIfStale("A", options.maxAgeDest);
 					await link.updateClientIfStale("B", options.maxAgeSrc);
 				} catch (e) {

@@ -40,6 +40,9 @@ var _default = {
     signingClient: function signingClient(state) {
       return state.client.signingClient;
     },
+    addrPrefix: function addrPrefix(state) {
+      return state.addrPrefix;
+    },
     apiTendermint: function apiTendermint(state) {
       return state.rpcNode;
     },

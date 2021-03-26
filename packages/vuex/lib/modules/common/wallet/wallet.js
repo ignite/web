@@ -87,6 +87,21 @@ var _default = {
     address: function address(state) {
       return state.selectedAddress;
     },
+    getMnemonic: function getMnemonic(state) {
+      return state.activeWallet.mnemonic;
+    },
+    getPath: function getPath(state) {
+      return state.activeWallet.HDpath + state.activeWallet.accounts.find(function (x) {
+        return x.address == state.selectedAddress;
+      }).pathIncrement;
+    },
+    relayers: function relayers(state) {
+      var _state$activeWallet$a;
+
+      return (_state$activeWallet$a = state.activeWallet.accounts.find(function (x) {
+        return x.address == state.selectedAddress;
+      }).relayers) !== null && _state$activeWallet$a !== void 0 ? _state$activeWallet$a : [];
+    },
     nameAvailable: function nameAvailable(state) {
       return function (name) {
         return state.wallets.findIndex(function (x) {
@@ -147,6 +162,17 @@ var _default = {
     },
     ADD_ACCOUNT: function ADD_ACCOUNT(state, account) {
       state.activeWallet.accounts.push(account);
+
+      if (state.activeWallet.name && state.activeWallet.password) {
+        state.wallets[state.wallets.findIndex(function (x) {
+          return x.name === state.activeWallet.name;
+        })].wallet = _cryptoJs["default"].AES.encrypt(JSON.stringify(state.activeWallet), state.activeWallet.password).toString();
+      }
+    },
+    SET_RELAYERS: function SET_RELAYERS(state, relayers) {
+      state.activeWallet.accounts.find(function (x) {
+        return x.address == state.selectedAddress;
+      }).relayers = relayers;
 
       if (state.activeWallet.name && state.activeWallet.password) {
         state.wallets[state.wallets.findIndex(function (x) {
@@ -236,25 +262,44 @@ var _default = {
         }, _callee2, null, [[9, 22]]);
       }))();
     },
-    switchAccount: function switchAccount(_ref6, address) {
+    updateRelayers: function updateRelayers(_ref6, relayers) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var commit, state, rootGetters, dispatch, accountIndex, accountSigner, client, _yield$accountSigner$3, _yield$accountSigner$4, account;
-
+        var commit, dispatch;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                commit = _ref6.commit, state = _ref6.state, rootGetters = _ref6.rootGetters, dispatch = _ref6.dispatch;
+                commit = _ref6.commit, dispatch = _ref6.dispatch;
+                commit('SET_RELAYERS', relayers);
+                dispatch('storeWallets');
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    switchAccount: function switchAccount(_ref7, address) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+        var commit, state, rootGetters, dispatch, accountIndex, accountSigner, client, _yield$accountSigner$3, _yield$accountSigner$4, account;
+
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref7.commit, state = _ref7.state, rootGetters = _ref7.rootGetters, dispatch = _ref7.dispatch;
                 accountIndex = state.activeWallet.accounts.findIndex(function (acc) {
                   return acc.address == address;
                 });
-                _context3.next = 4;
+                _context4.next = 4;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(state.activeWallet.mnemonic, (0, _crypto.stringToPath)(state.activeWallet.HDpath + state.activeWallet.accounts[accountIndex].pathIncrement), state.activeWallet.prefix);
 
               case 4:
-                accountSigner = _context3.sent;
-                _context3.prev = 5;
-                _context3.next = 8;
+                accountSigner = _context4.sent;
+                _context4.prev = 5;
+                _context4.next = 8;
                 return dispatch('common/env/signIn', accountSigner, {
                   root: true
                 });
@@ -262,55 +307,55 @@ var _default = {
               case 8:
                 client = rootGetters['common/env/signingClient'];
                 commit('SET_ACTIVE_CLIENT', client);
-                _context3.next = 12;
+                _context4.next = 12;
                 return accountSigner.getAccounts();
 
               case 12:
-                _yield$accountSigner$3 = _context3.sent;
+                _yield$accountSigner$3 = _context4.sent;
                 _yield$accountSigner$4 = _slicedToArray(_yield$accountSigner$3, 1);
                 account = _yield$accountSigner$4[0];
                 commit('SET_SELECTED_ADDRESS', account.address);
-                _context3.next = 21;
+                _context4.next = 21;
                 break;
 
               case 18:
-                _context3.prev = 18;
-                _context3.t0 = _context3["catch"](5);
-                console.log(_context3.t0);
+                _context4.prev = 18;
+                _context4.t0 = _context4["catch"](5);
+                console.log(_context4.t0);
 
               case 21:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, null, [[5, 18]]);
+        }, _callee4, null, [[5, 18]]);
       }))();
     },
-    addAccount: function addAccount(_ref7, pathIncrement) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+    addAccount: function addAccount(_ref8, pathIncrement) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
         var commit, state, dispatch, accountSigner, _yield$accountSigner$5, _yield$accountSigner$6, acc, account;
 
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                commit = _ref7.commit, state = _ref7.state, dispatch = _ref7.dispatch;
+                commit = _ref8.commit, state = _ref8.state, dispatch = _ref8.dispatch;
 
                 if (!pathIncrement) {
                   pathIncrement = state.activeWallet.pathIncrement + 1;
                   commit('PATH_INCREMENT');
                 }
 
-                _context4.next = 4;
+                _context5.next = 4;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(state.activeWallet.mnemonic, (0, _crypto.stringToPath)(state.activeWallet.HDpath + pathIncrement), state.activeWallet.prefix);
 
               case 4:
-                accountSigner = _context4.sent;
-                _context4.next = 7;
+                accountSigner = _context5.sent;
+                _context5.next = 7;
                 return accountSigner.getAccounts();
 
               case 7:
-                _yield$accountSigner$5 = _context4.sent;
+                _yield$accountSigner$5 = _context5.sent;
                 _yield$accountSigner$6 = _slicedToArray(_yield$accountSigner$5, 1);
                 acc = _yield$accountSigner$6[0];
                 account = {
@@ -321,13 +366,13 @@ var _default = {
                 if (!(state.activeWallet.accounts.findIndex(function (acc) {
                   return acc.address == account.address;
                 }) == -1)) {
-                  _context4.next = 16;
+                  _context5.next = 16;
                   break;
                 }
 
                 commit('ADD_ACCOUNT', account);
                 dispatch('storeWallets');
-                _context4.next = 17;
+                _context5.next = 17;
                 break;
 
               case 16:
@@ -335,43 +380,43 @@ var _default = {
 
               case 17:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }))();
     },
-    storeWallets: function storeWallets(_ref8) {
-      var commit = _ref8.commit,
-          state = _ref8.state;
+    storeWallets: function storeWallets(_ref9) {
+      var commit = _ref9.commit,
+          state = _ref9.state;
       window.localStorage.setItem('wallets', JSON.stringify(state.wallets));
       commit('SET_BACKUP_STATE', false);
     },
-    signInWithPrivateKey: function signInWithPrivateKey(_ref9, _ref10) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-        var commit, rootGetters, dispatch, _ref10$prefix, prefix, privKey, pKey, accountSigner, _yield$accountSigner$7, _yield$accountSigner$8, firstAccount, client;
+    signInWithPrivateKey: function signInWithPrivateKey(_ref10, _ref11) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+        var commit, rootGetters, dispatch, _ref11$prefix, prefix, privKey, pKey, accountSigner, _yield$accountSigner$7, _yield$accountSigner$8, firstAccount, client;
 
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                commit = _ref9.commit, rootGetters = _ref9.rootGetters, dispatch = _ref9.dispatch;
-                _ref10$prefix = _ref10.prefix, prefix = _ref10$prefix === void 0 ? 'cosmos' : _ref10$prefix, privKey = _ref10.privKey;
+                commit = _ref10.commit, rootGetters = _ref10.rootGetters, dispatch = _ref10.dispatch;
+                _ref11$prefix = _ref11.prefix, prefix = _ref11$prefix === void 0 ? 'cosmos' : _ref11$prefix, privKey = _ref11.privKey;
                 pKey = (0, _keys.keyFromWif)(privKey.trim());
-                _context5.next = 5;
+                _context6.next = 5;
                 return _protoSigning.DirectSecp256k1Wallet.fromKey(pKey, prefix);
 
               case 5:
-                accountSigner = _context5.sent;
-                _context5.next = 8;
+                accountSigner = _context6.sent;
+                _context6.next = 8;
                 return accountSigner.getAccounts();
 
               case 8:
-                _yield$accountSigner$7 = _context5.sent;
+                _yield$accountSigner$7 = _context6.sent;
                 _yield$accountSigner$8 = _slicedToArray(_yield$accountSigner$7, 1);
                 firstAccount = _yield$accountSigner$8[0];
-                _context5.prev = 11;
-                _context5.next = 14;
+                _context6.prev = 11;
+                _context6.next = 14;
                 return dispatch('common/env/signIn', accountSigner, {
                   root: true
                 });
@@ -380,32 +425,32 @@ var _default = {
                 client = rootGetters['common/env/signingClient'];
                 commit('SET_ACTIVE_CLIENT', client);
                 commit('SET_SELECTED_ADDRESS', firstAccount.address);
-                _context5.next = 22;
+                _context6.next = 22;
                 break;
 
               case 19:
-                _context5.prev = 19;
-                _context5.t0 = _context5["catch"](11);
-                console.log(_context5.t0);
+                _context6.prev = 19;
+                _context6.t0 = _context6["catch"](11);
+                console.log(_context6.t0);
 
               case 22:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, null, [[11, 19]]);
+        }, _callee6, null, [[11, 19]]);
       }))();
     },
-    restoreWallet: function restoreWallet(_ref11, _ref12) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+    restoreWallet: function restoreWallet(_ref12, _ref13) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
         var commit, dispatch, rootGetters, state, encrypted, password, wallet, newName, incr, accountSigner, _yield$accountSigner$9, _yield$accountSigner$10, firstAccount, client;
 
-        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                commit = _ref11.commit, dispatch = _ref11.dispatch, rootGetters = _ref11.rootGetters, state = _ref11.state;
-                encrypted = _ref12.encrypted, password = _ref12.password;
+                commit = _ref12.commit, dispatch = _ref12.dispatch, rootGetters = _ref12.rootGetters, state = _ref12.state;
+                encrypted = _ref13.encrypted, password = _ref13.password;
                 wallet = JSON.parse(_cryptoJs["default"].AES.decrypt(encrypted, password).toString(_cryptoJs["default"].enc.Utf8));
                 newName = wallet.name;
                 incr = 1;
@@ -418,21 +463,21 @@ var _default = {
                 }
 
                 wallet.name = newName;
-                _context6.next = 9;
+                _context7.next = 9;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(wallet.mnemonic, (0, _crypto.stringToPath)(wallet.HDpath + '0'), wallet.prefix);
 
               case 9:
-                accountSigner = _context6.sent;
-                _context6.next = 12;
+                accountSigner = _context7.sent;
+                _context7.next = 12;
                 return accountSigner.getAccounts();
 
               case 12:
-                _yield$accountSigner$9 = _context6.sent;
+                _yield$accountSigner$9 = _context7.sent;
                 _yield$accountSigner$10 = _slicedToArray(_yield$accountSigner$9, 1);
                 firstAccount = _yield$accountSigner$10[0];
                 commit('ADD_WALLET', wallet);
-                _context6.prev = 16;
-                _context6.next = 19;
+                _context7.prev = 16;
+                _context7.next = 19;
                 return dispatch('common/env/signIn', accountSigner, {
                   root: true
                 });
@@ -441,35 +486,35 @@ var _default = {
                 client = rootGetters['common/env/signingClient'];
                 commit('SET_ACTIVE_CLIENT', client);
                 commit('SET_SELECTED_ADDRESS', firstAccount.address);
-                _context6.next = 27;
+                _context7.next = 27;
                 break;
 
               case 24:
-                _context6.prev = 24;
-                _context6.t0 = _context6["catch"](16);
-                console.log(_context6.t0);
+                _context7.prev = 24;
+                _context7.t0 = _context7["catch"](16);
+                console.log(_context7.t0);
 
               case 27:
                 dispatch('storeWallets');
 
               case 28:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, null, [[16, 24]]);
+        }, _callee7, null, [[16, 24]]);
       }))();
     },
-    createWalletWithMnemonic: function createWalletWithMnemonic(_ref13, _ref14) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-        var commit, dispatch, rootGetters, _ref14$name, name, mnemonic, _ref14$HDpath, HDpath, _ref14$prefix, prefix, _ref14$password, password, wallet, accountSigner, _yield$accountSigner$11, _yield$accountSigner$12, firstAccount, account, client;
+    createWalletWithMnemonic: function createWalletWithMnemonic(_ref14, _ref15) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+        var commit, dispatch, rootGetters, _ref15$name, name, mnemonic, _ref15$HDpath, HDpath, _ref15$prefix, prefix, _ref15$password, password, wallet, accountSigner, _yield$accountSigner$11, _yield$accountSigner$12, firstAccount, account, client;
 
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
-                commit = _ref13.commit, dispatch = _ref13.dispatch, rootGetters = _ref13.rootGetters;
-                _ref14$name = _ref14.name, name = _ref14$name === void 0 ? null : _ref14$name, mnemonic = _ref14.mnemonic, _ref14$HDpath = _ref14.HDpath, HDpath = _ref14$HDpath === void 0 ? "m/44'/118'/0'/0/" : _ref14$HDpath, _ref14$prefix = _ref14.prefix, prefix = _ref14$prefix === void 0 ? 'cosmos' : _ref14$prefix, _ref14$password = _ref14.password, password = _ref14$password === void 0 ? null : _ref14$password;
+                commit = _ref14.commit, dispatch = _ref14.dispatch, rootGetters = _ref14.rootGetters;
+                _ref15$name = _ref15.name, name = _ref15$name === void 0 ? null : _ref15$name, mnemonic = _ref15.mnemonic, _ref15$HDpath = _ref15.HDpath, HDpath = _ref15$HDpath === void 0 ? "m/44'/118'/0'/0/" : _ref15$HDpath, _ref15$prefix = _ref15.prefix, prefix = _ref15$prefix === void 0 ? 'cosmos' : _ref15$prefix, _ref15$password = _ref15.password, password = _ref15$password === void 0 ? null : _ref15$password;
                 wallet = {
                   name: name,
                   mnemonic: mnemonic,
@@ -479,16 +524,16 @@ var _default = {
                   pathIncrement: 0,
                   accounts: []
                 };
-                _context7.next = 5;
+                _context8.next = 5;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(mnemonic, (0, _crypto.stringToPath)(HDpath + '0'), prefix);
 
               case 5:
-                accountSigner = _context7.sent;
-                _context7.next = 8;
+                accountSigner = _context8.sent;
+                _context8.next = 8;
                 return accountSigner.getAccounts();
 
               case 8:
-                _yield$accountSigner$11 = _context7.sent;
+                _yield$accountSigner$11 = _context8.sent;
                 _yield$accountSigner$12 = _slicedToArray(_yield$accountSigner$11, 1);
                 firstAccount = _yield$accountSigner$12[0];
                 account = {
@@ -497,8 +542,8 @@ var _default = {
                 };
                 wallet.accounts.push(account);
                 commit('ADD_WALLET', wallet);
-                _context7.prev = 14;
-                _context7.next = 17;
+                _context8.prev = 14;
+                _context8.next = 17;
                 return dispatch('common/env/signIn', accountSigner, {
                   root: true
                 });
@@ -507,34 +552,34 @@ var _default = {
                 client = rootGetters['common/env/signingClient'];
                 commit('SET_ACTIVE_CLIENT', client);
                 commit('SET_SELECTED_ADDRESS', firstAccount.address);
-                _context7.next = 25;
+                _context8.next = 25;
                 break;
 
               case 22:
-                _context7.prev = 22;
-                _context7.t0 = _context7["catch"](14);
-                console.log(_context7.t0);
+                _context8.prev = 22;
+                _context8.t0 = _context8["catch"](14);
+                console.log(_context8.t0);
 
               case 25:
                 dispatch('storeWallets');
 
               case 26:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, null, [[14, 22]]);
+        }, _callee8, null, [[14, 22]]);
       }))();
     },
-    sendTransaction: function sendTransaction(_ref15, _ref16) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+    sendTransaction: function sendTransaction(_ref16, _ref17) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
         var state, message, memo, denom, fee, result;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
-                state = _ref15.state;
-                message = _ref16.message, memo = _ref16.memo, denom = _ref16.denom;
+                state = _ref16.state;
+                message = _ref17.message, memo = _ref17.memo, denom = _ref17.denom;
                 fee = {
                   amount: [{
                     amount: '0',
@@ -542,34 +587,34 @@ var _default = {
                   }],
                   gas: '200000'
                 };
-                _context8.prev = 3;
+                _context9.prev = 3;
                 console.log({
                   add: state.selectedAddress,
                   msg: [message],
                   fee: fee,
                   memo: memo
                 });
-                _context8.next = 7;
+                _context9.next = 7;
                 return state.activeClient.signAndBroadcast(state.selectedAddress, [message], fee, memo);
 
               case 7:
-                result = _context8.sent;
+                result = _context9.sent;
                 (0, _stargate.assertIsBroadcastTxSuccess)(result);
-                _context8.next = 15;
+                _context9.next = 15;
                 break;
 
               case 11:
-                _context8.prev = 11;
-                _context8.t0 = _context8["catch"](3);
-                console.log(_context8.t0);
-                throw 'Failed to broadcast transaction.' + _context8.t0;
+                _context9.prev = 11;
+                _context9.t0 = _context9["catch"](3);
+                console.log(_context9.t0);
+                throw 'Failed to broadcast transaction.' + _context9.t0;
 
               case 15:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8, null, [[3, 11]]);
+        }, _callee9, null, [[3, 11]]);
       }))();
     }
   }

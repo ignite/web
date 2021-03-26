@@ -22,6 +22,7 @@ export default {
 	getters: {
 		client: (state) => state.client,
 		signingClient: (state) => state.client.signingClient,
+		addrPrefix: (state) => state.addrPrefix,
 		apiTendermint: (state) => state.rpcNode,
 		apiCosmos: (state) => state.apiNode,
 		apiWS: (state) => state.wsNode,
