@@ -1,6 +1,6 @@
 # `@starport/client-js`
 
-This package implements a generic JS client wrapper for the Tendermint RPC, Tendermint websocket, and Cosmos SDK REST APIs.
+This package implements a generic JS client wrapper for the Tendermint RPC, Tendermint WebSocket, and Cosmos SDK APIs.
 
 ## Install
 
