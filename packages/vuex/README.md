@@ -100,7 +100,7 @@ Registered as `common/starport`, use this module if you are doing local developm
 
 ### Blocks
 
-Registered as `common/blocks`, this module receives, stores, and decodes the latest 20 blocks (configurable) as the blocks appear in the websocket API.
+Registered as `common/blocks`, this module receives, stores, and decodes the latest 20 blocks (configurable) as the blocks appear in the WebSocket API.
 
 The blocks module provides these getters:
 
@@ -141,7 +141,7 @@ this.$store.getters['common/transfers/getGetTxsEvent']({
 })
 ```
 
-To learn more about the websocket events you can query, see the [Tendermint RPC Websocket](https://docs.tendermint.com/master/rpc/#/Websocket/subscribe) docs.
+To learn more about the WebSocket events you can query, see the [Tendermint RPC WebSocket](https://docs.tendermint.com/master/rpc/#/Websocket/subscribe) docs.
 
 The `subscribe` flag in the action dispatch configures auto-updates for the store as new transactions occur.
 
