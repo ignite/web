@@ -135,9 +135,6 @@ export default {
 		},
 		relayers() {
 			return this.$store.getters['common/relayers/getRelayers']
-		},
-		log() {
-			return this.$store.getters['common/relayers/log']
 		}
 	},
 	methods: {

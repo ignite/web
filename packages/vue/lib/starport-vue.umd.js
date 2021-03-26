@@ -10411,7 +10411,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayer/SpRelayer.vue?vue&type=template&id=c40fbda8
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayer/SpRelayer.vue?vue&type=template&id=b6cdf032
 
 
 var _hoisted_1 = {
@@ -10419,267 +10419,275 @@ var _hoisted_1 = {
   class: "sp-relayer"
 };
 var _hoisted_2 = {
-  class: "sp-relayer__basic"
+  key: 0,
+  class: "sp-relayer__overlay"
 };
 var _hoisted_3 = {
-  class: "sp-relayer__details"
+  key: 1,
+  class: "sp-relayer__modal sp-box"
 };
 var _hoisted_4 = {
-  class: "sp-relayer__name"
+  class: "sp-relayer__basic"
 };
 var _hoisted_5 = {
-  class: "sp-relayer__path"
+  class: "sp-relayer__details"
 };
 var _hoisted_6 = {
-  class: "sp-relayer__status"
+  class: "sp-relayer__name"
 };
 var _hoisted_7 = {
+  class: "sp-relayer__path"
+};
+var _hoisted_8 = {
+  class: "sp-relayer__status"
+};
+var _hoisted_9 = {
   class: "sp-relayer__actions"
 };
 
-var _hoisted_8 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Connect relayer");
+var _hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Connect relayer");
 
-var _hoisted_9 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Stop relayer");
+var _hoisted_11 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Stop relayer");
 
-var _hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Start relayer");
+var _hoisted_12 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Start relayer");
 
-var _hoisted_11 = {
+var _hoisted_13 = {
   class: "sp-relayer__advanced"
 };
-var _hoisted_12 = {
+var _hoisted_14 = {
   class: "sp-relayer__advanced__header"
 };
 
-var _hoisted_13 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_15 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__header__title"
 }, "Advanced", -1);
 
-var _hoisted_14 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_16 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-line"
 }, null, -1);
 
-var _hoisted_15 = {
+var _hoisted_17 = {
   key: 0,
   class: "sp-relayer__advanced__contents"
 };
-var _hoisted_16 = {
+var _hoisted_18 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_17 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_19 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A ID ", -1);
 
-var _hoisted_18 = {
+var _hoisted_20 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_19 = {
+var _hoisted_21 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_22 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A Endpoint ", -1);
 
-var _hoisted_21 = {
+var _hoisted_23 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_22 = {
+var _hoisted_24 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_23 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_25 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A Prefix ", -1);
 
-var _hoisted_24 = {
+var _hoisted_26 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_25 = {
+var _hoisted_27 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_26 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_28 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A Gas Price ", -1);
 
-var _hoisted_27 = {
+var _hoisted_29 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_28 = {
+var _hoisted_30 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_29 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_31 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B ID ", -1);
 
-var _hoisted_30 = {
+var _hoisted_32 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_31 = {
+var _hoisted_33 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_32 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_34 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B Endpoint ", -1);
 
-var _hoisted_33 = {
+var _hoisted_35 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_34 = {
+var _hoisted_36 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_35 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_37 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B Prefix ", -1);
 
-var _hoisted_36 = {
+var _hoisted_38 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_37 = {
+var _hoisted_39 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_38 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_40 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B Gas Price ", -1);
 
-var _hoisted_39 = {
+var _hoisted_41 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_40 = {
+var _hoisted_42 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_41 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_43 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A ClientID ", -1);
 
-var _hoisted_42 = {
+var _hoisted_44 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_43 = {
+var _hoisted_45 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_44 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_46 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A ConnectionID ", -1);
 
-var _hoisted_45 = {
+var _hoisted_47 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_46 = {
+var _hoisted_48 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_47 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_49 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A PortID ", -1);
 
-var _hoisted_48 = {
+var _hoisted_50 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_49 = {
+var _hoisted_51 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_50 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_52 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A ChannelID ", -1);
 
-var _hoisted_51 = {
+var _hoisted_53 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_52 = {
+var _hoisted_54 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_53 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_55 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B ClientID ", -1);
 
-var _hoisted_54 = {
+var _hoisted_56 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_55 = {
+var _hoisted_57 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_56 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_58 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B ConnectionID ", -1);
 
-var _hoisted_57 = {
+var _hoisted_59 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_58 = {
+var _hoisted_60 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_59 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_61 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B PortID ", -1);
 
-var _hoisted_60 = {
+var _hoisted_62 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_61 = {
+var _hoisted_63 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_62 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_64 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B ChannelID ", -1);
 
-var _hoisted_63 = {
+var _hoisted_65 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_64 = {
+var _hoisted_66 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_65 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_67 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A Packet Height ", -1);
 
-var _hoisted_66 = {
+var _hoisted_68 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_67 = {
+var _hoisted_69 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_68 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_70 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain A Ack Height ", -1);
 
-var _hoisted_69 = {
+var _hoisted_71 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_70 = {
+var _hoisted_72 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_71 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_73 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B Packet Height ", -1);
 
-var _hoisted_72 = {
+var _hoisted_74 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
-var _hoisted_73 = {
+var _hoisted_75 = {
   class: "sp-relayer__advanced__contents__item"
 };
 
-var _hoisted_74 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_76 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-relayer__advanced__contents__item__key"
 }, " Chain B Ack Height ", -1);
 
-var _hoisted_75 = {
+var _hoisted_77 = {
   class: "sp-relayer__advanced__contents__item__value"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -10687,34 +10695,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_SpButton = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpButton");
 
-  return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_3, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_4, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.name), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_5, " (" + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdA) + " <-> " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdB) + ") ", 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_6, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.status.toUpperCase()), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_7, [$props.relayer.status != 'connected' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpButton, {
+  return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [$data.connecting ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_2)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $data.connecting ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.log), 1)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_6, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.name), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_7, " (" + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdA) + " <-> " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdB) + ") ", 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_8, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.status.toUpperCase()), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_9, [$props.relayer.status != 'connected' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpButton, {
     key: 0,
     onClick: $options.linkRelayer,
-    type: "primary"
-  }, {
-    default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_8];
-    }),
-    _: 1
-  }, 8, ["onClick"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.relayer.status == 'connected' && $props.relayer.running ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpButton, {
-    key: 1,
-    onClick: _ctx.stopRelayer,
-    type: "primary"
-  }, {
-    default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_9];
-    }),
-    _: 1
-  }, 8, ["onClick"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.relayer.status == 'connected' && !$props.relayer.running ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpButton, {
-    key: 2,
-    onClick: _ctx.startRelayer,
     type: "primary"
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
       return [_hoisted_10];
     }),
     _: 1
-  }, 8, ["onClick"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_11, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_12, [_hoisted_13, _hoisted_14, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+  }, 8, ["onClick"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.relayer.status == 'connected' && $props.relayer.running ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpButton, {
+    key: 1,
+    onClick: $options.stopRelayer,
+    type: "primary"
+  }, {
+    default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
+      return [_hoisted_11];
+    }),
+    _: 1
+  }, 8, ["onClick"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.relayer.status == 'connected' && !$props.relayer.running ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpButton, {
+    key: 2,
+    onClick: $options.startRelayer,
+    type: "primary"
+  }, {
+    default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
+      return [_hoisted_12];
+    }),
+    _: 1
+  }, 8, ["onClick"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_14, [_hoisted_15, _hoisted_16, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
     class: "sp-relayer__advanced__header__icon",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $data.showAdvanced = !$data.showAdvanced;
@@ -10724,9 +10732,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'sp-icon-UpCaret': $data.showAdvanced,
       'sp-icon-DownCaret': !$data.showAdvanced
     }]
-  }, null, 2)])]), $data.showAdvanced ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_15, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_16, [_hoisted_17, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_18, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdA || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_19, [_hoisted_20, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_21, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.homeEndpoint || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_22, [_hoisted_23, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_24, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.homePrefix || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_25, [_hoisted_26, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_27, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.homeGasPrice || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_28, [_hoisted_29, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_30, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdB || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_31, [_hoisted_32, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_33, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.endpoint || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_34, [_hoisted_35, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_36, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.prefix || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_37, [_hoisted_38, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_39, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.gasPrice || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_40, [_hoisted_41, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_42, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endA = $props.relayer.endA) === null || _$props$relayer$endA === void 0 ? void 0 : _$props$relayer$endA.clientID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_43, [_hoisted_44, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_45, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endA2 = $props.relayer.endA) === null || _$props$relayer$endA2 === void 0 ? void 0 : _$props$relayer$endA2.connectionID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_46, [_hoisted_47, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_48, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$src = $props.relayer.src) === null || _$props$relayer$src === void 0 ? void 0 : _$props$relayer$src.portId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_49, [_hoisted_50, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_51, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$src2 = $props.relayer.src) === null || _$props$relayer$src2 === void 0 ? void 0 : _$props$relayer$src2.channelId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_52, [_hoisted_53, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_54, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endB = $props.relayer.endB) === null || _$props$relayer$endB === void 0 ? void 0 : _$props$relayer$endB.clientID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_55, [_hoisted_56, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_57, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endB2 = $props.relayer.endB) === null || _$props$relayer$endB2 === void 0 ? void 0 : _$props$relayer$endB2.connectionID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_58, [_hoisted_59, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_60, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$dest = $props.relayer.dest) === null || _$props$relayer$dest === void 0 ? void 0 : _$props$relayer$dest.portId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_61, [_hoisted_62, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_63, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$dest2 = $props.relayer.dest) === null || _$props$relayer$dest2 === void 0 ? void 0 : _$props$relayer$dest2.channelId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_64, [_hoisted_65, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_66, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh = $props.relayer.heights) === null || _$props$relayer$heigh === void 0 ? void 0 : _$props$relayer$heigh.packetHeightA) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_67, [_hoisted_68, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_69, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh2 = $props.relayer.heights) === null || _$props$relayer$heigh2 === void 0 ? void 0 : _$props$relayer$heigh2.ackHeightA) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_70, [_hoisted_71, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_72, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh3 = $props.relayer.heights) === null || _$props$relayer$heigh3 === void 0 ? void 0 : _$props$relayer$heigh3.packetHeightB) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_73, [_hoisted_74, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_75, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh4 = $props.relayer.heights) === null || _$props$relayer$heigh4 === void 0 ? void 0 : _$props$relayer$heigh4.ackHeightB) || '-'), 1)])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
+  }, null, 2)])]), $data.showAdvanced ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_17, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_18, [_hoisted_19, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_20, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdA || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_21, [_hoisted_22, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_23, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.homeEndpoint || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_24, [_hoisted_25, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_26, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.homePrefix || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_27, [_hoisted_28, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_29, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.homeGasPrice || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_30, [_hoisted_31, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_32, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.chainIdB || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_33, [_hoisted_34, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_35, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.endpoint || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_36, [_hoisted_37, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_38, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.prefix || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_39, [_hoisted_40, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_41, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.relayer.gasPrice || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_42, [_hoisted_43, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_44, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endA = $props.relayer.endA) === null || _$props$relayer$endA === void 0 ? void 0 : _$props$relayer$endA.clientID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_45, [_hoisted_46, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_47, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endA2 = $props.relayer.endA) === null || _$props$relayer$endA2 === void 0 ? void 0 : _$props$relayer$endA2.connectionID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_48, [_hoisted_49, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_50, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$src = $props.relayer.src) === null || _$props$relayer$src === void 0 ? void 0 : _$props$relayer$src.portId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_51, [_hoisted_52, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_53, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$src2 = $props.relayer.src) === null || _$props$relayer$src2 === void 0 ? void 0 : _$props$relayer$src2.channelId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_54, [_hoisted_55, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_56, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endB = $props.relayer.endB) === null || _$props$relayer$endB === void 0 ? void 0 : _$props$relayer$endB.clientID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_57, [_hoisted_58, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_59, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$endB2 = $props.relayer.endB) === null || _$props$relayer$endB2 === void 0 ? void 0 : _$props$relayer$endB2.connectionID) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_60, [_hoisted_61, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_62, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$dest = $props.relayer.dest) === null || _$props$relayer$dest === void 0 ? void 0 : _$props$relayer$dest.portId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_63, [_hoisted_64, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_65, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$dest2 = $props.relayer.dest) === null || _$props$relayer$dest2 === void 0 ? void 0 : _$props$relayer$dest2.channelId) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_66, [_hoisted_67, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_68, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh = $props.relayer.heights) === null || _$props$relayer$heigh === void 0 ? void 0 : _$props$relayer$heigh.packetHeightA) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_69, [_hoisted_70, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_71, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh2 = $props.relayer.heights) === null || _$props$relayer$heigh2 === void 0 ? void 0 : _$props$relayer$heigh2.ackHeightA) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_72, [_hoisted_73, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_74, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh3 = $props.relayer.heights) === null || _$props$relayer$heigh3 === void 0 ? void 0 : _$props$relayer$heigh3.packetHeightB) || '-'), 1)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_75, [_hoisted_76, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_77, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(((_$props$relayer$heigh4 = $props.relayer.heights) === null || _$props$relayer$heigh4 === void 0 ? void 0 : _$props$relayer$heigh4.ackHeightB) || '-'), 1)])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpRelayer/SpRelayer.vue?vue&type=template&id=c40fbda8
+// CONCATENATED MODULE: ./src/components/SpRelayer/SpRelayer.vue?vue&type=template&id=b6cdf032
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
 var es_array_slice = __webpack_require__("fb6a");
@@ -10756,7 +10764,8 @@ var SpButton = __webpack_require__("7549");
   },
   data: function data() {
     return {
-      showAdvanced: false
+      showAdvanced: false,
+      connecting: false
     };
   },
   beforeCreate: function beforeCreate() {
@@ -10797,6 +10806,9 @@ var SpButton = __webpack_require__("7549");
     },
     homeEndpoint: function homeEndpoint() {
       return this.$store.getters['common/env/apiTendermint'];
+    },
+    log: function log() {
+      return this.$store.getters['common/relayers/log'];
     }
   },
   methods: {
@@ -10808,17 +10820,59 @@ var SpButton = __webpack_require__("7549");
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _this.connecting = true;
+                _context.next = 3;
                 return _this.$store.dispatch('common/relayers/linkRelayer', {
                   name: _this.relayer.name
                 });
 
-              case 2:
+              case 3:
+                _this.connecting = false;
+
+              case 4:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
+      }))();
+    },
+    startRelayer: function startRelayer() {
+      var _this2 = this;
+
+      return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$store.dispatch('common/relayers/runRelayer', _this2.relayer.name);
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    stopRelayer: function stopRelayer() {
+      var _this3 = this;
+
+      return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$store.dispatch('common/relayers/stopRelayer', _this3.relayer.name);
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -71835,7 +71889,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=8816c6fc
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=922e3d16
 
 
 var _hoisted_1 = {
@@ -71979,7 +72033,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["onClick"])])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=8816c6fc
+// CONCATENATED MODULE: ./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=922e3d16
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find-index.js
 var es_array_find_index = __webpack_require__("c740");
@@ -72055,9 +72109,6 @@ var SpRelayer = __webpack_require__("e4b4");
     },
     relayers: function relayers() {
       return this.$store.getters['common/relayers/getRelayers'];
-    },
-    log: function log() {
-      return this.$store.getters['common/relayers/log'];
     }
   },
   methods: {

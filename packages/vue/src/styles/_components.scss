@@ -668,6 +668,34 @@
 .sp-relayers__holder  {
   display: flex;
   justify-content: space-between;
+  
+  .sp-relayer__overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba($black, 0.1);
+    display: block;
+    z-index: 100;
+  }
+  .sp-relayer__modal {
+    position: fixed;
+    width:30rem;
+    height:20rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:1.6rem;
+    font-weight:600;
+    opacity:0.6;
+    z-index:1000;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+  }
   .sp-relayers__main {
     .sp-relayer {
       display:column;

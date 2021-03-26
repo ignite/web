@@ -1,5 +1,9 @@
 <template>
 	<div class="sp-relayer" v-if="depsLoaded">
+		<div class="sp-relayer__overlay" v-if="connecting" />
+		<div class="sp-relayer__modal sp-box" v-if="connecting">
+			{{ log }}
+		</div>
 		<div class="sp-relayer__basic">
 			<div class="sp-relayer__details">
 				<div class="sp-relayer__name">{{ relayer.name }}</div>
@@ -224,7 +228,8 @@ export default {
 	},
 	data() {
 		return {
-			showAdvanced: false
+			showAdvanced: false,
+			connecting: false
 		}
 	},
 	beforeCreate() {
@@ -260,13 +265,30 @@ export default {
 		},
 		homeEndpoint() {
 			return this.$store.getters['common/env/apiTendermint']
+		},
+		log() {
+			return this.$store.getters['common/relayers/log']
 		}
 	},
 	methods: {
 		async linkRelayer() {
+			this.connecting = true
 			await this.$store.dispatch('common/relayers/linkRelayer', {
 				name: this.relayer.name
 			})
+			this.connecting = false
+		},
+		async startRelayer() {
+			await this.$store.dispatch(
+				'common/relayers/runRelayer',
+				this.relayer.name
+			)
+		},
+		async stopRelayer() {
+			await this.$store.dispatch(
+				'common/relayers/stopRelayer',
+				this.relayer.name
+			)
 		}
 	}
 }

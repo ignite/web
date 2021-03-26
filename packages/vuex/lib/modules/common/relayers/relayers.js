@@ -124,9 +124,17 @@ var _default = {
       var relayerIndex = state.relayers.findIndex(function (x) {
         return x.name == name;
       });
-      state.relayers[relayerIndex] = _objectSpread(_objectSpread(_objectSpread({}, state.relayers[relayerIndex]), linkDetails), {}, {
-        status: 'linked'
-      });
+
+      if (state.relayers[relayerIndex].status == 'connected') {
+        state.relayers[relayerIndex] = _objectSpread(_objectSpread(_objectSpread({}, state.relayers[relayerIndex]), linkDetails), {}, {
+          status: 'connected'
+        });
+      } else {
+        state.relayers[relayerIndex] = _objectSpread(_objectSpread(_objectSpread({}, state.relayers[relayerIndex]), linkDetails), {}, {
+          status: 'linked'
+        });
+      }
+
       state.relayerLinks[name] = link;
     },
     CONNECT_RELAYER: function CONNECT_RELAYER(state, _ref2) {
@@ -177,7 +185,7 @@ var _default = {
     },
     createRelayer: function createRelayer(_ref5, _ref6) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var commit, rootGetters, getters, dispatch, name, prefix, endpoint, gasPrice, relayer, signerB, _yield$signerB$getAcc, _yield$signerB$getAcc2, accountB;
+        var commit, rootGetters, getters, dispatch, name, prefix, endpoint, gasPrice, relayer, signerA, signerB, _yield$signerA$getAcc, _yield$signerA$getAcc2, accountA, _yield$signerB$getAcc, _yield$signerB$getAcc2, accountB, optionsA, tmClientA, signingClientA, optionsB, tmClientB, signingClientB;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -195,24 +203,68 @@ var _default = {
                   running: false
                 };
                 _context.next = 5;
-                return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), prefix);
+                return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), rootGetters['common/env/addrPrefix']);
 
               case 5:
-                signerB = _context.sent;
+                signerA = _context.sent;
                 _context.next = 8;
-                return signerB.getAccounts();
+                return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), relayer.prefix);
 
               case 8:
+                signerB = _context.sent;
+                _context.next = 11;
+                return signerA.getAccounts();
+
+              case 11:
+                _yield$signerA$getAcc = _context.sent;
+                _yield$signerA$getAcc2 = _slicedToArray(_yield$signerA$getAcc, 1);
+                accountA = _yield$signerA$getAcc2[0];
+                _context.next = 16;
+                return signerB.getAccounts();
+
+              case 16:
                 _yield$signerB$getAcc = _context.sent;
                 _yield$signerB$getAcc2 = _slicedToArray(_yield$signerB$getAcc, 1);
                 accountB = _yield$signerB$getAcc2[0];
+                optionsA = {
+                  prefix: rootGetters['common/env/addrPrefix'],
+                  gasPrice: _launchpad.GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
+                  registry: ibcRegistry()
+                };
+                _context.next = 22;
+                return _tendermintRpc.Tendermint34Client.connect(rootGetters['common/env/apiTendermint']);
+
+              case 22:
+                tmClientA = _context.sent;
+                signingClientA = new _starportSigningClient["default"](tmClientA, signerA, optionsA);
+                _context.next = 26;
+                return signingClientA.getChainId();
+
+              case 26:
+                relayer.chainIdA = _context.sent;
+                optionsB = {
+                  prefix: relayer.prefix,
+                  gasPrice: _launchpad.GasPrice.fromString(relayer.gasPrice),
+                  registry: ibcRegistry()
+                };
+                _context.next = 30;
+                return _tendermintRpc.Tendermint34Client.connect(relayer.endpoint);
+
+              case 30:
+                tmClientB = _context.sent;
+                signingClientB = new _starportSigningClient["default"](tmClientB, signerB, optionsB);
+                _context.next = 34;
+                return signingClientB.getChainId();
+
+              case 34:
+                relayer.chainIdB = _context.sent;
                 relayer.targetAddress = accountB.address;
                 commit('CREATE_RELAYER', relayer);
                 dispatch('common/wallet/updateRelayers', getters['getRelayers'], {
                   root: true
                 });
 
-              case 14:
+              case 38:
               case "end":
                 return _context.stop();
             }
@@ -222,7 +274,7 @@ var _default = {
     },
     loadRelayer: function loadRelayer(_ref7, name) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var commit, rootGetters, getters, dispatch, relayer, signerA, signerB, _yield$signerA$getAcc, _yield$signerA$getAcc2, accountA, _yield$signerB$getAcc3, _yield$signerB$getAcc4, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
+        var commit, rootGetters, getters, dispatch, relayer, signerA, signerB, _yield$signerA$getAcc3, _yield$signerA$getAcc4, accountA, _yield$signerB$getAcc3, _yield$signerB$getAcc4, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -254,9 +306,9 @@ var _default = {
                 return signerA.getAccounts();
 
               case 13:
-                _yield$signerA$getAcc = _context2.sent;
-                _yield$signerA$getAcc2 = _slicedToArray(_yield$signerA$getAcc, 1);
-                accountA = _yield$signerA$getAcc2[0];
+                _yield$signerA$getAcc3 = _context2.sent;
+                _yield$signerA$getAcc4 = _slicedToArray(_yield$signerA$getAcc3, 1);
+                accountA = _yield$signerA$getAcc4[0];
                 _context2.next = 18;
                 return signerB.getAccounts();
 
@@ -286,7 +338,7 @@ var _default = {
                 optionsA = {
                   prefix: rootGetters['common/env/addrPrefix'],
                   logger: transientLog,
-                  gasPrice: _launchpad.GasPrice.fromString("0.00000025token"),
+                  gasPrice: _launchpad.GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
                   registry: ibcRegistry()
                 };
                 _context2.next = 25;
@@ -379,7 +431,7 @@ var _default = {
     },
     linkRelayer: function linkRelayer(_ref8, _ref9) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var commit, rootGetters, getters, dispatch, name, relayer, signerA, signerB, _yield$signerA$getAcc3, _yield$signerA$getAcc4, accountA, _yield$signerB$getAcc5, _yield$signerB$getAcc6, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
+        var commit, rootGetters, getters, dispatch, name, relayer, signerA, signerB, _yield$signerA$getAcc5, _yield$signerA$getAcc6, accountA, _yield$signerB$getAcc5, _yield$signerB$getAcc6, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
 
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
@@ -412,9 +464,9 @@ var _default = {
                 return signerA.getAccounts();
 
               case 14:
-                _yield$signerA$getAcc3 = _context3.sent;
-                _yield$signerA$getAcc4 = _slicedToArray(_yield$signerA$getAcc3, 1);
-                accountA = _yield$signerA$getAcc4[0];
+                _yield$signerA$getAcc5 = _context3.sent;
+                _yield$signerA$getAcc6 = _slicedToArray(_yield$signerA$getAcc5, 1);
+                accountA = _yield$signerA$getAcc6[0];
                 _context3.next = 19;
                 return signerB.getAccounts();
 
@@ -444,7 +496,7 @@ var _default = {
                 optionsA = {
                   prefix: rootGetters['common/env/addrPrefix'],
                   logger: transientLog,
-                  gasPrice: _launchpad.GasPrice.fromString("0.00000025token"),
+                  gasPrice: _launchpad.GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
                   registry: ibcRegistry()
                 };
                 _context3.next = 26;

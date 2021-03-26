@@ -86,7 +86,11 @@ export default {
 		},
 		LINK_RELAYER(state,{name, link, ...linkDetails}) {
 			let relayerIndex = state.relayers.findIndex(x => x.name==name)
-			state.relayers[relayerIndex]={ ...state.relayers[relayerIndex],...linkDetails,status: 'linked',}
+			if(state.relayers[relayerIndex].status=='connected') {
+				state.relayers[relayerIndex]={ ...state.relayers[relayerIndex],...linkDetails,status: 'connected'}
+			}else{
+				state.relayers[relayerIndex]={ ...state.relayers[relayerIndex],...linkDetails,status: 'linked'}
+			}
 			state.relayerLinks[name]=link
 		},
 		CONNECT_RELAYER(state, {name, ...channelDetails}) {
@@ -125,12 +129,46 @@ export default {
 				running: false
 			}
 
-			const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
-				stringToPath(rootGetters['common/wallet/getPath']),
-				prefix
+			const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
+			stringToPath(rootGetters['common/wallet/getPath']),
+			rootGetters['common/env/addrPrefix']
 			);
+			const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'],
+			stringToPath(rootGetters['common/wallet/getPath']),
+			relayer.prefix
+			);
+			const [accountA] = await signerA.getAccounts();
 			const [accountB] = await signerB.getAccounts();
+			const optionsA = {
+				prefix: rootGetters['common/env/addrPrefix'],
+				gasPrice: GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
+				registry: ibcRegistry(),
+			};
+			const tmClientA = await Tendermint34Client.connect(
+				rootGetters['common/env/apiTendermint']
+			);
+			const signingClientA = new StarportSigningClient(
+				tmClientA,
+				signerA,
+				optionsA
+			);
+			relayer.chainIdA = await signingClientA.getChainId();
+			const optionsB = {
+				prefix: relayer.prefix,
+				gasPrice: GasPrice.fromString(relayer.gasPrice),
+				registry: ibcRegistry(),
+			};
+			const tmClientB = await Tendermint34Client.connect(
+				relayer.endpoint
+			);
+			const signingClientB = new StarportSigningClient(
+				tmClientB,
+				signerB,
+				optionsB
+			);
+			relayer.chainIdB = await signingClientB.getChainId();
 			relayer.targetAddress=accountB.address
+			
 			commit('CREATE_RELAYER',relayer)
 			dispatch('common/wallet/updateRelayers',getters['getRelayers'],{root:true})
 		},
@@ -181,7 +219,7 @@ export default {
 				const optionsA = {
 					prefix: rootGetters['common/env/addrPrefix'],
 					logger: transientLog,
-					gasPrice: GasPrice.fromString("0.00000025token"),
+					gasPrice: GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
 					registry: ibcRegistry(),
 				};
 				const tmClientA = await Tendermint34Client.connect(
@@ -299,7 +337,7 @@ export default {
 				const optionsA = {
 					prefix: rootGetters['common/env/addrPrefix'],
 					logger: transientLog,
-					gasPrice: GasPrice.fromString("0.00000025token"),
+					gasPrice: GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
 					registry: ibcRegistry(),
 				};
 				const tmClientA = await Tendermint34Client.connect(

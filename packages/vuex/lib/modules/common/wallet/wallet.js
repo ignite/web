@@ -75,7 +75,7 @@ var _default = {
       activeClient: null,
       selectedAddress: '',
       authorized: false,
-      gasPrice: '0.025ustake'
+      gasPrice: '0.0000025token'
     };
   },
   getters: {
