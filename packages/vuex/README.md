@@ -13,7 +13,7 @@ npm install --save @starport/vuex
 
 ## Usage
 
-First you need to create a config file in your store root `./store/config.js`
+First, create a config file in your store root `./store/config.js`.
 
 ```
 // config.js
@@ -28,7 +28,7 @@ export default function init(store) { // Init just the modules you require
 }
 ```
 
-Then, in your app's `./store/index.js` file:
+Then, in your app `./store/index.js` file:
 
 ```
 // index.js
@@ -51,7 +51,7 @@ init(store);
 export default store;
 ```
 
-Finally, you can initialize the `env` store by dispatching the init action in the appropriate part of your app:
+Finally, initialize the `env` store by dispatching the init action in the appropriate part of your app:
 
 ```
 await this.$store.dispatch('common/env/init')
@@ -73,9 +73,11 @@ await this.$store.dispatch('common/env/init',{
 
 ## Modules
 
+The registered modules for this package are:
+
 ### env 
 
-Registered as `common/env` provides basic environment setup, connection to API, RPC and WS nodes, connection statuses as well as access to the underlying `@starport/client-js` [client](https://github.com/tendermint/vue/tree/develop/packages/client-js)
+Registered as `common/env`, this module provides basic environment setup, connection to API, RPC, and WS nodes, connection statuses, and access to the underlying `@starport/client-js` [client](https://github.com/tendermint/vue/tree/develop/packages/client-js).
 
 ```
 // Getter signatures
@@ -94,25 +96,21 @@ Registered as `common/env` provides basic environment setup, connection to API, 
 
 ### Starport
 
-Registered as `common/starport`, use this if you are doing local development on a [Starport](http://github.com/tendermint/starport)-launched chain as it will configure the `env` module using Starport's `:12345/status` endpoint.
+Registered as `common/starport`, use this module if you are doing local development on a [Starport](http://github.com/tendermint/starport)-launched chain. This module configures the `env` module using the Starport `:12345/status` endpoint.
 
 ### Blocks
 
-Registered as `common/blocks`, this module will receive, store and decode the latest 20 blocks (configurable) as they appear in the websocket API.
+Registered as `common/blocks`, this module receives, stores, and decodes the latest 20 blocks (configurable) as the blocks appear in the WebSocket API.
 
-Provides:
+The blocks module provides these getters:
 
-`getBlocks(no_of_latest_blocks_to_get)`
+- `getBlocks(no_of_latest_blocks_to_get)`
+- `getBlockByHeight(height)`
 
-and 
-
-`getBlockByHeight(height)`
-
-getters.
 
 ### Transfers
 
-Registered as `common/transfers`, this is a temporary handcoded version of the soon-to-be auto-generated (by Starport) vuex store for the Cosmos SDK TX module (https://github.com/cosmos/cosmos-sdk/tree/master/proto/cosmos/tx/v1beta1).
+Registered as `common/transfers`, this module is a temporary handcoded version until an auto-generated (by Starport) vuex store is available for the Cosmos SDK TX module (https://github.com/cosmos/cosmos-sdk/tree/master/proto/cosmos/tx/v1beta1).
 
 The querying action is:
 
@@ -120,15 +118,13 @@ The querying action is:
 ServiceGetTxsEvent({ commit, rootGetters }, { subscribe = false, all=true,  ...key })
 ```
 
-and the getter is:
+The getter is:
 
 ```
 getGetTxsEvent(params)
 ```
 
-So if you wanted to query for all token transfers received by `cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5`
-
-You would first dispatch the querying action like so: 
+To query for all token transfers received by `cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5`, first dispatch the querying action like: 
 
 ```
 await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
@@ -137,7 +133,7 @@ await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
 });
 ```
 
-and access the resulting state anywhere in your app like so:
+and then access the resulting state anywhere in your app like:
 
 ```
 this.$store.getters['common/transfers/getGetTxsEvent']({
@@ -145,15 +141,15 @@ this.$store.getters['common/transfers/getGetTxsEvent']({
 })
 ```
 
-You can read more about events you can query for [here](https://docs.tendermint.com/master/rpc/#/Websocket/subscribe).
+To learn more about the WebSocket events you can query, see the [Tendermint RPC WebSocket](https://docs.tendermint.com/master/rpc/#/Websocket/subscribe) docs.
 
-The `subscribe` flag in the action dispatch sets whether the store should auto-update as new transactions come in or not.
+The `subscribe` flag in the action dispatch configures auto-updates for the store as new transactions occur.
 
 ### Wallet
 
-Registered as `common/wallet` this module provides wallet-handling and sign-in/out fuctionalities as well as encrypted persistence in the browser's local storage.
+Registered as `common/wallet`, this module provides wallet-handling, sign in and sign out fuctionalities, and encrypted persistence in the browser's local storage.
 
-Creating a new wallet
+Creating a new wallet:
 ```
 await this.$store.dispatch('common/wallet/createWalletWithMnemonic', 		{
 				name: "My Wallet",
@@ -164,12 +160,14 @@ await this.$store.dispatch('common/wallet/createWalletWithMnemonic', 		{
 			}
 ```
 
-Listing wallets in local storage
+These examples show how to use the wallet module.
+
+Listing wallets in local storage:
 ```
 const walletList = this.$store.common.wallet.wallets
 ```
 
-Unlocking a specific wallet from the wallet list and logging in
+Unlocking a specific wallet from the wallet list and signing in:
 ```
 await this.$store.dispatch('common/wallet/unlockWallet', {
   name: "My Wallet",
@@ -177,52 +175,52 @@ await this.$store.dispatch('common/wallet/unlockWallet', {
 });
 ```
 
-Accessing logged-in/out status
+Accessing signed in and signed out status:
 ```
 const loggedInStatus = this.$store.getters['common/wallet/loggedIn'];
 ```
 
-Signing out
+Signing out:
 ```
 await this.$store.dispatch('common/wallet/signOut');
 ``` 
 
-Adding next available account to the current wallet
+Adding the next available account to the current wallet:
 ```
 await this.$store.dispatch('common/wallet/addAccount');
 ```
 
-Adding an account with a specific HD Path increment to the current wallet
+Adding an account with a specific HD Path increment to the current wallet:
 ```
 await this.$store.dispatch('common/wallet/addAccount', 3); // Assuming wallet's HD Path is "m/44'/118'/0'/0/", will add account corresponding to "m/44'/118'/0'/0/3"
 ```
 
-Switch to using a different account in the current wallet
+Switch to using a different account in the current wallet:
 ```
 await this.$store.dispatch('common/wallet/switchAccount', 'cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5'); // Account with this address must exist in the current wallet
 ```
 
-Accessing current wallet name
+Accessing current wallet name:
 ```
 const walletName = this.$store.getters['common/wallet/walletName'];
 ```
 
-Accessing name of last wallet used
+Accessing name of last wallet used:
 ```
 const lastWallet = this.$store.getters['common/wallet/lastWallet'];
 ```
 
-Accessing currently active unlocked wallet
+Accessing currently active unlocked wallet:
 ```
 const wallet = this.$store.getters['common/wallet/wallet'];
 ```
 
-Accessing currently active address in wallet
+Accessing currently active address in wallet:
 ```
 const address = this.$store.getters['common/wallet/address'];
 ```
 
-Inquiring if a wallet name is already in use
+Inquiring if a wallet name is already in use:
 ```
 const isAvailable = this.$store.getters['common/wallet/nameAvailable'](walletNameToCheck);
 ```
