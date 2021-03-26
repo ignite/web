@@ -71,17 +71,21 @@ function ibcRegistry() {
   return new _protoSigning.Registry([].concat(_toConsumableArray(_stargate.defaultRegistryTypes), [["/ibc.core.client.v1.MsgCreateClient", _tx3.MsgCreateClient], ["/ibc.core.client.v1.MsgUpdateClient", _tx3.MsgUpdateClient], ["/ibc.core.connection.v1.MsgConnectionOpenInit", _tx4.MsgConnectionOpenInit], ["/ibc.core.connection.v1.MsgConnectionOpenTry", _tx4.MsgConnectionOpenTry], ["/ibc.core.connection.v1.MsgConnectionOpenAck", _tx4.MsgConnectionOpenAck], ["/ibc.core.connection.v1.MsgConnectionOpenConfirm", _tx4.MsgConnectionOpenConfirm], ["/ibc.core.channel.v1.MsgChannelOpenInit", _tx2.MsgChannelOpenInit], ["/ibc.core.channel.v1.MsgChannelOpenTry", _tx2.MsgChannelOpenTry], ["/ibc.core.channel.v1.MsgChannelOpenAck", _tx2.MsgChannelOpenAck], ["/ibc.core.channel.v1.MsgChannelOpenConfirm", _tx2.MsgChannelOpenConfirm], ["/ibc.core.channel.v1.MsgRecvPacket", _tx2.MsgRecvPacket], ["/ibc.core.channel.v1.MsgAcknowledgement", _tx2.MsgAcknowledgement], ["/ibc.core.channel.v1.MsgTimeout", _tx2.MsgTimeout], ["/ibc.applications.transfer.v1.MsgTransfer", _tx.MsgTransfer]]));
 }
 
+var getDefaultState = function getDefaultState() {
+  return {
+    relayers: [],
+    transientLog: {
+      msg: ''
+    },
+    relayerLinks: {}
+  };
+}; // initial state
+
+
+var state = getDefaultState();
 var _default = {
   namespaced: true,
-  state: function state() {
-    return {
-      relayers: JSON.parse(window.localStorage.getItem('relayers')) || [],
-      transientLog: {
-        msg: ''
-      },
-      relayerLinks: {}
-    };
-  },
+  state: state,
   getters: {
     getRelayer: function getRelayer(state) {
       return function (name) {
@@ -100,6 +104,9 @@ var _default = {
     }
   },
   mutations: {
+    RESET_STATE: function RESET_STATE(state) {
+      Object.assign(state, getDefaultState());
+    },
     SET_RELAYERS: function SET_RELAYERS(state, relayers) {
       state.relayers = relayers;
     },
@@ -156,6 +163,7 @@ var _default = {
       var commit = _ref4.commit,
           rootGetters = _ref4.rootGetters,
           dispatch = _ref4.dispatch;
+      commit('RESET_STATE');
       var relayers = rootGetters['common/wallet/relayers'];
       commit('SET_RELAYERS', relayers);
       relayers.forEach(function (relayer) {

@@ -18,7 +18,7 @@ function init(store) {
 
   store.registerModule(['common', 'relayers'], _relayers["default"]);
   store.subscribe(function (mutation) {
-    if (mutation.type == 'common/wallet/SET_ACTIVE_WALLET') {
+    if (mutation.type == 'common/wallet/SET_SELECTED_ADDRESS') {
       store.dispatch('common/relayers/init', null, {
         root: true
       });
