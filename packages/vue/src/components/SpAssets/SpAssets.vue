@@ -55,7 +55,20 @@
 						class="sp-denom-marker"
 						:style="'background: #' + balance.color"
 					/>
-					{{ balance.denom.toUpperCase() }}
+					<template v-if="balance.denom.indexOf('ibc/') == 0">
+						IBC/{{
+							denomTraces[
+								balance.denom.split('/')[1]
+							]?.denom_trace.path.toUpperCase() ?? ''
+						}}/{{
+							denomTraces[
+								balance.denom.split('/')[1]
+							]?.denom_trace.base_denom.toUpperCase() ?? 'TOKEN'
+						}}
+					</template>
+					<template v-else>
+						{{ balance.denom.toUpperCase() }}
+					</template>
 				</div>
 				<div class="sp-assets__main__denom__balance">
 					{{ balance.amount }}
@@ -71,18 +84,37 @@ export default {
 	props: {
 		balances: Array
 	},
+	data() {
+		return {
+			denomTraces: {}
+		}
+	},
 	computed: {
 		address() {
 			return this.$store.getters['common/wallet/address']
 		},
 		fullBalances() {
 			return this.balances.map((x) => {
+				this.addMapping(x)
 				x.color = this.str2rgba(x.denom.toUpperCase())
 				return x
 			})
 		}
 	},
 	methods: {
+		async addMapping(balance) {
+			if (balance.denom.indexOf('ibc/') == 0) {
+				let denom = balance.denom.split('/')
+				let hash = denom[1]
+				this.denomTraces[hash] = await this.$store.dispatch(
+					'ibc.applications.transfer.v1/QueryDenomTrace',
+					{
+						options: { subscribe: false, all: false },
+						params: { hash }
+					}
+				)
+			}
+		},
 		str2rgba(r) {
 			for (var a, o = [], c = 0; c < 256; c++) {
 				a = c

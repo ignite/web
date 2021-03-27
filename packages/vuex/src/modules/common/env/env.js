@@ -76,6 +76,7 @@ export default {
 		async init(
 			{ dispatch },
 			config = {
+				starportUrl: 'http://localhost:12345',
 				apiNode: 'http://localhost:1317',
 				rpcNode: 'http://localhost:26657',
 				wsNode: 'ws://localhost:26657/websocket',
@@ -87,7 +88,7 @@ export default {
 		) {
 			if (this._actions['common/starport/init']) {
 				try {
-					await dispatch('common/starport/init', null, { root: true })
+					await dispatch('common/starport/init', {starportUrl: config.starportUrl}, { root: true })
 				} catch (e) {
 					throw new SpVuexError(
 						'Env:Init:Starport',

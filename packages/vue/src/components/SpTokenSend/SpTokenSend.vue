@@ -453,7 +453,7 @@ export default {
 		async sendTransaction() {
 			if (this._depsLoaded && this.address) {
 				if (this.validAddress && this.validAmounts && !this.inFlight) {
-					if (this.channel == '') {
+					if (this.transfer.channel == '') {
 						const value = {
 							amount: this.transfer.amount,
 							toAddress: this.transfer.recipient,

@@ -127,9 +127,12 @@ export default {
 				}
 			})
 		},
+		async createExternalRelayer({commit, rootGetters, getters, dispatch},{ name, prefix, endpoint, gasPrice}) {
+		},
 		async createRelayer({commit, rootGetters, getters, dispatch},{ name, prefix, endpoint, gasPrice}) {
 			let relayer = {
 				name,prefix,endpoint,gasPrice,
+				external:false,
 				status: "created",
 				heights: {},
 				running: false

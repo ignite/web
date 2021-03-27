@@ -123,15 +123,15 @@ export default {
 		async setStatusState({ state, getters, commit, dispatch, rootGetters }) {
 			try {
 				const { data } = await axios.get(`${state.starportUrl}/status`)
-				const { status, env } = data
+				const { status, env, addrs} = data
 
 				const GITPOD = env.vue_app_custom_url && new URL(env.vue_app_custom_url)
 
-				const starportUrl =
+				const starportUrl = state.starportUrl ||
 					(GITPOD && `${GITPOD.protocol}//12345-${GITPOD.hostname}`) ||
 					'http://localhost:12345'
 
-				const frontendUrl =
+				const frontendUrl = addrs.app_frontend ||
 					(GITPOD && `${GITPOD.protocol}//8080-${GITPOD.hostname}`) ||
 					'http://localhost:8080'
 
@@ -142,19 +142,19 @@ export default {
 
 				const chainId = env.chain_id
 				const sdkVersion = status.sdk_version
-				const apiNode =
+				const apiNode = addrs.app_backend ||
 					(VUE_APP_API_COSMOS &&
 						VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
 					(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
 					'http://localhost:1317'
 
-				const rpcNode =
+				const rpcNode = addrs.consensus_engine ||
 					(VUE_APP_API_TENDERMINT &&
 						VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 					(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
 					'http://localhost:26657'
 
-				const wsNode =
+				const wsNode = addrs.consensus_engine.replace('http','ws')+'/websocket' ||
 					(VUE_APP_WS_TENDERMINT &&
 						VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 					(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
@@ -225,7 +225,7 @@ export default {
 				)
 			}
 		},
-		async init({ commit, dispatch }) {
+		async init({ commit, dispatch }, { starportUrl = 'http://localhost:12345' }) {
 			/*
       *
       // Fetch backend status regularly
@@ -240,16 +240,13 @@ export default {
 					}
 				}, 5000)
 			})
+
+			commit('SET_STARPORT_ENV', {
+				starportUrl
+			})
 			await dispatch(
-				'common/env/config',
-				{
-					apiNode,
-					rpcNode,
-					wsNode,
-					addrPrefix
-				},
-				{ root: true }
-			)
+				'setStatusState')
+			
 			console.log('Vuex nodule: common.starport initialized!')
 		}
 	}

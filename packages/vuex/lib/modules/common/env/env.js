@@ -126,6 +126,7 @@ var _default = {
               case 0:
                 dispatch = _ref2.dispatch;
                 config = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : {
+                  starportUrl: 'http://localhost:12345',
                   apiNode: 'http://localhost:1317',
                   rpcNode: 'http://localhost:26657',
                   wsNode: 'ws://localhost:26657/websocket',
@@ -142,7 +143,9 @@ var _default = {
 
                 _context.prev = 3;
                 _context.next = 6;
-                return dispatch('common/starport/init', null, {
+                return dispatch('common/starport/init', {
+                  starportUrl: config.starportUrl
+                }, {
                   root: true
                 });
 
