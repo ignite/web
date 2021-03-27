@@ -12,6 +12,20 @@
 						<div class="sp-token-send__main__rcpt__header sp-box-header">
 							SEND TO
 						</div>
+						<select
+							name="channel"
+							v-model="transfer.channel"
+							v-if="availableChannels.length > 0"
+						>
+							<option value="">This chain</option>
+							<option
+								v-for="channel in availableChannels"
+								v-bind:key="channel.src.channelId"
+								:value="channel.src.channelId"
+							>
+								{{ channel.chainIdB }}
+							</option>
+						</select>
 						<div class="sp-token-send__main__rcpt__wrapper">
 							<div class="sp-token-send__main__rcpt__icon">
 								<span class="sp-icon sp-icon-UpArrow" />
@@ -65,6 +79,7 @@
 							/>
 							<div
 								class="sp-token-send__main__amt__add"
+								v-if="transfer.channel == ''"
 								v-on:click="
 									transfer.amount.push({ amount: 0, denom: balances[0].denom })
 								"
@@ -95,7 +110,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div
 							class="sp-token-send__main__footer"
 							:class="{ 'sp-token-send__main__footer__open': feesOpen }"
@@ -298,6 +313,7 @@ export default {
 		return {
 			transfer: {
 				recipient: '',
+				channel: '',
 				amount: [],
 				memo: '',
 				fees: []
@@ -363,6 +379,14 @@ export default {
 				return []
 			}
 		},
+		relayers() {
+			return this.$store.hasModule(['common'], ['relayers'])
+				? this.$store.getters['common/relayers/getRelayers']
+				: []
+		},
+		availableChannels() {
+			return this.relayers.filter((x) => x.status == 'connected')
+		},
 		depsLoaded() {
 			return this._depsLoaded
 		},
@@ -414,6 +438,7 @@ export default {
 			this.transfer.amount = [{ amount: '0', denom: this.balances[0].denom }]
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
+			this.transfer.channel = ''
 			this.transfer.fees = [{ amount: '0', denom: this.balances[0].denom }]
 			this.feesOpen = false
 			this.memoOpen = false
@@ -428,25 +453,52 @@ export default {
 		async sendTransaction() {
 			if (this._depsLoaded && this.address) {
 				if (this.validAddress && this.validAmounts && !this.inFlight) {
-					const value = {
-						amount: this.transfer.amount,
-						toAddress: this.transfer.recipient,
-						fromAddress: this.bankAddress
+					if (this.channel == '') {
+						const value = {
+							amount: this.transfer.amount,
+							toAddress: this.transfer.recipient,
+							fromAddress: this.bankAddress
+						}
+						this.txResult = ''
+						this.inFlight = true
+						this.txResult = await this.$store.dispatch(
+							'cosmos.bank.v1beta1/sendMsgSend',
+							{ value, fee: this.transfer.fees, memo: this.transfer.memo }
+						)
+						if (this.txResult && !this.txResult.code) {
+							this.resetTransaction()
+						}
+						this.inFlight = false
+						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+							params: { address: this.address },
+							options: { all: true, subscribe: false }
+						})
+					} else {
+						this.txResult = await this.$store.dispatch(
+							'ibc.applications.transfer.v1/sendMsgTransfer',
+							{
+								value: {
+									sourcePort: 'transfer',
+									sourceChannel: this.transfer.channel,
+									sender: this.bankAddress,
+									receiver: this.transfer.recipient,
+									timeoutTimestamp: new Date().getTime() + 60000 + '000000',
+									token: this.transfer.amount[0]
+								},
+								fee: this.transfer.fees,
+								memo: this.transfer.memo
+							}
+						)
+						console.log(this.txResult)
+						if (this.txResult && !this.txResult.code) {
+							this.resetTransaction()
+						}
+						this.inFlight = false
+						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
+							params: { address: this.address },
+							options: { all: true, subscribe: false }
+						})
 					}
-					this.txResult = ''
-					this.inFlight = true
-					this.txResult = await this.$store.dispatch(
-						'cosmos.bank.v1beta1/sendMsgSend',
-						{ value, fee: this.transfer.fees, memo: this.transfer.memo }
-					)
-					if (this.txResult && !this.txResult.code) {
-						this.resetTransaction()
-					}
-					this.inFlight = false
-					await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
-						params: { address: this.address },
-						options: { all: true, subscribe: false }
-					})
 				}
 			}
 		}

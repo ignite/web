@@ -8,6 +8,34 @@
 					<span>Your configured relayers</span>
 				</div>
 				<div class="sp-relayers__main sp-box sp-shadow">
+					<div class="sp-relayers__main__message" v-if="!address">
+						Your configured relayers will appear here.
+					</div>
+
+					<div class="sp-relayer sp-relayer__dummy" v-if="!address">
+						<div class="sp-relayer__basic">
+							<div class="sp-relayer__details">
+								<div class="sp-relayer__name">
+									<div class="sp-dummy-fill" />
+								</div>
+								<div class="sp-relayer__path">
+									<div class="sp-dummy-fill" />
+								</div>
+								<div class="sp-relayer__status">
+									<div class="sp-dummy-fill" />
+								</div>
+							</div>
+							<div class="sp-relayer__actions">
+								<div class="sp-dummy-fill" />
+							</div>
+						</div>
+					</div>
+					<div
+						class="sp-relayers__main__message"
+						v-if="address && relayers.length == 0"
+					>
+						You have no relayers configured on this address.
+					</div>
 					<div v-for="(relayer, index) in relayers" v-bind:key="relayer.name">
 						<div class="sp-line" v-if="index > 0" />
 						<SpRelayer :relayer="relayer" />
@@ -18,70 +46,80 @@
 				<div class="sp-assets__header sp-component-title">
 					<h3>Add a relayer</h3>
 				</div>
-				<SpButton
-					v-on:click="addHubRelayer"
-					type="primary"
-					v-if="!showRelayerForm && !hasHubRelayer"
-					>Connect to Cosmos Hub</SpButton
-				>
-				<div
-					class="sp-relayers__add__or"
-					v-if="!showRelayerForm && !hasHubRelayer"
-				>
-					- or -
-				</div>
-				<SpButton
-					v-on:click="showRelayerForm = true"
-					type="primary"
-					v-if="!showRelayerForm && !hasHubRelayer"
-					>Add custom relayer</SpButton
-				>
-				<div
-					class="sp-relayers__add__main sp-box sp-shadow"
-					v-if="showRelayerForm || hasHubRelayer"
-				>
-					<form class="sp-relayers__add__form">
-						<div class="sp-form-group">
-							<input
-								class="sp-input"
-								v-model="relayerForm.name"
-								placeholder="Name (e.g. Foochain)"
-							/>
+				<template v-if="!address">
+					<div class="sp-relayers__add__main sp-box sp-shadow">
+						<div class="sp-relayers__add__main__message">
+							Add or unlock a wallet to create a relayer.
 						</div>
-						<div class="sp-form-group">
-							<input
-								class="sp-input"
-								v-model="relayerForm.endpoint"
-								placeholder="Endpoint (e.g. https://rpc.foochain.org)"
-							/>
-						</div>
-						<div class="sp-form-group">
-							<input
-								class="sp-input"
-								v-model="relayerForm.prefix"
-								placeholder="Prefix (e.g. foo)"
-							/>
-						</div>
-						<div class="sp-form-group">
-							<input
-								class="sp-input"
-								v-model="relayerForm.gasPrice"
-								placeholder="Gas Price (e.g. 0.025ufoo)"
-							/>
-						</div>
-						<div class="sp-relayers__add__btns">
-							<SpButton
-								v-on:click="showRelayerForm = false"
-								type="secondary"
-								v-if="!hasHubRelayer"
-								>Cancel</SpButton
-							>
-							<SpButton v-on:click="addRelayer" type="primary"
-								>Add Relayer</SpButton
-							>
-						</div>
-					</form>
-				</div>
+					</div>
+				</template>
+				<template v-else>
+					<SpButton
+						v-on:click="addHubRelayer"
+						type="primary"
+						v-if="!showRelayerForm && !hasHubRelayer"
+						>Connect to Cosmos Hub</SpButton
+					>
+					<div
+						class="sp-relayers__add__or"
+						v-if="!showRelayerForm && !hasHubRelayer"
+					>
+						- or -
+					</div>
+					<SpButton
+						v-on:click="showRelayerForm = true"
+						type="primary"
+						v-if="!showRelayerForm && !hasHubRelayer"
+						>Add custom relayer</SpButton
+					>
+					<div
+						class="sp-relayers__add__main sp-box sp-shadow"
+						v-if="showRelayerForm || hasHubRelayer"
+					>
+						<form class="sp-relayers__add__form">
+							<div class="sp-form-group">
+								<input
+									class="sp-input"
+									v-model="relayerForm.name"
+									placeholder="Name (e.g. Foochain)"
+								/>
+							</div>
+							<div class="sp-form-group">
+								<input
+									class="sp-input"
+									v-model="relayerForm.endpoint"
+									placeholder="Endpoint (e.g. https://rpc.foochain.org)"
+								/>
+							</div>
+							<div class="sp-form-group">
+								<input
+									class="sp-input"
+									v-model="relayerForm.prefix"
+									placeholder="Prefix (e.g. foo)"
+								/>
+							</div>
+							<div class="sp-form-group">
+								<input
+									class="sp-input"
+									v-model="relayerForm.gasPrice"
+									placeholder="Gas Price (e.g. 0.025ufoo)"
+								/>
+							</div>
+							<div class="sp-relayers__add__btns">
+								<SpButton
+									v-on:click="showRelayerForm = false"
+									type="secondary"
+									v-if="!hasHubRelayer"
+									>Cancel</SpButton
+								>
+								<SpButton v-on:click="addRelayer" type="primary"
+									>Add Relayer</SpButton
+								>
+							</div>
+						</form>
+					</div>
+				</template>
+		
 			</div>
 		</div>
 	</div>
@@ -130,6 +168,9 @@ export default {
 		depsLoaded() {
 			return this._depsLoaded
 		},
+		address() {
+			return this.$store.getters['common/wallet/address']
+		},
 		hasHubRelayer() {
 			return this.relayers.findIndex((x) => x.chainIdB == 'cosmoshub-4') > -1
 		},
@@ -155,7 +196,7 @@ export default {
 				name: 'CosmosHub',
 				endpoint: 'https://rpc.nylira.net',
 				prefix: 'cosmos',
-				gasPrice: '0.025uatom'
+				gasPrice: '0.000025uatom'
 			})
 			this.relayerForm = {
 				name: '',

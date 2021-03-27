@@ -102,6 +102,24 @@ var _default = {
         return state.relayerLinks[name];
       };
     },
+    chainFromChannel: function chainFromChannel(state) {
+      return function (channel) {
+        var _state$relayers$find$, _state$relayers$find;
+
+        return (_state$relayers$find$ = (_state$relayers$find = state.relayers.find(function (x) {
+          return x.status == 'connected' && x.src.channelId == channel;
+        })) === null || _state$relayers$find === void 0 ? void 0 : _state$relayers$find.chainIdB) !== null && _state$relayers$find$ !== void 0 ? _state$relayers$find$ : channel;
+      };
+    },
+    chainToChannel: function chainToChannel(state) {
+      return function (channel) {
+        var _state$relayers$find$2, _state$relayers$find2;
+
+        return (_state$relayers$find$2 = (_state$relayers$find2 = state.relayers.find(function (x) {
+          return x.status == 'connected' && x.dest.channelId == channel;
+        })) === null || _state$relayers$find2 === void 0 ? void 0 : _state$relayers$find2.chainIdB) !== null && _state$relayers$find$2 !== void 0 ? _state$relayers$find$2 : channel;
+      };
+    },
     log: function log(state) {
       return state.transientLog.msg;
     }

@@ -2,7 +2,9 @@
 	<div class="sp-relayer" v-if="depsLoaded">
 		<div class="sp-relayer__overlay" v-if="connecting" />
 		<div class="sp-relayer__modal sp-box" v-if="connecting">
-			{{ log }}
+			<div class="sp-relayer__modal__header">Setting up relayer</div>
+			<div class="sp-icon sp-icon-Reload" />
+			{{ loadingLog }}
 		</div>
 		<div class="sp-relayer__basic">
 			<div class="sp-relayer__details">
@@ -13,6 +15,19 @@
 				<div class="sp-relayer__status">{{ relayer.status.toUpperCase() }}</div>
 			</div>
 			<div class="sp-relayer__actions">
+				<div
+					class="sp-relayer__running"
+					v-if="relayer.status == 'connected' && relayer.running"
+				>
+					RUNNING
+				</div>
+				<div
+					class="sp-relayer__stopped"
+					v-if="relayer.status == 'connected' && !relayer.running"
+				>
+					STOPPED
+				</div>
+
 				<SpButton
 					v-on:click="linkRelayer"
 					type="primary"
@@ -34,7 +49,19 @@
 			</div>
 		</div>
 		<div class="sp-relayer__advanced">
-			<div class="sp-relayer__advanced__header">
+			<div
+				class="sp-relayer__advanced__header"
+				v-if="relayer.status == 'created'"
+			>
+				<div class="sp-relayer__advanced__header__message">
+					In order to complete this relayer setup you must fund the address:
+					<strong>{{ relayer.targetAddress }}</strong> at
+					<strong>{{ relayer.chainIdB }}</strong
+					>.<br />
+					When the address is funded, click the "Connect relayer" button.
+				</div>
+			</div>
+			<div class="sp-relayer__advanced__header" v-else>
 				<div class="sp-relayer__advanced__header__title">Advanced</div>
 				<div class="sp-line"></div>
 				<div
@@ -50,7 +77,10 @@
 					/>
 				</div>
 			</div>
-			<div class="sp-relayer__advanced__contents" v-if="showAdvanced">
+			<div
+				class="sp-relayer__advanced__contents"
+				v-if="relayer.status != 'created ' && showAdvanced"
+			>
 				<div class="sp-relayer__advanced__contents__item">
 					<div class="sp-relayer__advanced__contents__item__key">
 						Chain A ID
@@ -229,7 +259,8 @@ export default {
 	data() {
 		return {
 			showAdvanced: false,
-			connecting: false
+			connecting: false,
+			extradots: ''
 		}
 	},
 	beforeCreate() {
@@ -268,14 +299,24 @@ export default {
 		},
 		log() {
 			return this.$store.getters['common/relayers/log']
+		},
+		loadingLog() {
+			return this.log + this.extradots
 		}
 	},
 	methods: {
 		async linkRelayer() {
 			this.connecting = true
+			let loading = setInterval(() => {
+				this.extradots = this.extradots + '.'
+				if (this.extradots == '......') {
+					this.extradots = ''
+				}
+			}, 500)
 			await this.$store.dispatch('common/relayers/linkRelayer', {
 				name: this.relayer.name
 			})
+			clearInterval(loading)
 			this.connecting = false
 		},
 		async startRelayer() {

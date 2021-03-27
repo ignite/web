@@ -665,10 +665,10 @@
     line-height: 2.2rem;
   }
 }
-.sp-relayers__holder  {
+.sp-relayers__holder {
   display: flex;
   justify-content: space-between;
-  
+
   .sp-relayer__overlay {
     position: fixed;
     top: 0;
@@ -680,90 +680,158 @@
     z-index: 100;
   }
   .sp-relayer__modal {
+    background: white;
+    border: 0.2rem solid white;
+    box-shadow: 0rem 0.8px 1.6rem -0.3rem rgba(140, 148, 159, 0.1);
     position: fixed;
-    width:30rem;
-    height:20rem;
-    display:flex;
+    width: 35rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size:1.6rem;
-    font-weight:600;
-    opacity:0.6;
-    z-index:1000;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    margin:auto;
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.6;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    .sp-relayer__modal__header {
+      font-weight: 700;
+      font-size: 2.2rem;
+    }
+    .sp-icon {
+      animation: spin 2s linear infinite;
+      font-size: 2.4rem;
+      opacity: 0.6;
+      margin: 1.5rem 0rem;
+    }
   }
   .sp-relayers__main {
+    .sp-relayers__main__message {
+      font-size: 1.4rem;
+      opacity: 0.4;
+    }
     .sp-relayer {
-      display:column;
+      display: column;
       .sp-relayer__basic {
         display: flex;
         .sp-relayer__details {
           flex-grow: 1;
           .sp-relayer__name {
-            font-size:1.8rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            display:inline-block;
-            line-height:2rem;
-            vertical-align:middle;
+            display: inline-block;
+            line-height: 2rem;
+            vertical-align: middle;
           }
           .sp-relayer__path {
-            font-size:1.4rem;
-            opacity:0.6;
-            display:inline-block;
-            margin-left:1rem;
-            line-height:2rem;
-            vertical-align:middle;
+            font-size: 1.4rem;
+            opacity: 0.6;
+            display: inline-block;
+            margin-left: 1rem;
+            line-height: 2rem;
+            vertical-align: middle;
           }
           .sp-relayer__status {
-            margin-top:0.3rem;
-            font-size:1.3rem;
-            font-weight:800;
-            opacity:0.4;
+            margin-top: 0.3rem;
+            font-size: 1.3rem;
+            font-weight: 800;
+            opacity: 0.4;
+          }
+        }
+
+        .sp-relayer__actions {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .sp-relayer__running {
+            color: $green;
+            margin-right: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+          }
+          .sp-relayer__stopped {
+            color: $red;
+            margin-right: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
           }
         }
       }
-      .sp-relayer__advanced{
-                
+
+      &.sp-relayer__dummy {
+        margin-top: 1.5rem;
+        .sp-relayer__basic {
+          .sp-relayer__name {
+            flex-basis: 18%;
+            width: 18%;
+            opacity: 1;
+          }
+          .sp-relayer__path {
+            flex-basis: 13%;
+            width: 13%;
+            opacity: 1;
+          }
+          .sp-relayer__status {
+            flex-basis: 15%;
+            width: 15%;
+            opacity: 1;
+          }
+          .sp-relayer__actions {
+            flex-basis: 20%;
+            width: 20%;
+            opacity: 1;
+          }
+        }
+      }
+      .sp-relayer__advanced {
         .sp-relayer__advanced__header {
-          display:flex;
-          align-items:center;
+          .sp-relayer__advanced__header__message {
+            font-size: 1.4rem;
+            opacity: 0.4;
+            text-align: center;
+            margin-top: 1rem;
+          }
+          display: flex;
+          align-items: center;
           .sp-relayer__advanced__header__title {
-            padding-right:1.5rem;
-            opacity:0.6;
-            font-weight:600;
+            padding-right: 1.5rem;
+            opacity: 0.6;
+            font-weight: 600;
           }
           .sp-line {
-            flex-grow:1;
+            flex-grow: 1;
           }
           .sp-relayer__advanced__header__icon {
-            padding-left:1.5rem;
-            font-weight:1.8rem;
-            opacity:0.4;
+            padding-left: 1.5rem;
+            font-weight: 1.8rem;
+            opacity: 0.4;
             &:hover {
               opacity: 1;
             }
           }
         }
         .sp-relayer__advanced__contents {
-          display:flex;
+          display: flex;
           flex-wrap: wrap;
           .sp-relayer__advanced__contents__item {
-            padding:0.5rem;
-            flex-basis:25%;
-            width:25%;
+            padding: 0.5rem;
+            flex-basis: 25%;
+            width: 25%;
             .sp-relayer__advanced__contents__item__key {
               font-weight: 700;
-              font-size:1.3rem;
-              opacity:0.6;
+              font-size: 1.3rem;
+              opacity: 0.6;
             }
             .sp-relayer__advanced__contents__item__value {
-              font-size:1.3rem;
-              font-weight:500;
-              opacity:0.6;
+              font-size: 1.3rem;
+              font-weight: 500;
+              opacity: 0.6;
             }
           }
         }
@@ -771,17 +839,21 @@
     }
   }
   .sp-relayers__add {
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
+    .sp-relayers__add__main__message {
+      font-size: 1.4rem;
+      opacity: 0.4;
+    }
     .sp-relayers__add__or {
-      text-align:center;
+      text-align: center;
       font-size: 1.6rem;
-      opacity:0.4;
-      font-weight:600;
-      margin:1rem 0rem;
+      opacity: 0.4;
+      font-weight: 600;
+      margin: 1rem 0rem;
     }
     .sp-relayers__add__btns {
-      display:flex;
+      display: flex;
       justify-content: space-between;
     }
   }
@@ -1144,6 +1216,10 @@
             background: rgba(255, 164, 27, 0.15);
             color: rgba(255, 164, 27, 1);
           }
+          &.sp-transfer-list__status__icon__success {
+            background: rgba(10, 166, 73, 0.15);
+            color: rgba(10, 166, 73, 1);
+          }
         }
 
         .sp-transfer-list__status__action {
@@ -1169,8 +1245,8 @@
     }
 
     th {
-      opacity: 0.6;
-      padding: 1.2rem;
+      opacity: 0.6;      
+      padding: 1rem 0rem;
       vertical-align: middle;
 
       &.sp-transfer-list__table__amount {
@@ -1183,7 +1259,8 @@
     }
 
     td {
-      padding: 0;
+      
+      padding: 1rem 0rem;
       vertical-align: middle;
 
       &.sp-transfer-list__table__amount {
