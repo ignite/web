@@ -78,33 +78,66 @@
 					>
 						<form class="sp-relayers__add__form">
 							<div class="sp-form-group">
+								External
 								<input
-									class="sp-input"
-									v-model="relayerForm.name"
-									placeholder="Name (e.g. Foochain)"
+									type="checkbox"
+									value="true"
+									v-model="relayerForm.external"
 								/>
 							</div>
-							<div class="sp-form-group">
-								<input
-									class="sp-input"
-									v-model="relayerForm.endpoint"
-									placeholder="Endpoint (e.g. https://rpc.foochain.org)"
-								/>
-							</div>
-							<div class="sp-form-group">
-								<input
-									class="sp-input"
-									v-model="relayerForm.prefix"
-									placeholder="Prefix (e.g. foo)"
-								/>
-							</div>
-							<div class="sp-form-group">
-								<input
-									class="sp-input"
-									v-model="relayerForm.gasPrice"
-									placeholder="Gas Price (e.g. 0.025ufoo)"
-								/>
-							</div>
+							<template v-if="relayerForm.external">
+								<div class="sp-form-group">
+									<input
+										class="sp-input"
+										v-model="relayerForm.name"
+										placeholder="Name (e.g. Foochain)"
+									/>
+								</div>
+								<div class="sp-form-group">
+									<input
+										class="sp-input"
+										v-model="relayerForm.chainId"
+										placeholder="Chain ID (e.g. foochain-2)"
+									/>
+								</div>
+								<div class="sp-form-group">
+									<input
+										class="sp-input"
+										v-model="relayerForm.channelId"
+										placeholder="Channel (e.g. channel-0)"
+									/>
+								</div>
+							</template>
+							<template v-else>
+								<div class="sp-form-group">
+									<input
+										class="sp-input"
+										v-model="relayerForm.name"
+										placeholder="Name (e.g. Foochain)"
+									/>
+								</div>
+								<div class="sp-form-group">
+									<input
+										class="sp-input"
+										v-model="relayerForm.endpoint"
+										placeholder="Endpoint (e.g. https://rpc.foochain.org)"
+									/>
+								</div>
+								<div class="sp-form-group">
+									<input
+										class="sp-input"
+										v-model="relayerForm.prefix"
+										placeholder="Prefix (e.g. foo)"
+									/>
+								</div>
+								<div class="sp-form-group">
+									<input
+										class="sp-input"
+										v-model="relayerForm.gasPrice"
+										placeholder="Gas Price (e.g. 0.025ufoo)"
+									/>
+								</div>
+							</template>
 							<div class="sp-relayers__add__btns">
 								<SpButton
 									v-on:click="showRelayerForm = false"
@@ -119,7 +152,6 @@
 						</form>
 					</div>
 				</template>
-		
 			</div>
 		</div>
 	</div>
@@ -139,7 +171,10 @@ export default {
 				name: '',
 				endpoint: '',
 				prefix: '',
-				gasPrice: ''
+				gasPrice: '',
+				external: false,
+				chainId: '',
+				channelId: ''
 			}
 		}
 	},
@@ -186,6 +221,9 @@ export default {
 			)
 			this.relayerForm = {
 				name: '',
+				chainId: '',
+				channelId: '',
+				external: false,
 				endpoint: '',
 				prefix: '',
 				gasPrice: ''
@@ -200,6 +238,9 @@ export default {
 			})
 			this.relayerForm = {
 				name: '',
+				chainId: '',
+				channelId: '',
+				external: false,
 				endpoint: '',
 				prefix: '',
 				gasPrice: ''

@@ -63,7 +63,7 @@
 						}}/{{
 							denomTraces[
 								balance.denom.split('/')[1]
-							]?.denom_trace.base_denom.toUpperCase() ?? 'TOKEN'
+							]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
 						}}
 					</template>
 					<template v-else>

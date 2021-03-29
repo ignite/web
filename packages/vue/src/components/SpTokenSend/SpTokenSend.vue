@@ -158,7 +158,21 @@
 											v-bind:key="'fee_small' + index"
 										>
 											<strong>{{ fee.amount }}</strong>
-											{{ fee.denom.toUpperCase() }},
+
+											<template v-if="fee.denom.indexOf('ibc/') == 0">
+												IBC/{{
+													denomTraces[
+														fee.denom.split('/')[1]
+													]?.denom_trace.path.toUpperCase() ?? ''
+												}}/{{
+													denomTraces[
+														fee.denom.split('/')[1]
+													]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
+												}},
+											</template>
+											<template v-else>
+												{{ fee.denom.toUpperCase() }},
+											</template>
 										</span>
 										<span
 											v-on:click="feesOpen = true"
@@ -321,7 +335,8 @@ export default {
 			feesOpen: false,
 			memoOpen: false,
 			inFlight: false,
-			bankAddress: ''
+			bankAddress: '',
+			denomTraces: {}
 		}
 	},
 	beforeCreate() {
@@ -379,6 +394,12 @@ export default {
 				return []
 			}
 		},
+		fullBalances() {
+			return this.balances.map((x) => {
+				this.addMapping(x)
+				return x
+			})
+		},
 		relayers() {
 			return this.$store.hasModule(['common'], ['relayers'])
 				? this.$store.getters['common/relayers/getRelayers']
@@ -434,6 +455,19 @@ export default {
 		}
 	},
 	methods: {
+		async addMapping(balance) {
+			if (balance.denom.indexOf('ibc/') == 0) {
+				let denom = balance.denom.split('/')
+				let hash = denom[1]
+				this.denomTraces[hash] = await this.$store.dispatch(
+					'ibc.applications.transfer.v1/QueryDenomTrace',
+					{
+						options: { subscribe: false, all: false },
+						params: { hash }
+					}
+				)
+			}
+		},
 		resetTransaction() {
 			this.transfer.amount = [{ amount: '0', denom: this.balances[0].denom }]
 			this.transfer.recipient = ''
@@ -489,6 +523,14 @@ export default {
 								memo: this.transfer.memo
 							}
 						)
+						console.log(	 {
+									sourcePort: 'transfer',
+									sourceChannel: this.transfer.channel,
+									sender: this.bankAddress,
+									receiver: this.transfer.recipient,
+									timeoutTimestamp: new Date().getTime() + 60000 + '000000',
+									token: this.transfer.amount[0]
+								})
 						console.log(this.txResult)
 						if (this.txResult && !this.txResult.code) {
 							this.resetTransaction()
