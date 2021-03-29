@@ -5488,17 +5488,6 @@ function compare (a, b) {
 
 /***/ }),
 
-/***/ "105f":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpTokenSend_vue_vue_type_style_index_0_id_c836262a_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c2bf");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpTokenSend_vue_vue_type_style_index_0_id_c836262a_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpTokenSend_vue_vue_type_style_index_0_id_c836262a_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
 /***/ "1083":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11003,7 +10992,7 @@ SpRelayervue_type_script_lang_js.render = render
 /***/ "2801":
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.4\",\"/home/clockwork/Tendermint/vue/packages/vue\"]],\"_development\":true,\"_from\":\"elliptic@6.5.4\",\"_id\":\"elliptic@6.5.4\",\"_inBundle\":false,\"_integrity\":\"sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.4\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.4\",\"saveSpec\":null,\"fetchSpec\":\"6.5.4\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz\",\"_spec\":\"6.5.4\",\"_where\":\"/home/clockwork/Tendermint/vue/packages/vue\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.11.9\",\"brorand\":\"^1.1.0\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.1\",\"inherits\":\"^2.0.4\",\"minimalistic-assert\":\"^1.0.1\",\"minimalistic-crypto-utils\":\"^1.0.1\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^2.0.2\",\"coveralls\":\"^3.1.0\",\"eslint\":\"^7.6.0\",\"grunt\":\"^1.2.1\",\"grunt-browserify\":\"^5.3.0\",\"grunt-cli\":\"^1.3.2\",\"grunt-contrib-connect\":\"^3.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^5.0.0\",\"grunt-mocha-istanbul\":\"^5.0.2\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.5\",\"mocha\":\"^8.0.1\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"lint\":\"eslint lib test\",\"lint:fix\":\"npm run lint -- --fix\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.4\"}");
+module.exports = JSON.parse("{\"_from\":\"elliptic@^6.5.3\",\"_id\":\"elliptic@6.5.4\",\"_inBundle\":false,\"_integrity\":\"sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"range\",\"registry\":true,\"raw\":\"elliptic@^6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"^6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"^6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz\",\"_shasum\":\"da37cebd31e79a1367e941b592ed1fbebd58abbb\",\"_spec\":\"elliptic@^6.5.3\",\"_where\":\"L:\\\\Projects\\\\overhaul\\\\tmmonorepo\\\\packages\\\\vue\\\\node_modules\\\\browserify-sign\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"bundleDependencies\":false,\"dependencies\":{\"bn.js\":\"^4.11.9\",\"brorand\":\"^1.1.0\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.1\",\"inherits\":\"^2.0.4\",\"minimalistic-assert\":\"^1.0.1\",\"minimalistic-crypto-utils\":\"^1.0.1\"},\"deprecated\":false,\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^2.0.2\",\"coveralls\":\"^3.1.0\",\"eslint\":\"^7.6.0\",\"grunt\":\"^1.2.1\",\"grunt-browserify\":\"^5.3.0\",\"grunt-cli\":\"^1.3.2\",\"grunt-contrib-connect\":\"^3.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^5.0.0\",\"grunt-mocha-istanbul\":\"^5.0.2\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.5\",\"mocha\":\"^8.0.1\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"lint\":\"eslint lib test\",\"lint:fix\":\"npm run lint -- --fix\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.4\"}");
 
 /***/ }),
 
@@ -26494,13 +26483,13 @@ function debounce(func, wait, immediate) {
 
       /*
       const isScrollAwayFromTop = scrolledHeight / tableScrollHeight > 0.2
-      	const isCallableScrolledDistance =
+      		const isCallableScrolledDistance =
       	$table.offsetHeight /
       		Math.abs(scrolledHeight - this.lastScrolledHeight) >
       	25
-      	if (isCallableScrolledDistance) {
+      		if (isCallableScrolledDistance) {
       	this.isScrolledAwayFromTop = isScrollAwayFromTop
-      		if (isScrolledToBottom) {
+      			if (isScrolledToBottom) {
       		this.isScrolledTop = false
       		this.isScrolledBottom = true
       		this.handleScrollBottom()
@@ -32284,15 +32273,15 @@ var es_string_split = __webpack_require__("1276");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=c836262a&scoped=true
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=a035383e&scoped=true
 
 
 
 
 
-var _withId = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withScopeId"])("data-v-c836262a");
+var _withId = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withScopeId"])("data-v-a035383e");
 
-Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["pushScopeId"])("data-v-c836262a");
+Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["pushScopeId"])("data-v-a035383e");
 
 var _hoisted_1 = {
   key: 0
@@ -32361,7 +32350,7 @@ var _hoisted_17 = {
   class: "sp-token-send__main__amt__wrapper"
 };
 
-var _hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createStaticVNode"])("<div class=\"sp-amount-select sp-amount-select__dummy\" data-v-c836262a><div class=\"sp-form-group\" data-v-c836262a><div class=\"sp-amount-select__denom\" data-v-c836262a><div class=\"sp-amount-select__denom__selected\" data-v-c836262a><div class=\"sp-amount-select__denom__name\" data-v-c836262a><div class=\"sp-denom-marker\" style=\"background:#809cff;\" data-v-c836262a></div><div class=\"sp-dummy-fill\" data-v-c836262a></div></div></div></div><input class=\"sp-input sp-input-large\" value=\"0\" name=\"rcpt\" disabled=\"true\" data-v-c836262a></div></div>", 1);
+var _hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createStaticVNode"])("<div class=\"sp-amount-select sp-amount-select__dummy\" data-v-a035383e><div class=\"sp-form-group\" data-v-a035383e><div class=\"sp-amount-select__denom\" data-v-a035383e><div class=\"sp-amount-select__denom__selected\" data-v-a035383e><div class=\"sp-amount-select__denom__name\" data-v-a035383e><div class=\"sp-denom-marker\" style=\"background:#809cff;\" data-v-a035383e></div><div class=\"sp-dummy-fill\" data-v-a035383e></div></div></div></div><input class=\"sp-input sp-input-large\" value=\"0\" name=\"rcpt\" disabled=\"true\" data-v-a035383e></div></div>", 1);
 
 var _hoisted_19 = {
   class: "sp-token-send__main__fees__header sp-box-header"
@@ -32575,7 +32564,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
     balances: $options.balances
   }, null, 8, ["balances"])])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 });
-// CONCATENATED MODULE: ./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=c836262a&scoped=true
+// CONCATENATED MODULE: ./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=a035383e&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
@@ -32749,9 +32738,11 @@ var build = __webpack_require__("9705");
       return this.$store.hasModule(['common'], ['relayers']) ? this.$store.getters['common/relayers/getRelayers'] : [];
     },
     availableChannels: function availableChannels() {
-      return this.relayers.filter(function (x) {
+      var _this$relayers$filter, _this$relayers;
+
+      return (_this$relayers$filter = (_this$relayers = this.relayers) === null || _this$relayers === void 0 ? void 0 : _this$relayers.filter(function (x) {
         return x.status == 'connected';
-      });
+      })) !== null && _this$relayers$filter !== void 0 ? _this$relayers$filter : [];
     },
     depsLoaded: function depsLoaded() {
       return this._depsLoaded;
@@ -32998,8 +32989,8 @@ var build = __webpack_require__("9705");
 });
 // CONCATENATED MODULE: ./src/components/SpTokenSend/SpTokenSend.vue?vue&type=script&lang=js
  
-// EXTERNAL MODULE: ./src/components/SpTokenSend/SpTokenSend.vue?vue&type=style&index=0&id=c836262a&scoped=true&lang=css
-var SpTokenSendvue_type_style_index_0_id_c836262a_scoped_true_lang_css = __webpack_require__("105f");
+// EXTERNAL MODULE: ./src/components/SpTokenSend/SpTokenSend.vue?vue&type=style&index=0&id=a035383e&scoped=true&lang=css
+var SpTokenSendvue_type_style_index_0_id_a035383e_scoped_true_lang_css = __webpack_require__("76b7");
 
 // CONCATENATED MODULE: ./src/components/SpTokenSend/SpTokenSend.vue
 
@@ -33008,7 +32999,7 @@ var SpTokenSendvue_type_style_index_0_id_c836262a_scoped_true_lang_css = __webpa
 
 
 SpTokenSendvue_type_script_lang_js.render = render
-SpTokenSendvue_type_script_lang_js.__scopeId = "data-v-c836262a"
+SpTokenSendvue_type_script_lang_js.__scopeId = "data-v-a035383e"
 
 /* harmony default export */ var SpTokenSend = __webpack_exports__["a"] = (SpTokenSendvue_type_script_lang_js);
 
@@ -38579,6 +38570,17 @@ utils.encode = function encode(arr, enc) {
   else
     return arr;
 };
+
+
+/***/ }),
+
+/***/ "76b7":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpTokenSend_vue_vue_type_style_index_0_id_a035383e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b82c");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpTokenSend_vue_vue_type_style_index_0_id_a035383e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SpTokenSend_vue_vue_type_style_index_0_id_a035383e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
 
 
 /***/ }),
@@ -55379,6 +55381,13 @@ function config (name) {
 
 /***/ }),
 
+/***/ "b82c":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "b837":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61442,13 +61451,6 @@ module.exports = JSON.parse("{\"modp1\":{\"gen\":\"02\",\"prime\":\"ffffffffffff
 
 module.exports = __webpack_require__("e372").PassThrough
 
-
-/***/ }),
-
-/***/ "c2bf":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -72150,7 +72152,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=d7e99c1c
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=f621e63c
 
 
 var _hoisted_1 = {
@@ -72363,7 +72365,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["onClick"])])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)], 64))])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=d7e99c1c
+// CONCATENATED MODULE: ./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=f621e63c
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find-index.js
 var es_array_find_index = __webpack_require__("c740");
@@ -72491,7 +72493,7 @@ var SpRelayer = __webpack_require__("e4b4");
                   name: 'CosmosHub',
                   endpoint: 'https://rpc.nylira.net',
                   prefix: 'cosmos',
-                  gasPrice: '0.000025uatom'
+                  gasPrice: '0.025uatom'
                 });
 
               case 2:

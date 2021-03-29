@@ -6,7 +6,8 @@ const {
 	VUE_APP_API_COSMOS,
 	VUE_APP_API_TENDERMINT,
 	VUE_APP_WS_TENDERMINT,
-	VUE_APP_ADDRESS_PREFIX
+	VUE_APP_ADDRESS_PREFIX,
+	VUE_APP_STARPORT_URL,
 } = process.env
 
 const GITPOD =
@@ -27,13 +28,18 @@ const wsNode =
 	(process.env.VUE_APP_WS_TENDERMINT &&
 		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
+const starportUrl =
+(GITPOD && `${GITPOD.protocol}//12345-${GITPOD.hostname}`) ||
+(process.env.VUE_APP_STARPORT_URL &&
+	process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost')) ||
+'http://localhost:12345'
 
 export default {
 	namespaced: true,
 	state() {
 		return {
 			_timer: null,
-			starportUrl: VUE_APP_CUSTOM_URL ? '' : 'http://localhost:12345',
+			starportUrl: VUE_APP_CUSTOM_URL ? '' : starportUrl,
 			frontendUrl: '',
 			backend: {
 				env: {
@@ -225,7 +231,7 @@ export default {
 				)
 			}
 		},
-		async init({ commit, dispatch }, { starportUrl = 'http://localhost:12345' }) {
+		async init({ commit, dispatch }) {
 			/*
       *
       // Fetch backend status regularly
@@ -241,9 +247,6 @@ export default {
 				}, 5000)
 			})
 
-			commit('SET_STARPORT_ENV', {
-				starportUrl
-			})
 			await dispatch(
 				'setStatusState')
 			

@@ -143,9 +143,7 @@ var _default = {
 
                 _context.prev = 3;
                 _context.next = 6;
-                return dispatch('common/starport/init', {
-                  starportUrl: config.starportUrl
-                }, {
+                return dispatch('common/starport/init', null, {
                   root: true
                 });
 

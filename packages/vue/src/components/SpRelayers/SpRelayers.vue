@@ -234,7 +234,7 @@ export default {
 				name: 'CosmosHub',
 				endpoint: 'https://rpc.nylira.net',
 				prefix: 'cosmos',
-				gasPrice: '0.000025uatom'
+				gasPrice: '0.025uatom'
 			})
 			this.relayerForm = {
 				name: '',

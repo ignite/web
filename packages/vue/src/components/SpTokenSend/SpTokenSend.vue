@@ -406,7 +406,7 @@ export default {
 				: []
 		},
 		availableChannels() {
-			return this.relayers.filter((x) => x.status == 'connected')
+			return this.relayers?.filter((x) => x.status == 'connected') ?? []
 		},
 		depsLoaded() {
 			return this._depsLoaded
@@ -523,14 +523,14 @@ export default {
 								memo: this.transfer.memo
 							}
 						)
-						console.log(	 {
-									sourcePort: 'transfer',
-									sourceChannel: this.transfer.channel,
-									sender: this.bankAddress,
-									receiver: this.transfer.recipient,
-									timeoutTimestamp: new Date().getTime() + 60000 + '000000',
-									token: this.transfer.amount[0]
-								})
+						console.log({
+							sourcePort: 'transfer',
+							sourceChannel: this.transfer.channel,
+							sender: this.bankAddress,
+							receiver: this.transfer.recipient,
+							timeoutTimestamp: new Date().getTime() + 60000 + '000000',
+							token: this.transfer.amount[0]
+						})
 						console.log(this.txResult)
 						if (this.txResult && !this.txResult.code) {
 							this.resetTransaction()

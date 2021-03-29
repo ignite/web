@@ -88,7 +88,7 @@ export default {
 		) {
 			if (this._actions['common/starport/init']) {
 				try {
-					await dispatch('common/starport/init', {starportUrl: config.starportUrl}, { root: true })
+					await dispatch('common/starport/init', null, { root: true })
 				} catch (e) {
 					throw new SpVuexError(
 						'Env:Init:Starport',
