@@ -155,7 +155,7 @@
 						imported.password == '' ||
 						imported.password != imported.confirm
 					"
-					>Import</SpButton
+					>Done</SpButton
 				>
 			</div>
 		</template>
