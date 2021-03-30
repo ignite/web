@@ -49,7 +49,7 @@ init(store);
 export default store;
 ```
 
-Finally, you can initialize the `env` store by dispatching the init action in the appropriate part of your app:
+Finally, initialize the `env` store by dispatching the init action in the appropriate part of your app:
 
 ```js
 await this.$store.dispatch('common/env/init')
@@ -71,9 +71,11 @@ await this.$store.dispatch('common/env/init', {
 
 ## Modules
 
+The registered modules for this package are:
+
 ### env 
 
-Registered as `common/env` provides basic environment setup, connection to API, RPC and WS nodes, connection statuses as well as access to the underlying `@starport/client-js` [client](https://github.com/tendermint/vue/tree/develop/packages/client-js)
+Registered as `common/env`, this module provides basic environment setup, connection to API, RPC, and WS nodes, connection statuses, and access to the underlying `@starport/client-js` [client](https://github.com/tendermint/vue/tree/develop/packages/client-js).
 
 ```js
 // Getter signatures
@@ -92,7 +94,7 @@ Registered as `common/env` provides basic environment setup, connection to API, 
 
 ### Starport
 
-Registered as `common/starport`, use this if you are doing local development on a [Starport](http://github.com/tendermint/starport)-launched chain as it will configure the `env` module using Starport's `:12345/status` endpoint.
+Registered as `common/starport`, use this module if you are doing local development on a [Starport](http://github.com/tendermint/starport)-launched chain. This module configures the `env` module using the Starport `:12345/status` endpoint.
 
 ### Blocks
 
@@ -112,7 +114,7 @@ await this.$store.getters["common/blocks/getBlocks"](15)
 
 ### Transfers
 
-Registered as `common/transfers`, this is a temporary handcoded version of the soon-to-be auto-generated (by Starport) vuex store for the Cosmos SDK TX module (https://github.com/cosmos/cosmos-sdk/tree/master/proto/cosmos/tx/v1beta1).
+Registered as `common/transfers`, this module is a temporary handcoded version until an auto-generated (by Starport) vuex store is available for the Cosmos SDK TX module (https://github.com/cosmos/cosmos-sdk/tree/master/proto/cosmos/tx/v1beta1).
 
 The querying action is:
 
@@ -120,7 +122,7 @@ The querying action is:
 ServiceGetTxsEvent({ commit, rootGetters }, { subscribe = false, all=true,  ...key })
 ```
 
-and the getter is:
+The getter is:
 
 ```js
 getGetTxsEvent(params)
@@ -143,13 +145,13 @@ this.$store.getters['common/transfers/getGetTxsEvent']({
 })
 ```
 
-You can read more about events you can query for [here](https://docs.tendermint.com/master/rpc/#/Websocket/subscribe).
+To learn more about the WebSocket events you can query, see the [Tendermint RPC WebSocket](https://docs.tendermint.com/master/rpc/#/Websocket/subscribe) docs.
 
-The `subscribe` flag in the action dispatch sets whether the store should auto-update as new transactions come in or not.
+The `subscribe` flag in the action dispatch configures auto-updates for the store as new transactions occur.
 
 ### Wallet
 
-Registered as `common/wallet` this module provides wallet-handling and sign-in/out fuctionalities as well as encrypted persistence in the browser's local storage.
+Registered as `common/wallet`, this module provides wallet-handling, sign in and sign out fuctionalities, and encrypted persistence in the browser's local storage.
 
 Creating a new wallet
 
