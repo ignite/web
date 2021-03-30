@@ -16,7 +16,7 @@ The components also require `@starport/vuex` to be installed which is set as a p
 
 If you want to import the entire library, in your `main.js` file:
 
-```
+```js
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store' // See @starport/vuex documentation
@@ -29,7 +29,7 @@ app.use(store).use(vueLib).mount('#app')
 
 You can also import only specific components in your `main.js` file:
 
-```
+```js
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store' // See @starport/vuex documentation
