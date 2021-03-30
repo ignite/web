@@ -3,17 +3,19 @@
 		<div class="sp-assets__header sp-component-title">
 			<h3>Assets</h3>
 		</div>
-		<div class="sp-assets__main sp-box">
+		<div class="sp-assets__main sp-box sp-shadow">
 			<div class="sp-assets__main__header" v-if="address">
 				<div class="sp-assets__main__header__token">TOKEN</div>
 				<div class="sp-assets__main__header__amount">AMOUNT</div>
 			</div>
 			<div class="sp-assets__main__header" v-else>
 				<div class="sp-assets__main__header__message">
-					Add or unlock a wallet to see your balances
+					Your current account balance will appear here
 				</div>
 			</div>
-			<template v-if="!address">
+
+			<!-- Empty Assets -->
+			<template v-if="!address || fullBalances.length == 0">
 				<div class="sp-assets__main__item">
 					<div class="sp-assets__main__denom__name">
 						<div class="sp-denom-marker" style="background: #809cff" />
@@ -42,6 +44,7 @@
 					</div>
 				</div>
 			</template>
+
 			<div
 				class="sp-assets__main__item"
 				v-for="balance in fullBalances"

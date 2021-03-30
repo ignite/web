@@ -1,11 +1,24 @@
 <template>
 	<div class="sp-type-list" v-if="depsLoaded">
-		<div class="sp-type-list__main sp-box">
+		<div class="sp-type-list__main sp-box sp-shadow">
 			<div class="sp-type-list__header sp-box-header">
 				{{ moduleType.toUpperCase() + 'S' }}
 			</div>
-			<div class="SpTypeListEmpty" v-if="!typeItems || typeItems.length == 0">
-				<em>No items available</em>
+			<div
+				class="sp-type-list-empty"
+				v-if="!typeItems || typeItems.length == 0"
+			>
+				<div class="sp-type-list__item">
+					<div class="sp-type-list__item__icon">
+						<div class="sp-icon sp-icon-Docs" />
+					</div>
+					<div class="sp-type-list__item__details">
+						<div class="sp-type-list__item__details__field">
+							<strong>No posts yet </strong><br />
+							Add a new post by using the form
+						</div>
+					</div>
+				</div>
 			</div>
 			<template v-else>
 				<div v-for="(item, index) in typeItems" v-bind:key="item.id">
@@ -52,8 +65,12 @@
 				</div>
 			</template>
 		</div>
-		<div class="sp-type-list__overlay" v-if="editOpen || deleteOpen" />
-		<div class="sp-type-list__edit__form" v-if="editID > 0">
+		<div
+			class="sp-type-list__overlay"
+			v-if="editOpen || deleteOpen"
+			v-on:click=";(editOpen = false), (deleteOpen = false)"
+		/>
+		<div class="sp-type-list__edit__form" v-if="editID >= 0">
 			<SpTypeForm
 				:modulePath="modulePath"
 				:moduleType="moduleType"
@@ -63,7 +80,7 @@
 				v-on:updated=";(editID = -1), (editOpen = false)"
 			/>
 		</div>
-		<div class="sp-type-list__delete__form" v-if="deleteID > 0">
+		<div class="sp-type-list__delete__form" v-if="deleteID >= 0">
 			<SpTypeForm
 				:modulePath="modulePath"
 				:moduleType="moduleType"
@@ -94,8 +111,8 @@ export default {
 			moreOpen: -1,
 			editOpen: false,
 			deleteOpen: false,
-			editID: 0,
-			deleteID: 0
+			editID: -1,
+			deleteID: -1
 		}
 	},
 	computed: {

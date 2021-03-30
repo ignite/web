@@ -2,8 +2,9 @@
 	<div>
 		<div class="sp-type">
 			<div class="sp-type__header sp-component-title">
-				<h3>Custom Type</h3>
-				<span>| Create and edit a custom type form..</span>
+				<h3>Custom type</h3>
+				<span>|</span>
+				<span>Create and edit a custom type form.</span>
 			</div>
 
 			<div class="sp-type__holder">
@@ -12,7 +13,7 @@
 						:modulePath="modulePath"
 						:moduleType="moduleType"
 						action="create"
-						class="sp-type__create"
+						class="sp-type__create sp-shadow"
 					/>
 				</div>
 				<SpTypeList

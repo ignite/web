@@ -13,6 +13,7 @@
 					type="text"
 					class="sp-input"
 					:placeholder="capitalize(field.name)"
+					:disabled="!address"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
 				/>
@@ -20,16 +21,14 @@
 					type="number"
 					class="sp-input"
 					:placeholder="capitalize(field.name)"
+					:disabled="!address"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>
 			</div>
-			<div class="sp-type-form__message" v-if="!address">
-				Add or unlock a wallet to create a {{ moduleType }}
-			</div>
 			<div class="sp-type-form__btns">
-				<div class="sp-type-form__btns__reset" v-on:click="resetForm">
-					Reset
+				<div class="sp-type-form__message" v-if="!address">
+					Accesss a wallet to create a {{ moduleType }}
 				</div>
 				<SpButton type="primary" v-on:click="createType" :disabled="!address"
 					>Create {{ moduleType }}</SpButton
@@ -49,6 +48,7 @@
 					type="text"
 					class="sp-input"
 					:placeholder="capitalize(field.name)"
+					:disabled="!address"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
 					v-bind:readonly="id != '' && field.name == 'id'"
@@ -57,6 +57,7 @@
 					type="number"
 					class="sp-input"
 					:placeholder="capitalize(field.name)"
+					:disabled="!address"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>
@@ -86,6 +87,7 @@
 					type="text"
 					class="sp-input"
 					:placeholder="capitalize(field.name)"
+					:disabled="!address"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'string'"
 					v-bind:readonly="id != '' && field.name == 'id'"
@@ -94,6 +96,7 @@
 					type="number"
 					class="sp-input"
 					:placeholder="capitalize(field.name)"
+					:disabled="!address"
 					v-model="typeData[field.name]"
 					v-if="field.type == 'number'"
 				/>

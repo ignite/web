@@ -1,11 +1,12 @@
 <template>
-	<div class="sp-transfer-list" v-if="depsLoaded">
+	<div class="sp-component sp-transfer-list" v-if="depsLoaded">
 		<div class="sp-transfer-list__header sp-component-title">
-			<h3>Transfer List</h3>
-			<span>| A list of your recent transfers</span>
+			<h3>Transactions</h3>
+			<span>|</span>
+			<span>A list of your recent transactions</span>
 		</div>
 		<table
-			class="sp-transfer-list__table sp-box"
+			class="sp-transfer-list__table sp-box sp-shadow"
 			v-if="address && transactions.length > 0"
 		>
 			<thead>
@@ -84,7 +85,7 @@
 			</tbody>
 		</table>
 
-		<table class="sp-transfer-list__table sp-box" v-else>
+		<table class="sp-transfer-list__table sp-box sp-shadow" v-else>
 			<tbody>
 				<tr>
 					<td class="sp-transfer-list__status">
@@ -96,7 +97,7 @@
 							</div>
 							<div class="sp-transfer-list__status__action">
 								<div class="sp-transfer-list__status__action__text">
-									No Transactions Yet
+									No transactions yet
 								</div>
 								<div
 									class="sp-transfer-list__status__action__date"

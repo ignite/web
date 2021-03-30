@@ -1,6 +1,6 @@
 <template>
 	<div class="sp-amount-select">
-		<div class="sp-amount-select__overlay" v-if="modalOpen"></div>
+		<div class="sp-amount-select__overlay" v-if="modalOpen" v-on:click="modalOpen=false"></div>
 		<div
 			class="sp-form-group"
 			:class="{ 'sp-amount-select__overlay__open': modalOpen }"

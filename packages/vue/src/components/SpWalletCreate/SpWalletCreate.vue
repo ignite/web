@@ -1,5 +1,5 @@
 <template>
-	<div class="sp-wallet-create">
+	<div class="sp-wallet-create sp-shadow">
 		<div class="sp-wallet-create__close" v-if="!createform && !importform">
 			<a class="sp-icon sp-icon-Close" v-on:click="close" />
 		</div>
@@ -12,21 +12,21 @@
 			/>
 		</div>
 		<template v-if="!createform && !importform">
-			<div class="sp-wallet-create__title sp-header-text">{{ title }}</div>
+			<h3>{{ title }}</h3>
 			<div class="sp-wallet-create__text">
 				<slot></slot>
 			</div>
 			<div class="sp-wallet-create__cards">
 				<SpCard type="primary" icon="Add" v-on:click="createform = true"
-					>Create New Wallet</SpCard
+					>Create new wallet</SpCard
 				>
 				<SpCard type="secondary" icon="Upload" v-on:click="importform = true"
-					>Import Existing Wallet</SpCard
+					>Import existing wallet</SpCard
 				>
 			</div>
 		</template>
 		<template v-if="createform && create.step1">
-			<div class="sp-wallet-create__title sp-header-text">Create Wallet</div>
+			<h3>Create wallet</h3>
 			<div class="sp-wallet-create__text">
 				Generate your own unique wallet. Receive a public address (0x...) and
 				choose a method for access and recovery.
@@ -67,17 +67,15 @@
 				>
 					Passwords do not match
 				</div>
-				<SpButton v-on:click="createStep2" type="primary"
-					>Create Wallet</SpButton
-				>
+				<SpButton v-on:click="createStep2" type="primary">Create</SpButton>
 			</div>
 		</template>
 		<template v-if="createform && create.step2">
-			<div class="sp-wallet-create__title sp-header-text">
-				Here is your recovery phrase
+			<h3>Here is your<br />recovery phrase</h3>
+			<div class="sp-wallet-create__text">
+				You can restore your wallet using your recovery phrase.
 			</div>
 			<div class="sp-wallet-create__text">
-				You can restore your wallet using your recovery phrase. <br />
 				Write it down on paper. Resist temptation to email it to yourself or
 				sceenshot it.
 			</div>
@@ -88,9 +86,10 @@
 			<SpButton type="primary" v-on:click="done">Done</SpButton>
 		</template>
 		<template v-if="importform && imported.step1">
-			<div class="sp-wallet-create__title sp-header-text">
-				Import existing wallet
-			</div>
+			<h3>
+				Import<br />
+				existing wallet
+			</h3>
 			<div class="sp-wallet-create__text">
 				Paste your recovery phrase or private key below to import your wallet.
 			</div>
@@ -98,18 +97,27 @@
 				class="sp-key-area sp-textarea"
 				v-model="imported.mnemonicOrKey"
 			></textarea>
+			<!--
+			<SpMnemonicInput
+				class="sp-key-area sp-textarea"
+				v-model="imported.mnemonicOrKey"
+			></SpMnemonicInput>
+			//-->
 			<div
 				class="sp-error-message"
 				v-if="imported.mnemonicOrKey != '' && !validMnemonic"
 			>
 				You have not entered a valid mnemonic or private key.
 			</div>
-			<SpButton type="primary" v-on:click="importStep2">Import wallet</SpButton>
+			<SpButton
+				type="primary"
+				v-on:click="importStep2"
+				:disabled="imported.mnemonicOrKey == '' || !validMnemonic"
+				>Next</SpButton
+			>
 		</template>
 		<template v-if="importform && imported.step2">
-			<div class="sp-wallet-create__title sp-header-text">
-				Import existing wallet
-			</div>
+			<h3>Import existing wallet</h3>
 			<div class="sp-wallet-create__text">
 				Please name your wallet and choose a password
 			</div>
@@ -140,7 +148,15 @@
 						placeholder="Confirm password"
 					/>
 				</div>
-				<SpButton v-on:click="doneImport">Done</SpButton>
+				<SpButton
+					v-on:click="doneImport"
+					:disabled="
+						imported.name == '' ||
+						imported.password == '' ||
+						imported.password != imported.confirm
+					"
+					>Import</SpButton
+				>
 			</div>
 		</template>
 	</div>
@@ -154,6 +170,7 @@ import CryptoJS from 'crypto-js'
 import SpCard from '../SpCard'
 import SpButton from '../SpButton'
 import SpMnemonic from '../SpMnemonic'
+//import SpMnemonicInput from '../SpMnemonicInput'
 
 export default {
 	name: 'SpWalletCreate',
@@ -161,6 +178,7 @@ export default {
 		SpCard,
 		SpButton,
 		SpMnemonic
+		//SpMnemonicInput
 	},
 	props: {
 		title: {
@@ -295,7 +313,8 @@ export default {
 				await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
 					name: this.imported.name,
 					mnemonic: this.imported.mnemonicOrKey,
-					password: this.imported.password
+					password: this.imported.password,
+					prefix: this.$store.state.common.env.addrPrefix
 				})
 				//this.reset()
 			}
@@ -305,7 +324,8 @@ export default {
 				await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
 					name: this.create.name,
 					mnemonic: this.create.mnemonic,
-					password: this.create.password
+					password: this.create.password,
+					prefix: this.$store.state.common.env.addrPrefix
 				})
 				//this.reset()
 			}

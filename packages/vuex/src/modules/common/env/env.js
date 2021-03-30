@@ -38,6 +38,18 @@ export default {
 			}
 			if (config.wsNode) {
 				state.wsNode = config.wsNode
+			}	
+			if (config.chainId) {
+				state.chainId=config.chainId
+			}	
+			if (config.addrPrefix) {
+				state.addrPrefix=config.addrPrefix
+			}	
+			if (config.sdkVersion) {
+				state.sdkVersion=config.sdkVersion
+			}
+			if (config.getTXApi) {
+				state.getTXApi=config.getTXApi
 			}
 		},
 		CONNECT(state, { client }) {
@@ -88,6 +100,7 @@ export default {
 					throw new SpVuexError('Env:Config', 'Could not configure environment')
 				}
 			}
+			console.log('Vuex nodule: common.env initialized!')
 		},
 		setTxAPI({ commit }, payload) {
 			commit('SET_TX_API', payload)
@@ -135,6 +148,7 @@ export default {
 						rpcAddr: config.rpcNode,
 						wsAddr: config.wsNode
 					})
+					client.setMaxListeners(0)
 					client.on('ws-status', (status) =>
 						dispatch('setConnectivity', { connection: 'ws', status: status })
 					)

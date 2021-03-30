@@ -276,6 +276,9 @@ var _default = {
                 });
 
               case 4:
+                console.log('Vuex nodule: common.starport initialized!');
+
+              case 5:
               case "end":
                 return _context3.stop();
             }

@@ -62,7 +62,7 @@ var _default = {
     init: function init(_ref2) {
       var dispatch = _ref2.dispatch,
           rootGetters = _ref2.rootGetters;
-      console.log('init');
+      console.log('Vuex nodule: common.transfers initialized!');
 
       if (rootGetters['common/env/client']) {
         rootGetters['common/env/client'].on('newblock', function () {

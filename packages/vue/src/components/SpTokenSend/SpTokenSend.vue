@@ -1,12 +1,13 @@
 <template>
 	<div v-if="depsLoaded">
 		<div class="sp-token-send__holder">
-			<div class="sp-token-send">
+			<div class="sp-component sp-token-send">
 				<div class="sp-token-send__header sp-component-title">
-					<h3>Send Tokens</h3>
-					<span>| Send transaction with one or multiple tokens.</span>
+					<h3>Send tokens</h3>
+					<span>|</span>
+					<span>Transfer one or multiple tokens</span>
 				</div>
-				<div class="sp-token-send__main sp-box">
+				<div class="sp-token-send__main sp-box sp-shadow">
 					<form class="sp-token-send__main__form">
 						<div class="sp-token-send__main__rcpt__header sp-box-header">
 							SEND TO
@@ -94,7 +95,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="sp-dashed-line"></div>
+						
 						<div
 							class="sp-token-send__main__footer"
 							:class="{ 'sp-token-send__main__footer__open': feesOpen }"
@@ -132,7 +133,7 @@
 										>
 											+ Add Fee Token
 										</div>
-										<div class="sp-dashed-line"></div>
+										<div class="sp-line"></div>
 									</div>
 								</template>
 								<template v-else>
@@ -167,14 +168,14 @@
 										Reset
 									</div>
 									<SpButton v-on:click="sendTransaction" type="primary"
-										>Send Transaction</SpButton
+										>Send transaction</SpButton
 									>
 								</div>
 							</div>
 						</div>
 						<div class="sp-token-send__main__footer" v-else>
-							<div class="sp-token-send__main__fees__header sp-box-header">
-								Add or unlock a wallet to send transactions
+							<div class="sp-token-send__main__fees__header sp-box-message">
+								Access a wallet to send transactions
 							</div>
 							<div class="sp-token-send__main__fees__content"></div>
 							<div class="sp-token-send__main__btns">
@@ -186,17 +187,11 @@
 									Reset Fees
 								</div>
 								<div class="sp-token-send__main__btns__tx">
-									<div
-										class="sp-token-send__main__btns__reset"
-										v-on:click="resetTransaction"
-									>
-										Reset
-									</div>
 									<SpButton
 										v-on:click="sendTransaction"
 										type="primary"
 										:disabled="!address"
-										>Send Transaction</SpButton
+										>Send transaction</SpButton
 									>
 								</div>
 							</div>
@@ -204,7 +199,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="sp-assets__wrapper">
+			<div class="sp-component sp-assets__wrapper">
 				<SpAssets :balances="balances" />
 			</div>
 		</div>

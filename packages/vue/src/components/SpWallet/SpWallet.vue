@@ -7,9 +7,9 @@
 		<SpButton
 			v-else-if="walletList.length == 0 && !create"
 			v-on:click="create = true"
-			>Get Started</SpButton
+			>Access wallet</SpButton
 		>
-		<SpWalletCreate title="Get Started" v-else v-on:close="create = false">
+		<SpWalletCreate title="Access wallet" v-else v-on:close="create = false">
 			Create or import an existing wallet to manage your DeFi portfolio.
 		</SpWalletCreate>
 	</div>
