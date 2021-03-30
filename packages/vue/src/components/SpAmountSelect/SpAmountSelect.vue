@@ -1,6 +1,10 @@
 <template>
 	<div class="sp-amount-select">
-		<div class="sp-amount-select__overlay" v-if="modalOpen" v-on:click="modalOpen=false"></div>
+		<div
+			class="sp-amount-select__overlay"
+			v-if="modalOpen"
+			v-on:click="modalOpen = false"
+		></div>
 		<div
 			class="sp-form-group"
 			:class="{ 'sp-amount-select__overlay__open': modalOpen }"
@@ -23,7 +27,20 @@
 							class="sp-denom-marker"
 							:style="'background: #' + fulldenom.color"
 						/>
-						{{ fulldenom.denom.toUpperCase() }}
+						<template v-if="fulldenom.denom.indexOf('ibc/') == 0">
+							IBC/{{
+								denomTraces[
+									fulldenom.denom.split('/')[1]
+								]?.denom_trace.path.toUpperCase() ?? ''
+							}}/{{
+								denomTraces[
+									fulldenom.denom.split('/')[1]
+								]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
+							}}
+						</template>
+						<template v-else>
+							{{ fulldenom.denom.toUpperCase() }}
+						</template>
 					</div>
 					<div class="sp-amount-select__denom__controls">
 						<div
@@ -69,7 +86,21 @@
 								class="sp-denom-marker"
 								:style="'background: #' + avail.color"
 							/>
-							{{ avail.denom.toUpperCase() }}
+
+							<template v-if="avail.denom.indexOf('ibc/') == 0">
+								IBC/{{
+									denomTraces[
+										avail.denom.split('/')[1]
+									]?.denom_trace.path.toUpperCase() ?? ''
+								}}/{{
+									denomTraces[
+										avail.denom.split('/')[1]
+									]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
+								}}
+							</template>
+							<template v-else>
+								{{ avail.denom.toUpperCase() }}
+							</template>
 						</div>
 						<div class="sp-amount-select__denom__balance">
 							{{ avail.amount }}
@@ -97,7 +128,8 @@ export default {
 			denom: null,
 			focused: false,
 			modalOpen: false,
-			searchTerm: ''
+			searchTerm: '',
+			denomTraces: {}
 		}
 	},
 	props: {
@@ -118,6 +150,7 @@ export default {
 		},
 		denoms() {
 			return this.available.map((x) => {
+				this.addMapping(x)
 				x.color = this.str2rgba(x.denom.toUpperCase())
 				return x
 			})
@@ -134,6 +167,19 @@ export default {
 		},
 		selfRemove() {
 			this.$emit('self-remove')
+		},
+		async addMapping(balance) {
+			if (balance.denom.indexOf('ibc/') == 0) {
+				let denom = balance.denom.split('/')
+				let hash = denom[1]
+				this.denomTraces[hash] = await this.$store.dispatch(
+					'ibc.applications.transfer.v1/QueryDenomTrace',
+					{
+						options: { subscribe: false, all: false },
+						params: { hash }
+					}
+				)
+			}
 		},
 		str2rgba(r) {
 			for (var a, o = [], c = 0; c < 256; c++) {

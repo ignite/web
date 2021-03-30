@@ -40,6 +40,9 @@ var _default = {
     signingClient: function signingClient(state) {
       return state.client.signingClient;
     },
+    addrPrefix: function addrPrefix(state) {
+      return state.addrPrefix;
+    },
     apiTendermint: function apiTendermint(state) {
       return state.rpcNode;
     },
@@ -123,6 +126,7 @@ var _default = {
               case 0:
                 dispatch = _ref2.dispatch;
                 config = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : {
+                  starportUrl: 'http://localhost:12345',
                   apiNode: 'http://localhost:1317',
                   rpcNode: 'http://localhost:26657',
                   wsNode: 'ws://localhost:26657/websocket',

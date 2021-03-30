@@ -33,6 +33,12 @@ Object.defineProperty(exports, "wallet", {
     return _wallet["default"];
   }
 });
+Object.defineProperty(exports, "relayers", {
+  enumerable: true,
+  get: function get() {
+    return _relayers["default"];
+  }
+});
 Object.defineProperty(exports, "SpVuexError", {
   enumerable: true,
   get: function get() {
@@ -61,6 +67,8 @@ var _starport = _interopRequireDefault(require("./modules/common/starport"));
 var _transfers = _interopRequireDefault(require("./modules/common/transfers"));
 
 var _wallet = _interopRequireDefault(require("./modules/common/wallet"));
+
+var _relayers = _interopRequireDefault(require("./modules/common/relayers"));
 
 var _SpVuexError = _interopRequireDefault(require("./errors/SpVuexError"));
 

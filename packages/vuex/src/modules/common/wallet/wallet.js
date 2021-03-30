@@ -30,13 +30,20 @@ export default {
 			activeWallet: null,
 			activeClient: null,
 			selectedAddress: '',
-			authorized: false
+			authorized: false,
+			gasPrice: '0.0000025token'
 		}
 	},
 	getters: {
 		client: (state) => state.activeClient,
+		gasPrice:(state) => state.gasPrice,
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
+		getMnemonic: (state) => state.activeWallet.mnemonic,
+		getPath: (state) => state.activeWallet.HDpath+state.activeWallet.accounts.find(x => x.address==state.selectedAddress).pathIncrement,
+		relayers: (state) => {
+			return state.activeWallet.accounts.find( x => x.address==state.selectedAddress).relayers ?? []
+		},
 		nameAvailable: (state) => (name) => {
 			return state.wallets.findIndex((x) => x.name == name) == -1
 		},
@@ -101,6 +108,17 @@ export default {
 				).toString()
 			}
 		},
+		SET_RELAYERS(state,relayers) {
+			state.activeWallet.accounts.find( x => x.address==state.selectedAddress).relayers=relayers
+			if (state.activeWallet.name && state.activeWallet.password) {
+				state.wallets[
+					state.wallets.findIndex((x) => x.name === state.activeWallet.name)
+				].wallet = CryptoJS.AES.encrypt(
+					JSON.stringify(state.activeWallet),
+					state.activeWallet.password
+				).toString()
+			}
+		},
 		SET_SELECTED_ADDRESS(state, address) {
 			state.selectedAddress = address
 		},
@@ -151,6 +169,10 @@ export default {
 					console.log(e)
 				}
 			}
+		},
+		async updateRelayers({commit, dispatch}, relayers) {
+			commit('SET_RELAYERS',relayers)
+			dispatch('storeWallets')
 		},
 		async switchAccount({ commit, state, rootGetters, dispatch }, address) {
 			const accountIndex = state.activeWallet.accounts.findIndex(

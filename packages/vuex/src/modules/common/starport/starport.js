@@ -6,7 +6,8 @@ const {
 	VUE_APP_API_COSMOS,
 	VUE_APP_API_TENDERMINT,
 	VUE_APP_WS_TENDERMINT,
-	VUE_APP_ADDRESS_PREFIX
+	VUE_APP_ADDRESS_PREFIX,
+	VUE_APP_STARPORT_URL,
 } = process.env
 
 const GITPOD =
@@ -27,13 +28,18 @@ const wsNode =
 	(process.env.VUE_APP_WS_TENDERMINT &&
 		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
+const starportUrl =
+(GITPOD && `${GITPOD.protocol}//12345-${GITPOD.hostname}`) ||
+(process.env.VUE_APP_STARPORT_URL &&
+	process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost')) ||
+'http://localhost:12345'
 
 export default {
 	namespaced: true,
 	state() {
 		return {
 			_timer: null,
-			starportUrl: VUE_APP_CUSTOM_URL ? '' : 'http://localhost:12345',
+			starportUrl: VUE_APP_CUSTOM_URL ? '' : starportUrl,
 			frontendUrl: '',
 			backend: {
 				env: {
@@ -123,15 +129,15 @@ export default {
 		async setStatusState({ state, getters, commit, dispatch, rootGetters }) {
 			try {
 				const { data } = await axios.get(`${state.starportUrl}/status`)
-				const { status, env } = data
+				const { status, env, addrs} = data
 
 				const GITPOD = env.vue_app_custom_url && new URL(env.vue_app_custom_url)
 
-				const starportUrl =
+				const starportUrl = state.starportUrl ||
 					(GITPOD && `${GITPOD.protocol}//12345-${GITPOD.hostname}`) ||
 					'http://localhost:12345'
 
-				const frontendUrl =
+				const frontendUrl = addrs.app_frontend ||
 					(GITPOD && `${GITPOD.protocol}//8080-${GITPOD.hostname}`) ||
 					'http://localhost:8080'
 
@@ -142,19 +148,19 @@ export default {
 
 				const chainId = env.chain_id
 				const sdkVersion = status.sdk_version
-				const apiNode =
+				const apiNode = addrs.app_backend ||
 					(VUE_APP_API_COSMOS &&
 						VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
 					(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
 					'http://localhost:1317'
 
-				const rpcNode =
+				const rpcNode = addrs.consensus_engine ||
 					(VUE_APP_API_TENDERMINT &&
 						VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 					(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
 					'http://localhost:26657'
 
-				const wsNode =
+				const wsNode = addrs.consensus_engine.replace('http','ws')+'/websocket' ||
 					(VUE_APP_WS_TENDERMINT &&
 						VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 					(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
@@ -240,16 +246,10 @@ export default {
 					}
 				}, 5000)
 			})
+
 			await dispatch(
-				'common/env/config',
-				{
-					apiNode,
-					rpcNode,
-					wsNode,
-					addrPrefix
-				},
-				{ root: true }
-			)
+				'setStatusState')
+			
 			console.log('Vuex nodule: common.starport initialized!')
 		}
 	}

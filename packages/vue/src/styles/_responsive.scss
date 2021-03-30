@@ -13,6 +13,13 @@ html {
     padding-right: 0;
   }
 }
+
+.sp-relayers__holder {
+  flex-direction: column;
+  .sp-relayers {
+    padding-right: 0;
+  }
+}
 .sp-sidebar {
   position: fixed;
   z-index: 1000;
@@ -157,6 +164,20 @@ html {
 }
 
 @media only screen and (min-width: 1366px) {
+  .sp-relayers__holder {
+    flex-direction: row;
+
+    .sp-relayers__add {
+      flex-basis: 28%;
+      width: 28%;
+    }
+
+    .sp-relayers {
+      flex-basis: 72%;
+      width: 72%;
+      padding-right: 2rem;
+    }
+  }
   .sp-token-send__holder {
     flex-direction: row;
 

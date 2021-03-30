@@ -20,18 +20,20 @@ var _process$env = process.env,
     VUE_APP_API_COSMOS = _process$env.VUE_APP_API_COSMOS,
     VUE_APP_API_TENDERMINT = _process$env.VUE_APP_API_TENDERMINT,
     VUE_APP_WS_TENDERMINT = _process$env.VUE_APP_WS_TENDERMINT,
-    VUE_APP_ADDRESS_PREFIX = _process$env.VUE_APP_ADDRESS_PREFIX;
+    VUE_APP_ADDRESS_PREFIX = _process$env.VUE_APP_ADDRESS_PREFIX,
+    VUE_APP_STARPORT_URL = _process$env.VUE_APP_STARPORT_URL;
 var GITPOD = process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL);
 var apiNode = GITPOD && "".concat(GITPOD.protocol, "//1317-").concat(GITPOD.hostname) || process.env.VUE_APP_API_COSMOS && process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost') || 'http://localhost:1317';
 var rpcNode = GITPOD && "".concat(GITPOD.protocol, "//26657-").concat(GITPOD.hostname) || process.env.VUE_APP_API_TENDERMINT && process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost') || 'http://localhost:26657';
 var addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos';
 var wsNode = GITPOD && "wss://26657-".concat(GITPOD.hostname, "/websocket") || process.env.VUE_APP_WS_TENDERMINT && process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost') || 'ws://localhost:26657/websocket';
+var starportUrl = GITPOD && "".concat(GITPOD.protocol, "//12345-").concat(GITPOD.hostname) || process.env.VUE_APP_STARPORT_URL && process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost') || 'http://localhost:12345';
 var _default = {
   namespaced: true,
   state: function state() {
     return {
       _timer: null,
-      starportUrl: VUE_APP_CUSTOM_URL ? '' : 'http://localhost:12345',
+      starportUrl: VUE_APP_CUSTOM_URL ? '' : starportUrl,
       frontendUrl: '',
       backend: {
         env: {
@@ -132,7 +134,7 @@ var _default = {
   actions: {
     setStatusState: function setStatusState(_ref6) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var state, getters, commit, dispatch, rootGetters, _yield$axios$get, data, status, env, _GITPOD, starportUrl, frontendUrl, chainId, sdkVersion, _apiNode, _rpcNode, _wsNode, _addrPrefix, getTXApi;
+        var state, getters, commit, dispatch, rootGetters, _yield$axios$get, data, status, env, addrs, _GITPOD, _starportUrl, frontendUrl, chainId, sdkVersion, _apiNode, _rpcNode, _wsNode, _addrPrefix, getTXApi;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -146,19 +148,19 @@ var _default = {
               case 4:
                 _yield$axios$get = _context.sent;
                 data = _yield$axios$get.data;
-                status = data.status, env = data.env;
+                status = data.status, env = data.env, addrs = data.addrs;
                 _GITPOD = env.vue_app_custom_url && new URL(env.vue_app_custom_url);
-                starportUrl = _GITPOD && "".concat(_GITPOD.protocol, "//12345-").concat(_GITPOD.hostname) || 'http://localhost:12345';
-                frontendUrl = _GITPOD && "".concat(_GITPOD.protocol, "//8080-").concat(_GITPOD.hostname) || 'http://localhost:8080';
+                _starportUrl = state.starportUrl || _GITPOD && "".concat(_GITPOD.protocol, "//12345-").concat(_GITPOD.hostname) || 'http://localhost:12345';
+                frontendUrl = addrs.app_frontend || _GITPOD && "".concat(_GITPOD.protocol, "//8080-").concat(_GITPOD.hostname) || 'http://localhost:8080';
                 commit('SET_STARPORT_ENV', {
-                  starportUrl: starportUrl,
+                  starportUrl: _starportUrl,
                   frontendUrl: frontendUrl
                 });
                 chainId = env.chain_id;
                 sdkVersion = status.sdk_version;
-                _apiNode = VUE_APP_API_COSMOS && VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost') || _GITPOD && "".concat(_GITPOD.protocol, "//1317-").concat(_GITPOD.hostname) || 'http://localhost:1317';
-                _rpcNode = VUE_APP_API_TENDERMINT && VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost') || _GITPOD && "".concat(_GITPOD.protocol, "//26657-").concat(_GITPOD.hostname) || 'http://localhost:26657';
-                _wsNode = VUE_APP_WS_TENDERMINT && VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost') || _GITPOD && "wss://26657-".concat(_GITPOD.hostname, "/websocket") || 'ws://localhost:26657/websocket';
+                _apiNode = addrs.app_backend || VUE_APP_API_COSMOS && VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost') || _GITPOD && "".concat(_GITPOD.protocol, "//1317-").concat(_GITPOD.hostname) || 'http://localhost:1317';
+                _rpcNode = addrs.consensus_engine || VUE_APP_API_TENDERMINT && VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost') || _GITPOD && "".concat(_GITPOD.protocol, "//26657-").concat(_GITPOD.hostname) || 'http://localhost:26657';
+                _wsNode = addrs.consensus_engine.replace('http', 'ws') + '/websocket' || VUE_APP_WS_TENDERMINT && VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost') || _GITPOD && "wss://26657-".concat(_GITPOD.hostname, "/websocket") || 'ws://localhost:26657/websocket';
                 _addrPrefix = VUE_APP_ADDRESS_PREFIX || 'cosmos';
                 getTXApi = rootGetters['common/env/sdkVersion'] === 'Stargate' ? dispatch('common/env/setTxAPI', rootGetters['common/env/apiTendermint'] + '/tx?hash=0x', {
                   root: true
@@ -266,14 +268,7 @@ var _default = {
                   })), 5000)
                 });
                 _context3.next = 4;
-                return dispatch('common/env/config', {
-                  apiNode: apiNode,
-                  rpcNode: rpcNode,
-                  wsNode: wsNode,
-                  addrPrefix: addrPrefix
-                }, {
-                  root: true
-                });
+                return dispatch('setStatusState');
 
               case 4:
                 console.log('Vuex nodule: common.starport initialized!');

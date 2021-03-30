@@ -1,0 +1,80 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const ava_1 = __importDefault(require("ava"));
+const link_1 = require("./link");
+const testutils_1 = require("./testutils");
+const utils_1 = require("./utils");
+ava_1.default.serial('submit multiple tx, query all packets', async (t) => {
+    // setup a channel
+    const [nodeA, nodeB] = await testutils_1.setup();
+    const link = await link_1.Link.createWithNewConnections(nodeA, nodeB);
+    const channels = await link.createChannel('A', testutils_1.ics20.srcPortId, testutils_1.ics20.destPortId, testutils_1.ics20.ordering, testutils_1.ics20.version);
+    // no packets here
+    const packets1 = await link.endA.querySentPackets();
+    t.is(packets1.length, 0);
+    // some basic setup for the transfers
+    const recipient = testutils_1.randomAddress(testutils_1.wasmd.prefix);
+    const destHeight = await nodeB.timeoutHeight(500); // valid for 500 blocks
+    const amounts = [1000, 2222, 3456];
+    // const totalSent = amounts.reduce((a, b) => a + b, 0);
+    // let's make 3 transfer tx at different heights
+    const txHeights = [];
+    for (const amount of amounts) {
+        const token = { amount: amount.toString(), denom: testutils_1.simapp.denomFee };
+        const { height } = await nodeA.transferTokens(channels.src.portId, channels.src.channelId, token, recipient, destHeight);
+        // console.log(JSON.stringify(logs[0].events, undefined, 2));
+        txHeights.push(height);
+    }
+    // ensure these are different
+    t.assert(txHeights[1] > txHeights[0], txHeights.toString());
+    t.assert(txHeights[2] > txHeights[1], txHeights.toString());
+    // wait for this to get indexed
+    await nodeA.waitOneBlock();
+    // now query for all packets
+    const packets2 = await link.endA.querySentPackets();
+    t.is(packets2.length, 3);
+    t.deepEqual(packets2.map(({ height }) => height), txHeights);
+    // filter by minimum height
+    const packets3 = await link.endA.querySentPackets({
+        minHeight: txHeights[1],
+    });
+    t.is(packets3.length, 2);
+    const packets4 = await link.endA.querySentPackets({
+        minHeight: txHeights[2] + 1,
+    });
+    t.is(packets4.length, 0);
+    // filter by maximum height
+    const packets5 = await link.endA.querySentPackets({
+        maxHeight: txHeights[1],
+    });
+    t.is(packets5.length, 2);
+    const packets6 = await link.endA.querySentPackets({
+        minHeight: txHeights[1],
+        maxHeight: txHeights[1],
+    });
+    t.is(packets6.length, 1);
+    // ensure no acks on either chain
+    const acksA1 = await link.endA.queryWrittenAcks();
+    t.is(acksA1.length, 0);
+    const acksB1 = await link.endB.queryWrittenAcks();
+    t.is(acksB1.length, 0);
+    // relay 2 packets to the other side
+    await nodeA.waitOneBlock();
+    const headerHeight = await nodeB.doUpdateClient(link.endB.clientID, nodeA);
+    const sendPackets = packets3.map(({ packet }) => packet);
+    const proofs = await Promise.all(sendPackets.map((packet) => nodeA.getPacketProof(packet, headerHeight)));
+    const { logs: relayLog } = await nodeB.receivePackets(sendPackets, proofs, headerHeight);
+    const txAcks = utils_1.parseAcksFromLogs(relayLog);
+    t.is(txAcks.length, 2);
+    // do we always need to sleep for the indexer?
+    await link.endB.client.waitForIndexer();
+    // check that acks can be queried on B (and not A)
+    const acksA2 = await link.endA.queryWrittenAcks();
+    t.is(acksA2.length, 0);
+    const acksB2 = await link.endB.queryWrittenAcks();
+    t.is(acksB2.length, 2);
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW5kcG9pbnQuc3BlYy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9saWIvZW5kcG9pbnQuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLDhDQUF1QjtBQUV2QixpQ0FBOEI7QUFDOUIsMkNBQXlFO0FBQ3pFLG1DQUE0QztBQUU1QyxhQUFJLENBQUMsTUFBTSxDQUFDLHVDQUF1QyxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUMvRCxrQkFBa0I7SUFDbEIsTUFBTSxDQUFDLEtBQUssRUFBRSxLQUFLLENBQUMsR0FBRyxNQUFNLGlCQUFLLEVBQUUsQ0FBQztJQUNyQyxNQUFNLElBQUksR0FBRyxNQUFNLFdBQUksQ0FBQyx3QkFBd0IsQ0FBQyxLQUFLLEVBQUUsS0FBSyxDQUFDLENBQUM7SUFDL0QsTUFBTSxRQUFRLEdBQUcsTUFBTSxJQUFJLENBQUMsYUFBYSxDQUN2QyxHQUFHLEVBQ0gsaUJBQUssQ0FBQyxTQUFTLEVBQ2YsaUJBQUssQ0FBQyxVQUFVLEVBQ2hCLGlCQUFLLENBQUMsUUFBUSxFQUNkLGlCQUFLLENBQUMsT0FBTyxDQUNkLENBQUM7SUFFRixrQkFBa0I7SUFDbEIsTUFBTSxRQUFRLEdBQUcsTUFBTSxJQUFJLENBQUMsSUFBSSxDQUFDLGdCQUFnQixFQUFFLENBQUM7SUFDcEQsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxRQUFRLENBQUMsTUFBTSxFQUFFLENBQUMsQ0FBQyxDQUFDO0lBRXpCLHFDQUFxQztJQUNyQyxNQUFNLFNBQVMsR0FBRyx5QkFBYSxDQUFDLGlCQUFLLENBQUMsTUFBTSxDQUFDLENBQUM7SUFDOUMsTUFBTSxVQUFVLEdBQUcsTUFBTSxLQUFLLENBQUMsYUFBYSxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsdUJBQXVCO0lBQzFFLE1BQU0sT0FBTyxHQUFHLENBQUMsSUFBSSxFQUFFLElBQUksRUFBRSxJQUFJLENBQUMsQ0FBQztJQUNuQyx3REFBd0Q7SUFFeEQs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TUFBTSxNQUFNLEdBQUcsTUFBTSxJQUFJLENBQUMsSUFBSSxDQUFDLGdCQUFnQixFQUFFLENBQUM7SUFDbEQsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxNQUFNLENBQUMsTUFBTSxFQUFFLENBQUMsQ0FBQyxDQUFDO0lBRXZCLG9DQUFvQztJQUNwQyxNQUFNLEtBQUssQ0FBQyxZQUFZLEVBQUUsQ0FBQztJQUMzQixNQUFNLFlBQVksR0FBRyxNQUFNLEtBQUssQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUUsS0FBSyxDQUFDLENBQUM7SUFDM0UsTUFBTSxXQUFXLEdBQUcsUUFBUSxDQUFDLEdBQUcsQ0FBQyxDQUFDLEVBQUUsTUFBTSxFQUFFLEVBQUUsRUFBRSxDQUFDLE1BQU0sQ0FBQyxDQUFDO0lBQ3pELE1BQU0sTUFBTSxHQUFHLE1BQU0sT0FBTyxDQUFDLEdBQUcsQ0FDOUIsV0FBVyxDQUFDLEdBQUcsQ0FBQyxDQUFDLE1BQU0sRUFBRSxFQUFFLENBQUMsS0FBSyxDQUFDLGNBQWMsQ0FBQyxNQUFNLEVBQUUsWUFBWSxDQUFDLENBQUMsQ0FDeEUsQ0FBQztJQUNGLE1BQU0sRUFBRSxJQUFJLEVBQUUsUUFBUSxFQUFFLEdBQUcsTUFBTSxLQUFLLENBQUMsY0FBYyxDQUNuRCxXQUFXLEVBQ1gsTUFBTSxFQUNOLFlBQVksQ0FDYixDQUFDO0lBQ0YsTUFBTSxNQUFNLEdBQUcseUJBQWlCLENBQUMsUUFBUSxDQUFDLENBQUM7SUFDM0MsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxNQUFNLENBQUMsTUFBTSxFQUFFLENBQUMsQ0FBQyxDQUFDO0lBQ3ZCLDhDQUE4QztJQUM5QyxNQUFNLElBQUksQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLGNBQWMsRUFBRSxDQUFDO0lBRXhDLGtEQUFrRDtJQUNsRCxNQUFNLE1BQU0sR0FBRyxNQUFNLElBQUksQ0FBQyxJQUFJLENBQUMsZ0JBQWdCLEVBQUUsQ0FBQztJQUNsRCxDQUFDLENBQUMsRUFBRSxDQUFDLE1BQU0sQ0FBQyxNQUFNLEVBQUUsQ0FBQyxDQUFDLENBQUM7SUFDdkIsTUFBTSxNQUFNLEdBQUcsTUFBTSxJQUFJLENBQUMsSUFBSSxDQUFDLGdCQUFnQixFQUFFLENBQUM7SUFDbEQsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxNQUFNLENBQUMsTUFBTSxFQUFFLENBQUMsQ0FBQyxDQUFDO0FBQ3pCLENBQUMsQ0FBQyxDQUFDIn0=
