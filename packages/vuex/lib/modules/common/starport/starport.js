@@ -33,7 +33,7 @@ var _default = {
   state: function state() {
     return {
       _timer: null,
-      starportUrl: VUE_APP_CUSTOM_URL ? '' : starportUrl,
+      starportUrl: starportUrl,
       frontendUrl: '',
       backend: {
         env: {
