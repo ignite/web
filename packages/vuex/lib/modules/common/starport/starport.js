@@ -27,7 +27,7 @@ var apiNode = GITPOD && "".concat(GITPOD.protocol, "//1317-").concat(GITPOD.host
 var rpcNode = GITPOD && "".concat(GITPOD.protocol, "//26657-").concat(GITPOD.hostname) || process.env.VUE_APP_API_TENDERMINT && process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost') || 'http://localhost:26657';
 var addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos';
 var wsNode = GITPOD && "wss://26657-".concat(GITPOD.hostname, "/websocket") || process.env.VUE_APP_WS_TENDERMINT && process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost') || 'ws://localhost:26657/websocket';
-var starportUrl = GITPOD && "".concat(GITPOD.protocol, "//12345-").concat(GITPOD.hostname) || process.env.VUE_APP_STARPORT_URL && process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost') || 'http://localhost:12345';
+var starportUrl = process.env.VUE_APP_STARPORT_URL && process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost') || 'http://localhost:12345';
 var _default = {
   namespaced: true,
   state: function state() {
@@ -142,10 +142,16 @@ var _default = {
               case 0:
                 state = _ref6.state, getters = _ref6.getters, commit = _ref6.commit, dispatch = _ref6.dispatch, rootGetters = _ref6.rootGetters;
                 _context.prev = 1;
-                _context.next = 4;
+
+                if (!(state.starportUrl != '')) {
+                  _context.next = 26;
+                  break;
+                }
+
+                _context.next = 5;
                 return _axios["default"].get("".concat(state.starportUrl, "/status"));
 
-              case 4:
+              case 5:
                 _yield$axios$get = _context.sent;
                 data = _yield$axios$get.data;
                 status = data.status, env = data.env, addrs = data.addrs;
@@ -188,12 +194,12 @@ var _default = {
                   vue_app_custom_url: env.vue_app_custom_url
                 });
                 /**
-                     *
-                     // If backend was down, but alive now,
-                     // it indicates the app is restarting.
-                     // Forcing browser to reload in this case to reset blockchain data.
-                     *
-                     */
+                 *
+                 // If backend was down, but alive now,
+                 // it indicates the app is restarting.
+                 // Forcing browser to reload in this case to reset blockchain data.
+                 *
+                 */
 
                 if (getters.wasAppRestarted(status)) {
                   window.location.reload(false);
@@ -202,11 +208,28 @@ var _default = {
                 commit('SET_PREV_STATES', {
                   status: status
                 });
-                _context.next = 30;
+                _context.next = 27;
                 break;
 
-              case 25:
-                _context.prev = 25;
+              case 26:
+                dispatch('common/env/config', {
+                  chainId: '',
+                  sdkVersion: 'Stargate',
+                  apiNode: apiNode,
+                  rpcNode: rpcNode,
+                  wsNode: wsNode,
+                  addrPrefix: addrPrefix,
+                  getTXApi: rpcNode + '/tx?hash=0x'
+                }, {
+                  root: true
+                });
+
+              case 27:
+                _context.next = 34;
+                break;
+
+              case 29:
+                _context.prev = 29;
                 _context.t0 = _context["catch"](1);
                 commit('SET_BACKEND_RUNNING_STATES', {
                   frontend: false,
@@ -218,12 +241,12 @@ var _default = {
                 });
                 throw new _SpVuexError["default"]('Starport:Status', 'Could not set status from starport');
 
-              case 30:
+              case 34:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 25]]);
+        }, _callee, null, [[1, 29]]);
       }))();
     },
     init: function init(_ref7) {
@@ -236,10 +259,10 @@ var _default = {
                 commit = _ref7.commit, dispatch = _ref7.dispatch;
 
                 /*
-                   *
-                   // Fetch backend status regularly
-                   *
-                   */
+                *
+                // Fetch backend status regularly
+                *
+                */
                 commit('SET_TIMER', {
                   timer: setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
                     return regeneratorRuntime.wrap(function _callee2$(_context2) {
