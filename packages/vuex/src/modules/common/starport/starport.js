@@ -130,7 +130,7 @@ export default {
 				if (state.starportUrl != '') {
 					const { data } = await axios.get(`${state.starportUrl}/status`)
 					const { status, env, addrs } = data
-
+				
 					const GITPOD = env.vue_app_custom_url && new URL(env.vue_app_custom_url)
 
 					const starportUrl = state.starportUrl ||
@@ -216,6 +216,21 @@ export default {
 						window.location.reload(false)
 					}
 					commit('SET_PREV_STATES', { status })
+				}else{
+					
+					dispatch(
+						'common/env/config',
+						{
+							chainId:'',
+							sdkVersion: 'Stargate',
+							apiNode,
+							rpcNode,
+							wsNode,
+							addrPrefix,
+							getTXApi: rpcNode+'/tx?hash=0x'
+						},
+						{ root: true }
+					)
 				}
 			} catch (error) {
 				commit('SET_BACKEND_RUNNING_STATES', {
@@ -230,7 +245,7 @@ export default {
 					'Starport:Status',
 					'Could not set status from starport'
 				)
-			}
+			} 
 		},
 		async init({ commit, dispatch }) {
 			/*

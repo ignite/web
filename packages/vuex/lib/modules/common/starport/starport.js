@@ -144,7 +144,7 @@ var _default = {
                 _context.prev = 1;
 
                 if (!(state.starportUrl != '')) {
-                  _context.next = 24;
+                  _context.next = 26;
                   break;
                 }
 
@@ -208,13 +208,28 @@ var _default = {
                 commit('SET_PREV_STATES', {
                   status: status
                 });
-
-              case 24:
-                _context.next = 31;
+                _context.next = 27;
                 break;
 
               case 26:
-                _context.prev = 26;
+                dispatch('common/env/config', {
+                  chainId: '',
+                  sdkVersion: 'Stargate',
+                  apiNode: apiNode,
+                  rpcNode: rpcNode,
+                  wsNode: wsNode,
+                  addrPrefix: addrPrefix,
+                  getTXApi: rpcNode + '/tx?hash=0x'
+                }, {
+                  root: true
+                });
+
+              case 27:
+                _context.next = 34;
+                break;
+
+              case 29:
+                _context.prev = 29;
                 _context.t0 = _context["catch"](1);
                 commit('SET_BACKEND_RUNNING_STATES', {
                   frontend: false,
@@ -226,12 +241,12 @@ var _default = {
                 });
                 throw new _SpVuexError["default"]('Starport:Status', 'Could not set status from starport');
 
-              case 31:
+              case 34:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 26]]);
+        }, _callee, null, [[1, 29]]);
       }))();
     },
     init: function init(_ref7) {
