@@ -340,9 +340,9 @@ export default {
 						// The name of the chain to be displayed to the user.
 						chainName: this.$store.getters['common/env/chainName'],
 						// RPC endpoint of the chain.
-						rpc: this.$store.getters['common/env/apiCosmos'],
+						rpc: this.$store.getters['common/env/apiTendermint'],
 						// REST endpoint of the chain.
-						rest: this.$store.getters['common/env/apiTendermint'],
+						rest: this.$store.getters['common/env/apiCosmos'],
 						// Staking coin information
 						stakeCurrency: {
 							// Coin denomination to be displayed to the user.
