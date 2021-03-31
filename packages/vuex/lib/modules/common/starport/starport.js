@@ -142,10 +142,16 @@ var _default = {
               case 0:
                 state = _ref6.state, getters = _ref6.getters, commit = _ref6.commit, dispatch = _ref6.dispatch, rootGetters = _ref6.rootGetters;
                 _context.prev = 1;
-                _context.next = 4;
+
+                if (!(state.starportUrl != '')) {
+                  _context.next = 24;
+                  break;
+                }
+
+                _context.next = 5;
                 return _axios["default"].get("".concat(state.starportUrl, "/status"));
 
-              case 4:
+              case 5:
                 _yield$axios$get = _context.sent;
                 data = _yield$axios$get.data;
                 status = data.status, env = data.env, addrs = data.addrs;
@@ -188,12 +194,12 @@ var _default = {
                   vue_app_custom_url: env.vue_app_custom_url
                 });
                 /**
-                     *
-                     // If backend was down, but alive now,
-                     // it indicates the app is restarting.
-                     // Forcing browser to reload in this case to reset blockchain data.
-                     *
-                     */
+                 *
+                 // If backend was down, but alive now,
+                 // it indicates the app is restarting.
+                 // Forcing browser to reload in this case to reset blockchain data.
+                 *
+                 */
 
                 if (getters.wasAppRestarted(status)) {
                   window.location.reload(false);
@@ -202,11 +208,13 @@ var _default = {
                 commit('SET_PREV_STATES', {
                   status: status
                 });
-                _context.next = 30;
+
+              case 24:
+                _context.next = 31;
                 break;
 
-              case 25:
-                _context.prev = 25;
+              case 26:
+                _context.prev = 26;
                 _context.t0 = _context["catch"](1);
                 commit('SET_BACKEND_RUNNING_STATES', {
                   frontend: false,
@@ -218,12 +226,12 @@ var _default = {
                 });
                 throw new _SpVuexError["default"]('Starport:Status', 'Could not set status from starport');
 
-              case 30:
+              case 31:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 25]]);
+        }, _callee, null, [[1, 26]]);
       }))();
     },
     init: function init(_ref7) {
@@ -236,10 +244,10 @@ var _default = {
                 commit = _ref7.commit, dispatch = _ref7.dispatch;
 
                 /*
-                   *
-                   // Fetch backend status regularly
-                   *
-                   */
+                *
+                // Fetch backend status regularly
+                *
+                */
                 commit('SET_TIMER', {
                   timer: setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
                     return regeneratorRuntime.wrap(function _callee2$(_context2) {

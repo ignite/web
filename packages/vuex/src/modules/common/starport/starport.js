@@ -29,9 +29,9 @@ const wsNode =
 		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
 const starportUrl =
-(process.env.VUE_APP_STARPORT_URL &&
-	process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost')) ||
-'http://localhost:12345'
+	(process.env.VUE_APP_STARPORT_URL &&
+		process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost')) ||
+	'http://localhost:12345'
 
 export default {
 	namespaced: true,
@@ -127,95 +127,97 @@ export default {
 	actions: {
 		async setStatusState({ state, getters, commit, dispatch, rootGetters }) {
 			try {
-				const { data } = await axios.get(`${state.starportUrl}/status`)
-				const { status, env, addrs} = data
+				if (state.starportUrl != '') {
+					const { data } = await axios.get(`${state.starportUrl}/status`)
+					const { status, env, addrs } = data
 
-				const GITPOD = env.vue_app_custom_url && new URL(env.vue_app_custom_url)
+					const GITPOD = env.vue_app_custom_url && new URL(env.vue_app_custom_url)
 
-				const starportUrl = state.starportUrl ||
-					(GITPOD && `${GITPOD.protocol}//12345-${GITPOD.hostname}`) ||
-					'http://localhost:12345'
+					const starportUrl = state.starportUrl ||
+						(GITPOD && `${GITPOD.protocol}//12345-${GITPOD.hostname}`) ||
+						'http://localhost:12345'
 
-				const frontendUrl = addrs.app_frontend ||
-					(GITPOD && `${GITPOD.protocol}//8080-${GITPOD.hostname}`) ||
-					'http://localhost:8080'
+					const frontendUrl = addrs.app_frontend ||
+						(GITPOD && `${GITPOD.protocol}//8080-${GITPOD.hostname}`) ||
+						'http://localhost:8080'
 
-				commit('SET_STARPORT_ENV', {
-					starportUrl,
-					frontendUrl
-				})
+					commit('SET_STARPORT_ENV', {
+						starportUrl,
+						frontendUrl
+					})
 
-				const chainId = env.chain_id
-				const sdkVersion = status.sdk_version
-				const apiNode = addrs.app_backend ||
-					(VUE_APP_API_COSMOS &&
-						VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
-					(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
-					'http://localhost:1317'
+					const chainId = env.chain_id
+					const sdkVersion = status.sdk_version
+					const apiNode = addrs.app_backend ||
+						(VUE_APP_API_COSMOS &&
+							VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
+						(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
+						'http://localhost:1317'
 
-				const rpcNode = addrs.consensus_engine ||
-					(VUE_APP_API_TENDERMINT &&
-						VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
-					(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
-					'http://localhost:26657'
+					const rpcNode = addrs.consensus_engine ||
+						(VUE_APP_API_TENDERMINT &&
+							VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+						(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
+						'http://localhost:26657'
 
-				const wsNode = addrs.consensus_engine.replace('http','ws')+'/websocket' ||
-					(VUE_APP_WS_TENDERMINT &&
-						VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
-					(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
-					'ws://localhost:26657/websocket'
+					const wsNode = addrs.consensus_engine.replace('http', 'ws') + '/websocket' ||
+						(VUE_APP_WS_TENDERMINT &&
+							VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+						(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
+						'ws://localhost:26657/websocket'
 
-				const addrPrefix = VUE_APP_ADDRESS_PREFIX || 'cosmos'
+					const addrPrefix = VUE_APP_ADDRESS_PREFIX || 'cosmos'
 
-				const getTXApi =
-					rootGetters['common/env/sdkVersion'] === 'Stargate'
-						? dispatch(
+					const getTXApi =
+						rootGetters['common/env/sdkVersion'] === 'Stargate'
+							? dispatch(
 								'common/env/setTxAPI',
 								rootGetters['common/env/apiTendermint'] + '/tx?hash=0x',
 								{ root: true }
-						  )
-						: dispatch(
+							)
+							: dispatch(
 								'common/env/setTxAPI',
 								rootGetters['common/env/apiCosmos'] + '/txs/',
 								{ root: true }
-						  )
+							)
 
-				dispatch(
-					'common/env/config',
-					{
-						chainId,
-						sdkVersion,
-						apiNode,
-						rpcNode,
-						wsNode,
-						addrPrefix,
-						getTXApi
-					},
-					{ root: true }
-				)
+					dispatch(
+						'common/env/config',
+						{
+							chainId,
+							sdkVersion,
+							apiNode,
+							rpcNode,
+							wsNode,
+							addrPrefix,
+							getTXApi
+						},
+						{ root: true }
+					)
 
-				commit('SET_BACKEND_RUNNING_STATES', {
-					frontend: status.is_my_app_frontend_alive,
-					rpc: status.is_consensus_engine_alive,
-					api: status.is_my_app_backend_alive
-				})
-				commit('SET_BACKEND_ENV', {
-					node_js: env.node_js,
-					vue_app_custom_url: env.vue_app_custom_url
-				})
+					commit('SET_BACKEND_RUNNING_STATES', {
+						frontend: status.is_my_app_frontend_alive,
+						rpc: status.is_consensus_engine_alive,
+						api: status.is_my_app_backend_alive
+					})
+					commit('SET_BACKEND_ENV', {
+						node_js: env.node_js,
+						vue_app_custom_url: env.vue_app_custom_url
+					})
 
-				/**
-         *
-         // If backend was down, but alive now,
-         // it indicates the app is restarting.
-         // Forcing browser to reload in this case to reset blockchain data.
-         *
-         */
-				if (getters.wasAppRestarted(status)) {
-					window.location.reload(false)
+					/**
+					 *
+					 // If backend was down, but alive now,
+					 // it indicates the app is restarting.
+					 // Forcing browser to reload in this case to reset blockchain data.
+					 *
+					 */
+					if (getters.wasAppRestarted(status)) {
+						window.location.reload(false)
+					}
+					commit('SET_PREV_STATES', { status })
 				}
-				commit('SET_PREV_STATES', { status })
-			} catch (error) {				
+			} catch (error) {
 				commit('SET_BACKEND_RUNNING_STATES', {
 					frontend: false,
 					rpc: false,
@@ -232,10 +234,10 @@ export default {
 		},
 		async init({ commit, dispatch }) {
 			/*
-      *
-      // Fetch backend status regularly
-      *
-      */
+			*
+			// Fetch backend status regularly
+			*
+			*/
 			commit('SET_TIMER', {
 				timer: setInterval(async () => {
 					try {
@@ -248,7 +250,7 @@ export default {
 
 			await dispatch(
 				'setStatusState')
-			
+
 			console.log('Vuex nodule: common.starport initialized!')
 		}
 	}
