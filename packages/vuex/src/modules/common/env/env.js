@@ -12,6 +12,7 @@ export default {
 			rpcNode: null,
 			wsNode: null,
 			client: null,
+			chainName: null,
 			apiConnected: false,
 			rpcConnected: false,
 			wsConnected: false,
@@ -22,6 +23,8 @@ export default {
 	getters: {
 		client: (state) => state.client,
 		signingClient: (state) => state.client.signingClient,
+		chainId: (state) => state.chainId,
+		chainName: (state) => state.chainName,
 		addrPrefix: (state) => state.addrPrefix,
 		apiTendermint: (state) => state.rpcNode,
 		apiCosmos: (state) => state.apiNode,
@@ -59,6 +62,12 @@ export default {
 		INITIALIZE_WS_COMPLETE(state) {
 			state.initialized = true
 		},
+		SET_CHAIN_ID(state, chainId) {
+			state.chainId = chainId
+		},
+		SET_CHAIN_NAME(state, chainName) {
+			state.chainName = chainName
+		},
 		SET_WS_STATUS(state, status) {
 			state.wsConnected = status
 		},
@@ -82,6 +91,7 @@ export default {
 				wsNode: 'ws://localhost:26657/websocket',
 				chainId: '',
 				addrPrefix: '',
+				chainName: '',
 				sdkVersion: 'Stargate',
 				getTXApi: 'http://localhost:26657/tx?hash=0x'
 			}
@@ -136,6 +146,7 @@ export default {
 				apiNode: 'http://localhost:1317',
 				rpcNode: 'http://localhost:26657',
 				wsNode: 'ws://localhost:26657/websocket',
+				chainName: '',
 				chainId: '',
 				addrPrefix: '',
 				sdkVersion: 'Stargate',
@@ -151,6 +162,12 @@ export default {
 						wsAddr: config.wsNode
 					})
 					client.setMaxListeners(0)
+					client.on('chain-id', (id) => {
+						commit('SET_CHAIN_ID',id) 
+					})
+					client.on('chain-name', (name) => {
+						commit('SET_CHAIN_NAME',name) 
+					})
 					client.on('ws-status', (status) =>
 						dispatch('setConnectivity', { connection: 'ws', status: status })
 					)
@@ -161,6 +178,8 @@ export default {
 						dispatch('setConnectivity', { connection: 'rpc', status: status })
 					)
 					commit('SET_CONFIG', config)
+					await dispatch('cosmos.staking.v1beta1/QueryParams', {params: {},query:null }, { root: true })
+					await dispatch('cosmos.bank.v1beta1/QueryTotalSupply', {params: {},query:null }, { root: true })
 					commit('CONNECT', { client })
 					commit('INITIALIZE_WS_COMPLETE')
 				} else {

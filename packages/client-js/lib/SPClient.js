@@ -184,12 +184,13 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
     key: "connectivityTest",
     value: function () {
       var _connectivityTest = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var status;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 if (!this.apiAddr) {
-                  _context3.next = 10;
+                  _context3.next = 13;
                   break;
                 }
 
@@ -198,12 +199,15 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
                 return _axios["default"].get(this.apiAddr + '/node_info');
 
               case 4:
+                status = _context3.sent;
+                this.emit('chain-id', status.data.node_info.network);
+                this.emit('chain-name', status.data.application_version.name);
                 this.emit('api-status', true);
-                _context3.next = 10;
+                _context3.next = 13;
                 break;
 
-              case 7:
-                _context3.prev = 7;
+              case 10:
+                _context3.prev = 10;
                 _context3.t0 = _context3["catch"](1);
 
                 if (!_context3.t0.response) {
@@ -213,38 +217,38 @@ var SPClient = /*#__PURE__*/function (_EventEmitter) {
                   this.emit('api-status', true);
                 }
 
-              case 10:
+              case 13:
                 if (!this.rpcAddr) {
-                  _context3.next = 20;
+                  _context3.next = 23;
                   break;
                 }
 
-                _context3.prev = 11;
-                _context3.next = 14;
+                _context3.prev = 14;
+                _context3.next = 17;
                 return _axios["default"].get(this.rpcAddr);
 
-              case 14:
+              case 17:
                 this.emit('rpc-status', true);
-                _context3.next = 20;
+                _context3.next = 23;
                 break;
 
-              case 17:
-                _context3.prev = 17;
-                _context3.t1 = _context3["catch"](11);
+              case 20:
+                _context3.prev = 20;
+                _context3.t1 = _context3["catch"](14);
 
                 if (!_context3.t1.response) {
                   console.error(new _SpClientError["default"]('Client-js:API', 'RPC Node unavailable'));
                   this.emit('rpc-status', false);
                 } else {
-                  this.emit('api-status', true);
+                  this.emit('rpc-status', true);
                 }
 
-              case 20:
+              case 23:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[1, 7], [11, 17]]);
+        }, _callee3, this, [[1, 10], [14, 20]]);
       }));
 
       function connectivityTest() {

@@ -74,7 +74,9 @@ export default class SPClient extends EventEmitter {
   private async connectivityTest(): Promise<void> {
     if (this.apiAddr) {
       try {
-        await axios.get(this.apiAddr + '/node_info');
+        let status= await axios.get(this.apiAddr + '/node_info');
+        this.emit('chain-id', status.data.node_info.network)
+        this.emit('chain-name', status.data.application_version.name)
         this.emit('api-status', true);
       } catch (error) {
         if (!error.response) {
@@ -98,7 +100,7 @@ export default class SPClient extends EventEmitter {
           );
           this.emit('rpc-status', false);
         } else {
-          this.emit('api-status', true);
+          this.emit('rpc-status', true);
         }
       }
     }

@@ -40,9 +40,9 @@ export default {
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
 		getMnemonic: (state) => state.activeWallet.mnemonic,
-		getPath: (state) => state.activeWallet.HDpath+state.activeWallet.accounts.find(x => x.address==state.selectedAddress).pathIncrement,
+		getPath: (state) => state.activeWallet?.HDpath+state.activeWallet?.accounts.find(x => x.address==state.selectedAddress).pathIncrement,
 		relayers: (state) => {
-			return state.activeWallet.accounts.find( x => x.address==state.selectedAddress).relayers ?? []
+			return state.activeWallet?.accounts.find( x => x.address==state.selectedAddress).relayers ?? []
 		},
 		nameAvailable: (state) => (name) => {
 			return state.wallets.findIndex((x) => x.name == name) == -1
@@ -138,6 +138,16 @@ export default {
 	actions: {
 		signOut({ commit }) {
 			commit('SIGN_OUT')
+		},
+		async connectWithKeplr({commit,dispatch,rootGetters}, accountSigner) {
+
+			await dispatch('common/env/signIn', accountSigner, {
+				root: true
+			})
+			let client = rootGetters['common/env/signingClient']
+			commit('SET_ACTIVE_CLIENT', client)
+			const [account] = await accountSigner.getAccounts()
+			commit('SET_SELECTED_ADDRESS', account.address)
 		},
 		async unlockWallet(
 			{ commit, state, dispatch, rootGetters },

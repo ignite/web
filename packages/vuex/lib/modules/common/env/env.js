@@ -26,6 +26,7 @@ var _default = {
       rpcNode: null,
       wsNode: null,
       client: null,
+      chainName: null,
       apiConnected: false,
       rpcConnected: false,
       wsConnected: false,
@@ -39,6 +40,12 @@ var _default = {
     },
     signingClient: function signingClient(state) {
       return state.client.signingClient;
+    },
+    chainId: function chainId(state) {
+      return state.chainId;
+    },
+    chainName: function chainName(state) {
+      return state.chainName;
     },
     addrPrefix: function addrPrefix(state) {
       return state.addrPrefix;
@@ -100,6 +107,12 @@ var _default = {
     INITIALIZE_WS_COMPLETE: function INITIALIZE_WS_COMPLETE(state) {
       state.initialized = true;
     },
+    SET_CHAIN_ID: function SET_CHAIN_ID(state, chainId) {
+      state.chainId = chainId;
+    },
+    SET_CHAIN_NAME: function SET_CHAIN_NAME(state, chainName) {
+      state.chainName = chainName;
+    },
     SET_WS_STATUS: function SET_WS_STATUS(state, status) {
       state.wsConnected = status;
     },
@@ -132,6 +145,7 @@ var _default = {
                   wsNode: 'ws://localhost:26657/websocket',
                   chainId: '',
                   addrPrefix: '',
+                  chainName: '',
                   sdkVersion: 'Stargate',
                   getTXApi: 'http://localhost:26657/tx?hash=0x'
                 };
@@ -263,6 +277,7 @@ var _default = {
                   apiNode: 'http://localhost:1317',
                   rpcNode: 'http://localhost:26657',
                   wsNode: 'ws://localhost:26657/websocket',
+                  chainName: '',
                   chainId: '',
                   addrPrefix: '',
                   sdkVersion: 'Stargate',
@@ -271,7 +286,7 @@ var _default = {
                 _context4.prev = 2;
 
                 if (state.client) {
-                  _context4.next = 14;
+                  _context4.next = 20;
                   break;
                 }
 
@@ -281,6 +296,12 @@ var _default = {
                   wsAddr: config.wsNode
                 });
                 client.setMaxListeners(0);
+                client.on('chain-id', function (id) {
+                  commit('SET_CHAIN_ID', id);
+                });
+                client.on('chain-name', function (name) {
+                  commit('SET_CHAIN_NAME', name);
+                });
                 client.on('ws-status', function (status) {
                   return dispatch('setConnectivity', {
                     connection: 'ws',
@@ -300,14 +321,32 @@ var _default = {
                   });
                 });
                 commit('SET_CONFIG', config);
+                _context4.next = 14;
+                return dispatch('cosmos.staking.v1beta1/QueryParams', {
+                  params: {},
+                  query: null
+                }, {
+                  root: true
+                });
+
+              case 14:
+                _context4.next = 16;
+                return dispatch('cosmos.bank.v1beta1/QueryTotalSupply', {
+                  params: {},
+                  query: null
+                }, {
+                  root: true
+                });
+
+              case 16:
                 commit('CONNECT', {
                   client: client
                 });
                 commit('INITIALIZE_WS_COMPLETE');
-                _context4.next = 41;
+                _context4.next = 47;
                 break;
 
-              case 14:
+              case 20:
                 client = state.client;
                 reconnectWS = false;
                 reconnectSigningClient = false;
@@ -328,61 +367,61 @@ var _default = {
                 commit('SET_CONFIG', config);
 
                 if (!(reconnectWS && config.wsNode)) {
-                  _context4.next = 31;
+                  _context4.next = 37;
                   break;
                 }
 
-                _context4.prev = 23;
-                _context4.next = 26;
+                _context4.prev = 29;
+                _context4.next = 32;
                 return client.switchWS(config.wsNode);
 
-              case 26:
-                _context4.next = 31;
+              case 32:
+                _context4.next = 37;
                 break;
 
-              case 28:
-                _context4.prev = 28;
-                _context4.t0 = _context4["catch"](23);
+              case 34:
+                _context4.prev = 34;
+                _context4.t0 = _context4["catch"](29);
                 throw new _SpVuexError["default"]('Env:Client:Websocket', 'Could not switch to websocket node:' + config.wsNode);
 
-              case 31:
+              case 37:
                 if (reconnectClient && config.apiNode) {
                   client.switchAPI(config.apiNode);
                 }
 
                 if (!(reconnectSigningClient && config.rpcNode)) {
-                  _context4.next = 41;
+                  _context4.next = 47;
                   break;
                 }
 
-                _context4.prev = 33;
-                _context4.next = 36;
+                _context4.prev = 39;
+                _context4.next = 42;
                 return client.switchRPC(config.rpcNode);
 
-              case 36:
-                _context4.next = 41;
+              case 42:
+                _context4.next = 47;
                 break;
 
-              case 38:
-                _context4.prev = 38;
-                _context4.t1 = _context4["catch"](33);
+              case 44:
+                _context4.prev = 44;
+                _context4.t1 = _context4["catch"](39);
                 throw new _SpVuexError["default"]('Env:Client:TendermintRPC', 'Could not switch to Tendermint RPC node:' + config.rpcNode);
 
-              case 41:
-                _context4.next = 46;
+              case 47:
+                _context4.next = 52;
                 break;
 
-              case 43:
-                _context4.prev = 43;
+              case 49:
+                _context4.prev = 49;
                 _context4.t2 = _context4["catch"](2);
                 console.error(_context4.t2);
 
-              case 46:
+              case 52:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[2, 43], [23, 28], [33, 38]]);
+        }, _callee4, null, [[2, 49], [29, 34], [39, 44]]);
       }))();
     }
   }

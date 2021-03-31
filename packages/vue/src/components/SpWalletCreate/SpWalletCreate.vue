@@ -24,6 +24,9 @@
 					>Import existing wallet</SpCard
 				>
 			</div>
+			<div class="sp-wallet-create__keplr">
+				<SpButton type="primary" v-on:click="useKeplr">Use Keplr</SpButton>
+			</div>
 		</template>
 		<template v-if="createform && create.step1">
 			<h3>Create wallet</h3>
@@ -170,6 +173,7 @@ import CryptoJS from 'crypto-js'
 import SpCard from '../SpCard'
 import SpButton from '../SpButton'
 import SpMnemonic from '../SpMnemonic'
+
 //import SpMnemonicInput from '../SpMnemonicInput'
 
 export default {
@@ -317,6 +321,112 @@ export default {
 					prefix: this.$store.state.common.env.addrPrefix
 				})
 				//this.reset()
+			}
+		},
+		async useKeplr() {
+			if (this._depsLoaded) {
+				let staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
+					params: {}
+				})
+				let tokens = this.$store.getters['cosmos.bank.v1beta1/getTotalSupply']({
+					params: {}
+				})
+				const chainId = this.$store.getters['common/env/chainId']
+
+				try {
+					await window.keplr.experimentalSuggestChain({
+						// Chain-id of the Cosmos SDK chain.
+						chainId: chainId,
+						// The name of the chain to be displayed to the user.
+						chainName: this.$store.getters['common/env/chainName'],
+						// RPC endpoint of the chain.
+						rpc: this.$store.getters['common/env/apiCosmos'],
+						// REST endpoint of the chain.
+						rest: this.$store.getters['common/env/apiTendermint'],
+						// Staking coin information
+						stakeCurrency: {
+							// Coin denomination to be displayed to the user.
+							coinDenom: staking.params.bond_denom.toUpperCase(),
+							// Actual denom (i.e. uatom, uscrt) used by the blockchain.
+							coinMinimalDenom: staking.params.bond_denom,
+							// # of decimal points to convert minimal denomination to user-facing denomination.
+							coinDecimals: 0
+							// (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
+							// You can get id from https://api.coingecko.com/api/v3/coins/list if it is listed.
+							// coinGeckoId: ""
+						},
+						// (Optional) If you have a wallet webpage used to stake the coin then provide the url to the website in `walletUrlForStaking`.
+						// The 'stake' button in Keplr extension will link to the webpage.
+						// walletUrlForStaking: "",
+						// The BIP44 path.
+						bip44: {
+							// You can only set the coin type of BIP44.
+							// 'Purpose' is fixed to 44.
+							coinType: 118
+						},
+						// Bech32 configuration to show the address to user.
+						// This field is the interface of
+						// {
+						//   bech32PrefixAccAddr: string;
+						//   bech32PrefixAccPub: string;
+						//   bech32PrefixValAddr: string;
+						//   bech32PrefixValPub: string;
+						//   bech32PrefixConsAddr: string;
+						//   bech32PrefixConsPub: string;
+						// }
+						bech32Config: {
+							bech32PrefixAccAddr: this.$store.getters['common/env/addrPrefix'],
+							bech32PrefixAccPub:
+								this.$store.getters['common/env/addrPrefix'] + 'pub',
+							bech32PrefixValAddr:
+								this.$store.getters['common/env/addrPrefix'] + 'valoper',
+							bech32PrefixValPub:
+								this.$store.getters['common/env/addrPrefix'] + 'valoperpub',
+							bech32PrefixConsAddr:
+								this.$store.getters['common/env/addrPrefix'] + 'valcons',
+							bech32PrefixConsPub:
+								this.$store.getters['common/env/addrPrefix'] + 'valconspub'
+						},
+						// List of all coin/tokens used in this chain.
+						currencies: tokens.supply.map((x) => {
+							x.coinDenom = x.denom.toUpperCase()
+							x.coinMinimalDenom = x.denom
+							x.coinDecimals = 0
+							return x
+						}),
+						// List of coin/tokens used as a fee token in this chain.
+						feeCurrencies: tokens.supply.map((x) => {
+							x.coinDenom = x.denom.toUpperCase()
+							x.coinMinimalDenom = x.denom
+							x.coinDecimals = 0
+							return x
+						}),
+						// (Optional) The number of the coin type.
+						// This field is only used to fetch the address from ENS.
+						// Ideally, it is recommended to be the same with BIP44 path's coin type.
+						// However, some early chains may choose to use the Cosmos Hub BIP44 path of '118'.
+						// So, this is separated to support such chains.
+						coinType: 118,
+						// (Optional) This is used to set the fee of the transaction.
+						// If this field is not provided, Keplr extension will set the default gas price as (low: 0.01, average: 0.025, high: 0.04).
+						// Currently, Keplr doesn't support dynamic calculation of the gas prices based on on-chain data.
+						// Make sure that the gas prices are higher than the minimum gas prices accepted by chain validators and RPC/REST endpoint.
+						gasPriceStep: {
+							low: 0.01,
+							average: 0.025,
+							high: 0.04
+						}
+					})
+					await window.keplr.enable(chainId)
+					const offlineSigner = window.getOfflineSigner(chainId) 
+					await this.$store.dispatch(
+						'common/wallet/connectWithKeplr',
+						offlineSigner
+					)
+					this.done();
+				} catch (e) {
+					console.error(e)
+				}
 			}
 		},
 		async createWallet() {

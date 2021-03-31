@@ -30842,7 +30842,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=f77a15d0
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=ec6987ac
 
 
 var _hoisted_1 = {
@@ -30867,76 +30867,82 @@ var _hoisted_6 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vu
 
 var _hoisted_7 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Import existing wallet");
 
-var _hoisted_8 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Create wallet", -1);
+var _hoisted_8 = {
+  class: "sp-wallet-create__keplr"
+};
 
-var _hoisted_9 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_9 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Use Keplr");
+
+var _hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Create wallet", -1);
+
+var _hoisted_11 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Generate your own unique wallet. Receive a public address (0x...) and choose a method for access and recovery. ", -1);
 
-var _hoisted_10 = {
-  class: "sp-wallet-create__form"
-};
-var _hoisted_11 = {
-  class: "sp-form-group"
-};
 var _hoisted_12 = {
-  key: 0,
-  class: "sp-error-message"
+  class: "sp-wallet-create__form"
 };
 var _hoisted_13 = {
   class: "sp-form-group"
 };
 var _hoisted_14 = {
+  key: 0,
+  class: "sp-error-message"
+};
+var _hoisted_15 = {
+  class: "sp-form-group"
+};
+var _hoisted_16 = {
   key: 1,
   class: "sp-error-message"
 };
 
-var _hoisted_15 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create");
+var _hoisted_17 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create");
 
-var _hoisted_16 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Here is your"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("recovery phrase")], -1);
+var _hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Here is your"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("recovery phrase")], -1);
 
-var _hoisted_17 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_19 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " You can restore your wallet using your recovery phrase. ", -1);
 
-var _hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Write it down on paper. Resist temptation to email it to yourself or sceenshot it. ", -1);
 
-var _hoisted_19 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Download Backup");
+var _hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Download Backup");
 
-var _hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
+var _hoisted_22 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
 
-var _hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" Import"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" existing wallet ")], -1);
+var _hoisted_23 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" Import"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" existing wallet ")], -1);
 
-var _hoisted_22 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Paste your recovery phrase or private key below to import your wallet. ", -1);
 
-var _hoisted_23 = {
+var _hoisted_25 = {
   key: 0,
   class: "sp-error-message"
 };
 
-var _hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Next");
+var _hoisted_26 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Next");
 
-var _hoisted_25 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Import existing wallet", -1);
+var _hoisted_27 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Import existing wallet", -1);
 
-var _hoisted_26 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var _hoisted_28 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Please name your wallet and choose a password ", -1);
 
-var _hoisted_27 = {
+var _hoisted_29 = {
   class: "sp-wallet-create__form"
 };
-var _hoisted_28 = {
+var _hoisted_30 = {
   class: "sp-form-group"
 };
-var _hoisted_29 = {
+var _hoisted_31 = {
   class: "sp-form-group"
 };
 
-var _hoisted_30 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
+var _hoisted_32 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SpCard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpCard");
@@ -30986,9 +30992,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_7];
     }),
     _: 1
-  })])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.createform && _ctx.create.step1 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
+  })]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+    type: "primary",
+    onClick: $options.useKeplr
+  }, {
+    default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
+      return [_hoisted_9];
+    }),
+    _: 1
+  }, 8, ["onClick"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.createform && _ctx.create.step1 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 3
-  }, [_hoisted_8, _hoisted_9, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_10, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_11, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, [_hoisted_10, _hoisted_11, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_12, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: ["sp-input", {
       'sp-error': !$options.walletNameAvailable && !_ctx.creating
     }],
@@ -30998,7 +31012,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     name: "walletname",
     placeholder: "Wallet name"
-  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.name]])]), !$options.walletNameAvailable && !_ctx.creating ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_12, " A wallet by this name already exist. Please choose a different one. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.name]])]), !$options.walletNameAvailable && !_ctx.creating ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_14, " A wallet by this name already exist. Please choose a different one. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_15, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: "sp-input",
     "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
       return _ctx.create.password = $event;
@@ -31014,24 +31028,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     name: "confirm",
     type: "password",
     placeholder: "Confirm password"
-  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.confirm]])]), _ctx.create.password != '' && _ctx.create.password != _ctx.create.confirm ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_14, " Passwords do not match ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.confirm]])]), _ctx.create.password != '' && _ctx.create.password != _ctx.create.confirm ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_16, " Passwords do not match ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     onClick: $options.createStep2,
     type: "primary"
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_15];
+      return [_hoisted_17];
     }),
     _: 1
   }, 8, ["onClick"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.createform && _ctx.create.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 4
-  }, [_hoisted_16, _hoisted_17, _hoisted_18, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpMnemonic, {
+  }, [_hoisted_18, _hoisted_19, _hoisted_20, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpMnemonic, {
     mnemonic: _ctx.create.mnemonic
   }, null, 8, ["mnemonic"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "secondary",
     onClick: $options.downloadBackup
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_19];
+      return [_hoisted_21];
     }),
     _: 1
   }, 8, ["onClick"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
@@ -31039,28 +31053,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: $options.done
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_20];
+      return [_hoisted_22];
     }),
     _: 1
   }, 8, ["onClick"])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.importform && _ctx.imported.step1 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 5
-  }, [_hoisted_21, _hoisted_22, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
+  }, [_hoisted_23, _hoisted_24, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
     class: "sp-key-area sp-textarea",
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return _ctx.imported.mnemonicOrKey = $event;
     })
-  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.mnemonicOrKey]]), _ctx.imported.mnemonicOrKey != '' && !$options.validMnemonic ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_23, " You have not entered a valid mnemonic or private key. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.mnemonicOrKey]]), _ctx.imported.mnemonicOrKey != '' && !$options.validMnemonic ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_25, " You have not entered a valid mnemonic or private key. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "primary",
     onClick: $options.importStep2,
     disabled: _ctx.imported.mnemonicOrKey == '' || !$options.validMnemonic
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_24];
+      return [_hoisted_26];
     }),
     _: 1
   }, 8, ["onClick", "disabled"])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.importform && _ctx.imported.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 6
-  }, [_hoisted_25, _hoisted_26, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_28, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, [_hoisted_27, _hoisted_28, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_29, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_30, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: ["sp-input", {
       'sp-error': !$options.walletNameAvailable && !_ctx.creating
     }],
@@ -31070,7 +31084,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     name: "walletname",
     placeholder: "Wallet name"
-  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.name]])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_29, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.name]])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_31, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: "sp-input",
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return _ctx.imported.password = $event;
@@ -31091,12 +31105,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     disabled: _ctx.imported.name == '' || _ctx.imported.password == '' || _ctx.imported.password != _ctx.imported.confirm
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [_hoisted_30];
+      return [_hoisted_32];
     }),
     _: 1
   }, 8, ["onClick", "disabled"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=f77a15d0
+// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=ec6987ac
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("1da1");
@@ -31112,6 +31126,9 @@ var es_regexp_to_string = __webpack_require__("25f0");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.assign.js
 var es_object_assign = __webpack_require__("cca6");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
+var es_array_map = __webpack_require__("d81d");
 
 // EXTERNAL MODULE: ./node_modules/bip39/src/index.js
 var src = __webpack_require__("29c9");
@@ -31137,6 +31154,7 @@ var SpButton = __webpack_require__("7549");
 var SpMnemonic = __webpack_require__("a1e8");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=script&lang=js
+
 
 
 
@@ -31356,33 +31374,163 @@ var SpMnemonic = __webpack_require__("a1e8");
         }, _callee3);
       }))();
     },
-    createWallet: function createWallet() {
+    useKeplr: function useKeplr() {
       var _this4 = this;
 
       return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+        var staking, tokens, chainId, offlineSigner;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 if (!_this4._depsLoaded) {
-                  _context4.next = 3;
+                  _context4.next = 18;
                   break;
                 }
 
-                _context4.next = 3;
-                return _this4.$store.dispatch('common/wallet/createWalletWithMnemonic', {
-                  name: _this4.create.name,
-                  mnemonic: _this4.create.mnemonic,
-                  password: _this4.create.password,
-                  prefix: _this4.$store.state.common.env.addrPrefix
+                staking = _this4.$store.getters['cosmos.staking.v1beta1/getParams']({
+                  params: {}
+                });
+                tokens = _this4.$store.getters['cosmos.bank.v1beta1/getTotalSupply']({
+                  params: {}
+                });
+                chainId = _this4.$store.getters['common/env/chainId'];
+                _context4.prev = 4;
+                _context4.next = 7;
+                return window.keplr.experimentalSuggestChain({
+                  // Chain-id of the Cosmos SDK chain.
+                  chainId: chainId,
+                  // The name of the chain to be displayed to the user.
+                  chainName: _this4.$store.getters['common/env/chainName'],
+                  // RPC endpoint of the chain.
+                  rpc: _this4.$store.getters['common/env/apiCosmos'],
+                  // REST endpoint of the chain.
+                  rest: _this4.$store.getters['common/env/apiTendermint'],
+                  // Staking coin information
+                  stakeCurrency: {
+                    // Coin denomination to be displayed to the user.
+                    coinDenom: staking.params.bond_denom.toUpperCase(),
+                    // Actual denom (i.e. uatom, uscrt) used by the blockchain.
+                    coinMinimalDenom: staking.params.bond_denom,
+                    // # of decimal points to convert minimal denomination to user-facing denomination.
+                    coinDecimals: 0 // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
+                    // You can get id from https://api.coingecko.com/api/v3/coins/list if it is listed.
+                    // coinGeckoId: ""
+
+                  },
+                  // (Optional) If you have a wallet webpage used to stake the coin then provide the url to the website in `walletUrlForStaking`.
+                  // The 'stake' button in Keplr extension will link to the webpage.
+                  // walletUrlForStaking: "",
+                  // The BIP44 path.
+                  bip44: {
+                    // You can only set the coin type of BIP44.
+                    // 'Purpose' is fixed to 44.
+                    coinType: 118
+                  },
+                  // Bech32 configuration to show the address to user.
+                  // This field is the interface of
+                  // {
+                  //   bech32PrefixAccAddr: string;
+                  //   bech32PrefixAccPub: string;
+                  //   bech32PrefixValAddr: string;
+                  //   bech32PrefixValPub: string;
+                  //   bech32PrefixConsAddr: string;
+                  //   bech32PrefixConsPub: string;
+                  // }
+                  bech32Config: {
+                    bech32PrefixAccAddr: _this4.$store.getters['common/env/addrPrefix'],
+                    bech32PrefixAccPub: _this4.$store.getters['common/env/addrPrefix'] + 'pub',
+                    bech32PrefixValAddr: _this4.$store.getters['common/env/addrPrefix'] + 'valoper',
+                    bech32PrefixValPub: _this4.$store.getters['common/env/addrPrefix'] + 'valoperpub',
+                    bech32PrefixConsAddr: _this4.$store.getters['common/env/addrPrefix'] + 'valcons',
+                    bech32PrefixConsPub: _this4.$store.getters['common/env/addrPrefix'] + 'valconspub'
+                  },
+                  // List of all coin/tokens used in this chain.
+                  currencies: tokens.supply.map(function (x) {
+                    x.coinDenom = x.denom.toUpperCase();
+                    x.coinMinimalDenom = x.denom;
+                    x.coinDecimals = 0;
+                    return x;
+                  }),
+                  // List of coin/tokens used as a fee token in this chain.
+                  feeCurrencies: tokens.supply.map(function (x) {
+                    x.coinDenom = x.denom.toUpperCase();
+                    x.coinMinimalDenom = x.denom;
+                    x.coinDecimals = 0;
+                    return x;
+                  }),
+                  // (Optional) The number of the coin type.
+                  // This field is only used to fetch the address from ENS.
+                  // Ideally, it is recommended to be the same with BIP44 path's coin type.
+                  // However, some early chains may choose to use the Cosmos Hub BIP44 path of '118'.
+                  // So, this is separated to support such chains.
+                  coinType: 118,
+                  // (Optional) This is used to set the fee of the transaction.
+                  // If this field is not provided, Keplr extension will set the default gas price as (low: 0.01, average: 0.025, high: 0.04).
+                  // Currently, Keplr doesn't support dynamic calculation of the gas prices based on on-chain data.
+                  // Make sure that the gas prices are higher than the minimum gas prices accepted by chain validators and RPC/REST endpoint.
+                  gasPriceStep: {
+                    low: 0.01,
+                    average: 0.025,
+                    high: 0.04
+                  }
                 });
 
-              case 3:
+              case 7:
+                _context4.next = 9;
+                return window.keplr.enable(chainId);
+
+              case 9:
+                offlineSigner = window.getOfflineSigner(chainId);
+                _context4.next = 12;
+                return _this4.$store.dispatch('common/wallet/connectWithKeplr', offlineSigner);
+
+              case 12:
+                _this4.done();
+
+                _context4.next = 18;
+                break;
+
+              case 15:
+                _context4.prev = 15;
+                _context4.t0 = _context4["catch"](4);
+                console.error(_context4.t0);
+
+              case 18:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4);
+        }, _callee4, null, [[4, 15]]);
+      }))();
+    },
+    createWallet: function createWallet() {
+      var _this5 = this;
+
+      return Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (!_this5._depsLoaded) {
+                  _context5.next = 3;
+                  break;
+                }
+
+                _context5.next = 3;
+                return _this5.$store.dispatch('common/wallet/createWalletWithMnemonic', {
+                  name: _this5.create.name,
+                  mnemonic: _this5.create.mnemonic,
+                  password: _this5.create.password,
+                  prefix: _this5.$store.state.common.env.addrPrefix
+                });
+
+              case 3:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     }
   }
