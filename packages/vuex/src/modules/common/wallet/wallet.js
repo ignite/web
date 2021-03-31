@@ -10,15 +10,12 @@ import { keyFromWif, keyToWif } from '../../../helpers/keys'
 
 /* START TODO: Integrate closure below for additional security */
 function getDecryptor(password) {
-	let secret=password;
-	return async function(encryptedMnemonic, HDpath) {
+	let secret = password
+	return async function (encryptedMnemonic, HDpath) {
 		const mnemonic = CryptoJS.AES.decrypt(encryptedMnemonic, secret).toString(
 			CryptoJS.enc.Utf8
 		)
-		return await DirectSecp256k1HdWallet.fromMnemonic(
-			mnemonic,
-			HDpath
-		)
+		return await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, HDpath)
 	}
 }
 /* END TODO */
@@ -36,13 +33,21 @@ export default {
 	},
 	getters: {
 		client: (state) => state.activeClient,
-		gasPrice:(state) => state.gasPrice,
+		gasPrice: (state) => state.gasPrice,
 		wallet: (state) => state.activeWallet,
 		address: (state) => state.selectedAddress,
 		getMnemonic: (state) => state.activeWallet.mnemonic,
-		getPath: (state) => state.activeWallet?.HDpath+state.activeWallet?.accounts.find(x => x.address==state.selectedAddress).pathIncrement,
+		getPath: (state) =>
+			state.activeWallet?.HDpath +
+			state.activeWallet?.accounts.find(
+				(x) => x.address == state.selectedAddress
+			).pathIncrement,
 		relayers: (state) => {
-			return state.activeWallet?.accounts.find( x => x.address==state.selectedAddress).relayers ?? []
+			return (
+				state.activeWallet?.accounts.find(
+					(x) => x.address == state.selectedAddress
+				).relayers ?? []
+			)
 		},
 		nameAvailable: (state) => (name) => {
 			return state.wallets.findIndex((x) => x.name == name) == -1
@@ -93,6 +98,15 @@ export default {
 					).toString()
 				})
 			}
+			if (
+				state.activeWallet.name == 'Keplr Integration' &&
+				!state.activeWallet.password
+			) {
+				state.wallets.push({
+					name: state.activeWallet.name,
+					wallet: JSON.stringify(state.activeWallet)
+				})
+			}
 		},
 		PATH_INCREMENT(state) {
 			state.activeWallet.pathIncrement = state.activeWallet.pathIncrement + 1
@@ -108,8 +122,10 @@ export default {
 				).toString()
 			}
 		},
-		SET_RELAYERS(state,relayers) {
-			state.activeWallet.accounts.find( x => x.address==state.selectedAddress).relayers=relayers
+		SET_RELAYERS(state, relayers) {
+			state.activeWallet.accounts.find(
+				(x) => x.address == state.selectedAddress
+			).relayers = relayers
 			if (state.activeWallet.name && state.activeWallet.password) {
 				state.wallets[
 					state.wallets.findIndex((x) => x.name === state.activeWallet.name)
@@ -139,15 +155,34 @@ export default {
 		signOut({ commit }) {
 			commit('SIGN_OUT')
 		},
-		async connectWithKeplr({commit,dispatch,rootGetters}, accountSigner) {
-
+		async connectWithKeplr({ commit, dispatch, rootGetters }, accountSigner) {
 			await dispatch('common/env/signIn', accountSigner, {
 				root: true
 			})
-			let client = rootGetters['common/env/signingClient']
-			commit('SET_ACTIVE_CLIENT', client)
+
+			const wallet = {
+				name: 'Keplr Integration',
+				mnemonic: null,
+				HDpath: null,
+				password: null,
+				prefix: rootGetters['common/env/addrPrefix'],
+				pathIncrement: null,
+				accounts: []
+			}
 			const [account] = await accountSigner.getAccounts()
-			commit('SET_SELECTED_ADDRESS', account.address)
+			wallet.accounts.push({ address: account.address, pathIncrement: null })
+			commit('ADD_WALLET', wallet)
+
+			try {
+				await dispatch('common/env/signIn', accountSigner, { root: true })
+
+				let client = rootGetters['common/env/signingClient']
+				commit('SET_ACTIVE_CLIENT', client)
+				commit('SET_SELECTED_ADDRESS', account.address)
+			} catch (e) {
+				console.log(e)
+			}
+			dispatch('storeWallets')
 		},
 		async unlockWallet(
 			{ commit, state, dispatch, rootGetters },
@@ -155,18 +190,30 @@ export default {
 		) {
 			const encryptedWallet =
 				state.wallets[state.wallets.findIndex((x) => x.name === name)].wallet
-			const wallet = JSON.parse(
-				CryptoJS.AES.decrypt(encryptedWallet, password).toString(
-					CryptoJS.enc.Utf8
+			let wallet
+			if (name == 'Keplr Integration') {
+				wallet = JSON.parse(encryptedWallet)
+			} else {
+				wallet = JSON.parse(
+					CryptoJS.AES.decrypt(encryptedWallet, password).toString(
+						CryptoJS.enc.Utf8
+					)
 				)
-			)
+			}
 			commit('SET_ACTIVE_WALLET', wallet)
 			if (wallet.accounts.length > 0) {
-				const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
-					wallet.mnemonic,
-					stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement),
-					wallet.prefix
-				)
+				let accountSigner
+				if (wallet.name == 'Keplr Integration') {
+					accountSigner = window.getOfflineSigner(
+						rootGetters['common/env/chainId']
+					)
+				} else {
+					accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
+						wallet.mnemonic,
+						stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement),
+						wallet.prefix
+					)
+				}
 				try {
 					await dispatch('common/env/signIn', accountSigner, {
 						root: true
@@ -180,8 +227,8 @@ export default {
 				}
 			}
 		},
-		async updateRelayers({commit, dispatch}, relayers) {
-			commit('SET_RELAYERS',relayers)
+		async updateRelayers({ commit, dispatch }, relayers) {
+			commit('SET_RELAYERS', relayers)
 			dispatch('storeWallets')
 		},
 		async switchAccount({ commit, state, rootGetters, dispatch }, address) {

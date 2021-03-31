@@ -162,6 +162,13 @@ var _default = {
           wallet: _cryptoJs["default"].AES.encrypt(JSON.stringify(state.activeWallet), state.activeWallet.password).toString()
         });
       }
+
+      if (state.activeWallet.name == 'Keplr Integration' && !state.activeWallet.password) {
+        state.wallets.push({
+          name: state.activeWallet.name,
+          wallet: JSON.stringify(state.activeWallet)
+        });
+      }
     },
     PATH_INCREMENT: function PATH_INCREMENT(state) {
       state.activeWallet.pathIncrement = state.activeWallet.pathIncrement + 1;
@@ -211,7 +218,7 @@ var _default = {
     },
     connectWithKeplr: function connectWithKeplr(_ref4, accountSigner) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var commit, dispatch, rootGetters, client, _yield$accountSigner$, _yield$accountSigner$2, account;
+        var commit, dispatch, rootGetters, wallet, _yield$accountSigner$, _yield$accountSigner$2, account, client;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -224,23 +231,54 @@ var _default = {
                 });
 
               case 3:
-                client = rootGetters['common/env/signingClient'];
-                commit('SET_ACTIVE_CLIENT', client);
-                _context2.next = 7;
+                wallet = {
+                  name: 'Keplr Integration',
+                  mnemonic: null,
+                  HDpath: null,
+                  password: null,
+                  prefix: rootGetters['common/env/addrPrefix'],
+                  pathIncrement: null,
+                  accounts: []
+                };
+                _context2.next = 6;
                 return accountSigner.getAccounts();
 
-              case 7:
+              case 6:
                 _yield$accountSigner$ = _context2.sent;
                 _yield$accountSigner$2 = _slicedToArray(_yield$accountSigner$, 1);
                 account = _yield$accountSigner$2[0];
-                commit('SET_SELECTED_ADDRESS', account.address);
+                wallet.accounts.push({
+                  address: account.address,
+                  pathIncrement: null
+                });
+                commit('ADD_WALLET', wallet);
+                _context2.prev = 11;
+                _context2.next = 14;
+                return dispatch('common/env/signIn', accountSigner, {
+                  root: true
+                });
 
-              case 11:
+              case 14:
+                client = rootGetters['common/env/signingClient'];
+                commit('SET_ACTIVE_CLIENT', client);
+                commit('SET_SELECTED_ADDRESS', account.address);
+                _context2.next = 22;
+                break;
+
+              case 19:
+                _context2.prev = 19;
+                _context2.t0 = _context2["catch"](11);
+                console.log(_context2.t0);
+
+              case 22:
+                dispatch('storeWallets');
+
+              case 23:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[11, 19]]);
       }))();
     },
     unlockWallet: function unlockWallet(_ref5, _ref6) {
@@ -256,50 +294,68 @@ var _default = {
                 encryptedWallet = state.wallets[state.wallets.findIndex(function (x) {
                   return x.name === name;
                 })].wallet;
-                wallet = JSON.parse(_cryptoJs["default"].AES.decrypt(encryptedWallet, password).toString(_cryptoJs["default"].enc.Utf8));
+
+                if (name == 'Keplr Integration') {
+                  wallet = JSON.parse(encryptedWallet);
+                } else {
+                  wallet = JSON.parse(_cryptoJs["default"].AES.decrypt(encryptedWallet, password).toString(_cryptoJs["default"].enc.Utf8));
+                }
+
                 commit('SET_ACTIVE_WALLET', wallet);
 
                 if (!(wallet.accounts.length > 0)) {
-                  _context3.next = 25;
+                  _context3.next = 29;
                   break;
                 }
 
-                _context3.next = 8;
+                if (!(wallet.name == 'Keplr Integration')) {
+                  _context3.next = 10;
+                  break;
+                }
+
+                accountSigner = window.getOfflineSigner(rootGetters['common/env/chainId']);
+                _context3.next = 13;
+                break;
+
+              case 10:
+                _context3.next = 12;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(wallet.mnemonic, (0, _crypto.stringToPath)(wallet.HDpath + wallet.accounts[0].pathIncrement), wallet.prefix);
 
-              case 8:
+              case 12:
                 accountSigner = _context3.sent;
-                _context3.prev = 9;
-                _context3.next = 12;
+
+              case 13:
+                _context3.prev = 13;
+                _context3.next = 16;
                 return dispatch('common/env/signIn', accountSigner, {
                   root: true
                 });
 
-              case 12:
+              case 16:
                 client = rootGetters['common/env/signingClient'];
                 commit('SET_ACTIVE_CLIENT', client);
-                _context3.next = 16;
+                _context3.next = 20;
                 return accountSigner.getAccounts();
 
-              case 16:
+              case 20:
                 _yield$accountSigner$3 = _context3.sent;
                 _yield$accountSigner$4 = _slicedToArray(_yield$accountSigner$3, 1);
                 account = _yield$accountSigner$4[0];
                 commit('SET_SELECTED_ADDRESS', account.address);
-                _context3.next = 25;
+                _context3.next = 29;
                 break;
 
-              case 22:
-                _context3.prev = 22;
-                _context3.t0 = _context3["catch"](9);
+              case 26:
+                _context3.prev = 26;
+                _context3.t0 = _context3["catch"](13);
                 console.log(_context3.t0);
 
-              case 25:
+              case 29:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[9, 22]]);
+        }, _callee3, null, [[13, 26]]);
       }))();
     },
     updateRelayers: function updateRelayers(_ref7, relayers) {
