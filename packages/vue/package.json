@@ -46,7 +46,7 @@
   "peerDependencies": {
     "@cosmjs/encoding": "^0.24.1",
     "@cosmjs/launchpad": "^0.24.1",
-    "@starport/vuex": "^0.1.36",
+    "@starport/vuex": "^0.1.38",
     "axios": "^0.21.1",
     "bip39": "^3.0.3",
     "vue": "^3.0.5",
