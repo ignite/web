@@ -29,7 +29,6 @@ const wsNode =
 		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
 const starportUrl =
-(GITPOD && `${GITPOD.protocol}//12345-${GITPOD.hostname}`) ||
 (process.env.VUE_APP_STARPORT_URL &&
 	process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost')) ||
 'http://localhost:12345'
@@ -39,7 +38,7 @@ export default {
 	state() {
 		return {
 			_timer: null,
-			starportUrl: starportUrl,
+			starportUrl: VUE_APP_CUSTOM_URL ? '' : starportUrl,
 			frontendUrl: '',
 			backend: {
 				env: {

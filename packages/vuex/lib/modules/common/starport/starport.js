@@ -27,13 +27,13 @@ var apiNode = GITPOD && "".concat(GITPOD.protocol, "//1317-").concat(GITPOD.host
 var rpcNode = GITPOD && "".concat(GITPOD.protocol, "//26657-").concat(GITPOD.hostname) || process.env.VUE_APP_API_TENDERMINT && process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost') || 'http://localhost:26657';
 var addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos';
 var wsNode = GITPOD && "wss://26657-".concat(GITPOD.hostname, "/websocket") || process.env.VUE_APP_WS_TENDERMINT && process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost') || 'ws://localhost:26657/websocket';
-var starportUrl = GITPOD && "".concat(GITPOD.protocol, "//12345-").concat(GITPOD.hostname) || process.env.VUE_APP_STARPORT_URL && process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost') || 'http://localhost:12345';
+var starportUrl = process.env.VUE_APP_STARPORT_URL && process.env.VUE_APP_STARPORT_URL.replace('0.0.0.0', 'localhost') || 'http://localhost:12345';
 var _default = {
   namespaced: true,
   state: function state() {
     return {
       _timer: null,
-      starportUrl: starportUrl,
+      starportUrl: VUE_APP_CUSTOM_URL ? '' : starportUrl,
       frontendUrl: '',
       backend: {
         env: {
