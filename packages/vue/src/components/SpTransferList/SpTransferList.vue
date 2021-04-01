@@ -28,15 +28,10 @@
 									'sp-transfer-list__status__icon__sent':
 										tx.response.code == 0 &&
 										(tx.body.messages[0].from_address == bankAddress ||
-											tx.body.messages[0].sender == bankAddress ||
-											(tx.body.messages[0]['@type'] ==
-												'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet.data)?.sender ==
-													bankAddress)),
+											tx.body.messages[0].sender == bankAddress),
 									'sp-transfer-list__status__icon__received':
 										tx.response.code == 0 &&
 										(tx.body.messages[0].to_address == bankAddress ||
-											tx.body.messages[0].receiver == bankAddress ||
 											(tx.body.messages[0]['@type'] ==
 												'/ibc.core.channel.v1.MsgRecvPacket' &&
 												getDecoded(tx.body.messages[0].packet.data)?.receiver ==
@@ -46,13 +41,6 @@
 										tx.body.messages[0].to_address != bankAddress &&
 										tx.body.messages[0].from_address != bankAddress &&
 										tx.body.messages[0].sender != bankAddress &&
-										tx.body.messages[0].receiver != bankAddress &&
-										!(
-											tx.body.messages[0]['@type'] ==
-												'/ibc.core.channel.v1.MsgRecvPacket' &&
-											getDecoded(tx.body.messages[0].packet.data)?.sender ==
-												bankAddress
-										) &&
 										!(
 											tx.body.messages[0]['@type'] ==
 												'/ibc.core.channel.v1.MsgRecvPacket' &&
@@ -68,15 +56,10 @@
 										'sp-icon-UpArrow':
 											tx.response.code == 0 &&
 											(tx.body.messages[0].from_address == bankAddress ||
-												tx.body.messages[0].sender == bankAddress ||
-												(tx.body.messages[0]['@type'] ==
-													'/ibc.core.channel.v1.MsgRecvPacket' &&
-													getDecoded(tx.body.messages[0].packet.data)?.sender ==
-														bankAddress)),
+												tx.body.messages[0].sender == bankAddress),
 										'sp-icon-DownArrow':
 											tx.response.code == 0 &&
 											(tx.body.messages[0].to_address == bankAddress ||
-												tx.body.messages[0].receiver == bankAddress ||
 												(tx.body.messages[0]['@type'] ==
 													'/ibc.core.channel.v1.MsgRecvPacket' &&
 													getDecoded(tx.body.messages[0].packet.data)
@@ -86,13 +69,6 @@
 											tx.body.messages[0].to_address != bankAddress &&
 											tx.body.messages[0].from_address != bankAddress &&
 											tx.body.messages[0].sender != bankAddress &&
-											tx.body.messages[0].receiver != bankAddress &&
-											!(
-												tx.body.messages[0]['@type'] ==
-													'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet.data)?.sender ==
-													bankAddress
-											) &&
 											!(
 												tx.body.messages[0]['@type'] ==
 													'/ibc.core.channel.v1.MsgRecvPacket' &&
@@ -329,9 +305,6 @@ export default {
 					if (tx.body.messages[0].sender == this.bankAddress) {
 						text = text + 'IBC Sent to'
 					}
-					if (tx.body.messages[0].receiver == this.bankAddress) {
-						text = text + 'IBC Received from'
-					}
 				} else {
 					let packet
 					switch (tx.body.messages[0]['@type']) {
@@ -346,15 +319,13 @@ export default {
 							break
 						case '/ibc.core.channel.v1.MsgRecvPacket':
 							packet = this.getDecoded(tx.body.messages[0].packet.data)
-							if (packet.sender == this.bankAddress) {
-								text = text + 'IBC Sent to'
+
+							if (packet.receiver == this.bankAddress) {
+								text = text + 'IBC Received from'
 							} else {
-								if (packet.receiver == this.bankAddress) {
-									text = text + 'IBC Received from'
-								} else {
-									text = text + 'IBC Recv Packet'
-								}
+								text = text + 'IBC Recv Packet'
 							}
+
 							break
 						case '/ibc.core.channel.v1.MsgAcknowledgement':
 							text = text + 'IBC Ack Packet'
