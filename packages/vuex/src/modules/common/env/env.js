@@ -51,7 +51,7 @@ export default {
 		sdkVersion: (state) => state.sdkVersion,
 		apiConnected: (state) => state.apiConnected,
 		rpcConnected: (state) => state.rpcConnected,
-		wsConnected: (state) => state.wsConnected,
+		wsConnected: (state) => state.wsConnected
 	},
 	mutations: {
 		SET_CONFIG(state, config) {
@@ -61,18 +61,18 @@ export default {
 			}
 			if (config.wsNode) {
 				state.wsNode = config.wsNode
-			}	
+			}
 			if (config.chainId) {
-				state.chainId=config.chainId
-			}	
+				state.chainId = config.chainId
+			}
 			if (config.addrPrefix) {
-				state.addrPrefix=config.addrPrefix
-			}	
+				state.addrPrefix = config.addrPrefix
+			}
 			if (config.sdkVersion) {
-				state.sdkVersion=config.sdkVersion
+				state.sdkVersion = config.sdkVersion
 			}
 			if (config.getTXApi) {
-				state.getTXApi=config.getTXApi
+				state.getTXApi = config.getTXApi
 			}
 		},
 		CONNECT(state, { client }) {
@@ -112,7 +112,7 @@ export default {
 				addrPrefix: addrPrefix,
 				chainName: '',
 				sdkVersion: 'Stargate',
-				getTXApi: rpcNode+'/tx?hash=0x'
+				getTXApi: rpcNode + '/tx?hash=0x'
 			}
 		) {
 			if (this._actions['common/starport/init']) {
@@ -182,10 +182,10 @@ export default {
 					})
 					client.setMaxListeners(0)
 					client.on('chain-id', (id) => {
-						commit('SET_CHAIN_ID',id) 
+						commit('SET_CHAIN_ID', id)
 					})
 					client.on('chain-name', (name) => {
-						commit('SET_CHAIN_NAME',name) 
+						commit('SET_CHAIN_NAME', name)
 					})
 					client.on('ws-status', (status) =>
 						dispatch('setConnectivity', { connection: 'ws', status: status })
@@ -197,8 +197,16 @@ export default {
 						dispatch('setConnectivity', { connection: 'rpc', status: status })
 					)
 					commit('SET_CONFIG', config)
-					await dispatch('cosmos.staking.v1beta1/QueryParams', {params: {},query:null }, { root: true })
-					await dispatch('cosmos.bank.v1beta1/QueryTotalSupply', {params: {},query:null }, { root: true })
+					await dispatch(
+						'cosmos.staking.v1beta1/QueryParams',
+						{ params: {}, query: null },
+						{ root: true }
+					)
+					await dispatch(
+						'cosmos.bank.v1beta1/QueryTotalSupply',
+						{ params: {}, query: null },
+						{ root: true }
+					)
 					commit('CONNECT', { client })
 					commit('INITIALIZE_WS_COMPLETE')
 				} else {
@@ -220,7 +228,7 @@ export default {
 					if (reconnectWS && config.wsNode) {
 						try {
 							await client.switchWS(config.wsNode)
-						} catch (e) {						
+						} catch (e) {
 							throw new SpVuexError(
 								'Env:Client:Websocket',
 								'Could not switch to websocket node:' + config.wsNode
@@ -241,7 +249,7 @@ export default {
 						}
 					}
 				}
-			}catch (e) {
+			} catch (e) {
 				console.error(e)
 			}
 		}

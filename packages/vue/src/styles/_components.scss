@@ -86,7 +86,7 @@
     display: flex;
     padding-left: 1.4rem;
     padding-right: 1.4rem;
-
+    margin-bottom: 0.2rem;
     &:hover .sp-wallet-menu-item__status {
       opacity: 1;
     }
@@ -439,11 +439,11 @@
   white-space: nowrap;
   transition: 180ms ease;
   transform: translateZ(0);
-  position:relative;
+  position: relative;
 
   .sp-button__loading {
-    position:absolute;
-    display:none;
+    position: absolute;
+    display: none;
   }
   &:hover {
     transform: translateZ(0) scale(1.025);
@@ -466,26 +466,25 @@
     color: rgba($black, 0.4) !important;
     border: 0.2rem solid rgba($black, 0) !important;
     .sp-button__text {
-      visibility:hidden;
+      visibility: hidden;
     }
     .sp-button__loading {
-      position:absolute;
+      position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height:100%;
-      top:0;
-      left:0;
-      bottom:0;
-      right:0;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
       text-align: center;
-      .sp-icon{
+      .sp-icon {
         animation: spin 2s linear infinite;
         width: 2rem;
       }
     }
-
   }
   &:disabled {
     cursor: not-allowed;
@@ -1004,7 +1003,6 @@
             .sp-amount-select__denom__balance {
               opacity: 0.4;
               margin-right: 1rem;
-             
 
               &.sp-amount-select__denom__balance__fail {
                 color: red;
@@ -1055,16 +1053,16 @@
               padding: 0rem 1rem;
               margin-top: 0.7rem;
               .sp-amount-select__denom__modal__search {
-                display:flex;
-                align-items:center;
-                margin-top:1rem;
-                line-height:2.1rem;
+                display: flex;
+                align-items: center;
+                margin-top: 1rem;
+                line-height: 2.1rem;
                 .sp-icon {
-                  font-size:1.8rem;
+                  font-size: 1.8rem;
                   opacity: 0.4;
-                  width:3rem;
-                  text-align:center;
-                  line-height:2.1rem;
+                  width: 3rem;
+                  text-align: center;
+                  line-height: 2.1rem;
                 }
                 .sp-amount-select__denom__modal__search__input {
                   width: 100%;
@@ -1072,9 +1070,9 @@
                   background: none;
                   outline: none;
                   border: 0;
-                  line-height:2.1rem;
-                  font-size:1.4rem;                  
-                  opacity:0.4;
+                  line-height: 2.1rem;
+                  font-size: 1.4rem;
+                  opacity: 0.4;
                 }
               }
               .sp-amount-select__denom__modal__header {
@@ -1086,7 +1084,7 @@
                 opacity: 0.4;
               }
               .sp-line {
-                margin-top:1rem;
+                margin-top: 1rem;
               }
               .sp-amount-select__denom__modal__item {
                 display: flex;
@@ -1124,7 +1122,7 @@
                 background: white;
                 width: 100%;
                 justify-content: space-between;
-                
+
                 .sp-amount-select__denom__balance {
                   display: none;
                 }
