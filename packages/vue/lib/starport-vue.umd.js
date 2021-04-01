@@ -58070,7 +58070,7 @@ function i2ops (c) {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTransferList/SpTransferList.vue?vue&type=template&id=bfc8b118
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTransferList/SpTransferList.vue?vue&type=template&id=26c4e919
 
 var _hoisted_1 = {
   key: 0,
@@ -58168,23 +58168,23 @@ var _hoisted_23 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_V
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return $options.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [_hoisted_2, $props.address && $options.transactions.length > 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("table", _hoisted_3, [_hoisted_4, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("tbody", null, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.transactions, function (tx) {
-    var _$options$getDecoded, _$options$getDecoded2, _$options$getDecoded3, _$options$getDecoded4, _$options$getDecoded5, _$options$getDecoded6, _$options$getDecoded7, _$options$getDecoded8;
+    var _$options$getDecoded, _$options$getDecoded2, _$options$getDecoded3, _$options$getDecoded4;
 
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("tr", {
       key: tx.response.hash
     }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("td", _hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_6, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
       class: ["sp-transfer-list__status__icon", {
         'sp-transfer-list__status__icon__failed': tx.response.code != 0,
-        'sp-transfer-list__status__icon__sent': tx.response.code == 0 && (tx.body.messages[0].from_address == _ctx.bankAddress || tx.body.messages[0].sender == _ctx.bankAddress || tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded === void 0 ? void 0 : _$options$getDecoded.sender) == _ctx.bankAddress),
-        'sp-transfer-list__status__icon__received': tx.response.code == 0 && (tx.body.messages[0].to_address == _ctx.bankAddress || tx.body.messages[0].receiver == _ctx.bankAddress || tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded2 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded2 === void 0 ? void 0 : _$options$getDecoded2.receiver) == _ctx.bankAddress),
-        'sp-transfer-list__status__icon__success': tx.response.code == 0 && tx.body.messages[0].to_address != _ctx.bankAddress && tx.body.messages[0].from_address != _ctx.bankAddress && tx.body.messages[0].sender != _ctx.bankAddress && tx.body.messages[0].receiver != _ctx.bankAddress && !(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded3 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded3 === void 0 ? void 0 : _$options$getDecoded3.sender) == _ctx.bankAddress) && !(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded4 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded4 === void 0 ? void 0 : _$options$getDecoded4.receiver) == _ctx.bankAddress)
+        'sp-transfer-list__status__icon__sent': tx.response.code == 0 && (tx.body.messages[0].from_address == _ctx.bankAddress || tx.body.messages[0].sender == _ctx.bankAddress),
+        'sp-transfer-list__status__icon__received': tx.response.code == 0 && (tx.body.messages[0].to_address == _ctx.bankAddress || tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded === void 0 ? void 0 : _$options$getDecoded.receiver) == _ctx.bankAddress),
+        'sp-transfer-list__status__icon__success': tx.response.code == 0 && tx.body.messages[0].to_address != _ctx.bankAddress && tx.body.messages[0].from_address != _ctx.bankAddress && tx.body.messages[0].sender != _ctx.bankAddress && !(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded2 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded2 === void 0 ? void 0 : _$options$getDecoded2.receiver) == _ctx.bankAddress)
       }]
     }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
       class: ["sp-icon", {
         'sp-icon-Close': tx.response.code != 0,
-        'sp-icon-UpArrow': tx.response.code == 0 && (tx.body.messages[0].from_address == _ctx.bankAddress || tx.body.messages[0].sender == _ctx.bankAddress || tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded5 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded5 === void 0 ? void 0 : _$options$getDecoded5.sender) == _ctx.bankAddress),
-        'sp-icon-DownArrow': tx.response.code == 0 && (tx.body.messages[0].to_address == _ctx.bankAddress || tx.body.messages[0].receiver == _ctx.bankAddress || tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded6 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded6 === void 0 ? void 0 : _$options$getDecoded6.receiver) == _ctx.bankAddress),
-        'sp-icon-Docs': tx.response.code == 0 && tx.body.messages[0].to_address != _ctx.bankAddress && tx.body.messages[0].from_address != _ctx.bankAddress && tx.body.messages[0].sender != _ctx.bankAddress && tx.body.messages[0].receiver != _ctx.bankAddress && !(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded7 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded7 === void 0 ? void 0 : _$options$getDecoded7.sender) == _ctx.bankAddress) && !(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded8 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded8 === void 0 ? void 0 : _$options$getDecoded8.receiver) == _ctx.bankAddress)
+        'sp-icon-UpArrow': tx.response.code == 0 && (tx.body.messages[0].from_address == _ctx.bankAddress || tx.body.messages[0].sender == _ctx.bankAddress),
+        'sp-icon-DownArrow': tx.response.code == 0 && (tx.body.messages[0].to_address == _ctx.bankAddress || tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded3 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded3 === void 0 ? void 0 : _$options$getDecoded3.receiver) == _ctx.bankAddress),
+        'sp-icon-Docs': tx.response.code == 0 && tx.body.messages[0].to_address != _ctx.bankAddress && tx.body.messages[0].from_address != _ctx.bankAddress && tx.body.messages[0].sender != _ctx.bankAddress && !(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' && ((_$options$getDecoded4 = $options.getDecoded(tx.body.messages[0].packet.data)) === null || _$options$getDecoded4 === void 0 ? void 0 : _$options$getDecoded4.receiver) == _ctx.bankAddress)
       }]
     }, null, 2)], 2), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_7, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_8, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.getTxText(tx)), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_9, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.getFmtTime(tx.response.timestamp)), 1)])])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("td", _hoisted_10, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.getTxDetails(tx)), 1), tx.body.messages[0]['@type'] == '/cosmos.bank.v1beta1.MsgSend' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("td", _hoisted_11, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(tx.body.messages[0].amount, function (token, index) {
       return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
@@ -58193,7 +58193,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }), 128))])) : tx.body.messages[0]['@type'] == '/ibc.applications.transfer.v1.MsgTransfer' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("td", _hoisted_12, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(tx.body.messages[0].sender == _ctx.bankAddress ? '-' + tx.body.messages[0].token.amount + ' ' + tx.body.messages[0].token.denom.toUpperCase() : '+' + tx.body.messages[0].token.amount + ' ' + tx.body.messages[0].token.denom.toUpperCase()), 1)])) : tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("td", _hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($options.getDecoded(tx.body.messages[0].packet.data).receiver == _ctx.bankAddress ? '+' + $options.getDecoded(tx.body.messages[0].packet.data).amount + ' IBC/' + tx.body.messages[0].packet.destination_port.toUpperCase() + '/' + tx.body.messages[0].packet.destination_channel.toUpperCase() + '/' + $options.getDecoded(tx.body.messages[0].packet.data).denom.toUpperCase() : '-' + $options.getDecoded(tx.body.messages[0].packet.data).amount + ' IBC/' + tx.body.messages[0].packet.destination_port.toUpperCase() + '/' + tx.body.messages[0].packet.destination_channel.toUpperCase() + '/' + $options.getDecoded(tx.body.messages[0].packet.data).denom.toUpperCase()), 1)])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("td", _hoisted_14))]);
   }), 128))])])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("table", _hoisted_15, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("tbody", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("tr", null, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("td", _hoisted_16, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_17, [_hoisted_18, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_19, [_hoisted_20, !$props.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_21, " Add or unlock a wallet to see recent transactions ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])])]), _hoisted_22, _hoisted_23])])]))])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpTransferList/SpTransferList.vue?vue&type=template&id=bfc8b118
+// CONCATENATED MODULE: ./src/components/SpTransferList/SpTransferList.vue?vue&type=template&id=26c4e919
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("1da1");
@@ -58667,10 +58667,6 @@ const gBase64 = {
           if (tx.body.messages[0].sender == this.bankAddress) {
             text = text + 'IBC Sent to';
           }
-
-          if (tx.body.messages[0].receiver == this.bankAddress) {
-            text = text + 'IBC Received from';
-          }
         } else {
           var packet;
 
@@ -58690,14 +58686,10 @@ const gBase64 = {
             case '/ibc.core.channel.v1.MsgRecvPacket':
               packet = this.getDecoded(tx.body.messages[0].packet.data);
 
-              if (packet.sender == this.bankAddress) {
-                text = text + 'IBC Sent to';
+              if (packet.receiver == this.bankAddress) {
+                text = text + 'IBC Received from';
               } else {
-                if (packet.receiver == this.bankAddress) {
-                  text = text + 'IBC Received from';
-                } else {
-                  text = text + 'IBC Recv Packet';
-                }
+                text = text + 'IBC Recv Packet';
               }
 
               break;
