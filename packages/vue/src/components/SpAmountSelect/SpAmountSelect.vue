@@ -60,7 +60,13 @@
 				</div>
 				<div class="sp-amount-select__denom__modal" v-if="modalOpen">
 					<div class="sp-amount-select__denom__modal__search">
-						<input type="text" v-model="searchTerm" />
+						<div class="sp-icon sp-icon-Search"/>
+						<input
+							type="text"
+							v-model="searchTerm"
+							placeholder="Search..."
+							class="sp-amount-select__denom__modal__search__input"
+						/>
 					</div>
 					<div class="sp-line"></div>
 					<div class="sp-amount-select__denom__modal__header">
@@ -158,7 +164,11 @@ export default {
 		filtered_denoms() {
 			return this.searchTerm == ''
 				? this.denoms
-				: this.denoms.filter((x) => x.denom.indexOf(this.searchTerm) !== -1)
+				: this.denoms.filter(
+						(x) =>
+							x.denom.toUpperCase().indexOf(this.searchTerm.toUpperCase()) !==
+							-1
+				  )
 		}
 	},
 	methods: {

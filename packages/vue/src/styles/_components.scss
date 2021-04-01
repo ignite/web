@@ -1024,6 +1024,29 @@
               border-radius: 0.8rem;
               padding: 0rem 1rem;
               margin-top: 0.7rem;
+              .sp-amount-select__denom__modal__search {
+                display:flex;
+                align-items:center;
+                margin-top:1rem;
+                line-height:2.1rem;
+                .sp-icon {
+                  font-size:1.8rem;
+                  opacity: 0.4;
+                  width:3rem;
+                  text-align:center;
+                  line-height:2.1rem;
+                }
+                .sp-amount-select__denom__modal__search__input {
+                  width: 100%;
+                  margin: 0;
+                  background: none;
+                  outline: none;
+                  border: 0;
+                  line-height:2.1rem;
+                  font-size:1.4rem;                  
+                  opacity:0.4;
+                }
+              }
               .sp-amount-select__denom__modal__header {
                 display: flex;
                 justify-content: space-between;
@@ -1031,6 +1054,9 @@
                 font-size: 1.3rem;
                 padding: 0rem 1rem;
                 opacity: 0.4;
+              }
+              .sp-line {
+                margin-top:1rem;
               }
               .sp-amount-select__denom__modal__item {
                 display: flex;
