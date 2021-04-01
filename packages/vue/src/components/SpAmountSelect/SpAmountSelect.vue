@@ -19,7 +19,7 @@
 									fulldenom.amount - amount < 0
 							}"
 						>
-							<strong>Available</strong> {{ fulldenom.amount - amount }}/{{
+							<strong>Avail.</strong> {{ fulldenom.amount - amount }}/{{
 								fulldenom.amount
 							}}
 						</div>

@@ -15,16 +15,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+var GITPOD = process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL);
+var apiNode = GITPOD && "".concat(GITPOD.protocol, "//1317-").concat(GITPOD.hostname) || process.env.VUE_APP_API_COSMOS && process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost') || 'http://localhost:1317';
+var rpcNode = GITPOD && "".concat(GITPOD.protocol, "//26657-").concat(GITPOD.hostname) || process.env.VUE_APP_API_TENDERMINT && process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost') || 'http://localhost:26657';
+var addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos';
+var wsNode = GITPOD && "wss://26657-".concat(GITPOD.hostname, "/websocket") || process.env.VUE_APP_WS_TENDERMINT && process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost') || 'ws://localhost:26657/websocket';
 var _default = {
   namespaced: true,
   state: function state() {
     return {
       chainId: null,
-      addrPrefix: '',
+      addrPrefix: addrPrefix,
       sdkVersion: 'Stargate',
-      apiNode: null,
-      rpcNode: null,
-      wsNode: null,
+      apiNode: apiNode,
+      rpcNode: rpcNode,
+      wsNode: wsNode,
       client: null,
       chainName: null,
       apiConnected: false,
@@ -140,14 +145,14 @@ var _default = {
                 dispatch = _ref2.dispatch;
                 config = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : {
                   starportUrl: 'http://localhost:12345',
-                  apiNode: 'http://localhost:1317',
-                  rpcNode: 'http://localhost:26657',
-                  wsNode: 'ws://localhost:26657/websocket',
+                  apiNode: apiNode,
+                  rpcNode: rpcNode,
+                  wsNode: wsNode,
                   chainId: '',
-                  addrPrefix: '',
+                  addrPrefix: addrPrefix,
                   chainName: '',
                   sdkVersion: 'Stargate',
-                  getTXApi: 'http://localhost:26657/tx?hash=0x'
+                  getTXApi: rpcNode + '/tx?hash=0x'
                 };
 
                 if (!_this._actions['common/starport/init']) {

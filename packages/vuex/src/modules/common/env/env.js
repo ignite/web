@@ -1,16 +1,35 @@
 import Client from '@starport/client-js'
 import SpVuexError from '../../../errors/SpVuexError'
 
+const GITPOD =
+	process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL)
+const apiNode =
+	(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
+	(process.env.VUE_APP_API_COSMOS &&
+		process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
+	'http://localhost:1317'
+const rpcNode =
+	(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
+	(process.env.VUE_APP_API_TENDERMINT &&
+		process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+	'http://localhost:26657'
+const addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
+const wsNode =
+	(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
+	(process.env.VUE_APP_WS_TENDERMINT &&
+		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+	'ws://localhost:26657/websocket'
+
 export default {
 	namespaced: true,
 	state() {
 		return {
 			chainId: null,
-			addrPrefix: '',
+			addrPrefix: addrPrefix,
 			sdkVersion: 'Stargate',
-			apiNode: null,
-			rpcNode: null,
-			wsNode: null,
+			apiNode: apiNode,
+			rpcNode: rpcNode,
+			wsNode: wsNode,
 			client: null,
 			chainName: null,
 			apiConnected: false,
@@ -86,14 +105,14 @@ export default {
 			{ dispatch },
 			config = {
 				starportUrl: 'http://localhost:12345',
-				apiNode: 'http://localhost:1317',
-				rpcNode: 'http://localhost:26657',
-				wsNode: 'ws://localhost:26657/websocket',
+				apiNode: apiNode,
+				rpcNode: rpcNode,
+				wsNode: wsNode,
 				chainId: '',
-				addrPrefix: '',
+				addrPrefix: addrPrefix,
 				chainName: '',
 				sdkVersion: 'Stargate',
-				getTXApi: 'http://localhost:26657/tx?hash=0x'
+				getTXApi: rpcNode+'/tx?hash=0x'
 			}
 		) {
 			if (this._actions['common/starport/init']) {
