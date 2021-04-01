@@ -439,7 +439,12 @@
   white-space: nowrap;
   transition: 180ms ease;
   transform: translateZ(0);
+  position:relative;
 
+  .sp-button__loading {
+    position:absolute;
+    display:none;
+  }
   &:hover {
     transform: translateZ(0) scale(1.025);
   }
@@ -456,7 +461,32 @@
     color: $black;
     margin-bottom: 1rem;
   }
+  &.sp-button__progress {
+    background: rgba($black, 0.04) !important;
+    color: rgba($black, 0.4) !important;
+    border: 0.2rem solid rgba($black, 0) !important;
+    .sp-button__text {
+      visibility:hidden;
+    }
+    .sp-button__loading {
+      position:absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height:100%;
+      top:0;
+      left:0;
+      bottom:0;
+      right:0;
+      text-align: center;
+      .sp-icon{
+        animation: spin 2s linear infinite;
+        width: 2rem;
+      }
+    }
 
+  }
   &:disabled {
     cursor: not-allowed;
     transition: none;

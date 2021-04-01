@@ -196,7 +196,10 @@
 									>
 										Reset
 									</div>
-									<SpButton v-on:click="sendTransaction" type="primary"
+									<SpButton
+										v-on:click="sendTransaction"
+										type="primary"
+										:busy="inFlight"
 										>Send transaction</SpButton
 									>
 								</div>
