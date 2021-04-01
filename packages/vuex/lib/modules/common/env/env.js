@@ -328,6 +328,10 @@ var _default = {
                 commit('SET_CONFIG', config);
                 _context4.next = 14;
                 return dispatch('cosmos.staking.v1beta1/QueryParams', {
+                  options: {
+                    subscribe: false,
+                    all: false
+                  },
                   params: {},
                   query: null
                 }, {
@@ -337,6 +341,10 @@ var _default = {
               case 14:
                 _context4.next = 16;
                 return dispatch('cosmos.bank.v1beta1/QueryTotalSupply', {
+                  options: {
+                    subscribe: false,
+                    all: false
+                  },
                   params: {},
                   query: null
                 }, {

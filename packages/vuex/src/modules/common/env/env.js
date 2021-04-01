@@ -199,12 +199,20 @@ export default {
 					commit('SET_CONFIG', config)
 					await dispatch(
 						'cosmos.staking.v1beta1/QueryParams',
-						{ params: {}, query: null },
+						{
+							options: { subscribe: false, all: false },
+							params: {},
+							query: null
+						},
 						{ root: true }
 					)
 					await dispatch(
 						'cosmos.bank.v1beta1/QueryTotalSupply',
-						{ params: {}, query: null },
+						{
+							options: { subscribe: false, all: false },
+							params: {},
+							query: null
+						},
 						{ root: true }
 					)
 					commit('CONNECT', { client })
