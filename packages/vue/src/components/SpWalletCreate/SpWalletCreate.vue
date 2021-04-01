@@ -24,7 +24,7 @@
 					>Import existing wallet</SpCard
 				>
 			</div>
-			<div class="sp-wallet-create__keplr">
+			<div class="sp-wallet-create__keplr" v-if="window.keplr">
 				<SpButton type="primary" v-on:click="useKeplr">Use Keplr</SpButton>
 			</div>
 		</template>
@@ -423,7 +423,7 @@ export default {
 						'common/wallet/connectWithKeplr',
 						offlineSigner
 					)
-					this.done();
+					this.done()
 				} catch (e) {
 					console.error(e)
 				}
