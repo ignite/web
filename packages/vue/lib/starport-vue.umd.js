@@ -47637,7 +47637,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=9965464e
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=4f66ae4a
 
 
 var _hoisted_1 = {
@@ -47706,13 +47706,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128)), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_3, [!$options.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_4, " Accesss a wallet to create a " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType), 1)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "primary",
     onClick: $options.createType,
-    disabled: !$options.address
+    disabled: !$options.address,
+    busy: _ctx.inFlight
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
       return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType), 1)];
     }),
     _: 1
-  }, 8, ["onClick", "disabled"])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'update' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("form", _hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_6, " UPDATE " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType.toUpperCase()), 1), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.updateFieldList, function (field) {
+  }, 8, ["onClick", "disabled", "busy"])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'update' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("form", _hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_6, " UPDATE " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType.toUpperCase()), 1), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.updateFieldList, function (field) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       class: "sp-type-form__field sp-form-group",
       key: field.name
@@ -47745,13 +47746,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "primary",
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $options.updateType();
-    })
+    }),
+    disabled: !$options.address,
+    busy: _ctx.inFlight
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
       return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Update " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType), 1)];
     }),
     _: 1
-  })])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'delete' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("form", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_9, " DELETE " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType.toUpperCase()), 1), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.deleteFieldList, function (field) {
+  }, 8, ["disabled", "busy"])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), $props.action == 'delete' ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("form", _hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_9, " DELETE " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType.toUpperCase()), 1), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])($options.deleteFieldList, function (field) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       class: "sp-type-form__field sp-form-group",
       key: field.name
@@ -47784,15 +47787,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "primary",
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $options.deleteType();
-    })
+    }),
+    disabled: !$options.address,
+    busy: _ctx.inFlight
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
       return [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Delete " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])($props.moduleType), 1)];
     }),
     _: 1
-  })])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)], 2)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
+  }, 8, ["disabled", "busy"])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)], 2)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=9965464e
+// CONCATENATED MODULE: ./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=4f66ae4a
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__("b64b");
@@ -48049,7 +48054,8 @@ var runtime = __webpack_require__("96cf");
   data: function data() {
     return {
       fieldList: [],
-      typeData: {}
+      typeData: {},
+      inFlight: false
     };
   },
   watch: {
@@ -48236,6 +48242,11 @@ var runtime = __webpack_require__("96cf");
     capitalize: function capitalize(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     },
+    resetForm: function resetForm() {
+      for (var i in this.typeData) {
+        this.typeData[i] = '';
+      }
+    },
     createType: function createType() {
       var _this3 = this;
 
@@ -48245,28 +48256,46 @@ var runtime = __webpack_require__("96cf");
             switch (_context3.prev = _context3.next) {
               case 0:
                 if (!(_this3._depsLoaded && _this3.address)) {
-                  _context3.next = 6;
+                  _context3.next = 18;
                   break;
                 }
 
                 _this3.typeData['creator'] = _this3.selectedAccount;
-                _context3.next = 4;
+                _this3.inFlight = true;
+                _context3.prev = 3;
+                _context3.next = 6;
                 return _this3.$store.dispatch(_this3.modulePath + '/sendMsgCreate' + _this3.moduleType, {
                   value: _objectSpread2({}, _this3.createTypeData),
                   fee: []
                 });
 
-              case 4:
+              case 6:
                 _this3.txResult = _context3.sent;
+                _this3.inFlight = false;
 
                 _this3.$emit('created');
 
-              case 6:
+                _this3.resetForm();
+
+                _context3.next = 15;
+                break;
+
+              case 12:
+                _context3.prev = 12;
+                _context3.t0 = _context3["catch"](3);
+                console.error(_context3.t0);
+
+              case 15:
+                _context3.prev = 15;
+                _this3.inFlight = false;
+                return _context3.finish(15);
+
+              case 18:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, null, [[3, 12, 15, 18]]);
       }))();
     },
     updateType: function updateType() {
@@ -48278,28 +48307,46 @@ var runtime = __webpack_require__("96cf");
             switch (_context4.prev = _context4.next) {
               case 0:
                 if (!_this4._depsLoaded) {
-                  _context4.next = 6;
+                  _context4.next = 18;
                   break;
                 }
 
                 _this4.typeData['creator'] = _this4.selectedAccount;
-                _context4.next = 4;
+                _this4.inFlight = true;
+                _context4.prev = 3;
+                _context4.next = 6;
                 return _this4.$store.dispatch(_this4.modulePath + '/sendMsgUpdate' + _this4.moduleType, {
                   value: _objectSpread2({}, _this4.updateTypeData),
                   fee: []
                 });
 
-              case 4:
+              case 6:
                 _this4.txResult = _context4.sent;
+                _this4.inFlight = false;
 
                 _this4.$emit('updated');
 
-              case 6:
+                _this4.resetForm();
+
+                _context4.next = 15;
+                break;
+
+              case 12:
+                _context4.prev = 12;
+                _context4.t0 = _context4["catch"](3);
+                console.error(_context4.t0);
+
+              case 15:
+                _context4.prev = 15;
+                _this4.inFlight = false;
+                return _context4.finish(15);
+
+              case 18:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4);
+        }, _callee4, null, [[3, 12, 15, 18]]);
       }))();
     },
     deleteType: function deleteType() {
@@ -48311,28 +48358,46 @@ var runtime = __webpack_require__("96cf");
             switch (_context5.prev = _context5.next) {
               case 0:
                 if (!_this5._depsLoaded) {
-                  _context5.next = 6;
+                  _context5.next = 18;
                   break;
                 }
 
                 _this5.typeData['creator'] = _this5.selectedAccount;
-                _context5.next = 4;
+                _this5.inFlight = true;
+                _context5.prev = 3;
+                _context5.next = 6;
                 return _this5.$store.dispatch(_this5.modulePath + '/sendMsgDelete' + _this5.moduleType, {
                   value: _objectSpread2({}, _this5.deleteTypeData),
                   fee: []
                 });
 
-              case 4:
+              case 6:
                 _this5.txResult = _context5.sent;
+                _this5.inFlight = false;
 
                 _this5.$emit('deleted');
 
-              case 6:
+                _this5.resetForm();
+
+                _context5.next = 15;
+                break;
+
+              case 12:
+                _context5.prev = 12;
+                _context5.t0 = _context5["catch"](3);
+                console.error(_context5.t0);
+
+              case 15:
+                _context5.prev = 15;
+                _this5.inFlight = false;
+                return _context5.finish(15);
+
+              case 18:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5);
+        }, _callee5, null, [[3, 12, 15, 18]]);
       }))();
     }
   }
