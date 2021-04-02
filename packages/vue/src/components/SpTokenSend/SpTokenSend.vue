@@ -199,6 +199,7 @@
 									<SpButton
 										v-on:click="sendTransaction"
 										type="primary"
+										:disabled="!validForm"
 										:busy="inFlight"
 										>Send transaction</SpButton
 									>
@@ -222,7 +223,7 @@
 									<SpButton
 										v-on:click="sendTransaction"
 										type="primary"
-										:disabled="!address"
+										:disabled="!validForm"
 										>Send transaction</SpButton
 									>
 								</div>
@@ -369,7 +370,7 @@ export default {
 	},
 	watch: {
 		balances: function (newBal, oldBal) {
-			if (newBal != oldBal && newBal[0]?.denom && oldBal.length==0) {
+			if (newBal != oldBal && newBal[0]?.denom && oldBal.length == 0) {
 				this.transfer.amount = [{ amount: '', denom: newBal[0].denom }]
 				this.transfer.fees = [{ amount: '', denom: newBal[0].denom }]
 			}
@@ -389,6 +390,20 @@ export default {
 		}
 	},
 	computed: {
+		validForm() {
+			if (
+				this.transfer.amount.every(
+					(x) => !isNaN(x.amount) && x.amount != '' && x.amount != 0
+				) &&
+				this.transfer.fees.every((x) => !isNaN(x.amount)) &&
+				this.validAddress &&
+				this.address
+			) {
+				return true
+			} else {
+				return false
+			}
+		},
 		balances() {
 			if (this._depsLoaded) {
 				return (
@@ -452,33 +467,6 @@ export default {
 			}
 			return to_address
 		},
-		validAmounts() {
-			let valid = true
-			let required = {}
-			for (let amount of this.transfer.amount) {
-				if (
-					Number(amount.amount) > 0 &&
-					Number.isInteger(Number(amount.amount))
-				) {
-					if (required[amount.denom]) {
-						required[amount.denom] =
-							required[amount.denom] + Number(amount.amount)
-					} else {
-						required[amount.denom] = Number(amount.amount)
-					}
-				} else {
-					valid = false
-				}
-			}
-			for (let denom in required) {
-				if (
-					required[denom] > this.balances.find((x) => x.denom == denom).amount
-				) {
-					valid = false
-				}
-			}
-			return valid
-		},
 		txResultMessage() {
 			if (this.txResult && this.txResult.code) {
 				return `Error: ${this.txResult.rawLog}`
@@ -524,7 +512,7 @@ export default {
 		},
 		async sendTransaction() {
 			if (this._depsLoaded && this.address) {
-				if (this.validAddress && this.validAmounts && !this.inFlight) {
+				if (this.validForm && !this.inFlight) {
 					if (this.transfer.channel == '') {
 						const value = {
 							amount: this.transfer.amount,
