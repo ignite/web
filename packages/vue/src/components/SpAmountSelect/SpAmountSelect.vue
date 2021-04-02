@@ -45,7 +45,7 @@
 					<div class="sp-amount-select__denom__controls">
 						<div
 							class="sp-amount-select__denom__remove"
-							v-if="modalOpen"
+							v-if="modalOpen && index != 0"
 							v-on:click="selfRemove"
 						>
 							Remove
@@ -60,7 +60,7 @@
 				</div>
 				<div class="sp-amount-select__denom__modal" v-if="modalOpen">
 					<div class="sp-amount-select__denom__modal__search">
-						<div class="sp-icon sp-icon-Search"/>
+						<div class="sp-icon sp-icon-Search" />
 						<input
 							type="text"
 							v-model="searchTerm"
@@ -140,7 +140,8 @@ export default {
 	},
 	props: {
 		modelValue: Object,
-		available: Array
+		available: Array,
+		index: Number
 	},
 	emits: ['update:modelValue'],
 	mounted() {

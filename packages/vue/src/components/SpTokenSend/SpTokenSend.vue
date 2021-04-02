@@ -72,6 +72,7 @@
 						>
 							<SpAmountSelect
 								v-for="(amount, index) in transfer.amount"
+								:index="index"
 								v-model="transfer.amount[index]"
 								:available="balances"
 								v-bind:key="'amount' + index"
