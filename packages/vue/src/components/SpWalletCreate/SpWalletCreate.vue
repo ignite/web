@@ -24,7 +24,7 @@
 					>Import existing wallet</SpCard
 				>
 			</div>
-			<div class="sp-wallet-create__keplr" v-if="window.keplr">
+			<div class="sp-wallet-create__keplr" v-if="keplrAvailable">
 				<SpButton type="primary" v-on:click="useKeplr">Use Keplr</SpButton>
 			</div>
 		</template>
@@ -193,6 +193,9 @@ export default {
 		return this.defaultState()
 	},
 	computed: {
+		keplrAvailable() {
+			return window.keplr ? true : false
+		},
 		nameToCreate() {
 			return this.createform ? this.create.name : this.imported.name
 		},
@@ -418,7 +421,7 @@ export default {
 						}
 					})
 					await window.keplr.enable(chainId)
-					const offlineSigner = window.getOfflineSigner(chainId) 
+					const offlineSigner = window.getOfflineSigner(chainId)
 					await this.$store.dispatch(
 						'common/wallet/connectWithKeplr',
 						offlineSigner
