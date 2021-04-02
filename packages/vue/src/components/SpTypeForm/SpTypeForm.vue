@@ -30,7 +30,11 @@
 				<div class="sp-type-form__message" v-if="!address">
 					Accesss a wallet to create a {{ moduleType }}
 				</div>
-				<SpButton type="primary" v-on:click="createType" :disabled="!address"
+				<SpButton
+					type="primary"
+					v-on:click="createType"
+					:disabled="!address"
+					:busy="inFlight"
 					>Create {{ moduleType }}</SpButton
 				>
 			</div>
@@ -69,7 +73,11 @@
 				>
 					Cancel
 				</div>
-				<SpButton type="primary" v-on:click="updateType()"
+				<SpButton
+					type="primary"
+					v-on:click="updateType()"
+					:disabled="!address"
+					:busy="inFlight"
 					>Update {{ moduleType }}</SpButton
 				>
 			</div>
@@ -108,7 +116,11 @@
 				>
 					Cancel
 				</div>
-				<SpButton type="primary" v-on:click="deleteType()"
+				<SpButton
+					type="primary"
+					v-on:click="deleteType()"
+					:disabled="!address"
+					:busy="inFlight"
 					>Delete {{ moduleType }}</SpButton
 				>
 			</div>
@@ -143,7 +155,8 @@ export default {
 	data: function () {
 		return {
 			fieldList: [],
-			typeData: {}
+			typeData: {},
+			inFlight: false
 		}
 	},
 	watch: {
@@ -242,43 +255,75 @@ export default {
 		capitalize(str) {
 			return str.charAt(0).toUpperCase() + str.slice(1)
 		},
+		resetForm() {
+			for (let i in this.typeData) {
+				this.typeData[i] = ''
+			}
+		},
 		async createType() {
 			if (this._depsLoaded && this.address) {
 				this.typeData['creator'] = this.selectedAccount
-				this.txResult = await this.$store.dispatch(
-					this.modulePath + '/sendMsgCreate' + this.moduleType,
-					{
-						value: { ...this.createTypeData },
-						fee: []
-					}
-				)
-				this.$emit('created')
+				this.inFlight = true
+				try {
+					this.txResult = await this.$store.dispatch(
+						this.modulePath + '/sendMsgCreate' + this.moduleType,
+						{
+							value: { ...this.createTypeData },
+							fee: []
+						}
+					)
+					this.inFlight = false
+					this.$emit('created')
+					this.resetForm()
+				} catch (e) {
+					console.error(e)
+				} finally {
+					this.inFlight = false
+				}
 			}
 		},
 		async updateType() {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
-				this.txResult = await this.$store.dispatch(
-					this.modulePath + '/sendMsgUpdate' + this.moduleType,
-					{
-						value: { ...this.updateTypeData },
-						fee: []
-					}
-				)
-				this.$emit('updated')
+				this.inFlight = true
+				try {
+					this.txResult = await this.$store.dispatch(
+						this.modulePath + '/sendMsgUpdate' + this.moduleType,
+						{
+							value: { ...this.updateTypeData },
+							fee: []
+						}
+					)
+					this.inFlight = false
+					this.$emit('updated')
+					this.resetForm()
+				} catch (e) {
+					console.error(e)
+				} finally {
+					this.inFlight = false
+				}
 			}
 		},
 		async deleteType() {
 			if (this._depsLoaded) {
 				this.typeData['creator'] = this.selectedAccount
-				this.txResult = await this.$store.dispatch(
-					this.modulePath + '/sendMsgDelete' + this.moduleType,
-					{
-						value: { ...this.deleteTypeData },
-						fee: []
-					}
-				)
-				this.$emit('deleted')
+				this.inFlight = true
+				try {
+					this.txResult = await this.$store.dispatch(
+						this.modulePath + '/sendMsgDelete' + this.moduleType,
+						{
+							value: { ...this.deleteTypeData },
+							fee: []
+						}
+					)
+					this.inFlight = false
+					this.$emit('deleted')
+					this.resetForm()
+				} catch (e) {
+					console.error(e)
+				} finally {
+					this.inFlight = false
+				}
 			}
 		}
 	}
