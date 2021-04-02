@@ -27,7 +27,13 @@
 					</div>
 				</li>
 			</ul>
-			<div class="sp-accounts-new">
+			<div
+				class="sp-accounts-new"
+				v-if="
+					activeWallet.name != 'Keplr Integration' &&
+					activeWallet.password != null
+				"
+			>
 				<SpLinkIcon
 					icon="AddNew"
 					text="Generate new address"
@@ -77,6 +83,9 @@ export default {
 		SpLinkIcon
 	},
 	computed: {
+		activeWallet() {
+			return this.$store.state.common.wallet.activeWallet
+		},
 		accountList() {
 			return this.$store.state.common.wallet.activeWallet.accounts
 		},

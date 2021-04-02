@@ -1,17 +1,37 @@
 import Client from '@starport/client-js'
 import SpVuexError from '../../../errors/SpVuexError'
 
+const GITPOD =
+	process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL)
+const apiNode =
+	(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
+	(process.env.VUE_APP_API_COSMOS &&
+		process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
+	'http://localhost:1317'
+const rpcNode =
+	(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
+	(process.env.VUE_APP_API_TENDERMINT &&
+		process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+	'http://localhost:26657'
+const addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
+const wsNode =
+	(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
+	(process.env.VUE_APP_WS_TENDERMINT &&
+		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+	'ws://localhost:26657/websocket'
+
 export default {
 	namespaced: true,
 	state() {
 		return {
 			chainId: null,
-			addrPrefix: '',
+			addrPrefix: addrPrefix,
 			sdkVersion: 'Stargate',
-			apiNode: null,
-			rpcNode: null,
-			wsNode: null,
+			apiNode: apiNode,
+			rpcNode: rpcNode,
+			wsNode: wsNode,
 			client: null,
+			chainName: null,
 			apiConnected: false,
 			rpcConnected: false,
 			wsConnected: false,
@@ -22,6 +42,8 @@ export default {
 	getters: {
 		client: (state) => state.client,
 		signingClient: (state) => state.client.signingClient,
+		chainId: (state) => state.chainId,
+		chainName: (state) => state.chainName,
 		addrPrefix: (state) => state.addrPrefix,
 		apiTendermint: (state) => state.rpcNode,
 		apiCosmos: (state) => state.apiNode,
@@ -29,7 +51,7 @@ export default {
 		sdkVersion: (state) => state.sdkVersion,
 		apiConnected: (state) => state.apiConnected,
 		rpcConnected: (state) => state.rpcConnected,
-		wsConnected: (state) => state.wsConnected,
+		wsConnected: (state) => state.wsConnected
 	},
 	mutations: {
 		SET_CONFIG(state, config) {
@@ -39,18 +61,18 @@ export default {
 			}
 			if (config.wsNode) {
 				state.wsNode = config.wsNode
-			}	
+			}
 			if (config.chainId) {
-				state.chainId=config.chainId
-			}	
+				state.chainId = config.chainId
+			}
 			if (config.addrPrefix) {
-				state.addrPrefix=config.addrPrefix
-			}	
+				state.addrPrefix = config.addrPrefix
+			}
 			if (config.sdkVersion) {
-				state.sdkVersion=config.sdkVersion
+				state.sdkVersion = config.sdkVersion
 			}
 			if (config.getTXApi) {
-				state.getTXApi=config.getTXApi
+				state.getTXApi = config.getTXApi
 			}
 		},
 		CONNECT(state, { client }) {
@@ -58,6 +80,12 @@ export default {
 		},
 		INITIALIZE_WS_COMPLETE(state) {
 			state.initialized = true
+		},
+		SET_CHAIN_ID(state, chainId) {
+			state.chainId = chainId
+		},
+		SET_CHAIN_NAME(state, chainName) {
+			state.chainName = chainName
 		},
 		SET_WS_STATUS(state, status) {
 			state.wsConnected = status
@@ -77,13 +105,14 @@ export default {
 			{ dispatch },
 			config = {
 				starportUrl: 'http://localhost:12345',
-				apiNode: 'http://localhost:1317',
-				rpcNode: 'http://localhost:26657',
-				wsNode: 'ws://localhost:26657/websocket',
+				apiNode: apiNode,
+				rpcNode: rpcNode,
+				wsNode: wsNode,
 				chainId: '',
-				addrPrefix: '',
+				addrPrefix: addrPrefix,
+				chainName: '',
 				sdkVersion: 'Stargate',
-				getTXApi: 'http://localhost:26657/tx?hash=0x'
+				getTXApi: rpcNode + '/tx?hash=0x'
 			}
 		) {
 			if (this._actions['common/starport/init']) {
@@ -136,6 +165,7 @@ export default {
 				apiNode: 'http://localhost:1317',
 				rpcNode: 'http://localhost:26657',
 				wsNode: 'ws://localhost:26657/websocket',
+				chainName: '',
 				chainId: '',
 				addrPrefix: '',
 				sdkVersion: 'Stargate',
@@ -151,6 +181,12 @@ export default {
 						wsAddr: config.wsNode
 					})
 					client.setMaxListeners(0)
+					client.on('chain-id', (id) => {
+						commit('SET_CHAIN_ID', id)
+					})
+					client.on('chain-name', (name) => {
+						commit('SET_CHAIN_NAME', name)
+					})
 					client.on('ws-status', (status) =>
 						dispatch('setConnectivity', { connection: 'ws', status: status })
 					)
@@ -161,6 +197,24 @@ export default {
 						dispatch('setConnectivity', { connection: 'rpc', status: status })
 					)
 					commit('SET_CONFIG', config)
+					await dispatch(
+						'cosmos.staking.v1beta1/QueryParams',
+						{
+							options: { subscribe: false, all: false },
+							params: {},
+							query: null
+						},
+						{ root: true }
+					)
+					await dispatch(
+						'cosmos.bank.v1beta1/QueryTotalSupply',
+						{
+							options: { subscribe: false, all: false },
+							params: {},
+							query: null
+						},
+						{ root: true }
+					)
 					commit('CONNECT', { client })
 					commit('INITIALIZE_WS_COMPLETE')
 				} else {
@@ -182,7 +236,7 @@ export default {
 					if (reconnectWS && config.wsNode) {
 						try {
 							await client.switchWS(config.wsNode)
-						} catch (e) {						
+						} catch (e) {
 							throw new SpVuexError(
 								'Env:Client:Websocket',
 								'Could not switch to websocket node:' + config.wsNode
@@ -203,7 +257,7 @@ export default {
 						}
 					}
 				}
-			}catch (e) {
+			} catch (e) {
 				console.error(e)
 			}
 		}

@@ -19,7 +19,7 @@
 									fulldenom.amount - amount < 0
 							}"
 						>
-							<strong>Available</strong> {{ fulldenom.amount - amount }}/{{
+							<strong>Avail.</strong> {{ fulldenom.amount - amount }}/{{
 								fulldenom.amount
 							}}
 						</div>
@@ -45,7 +45,7 @@
 					<div class="sp-amount-select__denom__controls">
 						<div
 							class="sp-amount-select__denom__remove"
-							v-if="modalOpen"
+							v-if="modalOpen && !last"
 							v-on:click="selfRemove"
 						>
 							Remove
@@ -60,7 +60,13 @@
 				</div>
 				<div class="sp-amount-select__denom__modal" v-if="modalOpen">
 					<div class="sp-amount-select__denom__modal__search">
-						<input type="text" v-model="searchTerm" />
+						<div class="sp-icon sp-icon-Search" />
+						<input
+							type="text"
+							v-model="searchTerm"
+							placeholder="Search..."
+							class="sp-amount-select__denom__modal__search__input"
+						/>
 					</div>
 					<div class="sp-line"></div>
 					<div class="sp-amount-select__denom__modal__header">
@@ -75,9 +81,18 @@
 						class="sp-amount-select__denom__modal__item"
 						:class="{
 							'sp-amount-select__denom__modal__item__selected':
-								avail.denom == fulldenom.denom
+								avail.denom == fulldenom.denom,
+							'sp-amount-select__denom__modal__item__disabled':
+								enabledDenoms.findIndex((x) => x == avail) == -1
 						}"
-						v-on:click=";(denom = avail.denom), (modalOpen = false)"
+						v-on:click="
+							() => {
+								if (enabledDenoms.findIndex((x) => x == avail) != -1) {
+									denom = avail.denom
+									modalOpen = false
+								}
+							}
+						"
 						v-for="avail in filtered_denoms"
 						v-bind:key="'denom_' + avail.denom"
 					>
@@ -110,9 +125,12 @@
 			</div>
 			<input
 				class="sp-input sp-input-large"
-				:class="{ 'sp-error': fulldenom.amount - amount < 0 }"
+				:class="{
+					'sp-error': fulldenom.amount != '' && fulldenom.amount - amount < 0
+				}"
 				name="rcpt"
 				v-model="amount"
+				placeholder="0"
 				v-on:focus="focused = true"
 				v-on:blur="focused = false"
 			/>
@@ -124,7 +142,7 @@ export default {
 	name: 'SpAmountSelect',
 	data: function () {
 		return {
-			amount: 0,
+			amount: '',
 			denom: null,
 			focused: false,
 			modalOpen: false,
@@ -134,7 +152,10 @@ export default {
 	},
 	props: {
 		modelValue: Object,
-		available: Array
+		available: Array,
+		index: Number,
+		selected: Array,
+		last: Boolean
 	},
 	emits: ['update:modelValue'],
 	mounted() {
@@ -148,6 +169,13 @@ export default {
 		fulldenom() {
 			return this.denoms.find((x) => x.denom == this.denom)
 		},
+		enabledDenoms() {
+			return this.available.filter(
+				(x) =>
+					this.selected.findIndex((y) => y == x.denom) == -1 ||
+					this.selected.findIndex((y) => y == x.denom) == this.index
+			)
+		},
 		denoms() {
 			return this.available.map((x) => {
 				this.addMapping(x)
@@ -158,7 +186,11 @@ export default {
 		filtered_denoms() {
 			return this.searchTerm == ''
 				? this.denoms
-				: this.denoms.filter((x) => x.denom.indexOf(this.searchTerm) !== -1)
+				: this.denoms.filter(
+						(x) =>
+							x.denom.toUpperCase().indexOf(this.searchTerm.toUpperCase()) !==
+							-1
+				  )
 		}
 	},
 	methods: {

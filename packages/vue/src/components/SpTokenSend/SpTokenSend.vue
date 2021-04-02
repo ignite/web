@@ -72,17 +72,18 @@
 						>
 							<SpAmountSelect
 								v-for="(amount, index) in transfer.amount"
+								:index="index"
+								:last="transfer.amount.length == 1"
 								v-model="transfer.amount[index]"
 								:available="balances"
+								:selected="selectedDenoms"
 								v-bind:key="'amount' + index"
 								v-on:self-remove="transfer.amount.splice(index, 1)"
 							/>
 							<div
 								class="sp-token-send__main__amt__add"
-								v-if="transfer.channel == ''"
-								v-on:click="
-									transfer.amount.push({ amount: 0, denom: balances[0].denom })
-								"
+								v-if="transfer.channel == '' && nextToAdd != null"
+								v-on:click="addToken"
 							>
 								+ Add Token
 							</div>
@@ -132,19 +133,18 @@
 									>
 										<SpAmountSelect
 											v-for="(amount, index) in transfer.fees"
+											:index="index"
+											:last="transfer.fees.length == 1"
 											v-model="transfer.fees[index]"
 											:available="balances"
+											:selected="selectedFeeDenoms"
 											v-bind:key="'fee' + index"
 											v-on:self-remove="transfer.fees.splice(index, 1)"
 										/>
 										<div
 											class="sp-token-send__main__amt__add"
-											v-on:click="
-												transfer.fees.push({
-													amount: 0,
-													denom: balances[0].denom
-												})
-											"
+											v-if="nextFeeToAdd != null"
+											v-on:click="addFeeToken"
 										>
 											+ Add Fee Token
 										</div>
@@ -196,7 +196,11 @@
 									>
 										Reset
 									</div>
-									<SpButton v-on:click="sendTransaction" type="primary"
+									<SpButton
+										v-on:click="sendTransaction"
+										type="primary"
+										:disabled="!validForm"
+										:busy="inFlight"
 										>Send transaction</SpButton
 									>
 								</div>
@@ -219,7 +223,7 @@
 									<SpButton
 										v-on:click="sendTransaction"
 										type="primary"
-										:disabled="!address"
+										:disabled="!validForm"
 										>Send transaction</SpButton
 									>
 								</div>
@@ -352,6 +356,9 @@ export default {
 	},
 	mounted() {
 		this.bankAddress = this.address
+		this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
+			params: {}
+		})
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
 				this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
@@ -363,9 +370,9 @@ export default {
 	},
 	watch: {
 		balances: function (newBal, oldBal) {
-			if (newBal != oldBal && newBal[0]?.denom) {
-				this.transfer.amount = [{ amount: '0', denom: newBal[0].denom }]
-				this.transfer.fees = [{ amount: '0', denom: newBal[0].denom }]
+			if (newBal != oldBal && newBal[0]?.denom && oldBal.length == 0) {
+				this.transfer.amount = [{ amount: '', denom: newBal[0].denom }]
+				this.transfer.fees = [{ amount: '', denom: newBal[0].denom }]
 			}
 		},
 		address: function (newAddr, oldAddr) {
@@ -383,6 +390,20 @@ export default {
 		}
 	},
 	computed: {
+		validForm() {
+			if (
+				this.transfer.amount.every(
+					(x) => !isNaN(x.amount) && x.amount != '' && x.amount != 0
+				) &&
+				this.transfer.fees.every((x) => !isNaN(x.amount)) &&
+				this.validAddress &&
+				this.address
+			) {
+				return true
+			} else {
+				return false
+			}
+		},
 		balances() {
 			if (this._depsLoaded) {
 				return (
@@ -393,6 +414,32 @@ export default {
 			} else {
 				return []
 			}
+		},
+		nextToAdd() {
+			let i = this.balances.findIndex(
+				(x) => !this.selectedDenoms.includes(x.denom)
+			)
+			if (i == -1) {
+				return null
+			} else {
+				return this.balances[i]
+			}
+		},
+		nextFeeToAdd() {
+			let i = this.balances.findIndex(
+				(x) => !this.selectedFeeDenoms.includes(x.denom)
+			)
+			if (i == -1) {
+				return null
+			} else {
+				return this.balances[i]
+			}
+		},
+		selectedDenoms() {
+			return this.transfer.amount.map((x) => x.denom)
+		},
+		selectedFeeDenoms() {
+			return this.transfer.fees.map((x) => x.denom)
 		},
 		fullBalances() {
 			return this.balances.map((x) => {
@@ -420,33 +467,6 @@ export default {
 			}
 			return to_address
 		},
-		validAmounts() {
-			let valid = true
-			let required = {}
-			for (let amount of this.transfer.amount) {
-				if (
-					Number(amount.amount) > 0 &&
-					Number.isInteger(Number(amount.amount))
-				) {
-					if (required[amount.denom]) {
-						required[amount.denom] =
-							required[amount.denom] + Number(amount.amount)
-					} else {
-						required[amount.denom] = Number(amount.amount)
-					}
-				} else {
-					valid = false
-				}
-			}
-			for (let denom in required) {
-				if (
-					required[denom] > this.balances.find((x) => x.denom == denom).amount
-				) {
-					valid = false
-				}
-			}
-			return valid
-		},
 		txResultMessage() {
 			if (this.txResult && this.txResult.code) {
 				return `Error: ${this.txResult.rawLog}`
@@ -469,16 +489,22 @@ export default {
 			}
 		},
 		resetTransaction() {
-			this.transfer.amount = [{ amount: '0', denom: this.balances[0].denom }]
+			this.transfer.amount = [{ amount: '', denom: this.balances[0].denom }]
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
 			this.transfer.channel = ''
-			this.transfer.fees = [{ amount: '0', denom: this.balances[0].denom }]
+			this.transfer.fees = [{ amount: '', denom: this.balances[0].denom }]
 			this.feesOpen = false
 			this.memoOpen = false
 		},
 		resetFees() {
-			this.transfer.fees = [{ amount: '0', denom: this.balances[0].denom }]
+			this.transfer.fees = [{ amount: '', denom: this.balances[0].denom }]
+		},
+		addToken() {
+			this.transfer.amount.push({ amount: '', denom: this.nextToAdd.denom })
+		},
+		addFeeToken() {
+			this.transfer.fees.push({ amount: '', denom: this.nextFeeToAdd.denom })
 		},
 		denomChange() {
 			const inBounds = this.denomIndex < this.denoms.length - 1
@@ -486,7 +512,7 @@ export default {
 		},
 		async sendTransaction() {
 			if (this._depsLoaded && this.address) {
-				if (this.validAddress && this.validAmounts && !this.inFlight) {
+				if (this.validForm && !this.inFlight) {
 					if (this.transfer.channel == '') {
 						const value = {
 							amount: this.transfer.amount,
@@ -495,47 +521,53 @@ export default {
 						}
 						this.txResult = ''
 						this.inFlight = true
-						this.txResult = await this.$store.dispatch(
-							'cosmos.bank.v1beta1/sendMsgSend',
-							{ value, fee: this.transfer.fees, memo: this.transfer.memo }
-						)
-						if (this.txResult && !this.txResult.code) {
-							this.resetTransaction()
+						this.transfer.fees.forEach((x) => {
+							if (x.amount == '') {
+								x.amount = '0'
+							}
+						})
+						try {
+							this.txResult = await this.$store.dispatch(
+								'cosmos.bank.v1beta1/sendMsgSend',
+								{ value, fee: this.transfer.fees, memo: this.transfer.memo }
+							)
+							if (this.txResult && !this.txResult.code) {
+								this.resetTransaction()
+							}
+						} catch (e) {
+							console.error(e)
+						} finally {
+							this.inFlight = false
 						}
-						this.inFlight = false
 						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 							params: { address: this.address },
 							options: { all: true, subscribe: false }
 						})
 					} else {
-						this.txResult = await this.$store.dispatch(
-							'ibc.applications.transfer.v1/sendMsgTransfer',
-							{
-								value: {
-									sourcePort: 'transfer',
-									sourceChannel: this.transfer.channel,
-									sender: this.bankAddress,
-									receiver: this.transfer.recipient,
-									timeoutTimestamp: new Date().getTime() + 60000 + '000000',
-									token: this.transfer.amount[0]
-								},
-								fee: this.transfer.fees,
-								memo: this.transfer.memo
+						try {
+							this.txResult = await this.$store.dispatch(
+								'ibc.applications.transfer.v1/sendMsgTransfer',
+								{
+									value: {
+										sourcePort: 'transfer',
+										sourceChannel: this.transfer.channel,
+										sender: this.bankAddress,
+										receiver: this.transfer.recipient,
+										timeoutTimestamp: new Date().getTime() + 60000 + '000000',
+										token: this.transfer.amount[0]
+									},
+									fee: this.transfer.fees,
+									memo: this.transfer.memo
+								}
+							)
+							if (this.txResult && !this.txResult.code) {
+								this.resetTransaction()
 							}
-						)
-						console.log({
-							sourcePort: 'transfer',
-							sourceChannel: this.transfer.channel,
-							sender: this.bankAddress,
-							receiver: this.transfer.recipient,
-							timeoutTimestamp: new Date().getTime() + 60000 + '000000',
-							token: this.transfer.amount[0]
-						})
-						console.log(this.txResult)
-						if (this.txResult && !this.txResult.code) {
-							this.resetTransaction()
+						} catch (e) {
+							console.error(e)
+						} finally {
+							this.inFlight = false
 						}
-						this.inFlight = false
 						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 							params: { address: this.address },
 							options: { all: true, subscribe: false }

@@ -22,7 +22,7 @@
 					:class="{
 						'sp-wallet-menu-item__locked': topWallet.name != walletName
 					}"
-					 v-on:click="opened = !opened"
+					v-on:click="opened = !opened"
 				>
 					<div
 						class="sp-wallet-menu-item__avatar"
@@ -463,8 +463,16 @@ export default {
 		},
 		async toggleWallet(name) {
 			if (name != this.walletName) {
-				this.toUnlock = name
-				this.unlocking = true
+				if (name == 'Keplr Integration') {
+					await window.keplr.enable(this.$store.getters['common/env/chainId'])
+					await this.$store.dispatch('common/wallet/unlockWallet', {
+						name,
+						password: null
+					})
+				} else {
+					this.toUnlock = name
+					this.unlocking = true
+				}
 			} else {
 				await this.$store.dispatch('common/wallet/signOut')
 				this.toUnlock = ''
