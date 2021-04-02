@@ -73,17 +73,17 @@
 							<SpAmountSelect
 								v-for="(amount, index) in transfer.amount"
 								:index="index"
+								:last="transfer.amount.length == 1"
 								v-model="transfer.amount[index]"
 								:available="balances"
+								:selected="selectedDenoms"
 								v-bind:key="'amount' + index"
 								v-on:self-remove="transfer.amount.splice(index, 1)"
 							/>
 							<div
 								class="sp-token-send__main__amt__add"
-								v-if="transfer.channel == ''"
-								v-on:click="
-									transfer.amount.push({ amount: 0, denom: balances[0].denom })
-								"
+								v-if="transfer.channel == '' && nextToAdd != null"
+								v-on:click="addToken"
 							>
 								+ Add Token
 							</div>
@@ -133,19 +133,18 @@
 									>
 										<SpAmountSelect
 											v-for="(amount, index) in transfer.fees"
+											:index="index"
+											:last="transfer.fees.length == 1"
 											v-model="transfer.fees[index]"
 											:available="balances"
+											:selected="selectedFeeDenoms"
 											v-bind:key="'fee' + index"
 											v-on:self-remove="transfer.fees.splice(index, 1)"
 										/>
 										<div
 											class="sp-token-send__main__amt__add"
-											v-on:click="
-												transfer.fees.push({
-													amount: 0,
-													denom: balances[0].denom
-												})
-											"
+											v-if="nextFeeToAdd != null"
+											v-on:click="addFeeToken"
 										>
 											+ Add Fee Token
 										</div>
@@ -356,6 +355,9 @@ export default {
 	},
 	mounted() {
 		this.bankAddress = this.address
+		this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
+			params: {}
+		})
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
 				this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
@@ -367,9 +369,9 @@ export default {
 	},
 	watch: {
 		balances: function (newBal, oldBal) {
-			if (newBal != oldBal && newBal[0]?.denom) {
-				this.transfer.amount = [{ amount: '0', denom: newBal[0].denom }]
-				this.transfer.fees = [{ amount: '0', denom: newBal[0].denom }]
+			if (newBal != oldBal && newBal[0]?.denom && oldBal.length==0) {
+				this.transfer.amount = [{ amount: '', denom: newBal[0].denom }]
+				this.transfer.fees = [{ amount: '', denom: newBal[0].denom }]
 			}
 		},
 		address: function (newAddr, oldAddr) {
@@ -397,6 +399,32 @@ export default {
 			} else {
 				return []
 			}
+		},
+		nextToAdd() {
+			let i = this.balances.findIndex(
+				(x) => !this.selectedDenoms.includes(x.denom)
+			)
+			if (i == -1) {
+				return null
+			} else {
+				return this.balances[i]
+			}
+		},
+		nextFeeToAdd() {
+			let i = this.balances.findIndex(
+				(x) => !this.selectedFeeDenoms.includes(x.denom)
+			)
+			if (i == -1) {
+				return null
+			} else {
+				return this.balances[i]
+			}
+		},
+		selectedDenoms() {
+			return this.transfer.amount.map((x) => x.denom)
+		},
+		selectedFeeDenoms() {
+			return this.transfer.fees.map((x) => x.denom)
 		},
 		fullBalances() {
 			return this.balances.map((x) => {
@@ -473,16 +501,22 @@ export default {
 			}
 		},
 		resetTransaction() {
-			this.transfer.amount = [{ amount: '0', denom: this.balances[0].denom }]
+			this.transfer.amount = [{ amount: '', denom: this.balances[0].denom }]
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
 			this.transfer.channel = ''
-			this.transfer.fees = [{ amount: '0', denom: this.balances[0].denom }]
+			this.transfer.fees = [{ amount: '', denom: this.balances[0].denom }]
 			this.feesOpen = false
 			this.memoOpen = false
 		},
 		resetFees() {
-			this.transfer.fees = [{ amount: '0', denom: this.balances[0].denom }]
+			this.transfer.fees = [{ amount: '', denom: this.balances[0].denom }]
+		},
+		addToken() {
+			this.transfer.amount.push({ amount: '', denom: this.nextToAdd.denom })
+		},
+		addFeeToken() {
+			this.transfer.fees.push({ amount: '', denom: this.nextFeeToAdd.denom })
 		},
 		denomChange() {
 			const inBounds = this.denomIndex < this.denoms.length - 1

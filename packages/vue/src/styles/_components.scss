@@ -1098,6 +1098,9 @@
                 &.sp-amount-select__denom__modal__item__selected {
                   background: rgba($black, 0.04);
                 }
+                &.sp-amount-select__denom__modal__item__disabled {
+                  opacity: 0.3;
+                }
               }
             }
           }
