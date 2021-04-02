@@ -23,11 +23,11 @@ test('should render properly', async () => {
 
 test('should create new wallet', async () => {
 	const wrapper = mountWrapper()
-	const importButton = wrapper.findAll('.sp-wallet-create__cards > button')[0]
+	const createButton = wrapper.findAll('.sp-wallet-create__cards > button')[0]
 
-	expect(importButton.text()).toBe('Create new wallet')
+	expect(createButton.text()).toBe('Create new wallet')
 
-	await importButton.trigger('click')
+	await createButton.trigger('click')
 
 	expect(wrapper.text()).toContain(
 		'Generate your own unique wallet. Receive a public address (0x...)'
