@@ -521,6 +521,11 @@ export default {
 						}
 						this.txResult = ''
 						this.inFlight = true
+						this.transfer.fees.forEach((x) => {
+							if (x.amount == '') {
+								x.amount = '0'
+							}
+						})
 						try {
 							this.txResult = await this.$store.dispatch(
 								'cosmos.bank.v1beta1/sendMsgSend',
