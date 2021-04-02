@@ -47628,7 +47628,7 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=98ced7a8
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=4f66ae4a
 
 
 var _hoisted_1 = {
@@ -47788,7 +47788,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["disabled", "busy"])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)], 2)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=98ced7a8
+// CONCATENATED MODULE: ./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=4f66ae4a
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__("b64b");
@@ -48233,6 +48233,11 @@ var runtime = __webpack_require__("96cf");
     capitalize: function capitalize(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     },
+    resetForm: function resetForm() {
+      for (var i in this.typeData) {
+        this.typeData[i] = '';
+      }
+    },
     createType: function createType() {
       var _this3 = this;
 
@@ -48242,7 +48247,7 @@ var runtime = __webpack_require__("96cf");
             switch (_context3.prev = _context3.next) {
               case 0:
                 if (!(_this3._depsLoaded && _this3.address)) {
-                  _context3.next = 17;
+                  _context3.next = 18;
                   break;
                 }
 
@@ -48261,25 +48266,27 @@ var runtime = __webpack_require__("96cf");
 
                 _this3.$emit('created');
 
-                _context3.next = 14;
+                _this3.resetForm();
+
+                _context3.next = 15;
                 break;
 
-              case 11:
-                _context3.prev = 11;
+              case 12:
+                _context3.prev = 12;
                 _context3.t0 = _context3["catch"](3);
                 console.error(_context3.t0);
 
-              case 14:
-                _context3.prev = 14;
+              case 15:
+                _context3.prev = 15;
                 _this3.inFlight = false;
-                return _context3.finish(14);
+                return _context3.finish(15);
 
-              case 17:
+              case 18:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[3, 11, 14, 17]]);
+        }, _callee3, null, [[3, 12, 15, 18]]);
       }))();
     },
     updateType: function updateType() {
@@ -48291,7 +48298,7 @@ var runtime = __webpack_require__("96cf");
             switch (_context4.prev = _context4.next) {
               case 0:
                 if (!_this4._depsLoaded) {
-                  _context4.next = 17;
+                  _context4.next = 18;
                   break;
                 }
 
@@ -48310,25 +48317,27 @@ var runtime = __webpack_require__("96cf");
 
                 _this4.$emit('updated');
 
-                _context4.next = 14;
+                _this4.resetForm();
+
+                _context4.next = 15;
                 break;
 
-              case 11:
-                _context4.prev = 11;
+              case 12:
+                _context4.prev = 12;
                 _context4.t0 = _context4["catch"](3);
                 console.error(_context4.t0);
 
-              case 14:
-                _context4.prev = 14;
+              case 15:
+                _context4.prev = 15;
                 _this4.inFlight = false;
-                return _context4.finish(14);
+                return _context4.finish(15);
 
-              case 17:
+              case 18:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[3, 11, 14, 17]]);
+        }, _callee4, null, [[3, 12, 15, 18]]);
       }))();
     },
     deleteType: function deleteType() {
@@ -48340,7 +48349,7 @@ var runtime = __webpack_require__("96cf");
             switch (_context5.prev = _context5.next) {
               case 0:
                 if (!_this5._depsLoaded) {
-                  _context5.next = 17;
+                  _context5.next = 18;
                   break;
                 }
 
@@ -48359,25 +48368,27 @@ var runtime = __webpack_require__("96cf");
 
                 _this5.$emit('deleted');
 
-                _context5.next = 14;
+                _this5.resetForm();
+
+                _context5.next = 15;
                 break;
 
-              case 11:
-                _context5.prev = 11;
+              case 12:
+                _context5.prev = 12;
                 _context5.t0 = _context5["catch"](3);
                 console.error(_context5.t0);
 
-              case 14:
-                _context5.prev = 14;
+              case 15:
+                _context5.prev = 15;
                 _this5.inFlight = false;
-                return _context5.finish(14);
+                return _context5.finish(15);
 
-              case 17:
+              case 18:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[3, 11, 14, 17]]);
+        }, _callee5, null, [[3, 12, 15, 18]]);
       }))();
     }
   }

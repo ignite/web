@@ -255,6 +255,11 @@ export default {
 		capitalize(str) {
 			return str.charAt(0).toUpperCase() + str.slice(1)
 		},
+		resetForm() {
+			for (let i in this.typeData) {
+				this.typeData[i] = ''
+			}
+		},
 		async createType() {
 			if (this._depsLoaded && this.address) {
 				this.typeData['creator'] = this.selectedAccount
@@ -269,6 +274,7 @@ export default {
 					)
 					this.inFlight = false
 					this.$emit('created')
+					this.resetForm()
 				} catch (e) {
 					console.error(e)
 				} finally {
@@ -290,6 +296,7 @@ export default {
 					)
 					this.inFlight = false
 					this.$emit('updated')
+					this.resetForm()
 				} catch (e) {
 					console.error(e)
 				} finally {
@@ -311,6 +318,7 @@ export default {
 					)
 					this.inFlight = false
 					this.$emit('deleted')
+					this.resetForm()
 				} catch (e) {
 					console.error(e)
 				} finally {
