@@ -499,47 +499,48 @@ export default {
 						}
 						this.txResult = ''
 						this.inFlight = true
-						this.txResult = await this.$store.dispatch(
-							'cosmos.bank.v1beta1/sendMsgSend',
-							{ value, fee: this.transfer.fees, memo: this.transfer.memo }
-						)
-						if (this.txResult && !this.txResult.code) {
-							this.resetTransaction()
+						try {
+							this.txResult = await this.$store.dispatch(
+								'cosmos.bank.v1beta1/sendMsgSend',
+								{ value, fee: this.transfer.fees, memo: this.transfer.memo }
+							)
+							if (this.txResult && !this.txResult.code) {
+								this.resetTransaction()
+							}
+						} catch (e) {
+							console.error(e)
+						} finally {
+							this.inFlight = false
 						}
-						this.inFlight = false
 						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 							params: { address: this.address },
 							options: { all: true, subscribe: false }
 						})
 					} else {
-						this.txResult = await this.$store.dispatch(
-							'ibc.applications.transfer.v1/sendMsgTransfer',
-							{
-								value: {
-									sourcePort: 'transfer',
-									sourceChannel: this.transfer.channel,
-									sender: this.bankAddress,
-									receiver: this.transfer.recipient,
-									timeoutTimestamp: new Date().getTime() + 60000 + '000000',
-									token: this.transfer.amount[0]
-								},
-								fee: this.transfer.fees,
-								memo: this.transfer.memo
+						try {
+							this.txResult = await this.$store.dispatch(
+								'ibc.applications.transfer.v1/sendMsgTransfer',
+								{
+									value: {
+										sourcePort: 'transfer',
+										sourceChannel: this.transfer.channel,
+										sender: this.bankAddress,
+										receiver: this.transfer.recipient,
+										timeoutTimestamp: new Date().getTime() + 60000 + '000000',
+										token: this.transfer.amount[0]
+									},
+									fee: this.transfer.fees,
+									memo: this.transfer.memo
+								}
+							)
+							if (this.txResult && !this.txResult.code) {
+								this.resetTransaction()
 							}
-						)
-						console.log({
-							sourcePort: 'transfer',
-							sourceChannel: this.transfer.channel,
-							sender: this.bankAddress,
-							receiver: this.transfer.recipient,
-							timeoutTimestamp: new Date().getTime() + 60000 + '000000',
-							token: this.transfer.amount[0]
-						})
-						console.log(this.txResult)
-						if (this.txResult && !this.txResult.code) {
-							this.resetTransaction()
+						} catch (e) {
+							console.error(e)
+						} finally {
+							this.inFlight = false
 						}
-						this.inFlight = false
 						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 							params: { address: this.address },
 							options: { all: true, subscribe: false }
