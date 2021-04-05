@@ -5477,6 +5477,7 @@ __webpack_require__.d(__webpack_exports__, "SpAmountSelect", function() { return
 __webpack_require__.d(__webpack_exports__, "SpAssets", function() { return /* reexport */ SpAssets["a" /* default */]; });
 __webpack_require__.d(__webpack_exports__, "SpRelayers", function() { return /* reexport */ SpRelayers["a" /* default */]; });
 __webpack_require__.d(__webpack_exports__, "SpRelayer", function() { return /* reexport */ SpRelayer["a" /* default */]; });
+__webpack_require__.d(__webpack_exports__, "SpLayout", function() { return /* reexport */ SpLayout["a" /* default */]; });
 
 // NAMESPACE OBJECT: ./src/components/index.js
 var components_namespaceObject = {};
@@ -5508,6 +5509,7 @@ __webpack_require__.d(components_namespaceObject, "SpAmountSelect", function() {
 __webpack_require__.d(components_namespaceObject, "SpAssets", function() { return SpAssets["a" /* default */]; });
 __webpack_require__.d(components_namespaceObject, "SpRelayers", function() { return SpRelayers["a" /* default */]; });
 __webpack_require__.d(components_namespaceObject, "SpRelayer", function() { return SpRelayer["a" /* default */]; });
+__webpack_require__.d(components_namespaceObject, "SpLayout", function() { return SpLayout["a" /* default */]; });
 
 // CONCATENATED MODULE: /home/clockwork/Tendermint/vue/node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -5617,7 +5619,11 @@ var SpRelayers = __webpack_require__("933c");
 // EXTERNAL MODULE: ./src/components/SpRelayer/index.js
 var SpRelayer = __webpack_require__("e4b4");
 
+// EXTERNAL MODULE: ./src/components/SpLayout/index.js
+var SpLayout = __webpack_require__("c549");
+
 // CONCATENATED MODULE: ./src/components/index.js
+
 
 
 
@@ -21084,7 +21090,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__("861d");
-var setPrototypeOf = __webpack_require__("d2bb");
+var setPrototypeOf = __webpack_require__("d2bbe");
 
 // makes subclassing work correct for wrapped built-ins
 module.exports = function ($this, dummy, Wrapper) {
@@ -38261,6 +38267,42 @@ module.exports = false;
 
 /***/ }),
 
+/***/ "c549":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export install */
+/* harmony import */ var _SpLayout_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("d2bb");
+ // Declare install function executed by Vue.use()
+
+function install(Vue) {
+  if (install.installed) return;
+  install.installed = true;
+  Vue.component('SpLayout', _SpLayout_vue__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
+} // Create module definition for Vue.use()
+
+var plugin = {
+  install: install
+}; // Auto-install when vue is found (eg. in browser via <script> tag)
+
+var GlobalVue = null;
+
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+} // To allow use as module (npm/webpack/etc.) export component
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_SpLayout_vue__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("7d15")))
+
+/***/ }),
+
 /***/ "c607":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43647,6 +43689,43 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 /***/ }),
 
 /***/ "d2bb":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue","amd":"vue"}
+var external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_ = __webpack_require__("8bbf");
+
+// CONCATENATED MODULE: /home/clockwork/Tendermint/vue/node_modules/cache-loader/dist/cjs.js??ref--12-0!/home/clockwork/Tendermint/vue/node_modules/thread-loader/dist/cjs.js!/home/clockwork/Tendermint/vue/node_modules/babel-loader/lib!/home/clockwork/Tendermint/vue/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!/home/clockwork/Tendermint/vue/node_modules/cache-loader/dist/cjs.js??ref--0-0!/home/clockwork/Tendermint/vue/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpLayout/SpLayout.vue?vue&type=template&id=6373cc3c
+
+var _hoisted_1 = {
+  class: "sp-layout"
+};
+var _hoisted_2 = {
+  class: "sp-fill"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", _hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderSlot"])(_ctx.$slots, "sidebar"), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", _hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderSlot"])(_ctx.$slots, "content")])]);
+}
+// CONCATENATED MODULE: ./src/components/SpLayout/SpLayout.vue?vue&type=template&id=6373cc3c
+
+// CONCATENATED MODULE: /home/clockwork/Tendermint/vue/node_modules/cache-loader/dist/cjs.js??ref--12-0!/home/clockwork/Tendermint/vue/node_modules/thread-loader/dist/cjs.js!/home/clockwork/Tendermint/vue/node_modules/babel-loader/lib!/home/clockwork/Tendermint/vue/node_modules/cache-loader/dist/cjs.js??ref--0-0!/home/clockwork/Tendermint/vue/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpLayout/SpLayout.vue?vue&type=script&lang=js
+/* harmony default export */ var SpLayoutvue_type_script_lang_js = ({
+  name: 'SpLayout'
+});
+// CONCATENATED MODULE: ./src/components/SpLayout/SpLayout.vue?vue&type=script&lang=js
+ 
+// CONCATENATED MODULE: ./src/components/SpLayout/SpLayout.vue
+
+
+
+SpLayoutvue_type_script_lang_js.render = render
+
+/* harmony default export */ var SpLayout = __webpack_exports__["a"] = (SpLayoutvue_type_script_lang_js);
+
+/***/ }),
+
+/***/ "d2bbe":
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable no-proto -- safe */
