@@ -3,8 +3,9 @@
 		<pre>{{ block }}</pre>
 	</div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
 	name: 'SpBlockDisplayFull',
 	props: {
 		block: Object
@@ -14,5 +15,5 @@ export default {
 			txs: []
 		}
 	}
-}
+})
 </script>

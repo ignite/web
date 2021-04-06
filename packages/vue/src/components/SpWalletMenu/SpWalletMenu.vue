@@ -180,7 +180,8 @@
 		</div>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 //import * as bip39 from 'bip39'
 import SpAccountList from '../SpAccountList'
 import SpButton from '../SpButton'
@@ -355,7 +356,7 @@ function hash(e) {
 			(d = h(d, t))
 	return (p(a) + p(b) + p(c) + p(d)).toLowerCase()
 }
-export default {
+export default defineComponent({
 	name: 'SpWalletMenu',
 	components: {
 		SpAccountList,
@@ -480,5 +481,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

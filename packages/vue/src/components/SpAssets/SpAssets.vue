@@ -77,9 +77,9 @@
 		</div>
 	</div>
 </template>
-
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
 	name: 'SpAssets',
 	props: {
 		balances: Array
@@ -126,5 +126,5 @@ export default {
 			return ((-1 ^ n) >>> 0).toString(16)
 		}
 	}
-}
+})
 </script>

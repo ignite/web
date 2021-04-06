@@ -198,10 +198,11 @@
 		</table>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import dayjs from 'dayjs'
 import { decode } from 'js-base64'
-export default {
+export default defineComponent({
 	name: 'SpTransferList',
 	props: { address: String, refresh: Boolean },
 	data: function () {
@@ -497,5 +498,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

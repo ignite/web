@@ -14,12 +14,13 @@
 		</SpWalletCreate>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import SpWalletMenu from '../SpWalletMenu'
 import SpButton from '../SpButton'
 import SpWalletCreate from '../SpWalletCreate'
 
-export default {
+export default defineComponent({
 	name: 'SpWallet',
 	components: {
 		SpWalletMenu,
@@ -55,5 +56,5 @@ export default {
 		}
 	},
 	methods: {}
-}
+})
 </script>

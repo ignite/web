@@ -238,86 +238,14 @@
 		</div>
 	</div>
 </template>
-
-<style scoped>
-.container {
-	font-family: var(--sp-f-primary);
-}
-.form > * {
-	margin-bottom: 10px;
-}
-.card {
-	background: rgb(247, 247, 247);
-	width: 100%;
-	padding: 1rem;
-	border-radius: 0.5rem;
-	box-sizing: border-box;
-}
-.token__item {
-	max-width: 225px;
-}
-.h3 {
-	font-size: 0.875rem;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	font-weight: 700;
-	user-select: none;
-	display: flex;
-	align-items: center;
-}
-.h3__button {
-	cursor: pointer;
-}
-.h3__icon {
-	height: 1em;
-	width: 1em;
-	margin: 0 0.25rem;
-	fill: rgba(0, 0, 0, 0.35);
-}
-.label {
-	margin-bottom: 0.5rem;
-}
-.input {
-	width: 100%;
-	box-sizing: border-box;
-	padding: 0;
-	border: none;
-	background: none;
-	font-size: 1rem;
-	font-family: inherit;
-	outline: none;
-	letter-spacing: 0.02em;
-	text-transform: none;
-}
-.token__item__input::-webkit-input-placeholder {
-	color: rgba(0, 0, 0, 0.35);
-}
-.footer {
-	display: grid;
-	grid-template-columns: 3fr 1fr;
-	grid-gap: 10px;
-	box-sizing: border-box;
-}
-.memo {
-	padding: 0.75rem 1rem;
-	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-	border-radius: 0.5rem;
-}
-.log__text {
-	display: flex;
-	justify-content: flex-end;
-	font-size: 0.75rem;
-	color: rgba(0, 0, 0, 0.35);
-}
-</style>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import SpButton from '../SpButton'
 import SpAssets from '../SpAssets'
 import SpAmountSelect from '../SpAmountSelect'
 import { Bech32 } from '@cosmjs/encoding'
 
-export default {
+export default defineComponent({
 	name: 'SpTokenSend',
 	components: {
 		SpButton,
@@ -577,5 +505,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

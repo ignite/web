@@ -39,8 +39,9 @@
 		</a>
 	</div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
 	name: 'SpLinkIcon',
 	props: {
 		link: {
@@ -60,5 +61,5 @@ export default {
 			required: true
 		}
 	}
-}
+})
 </script>

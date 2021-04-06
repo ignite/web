@@ -164,8 +164,8 @@
 		</template>
 	</div>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import * as bip39 from 'bip39'
 import dayjs from 'dayjs'
 import { saveAs } from 'file-saver'
@@ -176,7 +176,7 @@ import SpMnemonic from '../SpMnemonic'
 
 //import SpMnemonicInput from '../SpMnemonicInput'
 
-export default {
+export default defineComponent({
 	name: 'SpWalletCreate',
 	components: {
 		SpCard,
@@ -444,5 +444,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

@@ -15,10 +15,11 @@
 		</div>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import SpStatusLED from '../SpStatusLED'
 
-export default {
+export default defineComponent({
 	name: 'SpStatusAPI',
 	components: {
 		SpStatusLED
@@ -36,5 +37,5 @@ export default {
 			return this.$store.getters['common/env/apiConnected']
 		}
 	}
-}
+})
 </script>

@@ -21,8 +21,9 @@
 		</div>
 	</button>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
 	name: 'SpCard',
 	props: {
 		type: {
@@ -37,5 +38,5 @@ export default {
 			type: String
 		}
 	}
-}
+})
 </script>

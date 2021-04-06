@@ -14,11 +14,11 @@
 		</div>
 	</router-link>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import dayjs from 'dayjs'
 
-export default {
+export default defineComponent({
 	name: 'SpBlockDisplaySmall',
 	props: {
 		block: Object,
@@ -30,5 +30,5 @@ export default {
 			return momentTime.format(this.tsFormat)
 		}
 	}
-}
+})
 </script>

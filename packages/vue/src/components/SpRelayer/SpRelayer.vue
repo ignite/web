@@ -245,10 +245,10 @@
 		</div>
 	</div>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import SpButton from '../SpButton'
-export default {
+export default defineComponent({
 	name: 'SpRelayer',
 	props: {
 		relayer: Object
@@ -332,5 +332,5 @@ export default {
 			)
 		}
 	}
-}
+})
 </script>

@@ -92,8 +92,9 @@
 		</div>
 	</div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
 	name: 'SpTypeList',
 	props: {
 		moduleType: {
@@ -160,5 +161,5 @@ export default {
 			return str.charAt(0).toUpperCase() + str.slice(1)
 		}
 	}
-}
+})
 </script>

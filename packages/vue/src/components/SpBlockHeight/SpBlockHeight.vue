@@ -3,8 +3,9 @@
 		Block Height: <strong>{{ blockHeight }}</strong>
 	</div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
 	name: 'SpBlockHeight',
 	computed: {
 		blocks() {
@@ -36,5 +37,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

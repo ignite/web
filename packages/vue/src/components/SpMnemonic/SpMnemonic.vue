@@ -23,8 +23,8 @@
 		</div>
 	</div>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import SpLinkIcon from '../SpLinkIcon'
 const copyToClipboard = (str) => {
 	const el = document.createElement('textarea')
@@ -35,7 +35,7 @@ const copyToClipboard = (str) => {
 	document.execCommand('copy')
 	document.body.removeChild(el)
 }
-export default {
+export default defineComponent({
 	name: 'SpMnemonic',
 	props: {
 		mnemonic: {
@@ -62,5 +62,5 @@ export default {
 			copyToClipboard(this.mnemonic)
 		}
 	}
-}
+})
 </script>

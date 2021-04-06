@@ -156,10 +156,10 @@
 		</div>
 	</div>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import SpRelayer from '../SpRelayer'
-export default {
+export default defineComponent({
 	name: 'SpRelayers',
 	components: {
 		SpRelayer
@@ -247,5 +247,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

@@ -24,9 +24,10 @@
 		//-->
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 //import SpBadgeButton from '../SpBadgeButton'
-export default {
+export default defineComponent({
 	name: 'SpSidebar',
 	components: {
 		//	SpBadgeButton
@@ -47,5 +48,5 @@ export default {
 			//this.mobOpened ? this.$emit('sidebar-open') : this.$emit('sidebar-close')
 		}
 	}
-}
+})
 </script>
