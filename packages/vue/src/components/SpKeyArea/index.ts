@@ -3,14 +3,10 @@ import SpKeyArea from './SpKeyArea.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
-	install(vue: Application) {
+export const Plugin = {
+	install(vue: Application):void {
 		registerComponent(vue, SpKeyArea)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpKeyArea }
+export default SpKeyArea

@@ -3,13 +3,14 @@ import './styles/app.scss'
 import { App as Application, Plugin } from 'vue'
 import * as components from './components/index'
 import { setVueInstance } from './utils/config/index'
+import { registerComponent } from './utils/plugins/index'
 
 const install: Exclude<Plugin['install'], undefined> = (
 	instance: Application
 ) => {
 	setVueInstance(instance)
 	for (const componentKey in components) {
-		instance.use((components as any)[componentKey])
+		registerComponent(instance, (components as any)[componentKey])
 	}
 
 	instance.directive('click-outside', {

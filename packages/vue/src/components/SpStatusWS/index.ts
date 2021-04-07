@@ -3,14 +3,10 @@ import SpStatusWS from './SpStatusWS.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpStatusWS)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpStatusWS }
+export default SpStatusWS

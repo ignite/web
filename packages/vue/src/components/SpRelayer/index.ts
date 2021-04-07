@@ -3,14 +3,10 @@ import SpRelayer from './SpRelayer.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpRelayer)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpRelayer }
+export default SpRelayer

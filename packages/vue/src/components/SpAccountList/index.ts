@@ -3,7 +3,7 @@ import SpAccountList from './SpAccountList.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpAccountList)
 	}
@@ -11,6 +11,4 @@ const Plugin = {
 
 // use(Plugin);
 
-export default Plugin
-
-export { SpAccountList }
+export default SpAccountList

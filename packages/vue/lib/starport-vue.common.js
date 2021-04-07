@@ -42910,10 +42910,8 @@ var Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpLinkIcon);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpLinkIcon = (Plugin);
-
+};
+/* harmony default export */ var components_SpLinkIcon = (SpLinkIcon);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpAccountList/SpAccountList.vue?vue&type=script&lang=ts
 
 
@@ -43099,8 +43097,7 @@ var SpAccountList_Plugin = {
   }
 }; // use(Plugin);
 
-/* harmony default export */ var components_SpAccountList = (SpAccountList_Plugin);
-
+/* harmony default export */ var components_SpAccountList = (SpAccountList);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.split.js
 var es_string_split = __webpack_require__("1276");
 
@@ -43476,10 +43473,8 @@ var SpAmountSelect_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpAmountSelect);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpAmountSelect = (SpAmountSelect_Plugin);
-
+};
+/* harmony default export */ var components_SpAmountSelect = (SpAmountSelect);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpAssets/SpAssets.vue?vue&type=template&id=0bde8c7c
 
 
@@ -43667,10 +43662,8 @@ var SpAssets_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpAssets);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpAssets = (SpAssets_Plugin);
-
+};
+/* harmony default export */ var components_SpAssets = (SpAssets);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpBlockHeight/SpBlockHeight.vue?vue&type=template&id=45417656
 
 var SpBlockHeightvue_type_template_id_45417656_hoisted_1 = {
@@ -43739,10 +43732,8 @@ var SpBlockHeight_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpBlockHeight);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpBlockHeight = (SpBlockHeight_Plugin);
-
+};
+/* harmony default export */ var components_SpBlockHeight = (SpBlockHeight);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpButton/SpButton.vue?vue&type=template&id=76d74008
 
 
@@ -43846,10 +43837,8 @@ var SpButton_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpButton);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpButton = (SpButton_Plugin);
-
+};
+/* harmony default export */ var components_SpButton = (SpButton);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpCard/SpCard.vue?vue&type=template&id=ab9c8a96
 
 
@@ -43922,10 +43911,8 @@ var SpCard_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpCard);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpCard = (SpCard_Plugin);
-
+};
+/* harmony default export */ var components_SpCard = (SpCard);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpLayout/SpLayout.vue?vue&type=template&id=6d1f0c3e
 
 var SpLayoutvue_type_template_id_6d1f0c3e_hoisted_1 = {
@@ -43960,10 +43947,8 @@ var SpLayout_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpLayout);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpLayout = (SpLayout_Plugin);
-
+};
+/* harmony default export */ var components_SpLayout = (SpLayout);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpMnemonic/SpMnemonic.vue?vue&type=template&id=6d554c00
 
 var SpMnemonicvue_type_template_id_6d554c00_hoisted_1 = {
@@ -44060,10 +44045,8 @@ var SpMnemonic_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpMnemonic);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpMnemonic = (SpMnemonic_Plugin);
-
+};
+/* harmony default export */ var components_SpMnemonic = (SpMnemonic);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayer/SpRelayer.vue?vue&type=template&id=18bf2c5f
 
 
@@ -44594,10 +44577,8 @@ var SpRelayer_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpRelayer);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpRelayer = (SpRelayer_Plugin);
-
+};
+/* harmony default export */ var components_SpRelayer = (SpRelayer);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpRelayers/SpRelayers.vue?vue&type=template&id=3f7ed1d8
 
 
@@ -44972,10 +44953,8 @@ var SpRelayers_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpRelayers);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpRelayers = (SpRelayers_Plugin);
-
+};
+/* harmony default export */ var components_SpRelayers = (SpRelayers);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpSidebar/SpSidebar.vue?vue&type=template&id=794662bd
 
 
@@ -45046,10 +45025,8 @@ var SpSidebar_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpSidebar);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpSidebar = (SpSidebar_Plugin);
-
+};
+/* harmony default export */ var components_SpSidebar = (SpSidebar);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusLED/SpStatusLED.vue?vue&type=template&id=327a7f86
 
 function SpStatusLEDvue_type_template_id_327a7f86_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -45087,10 +45064,8 @@ var SpStatusLED_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpStatusLED);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpStatusLED = (SpStatusLED_Plugin);
-
+};
+/* harmony default export */ var components_SpStatusLED = (SpStatusLED);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusAPI/SpStatusAPI.vue?vue&type=template&id=e8ce4f36
 
 var SpStatusAPIvue_type_template_id_e8ce4f36_hoisted_1 = {
@@ -45150,10 +45125,8 @@ var SpStatusAPI_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpStatusAPI);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpStatusAPI = (SpStatusAPI_Plugin);
-
+};
+/* harmony default export */ var components_SpStatusAPI = (SpStatusAPI);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusRPC/SpStatusRPC.vue?vue&type=template&id=423b39b0
 
 var SpStatusRPCvue_type_template_id_423b39b0_hoisted_1 = {
@@ -45213,10 +45186,8 @@ var SpStatusRPC_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpStatusRPC);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpStatusRPC = (SpStatusRPC_Plugin);
-
+};
+/* harmony default export */ var components_SpStatusRPC = (SpStatusRPC);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpStatusWS/SpStatusWS.vue?vue&type=template&id=28d23b76
 
 var SpStatusWSvue_type_template_id_28d23b76_hoisted_1 = {
@@ -45276,10 +45247,8 @@ var SpStatusWS_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpStatusWS);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpStatusWS = (SpStatusWS_Plugin);
-
+};
+/* harmony default export */ var components_SpStatusWS = (SpStatusWS);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
 var es_array_splice = __webpack_require__("a434");
 
@@ -46034,10 +46003,8 @@ var SpTokenSend_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpTokenSend);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpTokenSend = (SpTokenSend_Plugin);
-
+};
+/* harmony default export */ var components_SpTokenSend = (SpTokenSend);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTransferList/SpTransferList.vue?vue&type=template&id=109acf0a
 
 var SpTransferListvue_type_template_id_109acf0a_hoisted_1 = {
@@ -46909,10 +46876,8 @@ var SpTransferList_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpTransferList);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpTransferList = (SpTransferList_Plugin);
-
+};
+/* harmony default export */ var components_SpTransferList = (SpTransferList);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpType/SpType.vue?vue&type=template&id=2bfe46fe
 
 var SpTypevue_type_template_id_2bfe46fe_hoisted_1 = {
@@ -47184,10 +47149,8 @@ var SpTypeList_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpTypeList);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpTypeList = (SpTypeList_Plugin);
-
+};
+/* harmony default export */ var components_SpTypeList = (SpTypeList);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeForm/SpTypeForm.vue?vue&type=template&id=4784b2de
 
 
@@ -47934,10 +47897,8 @@ var SpTypeForm_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpTypeForm);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpTypeForm = (SpTypeForm_Plugin);
-
+};
+/* harmony default export */ var components_SpTypeForm = (SpTypeForm);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpType/SpType.vue?vue&type=script&lang=ts
 
 
@@ -47977,10 +47938,8 @@ var SpType_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpType);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpType = (SpType_Plugin);
-
+};
+/* harmony default export */ var components_SpType = (SpType);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWallet/SpWallet.vue?vue&type=template&id=3fbfb304
 
 var SpWalletvue_type_template_id_3fbfb304_hoisted_1 = {
@@ -48491,10 +48450,8 @@ var SpWalletMenu_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpWalletMenu);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpWalletMenu = (SpWalletMenu_Plugin);
-
+};
+/* harmony default export */ var components_SpWalletMenu = (SpWalletMenu);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=3d2e6ead
 
 
@@ -49208,10 +49165,8 @@ var SpWalletCreate_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpWalletCreate);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpWalletCreate = (SpWalletCreate_Plugin);
-
+};
+/* harmony default export */ var components_SpWalletCreate = (SpWalletCreate);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWallet/SpWallet.vue?vue&type=script&lang=ts
 
 
@@ -49272,10 +49227,8 @@ var SpWallet_Plugin = {
   install: function install(vue) {
     registerComponent(vue, SpWallet);
   }
-}; // use(Plugin);
-
-/* harmony default export */ var components_SpWallet = (SpWallet_Plugin);
-
+};
+/* harmony default export */ var components_SpWallet = (SpWallet);
 // CONCATENATED MODULE: ./src/components/index.ts
 
 
@@ -49314,11 +49267,12 @@ var setVueInstance = function setVueInstance(instance) {
 
 
 
+
 var src_install = function install(instance) {
   setVueInstance(instance);
 
   for (var componentKey in components_namespaceObject) {
-    instance.use(components_namespaceObject[componentKey]);
+    registerComponent(instance, components_namespaceObject[componentKey]);
   }
 
   instance.directive('click-outside', {

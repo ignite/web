@@ -3,14 +3,10 @@ import SpStatusRPC from './SpStatusRPC.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpStatusRPC)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpStatusRPC }
+export default SpStatusRPC

@@ -3,14 +3,10 @@ import SpStatusLED from './SpStatusLED.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpStatusLED)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpStatusLED }
+export default SpStatusLED

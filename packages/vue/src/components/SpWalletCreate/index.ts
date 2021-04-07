@@ -3,14 +3,10 @@ import SpWalletCreate from './SpWalletCreate.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpWalletCreate)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpWalletCreate }
+export default SpWalletCreate

@@ -3,14 +3,10 @@ import SpWalletMenu from './SpWalletMenu.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpWalletMenu)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpWalletMenu }
+export default SpWalletMenu

@@ -3,14 +3,10 @@ import SpLayout from './SpLayout.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpLayout)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpLayout }
+export default SpLayout

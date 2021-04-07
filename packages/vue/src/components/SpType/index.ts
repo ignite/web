@@ -3,14 +3,10 @@ import SpType from './SpType.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpType)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpType }
+export default SpType

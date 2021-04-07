@@ -3,14 +3,10 @@ import SpTypeForm from './SpTypeForm.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
-const Plugin = {
+export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpTypeForm)
 	}
 }
 
-// use(Plugin);
-
-export default Plugin
-
-export { SpTypeForm }
+export default SpTypeForm
