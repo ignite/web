@@ -256,8 +256,11 @@ export interface TransferData {
 	fees: Array<Amount>
 }
 
+export interface DenomTrace {
+	denom_trace: { path: string; base_denom: string }
+}
 export interface DenomTraces {
-	[key: string]: string
+	[key: string]: DenomTrace
 }
 export interface SpTokenSendState {
 	transfer: TransferData
@@ -383,11 +386,11 @@ export default defineComponent({
 			if (
 				this.transfer.amount.every(
 					(x) =>
-						!isNaN(parseInt(x.amount)) &&
+						!isNaN(this.parseAmount(x.amount)) &&
 						x.amount != '' &&
-						parseInt(x.amount) != 0
+						this.parseAmount(x.amount) != 0
 				) &&
-				this.transfer.fees.every((x) => !isNaN(parseInt(x.amount))) &&
+				this.transfer.fees.every((x) => !isNaN(this.parseAmount(x.amount))) &&
 				this.validAddress &&
 				this.address
 			) {
@@ -461,6 +464,9 @@ export default defineComponent({
 		}
 	},
 	methods: {
+		parseAmount(amount: string): number {
+			return amount == '' ? 0 : parseInt(amount)
+		},
 		addMapping: async function (balance: Amount): Promise<void> {
 			if (balance.denom.indexOf('ibc/') == 0) {
 				const denom = balance.denom.split('/')

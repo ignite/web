@@ -16,10 +16,11 @@
 							class="sp-amount-select__denom__balance"
 							:class="{
 								'sp-amount-select__denom__balance__fail':
-									fulldenom.amount - amount < 0
+									parseAmount(fulldenom.amount) - parseAmount(amount) < 0
 							}"
 						>
-							<strong>Avail.</strong> {{ fulldenom.amount - amount }}/{{
+							<strong>Avail.</strong>
+							{{ parseAmount(fulldenom.amount) - parseAmount(amount) }}/{{
 								fulldenom.amount
 							}}
 						</div>
@@ -85,14 +86,7 @@
 							'sp-amount-select__denom__modal__item__disabled':
 								enabledDenoms.findIndex((x) => x == avail) == -1
 						}"
-						v-on:click="
-							() => {
-								if (enabledDenoms.findIndex((x) => x == avail) != -1) {
-									denom = avail.denom
-									modalOpen = false
-								}
-							}
-						"
+						v-on:click="setDenom(avail)"
 						v-for="avail in filteredDenoms"
 						v-bind:key="'denom_' + avail.denom"
 					>
@@ -126,7 +120,9 @@
 			<input
 				class="sp-input sp-input-large"
 				:class="{
-					'sp-error': fulldenom.amount != '' && fulldenom.amount - amount < 0
+					'sp-error':
+						fulldenom.amount != '' &&
+						parseAmount(fulldenom.amount) - parseAmount(amount) < 0
 				}"
 				name="rcpt"
 				v-model="amount"
@@ -140,12 +136,15 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 export interface Amount {
-	amount: number
+	amount: string
 	denom: string
 }
 export type ColoredAmount = Amount & { color: string }
+export interface DenomTrace {
+	denom_trace: { path: string; base_denom: string }
+}
 export interface DenomTraces {
-	[key: string]: string
+	[key: string]: DenomTrace
 }
 export interface SpAmountSelectState {
 	amount: string
@@ -189,10 +188,16 @@ export default defineComponent({
 	},
 	computed: {
 		currentVal: function (): Amount {
-			return { amount: parseInt(this.amount), denom: this.denom ?? '' }
+			return { amount: this.amount, denom: this.denom ?? '' }
 		},
-		fulldenom: function (): ColoredAmount | undefined {
-			return this.denoms.find((x: ColoredAmount) => x.denom == this.denom)
+		fulldenom: function (): ColoredAmount {
+			return (
+				this.denoms.find((x: ColoredAmount) => x.denom == this.denom) ?? {
+					amount: '',
+					denom: '',
+					color: ''
+				}
+			)
 		},
 		enabledDenoms: function (): Array<Amount> {
 			return (
@@ -207,7 +212,7 @@ export default defineComponent({
 			return (
 				this.available?.map((x: Amount) => {
 					this.addMapping(x)
-					const y: ColoredAmount = { amount: 0, denom: '', color: '' }
+					const y: ColoredAmount = { amount: '0', denom: '', color: '' }
 					y.amount = x.amount
 					y.denom = x.denom
 					y.color = this.str2rgba(x.denom.toUpperCase())
@@ -244,6 +249,15 @@ export default defineComponent({
 					}
 				)
 			}
+		},
+		setDenom(avail: Amount) {
+			if (this.enabledDenoms.findIndex((x) => x == avail) != -1) {
+				this.denom = avail.denom
+				this.modalOpen = false
+			}
+		},
+		parseAmount(amount: string): number {
+			return amount == '' ? 0 : parseInt(amount)
 		},
 		str2rgba(r: string) {
 			const o = []
