@@ -78,34 +78,50 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
+export interface Amount {
+	amount: number
+	denom: string
+}
+export interface DenomTraces {
+	[key: string]: string
+}
+export interface SpAmountSelectState {
+	denomTraces: DenomTraces
+}
+export type ColoredAmount = Amount & { color: string }
 export default defineComponent({
 	name: 'SpAssets',
 	props: {
-		balances: Array
+		balances: Array as PropType<Array<Amount>>
 	},
 	data() {
 		return {
-			denomTraces: {}
+			denomTraces: {} as DenomTraces
 		}
 	},
 	computed: {
-		address() {
+		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		fullBalances() {
-			return this.balances.map((x) => {
-				this.addMapping(x)
-				x.color = this.str2rgba(x.denom.toUpperCase())
-				return x
-			})
+		fullBalances(): Array<ColoredAmount> {
+			return (
+				this.balances?.map((x: Amount) => {
+					this.addMapping(x)
+					const y: ColoredAmount = { amount: 0, denom: '', color: '' }
+					y.amount = x.amount
+					y.denom = x.denom
+					y.color = this.str2rgba(x.denom.toUpperCase())
+					return x as ColoredAmount
+				}) ?? []
+			)
 		}
 	},
 	methods: {
-		async addMapping(balance) {
+		async addMapping(balance: Amount) {
 			if (balance.denom.indexOf('ibc/') == 0) {
-				let denom = balance.denom.split('/')
-				let hash = denom[1]
+				const denom = balance.denom.split('/')
+				const hash = denom[1]
 				this.denomTraces[hash] = await this.$store.dispatch(
 					'ibc.applications.transfer.v1/QueryDenomTrace',
 					{
@@ -115,13 +131,15 @@ export default defineComponent({
 				)
 			}
 		},
-		str2rgba(r) {
-			for (var a, o = [], c = 0; c < 256; c++) {
+		str2rgba(r: string) {
+			const o = []
+			for (let a, c = 0; c < 256; c++) {
 				a = c
-				for (var f = 0; f < 8; f++) a = 1 & a ? 3988292384 ^ (a >>> 1) : a >>> 1
+				for (let f = 0; f < 8; f++) a = 1 & a ? 3988292384 ^ (a >>> 1) : a >>> 1
 				o[c] = a
 			}
-			for (var n = -1, t = 0; t < r.length; t++)
+			let n = -1
+			for (let t = 0; t < r.length; t++)
 				n = (n >>> 8) ^ o[255 & (n ^ r.charCodeAt(t))]
 			return ((-1 ^ n) >>> 0).toString(16)
 		}

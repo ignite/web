@@ -199,67 +199,116 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import dayjs from 'dayjs'
 import { decode } from 'js-base64'
+export interface SpTransferListState {
+	bankAddress: string
+}
+export interface Transactions {
+	txs: Array<RawTransaction>
+	tx_responses: Array<RawTransactionResponse>
+}
+export type RawTransactionResponse = {
+	height: number
+	code: number
+} & {
+	[key: string]: string | undefined
+}
+export interface TxPacket {
+	data: string
+	source_port: string
+	source_channel: string
+	destination_port: string
+	destination_channel: string
+}
+export interface TxDecodedPacket {
+	sender?: string
+	receiver?: string
+}
+export interface TxMessage {
+	'@type': string
+	packet?: TxPacket
+	signer: string
+	connection_id?: string
+	client_id?: string
+	counterparty_connection_id?: string
+	previous_connection_id?: string
+	from_address?: string
+	to_address?: string
+	sender?: string
+	receiver?: string
+	port_id?: string
+	channel_id?: string
+	source_channel?: string
+	counterparty_version?: string
+	previous_channel_id?: string
+}
+export interface TxBody {
+	messages: Array<TxMessage>
+}
+export type RawTransaction = {
+	response: RawTransactionResponse
+	body: TxBody
+} & {
+	[key: string]: unknown
+}
+export type Transaction = RawTransaction & {
+	[key: string]: unknown
+}
 export default defineComponent({
 	name: 'SpTransferList',
 	props: { address: String, refresh: Boolean },
-	data: function () {
+	data: function (): SpTransferListState {
 		return {
 			bankAddress: ''
-		}
+		} as SpTransferListState
 	},
 	computed: {
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		sentTransactions() {
+		sentTransactions: function (): Transactions {
 			return this.$store.getters['common/transfers/getGetTxsEvent']({
 				event: 'transfer.sender%3D%27' + this.bankAddress + '%27'
 			})
 		},
-		receivedTransactions() {
+		receivedTransactions: function (): Transactions {
 			return this.$store.getters['common/transfers/getGetTxsEvent']({
 				event: 'transfer.recipient%3D%27' + this.bankAddress + '%27'
 			})
 		},
-		fullBalances() {
-			return this.balances.map((x) => {
-				this.addMapping(x)
-				return x
-			})
-		},
-		transactions() {
-			let sent =
-				this.sentTransactions.txs?.map((tx, index) => {
+		transactions: function (): Array<Transaction> {
+			const sent: Array<Transaction> =
+				this.sentTransactions.txs?.map((tx: Transaction, index: number) => {
 					tx.response = this.sentTransactions.tx_responses[index]
 					return tx
 				}) ?? []
-			let received =
-				this.receivedTransactions.txs?.map((tx, index) => {
+			const received: Array<Transaction> =
+				this.receivedTransactions.txs?.map((tx: Transaction, index: number) => {
 					tx.response = this.receivedTransactions.tx_responses[index]
 					return tx
 				}) ?? []
 			return [...sent, ...received].sort(
-				(a, b) => b.response.height - a.response.height
+				(a: Transaction, b: Transaction) =>
+					b.response.height - a.response.height
 			)
 		}
 	},
 	beforeCreate() {
-		const module = ['common', 'transfers']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+		const vuexModule = ['common', 'transfers']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module ' + this.modulePath + ' has not been registered!')
+				console.log('Module `common.transfers` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
 	},
-	async created() {
+	created: async function (): Promise<void> {
 		if (this._depsLoaded) {
-			this.bankAddress = this.address
+			this.bankAddress = this.address ?? ''
 			if (this.bankAddress != '') {
 				await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
 					subscribe: true,
@@ -273,23 +322,23 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		getFmtTime(time) {
+		getFmtTime: function (time: number): string {
 			const momentTime = dayjs(time)
 			return momentTime.format('D MMM, YYYY')
 		},
-		getDecoded(packet) {
+		getDecoded: function (packet: string): TxDecodedPacket {
 			try {
 				return JSON.parse(decode(packet))
 			} catch (e) {
 				return {}
 			}
 		},
-		getTxText(tx) {
+		getTxText: function (tx: Transaction): string {
 			let text = ''
 			if (tx.response.code != 0) {
 				text = '(Failed) '
 			}
-			if (tx.body.messages.length > 1) {
+			if (tx?.body.messages.length > 1) {
 				text = text + 'Multiple messages'
 			} else {
 				if (
@@ -307,7 +356,7 @@ export default defineComponent({
 						text = text + 'IBC Sent to'
 					}
 				} else {
-					let packet
+					let packet: TxDecodedPacket = { sender: '', receiver: '' }
 					switch (tx.body.messages[0]['@type']) {
 						case '/ibc.core.channel.v1.MsgChannelOpenAck':
 							text = text + 'IBC Channel Open Ack'
@@ -319,7 +368,7 @@ export default defineComponent({
 							text = text + 'IBC Channel Open Try'
 							break
 						case '/ibc.core.channel.v1.MsgRecvPacket':
-							packet = this.getDecoded(tx.body.messages[0].packet.data)
+							packet = this.getDecoded(tx.body.messages[0].packet?.data ?? '')
 
 							if (packet.receiver == this.bankAddress) {
 								text = text + 'IBC Received from'
@@ -363,7 +412,7 @@ export default defineComponent({
 			}
 			return text
 		},
-		getTxDetails(tx) {
+		getTxDetails: function (tx: Transaction): string {
 			let text = ''
 			if (tx.body.messages.length > 1) {
 				text = text + '-'
@@ -380,13 +429,13 @@ export default defineComponent({
 						text = text + tx.body.messages[0].from_address
 					}
 					if (tx.body.messages[0].sender == this.bankAddress) {
-						let chain = this.$store.getters['common/relayers/chainFromChannel'](
-							tx.body.messages[0].source_channel
-						)
+						const chain = this.$store.getters[
+							'common/relayers/chainFromChannel'
+						](tx.body.messages[0].source_channel)
 						text = text + chain + ':' + tx.body.messages[0].receiver
 					}
 					if (tx.body.messages[0].receiver == this.bankAddress) {
-						let chain = this.$store.getters['common/relayers/chainToChannel'](
+						const chain = this.$store.getters['common/relayers/chainToChannel'](
 							tx.body.messages[0].source_channel
 						)
 						text = text + chain + ':' + tx.body.messages[0].receiver
@@ -418,7 +467,7 @@ export default defineComponent({
 								tx.body.messages[0].counterparty_version
 							break
 						case '/ibc.core.channel.v1.MsgRecvPacket':
-							packet = this.getDecoded(tx.body.messages[0].packet.data)
+							packet = this.getDecoded(tx.body.messages[0].packet?.data ?? '')
 							if (packet.sender == this.bankAddress) {
 								text = text + 'IBC:' + packet.receiver
 							} else {
@@ -432,13 +481,13 @@ export default defineComponent({
 						case '/ibc.core.channel.v1.MsgAcknowledgement':
 							text =
 								text +
-								tx.body.messages[0].packet.source_port +
+								tx.body.messages[0].packet?.source_port +
 								':' +
-								tx.body.messages[0].packet.source_channel +
+								tx.body.messages[0].packet?.source_channel +
 								' <-> ' +
-								tx.body.messages[0].packet.destination_port +
+								tx.body.messages[0].packet?.destination_port +
 								':' +
-								tx.body.messages[0].packet.destination_channel
+								tx.body.messages[0].packet?.destination_channel
 							break
 						case '/ibc.core.channel.v1.MsgTimeout':
 							text = text + 'IBC Timeout Packet'
@@ -482,7 +531,7 @@ export default defineComponent({
 		}
 	},
 	watch: {
-		address: function (newAddr, oldAddr) {
+		address: function (newAddr, oldAddr): void {
 			if (newAddr != oldAddr && this._depsLoaded) {
 				this.bankAddress = newAddr
 				if (this.bankAddress != '') {

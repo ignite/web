@@ -6,8 +6,10 @@ declare module '*.vue' {
   const Component: ReturnType<typeof defineComponent>;
   export default Component;
 }
+
 declare global {
-  interface Window { keplr: any; Vue: any; }
+  import {OfflineDirectSigner} from '@cosmjs/proto-signing'
+  interface Window { keplr: any; Vue: any; getOfflineSigner: (string) => OfflineDirectSigner }
 }
 declare module '@vue/runtime-core' {
   // Declare your own store states.

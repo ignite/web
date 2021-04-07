@@ -157,8 +157,52 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import SpRelayer from '../SpRelayer'
+export interface IBCAckHeights {
+	packetHeightA: number
+	packetHeightB: number
+	ackHeightA: number
+	ackHeightB: number
+}
+export interface IBCEndpoint {
+	clientID: string
+	connectionID: string
+}
+export interface IBCChannel {
+	portId?: string
+	channelId: string
+}
+export interface Relayer {
+	name: string
+	prefix?: string
+	endpoint?: string
+	gasPrice?: string
+	external: boolean
+	status: 'connected' | 'linked' | 'created'
+	heights?: IBCAckHeights
+	running?: boolean
+	chainIdA?: string
+	chainIdB: string
+	targetAddress?: string
+	endA?: IBCEndpoint
+	endB?: IBCEndpoint
+	src: IBCChannel
+	dest?: IBCChannel
+}
+export interface RelayerForm {
+	name: string
+	endpoint: string
+	gasPrice: string
+	external: boolean
+	chainId: string
+	channelId: string
+	prefix: string
+}
+export interface SpRelayersState {
+	showRelayerForm: boolean
+	relayerForm: RelayerForm
+}
 export default defineComponent({
 	name: 'SpRelayers',
 	components: {
@@ -175,13 +219,13 @@ export default defineComponent({
 				external: false,
 				chainId: '',
 				channelId: ''
-			}
-		}
+			} as RelayerForm
+		} as SpRelayersState
 	},
 	beforeCreate() {
 		let module = ['common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+			const submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
@@ -190,7 +234,7 @@ export default defineComponent({
 		}
 		module = ['common', 'relayers']
 		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+			const submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.relayers` has not been registered!')
 				this._depsLoaded = false
@@ -198,23 +242,22 @@ export default defineComponent({
 			}
 		}
 	},
-	mounted: function () {},
 	computed: {
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		address() {
+		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		hasHubRelayer() {
+		hasHubRelayer: function (): boolean {
 			return this.relayers.findIndex((x) => x.chainIdB == 'cosmoshub-4') > -1
 		},
-		relayers() {
+		relayers: function (): Array<Relayer> {
 			return this.$store.getters['common/relayers/getRelayers']
 		}
 	},
 	methods: {
-		async addRelayer() {
+		addRelayer: async function (): Promise<void> {
 			await this.$store.dispatch(
 				'common/relayers/createRelayer',
 				this.relayerForm
@@ -229,7 +272,7 @@ export default defineComponent({
 				gasPrice: ''
 			}
 		},
-		async addHubRelayer() {
+		addHubRelayer: async function (): Promise<void> {
 			await this.$store.dispatch('common/relayers/createRelayer', {
 				name: 'CosmosHub',
 				endpoint: 'https://rpc.nylira.net',

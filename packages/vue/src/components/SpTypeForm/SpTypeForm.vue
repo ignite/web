@@ -128,40 +128,54 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
+export interface SpType {
+	id?: string
+	creator?: string
+	[key: string]: string | undefined
+}
+export interface Field {
+	name: string
+	type: string
+}
+export interface SpTypeFormState {
+	fieldList: Array<Field>
+	typeData: SpType
+	inFlight: boolean
+}
 export default defineComponent({
 	name: 'SpTypeForm',
 	components: {},
 	props: {
 		modulePath: {
-			type: String,
+			type: String as PropType<string>,
 			default: '',
 			required: true
 		},
 		moduleType: {
-			type: String,
+			type: String as PropType<string>,
 			default: '',
 			required: true
 		},
 		action: {
-			type: String,
+			type: String as PropType<string>,
 			default: '',
 			required: true
 		},
 		id: {
-			type: String,
+			type: String as PropType<string>,
 			default: ''
 		}
 	},
 	data: function () {
 		return {
 			fieldList: [],
-			typeData: {},
+			typeData: {} as SpType,
 			inFlight: false
-		}
+		} as SpTypeFormState
 	},
 	watch: {
-		async id(newId) {
+		id: async function (newId): Promise<void> {
 			this.typeData['id'] = newId
 			if (this._depsLoaded) {
 				if (this.typeData['id'] != '') {
@@ -172,7 +186,7 @@ export default defineComponent({
 							params: { id: this.typeData['id'] }
 						}
 					)
-					let data = this.$store.getters[
+					const data = this.$store.getters[
 						this.modulePath + '/get' + this.moduleType
 					]({ params: { id: this.typeData['id'] } })
 					this.typeData = data[this.capitalize(this.moduleType)]
@@ -181,49 +195,49 @@ export default defineComponent({
 		}
 	},
 	computed: {
-		address() {
+		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		typeClass() {
+		typeClass: function (): string {
 			return 'sp-type-form-' + this.moduleType
 		},
-		createFieldList() {
+		createFieldList: function (): Array<Field> {
 			return this.fieldList.filter((x) => x.name != 'creator' && x.name != 'id')
 		},
-		updateFieldList() {
+		updateFieldList: function (): Array<Field> {
 			return this.fieldList.filter((x) => x.name != 'creator')
 		},
-		deleteFieldList() {
+		deleteFieldList: function (): Array<Field> {
 			return this.fieldList.filter((x) => x.name == 'id')
 		},
-		selectedAccount() {
+		selectedAccount: function (): string | null {
 			if (this._depsLoaded) {
 				return this.$store.getters['common/wallet/address']
 			} else {
 				return null
 			}
 		},
-		createTypeData() {
-			// eslint-disable-next-line no-unused-vars
+		createTypeData: function (): SpType {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { id, ...rest } = this.typeData
 			return rest
 		},
-		updateTypeData() {
+		updateTypeData: function (): SpType {
 			return this.typeData
 		},
-		deleteTypeData() {
+		deleteTypeData: function (): SpType {
 			// eslint-disable-next-line no-unused-vars
-			const { id, creator, ...rest } = this.typeData
+			const { id, creator } = this.typeData
 			return { id, creator }
 		},
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		}
 	},
 	beforeCreate() {
 		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+			const submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module ' + this.modulePath + ' has not been registered!')
 				this._depsLoaded = false
@@ -231,12 +245,12 @@ export default defineComponent({
 			}
 		}
 	},
-	async created() {
+	created: async function (): Promise<void> {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
 				this.modulePath + '/getTypeStructure'
 			](this.moduleType)
-			for (let field of this.fieldList) {
+			for (const field of this.fieldList) {
 				this.typeData[field.name] = ''
 			}
 			this.typeData['id'] = this.id
@@ -245,7 +259,7 @@ export default defineComponent({
 					this.modulePath + '/Query' + this.moduleType,
 					{ options: { subscribe: true }, params: { id: this.typeData['id'] } }
 				)
-				let data = this.$store.getters[
+				const data = this.$store.getters[
 					this.modulePath + '/get' + this.moduleType
 				]({ params: { id: this.typeData['id'] } })
 				this.typeData = data[this.capitalize(this.moduleType)]
@@ -253,20 +267,20 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		capitalize(str) {
+		capitalize: function (str: string): string {
 			return str.charAt(0).toUpperCase() + str.slice(1)
 		},
-		resetForm() {
-			for (let i in this.typeData) {
+		resetForm: function (): void {
+			for (const i in this.typeData) {
 				this.typeData[i] = ''
 			}
 		},
-		async createType() {
+		createType: async function (): Promise<void> {
 			if (this._depsLoaded && this.address) {
-				this.typeData['creator'] = this.selectedAccount
+				this.typeData['creator'] = this.selectedAccount ?? ''
 				this.inFlight = true
 				try {
-					this.txResult = await this.$store.dispatch(
+					await this.$store.dispatch(
 						this.modulePath + '/sendMsgCreate' + this.moduleType,
 						{
 							value: { ...this.createTypeData },
@@ -283,12 +297,12 @@ export default defineComponent({
 				}
 			}
 		},
-		async updateType() {
+		updateType: async function (): Promise<void> {
 			if (this._depsLoaded) {
-				this.typeData['creator'] = this.selectedAccount
+				this.typeData['creator'] = this.selectedAccount ?? ''
 				this.inFlight = true
 				try {
-					this.txResult = await this.$store.dispatch(
+					await this.$store.dispatch(
 						this.modulePath + '/sendMsgUpdate' + this.moduleType,
 						{
 							value: { ...this.updateTypeData },
@@ -305,12 +319,12 @@ export default defineComponent({
 				}
 			}
 		},
-		async deleteType() {
+		deleteType: async function (): Promise<void> {
 			if (this._depsLoaded) {
-				this.typeData['creator'] = this.selectedAccount
+				this.typeData['creator'] = this.selectedAccount ?? ''
 				this.inFlight = true
 				try {
-					this.txResult = await this.$store.dispatch(
+					await this.$store.dispatch(
 						this.modulePath + '/sendMsgDelete' + this.moduleType,
 						{
 							value: { ...this.deleteTypeData },

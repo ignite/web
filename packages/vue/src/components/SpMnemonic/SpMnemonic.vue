@@ -24,9 +24,9 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
 import SpLinkIcon from '../SpLinkIcon'
-const copyToClipboard = (str) => {
+function copyToClipboard(str: string) {
 	const el = document.createElement('textarea')
 	el.value = str
 	document.body.appendChild(el)
@@ -39,7 +39,7 @@ export default defineComponent({
 	name: 'SpMnemonic',
 	props: {
 		mnemonic: {
-			type: String,
+			type: String as PropType<string>,
 			required: true
 		}
 	},
@@ -47,18 +47,18 @@ export default defineComponent({
 		SpLinkIcon
 	},
 	computed: {
-		words() {
+		words: function (): Array<string> {
 			return this.mnemonic.split(' ')
 		},
-		firstHalfWords() {
+		firstHalfWords: function (): Array<string> {
 			return this.words.slice(0, this.words.length / 2)
 		},
-		secondHalfWords() {
+		secondHalfWords: function (): Array<string> {
 			return this.words.slice(this.words.length / 2)
 		}
 	},
 	methods: {
-		copyMnemonic() {
+		copyMnemonic: function (): void {
 			copyToClipboard(this.mnemonic)
 		}
 	}

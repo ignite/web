@@ -1,45 +1,24 @@
-# `@starport/vue`
+# vue3-template-ts
 
-A collection of Vue 3 components to help build [Starport](http://github.com/tendermint/starport) front-end applications.
-
-## Install
-
-Assuming you have a Vue 3 project, just run:
-
+## Project setup
 ```
-npm install --save @starport/vue
+npm install
 ```
 
-The components also require `@starport/vuex` to be installed which is set as a peer dependency. More information [here](https://github.com/tendermint/vue/tree/develop/packages/vuex)
-
-## Usage
-
-If you want to import the entire library, in your `main.js` file:
-
-```js
-import { createApp } from 'vue'
-import App from './App.vue'
-import store from './store' // See @starport/vuex documentation
-import vueLib from '@starport/vue'
-
-const app = createApp(App)
-app.config.globalProperties._depsLoaded = true
-app.use(store).use(vueLib).mount('#app')
+### Compiles and hot-reloads for development
+```
+npm run serve
 ```
 
-You can also import only specific components in your `main.js` file:
-
-```js
-import { createApp } from 'vue'
-import App from './App.vue'
-import store from './store' // See @starport/vuex documentation
-import { SpTokenSend } from '@starport/vue'
-
-const app = createApp(App)
-app.config.globalProperties._depsLoaded = true
-app.use(store).use(SpTokenSend).mount('#app')
+### Compiles and minifies for production
+```
+npm run build
 ```
 
-## Components
+### Lints and fixes files
+```
+npm run lint
+```
 
-...
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

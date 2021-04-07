@@ -26,7 +26,7 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
 import SpTypeList from '../SpTypeList'
 import SpTypeForm from '../SpTypeForm'
 export default defineComponent({
@@ -37,12 +37,12 @@ export default defineComponent({
 	},
 	props: {
 		modulePath: {
-			type: String,
+			type: String as PropType<string>,
 			default: '',
 			required: true
 		},
 		moduleType: {
-			type: String,
+			type: String as PropType<string>,
 			default: '',
 			required: true
 		}

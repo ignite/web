@@ -6,6 +6,6 @@ export let VueInstance: Application
 
 export { config as default }
 
-export const setVueInstance = (instance: Application) => {
+export const setVueInstance = (instance: Application): void => {
 	VueInstance = instance
 }

@@ -74,7 +74,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import SpLinkIcon from '../SpLinkIcon'
-import type { Wallet } from '../../utils/interfaces'
+import type { Wallet, Account } from '../../utils/interfaces'
 export interface NewAccount {
 	show: boolean
 	nextAvailable: boolean

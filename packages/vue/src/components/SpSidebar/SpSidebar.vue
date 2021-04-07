@@ -25,8 +25,12 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 //import SpBadgeButton from '../SpBadgeButton'
+export interface SpSidebarState {
+	opened: boolean
+	mobOpened: boolean
+}
 export default defineComponent({
 	name: 'SpSidebar',
 	components: {
@@ -36,14 +40,14 @@ export default defineComponent({
 		return {
 			opened: true,
 			mobOpened: false
-		}
+		} as SpSidebarState
 	},
 	methods: {
-		toggleOpen() {
+		toggleOpen: function (): void {
 			this.opened = !this.opened
 			this.opened ? this.$emit('sidebar-open') : this.$emit('sidebar-close')
 		},
-		toggleMobOpen() {
+		toggleMobOpen: function (): void {
 			this.mobOpened = !this.mobOpened
 			//this.mobOpened ? this.$emit('sidebar-open') : this.$emit('sidebar-close')
 		}

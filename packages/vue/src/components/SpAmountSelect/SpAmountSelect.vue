@@ -93,7 +93,7 @@
 								}
 							}
 						"
-						v-for="avail in filtered_denoms"
+						v-for="avail in filteredDenoms"
 						v-bind:key="'denom_' + avail.denom"
 					>
 						<div class="sp-amount-select__denom__name">
@@ -138,53 +138,84 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
+export interface Amount {
+	amount: number
+	denom: string
+}
+export type ColoredAmount = Amount & { color: string }
+export interface DenomTraces {
+	[key: string]: string
+}
+export interface SpAmountSelectState {
+	amount: string
+	denom: string | null
+	focused: boolean
+	modalOpen: boolean
+	searchTerm: string
+	denomTraces: DenomTraces
+}
 export default defineComponent({
 	name: 'SpAmountSelect',
-	data: function () {
+	data: function (): SpAmountSelectState {
 		return {
 			amount: '',
 			denom: null,
 			focused: false,
 			modalOpen: false,
 			searchTerm: '',
-			denomTraces: {}
+			denomTraces: {} as DenomTraces
 		}
 	},
 	props: {
-		modelValue: Object,
-		available: Array,
-		index: Number,
-		selected: Array,
-		last: Boolean
+		modelValue: {
+			type: Object as PropType<Amount>
+		},
+		available: {
+			type: Array as PropType<Array<Amount>>
+		},
+		index: { type: Number },
+		selected: {
+			type: Array as PropType<Array<string>>
+		},
+		last: {
+			type: Boolean
+		}
 	},
-	emits: ['update:modelValue'],
-	mounted() {
-		this.amount = this.modelValue.amount
-		this.denom = this.modelValue.denom
+	emits: ['update:modelValue', 'self-remove'],
+	mounted: function () {
+		this.amount = this.modelValue?.amount + '' ?? ''
+		this.denom = this.modelValue?.denom ?? null
 	},
 	computed: {
-		currentVal() {
-			return { amount: this.amount, denom: this.denom }
+		currentVal: function (): Amount {
+			return { amount: parseInt(this.amount), denom: this.denom ?? '' }
 		},
-		fulldenom() {
-			return this.denoms.find((x) => x.denom == this.denom)
+		fulldenom: function (): ColoredAmount | undefined {
+			return this.denoms.find((x: ColoredAmount) => x.denom == this.denom)
 		},
-		enabledDenoms() {
-			return this.available.filter(
-				(x) =>
-					this.selected.findIndex((y) => y == x.denom) == -1 ||
-					this.selected.findIndex((y) => y == x.denom) == this.index
+		enabledDenoms: function (): Array<Amount> {
+			return (
+				this.available?.filter(
+					(x) =>
+						this.selected?.findIndex((y) => y == x.denom) == -1 ||
+						this.selected?.findIndex((y) => y == x.denom) == this.index
+				) ?? []
 			)
 		},
-		denoms() {
-			return this.available.map((x) => {
-				this.addMapping(x)
-				x.color = this.str2rgba(x.denom.toUpperCase())
-				return x
-			})
+		denoms: function (): Array<ColoredAmount> {
+			return (
+				this.available?.map((x: Amount) => {
+					this.addMapping(x)
+					const y: ColoredAmount = { amount: 0, denom: '', color: '' }
+					y.amount = x.amount
+					y.denom = x.denom
+					y.color = this.str2rgba(x.denom.toUpperCase())
+					return x as ColoredAmount
+				}) ?? []
+			)
 		},
-		filtered_denoms() {
+		filteredDenoms: function (): Array<ColoredAmount> {
 			return this.searchTerm == ''
 				? this.denoms
 				: this.denoms.filter(
@@ -201,10 +232,10 @@ export default defineComponent({
 		selfRemove() {
 			this.$emit('self-remove')
 		},
-		async addMapping(balance) {
+		async addMapping(balance: Amount) {
 			if (balance.denom.indexOf('ibc/') == 0) {
-				let denom = balance.denom.split('/')
-				let hash = denom[1]
+				const denom = balance.denom.split('/')
+				const hash = denom[1]
 				this.denomTraces[hash] = await this.$store.dispatch(
 					'ibc.applications.transfer.v1/QueryDenomTrace',
 					{
@@ -214,13 +245,15 @@ export default defineComponent({
 				)
 			}
 		},
-		str2rgba(r) {
-			for (var a, o = [], c = 0; c < 256; c++) {
+		str2rgba(r: string) {
+			const o = []
+			for (let a, c = 0; c < 256; c++) {
 				a = c
-				for (var f = 0; f < 8; f++) a = 1 & a ? 3988292384 ^ (a >>> 1) : a >>> 1
+				for (let f = 0; f < 8; f++) a = 1 & a ? 3988292384 ^ (a >>> 1) : a >>> 1
 				o[c] = a
 			}
-			for (var n = -1, t = 0; t < r.length; t++)
+			let n = -1
+			for (let t = 0; t < r.length; t++)
 				n = (n >>> 8) ^ o[255 & (n ^ r.charCodeAt(t))]
 			return ((-1 ^ n) >>> 0).toString(16)
 		}

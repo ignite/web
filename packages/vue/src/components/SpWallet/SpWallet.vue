@@ -15,10 +15,11 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import SpWalletMenu from '../SpWalletMenu'
 import SpButton from '../SpButton'
 import SpWalletCreate from '../SpWalletCreate'
+import type { Wallet } from '../../utils/interfaces'
 
 export default defineComponent({
 	name: 'SpWallet',
@@ -33,28 +34,27 @@ export default defineComponent({
 		}
 	},
 	computed: {
-		walletList() {
+		walletList: function (): Array<Wallet> {
 			if (this._depsLoaded) {
 				return this.$store.state.common.wallet.wallets
 			} else {
 				return []
 			}
 		},
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		}
 	},
 	beforeCreate() {
-		const module = ['common', 'wallet']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+		const vuexModule = ['common', 'wallet']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module ' + this.module + ' has not been registered!')
+				console.log('Module ' + vuexModule + ' has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
-	},
-	methods: {}
+	}
 })
 </script>

@@ -16,7 +16,7 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
 import SpStatusLED from '../SpStatusLED'
 
 export default defineComponent({
@@ -26,14 +26,14 @@ export default defineComponent({
 	},
 	props: {
 		showText: {
-			type: Boolean
+			type: Boolean as PropType<boolean>
 		}
 	},
 	computed: {
-		apiNode() {
+		apiNode: function (): string {
 			return this.$store.getters['common/env/apiCosmos']
 		},
-		nodeStatus() {
+		nodeStatus: function (): boolean {
 			return this.$store.getters['common/env/apiConnected']
 		}
 	}

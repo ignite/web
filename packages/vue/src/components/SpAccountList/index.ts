@@ -4,7 +4,7 @@ import SpAccountList from './SpAccountList.vue'
 import { registerComponent } from './../../utils/plugins/index'
 
 const Plugin = {
-	install(vue: Application) {
+	install(vue: Application): void {
 		registerComponent(vue, SpAccountList)
 	}
 }

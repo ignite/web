@@ -246,12 +246,48 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
 import SpButton from '../SpButton'
+export interface IBCAckHeights {
+	packetHeightA: number
+	packetHeightB: number
+	ackHeightA: number
+	ackHeightB: number
+}
+export interface IBCEndpoint {
+	clientID: string
+	connectionID: string
+}
+export interface IBCChannel {
+	portId?: string
+	channelId: string
+}
+export interface Relayer {
+	name: string
+	prefix?: string
+	endpoint?: string
+	gasPrice?: string
+	external: boolean
+	status: 'connected' | 'linked' | 'created'
+	heights?: IBCAckHeights
+	running?: boolean
+	chainIdA?: string
+	chainIdB: string
+	targetAddress?: string
+	endA?: IBCEndpoint
+	endB?: IBCEndpoint
+	src: IBCChannel
+	dest?: IBCChannel
+}
+export interface SpRelayerState {
+	showAdvanced: boolean
+	connecting: boolean
+	extradots: string
+}
 export default defineComponent({
 	name: 'SpRelayer',
 	props: {
-		relayer: Object
+		relayer: Object as PropType<Relayer>
 	},
 	components: {
 		SpButton
@@ -261,12 +297,12 @@ export default defineComponent({
 			showAdvanced: false,
 			connecting: false,
 			extradots: ''
-		}
+		} as SpRelayerState
 	},
 	beforeCreate() {
 		let module = ['common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+			const submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
@@ -275,7 +311,7 @@ export default defineComponent({
 		}
 		module = ['common', 'relayers']
 		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+			const submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.relayers` has not been registered!')
 				this._depsLoaded = false
@@ -283,38 +319,38 @@ export default defineComponent({
 			}
 		}
 	},
-	mounted: function () {},
+
 	computed: {
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		homePrefix() {
+		homePrefix: function (): string {
 			return this.$store.getters['common/env/addrPrefix']
 		},
-		homeGasPrice() {
+		homeGasPrice: function (): string {
 			return this.$store.getters['common/wallet/gasPrice']
 		},
-		homeEndpoint() {
+		homeEndpoint: function (): string {
 			return this.$store.getters['common/env/apiTendermint']
 		},
-		log() {
+		log: function (): string {
 			return this.$store.getters['common/relayers/log']
 		},
-		loadingLog() {
+		loadingLog: function (): string {
 			return this.log + this.extradots
 		}
 	},
 	methods: {
-		async linkRelayer() {
+		linkRelayer: async function (): Promise<void> {
 			this.connecting = true
-			let loading = setInterval(() => {
+			const loading = setInterval(() => {
 				this.extradots = this.extradots + '.'
 				if (this.extradots == '......') {
 					this.extradots = ''
 				}
 			}, 500)
 			await this.$store.dispatch('common/relayers/linkRelayer', {
-				name: this.relayer.name
+				name: this.relayer?.name
 			})
 			clearInterval(loading)
 			this.connecting = false
@@ -322,13 +358,13 @@ export default defineComponent({
 		async startRelayer() {
 			await this.$store.dispatch(
 				'common/relayers/runRelayer',
-				this.relayer.name
+				this.relayer?.name
 			)
 		},
 		async stopRelayer() {
 			await this.$store.dispatch(
 				'common/relayers/stopRelayer',
-				this.relayer.name
+				this.relayer?.name
 			)
 		}
 	}
