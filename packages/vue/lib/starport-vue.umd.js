@@ -45272,159 +45272,159 @@ var SpStatusWS_Plugin = {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
 var es_array_splice = __webpack_require__("a434");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=1468756d
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=c6b6d99c
 
 
 
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_1 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_1 = {
   key: 0
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_2 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_2 = {
   class: "sp-token-send__holder"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_3 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_3 = {
   class: "sp-component sp-token-send"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_4 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_4 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-token-send__header sp-component-title"
 }, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Send tokens"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", null, "|"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", null, "Transfer one or multiple tokens")], -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_5 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_5 = {
   class: "sp-token-send__main sp-box sp-shadow"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_6 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_6 = {
   class: "sp-token-send__main__form"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_7 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_7 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-token-send__main__rcpt__header sp-box-header"
 }, " SEND TO ", -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_8 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("option", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_8 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("option", {
   value: ""
 }, "This chain", -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_9 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_9 = {
   class: "sp-token-send__main__rcpt__wrapper"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-token-send__main__rcpt__icon"
 }, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
   class: "sp-icon sp-icon-UpArrow"
 })], -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_11 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_11 = {
   class: "sp-token-send__main__rcpt__input sp-form-group"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_12 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_12 = {
   key: 1,
   class: "sp-token-send__main__rcpt__memo__header sp-box-header"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_13 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" MEMO ");
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_13 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" MEMO ");
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_14 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_14 = {
   key: 2,
   class: "sp-token-send__main__rcpt__memo"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_15 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_15 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-token-send__main__amt__header sp-box-header"
 }, " AMOUNT ", -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_16 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_16 = {
   key: 3,
   class: "sp-token-send__main__amt__wrapper"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_17 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_17 = {
   key: 4,
   class: "sp-token-send__main__amt__wrapper"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createStaticVNode"])("<div class=\"sp-amount-select sp-amount-select__dummy\"><div class=\"sp-form-group\"><div class=\"sp-amount-select__denom\"><div class=\"sp-amount-select__denom__selected\"><div class=\"sp-amount-select__denom__name\"><div class=\"sp-denom-marker\" style=\"background:#809cff;\"></div><div class=\"sp-dummy-fill\"></div></div></div></div><input class=\"sp-input sp-input-large\" value=\"0\" name=\"rcpt\" disabled=\"true\"></div></div>", 1);
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createStaticVNode"])("<div class=\"sp-amount-select sp-amount-select__dummy\"><div class=\"sp-form-group\"><div class=\"sp-amount-select__denom\"><div class=\"sp-amount-select__denom__selected\"><div class=\"sp-amount-select__denom__name\"><div class=\"sp-denom-marker\" style=\"background:#809cff;\"></div><div class=\"sp-dummy-fill\"></div></div></div></div><input class=\"sp-input sp-input-large\" value=\"0\" name=\"rcpt\" disabled=\"true\"></div></div>", 1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_19 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_19 = {
   class: "sp-token-send__main__fees__header sp-box-header"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" FEES ");
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" FEES ");
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
   class: "sp-circle"
 }, "?", -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_22 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_22 = {
   class: "sp-token-send__main__fees__content"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_23 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_23 = {
   key: 0,
   class: "sp-token-send__main__amt__wrapper"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-line"
 }, null, -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_25 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_25 = {
   key: 1,
   class: "sp-token-send__main__fees__small"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_26 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_26 = {
   class: "sp-token-send__main__btns"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_27 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_27 = {
   class: "sp-token-send__main__btns__tx"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_28 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Send transaction");
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_28 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Send transaction");
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_29 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_29 = {
   key: 6,
   class: "sp-token-send__main__footer"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_30 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_30 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-token-send__main__fees__header sp-box-message"
 }, " Access a wallet to send transactions ", -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_31 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_31 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-token-send__main__fees__content"
 }, null, -1);
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_32 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_32 = {
   class: "sp-token-send__main__btns"
 };
-var SpTokenSendvue_type_template_id_1468756d_hoisted_33 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_33 = {
   class: "sp-token-send__main__btns__tx"
 };
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_34 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Send transaction");
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_34 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Send transaction");
 
-var SpTokenSendvue_type_template_id_1468756d_hoisted_35 = {
+var SpTokenSendvue_type_template_id_c6b6d99c_hoisted_35 = {
   class: "sp-component sp-assets__wrapper"
 };
-function SpTokenSendvue_type_template_id_1468756d_render(_ctx, _cache, $props, $setup, $data, $options) {
+function SpTokenSendvue_type_template_id_c6b6d99c_render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SpAmountSelect = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpAmountSelect");
 
   var _component_SpButton = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpButton");
 
   var _component_SpAssets = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpAssets");
 
-  return _ctx.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_3, [SpTokenSendvue_type_template_id_1468756d_hoisted_4, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("form", SpTokenSendvue_type_template_id_1468756d_hoisted_6, [SpTokenSendvue_type_template_id_1468756d_hoisted_7, _ctx.availableChannels.length > 0 ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("select", {
+  return _ctx.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_3, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_4, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("form", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_6, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_7, _ctx.availableChannels.length > 0 ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])((Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("select", {
     key: 0,
     name: "channel",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return _ctx.transfer.channel = $event;
     })
-  }, [SpTokenSendvue_type_template_id_1468756d_hoisted_8, (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.availableChannels, function (channel) {
+  }, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_8, (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.availableChannels, function (channel) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("option", {
       key: channel.src.channelId,
       value: channel.src.channelId
     }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(channel.chainIdB), 9, ["value"]);
-  }), 128))], 512)), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelSelect"], _ctx.transfer.channel]]) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_9, [SpTokenSendvue_type_template_id_1468756d_hoisted_10, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_11, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }), 128))], 512)), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelSelect"], _ctx.transfer.channel]]) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_9, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_10, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_11, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: "sp-input",
     name: "rcpt",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -45438,17 +45438,17 @@ function SpTokenSendvue_type_template_id_1468756d_render(_ctx, _cache, $props, $
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return _ctx.memoOpen = true;
     })
-  }, " +Add memo ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]), _ctx.memoOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_12, [SpTokenSendvue_type_template_id_1468756d_hoisted_13, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
+  }, " +Add memo ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]), _ctx.memoOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_12, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_13, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("span", {
     class: "sp-icon sp-icon-Close",
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return _ctx.memoOpen = false;
     })
-  })])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.memoOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_14, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
+  })])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.memoOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_14, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
     class: "sp-token-send__main__rcpt__memo__content sp-textarea",
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return _ctx.transfer.memo = $event;
     })
-  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.transfer.memo]])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), SpTokenSendvue_type_template_id_1468756d_hoisted_15, _ctx.balances.length > 0 && _ctx.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_16, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.transfer.amount, function (amount, index) {
+  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.transfer.memo]])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), SpTokenSendvue_type_template_id_c6b6d99c_hoisted_15, _ctx.balances.length > 0 && _ctx.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_16, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.transfer.amount, function (amount, index) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpAmountSelect, {
       index: index,
       last: _ctx.transfer.amount.length == 1,
@@ -45469,20 +45469,20 @@ function SpTokenSendvue_type_template_id_1468756d_render(_ctx, _cache, $props, $
     onClick: _cache[6] || (_cache[6] = function () {
       return _ctx.addToken && _ctx.addToken.apply(_ctx, arguments);
     })
-  }, " + Add Token ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), !_ctx.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_17, [SpTokenSendvue_type_template_id_1468756d_hoisted_18])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
+  }, " + Add Token ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), !_ctx.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_17, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_18])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
     key: 5,
     class: ["sp-token-send__main__footer", {
       'sp-token-send__main__footer__open': _ctx.feesOpen
     }]
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_19, [SpTokenSendvue_type_template_id_1468756d_hoisted_20, SpTokenSendvue_type_template_id_1468756d_hoisted_21, _ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("span", {
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_19, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_20, SpTokenSendvue_type_template_id_c6b6d99c_hoisted_21, _ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("span", {
     key: 0,
     onClick: _cache[7] || (_cache[7] = function ($event) {
       return _ctx.feesOpen = false;
     }),
     class: "sp-icon sp-icon-UpCaret"
-  })) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_22, [_ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
+  })) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_22, [_ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 0
-  }, [_ctx.balances.length > 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_23, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.transfer.fees, function (amount, index) {
+  }, [_ctx.balances.length > 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_23, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.transfer.fees, function (amount, index) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(_component_SpAmountSelect, {
       index: index,
       last: _ctx.transfer.fees.length == 1,
@@ -45503,7 +45503,7 @@ function SpTokenSendvue_type_template_id_1468756d_render(_ctx, _cache, $props, $
     onClick: _cache[8] || (_cache[8] = function () {
       return _ctx.addFeeToken && _ctx.addFeeToken.apply(_ctx, arguments);
     })
-  }, " + Add Fee Token ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), SpTokenSendvue_type_template_id_1468756d_hoisted_24])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)], 64)) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_25, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.transfer.fees, function (fee, index) {
+  }, " + Add Fee Token ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), SpTokenSendvue_type_template_id_c6b6d99c_hoisted_24])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)], 64)) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_25, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.transfer.fees, function (fee, index) {
     var _ctx$denomTraces$fee$, _ctx$denomTraces$fee$2, _ctx$denomTraces$fee$3, _ctx$denomTraces$fee$4;
 
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("span", {
@@ -45518,13 +45518,13 @@ function SpTokenSendvue_type_template_id_1468756d_render(_ctx, _cache, $props, $
       return _ctx.feesOpen = true;
     }),
     class: "sp-icon sp-icon-DownCaret"
-  })]))]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_26, [_ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
+  })]))]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_26, [_ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
     key: 0,
     class: "sp-token-send__main__btns__reset__fees",
     onClick: _cache[10] || (_cache[10] = function () {
       return _ctx.resetFees && _ctx.resetFees.apply(_ctx, arguments);
     })
-  }, " Reset Fees ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+  }, " Reset Fees ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_27, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
     class: "sp-token-send__main__btns__reset",
     onClick: _cache[11] || (_cache[11] = function () {
       return _ctx.resetTransaction && _ctx.resetTransaction.apply(_ctx, arguments);
@@ -45536,29 +45536,29 @@ function SpTokenSendvue_type_template_id_1468756d_render(_ctx, _cache, $props, $
     busy: _ctx.inFlight
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpTokenSendvue_type_template_id_1468756d_hoisted_28];
+      return [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_28];
     }),
     _: 1
-  }, 8, ["onClick", "disabled", "busy"])])])], 2)) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_29, [SpTokenSendvue_type_template_id_1468756d_hoisted_30, SpTokenSendvue_type_template_id_1468756d_hoisted_31, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_32, [_ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
+  }, 8, ["onClick", "disabled", "busy"])])])], 2)) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_29, [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_30, SpTokenSendvue_type_template_id_c6b6d99c_hoisted_31, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_32, [_ctx.feesOpen ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
     key: 0,
     class: "sp-token-send__main__btns__reset__fees",
     onClick: _cache[12] || (_cache[12] = function () {
       return _ctx.resetFees && _ctx.resetFees.apply(_ctx, arguments);
     })
-  }, " Reset Fees ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_33, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+  }, " Reset Fees ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_33, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     onClick: _ctx.sendTransaction,
     type: "primary",
     disabled: !_ctx.validForm
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpTokenSendvue_type_template_id_1468756d_hoisted_34];
+      return [SpTokenSendvue_type_template_id_c6b6d99c_hoisted_34];
     }),
     _: 1
-  }, 8, ["onClick", "disabled"])])])]))])])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_1468756d_hoisted_35, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpAssets, {
+  }, 8, ["onClick", "disabled"])])])]))])])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTokenSendvue_type_template_id_c6b6d99c_hoisted_35, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpAssets, {
     balances: _ctx.balances
   }, null, 8, ["balances"])])])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=1468756d
+// CONCATENATED MODULE: ./src/components/SpTokenSend/SpTokenSend.vue?vue&type=template&id=c6b6d99c
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
 var es_array_includes = __webpack_require__("caad");
@@ -45638,9 +45638,7 @@ var build = __webpack_require__("9705");
     var _this$address;
 
     this.bankAddress = (_this$address = this.address) !== null && _this$address !== void 0 ? _this$address : '';
-    this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
-      params: {}
-    });
+    this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']();
 
     if (this._depsLoaded) {
       if (this.bankAddress != '') {
@@ -46018,7 +46016,7 @@ var build = __webpack_require__("9705");
 
 
 
-SpTokenSendvue_type_script_lang_ts.render = SpTokenSendvue_type_template_id_1468756d_render
+SpTokenSendvue_type_script_lang_ts.render = SpTokenSendvue_type_template_id_c6b6d99c_render
 
 /* harmony default export */ var SpTokenSend = (SpTokenSendvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./src/components/SpTokenSend/index.ts
@@ -46937,71 +46935,71 @@ function SpTypevue_type_template_id_2bfe46fe_render(_ctx, _cache, $props, $setup
 }
 // CONCATENATED MODULE: ./src/components/SpType/SpType.vue?vue&type=template&id=2bfe46fe
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=dc8fe3f6
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=affab3d6
 
 
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_1 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_1 = {
   key: 0,
   class: "sp-type-list"
 };
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_2 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_2 = {
   class: "sp-type-list__main sp-box sp-shadow"
 };
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_3 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_3 = {
   class: "sp-type-list__header sp-box-header"
 };
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_4 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_4 = {
   key: 0,
   class: "sp-type-list-empty"
 };
 
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_5 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createStaticVNode"])("<div class=\"sp-type-list__item\"><div class=\"sp-type-list__item__icon\"><div class=\"sp-icon sp-icon-Docs\"></div></div><div class=\"sp-type-list__item__details\"><div class=\"sp-type-list__item__details__field\"><strong>No posts yet </strong><br> Add a new post by using the form </div></div></div>", 1);
+var SpTypeListvue_type_template_id_affab3d6_hoisted_5 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createStaticVNode"])("<div class=\"sp-type-list__item\"><div class=\"sp-type-list__item__icon\"><div class=\"sp-icon sp-icon-Docs\"></div></div><div class=\"sp-type-list__item__details\"><div class=\"sp-type-list__item__details__field\"><strong>No posts yet </strong><br> Add a new post by using the form </div></div></div>", 1);
 
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_6 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_6 = {
   key: 0,
   class: "sp-dashed-line"
 };
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_7 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_7 = {
   class: "sp-type-list__item"
 };
 
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_8 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_8 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-type-list__item__icon"
 }, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-icon sp-icon-Docs"
 })], -1);
 
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_9 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_9 = {
   class: "sp-type-list__item__details"
 };
 
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br", null, null, -1);
+var SpTypeListvue_type_template_id_affab3d6_hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br", null, null, -1);
 
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_11 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_11 = {
   key: 0,
   class: "sp-type-list__item__options sp-box"
 };
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_12 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_12 = {
   key: 1,
   class: "sp-type-list__edit__form"
 };
-var SpTypeListvue_type_template_id_dc8fe3f6_hoisted_13 = {
+var SpTypeListvue_type_template_id_affab3d6_hoisted_13 = {
   key: 2,
   class: "sp-type-list__delete__form"
 };
-function SpTypeListvue_type_template_id_dc8fe3f6_render(_ctx, _cache, $props, $setup, $data, $options) {
+function SpTypeListvue_type_template_id_affab3d6_render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SpTypeForm = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpTypeForm");
 
-  return _ctx.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(_ctx.moduleType.toUpperCase() + 'S'), 1), !_ctx.typeItems || _ctx.typeItems.length == 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_4, [SpTypeListvue_type_template_id_dc8fe3f6_hoisted_5])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
+  return _ctx.depsLoaded ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_3, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(_ctx.moduleType.toUpperCase() + 'S'), 1), !_ctx.typeItems || _ctx.typeItems.length == 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_4, [SpTypeListvue_type_template_id_affab3d6_hoisted_5])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 1
   }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.typeItems, function (item, index) {
     return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       key: item.id
-    }, [index != 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_6)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_7, [SpTypeListvue_type_template_id_dc8fe3f6_hoisted_8, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_9, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.fieldList, function (field) {
+    }, [index != 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_6)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_7, [SpTypeListvue_type_template_id_affab3d6_hoisted_8, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_9, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderList"])(_ctx.fieldList, function (field) {
       return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
         class: "sp-type-list__item__details__field",
         key: field
-      }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(_ctx.capitalize(field.name)), 1), SpTypeListvue_type_template_id_dc8fe3f6_hoisted_10, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(item[field.name]), 1)]);
+      }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("strong", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(_ctx.capitalize(field.name)), 1), SpTypeListvue_type_template_id_affab3d6_hoisted_10, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" " + Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(item[field.name]), 1)]);
     }), 128))]), _ctx.address ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", {
       key: 0,
       class: ["sp-type-list__item__more", {
@@ -47012,7 +47010,7 @@ function SpTypeListvue_type_template_id_dc8fe3f6_render(_ctx, _cache, $props, $s
       onClick: function onClick($event) {
         return _ctx.moreOpen = index;
       }
-    }, null, 8, ["onClick"]), _ctx.moreOpen == index ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_11, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+    }, null, 8, ["onClick"]), _ctx.moreOpen == index ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_11, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
       class: "sp-type-list__item__options__edit",
       onClick: function onClick($event) {
         ;
@@ -47032,7 +47030,7 @@ function SpTypeListvue_type_template_id_dc8fe3f6_render(_ctx, _cache, $props, $s
       ;
       _ctx.editOpen = false, _ctx.deleteOpen = false;
     })
-  })) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.editID >= 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_12, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeForm, {
+  })) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.editID >= 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_12, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeForm, {
     modulePath: _ctx.modulePath,
     moduleType: _ctx.moduleType,
     id: _ctx.editID,
@@ -47045,7 +47043,7 @@ function SpTypeListvue_type_template_id_dc8fe3f6_render(_ctx, _cache, $props, $s
       ;
       _ctx.editID = -1, _ctx.editOpen = false;
     })
-  }, null, 8, ["modulePath", "moduleType", "id"])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.deleteID >= 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_dc8fe3f6_hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeForm, {
+  }, null, 8, ["modulePath", "moduleType", "id"])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.deleteID >= 0 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpTypeListvue_type_template_id_affab3d6_hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpTypeForm, {
     modulePath: _ctx.modulePath,
     moduleType: _ctx.moduleType,
     id: _ctx.deleteID,
@@ -47060,7 +47058,7 @@ function SpTypeListvue_type_template_id_dc8fe3f6_render(_ctx, _cache, $props, $s
     })
   }, null, 8, ["modulePath", "moduleType", "id"])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=dc8fe3f6
+// CONCATENATED MODULE: ./src/components/SpTypeList/SpTypeList.vue?vue&type=template&id=affab3d6
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpTypeList/SpTypeList.vue?vue&type=script&lang=ts
 
@@ -47098,9 +47096,7 @@ function SpTypeListvue_type_template_id_dc8fe3f6_render(_ctx, _cache, $props, $s
     },
     typeItems: function typeItems() {
       if (this._depsLoaded) {
-        var items = this.$store.getters[this.modulePath + '/get' + this.moduleType + 'All']({
-          params: {}
-        });
+        var items = this.$store.getters[this.modulePath + '/get' + this.moduleType + 'All']();
         return items ? items[this.capitalize(this.moduleType)] : [];
       } else {
         return [];
@@ -47164,7 +47160,7 @@ function SpTypeListvue_type_template_id_dc8fe3f6_render(_ctx, _cache, $props, $s
 
 
 
-SpTypeListvue_type_script_lang_ts.render = SpTypeListvue_type_template_id_dc8fe3f6_render
+SpTypeListvue_type_script_lang_ts.render = SpTypeListvue_type_template_id_affab3d6_render
 
 /* harmony default export */ var SpTypeList = (SpTypeListvue_type_script_lang_ts);
 // CONCATENATED MODULE: ./src/components/SpTypeList/index.ts
@@ -48477,122 +48473,122 @@ var SpWalletMenu_Plugin = {
   }
 };
 /* harmony default export */ var components_SpWalletMenu = (SpWalletMenu);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=3d2e6ead
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=110ba9cc
 
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_1 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_1 = {
   class: "sp-wallet-create sp-shadow"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_2 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_2 = {
   key: 0,
   class: "sp-wallet-create__close"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_3 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_3 = {
   key: 1,
   class: "sp-wallet-create__back"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_4 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_4 = {
   class: "sp-wallet-create__text"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_5 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_5 = {
   class: "sp-wallet-create__cards"
 };
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_6 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create new wallet");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_6 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create new wallet");
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_7 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Import existing wallet");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_7 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Import existing wallet");
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_8 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_8 = {
   key: 0,
   class: "sp-wallet-create__keplr"
 };
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_9 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Use Keplr");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_9 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Use Keplr");
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Create wallet", -1);
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_10 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Create wallet", -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_11 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_11 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Generate your own unique wallet. Receive a public address (0x...) and choose a method for access and recovery. ", -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_12 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_12 = {
   class: "sp-wallet-create__form"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_13 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_13 = {
   class: "sp-form-group"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_14 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_14 = {
   key: 0,
   class: "sp-error-message"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_15 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_15 = {
   class: "sp-form-group"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_16 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_16 = {
   key: 1,
   class: "sp-error-message"
 };
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_17 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_17 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Create");
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Here is your"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("recovery phrase")], -1);
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_18 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Here is your"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("recovery phrase")], -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_19 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_19 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " You can restore your wallet using your recovery phrase. ", -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_20 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Write it down on paper. Resist temptation to email it to yourself or sceenshot it. ", -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Download Backup");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_21 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Download Backup");
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_22 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_22 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_23 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" Import"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" existing wallet ")], -1);
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_23 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, [/*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" Import"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("br"), /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])(" existing wallet ")], -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_24 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Paste your recovery phrase or private key below to import your wallet. ", -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_25 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_25 = {
   key: 0,
   class: "sp-error-message"
 };
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_26 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Next");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_26 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Next");
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_27 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Import existing wallet", -1);
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_27 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, "Import existing wallet", -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_28 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_28 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", {
   class: "sp-wallet-create__text"
 }, " Please name your wallet and choose a password ", -1);
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_29 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_29 = {
   class: "sp-wallet-create__form"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_30 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_30 = {
   class: "sp-form-group"
 };
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_31 = {
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_31 = {
   class: "sp-form-group"
 };
 
-var SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_32 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
+var SpWalletCreatevue_type_template_id_110ba9cc_hoisted_32 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createTextVNode"])("Done");
 
-function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props, $setup, $data, $options) {
+function SpWalletCreatevue_type_template_id_110ba9cc_render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SpCard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpCard");
 
   var _component_SpButton = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpButton");
 
   var _component_SpMnemonic = Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["resolveComponent"])("SpMnemonic");
 
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_1, [!_ctx.createform && !_ctx.importform ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("a", {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_1, [!_ctx.createform && !_ctx.importform ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_2, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("a", {
     class: "sp-icon sp-icon-Close",
     onClick: _cache[1] || (_cache[1] = function () {
       return _ctx.close && _ctx.close.apply(_ctx, arguments);
     })
-  })])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_3, [_ctx.create.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("a", {
+  })])) : (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_3, [_ctx.create.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("a", {
     key: 0,
     class: "sp-icon sp-icon-Lock",
     onClick: _cache[2] || (_cache[2] = function () {
@@ -48606,7 +48602,7 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     })
   })) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)])), !_ctx.createform && !_ctx.importform ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 2
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(_ctx.title), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderSlot"])(_ctx.$slots, "default")]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpCard, {
+  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("h3", null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["toDisplayString"])(_ctx.title), 1), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_4, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["renderSlot"])(_ctx.$slots, "default")]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_5, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpCard, {
     type: "primary",
     icon: "Add",
     onClick: _cache[4] || (_cache[4] = function ($event) {
@@ -48614,7 +48610,7 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     })
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_6];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_6];
     }),
     _: 1
   }), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpCard, {
@@ -48625,20 +48621,20 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     })
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_7];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_7];
     }),
     _: 1
-  })]), _ctx.keplrAvailable ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+  })]), _ctx.keplrAvailable ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_8, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "primary",
     onClick: _ctx.useKeplr
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_9];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_9];
     }),
     _: 1
   }, 8, ["onClick"])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.createform && _ctx.create.step1 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 3
-  }, [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_10, SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_11, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_12, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_10, SpWalletCreatevue_type_template_id_110ba9cc_hoisted_11, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_12, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_13, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: ["sp-input", {
       'sp-error': !_ctx.walletNameAvailable && !_ctx.creating
     }],
@@ -48648,7 +48644,7 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     type: "text",
     name: "walletname",
     placeholder: "Wallet name"
-  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.name]])]), !_ctx.walletNameAvailable && !_ctx.creating ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_14, " A wallet by this name already exist. Please choose a different one. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_15, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.name]])]), !_ctx.walletNameAvailable && !_ctx.creating ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_14, " A wallet by this name already exist. Please choose a different one. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_15, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: "sp-input",
     "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
       return _ctx.create.password = $event;
@@ -48664,24 +48660,24 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     name: "confirm",
     type: "password",
     placeholder: "Confirm password"
-  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.confirm]])]), _ctx.create.password != '' && _ctx.create.password != _ctx.create.confirm ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_16, " Passwords do not match ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.create.confirm]])]), _ctx.create.password != '' && _ctx.create.password != _ctx.create.confirm ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_16, " Passwords do not match ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     onClick: _ctx.createStep2,
     type: "primary"
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_17];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_17];
     }),
     _: 1
   }, 8, ["onClick"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.createform && _ctx.create.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 4
-  }, [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_18, SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_19, SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_20, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpMnemonic, {
+  }, [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_18, SpWalletCreatevue_type_template_id_110ba9cc_hoisted_19, SpWalletCreatevue_type_template_id_110ba9cc_hoisted_20, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpMnemonic, {
     mnemonic: _ctx.create.mnemonic
   }, null, 8, ["mnemonic"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "secondary",
     onClick: _ctx.downloadBackup
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_21];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_21];
     }),
     _: 1
   }, 8, ["onClick"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
@@ -48689,28 +48685,28 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     onClick: _ctx.done
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_22];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_22];
     }),
     _: 1
   }, 8, ["onClick"])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.importform && _ctx.imported.step1 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 5
-  }, [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_23, SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_24, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
+  }, [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_23, SpWalletCreatevue_type_template_id_110ba9cc_hoisted_24, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("textarea", {
     class: "sp-key-area sp-textarea",
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return _ctx.imported.mnemonicOrKey = $event;
     })
-  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.mnemonicOrKey]]), _ctx.imported.mnemonicOrKey != '' && !_ctx.validMnemonic ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_25, " You have not entered a valid mnemonic or private key. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
+  }, null, 512), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.mnemonicOrKey]]), _ctx.imported.mnemonicOrKey != '' && !_ctx.validMnemonic ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_25, " You have not entered a valid mnemonic or private key. ")) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])(_component_SpButton, {
     type: "primary",
     onClick: _ctx.importStep2,
     disabled: _ctx.imported.mnemonicOrKey == '' || !_ctx.validMnemonic
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_26];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_26];
     }),
     _: 1
   }, 8, ["onClick", "disabled"])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true), _ctx.importform && _ctx.imported.step2 ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["Fragment"], {
     key: 6
-  }, [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_27, SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_28, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_29, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_30, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_27, SpWalletCreatevue_type_template_id_110ba9cc_hoisted_28, Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_29, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_30, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: ["sp-input", {
       'sp-error': !_ctx.walletNameAvailable && !_ctx.creating
     }],
@@ -48720,7 +48716,7 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     type: "text",
     name: "walletname",
     placeholder: "Wallet name"
-  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.name]])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_31, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
+  }, null, 2), [[external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["vModelText"], _ctx.imported.name]])]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("div", SpWalletCreatevue_type_template_id_110ba9cc_hoisted_31, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withDirectives"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createVNode"])("input", {
     class: "sp-input",
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return _ctx.imported.password = $event;
@@ -48741,12 +48737,12 @@ function SpWalletCreatevue_type_template_id_3d2e6ead_render(_ctx, _cache, $props
     disabled: _ctx.imported.name == '' || _ctx.imported.password == '' || _ctx.imported.password != _ctx.imported.confirm
   }, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["withCtx"])(function () {
-      return [SpWalletCreatevue_type_template_id_3d2e6ead_hoisted_32];
+      return [SpWalletCreatevue_type_template_id_110ba9cc_hoisted_32];
     }),
     _: 1
   }, 8, ["onClick", "disabled"])])], 64)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_amd_vue_["createCommentVNode"])("", true)]);
 }
-// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=3d2e6ead
+// CONCATENATED MODULE: ./src/components/SpWalletCreate/SpWalletCreate.vue?vue&type=template&id=110ba9cc
 
 // EXTERNAL MODULE: ./node_modules/bip39/src/index.js
 var bip39_src = __webpack_require__("29c9");
@@ -49004,12 +49000,8 @@ var aes_default = /*#__PURE__*/__webpack_require__.n(aes);
                   break;
                 }
 
-                staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
-                  params: {}
-                });
-                tokens = this.$store.getters['cosmos.bank.v1beta1/getTotalSupply']({
-                  params: {}
-                });
+                staking = this.$store.getters['cosmos.staking.v1beta1/getParams']();
+                tokens = this.$store.getters['cosmos.bank.v1beta1/getTotalSupply']();
                 chainId = this.$store.getters['common/env/chainId'];
                 _context4.prev = 4;
                 _context4.next = 7;
@@ -49180,7 +49172,7 @@ var aes_default = /*#__PURE__*/__webpack_require__.n(aes);
 
 
 
-SpWalletCreatevue_type_script_lang_ts.render = SpWalletCreatevue_type_template_id_3d2e6ead_render
+SpWalletCreatevue_type_script_lang_ts.render = SpWalletCreatevue_type_template_id_110ba9cc_render
 
 /* harmony default export */ var SpWalletCreate = (SpWalletCreatevue_type_script_lang_ts);
 // CONCATENATED MODULE: ./src/components/SpWalletCreate/index.ts

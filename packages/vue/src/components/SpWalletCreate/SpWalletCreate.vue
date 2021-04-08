@@ -359,16 +359,10 @@ export default defineComponent({
 		},
 		useKeplr: async function (): Promise<void> {
 			if (this._depsLoaded) {
-				const staking = this.$store.getters['cosmos.staking.v1beta1/getParams'](
-					{
-						params: {}
-					}
-				)
+				const staking = this.$store.getters['cosmos.staking.v1beta1/getParams']()
 				const tokens = this.$store.getters[
 					'cosmos.bank.v1beta1/getTotalSupply'
-				]({
-					params: {}
-				})
+				]()
 				const chainId = this.$store.getters['common/env/chainId']
 
 				try {

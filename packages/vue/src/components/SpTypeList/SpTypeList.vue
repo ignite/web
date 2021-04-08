@@ -141,7 +141,7 @@ export default defineComponent({
 			if (this._depsLoaded) {
 				const items = this.$store.getters[
 					this.modulePath + '/get' + this.moduleType + 'All'
-				]({ params: {} })
+				]()
 				return items ? items[this.capitalize(this.moduleType)] : []
 			} else {
 				return []

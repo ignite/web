@@ -348,9 +348,7 @@ export default defineComponent({
 	},
 	mounted: function (): void {
 		this.bankAddress = this.address ?? ''
-		this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
-			params: {}
-		})
+		this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']()
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
 				this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
