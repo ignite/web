@@ -37,30 +37,30 @@
 		</div>
 	</button>
 </template>
-
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+export default defineComponent({
 	name: 'SpButton',
 	props: {
 		busy: {
-			type: Boolean
+			type: Boolean as PropType<boolean>
 		},
 		link: {
-			type: String
+			type: String as PropType<string>
 		},
 		href: {
-			type: String
+			type: String as PropType<string>
 		},
 		target: {
-			type: String
+			type: String as PropType<string>
 		},
 		type: {
-			type: String
+			type: String as PropType<string>
 		},
 		disabled: {
-			type: Boolean,
+			type: Boolean as PropType<boolean>,
 			default: false
 		}
 	}
-}
+})
 </script>

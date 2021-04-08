@@ -31,7 +31,7 @@ module.exports = {
 			}
 		},
 		entry: {
-			main: './src/index.js'
+			main: './src/index.ts'
 		},
 		plugins: [
 			new webpack.IgnorePlugin(/^\.\/wordlists\/(?!english)/)

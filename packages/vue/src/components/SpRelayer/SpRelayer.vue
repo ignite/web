@@ -79,7 +79,7 @@
 			</div>
 			<div
 				class="sp-relayer__advanced__contents"
-				v-if="relayer.status != 'created ' && showAdvanced"
+				v-if="relayer.status != 'created' && showAdvanced"
 			>
 				<div class="sp-relayer__advanced__contents__item">
 					<div class="sp-relayer__advanced__contents__item__key">
@@ -245,13 +245,23 @@
 		</div>
 	</div>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import SpButton from '../SpButton'
-export default {
+import { Relayer } from '../../utils/interfaces'
+
+export interface SpRelayerState {
+	showAdvanced: boolean
+	connecting: boolean
+	extradots: string
+}
+export default defineComponent({
 	name: 'SpRelayer',
 	props: {
-		relayer: Object
+		relayer: {
+			type: Object as PropType<Relayer>,
+			required: true
+		}
 	},
 	components: {
 		SpButton
@@ -261,21 +271,21 @@ export default {
 			showAdvanced: false,
 			connecting: false,
 			extradots: ''
-		}
+		} as SpRelayerState
 	},
-	beforeCreate() {
-		let module = ['common', 'wallet']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+	beforeCreate: function (): void {
+		let vuexModule = ['common', 'wallet']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
-		module = ['common', 'relayers']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+		vuexModule = ['common', 'relayers']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.relayers` has not been registered!')
 				this._depsLoaded = false
@@ -283,31 +293,31 @@ export default {
 			}
 		}
 	},
-	mounted: function () {},
+
 	computed: {
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		homePrefix() {
+		homePrefix: function (): string {
 			return this.$store.getters['common/env/addrPrefix']
 		},
-		homeGasPrice() {
+		homeGasPrice: function (): string {
 			return this.$store.getters['common/wallet/gasPrice']
 		},
-		homeEndpoint() {
+		homeEndpoint: function (): string {
 			return this.$store.getters['common/env/apiTendermint']
 		},
-		log() {
+		log: function (): string {
 			return this.$store.getters['common/relayers/log']
 		},
-		loadingLog() {
+		loadingLog: function (): string {
 			return this.log + this.extradots
 		}
 	},
 	methods: {
-		async linkRelayer() {
+		linkRelayer: async function (): Promise<void> {
 			this.connecting = true
-			let loading = setInterval(() => {
+			const loading = setInterval(() => {
 				this.extradots = this.extradots + '.'
 				if (this.extradots == '......') {
 					this.extradots = ''
@@ -319,18 +329,18 @@ export default {
 			clearInterval(loading)
 			this.connecting = false
 		},
-		async startRelayer() {
+		startRelayer: async function (): Promise<void> {
 			await this.$store.dispatch(
 				'common/relayers/runRelayer',
 				this.relayer.name
 			)
 		},
-		async stopRelayer() {
+		stopRelayer: async function (): Promise<void> {
 			await this.$store.dispatch(
 				'common/relayers/stopRelayer',
 				this.relayer.name
 			)
 		}
 	}
-}
+})
 </script>

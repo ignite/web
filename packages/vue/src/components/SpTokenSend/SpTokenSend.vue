@@ -238,86 +238,33 @@
 		</div>
 	</div>
 </template>
-
-<style scoped>
-.container {
-	font-family: var(--sp-f-primary);
-}
-.form > * {
-	margin-bottom: 10px;
-}
-.card {
-	background: rgb(247, 247, 247);
-	width: 100%;
-	padding: 1rem;
-	border-radius: 0.5rem;
-	box-sizing: border-box;
-}
-.token__item {
-	max-width: 225px;
-}
-.h3 {
-	font-size: 0.875rem;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	font-weight: 700;
-	user-select: none;
-	display: flex;
-	align-items: center;
-}
-.h3__button {
-	cursor: pointer;
-}
-.h3__icon {
-	height: 1em;
-	width: 1em;
-	margin: 0 0.25rem;
-	fill: rgba(0, 0, 0, 0.35);
-}
-.label {
-	margin-bottom: 0.5rem;
-}
-.input {
-	width: 100%;
-	box-sizing: border-box;
-	padding: 0;
-	border: none;
-	background: none;
-	font-size: 1rem;
-	font-family: inherit;
-	outline: none;
-	letter-spacing: 0.02em;
-	text-transform: none;
-}
-.token__item__input::-webkit-input-placeholder {
-	color: rgba(0, 0, 0, 0.35);
-}
-.footer {
-	display: grid;
-	grid-template-columns: 3fr 1fr;
-	grid-gap: 10px;
-	box-sizing: border-box;
-}
-.memo {
-	padding: 0.75rem 1rem;
-	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-	border-radius: 0.5rem;
-}
-.log__text {
-	display: flex;
-	justify-content: flex-end;
-	font-size: 0.75rem;
-	color: rgba(0, 0, 0, 0.35);
-}
-</style>
-
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import SpButton from '../SpButton'
 import SpAssets from '../SpAssets'
 import SpAmountSelect from '../SpAmountSelect'
 import { Bech32 } from '@cosmjs/encoding'
+import { Amount, DenomTraces, Relayer } from '../../utils/interfaces'
 
-export default {
+export interface TransferData {
+	recipient: string
+	channel: string
+	amount: Array<Amount>
+	memo: string
+	fees: Array<Amount>
+}
+
+export interface SpTokenSendState {
+	transfer: TransferData
+	feesOpen: boolean
+	memoOpen: boolean
+	inFlight: boolean
+	bankAddress: string
+	staking: Record<string, unknown>
+	denomTraces: DenomTraces
+}
+
+export default defineComponent({
 	name: 'SpTokenSend',
 	components: {
 		SpButton,
@@ -325,9 +272,14 @@ export default {
 		SpAssets
 	},
 	props: {
-		address: String
+		address: {
+			type: String as PropType<string>
+		},
+		refresh: {
+			type: Boolean as PropType<boolean>
+		}
 	},
-	data() {
+	data: function (): SpTokenSendState {
 		return {
 			transfer: {
 				recipient: '',
@@ -335,18 +287,19 @@ export default {
 				amount: [],
 				memo: '',
 				fees: []
-			},
+			} as TransferData,
 			feesOpen: false,
 			memoOpen: false,
 			inFlight: false,
 			bankAddress: '',
-			denomTraces: {}
+			staking: {},
+			denomTraces: {} as DenomTraces
 		}
 	},
-	beforeCreate() {
-		const module = ['cosmos.bank.v1beta1']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+	beforeCreate: function (): void {
+		const vuexModule = ['cosmos.bank.v1beta1']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `cosmos.cosmos-sdk.bank` has not been registered!')
 				this._depsLoaded = false
@@ -354,11 +307,9 @@ export default {
 			}
 		}
 	},
-	mounted() {
-		this.bankAddress = this.address
-		this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
-			params: {}
-		})
+	mounted: function (): void {
+		this.bankAddress = this.address ?? ''
+		this.staking = this.$store.getters['cosmos.staking.v1beta1/getParams']()
 		if (this._depsLoaded) {
 			if (this.bankAddress != '') {
 				this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
@@ -369,13 +320,13 @@ export default {
 		}
 	},
 	watch: {
-		balances: function (newBal, oldBal) {
+		balances: function (newBal: Array<Amount>, oldBal: Array<Amount>): void {
 			if (newBal != oldBal && newBal[0]?.denom && oldBal.length == 0) {
 				this.transfer.amount = [{ amount: '', denom: newBal[0].denom }]
 				this.transfer.fees = [{ amount: '', denom: newBal[0].denom }]
 			}
 		},
-		address: function (newAddr, oldAddr) {
+		address: function (newAddr: string, oldAddr: string): void {
 			if (this._depsLoaded) {
 				if (newAddr != oldAddr) {
 					this.bankAddress = newAddr
@@ -390,12 +341,15 @@ export default {
 		}
 	},
 	computed: {
-		validForm() {
+		validForm: function (): boolean {
 			if (
 				this.transfer.amount.every(
-					(x) => !isNaN(x.amount) && x.amount != '' && x.amount != 0
+					(x) =>
+						!isNaN(this.parseAmount(x.amount)) &&
+						x.amount != '' &&
+						this.parseAmount(x.amount) != 0
 				) &&
-				this.transfer.fees.every((x) => !isNaN(x.amount)) &&
+				this.transfer.fees.every((x) => !isNaN(this.parseAmount(x.amount))) &&
 				this.validAddress &&
 				this.address
 			) {
@@ -404,7 +358,7 @@ export default {
 				return false
 			}
 		},
-		balances() {
+		balances: function (): Array<Amount> {
 			if (this._depsLoaded) {
 				return (
 					this.$store.getters['cosmos.bank.v1beta1/getAllBalances']({
@@ -415,8 +369,8 @@ export default {
 				return []
 			}
 		},
-		nextToAdd() {
-			let i = this.balances.findIndex(
+		nextToAdd: function (): Amount | null {
+			const i = this.balances.findIndex(
 				(x) => !this.selectedDenoms.includes(x.denom)
 			)
 			if (i == -1) {
@@ -425,8 +379,8 @@ export default {
 				return this.balances[i]
 			}
 		},
-		nextFeeToAdd() {
-			let i = this.balances.findIndex(
+		nextFeeToAdd: function (): Amount | null {
+			const i = this.balances.findIndex(
 				(x) => !this.selectedFeeDenoms.includes(x.denom)
 			)
 			if (i == -1) {
@@ -435,50 +389,47 @@ export default {
 				return this.balances[i]
 			}
 		},
-		selectedDenoms() {
+		selectedDenoms: function (): Array<string> {
 			return this.transfer.amount.map((x) => x.denom)
 		},
-		selectedFeeDenoms() {
+		selectedFeeDenoms: function (): Array<string> {
 			return this.transfer.fees.map((x) => x.denom)
 		},
-		fullBalances() {
+		fullBalances: function (): Array<Amount> {
 			return this.balances.map((x) => {
 				this.addMapping(x)
 				return x
 			})
 		},
-		relayers() {
-			return this.$store.hasModule(['common'], ['relayers'])
+		relayers: function (): Array<Relayer> {
+			return this.$store.hasModule(['common', 'relayers'])
 				? this.$store.getters['common/relayers/getRelayers']
 				: []
 		},
-		availableChannels() {
+		availableChannels: function (): Array<Relayer> {
 			return this.relayers?.filter((x) => x.status == 'connected') ?? []
 		},
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		validAddress() {
-			let to_address
+		validAddress: function (): boolean {
+			let toAddress
 			try {
-				to_address = !!Bech32.decode(this.transfer.recipient)
+				toAddress = !!Bech32.decode(this.transfer.recipient)
 			} catch {
-				to_address = false
+				toAddress = false
 			}
-			return to_address
-		},
-		txResultMessage() {
-			if (this.txResult && this.txResult.code) {
-				return `Error: ${this.txResult.rawLog}`
-			}
-			return ''
+			return toAddress
 		}
 	},
 	methods: {
-		async addMapping(balance) {
+		parseAmount(amount: string): number {
+			return amount == '' ? 0 : parseInt(amount)
+		},
+		addMapping: async function (balance: Amount): Promise<void> {
 			if (balance.denom.indexOf('ibc/') == 0) {
-				let denom = balance.denom.split('/')
-				let hash = denom[1]
+				const denom = balance.denom.split('/')
+				const hash = denom[1]
 				this.denomTraces[hash] = await this.$store.dispatch(
 					'ibc.applications.transfer.v1/QueryDenomTrace',
 					{
@@ -488,7 +439,7 @@ export default {
 				)
 			}
 		},
-		resetTransaction() {
+		resetTransaction: function (): void {
 			this.transfer.amount = [{ amount: '', denom: this.balances[0].denom }]
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
@@ -497,20 +448,22 @@ export default {
 			this.feesOpen = false
 			this.memoOpen = false
 		},
-		resetFees() {
+		resetFees: function (): void {
 			this.transfer.fees = [{ amount: '', denom: this.balances[0].denom }]
 		},
-		addToken() {
-			this.transfer.amount.push({ amount: '', denom: this.nextToAdd.denom })
+		addToken: function (): void {
+			this.transfer.amount.push({
+				amount: '',
+				denom: this.nextToAdd?.denom ?? ''
+			})
 		},
-		addFeeToken() {
-			this.transfer.fees.push({ amount: '', denom: this.nextFeeToAdd.denom })
+		addFeeToken: function (): void {
+			this.transfer.fees.push({
+				amount: '',
+				denom: this.nextFeeToAdd?.denom ?? ''
+			})
 		},
-		denomChange() {
-			const inBounds = this.denomIndex < this.denoms.length - 1
-			this.denomIndex = inBounds ? this.denomIndex + 1 : 0
-		},
-		async sendTransaction() {
+		sendTransaction: async function (): Promise<void> {
 			if (this._depsLoaded && this.address) {
 				if (this.validForm && !this.inFlight) {
 					if (this.transfer.channel == '') {
@@ -519,7 +472,7 @@ export default {
 							toAddress: this.transfer.recipient,
 							fromAddress: this.bankAddress
 						}
-						this.txResult = ''
+
 						this.inFlight = true
 						this.transfer.fees.forEach((x) => {
 							if (x.amount == '') {
@@ -527,11 +480,11 @@ export default {
 							}
 						})
 						try {
-							this.txResult = await this.$store.dispatch(
+							const txResult = await this.$store.dispatch(
 								'cosmos.bank.v1beta1/sendMsgSend',
 								{ value, fee: this.transfer.fees, memo: this.transfer.memo }
 							)
-							if (this.txResult && !this.txResult.code) {
+							if (txResult && !txResult.code) {
 								this.resetTransaction()
 							}
 						} catch (e) {
@@ -545,7 +498,7 @@ export default {
 						})
 					} else {
 						try {
-							this.txResult = await this.$store.dispatch(
+							const txResult = await this.$store.dispatch(
 								'ibc.applications.transfer.v1/sendMsgTransfer',
 								{
 									value: {
@@ -560,7 +513,7 @@ export default {
 									memo: this.transfer.memo
 								}
 							)
-							if (this.txResult && !this.txResult.code) {
+							if (txResult && !txResult.code) {
 								this.resetTransaction()
 							}
 						} catch (e) {
@@ -577,5 +530,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

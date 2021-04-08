@@ -20,7 +20,7 @@
 						</div>
 						<div
 							class="sp-accounts-list-item__copy"
-							@click="copyToClipboard(account.address)"
+							@click="copyAddress(account.address)"
 						>
 							<span class="sp-icon sp-icon-Copy" />
 						</div>
@@ -71,31 +71,49 @@
 		</div>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import SpLinkIcon from '../SpLinkIcon'
+import type { Wallet, Account } from '../../utils/interfaces'
+import { copyToClipboard } from '../../utils/helpers'
 
-export default {
+export interface NewAccount {
+	show: boolean
+	nextAvailable: boolean
+	pathIncrement: number | null
+}
+export interface SpAccountListState {
+	newAccount: NewAccount
+}
+export default defineComponent({
 	name: 'SpAccountList',
-	data() {
-		return this.defaultState()
+	data: function (): SpAccountListState {
+		return {
+			newAccount: {
+				show: false,
+				nextAvailable: true,
+				pathIncrement: null
+			} as NewAccount
+		}
 	},
 	components: {
 		SpLinkIcon
 	},
+	emits: ['account-selected'],
 	computed: {
-		activeWallet() {
+		activeWallet: function (): Wallet {
 			return this.$store.state.common.wallet.activeWallet
 		},
-		accountList() {
+		accountList: function (): Account[] {
 			return this.$store.state.common.wallet.activeWallet.accounts
 		},
-		HDPath() {
+		HDPath: function (): string {
 			return this.$store.state.common.wallet.activeWallet.HDpath
 		},
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		currentAccount() {
+		currentAccount: function (): string | null {
 			if (this._depsLoaded) {
 				return this.$store.getters['common/wallet/address']
 			} else {
@@ -103,10 +121,10 @@ export default {
 			}
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function () {
 		const module = ['common', 'wallet']
 		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+			const submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
@@ -115,16 +133,10 @@ export default {
 		}
 	},
 	methods: {
-		copyToClipboard(str) {
-			const el = document.createElement('textarea')
-			el.value = str
-			document.body.appendChild(el)
-			el.select()
-			el.setSelectionRange(0, 999999)
-			document.execCommand('copy')
-			document.body.removeChild(el)
+		copyAddress: function (address: string): void {
+			copyToClipboard(address)
 		},
-		defaultState() {
+		defaultState: function (): SpAccountListState {
 			return {
 				newAccount: {
 					show: false,
@@ -133,22 +145,28 @@ export default {
 				}
 			}
 		},
-		reset() {
-			Object.assign(this.$data, this.defaultState())
+		reset: function (): void {
+			Object.assign(this.$data, {
+				newAccount: {
+					show: false,
+					nextAvailable: true,
+					pathIncrement: null
+				}
+			})
 		},
-		newAccountForm() {
-			this.newAccount.show = true
+		newAccountForm: function (): void {
+			;(this.newAccount as NewAccount).show = true
 		},
-		shortenAddress(addr) {
+		shortenAddress: function (addr: string): string {
 			return addr.substr(0, 10) + '...' + addr.slice(-5)
 		},
-		async useAccount(address) {
+		useAccount: async function (address: string): Promise<void> {
 			if (this._depsLoaded) {
 				await this.$store.dispatch('common/wallet/switchAccount', address)
 				this.$emit('account-selected')
 			}
 		},
-		async createAccount() {
+		createAccount: async function (): Promise<void> {
 			if (this._depsLoaded) {
 				if (this.newAccount.nextAvailable) {
 					await this.$store.dispatch('common/wallet/addAccount')
@@ -162,5 +180,5 @@ export default {
 			this.reset()
 		}
 	}
-}
+})
 </script>
