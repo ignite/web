@@ -79,7 +79,7 @@
 			</div>
 			<div
 				class="sp-relayer__advanced__contents"
-				v-if="relayer.status != 'created ' && showAdvanced"
+				v-if="relayer.status != 'created' && showAdvanced"
 			>
 				<div class="sp-relayer__advanced__contents__item">
 					<div class="sp-relayer__advanced__contents__item__key">
@@ -248,37 +248,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import SpButton from '../SpButton'
-export interface IBCAckHeights {
-	packetHeightA: number
-	packetHeightB: number
-	ackHeightA: number
-	ackHeightB: number
-}
-export interface IBCEndpoint {
-	clientID: string
-	connectionID: string
-}
-export interface IBCChannel {
-	portId?: string
-	channelId: string
-}
-export interface Relayer {
-	name: string
-	prefix?: string
-	endpoint?: string
-	gasPrice?: string
-	external: boolean
-	status: 'connected' | 'linked' | 'created'
-	heights?: IBCAckHeights
-	running?: boolean
-	chainIdA?: string
-	chainIdB: string
-	targetAddress?: string
-	endA?: IBCEndpoint
-	endB?: IBCEndpoint
-	src: IBCChannel
-	dest?: IBCChannel
-}
+import { Relayer } from '../../utils/interfaces'
+
 export interface SpRelayerState {
 	showAdvanced: boolean
 	connecting: boolean
@@ -287,7 +258,10 @@ export interface SpRelayerState {
 export default defineComponent({
 	name: 'SpRelayer',
 	props: {
-		relayer: Object as PropType<Relayer>
+		relayer: {
+			type: Object as PropType<Relayer>,
+			required: true
+		}
 	},
 	components: {
 		SpButton
@@ -299,19 +273,19 @@ export default defineComponent({
 			extradots: ''
 		} as SpRelayerState
 	},
-	beforeCreate() {
-		let module = ['common', 'wallet']
-		for (let i = 1; i <= module.length; i++) {
-			const submod = module.slice(0, i)
+	beforeCreate: function (): void {
+		let vuexModule = ['common', 'wallet']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
-		module = ['common', 'relayers']
-		for (let i = 1; i <= module.length; i++) {
-			const submod = module.slice(0, i)
+		vuexModule = ['common', 'relayers']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.relayers` has not been registered!')
 				this._depsLoaded = false
@@ -350,21 +324,21 @@ export default defineComponent({
 				}
 			}, 500)
 			await this.$store.dispatch('common/relayers/linkRelayer', {
-				name: this.relayer?.name
+				name: this.relayer.name
 			})
 			clearInterval(loading)
 			this.connecting = false
 		},
-		async startRelayer() {
+		startRelayer: async function (): Promise<void> {
 			await this.$store.dispatch(
 				'common/relayers/runRelayer',
-				this.relayer?.name
+				this.relayer.name
 			)
 		},
-		async stopRelayer() {
+		stopRelayer: async function (): Promise<void> {
 			await this.$store.dispatch(
 				'common/relayers/stopRelayer',
-				this.relayer?.name
+				this.relayer.name
 			)
 		}
 	}

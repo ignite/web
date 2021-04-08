@@ -36,12 +36,13 @@ export default defineComponent({
 	components: {
 		//	SpBadgeButton
 	},
-	data() {
+	data: function (): SpSidebarState {
 		return {
 			opened: true,
 			mobOpened: false
 		} as SpSidebarState
 	},
+	emits: ['sidebar-open']
 	methods: {
 		toggleOpen: function (): void {
 			this.opened = !this.opened

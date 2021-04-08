@@ -244,10 +244,8 @@ import SpButton from '../SpButton'
 import SpAssets from '../SpAssets'
 import SpAmountSelect from '../SpAmountSelect'
 import { Bech32 } from '@cosmjs/encoding'
-export interface Amount {
-	amount: string
-	denom: string
-}
+import { Amount, DenomTraces, Relayer } from '../../utils/interfaces'
+
 export interface TransferData {
 	recipient: string
 	channel: string
@@ -256,12 +254,6 @@ export interface TransferData {
 	fees: Array<Amount>
 }
 
-export interface DenomTrace {
-	denom_trace: { path: string; base_denom: string }
-}
-export interface DenomTraces {
-	[key: string]: DenomTrace
-}
 export interface SpTokenSendState {
 	transfer: TransferData
 	feesOpen: boolean
@@ -272,37 +264,6 @@ export interface SpTokenSendState {
 	denomTraces: DenomTraces
 }
 
-export interface IBCAckHeights {
-	packetHeightA: number
-	packetHeightB: number
-	ackHeightA: number
-	ackHeightB: number
-}
-export interface IBCEndpoint {
-	clientID: string
-	connectionID: string
-}
-export interface IBCChannel {
-	portId?: string
-	channelId: string
-}
-export interface Relayer {
-	name: string
-	prefix?: string
-	endpoint?: string
-	gasPrice?: string
-	external: boolean
-	status: 'connected' | 'linked' | 'created'
-	heights?: IBCAckHeights
-	running?: boolean
-	chainIdA?: string
-	chainIdB: string
-	targetAddress?: string
-	endA?: IBCEndpoint
-	endB?: IBCEndpoint
-	src: IBCChannel
-	dest?: IBCChannel
-}
 export default defineComponent({
 	name: 'SpTokenSend',
 	components: {
@@ -335,7 +296,7 @@ export default defineComponent({
 			denomTraces: {} as DenomTraces
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function (): void {
 		const vuexModule = ['cosmos.bank.v1beta1']
 		for (let i = 1; i <= vuexModule.length; i++) {
 			const submod = vuexModule.slice(0, i)
@@ -359,13 +320,13 @@ export default defineComponent({
 		}
 	},
 	watch: {
-		balances: function (newBal, oldBal): void {
+		balances: function (newBal: Array<Amount>, oldBal: Array<Amount>): void {
 			if (newBal != oldBal && newBal[0]?.denom && oldBal.length == 0) {
 				this.transfer.amount = [{ amount: '', denom: newBal[0].denom }]
 				this.transfer.fees = [{ amount: '', denom: newBal[0].denom }]
 			}
 		},
-		address: function (newAddr, oldAddr): void {
+		address: function (newAddr: string, oldAddr: string): void {
 			if (this._depsLoaded) {
 				if (newAddr != oldAddr) {
 					this.bankAddress = newAddr

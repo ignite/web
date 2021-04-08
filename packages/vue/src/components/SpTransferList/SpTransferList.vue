@@ -34,8 +34,8 @@
 										(tx.body.messages[0].to_address == bankAddress ||
 											(tx.body.messages[0]['@type'] ==
 												'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet.data)?.receiver ==
-													bankAddress)),
+												getDecoded(tx.body.messages[0].packet?.data ?? '')
+													?.receiver == bankAddress)),
 									'sp-transfer-list__status__icon__success':
 										tx.response.code == 0 &&
 										tx.body.messages[0].to_address != bankAddress &&
@@ -44,8 +44,8 @@
 										!(
 											tx.body.messages[0]['@type'] ==
 												'/ibc.core.channel.v1.MsgRecvPacket' &&
-											getDecoded(tx.body.messages[0].packet.data)?.receiver ==
-												bankAddress
+											getDecoded(tx.body.messages[0].packet?.data ?? '')
+												?.receiver == bankAddress
 										)
 								}"
 							>
@@ -62,7 +62,7 @@
 											(tx.body.messages[0].to_address == bankAddress ||
 												(tx.body.messages[0]['@type'] ==
 													'/ibc.core.channel.v1.MsgRecvPacket' &&
-													getDecoded(tx.body.messages[0].packet.data)
+													getDecoded(tx.body.messages[0].packet?.data ?? '')
 														?.receiver == bankAddress)),
 										'sp-icon-Docs':
 											tx.response.code == 0 &&
@@ -72,8 +72,8 @@
 											!(
 												tx.body.messages[0]['@type'] ==
 													'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet.data)?.receiver ==
-													bankAddress
+												getDecoded(tx.body.messages[0].packet?.data ?? '')
+													?.receiver == bankAddress
 											)
 									}"
 								/>
@@ -98,7 +98,7 @@
 						"
 					>
 						<div
-							v-for="(token, index) in tx.body.messages[0].amount"
+							v-for="(token, index) in getAmounts(tx)"
 							v-bind:key="'am' + index"
 						>
 							{{
@@ -119,13 +119,13 @@
 							{{
 								tx.body.messages[0].sender == bankAddress
 									? '-' +
-									  tx.body.messages[0].token.amount +
+									  tx.body.messages[0].token?.amount +
 									  ' ' +
-									  tx.body.messages[0].token.denom.toUpperCase()
+									  tx.body.messages[0].token?.denom.toUpperCase()
 									: '+' +
-									  tx.body.messages[0].token.amount +
+									  tx.body.messages[0].token?.amount +
 									  ' ' +
-									  tx.body.messages[0].token.denom.toUpperCase()
+									  tx.body.messages[0].token?.denom.toUpperCase()
 							}}
 						</div>
 					</td>
@@ -138,28 +138,28 @@
 					>
 						<div>
 							{{
-								getDecoded(tx.body.messages[0].packet.data).receiver ==
+								getDecoded(tx.body.messages[0].packet?.data ?? '').receiver ==
 								bankAddress
 									? '+' +
-									  getDecoded(tx.body.messages[0].packet.data).amount +
+									  getDecoded(tx.body.messages[0].packet?.data ?? '').amount +
 									  ' IBC/' +
-									  tx.body.messages[0].packet.destination_port.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_port.toUpperCase() +
 									  '/' +
-									  tx.body.messages[0].packet.destination_channel.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_channel.toUpperCase() +
 									  '/' +
 									  getDecoded(
-											tx.body.messages[0].packet.data
-									  ).denom.toUpperCase()
+											tx.body.messages[0].packet?.data ?? ''
+									  )?.denom?.toUpperCase()
 									: '-' +
-									  getDecoded(tx.body.messages[0].packet.data).amount +
+									  getDecoded(tx.body.messages[0].packet?.data ?? '').amount +
 									  ' IBC/' +
-									  tx.body.messages[0].packet.destination_port.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_port.toUpperCase() +
 									  '/' +
-									  tx.body.messages[0].packet.destination_channel.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_channel.toUpperCase() +
 									  '/' +
 									  getDecoded(
-											tx.body.messages[0].packet.data
-									  ).denom.toUpperCase()
+											tx.body.messages[0].packet?.data ?? ''
+									  )?.denom?.toUpperCase()
 							}}
 						</div>
 					</td>
@@ -202,59 +202,14 @@
 import { defineComponent } from 'vue'
 import dayjs from 'dayjs'
 import { decode } from 'js-base64'
+import {
+	Transactions,
+	Transaction,
+	TxDecodedPacket
+} from '../../utils/interfaces'
+
 export interface SpTransferListState {
 	bankAddress: string
-}
-export interface Transactions {
-	txs: Array<RawTransaction>
-	tx_responses: Array<RawTransactionResponse>
-}
-export type RawTransactionResponse = {
-	height: number
-	code: number
-} & {
-	[key: string]: string | undefined
-}
-export interface TxPacket {
-	data: string
-	source_port: string
-	source_channel: string
-	destination_port: string
-	destination_channel: string
-}
-export interface TxDecodedPacket {
-	sender?: string
-	receiver?: string
-}
-export interface TxMessage {
-	'@type': string
-	packet?: TxPacket
-	signer: string
-	connection_id?: string
-	client_id?: string
-	counterparty_connection_id?: string
-	previous_connection_id?: string
-	from_address?: string
-	to_address?: string
-	sender?: string
-	receiver?: string
-	port_id?: string
-	channel_id?: string
-	source_channel?: string
-	counterparty_version?: string
-	previous_channel_id?: string
-}
-export interface TxBody {
-	messages: Array<TxMessage>
-}
-export type RawTransaction = {
-	response: RawTransactionResponse
-	body: TxBody
-} & {
-	[key: string]: unknown
-}
-export type Transaction = RawTransaction & {
-	[key: string]: unknown
 }
 export default defineComponent({
 	name: 'SpTransferList',
@@ -295,7 +250,7 @@ export default defineComponent({
 			)
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function():void {
 		const vuexModule = ['common', 'transfers']
 		for (let i = 1; i <= vuexModule.length; i++) {
 			const submod = vuexModule.slice(0, i)
@@ -322,7 +277,10 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		getFmtTime: function (time: number): string {
+		getAmounts: function (tx: Transaction) {
+			return tx.body.messages[0]?.amount ?? []
+		},
+		getFmtTime: function (time: string | undefined): string {
 			const momentTime = dayjs(time)
 			return momentTime.format('D MMM, YYYY')
 		},

@@ -97,6 +97,7 @@ export default defineComponent({
 	components: {
 		SpLinkIcon
 	},
+	emits: ['account-selected'],
 	computed: {
 		activeWallet: function (): Wallet {
 			return this.$store.state.common.wallet.activeWallet

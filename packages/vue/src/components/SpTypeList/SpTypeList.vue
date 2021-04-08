@@ -94,15 +94,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-export interface SpType {
-	id?: string
-	creator?: string
-	[key: string]: string | undefined
-}
-export interface Field {
-	name: string
-	type: string
-}
+import { SpTypeObject, Field } from '../../utils/interfaces'
+
 export interface SpTypeListState {
 	fieldList: Array<Field>
 	moreOpen: number
@@ -137,7 +130,7 @@ export default defineComponent({
 		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		typeItems: function (): Array<SpType> {
+		typeItems: function (): Array<SpTypeObject> {
 			if (this._depsLoaded) {
 				const items = this.$store.getters[
 					this.modulePath + '/get' + this.moduleType + 'All'
@@ -151,7 +144,7 @@ export default defineComponent({
 			return this._depsLoaded
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function():void {
 		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			const submod = module.slice(0, i)
@@ -162,7 +155,7 @@ export default defineComponent({
 			}
 		}
 	},
-	async created() {
+	created: async function():Promise<void> {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
 				this.modulePath + '/getTypeStructure'

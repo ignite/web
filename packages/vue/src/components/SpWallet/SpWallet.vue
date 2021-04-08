@@ -20,7 +20,9 @@ import SpWalletMenu from '../SpWalletMenu'
 import SpButton from '../SpButton'
 import SpWalletCreate from '../SpWalletCreate'
 import type { Wallet } from '../../utils/interfaces'
-
+export interface SpWalletState {
+	create: boolean
+}
 export default defineComponent({
 	name: 'SpWallet',
 	components: {
@@ -28,7 +30,7 @@ export default defineComponent({
 		SpButton,
 		SpWalletCreate
 	},
-	data() {
+	data: function (): SpWalletState {
 		return {
 			create: false
 		}
@@ -45,7 +47,7 @@ export default defineComponent({
 			return this._depsLoaded
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function (): void {
 		const vuexModule = ['common', 'wallet']
 		for (let i = 1; i <= vuexModule.length; i++) {
 			const submod = vuexModule.slice(0, i)

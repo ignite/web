@@ -5,11 +5,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-export type Block = {
-	height: number
-} & {
-	[key: string]: string | undefined
-}
+import { Block } from '../../utils/interfaces'
+
 export default defineComponent({
 	name: 'SpBlockHeight',
 	computed: {
@@ -31,7 +28,7 @@ export default defineComponent({
 			return this._depsLoaded
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function (): void {
 		const vuexModule = ['common', 'blocks']
 		for (let i = 1; i <= vuexModule.length; i++) {
 			const submod = vuexModule.slice(0, i)

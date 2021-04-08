@@ -79,17 +79,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-export interface Amount {
-	amount: number
-	denom: string
-}
-export interface DenomTraces {
-	[key: string]: string
-}
+import { Amount, ColoredAmount, DenomTraces } from '../../utils/interfaces'
+
 export interface SpAmountSelectState {
 	denomTraces: DenomTraces
 }
-export type ColoredAmount = Amount & { color: string }
+
 export default defineComponent({
 	name: 'SpAssets',
 	props: {
@@ -104,11 +99,11 @@ export default defineComponent({
 		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		fullBalances(): Array<ColoredAmount> {
+		fullBalances: function (): Array<ColoredAmount> {
 			return (
 				this.balances?.map((x: Amount) => {
 					this.addMapping(x)
-					const y: ColoredAmount = { amount: 0, denom: '', color: '' }
+					const y: ColoredAmount = { amount: '0', denom: '', color: '' }
 					y.amount = x.amount
 					y.denom = x.denom
 					y.color = this.str2rgba(x.denom.toUpperCase())
@@ -118,7 +113,7 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		async addMapping(balance: Amount) {
+		addMapping: async function (balance: Amount): Promise<void> {
 			if (balance.denom.indexOf('ibc/') == 0) {
 				const denom = balance.denom.split('/')
 				const hash = denom[1]
@@ -131,7 +126,7 @@ export default defineComponent({
 				)
 			}
 		},
-		str2rgba(r: string) {
+		str2rgba: function (r: string): string {
 			const o = []
 			for (let a, c = 0; c < 256; c++) {
 				a = c

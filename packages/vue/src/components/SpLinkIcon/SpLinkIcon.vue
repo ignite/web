@@ -40,24 +40,24 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 export default defineComponent({
 	name: 'SpLinkIcon',
 	props: {
 		link: {
-			type: String
+			type: String as PropType<string>
 		},
 		href: {
-			type: String
+			type: String as PropType<string>
 		},
 		target: {
-			type: String
+			type: String as PropType<string>
 		},
 		icon: {
-			type: String
+			type: String as PropType<string>
 		},
 		text: {
-			type: String,
+			type: String as PropType<string>,
 			required: true
 		}
 	}

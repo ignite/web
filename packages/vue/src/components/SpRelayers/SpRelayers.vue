@@ -159,37 +159,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import SpRelayer from '../SpRelayer'
-export interface IBCAckHeights {
-	packetHeightA: number
-	packetHeightB: number
-	ackHeightA: number
-	ackHeightB: number
-}
-export interface IBCEndpoint {
-	clientID: string
-	connectionID: string
-}
-export interface IBCChannel {
-	portId?: string
-	channelId: string
-}
-export interface Relayer {
-	name: string
-	prefix?: string
-	endpoint?: string
-	gasPrice?: string
-	external: boolean
-	status: 'connected' | 'linked' | 'created'
-	heights?: IBCAckHeights
-	running?: boolean
-	chainIdA?: string
-	chainIdB: string
-	targetAddress?: string
-	endA?: IBCEndpoint
-	endB?: IBCEndpoint
-	src: IBCChannel
-	dest?: IBCChannel
-}
+import { Relayer } from '../../utils/interfaces'
+
 export interface RelayerForm {
 	name: string
 	endpoint: string
@@ -208,7 +179,7 @@ export default defineComponent({
 	components: {
 		SpRelayer
 	},
-	data: function () {
+	data: function (): SpRelayersState {
 		return {
 			showRelayerForm: false,
 			relayerForm: {
@@ -222,19 +193,19 @@ export default defineComponent({
 			} as RelayerForm
 		} as SpRelayersState
 	},
-	beforeCreate() {
-		let module = ['common', 'wallet']
-		for (let i = 1; i <= module.length; i++) {
-			const submod = module.slice(0, i)
+	beforeCreate: function (): void {
+		let vuexModule = ['common', 'wallet']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
-		module = ['common', 'relayers']
-		for (let i = 1; i <= module.length; i++) {
-			const submod = module.slice(0, i)
+		vuexModule = ['common', 'relayers']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.relayers` has not been registered!')
 				this._depsLoaded = false

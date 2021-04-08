@@ -26,15 +26,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import SpLinkIcon from '../SpLinkIcon'
-function copyToClipboard(str: string) {
-	const el = document.createElement('textarea')
-	el.value = str
-	document.body.appendChild(el)
-	el.select()
-	el.setSelectionRange(0, 999999)
-	document.execCommand('copy')
-	document.body.removeChild(el)
-}
+import { copyToClipboard } from '../../utils/helpers'
+
 export default defineComponent({
 	name: 'SpMnemonic',
 	props: {

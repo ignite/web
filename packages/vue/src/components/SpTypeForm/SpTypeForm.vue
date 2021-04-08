@@ -129,18 +129,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-export interface SpType {
-	id?: string
-	creator?: string
-	[key: string]: string | undefined
-}
-export interface Field {
-	name: string
-	type: string
-}
+import { SpTypeObject, Field } from '../../utils/interfaces'
+
 export interface SpTypeFormState {
 	fieldList: Array<Field>
-	typeData: SpType
+	typeData: SpTypeObject
 	inFlight: boolean
 }
 export default defineComponent({
@@ -170,10 +163,11 @@ export default defineComponent({
 	data: function () {
 		return {
 			fieldList: [],
-			typeData: {} as SpType,
+			typeData: {} as SpTypeObject,
 			inFlight: false
 		} as SpTypeFormState
 	},
+	emits: ['created', 'updated', 'deleted'],
 	watch: {
 		id: async function (newId): Promise<void> {
 			this.typeData['id'] = newId
@@ -217,15 +211,15 @@ export default defineComponent({
 				return null
 			}
 		},
-		createTypeData: function (): SpType {
+		createTypeData: function (): SpTypeObject {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { id, ...rest } = this.typeData
 			return rest
 		},
-		updateTypeData: function (): SpType {
+		updateTypeData: function (): SpTypeObject {
 			return this.typeData
 		},
-		deleteTypeData: function (): SpType {
+		deleteTypeData: function (): SpTypeObject {
 			// eslint-disable-next-line no-unused-vars
 			const { id, creator } = this.typeData
 			return { id, creator }
@@ -234,7 +228,7 @@ export default defineComponent({
 			return this._depsLoaded
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function():void {
 		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			const submod = module.slice(0, i)

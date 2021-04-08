@@ -22,20 +22,20 @@
 	</button>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 export default defineComponent({
 	name: 'SpCard',
 	props: {
 		type: {
-			type: String,
+			type: String as PropType<string>,
 			required: true
 		},
 		icon: {
-			type: String,
+			type: String as PropType<string>,
 			reequired: true
 		},
 		link: {
-			type: String
+			type: String as PropType<string>
 		}
 	}
 })

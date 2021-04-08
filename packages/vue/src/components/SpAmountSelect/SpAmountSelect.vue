@@ -135,17 +135,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-export interface Amount {
-	amount: string
-	denom: string
-}
-export type ColoredAmount = Amount & { color: string }
-export interface DenomTrace {
-	denom_trace: { path: string; base_denom: string }
-}
-export interface DenomTraces {
-	[key: string]: DenomTrace
-}
+import { Amount, ColoredAmount, DenomTraces } from '../../utils/interfaces'
+
 export interface SpAmountSelectState {
 	amount: string
 	denom: string | null
@@ -154,6 +145,7 @@ export interface SpAmountSelectState {
 	searchTerm: string
 	denomTraces: DenomTraces
 }
+
 export default defineComponent({
 	name: 'SpAmountSelect',
 	data: function (): SpAmountSelectState {
@@ -173,12 +165,12 @@ export default defineComponent({
 		available: {
 			type: Array as PropType<Array<Amount>>
 		},
-		index: { type: Number },
+		index: { type: Number as PropType<number> },
 		selected: {
 			type: Array as PropType<Array<string>>
 		},
 		last: {
-			type: Boolean
+			type: Boolean as PropType<boolean>
 		}
 	},
 	emits: ['update:modelValue', 'self-remove'],
@@ -231,13 +223,13 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		toggleModal() {
+		toggleModal: function (): void {
 			this.modalOpen = !this.modalOpen
 		},
-		selfRemove() {
+		selfRemove: function (): void {
 			this.$emit('self-remove')
 		},
-		async addMapping(balance: Amount) {
+		addMapping: async function (balance: Amount): Promise<void> {
 			if (balance.denom.indexOf('ibc/') == 0) {
 				const denom = balance.denom.split('/')
 				const hash = denom[1]
@@ -250,16 +242,16 @@ export default defineComponent({
 				)
 			}
 		},
-		setDenom(avail: Amount) {
+		setDenom: function (avail: Amount): void {
 			if (this.enabledDenoms.findIndex((x) => x == avail) != -1) {
 				this.denom = avail.denom
 				this.modalOpen = false
 			}
 		},
-		parseAmount(amount: string): number {
+		parseAmount: function (amount: string): number {
 			return amount == '' ? 0 : parseInt(amount)
 		},
-		str2rgba(r: string) {
+		str2rgba: function (r: string): string {
 			const o = []
 			for (let a, c = 0; c < 256; c++) {
 				a = c
@@ -273,16 +265,16 @@ export default defineComponent({
 		}
 	},
 	watch: {
-		modelValue(newVal) {
+		modelValue: function (newVal: Amount): void {
 			this.amount = newVal.amount
 			this.denom = newVal.denom
 		},
-		amount(newVal, oldVal) {
+		amount: function (newVal: string, oldVal: string): void {
 			if (newVal != oldVal) {
 				this.$emit('update:modelValue', this.currentVal)
 			}
 		},
-		denom(newVal, oldVal) {
+		denom: function (newVal: string, oldVal: string): void {
 			if (newVal != oldVal) {
 				this.$emit('update:modelValue', this.currentVal)
 			}

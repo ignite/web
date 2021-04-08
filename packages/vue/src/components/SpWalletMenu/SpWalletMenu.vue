@@ -140,15 +140,15 @@
 			<div class="sp-wallet-menu-item">
 				<div
 					class="sp-wallet-menu-item__avatar"
-					v-html="getAvatar(walletToUnlock.name)"
+					v-html="getAvatar(walletToUnlock?.name ?? '')"
 				></div>
 				<div
 					class="sp-wallet-menu-item__avatar-shadow"
-					v-html="getAvatar(walletToUnlock.name)"
+					v-html="getAvatar(walletToUnlock?.name ?? '')"
 				></div>
 				<div class="sp-wallet-menu-item__info">
 					<span class="sp-text sp-bold sp-active">{{
-						walletToUnlock.name
+						walletToUnlock?.name
 					}}</span>
 					<br />
 					<span class="sp-text"> Locked </span>
@@ -203,6 +203,7 @@ export default defineComponent({
 		SpButton,
 		SpLinkIcon
 	},
+	emits:['createNew'],
 	data: function (): SpWalletMenuState {
 		return {
 			opened: false,
@@ -275,7 +276,7 @@ export default defineComponent({
 			return this._depsLoaded
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function (): void {
 		const vuexModule = ['common', 'wallet']
 		for (let i = 1; i <= vuexModule.length; i++) {
 			const submod = vuexModule.slice(0, i)
