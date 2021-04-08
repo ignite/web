@@ -136,6 +136,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { Amount, ColoredAmount, DenomTraces } from '../../utils/interfaces'
+import { str2rgba } from '../../utils/helpers'
 
 export interface SpAmountSelectState {
 	amount: string
@@ -207,7 +208,7 @@ export default defineComponent({
 					const y: ColoredAmount = { amount: '0', denom: '', color: '' }
 					y.amount = x.amount
 					y.denom = x.denom
-					y.color = this.str2rgba(x.denom.toUpperCase())
+					y.color = str2rgba(x.denom.toUpperCase())
 					return x as ColoredAmount
 				}) ?? []
 			)
@@ -250,18 +251,6 @@ export default defineComponent({
 		},
 		parseAmount: function (amount: string): number {
 			return amount == '' ? 0 : parseInt(amount)
-		},
-		str2rgba: function (r: string): string {
-			const o = []
-			for (let a, c = 0; c < 256; c++) {
-				a = c
-				for (let f = 0; f < 8; f++) a = 1 & a ? 3988292384 ^ (a >>> 1) : a >>> 1
-				o[c] = a
-			}
-			let n = -1
-			for (let t = 0; t < r.length; t++)
-				n = (n >>> 8) ^ o[255 & (n ^ r.charCodeAt(t))]
-			return ((-1 ^ n) >>> 0).toString(16)
 		}
 	},
 	watch: {

@@ -42,7 +42,7 @@ export default defineComponent({
 			mobOpened: false
 		} as SpSidebarState
 	},
-	emits: ['sidebar-open']
+	emits: ['sidebar-open', 'sidebar-close'],
 	methods: {
 		toggleOpen: function (): void {
 			this.opened = !this.opened

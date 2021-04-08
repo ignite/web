@@ -215,7 +215,7 @@ export default defineComponent({
 	data: function (): SpWalletCreateState {
 		return this.defaultState()
 	},
-	emits: ['close']
+	emits: ['close'],
 	computed: {
 		keplrAvailable: function (): boolean {
 			return window.keplr ? true : false

@@ -20,7 +20,7 @@
 						</div>
 						<div
 							class="sp-accounts-list-item__copy"
-							@click="copyToClipboard(account.address)"
+							@click="copyAddress(account.address)"
 						>
 							<span class="sp-icon sp-icon-Copy" />
 						</div>
@@ -75,6 +75,8 @@
 import { defineComponent } from 'vue'
 import SpLinkIcon from '../SpLinkIcon'
 import type { Wallet, Account } from '../../utils/interfaces'
+import { copyToClipboard } from '../../utils/helpers'
+
 export interface NewAccount {
 	show: boolean
 	nextAvailable: boolean
@@ -131,14 +133,8 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		copyToClipboard: function (str: string): void {
-			const el = document.createElement('textarea')
-			el.value = str
-			document.body.appendChild(el)
-			el.select()
-			el.setSelectionRange(0, 999999)
-			document.execCommand('copy')
-			document.body.removeChild(el)
+		copyAddress: function (address: string): void {
+			copyToClipboard(address)
 		},
 		defaultState: function (): SpAccountListState {
 			return {
