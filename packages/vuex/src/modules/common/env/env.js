@@ -149,7 +149,7 @@ export default {
 					break
 			}
 		},
-		async signIn({ commit, state }, signer) {
+		async signIn({ state }, signer) {
 			try {
 				await state.client.useSigner(signer)
 			} catch (e) {
@@ -160,7 +160,7 @@ export default {
 			}
 		},
 		async config(
-			{ commit, rootGetters, state, dispatch },
+			{ commit, state, dispatch },
 			config = {
 				apiNode: 'http://localhost:1317',
 				rpcNode: 'http://localhost:26657',
