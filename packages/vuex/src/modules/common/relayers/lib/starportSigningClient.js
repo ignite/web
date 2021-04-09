@@ -33,7 +33,9 @@ export default class StarportSigningClient extends SigningStargateClient {
 								code: res.result.code,
 								rawLog: res.result.log
 							}
-						} catch (e) {}
+						} catch (e) {
+							console.log('Waiting for tx to be included in a block')
+						}
 						i++
 						await sleep(3000)
 					}
