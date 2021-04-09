@@ -242,12 +242,12 @@ var _default = {
     },
     signIn: function signIn(_ref5, signer) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var commit, state;
+        var state;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                commit = _ref5.commit, state = _ref5.state;
+                state = _ref5.state;
                 _context3.prev = 1;
                 _context3.next = 4;
                 return state.client.useSigner(signer);
@@ -272,12 +272,12 @@ var _default = {
     config: function config(_ref6) {
       var _arguments2 = arguments;
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        var commit, rootGetters, state, dispatch, config, client, reconnectWS, reconnectSigningClient, reconnectClient;
+        var commit, state, dispatch, config, client, reconnectWS, reconnectSigningClient, reconnectClient;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                commit = _ref6.commit, rootGetters = _ref6.rootGetters, state = _ref6.state, dispatch = _ref6.dispatch;
+                commit = _ref6.commit, state = _ref6.state, dispatch = _ref6.dispatch;
                 config = _arguments2.length > 1 && _arguments2[1] !== undefined ? _arguments2[1] : {
                   apiNode: 'http://localhost:1317',
                   rpcNode: 'http://localhost:26657',

@@ -9,7 +9,7 @@ var _starportSigningClient = _interopRequireDefault(require("./lib/starportSigni
 
 var _SpVuexError = _interopRequireDefault(require("../../../errors/SpVuexError"));
 
-var _tsRelayer = require("./ts-relayer");
+var _main = require("@confio/relayer/build/main");
 
 var _protoSigning = require("@cosmjs/proto-signing");
 
@@ -23,13 +23,13 @@ var _stargate = require("@cosmjs/stargate");
 
 var _tendermintRpc = require("@cosmjs/tendermint-rpc");
 
-var _tx = require("./ts-relayer/codec/ibc/applications/transfer/v1/tx");
+var _tx = require("@confio/relayer/build/main/codec/ibc/applications/transfer/v1/tx");
 
-var _tx2 = require("./ts-relayer/codec/ibc/core/channel/v1/tx");
+var _tx2 = require("@confio/relayer/build/main/codec/ibc/core/channel/v1/tx");
 
-var _tx3 = require("./ts-relayer/codec/ibc/core/client/v1/tx");
+var _tx3 = require("@confio/relayer/build/main/codec/ibc/core/client/v1/tx");
 
-var _tx4 = require("./ts-relayer/codec/ibc/core/connection/v1/tx");
+var _tx4 = require("@confio/relayer/build/main/codec/ibc/core/connection/v1/tx");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -68,7 +68,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function ibcRegistry() {
-  return new _protoSigning.Registry([].concat(_toConsumableArray(_stargate.defaultRegistryTypes), [["/ibc.core.client.v1.MsgCreateClient", _tx3.MsgCreateClient], ["/ibc.core.client.v1.MsgUpdateClient", _tx3.MsgUpdateClient], ["/ibc.core.connection.v1.MsgConnectionOpenInit", _tx4.MsgConnectionOpenInit], ["/ibc.core.connection.v1.MsgConnectionOpenTry", _tx4.MsgConnectionOpenTry], ["/ibc.core.connection.v1.MsgConnectionOpenAck", _tx4.MsgConnectionOpenAck], ["/ibc.core.connection.v1.MsgConnectionOpenConfirm", _tx4.MsgConnectionOpenConfirm], ["/ibc.core.channel.v1.MsgChannelOpenInit", _tx2.MsgChannelOpenInit], ["/ibc.core.channel.v1.MsgChannelOpenTry", _tx2.MsgChannelOpenTry], ["/ibc.core.channel.v1.MsgChannelOpenAck", _tx2.MsgChannelOpenAck], ["/ibc.core.channel.v1.MsgChannelOpenConfirm", _tx2.MsgChannelOpenConfirm], ["/ibc.core.channel.v1.MsgRecvPacket", _tx2.MsgRecvPacket], ["/ibc.core.channel.v1.MsgAcknowledgement", _tx2.MsgAcknowledgement], ["/ibc.core.channel.v1.MsgTimeout", _tx2.MsgTimeout], ["/ibc.applications.transfer.v1.MsgTransfer", _tx.MsgTransfer]]));
+  return new _protoSigning.Registry([].concat(_toConsumableArray(_stargate.defaultRegistryTypes), [['/ibc.core.client.v1.MsgCreateClient', _tx3.MsgCreateClient], ['/ibc.core.client.v1.MsgUpdateClient', _tx3.MsgUpdateClient], ['/ibc.core.connection.v1.MsgConnectionOpenInit', _tx4.MsgConnectionOpenInit], ['/ibc.core.connection.v1.MsgConnectionOpenTry', _tx4.MsgConnectionOpenTry], ['/ibc.core.connection.v1.MsgConnectionOpenAck', _tx4.MsgConnectionOpenAck], ['/ibc.core.connection.v1.MsgConnectionOpenConfirm', _tx4.MsgConnectionOpenConfirm], ['/ibc.core.channel.v1.MsgChannelOpenInit', _tx2.MsgChannelOpenInit], ['/ibc.core.channel.v1.MsgChannelOpenTry', _tx2.MsgChannelOpenTry], ['/ibc.core.channel.v1.MsgChannelOpenAck', _tx2.MsgChannelOpenAck], ['/ibc.core.channel.v1.MsgChannelOpenConfirm', _tx2.MsgChannelOpenConfirm], ['/ibc.core.channel.v1.MsgRecvPacket', _tx2.MsgRecvPacket], ['/ibc.core.channel.v1.MsgAcknowledgement', _tx2.MsgAcknowledgement], ['/ibc.core.channel.v1.MsgTimeout', _tx2.MsgTimeout], ['/ibc.applications.transfer.v1.MsgTransfer', _tx.MsgTransfer]]));
 }
 
 var getDefaultState = function getDefaultState() {
@@ -201,34 +201,16 @@ var _default = {
         }
       });
     },
-    createExternalRelayer: function createExternalRelayer(_ref5, _ref6) {
+    createRelayer: function createRelayer(_ref5, _ref6) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var commit, rootGetters, getters, dispatch, name, prefix, endpoint, gasPrice;
+        var commit, rootGetters, getters, dispatch, name, prefix, endpoint, gasPrice, chainId, channelId, external, relayer, signerA, signerB, _yield$signerB$getAcc, _yield$signerB$getAcc2, accountB, optionsA, tmClientA, signingClientA, optionsB, tmClientB, signingClientB;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 commit = _ref5.commit, rootGetters = _ref5.rootGetters, getters = _ref5.getters, dispatch = _ref5.dispatch;
-                name = _ref6.name, prefix = _ref6.prefix, endpoint = _ref6.endpoint, gasPrice = _ref6.gasPrice;
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    createRelayer: function createRelayer(_ref7, _ref8) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var commit, rootGetters, getters, dispatch, name, prefix, endpoint, gasPrice, chainId, channelId, external, relayer, signerA, signerB, _yield$signerA$getAcc, _yield$signerA$getAcc2, accountA, _yield$signerB$getAcc, _yield$signerB$getAcc2, accountB, optionsA, tmClientA, signingClientA, optionsB, tmClientB, signingClientB;
-
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                commit = _ref7.commit, rootGetters = _ref7.rootGetters, getters = _ref7.getters, dispatch = _ref7.dispatch;
-                name = _ref8.name, prefix = _ref8.prefix, endpoint = _ref8.endpoint, gasPrice = _ref8.gasPrice, chainId = _ref8.chainId, channelId = _ref8.channelId, external = _ref8.external;
+                name = _ref6.name, prefix = _ref6.prefix, endpoint = _ref6.endpoint, gasPrice = _ref6.gasPrice, chainId = _ref6.chainId, channelId = _ref6.channelId, external = _ref6.external;
 
                 if (!external) {
                   relayer = {
@@ -237,7 +219,7 @@ var _default = {
                     endpoint: endpoint,
                     gasPrice: gasPrice,
                     external: false,
-                    status: "created",
+                    status: 'created',
                     heights: {},
                     running: false
                   };
@@ -254,32 +236,25 @@ var _default = {
                 }
 
                 if (external) {
-                  _context2.next = 37;
+                  _context.next = 32;
                   break;
                 }
 
-                _context2.next = 6;
+                _context.next = 6;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), rootGetters['common/env/addrPrefix']);
 
               case 6:
-                signerA = _context2.sent;
-                _context2.next = 9;
+                signerA = _context.sent;
+                _context.next = 9;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), relayer.prefix);
 
               case 9:
-                signerB = _context2.sent;
-                _context2.next = 12;
-                return signerA.getAccounts();
-
-              case 12:
-                _yield$signerA$getAcc = _context2.sent;
-                _yield$signerA$getAcc2 = _slicedToArray(_yield$signerA$getAcc, 1);
-                accountA = _yield$signerA$getAcc2[0];
-                _context2.next = 17;
+                signerB = _context.sent;
+                _context.next = 12;
                 return signerB.getAccounts();
 
-              case 17:
-                _yield$signerB$getAcc = _context2.sent;
+              case 12:
+                _yield$signerB$getAcc = _context.sent;
                 _yield$signerB$getAcc2 = _slicedToArray(_yield$signerB$getAcc, 1);
                 accountB = _yield$signerB$getAcc2[0];
                 optionsA = {
@@ -287,91 +262,91 @@ var _default = {
                   gasPrice: _launchpad.GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
                   registry: ibcRegistry()
                 };
-                _context2.next = 23;
+                _context.next = 18;
                 return _tendermintRpc.Tendermint34Client.connect(rootGetters['common/env/apiTendermint']);
 
-              case 23:
-                tmClientA = _context2.sent;
+              case 18:
+                tmClientA = _context.sent;
                 signingClientA = new _starportSigningClient["default"](tmClientA, signerA, optionsA);
-                _context2.next = 27;
+                _context.next = 22;
                 return signingClientA.getChainId();
 
-              case 27:
-                relayer.chainIdA = _context2.sent;
+              case 22:
+                relayer.chainIdA = _context.sent;
                 optionsB = {
                   prefix: relayer.prefix,
                   gasPrice: _launchpad.GasPrice.fromString(relayer.gasPrice),
                   registry: ibcRegistry()
                 };
-                _context2.next = 31;
+                _context.next = 26;
                 return _tendermintRpc.Tendermint34Client.connect(relayer.endpoint);
 
-              case 31:
-                tmClientB = _context2.sent;
+              case 26:
+                tmClientB = _context.sent;
                 signingClientB = new _starportSigningClient["default"](tmClientB, signerB, optionsB);
-                _context2.next = 35;
+                _context.next = 30;
                 return signingClientB.getChainId();
 
-              case 35:
-                relayer.chainIdB = _context2.sent;
+              case 30:
+                relayer.chainIdB = _context.sent;
                 relayer.targetAddress = accountB.address;
 
-              case 37:
+              case 32:
                 commit('CREATE_RELAYER', relayer);
                 dispatch('common/wallet/updateRelayers', getters['getRelayers'], {
                   root: true
                 });
 
-              case 39:
+              case 34:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }))();
     },
-    loadRelayer: function loadRelayer(_ref9, name) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var commit, rootGetters, getters, dispatch, relayer, signerA, signerB, _yield$signerA$getAcc3, _yield$signerA$getAcc4, accountA, _yield$signerB$getAcc3, _yield$signerB$getAcc4, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
+    loadRelayer: function loadRelayer(_ref7, name) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var commit, rootGetters, getters, dispatch, relayer, signerA, signerB, _yield$signerA$getAcc, _yield$signerA$getAcc2, accountA, _yield$signerB$getAcc3, _yield$signerB$getAcc4, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
 
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                commit = _ref9.commit, rootGetters = _ref9.rootGetters, getters = _ref9.getters, dispatch = _ref9.dispatch;
+                commit = _ref7.commit, rootGetters = _ref7.rootGetters, getters = _ref7.getters, dispatch = _ref7.dispatch;
                 relayer = getters['getRelayer'](name);
 
                 if (!(relayer.status !== 'linked' && relayer.status !== 'connected')) {
-                  _context3.next = 4;
+                  _context2.next = 4;
                   break;
                 }
 
                 throw new _SpVuexError["default"]('relayers:connectRelayer', 'Relayer already connected.');
 
               case 4:
-                _context3.prev = 4;
-                _context3.next = 7;
+                _context2.prev = 4;
+                _context2.next = 7;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), rootGetters['common/env/addrPrefix']);
 
               case 7:
-                signerA = _context3.sent;
-                _context3.next = 10;
+                signerA = _context2.sent;
+                _context2.next = 10;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), relayer.prefix);
 
               case 10:
-                signerB = _context3.sent;
-                _context3.next = 13;
+                signerB = _context2.sent;
+                _context2.next = 13;
                 return signerA.getAccounts();
 
               case 13:
-                _yield$signerA$getAcc3 = _context3.sent;
-                _yield$signerA$getAcc4 = _slicedToArray(_yield$signerA$getAcc3, 1);
-                accountA = _yield$signerA$getAcc4[0];
-                _context3.next = 18;
+                _yield$signerA$getAcc = _context2.sent;
+                _yield$signerA$getAcc2 = _slicedToArray(_yield$signerA$getAcc, 1);
+                accountA = _yield$signerA$getAcc2[0];
+                _context2.next = 18;
                 return signerB.getAccounts();
 
               case 18:
-                _yield$signerB$getAcc3 = _context3.sent;
+                _yield$signerB$getAcc3 = _context2.sent;
                 _yield$signerB$getAcc4 = _slicedToArray(_yield$signerB$getAcc3, 1);
                 accountB = _yield$signerB$getAcc4[0];
                 transientLog = {
@@ -390,7 +365,7 @@ var _default = {
                   verbose: function verbose(msg) {
                     commit('SET_LOG_MSG', msg);
                   },
-                  debug: function debug(msg) {//commit('SET_LOG_MSG',msg)
+                  debug: function debug() {//commit('SET_LOG_MSG',msg)
                   }
                 };
                 optionsA = {
@@ -399,41 +374,41 @@ var _default = {
                   gasPrice: _launchpad.GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
                   registry: ibcRegistry()
                 };
-                _context3.next = 25;
+                _context2.next = 25;
                 return _tendermintRpc.Tendermint34Client.connect(rootGetters['common/env/apiTendermint']);
 
               case 25:
-                tmClientA = _context3.sent;
+                tmClientA = _context2.sent;
                 signingClientA = new _starportSigningClient["default"](tmClientA, signerA, optionsA);
-                _context3.next = 29;
+                _context2.next = 29;
                 return signingClientA.getChainId();
 
               case 29:
-                chainIdA = _context3.sent;
+                chainIdA = _context2.sent;
                 optionsB = {
                   prefix: relayer.prefix,
                   logger: transientLog,
                   gasPrice: _launchpad.GasPrice.fromString(relayer.gasPrice),
                   registry: ibcRegistry()
                 };
-                _context3.next = 33;
+                _context2.next = 33;
                 return _tendermintRpc.Tendermint34Client.connect(relayer.endpoint);
 
               case 33:
-                tmClientB = _context3.sent;
+                tmClientB = _context2.sent;
                 signingClientB = new _starportSigningClient["default"](tmClientB, signerB, optionsB);
-                _context3.next = 37;
+                _context2.next = 37;
                 return signingClientB.getChainId();
 
               case 37:
-                chainIdB = _context3.sent;
-                clientA = new _tsRelayer.IbcClient(signingClientA, tmClientA, accountA.address, chainIdA, optionsA);
-                clientB = new _tsRelayer.IbcClient(signingClientB, tmClientB, accountB.address, chainIdB, optionsB);
-                _context3.next = 42;
-                return _tsRelayer.Link.createWithExistingConnections(clientA, clientB, relayer.endA.connectionID, relayer.endB.connectionID);
+                chainIdB = _context2.sent;
+                clientA = new _main.IbcClient(signingClientA, tmClientA, accountA.address, chainIdA, optionsA);
+                clientB = new _main.IbcClient(signingClientB, tmClientB, accountB.address, chainIdB, optionsB);
+                _context2.next = 42;
+                return _main.Link.createWithExistingConnections(clientA, clientB, relayer.endA.connectionID, relayer.endB.connectionID);
 
               case 42:
-                link = _context3.sent;
+                link = _context2.sent;
                 linkData = {
                   name: name,
                   link: link,
@@ -454,15 +429,15 @@ var _default = {
                 });
 
                 if (!(relayer.status != 'connected')) {
-                  _context3.next = 51;
+                  _context2.next = 51;
                   break;
                 }
 
-                _context3.next = 49;
+                _context2.next = 49;
                 return dispatch('connectRelayer', relayer.name);
 
               case 49:
-                _context3.next = 52;
+                _context2.next = 52;
                 break;
 
               case 51:
@@ -471,65 +446,65 @@ var _default = {
                 }
 
               case 52:
-                _context3.next = 57;
+                _context2.next = 57;
                 break;
 
               case 54:
-                _context3.prev = 54;
-                _context3.t0 = _context3["catch"](4);
-                console.error(_context3.t0);
+                _context2.prev = 54;
+                _context2.t0 = _context2["catch"](4);
+                console.error(_context2.t0);
 
               case 57:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, null, [[4, 54]]);
+        }, _callee2, null, [[4, 54]]);
       }))();
     },
-    linkRelayer: function linkRelayer(_ref10, _ref11) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        var commit, rootGetters, getters, dispatch, name, relayer, signerA, signerB, _yield$signerA$getAcc5, _yield$signerA$getAcc6, accountA, _yield$signerB$getAcc5, _yield$signerB$getAcc6, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
+    linkRelayer: function linkRelayer(_ref8, _ref9) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var commit, rootGetters, getters, dispatch, name, relayer, signerA, signerB, _yield$signerA$getAcc3, _yield$signerA$getAcc4, accountA, _yield$signerB$getAcc5, _yield$signerB$getAcc6, accountB, transientLog, optionsA, tmClientA, signingClientA, chainIdA, optionsB, tmClientB, signingClientB, chainIdB, clientA, clientB, link, linkData;
 
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                commit = _ref10.commit, rootGetters = _ref10.rootGetters, getters = _ref10.getters, dispatch = _ref10.dispatch;
-                name = _ref11.name;
+                commit = _ref8.commit, rootGetters = _ref8.rootGetters, getters = _ref8.getters, dispatch = _ref8.dispatch;
+                name = _ref9.name;
                 relayer = getters['getRelayer'](name);
 
                 if (!(relayer.status !== 'created')) {
-                  _context4.next = 5;
+                  _context3.next = 5;
                   break;
                 }
 
                 throw new _SpVuexError["default"]('relayers:connectRelayer', 'Relayer already connected.');
 
               case 5:
-                _context4.prev = 5;
-                _context4.next = 8;
+                _context3.prev = 5;
+                _context3.next = 8;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), rootGetters['common/env/addrPrefix']);
 
               case 8:
-                signerA = _context4.sent;
-                _context4.next = 11;
+                signerA = _context3.sent;
+                _context3.next = 11;
                 return _protoSigning.DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], (0, _crypto.stringToPath)(rootGetters['common/wallet/getPath']), relayer.prefix);
 
               case 11:
-                signerB = _context4.sent;
-                _context4.next = 14;
+                signerB = _context3.sent;
+                _context3.next = 14;
                 return signerA.getAccounts();
 
               case 14:
-                _yield$signerA$getAcc5 = _context4.sent;
-                _yield$signerA$getAcc6 = _slicedToArray(_yield$signerA$getAcc5, 1);
-                accountA = _yield$signerA$getAcc6[0];
-                _context4.next = 19;
+                _yield$signerA$getAcc3 = _context3.sent;
+                _yield$signerA$getAcc4 = _slicedToArray(_yield$signerA$getAcc3, 1);
+                accountA = _yield$signerA$getAcc4[0];
+                _context3.next = 19;
                 return signerB.getAccounts();
 
               case 19:
-                _yield$signerB$getAcc5 = _context4.sent;
+                _yield$signerB$getAcc5 = _context3.sent;
                 _yield$signerB$getAcc6 = _slicedToArray(_yield$signerB$getAcc5, 1);
                 accountB = _yield$signerB$getAcc6[0];
                 transientLog = {
@@ -548,7 +523,7 @@ var _default = {
                   verbose: function verbose(msg) {
                     commit('SET_LOG_MSG', msg);
                   },
-                  debug: function debug(msg) {//commit('SET_LOG_MSG',msg)
+                  debug: function debug() {//commit('SET_LOG_MSG',msg)
                   }
                 };
                 optionsA = {
@@ -557,41 +532,41 @@ var _default = {
                   gasPrice: _launchpad.GasPrice.fromString(rootGetters['common/wallet/gasPrice']),
                   registry: ibcRegistry()
                 };
-                _context4.next = 26;
+                _context3.next = 26;
                 return _tendermintRpc.Tendermint34Client.connect(rootGetters['common/env/apiTendermint']);
 
               case 26:
-                tmClientA = _context4.sent;
+                tmClientA = _context3.sent;
                 signingClientA = new _starportSigningClient["default"](tmClientA, signerA, optionsA);
-                _context4.next = 30;
+                _context3.next = 30;
                 return signingClientA.getChainId();
 
               case 30:
-                chainIdA = _context4.sent;
+                chainIdA = _context3.sent;
                 optionsB = {
                   prefix: relayer.prefix,
                   logger: transientLog,
                   gasPrice: _launchpad.GasPrice.fromString(relayer.gasPrice),
                   registry: ibcRegistry()
                 };
-                _context4.next = 34;
+                _context3.next = 34;
                 return _tendermintRpc.Tendermint34Client.connect(relayer.endpoint);
 
               case 34:
-                tmClientB = _context4.sent;
+                tmClientB = _context3.sent;
                 signingClientB = new _starportSigningClient["default"](tmClientB, signerB, optionsB);
-                _context4.next = 38;
+                _context3.next = 38;
                 return signingClientB.getChainId();
 
               case 38:
-                chainIdB = _context4.sent;
-                clientA = new _tsRelayer.IbcClient(signingClientA, tmClientA, accountA.address, chainIdA, optionsA);
-                clientB = new _tsRelayer.IbcClient(signingClientB, tmClientB, accountB.address, chainIdB, optionsB);
-                _context4.next = 43;
-                return _tsRelayer.Link.createWithNewConnections(clientA, clientB);
+                chainIdB = _context3.sent;
+                clientA = new _main.IbcClient(signingClientA, tmClientA, accountA.address, chainIdA, optionsA);
+                clientB = new _main.IbcClient(signingClientB, tmClientB, accountB.address, chainIdB, optionsB);
+                _context3.next = 43;
+                return _main.Link.createWithNewConnections(clientA, clientB);
 
               case 43:
-                link = _context4.sent;
+                link = _context3.sent;
                 linkData = {
                   name: name,
                   link: link,
@@ -610,44 +585,44 @@ var _default = {
                 dispatch('common/wallet/updateRelayers', getters['getRelayers'], {
                   root: true
                 });
-                _context4.next = 49;
+                _context3.next = 49;
                 return dispatch('connectRelayer', name);
 
               case 49:
-                _context4.next = 54;
+                _context3.next = 54;
                 break;
 
               case 51:
-                _context4.prev = 51;
-                _context4.t0 = _context4["catch"](5);
-                console.error(_context4.t0);
+                _context3.prev = 51;
+                _context3.t0 = _context3["catch"](5);
+                console.error(_context3.t0);
 
               case 54:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4, null, [[5, 51]]);
+        }, _callee3, null, [[5, 51]]);
       }))();
     },
-    connectRelayer: function connectRelayer(_ref12, name) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+    connectRelayer: function connectRelayer(_ref10, name) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
         var commit, getters, dispatch, relayerLink, channels, channelData;
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                commit = _ref12.commit, getters = _ref12.getters, dispatch = _ref12.dispatch;
+                commit = _ref10.commit, getters = _ref10.getters, dispatch = _ref10.dispatch;
                 relayerLink = getters['getRelayerLink'](name);
-                _context5.next = 4;
-                return relayerLink.createChannel("A", "transfer", "transfer", 1, "ics20-1");
+                _context4.next = 4;
+                return relayerLink.createChannel('A', 'transfer', 'transfer', 1, 'ics20-1');
 
               case 4:
-                channels = _context5.sent;
+                channels = _context4.sent;
                 channelData = _objectSpread({
                   name: name
                 }, channels);
-                commit("CONNECT_RELAYER", channelData);
+                commit('CONNECT_RELAYER', channelData);
                 dispatch('common/wallet/updateRelayers', getters['getRelayers'], {
                   root: true
                 });
@@ -655,22 +630,22 @@ var _default = {
 
               case 9:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5);
+        }, _callee4);
       }))();
     },
-    runRelayer: function runRelayer(_ref13, name) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+    runRelayer: function runRelayer(_ref11, name) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
         var commit, getters, dispatch, relayerLink;
-        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                commit = _ref13.commit, getters = _ref13.getters, dispatch = _ref13.dispatch;
+                commit = _ref11.commit, getters = _ref11.getters, dispatch = _ref11.dispatch;
                 relayerLink = getters['getRelayerLink'](name);
-                commit("RUN_RELAYER", name);
+                commit('RUN_RELAYER', name);
                 dispatch('common/wallet/updateRelayers', getters['getRelayers'], {
                   root: true
                 });
@@ -686,93 +661,93 @@ var _default = {
 
               case 5:
               case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    stopRelayer: function stopRelayer(_ref12, name) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+        var commit;
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                commit = _ref12.commit;
+                commit('STOP_RELAYER', name);
+
+              case 2:
+              case "end":
                 return _context6.stop();
             }
           }
         }, _callee6);
       }))();
     },
-    stopRelayer: function stopRelayer(_ref14, name) {
+    relayerLoop: function relayerLoop(_ref13, _ref14) {
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-        var commit;
+        var _relayer$heights;
+
+        var getters, commit, dispatch, name, link, options, relayer, nextRelay;
         return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                commit = _ref14.commit;
-                commit("STOP_RELAYER", name);
-
-              case 2:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7);
-      }))();
-    },
-    relayerLoop: function relayerLoop(_ref15, _ref16) {
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-        var _relayer$heights;
-
-        var getters, commit, dispatch, name, link, options, relayer, nextRelay;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                getters = _ref15.getters, commit = _ref15.commit, dispatch = _ref15.dispatch;
-                name = _ref16.name, link = _ref16.link, options = _ref16.options;
+                getters = _ref13.getters, commit = _ref13.commit, dispatch = _ref13.dispatch;
+                name = _ref14.name, link = _ref14.link, options = _ref14.options;
                 relayer = getters['getRelayer'](name);
                 nextRelay = (_relayer$heights = relayer.heights) !== null && _relayer$heights !== void 0 ? _relayer$heights : {};
 
               case 4:
                 if (!getters['getRelayer'](name).running) {
-                  _context8.next = 24;
+                  _context7.next = 24;
                   break;
                 }
 
-                _context8.prev = 5;
-                _context8.next = 8;
+                _context7.prev = 5;
+                _context7.next = 8;
                 return link.checkAndRelayPacketsAndAcks(nextRelay, 2, 6);
 
               case 8:
-                nextRelay = _context8.sent;
-                commit("LAST_QUERIED_HEIGHTS", {
+                nextRelay = _context7.sent;
+                commit('LAST_QUERIED_HEIGHTS', {
                   name: name,
                   heights: nextRelay
                 });
                 dispatch('common/wallet/updateRelayers', getters['getRelayers'], {
                   root: true
                 });
-                _context8.next = 13;
-                return link.updateClientIfStale("A", options.maxAgeDest);
+                _context7.next = 13;
+                return link.updateClientIfStale('A', options.maxAgeDest);
 
               case 13:
-                _context8.next = 15;
-                return link.updateClientIfStale("B", options.maxAgeSrc);
+                _context7.next = 15;
+                return link.updateClientIfStale('B', options.maxAgeSrc);
 
               case 15:
-                _context8.next = 20;
+                _context7.next = 20;
                 break;
 
               case 17:
-                _context8.prev = 17;
-                _context8.t0 = _context8["catch"](5);
-                console.error("Caught error: ", _context8.t0);
+                _context7.prev = 17;
+                _context7.t0 = _context7["catch"](5);
+                console.error("Caught error: ", _context7.t0);
 
               case 20:
-                _context8.next = 22;
+                _context7.next = 22;
                 return (0, _utils.sleep)(options.poll * 1000);
 
               case 22:
-                _context8.next = 4;
+                _context7.next = 4;
                 break;
 
               case 24:
               case "end":
-                return _context8.stop();
+                return _context7.stop();
             }
           }
-        }, _callee8, null, [[5, 17]]);
+        }, _callee7, null, [[5, 17]]);
       }))();
     }
   }
