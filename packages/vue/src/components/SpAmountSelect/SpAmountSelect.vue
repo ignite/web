@@ -16,10 +16,11 @@
 							class="sp-amount-select__denom__balance"
 							:class="{
 								'sp-amount-select__denom__balance__fail':
-									fulldenom.amount - amount < 0
+									parseAmount(fulldenom.amount) - parseAmount(amount) < 0
 							}"
 						>
-							<strong>Avail.</strong> {{ fulldenom.amount - amount }}/{{
+							<strong>Avail.</strong>
+							{{ parseAmount(fulldenom.amount) - parseAmount(amount) }}/{{
 								fulldenom.amount
 							}}
 						</div>
@@ -85,15 +86,8 @@
 							'sp-amount-select__denom__modal__item__disabled':
 								enabledDenoms.findIndex((x) => x == avail) == -1
 						}"
-						v-on:click="
-							() => {
-								if (enabledDenoms.findIndex((x) => x == avail) != -1) {
-									denom = avail.denom
-									modalOpen = false
-								}
-							}
-						"
-						v-for="avail in filtered_denoms"
+						v-on:click="setDenom(avail)"
+						v-for="avail in filteredDenoms"
 						v-bind:key="'denom_' + avail.denom"
 					>
 						<div class="sp-amount-select__denom__name">
@@ -126,7 +120,9 @@
 			<input
 				class="sp-input sp-input-large"
 				:class="{
-					'sp-error': fulldenom.amount != '' && fulldenom.amount - amount < 0
+					'sp-error':
+						fulldenom.amount != '' &&
+						parseAmount(fulldenom.amount) - parseAmount(amount) < 0
 				}"
 				name="rcpt"
 				v-model="amount"
@@ -137,53 +133,87 @@
 		</div>
 	</div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { Amount, ColoredAmount, DenomTraces } from '../../utils/interfaces'
+import { str2rgba } from '../../utils/helpers'
+
+export interface SpAmountSelectState {
+	amount: string
+	denom: string | null
+	focused: boolean
+	modalOpen: boolean
+	searchTerm: string
+	denomTraces: DenomTraces
+}
+
+export default defineComponent({
 	name: 'SpAmountSelect',
-	data: function () {
+	data: function (): SpAmountSelectState {
 		return {
 			amount: '',
 			denom: null,
 			focused: false,
 			modalOpen: false,
 			searchTerm: '',
-			denomTraces: {}
+			denomTraces: {} as DenomTraces
 		}
 	},
 	props: {
-		modelValue: Object,
-		available: Array,
-		index: Number,
-		selected: Array,
-		last: Boolean
+		modelValue: {
+			type: Object as PropType<Amount>
+		},
+		available: {
+			type: Array as PropType<Array<Amount>>
+		},
+		index: { type: Number as PropType<number> },
+		selected: {
+			type: Array as PropType<Array<string>>
+		},
+		last: {
+			type: Boolean as PropType<boolean>
+		}
 	},
-	emits: ['update:modelValue'],
-	mounted() {
-		this.amount = this.modelValue.amount
-		this.denom = this.modelValue.denom
+	emits: ['update:modelValue', 'self-remove'],
+	mounted: function () {
+		this.amount = this.modelValue?.amount + '' ?? ''
+		this.denom = this.modelValue?.denom ?? null
 	},
 	computed: {
-		currentVal() {
-			return { amount: this.amount, denom: this.denom }
+		currentVal: function (): Amount {
+			return { amount: this.amount, denom: this.denom ?? '' }
 		},
-		fulldenom() {
-			return this.denoms.find((x) => x.denom == this.denom)
-		},
-		enabledDenoms() {
-			return this.available.filter(
-				(x) =>
-					this.selected.findIndex((y) => y == x.denom) == -1 ||
-					this.selected.findIndex((y) => y == x.denom) == this.index
+		fulldenom: function (): ColoredAmount {
+			return (
+				this.denoms.find((x: ColoredAmount) => x.denom == this.denom) ?? {
+					amount: '',
+					denom: '',
+					color: ''
+				}
 			)
 		},
-		denoms() {
-			return this.available.map((x) => {
-				this.addMapping(x)
-				x.color = this.str2rgba(x.denom.toUpperCase())
-				return x
-			})
+		enabledDenoms: function (): Array<Amount> {
+			return (
+				this.available?.filter(
+					(x) =>
+						this.selected?.findIndex((y) => y == x.denom) == -1 ||
+						this.selected?.findIndex((y) => y == x.denom) == this.index
+				) ?? []
+			)
 		},
-		filtered_denoms() {
+		denoms: function (): Array<ColoredAmount> {
+			return (
+				this.available?.map((x: Amount) => {
+					this.addMapping(x)
+					const y: ColoredAmount = { amount: '0', denom: '', color: '' }
+					y.amount = x.amount
+					y.denom = x.denom
+					y.color = str2rgba(x.denom.toUpperCase())
+					return x as ColoredAmount
+				}) ?? []
+			)
+		},
+		filteredDenoms: function (): Array<ColoredAmount> {
 			return this.searchTerm == ''
 				? this.denoms
 				: this.denoms.filter(
@@ -194,16 +224,16 @@ export default {
 		}
 	},
 	methods: {
-		toggleModal() {
+		toggleModal: function (): void {
 			this.modalOpen = !this.modalOpen
 		},
-		selfRemove() {
+		selfRemove: function (): void {
 			this.$emit('self-remove')
 		},
-		async addMapping(balance) {
+		addMapping: async function (balance: Amount): Promise<void> {
 			if (balance.denom.indexOf('ibc/') == 0) {
-				let denom = balance.denom.split('/')
-				let hash = denom[1]
+				const denom = balance.denom.split('/')
+				const hash = denom[1]
 				this.denomTraces[hash] = await this.$store.dispatch(
 					'ibc.applications.transfer.v1/QueryDenomTrace',
 					{
@@ -213,32 +243,31 @@ export default {
 				)
 			}
 		},
-		str2rgba(r) {
-			for (var a, o = [], c = 0; c < 256; c++) {
-				a = c
-				for (var f = 0; f < 8; f++) a = 1 & a ? 3988292384 ^ (a >>> 1) : a >>> 1
-				o[c] = a
+		setDenom: function (avail: Amount): void {
+			if (this.enabledDenoms.findIndex((x) => x == avail) != -1) {
+				this.denom = avail.denom
+				this.modalOpen = false
 			}
-			for (var n = -1, t = 0; t < r.length; t++)
-				n = (n >>> 8) ^ o[255 & (n ^ r.charCodeAt(t))]
-			return ((-1 ^ n) >>> 0).toString(16)
+		},
+		parseAmount: function (amount: string): number {
+			return amount == '' ? 0 : parseInt(amount)
 		}
 	},
 	watch: {
-		modelValue(newVal) {
+		modelValue: function (newVal: Amount): void {
 			this.amount = newVal.amount
 			this.denom = newVal.denom
 		},
-		amount(newVal, oldVal) {
+		amount: function (newVal: string, oldVal: string): void {
 			if (newVal != oldVal) {
 				this.$emit('update:modelValue', this.currentVal)
 			}
 		},
-		denom(newVal, oldVal) {
+		denom: function (newVal: string, oldVal: string): void {
 			if (newVal != oldVal) {
 				this.$emit('update:modelValue', this.currentVal)
 			}
 		}
 	}
-}
+})
 </script>

@@ -7,45 +7,45 @@
 		v-on:delete="del"
 	></div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+
+export interface SpKeyAreaState {
+	rawContent?: string
+	delayTimer: number | null
+}
+
+export default defineComponent({
 	name: 'SpKeyArea',
 	props: {
 		value: {
-			type: String
+			type: String as PropType<string>
 		}
 	},
-	data() {
+	data: function (): SpKeyAreaState {
 		return {
 			rawContent: this.value,
 			delayTimer: null
 		}
 	},
 	methods: {
-		validateInput(el) {
-			console.log(el)
-
+		validateInput: function (el: HTMLElement): void {
 			this.rawContent = el.innerText
 		},
-		keyUp(event) {
-			console.log('keyup')
-
+		keyUp: function (event: KeyboardEvent): void {
 			if (event.keyCode == 32) {
-				this.validateInput(event.target)
+				this.validateInput(event.target as HTMLElement)
 			}
 		},
-		blur(event) {
-			console.log('blur')
-			this.validateInput(event.target)
+		blur: function (event: MouseEvent): void {
+			this.validateInput(event.target as HTMLElement)
 		},
-		paste(event) {
-			console.log('paste')
-			this.validateInput(event.target)
+		paste: function (event: KeyboardEvent): void {
+			this.validateInput(event.target as HTMLElement)
 		},
-		del(event) {
-			console.log('del')
-			this.validateInput(event.target)
+		del: function (event: KeyboardEvent): void {
+			this.validateInput(event.target as HTMLElement)
 		}
 	}
-}
+})
 </script>

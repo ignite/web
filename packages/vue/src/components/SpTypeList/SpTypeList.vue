@@ -92,51 +92,62 @@
 		</div>
 	</div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { SpTypeObject, Field } from '../../utils/interfaces'
+
+export interface SpTypeListState {
+	fieldList: Array<Field>
+	moreOpen: number
+	editOpen: boolean
+	deleteOpen: boolean
+	editID: number
+	deleteID: number
+}
+export default defineComponent({
 	name: 'SpTypeList',
 	props: {
 		moduleType: {
-			type: String,
+			type: String as PropType<string>,
 			default: ''
 		},
 		modulePath: {
-			type: String,
+			type: String as PropType<string>,
 			default: ''
 		}
 	},
 	data: function () {
 		return {
-			fieldList: [],
+			fieldList: [] as Array<Field>,
 			moreOpen: -1,
 			editOpen: false,
 			deleteOpen: false,
 			editID: -1,
 			deleteID: -1
-		}
+		} as SpTypeListState
 	},
 	computed: {
-		address() {
+		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		typeItems() {
+		typeItems: function (): Array<SpTypeObject> {
 			if (this._depsLoaded) {
-				let items = this.$store.getters[
+				const items = this.$store.getters[
 					this.modulePath + '/get' + this.moduleType + 'All'
-				]({ params: {} })
+				]()
 				return items ? items[this.capitalize(this.moduleType)] : []
 			} else {
 				return []
 			}
 		},
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		}
 	},
-	beforeCreate() {
+	beforeCreate: function():void {
 		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+			const submod = module.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module ' + this.modulePath + ' has not been registered!')
 				this._depsLoaded = false
@@ -144,7 +155,7 @@ export default {
 			}
 		}
 	},
-	async created() {
+	created: async function():Promise<void> {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
 				this.modulePath + '/getTypeStructure'
@@ -156,9 +167,9 @@ export default {
 		}
 	},
 	methods: {
-		capitalize(str) {
+		capitalize: function (str: string): string {
 			return str.charAt(0).toUpperCase() + str.slice(1)
 		}
 	}
-}
+})
 </script>

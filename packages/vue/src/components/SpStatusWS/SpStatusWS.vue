@@ -15,26 +15,27 @@
 		</div>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import SpStatusLED from '../SpStatusLED'
 
-export default {
+export default defineComponent({
 	name: 'SpStatusWS',
 	components: {
 		SpStatusLED
 	},
 	props: {
 		showText: {
-			type: Boolean
+			type: Boolean as PropType<boolean>
 		}
 	},
 	computed: {
-		wsNode() {
+		wsNode: function (): string {
 			return this.$store.getters['common/env/apiWS']
 		},
-		nodeStatus() {
+		nodeStatus: function (): boolean {
 			return this.$store.getters['common/env/wsConnected']
 		}
 	}
-}
+})
 </script>

@@ -164,19 +164,42 @@
 		</template>
 	</div>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import * as bip39 from 'bip39'
 import dayjs from 'dayjs'
 import { saveAs } from 'file-saver'
-import CryptoJS from 'crypto-js'
+import AES from 'crypto-js/aes'
 import SpCard from '../SpCard'
 import SpButton from '../SpButton'
 import SpMnemonic from '../SpMnemonic'
+import type { Wallet, Amount, AmountWithMeta } from '../../utils/interfaces'
 
 //import SpMnemonicInput from '../SpMnemonicInput'
-
-export default {
+export interface SpCreateForm {
+	step1: boolean
+	step2: boolean
+	name: string
+	password: string
+	confirm: string
+	mnemonic: string
+}
+export interface SpImportForm {
+	step1: boolean
+	step2: boolean
+	name: string
+	password: string
+	confirm: string
+	mnemonicOrKey: string
+}
+export interface SpWalletCreateState {
+	createform: boolean
+	importform: boolean
+	creating: boolean
+	create: SpCreateForm
+	imported: SpImportForm
+}
+export default defineComponent({
 	name: 'SpWalletCreate',
 	components: {
 		SpCard,
@@ -186,36 +209,37 @@ export default {
 	},
 	props: {
 		title: {
-			type: String
+			type: String as PropType<string>
 		}
 	},
-	data() {
+	data: function (): SpWalletCreateState {
 		return this.defaultState()
 	},
+	emits: ['close'],
 	computed: {
-		keplrAvailable() {
+		keplrAvailable: function (): boolean {
 			return window.keplr ? true : false
 		},
-		nameToCreate() {
+		nameToCreate: function (): string {
 			return this.createform ? this.create.name : this.imported.name
 		},
-		walletNameAvailable() {
+		walletNameAvailable: function (): boolean {
 			return this.$store.getters['common/wallet/nameAvailable'](
 				this.nameToCreate
 			)
 		},
-		wallet() {
-			return this.$store.getters['common/wallet/wallet']
+		wallet: function (): Wallet {
+			return this.$store.getters['common/wallet/activeWallet']
 		},
-		validMnemonic() {
+		validMnemonic: function (): boolean {
 			return bip39.validateMnemonic(this.imported.mnemonicOrKey)
 		}
 	},
 	methods: {
-		downloadBackup() {
-			const backup = CryptoJS.AES.encrypt(
+		downloadBackup: function (): void {
+			const backup = AES.encrypt(
 				JSON.stringify(this.wallet),
-				this.wallet.password
+				this.wallet.password ?? ''
 			)
 
 			const blob = new Blob([backup.toString()], {
@@ -223,18 +247,18 @@ export default {
 			})
 			saveAs(blob, this.backupName())
 		},
-		backupName() {
+		backupName: function (): string {
 			return (
 				this.wallet.name + '_Backup_' + dayjs().format('YYYY-MM-DD') + '.bin'
 			)
 		},
-		close() {
+		close: function (): void {
 			this.$emit('close')
 		},
-		reset() {
+		reset: function (): void {
 			Object.assign(this.$data, this.defaultState())
 		},
-		goBack() {
+		goBack: function (): void {
 			if (this.createform) {
 				if (this.create.step1) {
 					this.reset()
@@ -259,7 +283,7 @@ export default {
 				}
 			}
 		},
-		defaultState() {
+		defaultState: function (): SpWalletCreateState {
 			return {
 				createform: false,
 				importform: false,
@@ -282,11 +306,11 @@ export default {
 				}
 			}
 		},
-		generateMnemonic() {
+		generateMnemonic: function (): void {
 			const mnemonic = bip39.generateMnemonic(256)
 			this.create.mnemonic = mnemonic
 		},
-		async createStep2() {
+		createStep2: async function (): Promise<void> {
 			this.creating = true
 			if (this.walletNameAvailable) {
 				this.create.step1 = false
@@ -297,15 +321,15 @@ export default {
 			}
 			//this.downloadBackup()
 		},
-		importStep2() {
+		importStep2: function (): void {
 			this.imported.step1 = false
 			this.imported.step2 = true
 		},
-		done() {
+		done: function (): void {
 			this.reset()
 			this.close()
 		},
-		async doneImport() {
+		doneImport: async function (): Promise<void> {
 			this.creating = true
 			if (this.walletNameAvailable) {
 				await this.importWallet()
@@ -314,8 +338,7 @@ export default {
 				this.close()
 			}
 		},
-
-		async importWallet() {
+		importWallet: async function (): Promise<void> {
 			if (this._depsLoaded) {
 				await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
 					name: this.imported.name,
@@ -326,57 +349,30 @@ export default {
 				//this.reset()
 			}
 		},
-		async useKeplr() {
+		useKeplr: async function (): Promise<void> {
 			if (this._depsLoaded) {
-				let staking = this.$store.getters['cosmos.staking.v1beta1/getParams']({
-					params: {}
-				})
-				let tokens = this.$store.getters['cosmos.bank.v1beta1/getTotalSupply']({
-					params: {}
-				})
+				const staking = this.$store.getters[
+					'cosmos.staking.v1beta1/getParams'
+				]()
+				const tokens = this.$store.getters[
+					'cosmos.bank.v1beta1/getTotalSupply'
+				]()
 				const chainId = this.$store.getters['common/env/chainId']
 
 				try {
 					await window.keplr.experimentalSuggestChain({
-						// Chain-id of the Cosmos SDK chain.
 						chainId: chainId,
-						// The name of the chain to be displayed to the user.
 						chainName: this.$store.getters['common/env/chainName'],
-						// RPC endpoint of the chain.
 						rpc: this.$store.getters['common/env/apiTendermint'],
-						// REST endpoint of the chain.
 						rest: this.$store.getters['common/env/apiCosmos'],
-						// Staking coin information
 						stakeCurrency: {
-							// Coin denomination to be displayed to the user.
 							coinDenom: staking.params.bond_denom.toUpperCase(),
-							// Actual denom (i.e. uatom, uscrt) used by the blockchain.
 							coinMinimalDenom: staking.params.bond_denom,
-							// # of decimal points to convert minimal denomination to user-facing denomination.
 							coinDecimals: 0
-							// (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
-							// You can get id from https://api.coingecko.com/api/v3/coins/list if it is listed.
-							// coinGeckoId: ""
 						},
-						// (Optional) If you have a wallet webpage used to stake the coin then provide the url to the website in `walletUrlForStaking`.
-						// The 'stake' button in Keplr extension will link to the webpage.
-						// walletUrlForStaking: "",
-						// The BIP44 path.
 						bip44: {
-							// You can only set the coin type of BIP44.
-							// 'Purpose' is fixed to 44.
 							coinType: 118
 						},
-						// Bech32 configuration to show the address to user.
-						// This field is the interface of
-						// {
-						//   bech32PrefixAccAddr: string;
-						//   bech32PrefixAccPub: string;
-						//   bech32PrefixValAddr: string;
-						//   bech32PrefixValPub: string;
-						//   bech32PrefixConsAddr: string;
-						//   bech32PrefixConsPub: string;
-						// }
 						bech32Config: {
 							bech32PrefixAccAddr: this.$store.getters['common/env/addrPrefix'],
 							bech32PrefixAccPub:
@@ -390,30 +386,33 @@ export default {
 							bech32PrefixConsPub:
 								this.$store.getters['common/env/addrPrefix'] + 'valconspub'
 						},
-						// List of all coin/tokens used in this chain.
-						currencies: tokens.supply.map((x) => {
-							x.coinDenom = x.denom.toUpperCase()
-							x.coinMinimalDenom = x.denom
-							x.coinDecimals = 0
-							return x
+						currencies: tokens.supply.map((x: Amount) => {
+							const y: AmountWithMeta = {
+								amount: '0',
+								denom: '',
+								coinDenom: '',
+								coinMinimalDenom: '',
+								coinDecimals: 0
+							}
+							y.coinDenom = x.denom.toUpperCase()
+							y.coinMinimalDenom = x.denom
+							y.coinDecimals = 0
+							return y
 						}),
-						// List of coin/tokens used as a fee token in this chain.
-						feeCurrencies: tokens.supply.map((x) => {
-							x.coinDenom = x.denom.toUpperCase()
-							x.coinMinimalDenom = x.denom
-							x.coinDecimals = 0
-							return x
+						feeCurrencies: tokens.supply.map((x: Amount) => {
+							const y: AmountWithMeta = {
+								amount: '0',
+								denom: '',
+								coinDenom: '',
+								coinMinimalDenom: '',
+								coinDecimals: 0
+							}
+							y.coinDenom = x.denom.toUpperCase()
+							y.coinMinimalDenom = x.denom
+							y.coinDecimals = 0
+							return y
 						}),
-						// (Optional) The number of the coin type.
-						// This field is only used to fetch the address from ENS.
-						// Ideally, it is recommended to be the same with BIP44 path's coin type.
-						// However, some early chains may choose to use the Cosmos Hub BIP44 path of '118'.
-						// So, this is separated to support such chains.
 						coinType: 118,
-						// (Optional) This is used to set the fee of the transaction.
-						// If this field is not provided, Keplr extension will set the default gas price as (low: 0.01, average: 0.025, high: 0.04).
-						// Currently, Keplr doesn't support dynamic calculation of the gas prices based on on-chain data.
-						// Make sure that the gas prices are higher than the minimum gas prices accepted by chain validators and RPC/REST endpoint.
 						gasPriceStep: {
 							low: 0.01,
 							average: 0.025,
@@ -432,7 +431,7 @@ export default {
 				}
 			}
 		},
-		async createWallet() {
+		createWallet: async function (): Promise<void> {
 			if (this._depsLoaded) {
 				await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
 					name: this.create.name,
@@ -444,5 +443,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

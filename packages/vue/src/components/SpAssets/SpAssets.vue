@@ -77,35 +77,47 @@
 		</div>
 	</div>
 </template>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { Amount, ColoredAmount, DenomTraces } from '../../utils/interfaces'
+import { str2rgba } from '../../utils/helpers'
 
-<script>
-export default {
+export interface SpAmountSelectState {
+	denomTraces: DenomTraces
+}
+
+export default defineComponent({
 	name: 'SpAssets',
 	props: {
-		balances: Array
+		balances: Array as PropType<Array<Amount>>
 	},
 	data() {
 		return {
-			denomTraces: {}
+			denomTraces: {} as DenomTraces
 		}
 	},
 	computed: {
-		address() {
+		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		fullBalances() {
-			return this.balances.map((x) => {
-				this.addMapping(x)
-				x.color = this.str2rgba(x.denom.toUpperCase())
-				return x
-			})
+		fullBalances: function (): Array<ColoredAmount> {
+			return (
+				this.balances?.map((x: Amount) => {
+					this.addMapping(x)
+					const y: ColoredAmount = { amount: '0', denom: '', color: '' }
+					y.amount = x.amount
+					y.denom = x.denom
+					y.color = str2rgba(x.denom.toUpperCase())
+					return x as ColoredAmount
+				}) ?? []
+			)
 		}
 	},
 	methods: {
-		async addMapping(balance) {
+		addMapping: async function (balance: Amount): Promise<void> {
 			if (balance.denom.indexOf('ibc/') == 0) {
-				let denom = balance.denom.split('/')
-				let hash = denom[1]
+				const denom = balance.denom.split('/')
+				const hash = denom[1]
 				this.denomTraces[hash] = await this.$store.dispatch(
 					'ibc.applications.transfer.v1/QueryDenomTrace',
 					{
@@ -114,17 +126,7 @@ export default {
 					}
 				)
 			}
-		},
-		str2rgba(r) {
-			for (var a, o = [], c = 0; c < 256; c++) {
-				a = c
-				for (var f = 0; f < 8; f++) a = 1 & a ? 3988292384 ^ (a >>> 1) : a >>> 1
-				o[c] = a
-			}
-			for (var n = -1, t = 0; t < r.length; t++)
-				n = (n >>> 8) ^ o[255 & (n ^ r.charCodeAt(t))]
-			return ((-1 ^ n) >>> 0).toString(16)
 		}
 	}
-}
+})
 </script>

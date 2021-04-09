@@ -15,26 +15,27 @@
 		</div>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import SpStatusLED from '../SpStatusLED'
 
-export default {
+export default defineComponent({
 	name: 'SpStatusRPC',
 	components: {
 		SpStatusLED
 	},
 	props: {
 		showText: {
-			type: Boolean
+			type: Boolean as PropType<boolean>
 		}
 	},
 	computed: {
-		rpcNode() {
+		rpcNode: function (): string {
 			return this.$store.getters['common/env/apiTendermint']
 		},
-		nodeStatus() {
+		nodeStatus: function (): boolean {
 			return this.$store.getters['common/env/rpcConnected']
 		}
 	}
-}
+})
 </script>

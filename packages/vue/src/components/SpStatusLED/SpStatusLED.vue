@@ -3,9 +3,14 @@
 		<!-- <span class="sp-icon sp-icon-Status" /> -->
 	</div>
 </template>
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+export default defineComponent({
 	name: 'SpStatusLED',
-	props: ['status']
-}
+	props: {
+		status: {
+			type: Boolean as PropType<boolean>
+		}
+	}
+})
 </script>

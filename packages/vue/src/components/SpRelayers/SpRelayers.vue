@@ -156,15 +156,30 @@
 		</div>
 	</div>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import SpRelayer from '../SpRelayer'
-export default {
+import { Relayer } from '../../utils/interfaces'
+
+export interface RelayerForm {
+	name: string
+	endpoint: string
+	gasPrice: string
+	external: boolean
+	chainId: string
+	channelId: string
+	prefix: string
+}
+export interface SpRelayersState {
+	showRelayerForm: boolean
+	relayerForm: RelayerForm
+}
+export default defineComponent({
 	name: 'SpRelayers',
 	components: {
 		SpRelayer
 	},
-	data: function () {
+	data: function (): SpRelayersState {
 		return {
 			showRelayerForm: false,
 			relayerForm: {
@@ -175,22 +190,22 @@ export default {
 				external: false,
 				chainId: '',
 				channelId: ''
-			}
-		}
+			} as RelayerForm
+		} as SpRelayersState
 	},
-	beforeCreate() {
-		let module = ['common', 'wallet']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+	beforeCreate: function (): void {
+		let vuexModule = ['common', 'wallet']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.wallet` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
-		module = ['common', 'relayers']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+		vuexModule = ['common', 'relayers']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
 				console.log('Module `common.relayers` has not been registered!')
 				this._depsLoaded = false
@@ -198,23 +213,22 @@ export default {
 			}
 		}
 	},
-	mounted: function () {},
 	computed: {
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		address() {
+		address: function (): string {
 			return this.$store.getters['common/wallet/address']
 		},
-		hasHubRelayer() {
+		hasHubRelayer: function (): boolean {
 			return this.relayers.findIndex((x) => x.chainIdB == 'cosmoshub-4') > -1
 		},
-		relayers() {
+		relayers: function (): Array<Relayer> {
 			return this.$store.getters['common/relayers/getRelayers']
 		}
 	},
 	methods: {
-		async addRelayer() {
+		addRelayer: async function (): Promise<void> {
 			await this.$store.dispatch(
 				'common/relayers/createRelayer',
 				this.relayerForm
@@ -229,7 +243,7 @@ export default {
 				gasPrice: ''
 			}
 		},
-		async addHubRelayer() {
+		addHubRelayer: async function (): Promise<void> {
 			await this.$store.dispatch('common/relayers/createRelayer', {
 				name: 'CosmosHub',
 				endpoint: 'https://rpc.nylira.net',
@@ -247,5 +261,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

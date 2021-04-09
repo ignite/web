@@ -34,8 +34,8 @@
 										(tx.body.messages[0].to_address == bankAddress ||
 											(tx.body.messages[0]['@type'] ==
 												'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet.data)?.receiver ==
-													bankAddress)),
+												getDecoded(tx.body.messages[0].packet?.data ?? '')
+													?.receiver == bankAddress)),
 									'sp-transfer-list__status__icon__success':
 										tx.response.code == 0 &&
 										tx.body.messages[0].to_address != bankAddress &&
@@ -44,8 +44,8 @@
 										!(
 											tx.body.messages[0]['@type'] ==
 												'/ibc.core.channel.v1.MsgRecvPacket' &&
-											getDecoded(tx.body.messages[0].packet.data)?.receiver ==
-												bankAddress
+											getDecoded(tx.body.messages[0].packet?.data ?? '')
+												?.receiver == bankAddress
 										)
 								}"
 							>
@@ -62,7 +62,7 @@
 											(tx.body.messages[0].to_address == bankAddress ||
 												(tx.body.messages[0]['@type'] ==
 													'/ibc.core.channel.v1.MsgRecvPacket' &&
-													getDecoded(tx.body.messages[0].packet.data)
+													getDecoded(tx.body.messages[0].packet?.data ?? '')
 														?.receiver == bankAddress)),
 										'sp-icon-Docs':
 											tx.response.code == 0 &&
@@ -72,8 +72,8 @@
 											!(
 												tx.body.messages[0]['@type'] ==
 													'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet.data)?.receiver ==
-													bankAddress
+												getDecoded(tx.body.messages[0].packet?.data ?? '')
+													?.receiver == bankAddress
 											)
 									}"
 								/>
@@ -98,7 +98,7 @@
 						"
 					>
 						<div
-							v-for="(token, index) in tx.body.messages[0].amount"
+							v-for="(token, index) in getAmounts(tx)"
 							v-bind:key="'am' + index"
 						>
 							{{
@@ -119,13 +119,13 @@
 							{{
 								tx.body.messages[0].sender == bankAddress
 									? '-' +
-									  tx.body.messages[0].token.amount +
+									  tx.body.messages[0].token?.amount +
 									  ' ' +
-									  tx.body.messages[0].token.denom.toUpperCase()
+									  tx.body.messages[0].token?.denom.toUpperCase()
 									: '+' +
-									  tx.body.messages[0].token.amount +
+									  tx.body.messages[0].token?.amount +
 									  ' ' +
-									  tx.body.messages[0].token.denom.toUpperCase()
+									  tx.body.messages[0].token?.denom.toUpperCase()
 							}}
 						</div>
 					</td>
@@ -138,28 +138,28 @@
 					>
 						<div>
 							{{
-								getDecoded(tx.body.messages[0].packet.data).receiver ==
+								getDecoded(tx.body.messages[0].packet?.data ?? '').receiver ==
 								bankAddress
 									? '+' +
-									  getDecoded(tx.body.messages[0].packet.data).amount +
+									  getDecoded(tx.body.messages[0].packet?.data ?? '').amount +
 									  ' IBC/' +
-									  tx.body.messages[0].packet.destination_port.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_port.toUpperCase() +
 									  '/' +
-									  tx.body.messages[0].packet.destination_channel.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_channel.toUpperCase() +
 									  '/' +
 									  getDecoded(
-											tx.body.messages[0].packet.data
-									  ).denom.toUpperCase()
+											tx.body.messages[0].packet?.data ?? ''
+									  )?.denom?.toUpperCase()
 									: '-' +
-									  getDecoded(tx.body.messages[0].packet.data).amount +
+									  getDecoded(tx.body.messages[0].packet?.data ?? '').amount +
 									  ' IBC/' +
-									  tx.body.messages[0].packet.destination_port.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_port.toUpperCase() +
 									  '/' +
-									  tx.body.messages[0].packet.destination_channel.toUpperCase() +
+									  tx.body.messages[0].packet?.destination_channel.toUpperCase() +
 									  '/' +
 									  getDecoded(
-											tx.body.messages[0].packet.data
-									  ).denom.toUpperCase()
+											tx.body.messages[0].packet?.data ?? ''
+									  )?.denom?.toUpperCase()
 							}}
 						</div>
 					</td>
@@ -198,67 +198,72 @@
 		</table>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import dayjs from 'dayjs'
 import { decode } from 'js-base64'
-export default {
+import {
+	Transactions,
+	Transaction,
+	TxDecodedPacket
+} from '../../utils/interfaces'
+
+export interface SpTransferListState {
+	bankAddress: string
+}
+export default defineComponent({
 	name: 'SpTransferList',
 	props: { address: String, refresh: Boolean },
-	data: function () {
+	data: function (): SpTransferListState {
 		return {
 			bankAddress: ''
-		}
+		} as SpTransferListState
 	},
 	computed: {
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		},
-		sentTransactions() {
+		sentTransactions: function (): Transactions {
 			return this.$store.getters['common/transfers/getGetTxsEvent']({
 				event: 'transfer.sender%3D%27' + this.bankAddress + '%27'
 			})
 		},
-		receivedTransactions() {
+		receivedTransactions: function (): Transactions {
 			return this.$store.getters['common/transfers/getGetTxsEvent']({
 				event: 'transfer.recipient%3D%27' + this.bankAddress + '%27'
 			})
 		},
-		fullBalances() {
-			return this.balances.map((x) => {
-				this.addMapping(x)
-				return x
-			})
-		},
-		transactions() {
-			let sent =
-				this.sentTransactions.txs?.map((tx, index) => {
+		transactions: function (): Array<Transaction> {
+			const sent: Array<Transaction> =
+				this.sentTransactions.txs?.map((tx: Transaction, index: number) => {
 					tx.response = this.sentTransactions.tx_responses[index]
 					return tx
 				}) ?? []
-			let received =
-				this.receivedTransactions.txs?.map((tx, index) => {
+			const received: Array<Transaction> =
+				this.receivedTransactions.txs?.map((tx: Transaction, index: number) => {
 					tx.response = this.receivedTransactions.tx_responses[index]
 					return tx
 				}) ?? []
 			return [...sent, ...received].sort(
-				(a, b) => b.response.height - a.response.height
+				(a: Transaction, b: Transaction) =>
+					b.response.height - a.response.height
 			)
 		}
 	},
-	beforeCreate() {
-		const module = ['common', 'transfers']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+	beforeCreate: function():void {
+		const vuexModule = ['common', 'transfers']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module ' + this.modulePath + ' has not been registered!')
+				console.log('Module `common.transfers` has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
 	},
-	async created() {
+	created: async function (): Promise<void> {
 		if (this._depsLoaded) {
-			this.bankAddress = this.address
+			this.bankAddress = this.address ?? ''
 			if (this.bankAddress != '') {
 				await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
 					subscribe: true,
@@ -272,23 +277,26 @@ export default {
 		}
 	},
 	methods: {
-		getFmtTime(time) {
+		getAmounts: function (tx: Transaction) {
+			return tx.body.messages[0]?.amount ?? []
+		},
+		getFmtTime: function (time: string | undefined): string {
 			const momentTime = dayjs(time)
 			return momentTime.format('D MMM, YYYY')
 		},
-		getDecoded(packet) {
+		getDecoded: function (packet: string): TxDecodedPacket {
 			try {
 				return JSON.parse(decode(packet))
 			} catch (e) {
 				return {}
 			}
 		},
-		getTxText(tx) {
+		getTxText: function (tx: Transaction): string {
 			let text = ''
 			if (tx.response.code != 0) {
 				text = '(Failed) '
 			}
-			if (tx.body.messages.length > 1) {
+			if (tx?.body.messages.length > 1) {
 				text = text + 'Multiple messages'
 			} else {
 				if (
@@ -306,7 +314,7 @@ export default {
 						text = text + 'IBC Sent to'
 					}
 				} else {
-					let packet
+					let packet: TxDecodedPacket = { sender: '', receiver: '' }
 					switch (tx.body.messages[0]['@type']) {
 						case '/ibc.core.channel.v1.MsgChannelOpenAck':
 							text = text + 'IBC Channel Open Ack'
@@ -318,7 +326,7 @@ export default {
 							text = text + 'IBC Channel Open Try'
 							break
 						case '/ibc.core.channel.v1.MsgRecvPacket':
-							packet = this.getDecoded(tx.body.messages[0].packet.data)
+							packet = this.getDecoded(tx.body.messages[0].packet?.data ?? '')
 
 							if (packet.receiver == this.bankAddress) {
 								text = text + 'IBC Received from'
@@ -362,7 +370,7 @@ export default {
 			}
 			return text
 		},
-		getTxDetails(tx) {
+		getTxDetails: function (tx: Transaction): string {
 			let text = ''
 			if (tx.body.messages.length > 1) {
 				text = text + '-'
@@ -379,13 +387,13 @@ export default {
 						text = text + tx.body.messages[0].from_address
 					}
 					if (tx.body.messages[0].sender == this.bankAddress) {
-						let chain = this.$store.getters['common/relayers/chainFromChannel'](
-							tx.body.messages[0].source_channel
-						)
+						const chain = this.$store.getters[
+							'common/relayers/chainFromChannel'
+						](tx.body.messages[0].source_channel)
 						text = text + chain + ':' + tx.body.messages[0].receiver
 					}
 					if (tx.body.messages[0].receiver == this.bankAddress) {
-						let chain = this.$store.getters['common/relayers/chainToChannel'](
+						const chain = this.$store.getters['common/relayers/chainToChannel'](
 							tx.body.messages[0].source_channel
 						)
 						text = text + chain + ':' + tx.body.messages[0].receiver
@@ -417,7 +425,7 @@ export default {
 								tx.body.messages[0].counterparty_version
 							break
 						case '/ibc.core.channel.v1.MsgRecvPacket':
-							packet = this.getDecoded(tx.body.messages[0].packet.data)
+							packet = this.getDecoded(tx.body.messages[0].packet?.data ?? '')
 							if (packet.sender == this.bankAddress) {
 								text = text + 'IBC:' + packet.receiver
 							} else {
@@ -431,13 +439,13 @@ export default {
 						case '/ibc.core.channel.v1.MsgAcknowledgement':
 							text =
 								text +
-								tx.body.messages[0].packet.source_port +
+								tx.body.messages[0].packet?.source_port +
 								':' +
-								tx.body.messages[0].packet.source_channel +
+								tx.body.messages[0].packet?.source_channel +
 								' <-> ' +
-								tx.body.messages[0].packet.destination_port +
+								tx.body.messages[0].packet?.destination_port +
 								':' +
-								tx.body.messages[0].packet.destination_channel
+								tx.body.messages[0].packet?.destination_channel
 							break
 						case '/ibc.core.channel.v1.MsgTimeout':
 							text = text + 'IBC Timeout Packet'
@@ -481,7 +489,7 @@ export default {
 		}
 	},
 	watch: {
-		address: function (newAddr, oldAddr) {
+		address: function (newAddr, oldAddr): void {
 			if (newAddr != oldAddr && this._depsLoaded) {
 				this.bankAddress = newAddr
 				if (this.bankAddress != '') {
@@ -497,5 +505,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

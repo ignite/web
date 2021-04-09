@@ -14,46 +14,49 @@
 		</SpWalletCreate>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import SpWalletMenu from '../SpWalletMenu'
 import SpButton from '../SpButton'
 import SpWalletCreate from '../SpWalletCreate'
-
-export default {
+import type { Wallet } from '../../utils/interfaces'
+export interface SpWalletState {
+	create: boolean
+}
+export default defineComponent({
 	name: 'SpWallet',
 	components: {
 		SpWalletMenu,
 		SpButton,
 		SpWalletCreate
 	},
-	data() {
+	data: function (): SpWalletState {
 		return {
 			create: false
 		}
 	},
 	computed: {
-		walletList() {
+		walletList: function (): Array<Wallet> {
 			if (this._depsLoaded) {
 				return this.$store.state.common.wallet.wallets
 			} else {
 				return []
 			}
 		},
-		depsLoaded() {
+		depsLoaded: function (): boolean {
 			return this._depsLoaded
 		}
 	},
-	beforeCreate() {
-		const module = ['common', 'wallet']
-		for (let i = 1; i <= module.length; i++) {
-			let submod = module.slice(0, i)
+	beforeCreate: function (): void {
+		const vuexModule = ['common', 'wallet']
+		for (let i = 1; i <= vuexModule.length; i++) {
+			const submod = vuexModule.slice(0, i)
 			if (!this.$store.hasModule(submod)) {
-				console.log('Module ' + this.module + ' has not been registered!')
+				console.log('Module ' + vuexModule + ' has not been registered!')
 				this._depsLoaded = false
 				break
 			}
 		}
-	},
-	methods: {}
-}
+	}
+})
 </script>

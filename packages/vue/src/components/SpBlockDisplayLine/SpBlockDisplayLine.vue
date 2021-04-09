@@ -16,11 +16,11 @@
 		</td>
 	</tr>
 </template>
-
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import dayjs from 'dayjs'
 
-export default {
+export default defineComponent({
 	name: 'SpBlockDisplayLine',
 	props: {
 		block: Object,
@@ -32,5 +32,5 @@ export default {
 			return momentTime.format(this.tsFormat)
 		}
 	}
-}
+})
 </script>
