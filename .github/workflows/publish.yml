@@ -29,6 +29,6 @@ jobs:
         run: lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'
 
       - name: Build
-        run: lerna publish --canary --preid beta --dist-tag next
+        run: lerna publish --canary --preid beta --dist-tag next --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
