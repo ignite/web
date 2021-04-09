@@ -22,13 +22,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: starport
           
-      - name: Bootstrap monorepo
+      - name: Bootstrap
         run: lerna bootstrap --hoist
 
       - name: Build
         run: lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'
 
-      - name: Build
-        run: lerna publish --canary --preid beta --dist-tag next --yes
+      - name: Publish
+        run: lerna publish --canary --preid beta --dist-tag next --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
