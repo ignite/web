@@ -229,7 +229,7 @@ export default defineComponent({
 			)
 		},
 		wallet: function (): Wallet {
-			return this.$store.getters['common/wallet/activeWallet']
+			return this.$store.getters['common/wallet/wallet']
 		},
 		validMnemonic: function (): boolean {
 			return bip39.validateMnemonic(this.imported.mnemonicOrKey)
