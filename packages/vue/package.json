@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@cosmjs/proto-signing": "^0.24.1",
+    "@starport/vuex": "^0.1.41",
     "@types/crypto-js": "^4.0.1",
     "@types/file-saver": "^2.0.1",
     "@types/js-base64": "^3.0.0",
