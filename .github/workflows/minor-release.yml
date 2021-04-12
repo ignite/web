@@ -1,4 +1,4 @@
-name: Publish new patch version
+name: Publish new minor version
 
 # Controls when the action will run. 
 on:

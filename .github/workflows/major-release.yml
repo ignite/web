@@ -1,4 +1,4 @@
-name: Publish new patch version
+name: Publish new major version
 
 # Controls when the action will run. 
 on:
@@ -26,7 +26,7 @@ jobs:
         run: lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'
 
       - name: Publish
-        run: 'lerna version major --yes --no-verify-access -m "chore(release): publish %s"''
+        run: 'lerna version major --yes --no-verify-access -m "chore(release): publish %s"'
         env:
           GH_TOKEN: ${{ secrets.sp_gh_token }}
           GITHUB_TOKEN: ${{ secrets.sp_gh_token }}
