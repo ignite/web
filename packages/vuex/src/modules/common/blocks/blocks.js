@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { sha256 } from 'js-sha256'
+import SpVuexError from '../../../errors/SpVuexError'
+import { sha256 } from '@cosmjs/crypto'
+import { fromBase64, toHex } from '@cosmjs/encoding'
 
 function formatTx({
 	txHash = '',
@@ -34,13 +36,15 @@ function formatTx({
 }
 
 async function getTx(apiCosmos, apiTendermint, encodedTx) {
-	const txHash = sha256(Buffer.from(encodedTx, 'base64'))
+	const txHash = sha256(fromBase64(encodedTx))
 	try {
-		const rpcRes = await axios.get(apiTendermint + '/tx?hash=0x' + txHash)
-		const apiRes = await axios.get(
-			apiCosmos + '/cosmos/tx/v1beta1/txs/' + txHash
+		const rpcRes = await axios.get(
+			apiTendermint + '/tx?hash=0x' + toHex(txHash)
 		)
-		return { rpcRes, apiRes, txHash: txHash.toUpperCase() }
+		const apiRes = await axios.get(
+			apiCosmos + '/cosmos/tx/v1beta1/txs/' + toHex(txHash)
+		)
+		return { rpcRes, apiRes, txHash: toHex(txHash).toUpperCase() }
 	} catch (e) {
 		throw 'Error fetching TX data'
 	}
@@ -136,7 +140,10 @@ export default {
 
 				commit('ADD_BLOCK', block)
 			} catch (e) {
-				throw new SpVuexError('Blocks:AddBlock','Could not add block. RPC node unavailable')
+				throw new SpVuexError(
+					'Blocks:AddBlock',
+					'Could not add block. RPC node unavailable'
+				)
 			}
 		},
 		resetState({ commit }) {
