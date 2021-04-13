@@ -25,6 +25,9 @@ jobs:
       - name: Build
         run: lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'
 
+      - name: Configure git
+        run: git config --global user.email "hello@tendermint.com" &&  git config --global user.name "Lerna CI"
+
       - name: Publish
         run: 'lerna version major --yes -m "chore(release): publish %s"'
         env:
