@@ -28,8 +28,12 @@ jobs:
       - name: Configure git
         run: git config --global user.email "hello@tendermint.com" &&  git config --global user.name "Lerna CI"
 
-      - name: Publish
+      - name: Create Release
         run: 'lerna version major --yes -m "chore(release): publish %s"'
+
+      - name: Publish
+        run: lerna publish from-git
+
         env:
           GH_TOKEN: ${{ secrets.sp_gh_token }}
           GITHUB_TOKEN: ${{ secrets.sp_gh_token }}
