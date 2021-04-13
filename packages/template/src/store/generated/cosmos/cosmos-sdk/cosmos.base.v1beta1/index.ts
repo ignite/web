@@ -8,6 +8,8 @@ import { IntProto } from "./module/types/cosmos/base/v1beta1/coin"
 import { DecProto } from "./module/types/cosmos/base/v1beta1/coin"
 
 
+export { Coin, DecCoin, IntProto, DecProto };
+
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
 		addr: vuexGetters['common/env/apiTendermint']
