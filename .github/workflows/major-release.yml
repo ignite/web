@@ -32,7 +32,7 @@ jobs:
         run: 'lerna version major --yes -m "chore(release): publish %s"'
 
       - name: Publish
-        run: lerna publish from-git --yes
+        run: lerna publish from-git --yes --no-verify-access
 
         env:
           GH_TOKEN: ${{ secrets.sp_gh_token }}
