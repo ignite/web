@@ -1,4 +1,4 @@
-import StarportSigningClient from './lib/starportSigningClient'
+import StarportSigningClient from './libs/starportSigningClient'
 import SpVuexError from '../../../errors/SpVuexError'
 import { IbcClient, Link } from '@confio/relayer/build/main'
 import { Registry, DirectSecp256k1HdWallet } from '@cosmjs/proto-signing'
