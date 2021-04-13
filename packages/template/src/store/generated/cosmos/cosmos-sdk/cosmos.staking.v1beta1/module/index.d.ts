@@ -4,8 +4,8 @@ import { Api } from "./rest";
 import { MsgDelegate } from "./types/cosmos/staking/v1beta1/tx";
 import { MsgEditValidator } from "./types/cosmos/staking/v1beta1/tx";
 import { MsgCreateValidator } from "./types/cosmos/staking/v1beta1/tx";
-import { MsgBeginRedelegate } from "./types/cosmos/staking/v1beta1/tx";
 import { MsgUndelegate } from "./types/cosmos/staking/v1beta1/tx";
+import { MsgBeginRedelegate } from "./types/cosmos/staking/v1beta1/tx";
 export declare const MissingWalletError: Error;
 interface TxClientOptions {
     addr: string;
@@ -19,8 +19,8 @@ declare const txClient: (wallet: OfflineSigner, { addr: addr }?: TxClientOptions
     msgDelegate: (data: MsgDelegate) => EncodeObject;
     msgEditValidator: (data: MsgEditValidator) => EncodeObject;
     msgCreateValidator: (data: MsgCreateValidator) => EncodeObject;
-    msgBeginRedelegate: (data: MsgBeginRedelegate) => EncodeObject;
     msgUndelegate: (data: MsgUndelegate) => EncodeObject;
+    msgBeginRedelegate: (data: MsgBeginRedelegate) => EncodeObject;
 }>;
 interface QueryClientOptions {
     addr: string;

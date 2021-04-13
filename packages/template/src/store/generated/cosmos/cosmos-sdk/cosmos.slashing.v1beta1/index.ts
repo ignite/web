@@ -9,6 +9,8 @@ import { ValidatorSigningInfo } from "./module/types/cosmos/slashing/v1beta1/sla
 import { Params } from "./module/types/cosmos/slashing/v1beta1/slashing"
 
 
+export { SigningInfo, ValidatorMissedBlocks, MissedBlock, ValidatorSigningInfo, Params };
+
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
 		addr: vuexGetters['common/env/apiTendermint']
@@ -82,19 +84,19 @@ export default {
 		}
 	},
 	getters: {
-        getParams: (state) => (params = {}) => {
+        getParams: (state) => (params = { params: {}}) => {
 					if (!(<any> params).query) {
 						(<any> params).query=null
 					}
 			return state.Params[JSON.stringify(params)] ?? {}
 		},
-        getSigningInfo: (state) => (params = {}) => {
+        getSigningInfo: (state) => (params = { params: {}}) => {
 					if (!(<any> params).query) {
 						(<any> params).query=null
 					}
 			return state.SigningInfo[JSON.stringify(params)] ?? {}
 		},
-        getSigningInfos: (state) => (params = {}) => {
+        getSigningInfos: (state) => (params = { params: {}}) => {
 					if (!(<any> params).query) {
 						(<any> params).query=null
 					}
