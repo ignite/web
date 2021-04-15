@@ -34,11 +34,17 @@ export default {
 	},
 	computed: {
 		hasWallet() {
-			return this.$store.hasModule([ 'common', 'wallet'])
+			return this.$store.hasModule(['common', 'wallet'])
 		}
 	},
 	async created() {
-		await this.$store.dispatch('common/env/init')
+		try {
+			const config = await import('./config.js')
+			await this.$store.dispatch('common/env/init', config)
+		} catch (e) {
+			console.log('No env config available. Using defaults.')
+			await this.$store.dispatch('common/env/init')
+		}
 		this.initialized = true
 	},
 	errorCaptured(err) {
