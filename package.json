@@ -4,6 +4,13 @@
   "description": "A monorepo of Vue and JS packages for Cosmos SDK apps",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
+  "scripts": {
+    "netlify:client": "cd ./packages/client-js && npm install && npm run build && npm link",
+    "netlify:vue": "cd ./packages/vue && npm install && npm run build && npm link",
+    "netlify:vuex": "cd ./packages/vuex && npm install && npm link @starport/client-js && npm run build && npm link",
+    "netlify:template": "cd ./packages/template && npm install && npm link @starport/vue @starport/vuex && npm run build",
+    "netlify:build": "npm run netlify:client && npm run netlify:vue && npm run netlify:vuex && npm run netlify:template"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tendermint/vue.git"
