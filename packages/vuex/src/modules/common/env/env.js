@@ -14,21 +14,19 @@ const wsNode =
 		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
 const addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
-const chainId = process.env.VUE_APP_CHAIN_ID || 'cosmoshub-4'
-const chainName = process.env.VUE_APP_CHAIN_NAME || 'Cosmos Hub'
 
 export default {
 	namespaced: true,
 	state() {
 		return {
-			chainId: chainId,
+			chainId: '',
 			addrPrefix: addrPrefix,
 			sdkVersion: 'Stargate',
 			apiNode: apiNode,
 			rpcNode: rpcNode,
 			wsNode: wsNode,
 			client: null,
-			chainName: chainName,
+			chainName: '',
 			apiConnected: false,
 			rpcConnected: false,
 			wsConnected: false,
