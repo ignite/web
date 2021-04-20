@@ -16,11 +16,11 @@
 							class="sp-amount-select__denom__balance"
 							:class="{
 								'sp-amount-select__denom__balance__fail':
-									parseAmount(fulldenom.amount) - parseAmount(amount) < 0
+									parseAmount(fulldenom.amount) - parseAmount(value.amount) < 0
 							}"
 						>
 							<strong>Avail.</strong>
-							{{ parseAmount(fulldenom.amount) - parseAmount(amount) }}/{{
+							{{ parseAmount(fulldenom.amount) - parseAmount(value.amount) }}/{{
 								fulldenom.amount
 							}}
 						</div>
@@ -28,19 +28,19 @@
 							class="sp-denom-marker"
 							:style="'background: #' + fulldenom.color"
 						/>
-						<template v-if="fulldenom.denom.indexOf('ibc/') == 0">
-							IBC/{{
-								denomTraces[
-									fulldenom.denom.split('/')[1]
-								]?.denom_trace.path.toUpperCase() ?? ''
-							}}/{{
-								denomTraces[
-									fulldenom.denom.split('/')[1]
-								]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
+
+						<template v-if="fulldenom.ibc.ibc_denom && !fulldenom.verified">
+							IBC/{{ fulldenom.ibc.path }}/{{
+								fulldenom.base_denom.toUpperCase()
 							}}
 						</template>
+						<template v-else-if="fulldenom.ibc.ibc_denom && fulldenom.verified">
+							{{ fulldenom.base_denom.toUpperCase() }} ({{
+								fulldenom.ibc.source_chain
+							}})
+						</template>
 						<template v-else>
-							{{ fulldenom.denom.toUpperCase() }}
+							{{ fulldenom.base_denom.toUpperCase() }}
 						</template>
 					</div>
 					<div class="sp-amount-select__denom__controls">
@@ -82,13 +82,16 @@
 						class="sp-amount-select__denom__modal__item"
 						:class="{
 							'sp-amount-select__denom__modal__item__selected':
-								avail.denom == fulldenom.denom,
+								avail.base_denom == fulldenom.base_denom &&
+								JSON.stringify(avail.ibc) == JSON.stringify(fulldenom.ibc),
 							'sp-amount-select__denom__modal__item__disabled':
-								enabledDenoms.findIndex((x) => x == avail) == -1
+								enabledDenoms.findIndex(
+									(x) => JSON.stringify(x) == JSON.stringify(avail)
+								) == -1
 						}"
 						v-on:click="setDenom(avail)"
-						v-for="avail in filteredDenoms"
-						v-bind:key="'denom_' + avail.denom"
+						v-for="(avail, index) in filteredDenoms"
+						v-bind:key="'denom_' + index"
 					>
 						<div class="sp-amount-select__denom__name">
 							<div
@@ -96,19 +99,16 @@
 								:style="'background: #' + avail.color"
 							/>
 
-							<template v-if="avail.denom.indexOf('ibc/') == 0">
-								IBC/{{
-									denomTraces[
-										avail.denom.split('/')[1]
-									]?.denom_trace.path.toUpperCase() ?? ''
-								}}/{{
-									denomTraces[
-										avail.denom.split('/')[1]
-									]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
-								}}
+							<template v-if="avail.ibc.ibc_denom && !avail.verified">
+								IBC/{{ avail.ibc.path }}/{{ avail.base_denom.toUpperCase() }}
+							</template>
+							<template v-else-if="avail.ibc.ibc_denom && avail.verified">
+								{{ avail.base_denom.toUpperCase() }} ({{
+									avail.ibc.source_chain
+								}})
 							</template>
 							<template v-else>
-								{{ avail.denom.toUpperCase() }}
+								{{ avail.base_denom.toUpperCase() }}
 							</template>
 						</div>
 						<div class="sp-amount-select__denom__balance">
@@ -121,11 +121,11 @@
 				class="sp-input sp-input-large"
 				:class="{
 					'sp-error':
-						fulldenom.amount != '' &&
-						parseAmount(fulldenom.amount) - parseAmount(amount) < 0
+						parseAmount(fulldenom.amount) + '' != '' &&
+						parseAmount(fulldenom.amount) - parseAmount(value.amount) < 0
 				}"
 				name="rcpt"
-				v-model="amount"
+				v-model="value.amount"
 				placeholder="0"
 				v-on:focus="focused = true"
 				v-on:blur="focused = false"
@@ -135,12 +135,15 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { Amount, ColoredAmount, DenomTraces } from '../../utils/interfaces'
+import {
+	MetaAmount,
+	ColoredMetaAmount,
+	DenomTraces
+} from '../../utils/interfaces'
 import { str2rgba } from '../../utils/helpers'
 
 export interface SpAmountSelectState {
-	amount: string
-	denom: string | null
+	value: MetaAmount
 	focused: boolean
 	modalOpen: boolean
 	searchTerm: string
@@ -151,8 +154,16 @@ export default defineComponent({
 	name: 'SpAmountSelect',
 	data: function (): SpAmountSelectState {
 		return {
-			amount: '',
-			denom: null,
+			value: {
+				address: '',
+				base_denom: '',
+				verified: true,
+				native: false,
+				amount: '',
+				on_chain: this.$store.getters['common/env/chainId'],
+				fee_token: false,
+				ibc: {}
+			},
 			focused: false,
 			modalOpen: false,
 			searchTerm: '',
@@ -161,10 +172,10 @@ export default defineComponent({
 	},
 	props: {
 		modelValue: {
-			type: Object as PropType<Amount>
+			type: Object as PropType<MetaAmount>
 		},
 		available: {
-			type: Array as PropType<Array<Amount>>
+			type: Array as PropType<Array<MetaAmount>>
 		},
 		index: { type: Number as PropType<number> },
 		selected: {
@@ -176,50 +187,82 @@ export default defineComponent({
 	},
 	emits: ['update:modelValue', 'self-remove'],
 	mounted: function () {
-		this.amount = this.modelValue?.amount + '' ?? ''
-		this.denom = this.modelValue?.denom ?? null
+		Object.assign(this.value, this.modelValue)
 	},
 	computed: {
-		currentVal: function (): Amount {
-			return { amount: this.amount, denom: this.denom ?? '' }
+		currentVal: function (): MetaAmount {
+			return this.value
 		},
-		fulldenom: function (): ColoredAmount {
+		fulldenom: function (): ColoredMetaAmount {
 			return (
-				this.denoms.find((x: ColoredAmount) => x.denom == this.denom) ?? {
+				this.denoms.find(
+					(x: ColoredMetaAmount) =>
+						x.base_denom == this.value.base_denom &&
+						JSON.stringify(x.ibc) == JSON.stringify(this.value.ibc)
+				) ?? {
+					address: '',
+					base_denom: '',
+					verified: true,
+					native: false,
 					amount: '',
-					denom: '',
+					on_chain: this.$store.getters['common/env/chainId'],
+					fee_token: false,
+					ibc: {},
 					color: ''
 				}
 			)
 		},
-		enabledDenoms: function (): Array<Amount> {
+		enabledDenoms: function (): Array<ColoredMetaAmount> {
 			return (
 				this.available?.filter(
 					(x) =>
-						this.selected?.findIndex((y) => y == x.denom) == -1 ||
-						this.selected?.findIndex((y) => y == x.denom) == this.index
+						this.selected?.findIndex(
+							(y) => y == x.base_denom || y == x.ibc.ibc_denom
+						) == -1 ||
+						this.selected?.findIndex(
+							(y) => y == x.base_denom || y == x.ibc.ibc_denom
+						) == this.index
 				) ?? []
-			)
+			).map((x) => {
+				return {
+					address: x.address,
+					base_denom: x.base_denom,
+					verified: x.verified,
+					native: x.native,
+					amount: x.amount,
+					on_chain: x.on_chain,
+					fee_token: x.fee_token,
+					ibc: Object.assign({}, x.ibc),
+					color: str2rgba(x.base_denom.toUpperCase())
+				}
+			})
 		},
-		denoms: function (): Array<ColoredAmount> {
+		denoms: function (): Array<ColoredMetaAmount> {
 			return (
-				this.available?.map((x: Amount) => {
+				this.available?.map((x: MetaAmount) => {
 					this.addMapping(x)
-					const y: ColoredAmount = { amount: '0', denom: '', color: '' }
-					y.amount = x.amount
-					y.denom = x.denom
-					y.color = str2rgba(x.denom.toUpperCase())
-					return x as ColoredAmount
+					return {
+						address: x.address,
+						base_denom: x.base_denom,
+						verified: x.verified,
+						native: x.native,
+						amount: x.amount,
+						on_chain: x.on_chain,
+						fee_token: x.fee_token,
+						ibc: Object.assign({}, x.ibc),
+						color: str2rgba(x.base_denom.toUpperCase())
+					}
 				}) ?? []
 			)
 		},
-		filteredDenoms: function (): Array<ColoredAmount> {
+		filteredDenoms: function (): Array<ColoredMetaAmount> {
 			return this.searchTerm == ''
 				? this.denoms
 				: this.denoms.filter(
 						(x) =>
-							x.denom.toUpperCase().indexOf(this.searchTerm.toUpperCase()) !==
-							-1
+							x.base_denom
+								.toUpperCase()
+								.indexOf(this.searchTerm.toUpperCase()) !== -1
 				  )
 		}
 	},
@@ -230,9 +273,9 @@ export default defineComponent({
 		selfRemove: function (): void {
 			this.$emit('self-remove')
 		},
-		addMapping: async function (balance: Amount): Promise<void> {
-			if (balance.denom.indexOf('ibc/') == 0) {
-				const denom = balance.denom.split('/')
+		addMapping: async function (balance: MetaAmount): Promise<void> {
+			if (balance.ibc.ibc_denom?.indexOf('ibc/') == 0) {
+				const denom = balance.ibc.ibc_denom.split('/')
 				const hash = denom[1]
 				this.denomTraces[hash] = await this.$store.dispatch(
 					'ibc.applications.transfer.v1/QueryDenomTrace',
@@ -243,9 +286,19 @@ export default defineComponent({
 				)
 			}
 		},
-		setDenom: function (avail: Amount): void {
-			if (this.enabledDenoms.findIndex((x) => x == avail) != -1) {
-				this.denom = avail.denom
+		setDenom: function (avail: ColoredMetaAmount): void {
+			if (
+				this.enabledDenoms.findIndex(
+					(x) => JSON.stringify(x) == JSON.stringify(avail)
+				) != -1
+			) {
+				this.value.address = avail.address
+				this.value.base_denom = avail.base_denom
+				this.value.verified = avail.verified
+				this.value.native = avail.native
+				this.value.on_chain = avail.on_chain
+				this.value.fee_token = avail.fee_token
+				this.value.ibc = Object.assign(this.value.ibc, avail.ibc)
 				this.modalOpen = false
 			}
 		},
@@ -254,9 +307,8 @@ export default defineComponent({
 		}
 	},
 	watch: {
-		modelValue: function (newVal: Amount): void {
-			this.amount = newVal.amount
-			this.denom = newVal.denom
+		modelValue: function (newVal: MetaAmount): void {
+			this.value = Object.assign(this.value, newVal)
 		},
 		amount: function (newVal: string, oldVal: string): void {
 			if (newVal != oldVal) {

@@ -75,7 +75,7 @@
 								:index="index"
 								:last="transfer.amount.length == 1"
 								v-model="transfer.amount[index]"
-								:available="balances"
+								:available="balancesWithMeta"
 								:selected="selectedDenoms"
 								v-bind:key="'amount' + index"
 								v-on:self-remove="transfer.amount.splice(index, 1)"
@@ -136,7 +136,7 @@
 											:index="index"
 											:last="transfer.fees.length == 1"
 											v-model="transfer.fees[index]"
-											:available="balances"
+											:available="balancesWithMeta"
 											:selected="selectedFeeDenoms"
 											v-bind:key="'fee' + index"
 											v-on:self-remove="transfer.fees.splice(index, 1)"
@@ -159,19 +159,18 @@
 										>
 											<strong>{{ fee.amount }}</strong>
 
-											<template v-if="fee.denom.indexOf('ibc/') == 0">
-												IBC/{{
-													denomTraces[
-														fee.denom.split('/')[1]
-													]?.denom_trace.path.toUpperCase() ?? ''
-												}}/{{
-													denomTraces[
-														fee.denom.split('/')[1]
-													]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
-												}},
+											<template v-if="fee.ibc.ibc_denom && !fee.verified">
+												IBC/{{ fee.ibc.path }}/{{
+													fee.base_denom.toUpperCase()
+												}}
+											</template>
+											<template v-else-if="fee.ibc.ibc_denom && fee.verified">
+												{{ fee.base_denom.toUpperCase() }} ({{
+													fee.ibc.source_chain
+												}})
 											</template>
 											<template v-else>
-												{{ fee.denom.toUpperCase() }},
+												{{ fee.base_denom.toUpperCase() }}
 											</template>
 										</span>
 										<span
@@ -244,14 +243,19 @@ import SpButton from '../SpButton'
 import SpAssets from '../SpAssets'
 import SpAmountSelect from '../SpAmountSelect'
 import { Bech32 } from '@cosmjs/encoding'
-import { Amount, DenomTraces, Relayer } from '../../utils/interfaces'
+import {
+	Amount,
+	MetaAmount,
+	DenomTraces,
+	Relayer
+} from '../../utils/interfaces'
 
 export interface TransferData {
 	recipient: string
 	channel: string
-	amount: Array<Amount>
+	amount: Array<MetaAmount>
 	memo: string
-	fees: Array<Amount>
+	fees: Array<MetaAmount>
 }
 
 export interface SpTokenSendState {
@@ -322,8 +326,12 @@ export default defineComponent({
 	watch: {
 		balances: function (newBal: Array<Amount>, oldBal: Array<Amount>): void {
 			if (newBal != oldBal && newBal[0]?.denom && oldBal.length == 0) {
-				this.transfer.amount = [{ amount: '', denom: newBal[0].denom }]
-				this.transfer.fees = [{ amount: '', denom: newBal[0].denom }]
+				this.transfer.amount = [
+					this.buildMeta({ amount: '', denom: newBal[0].denom })
+				]
+				this.transfer.fees = [
+					this.buildMeta({ amount: '', denom: newBal[0].denom })
+				]
 			}
 		},
 		address: function (newAddr: string, oldAddr: string): void {
@@ -346,7 +354,7 @@ export default defineComponent({
 				this.transfer.amount.every(
 					(x) =>
 						!isNaN(this.parseAmount(x.amount)) &&
-						x.amount != '' &&
+						x.amount !== '' &&
 						this.parseAmount(x.amount) != 0
 				) &&
 				this.transfer.fees.every((x) => !isNaN(this.parseAmount(x.amount))) &&
@@ -369,6 +377,9 @@ export default defineComponent({
 				return []
 			}
 		},
+		balancesWithMeta: function (): Array<MetaAmount> {
+			return this.balances.map(this.buildMeta)
+		},
 		nextToAdd: function (): Amount | null {
 			const i = this.balances.findIndex(
 				(x) => !this.selectedDenoms.includes(x.denom)
@@ -390,10 +401,14 @@ export default defineComponent({
 			}
 		},
 		selectedDenoms: function (): Array<string> {
-			return this.transfer.amount.map((x) => x.denom)
+			return this.transfer.amount.map((x) =>
+				x.ibc.ibc_denom ? x.ibc.ibc_denom : x.base_denom
+			)
 		},
 		selectedFeeDenoms: function (): Array<string> {
-			return this.transfer.fees.map((x) => x.denom)
+			return this.transfer.fees.map((x) =>
+				x.ibc.ibc_denom ? x.ibc.ibc_denom : x.base_denom
+			)
 		},
 		fullBalances: function (): Array<Amount> {
 			return this.balances.map((x) => {
@@ -423,7 +438,45 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		parseAmount(amount: string): number {
+		buildMeta: function (amount: Amount): MetaAmount {
+			if (amount.denom.indexOf('ibc/') == 0) {
+				return {
+					address: this.address ?? '',
+					base_denom: this.denomTraces[amount.denom.split('/')[1]].denom_trace
+						.base_denom,
+					verified: true,
+					native: false,
+					amount: amount.amount,
+					on_chain: this.$store.getters['common/env/chainId'],
+					fee_token: false,
+					ibc: {
+						source_chain: '',
+						ibc_denom: amount.denom,
+						path: this.denomTraces[amount.denom.split('/')[1]].denom_trace.path,
+						verified_path: []
+					}
+				}
+			} else {
+				return {
+					address: this.address ?? '',
+					base_denom: amount.denom,
+					verified: true,
+					native: true,
+					amount: amount.amount,
+					on_chain: this.$store.getters['common/env/chainId'],
+					fee_token: true,
+					ibc: {}
+				}
+			}
+		},
+		removeMeta: function (amount: MetaAmount): Amount {
+			if (amount.ibc.ibc_denom) {
+				return { denom: amount.ibc.ibc_denom, amount: amount.amount }
+			} else {
+				return { denom: amount.base_denom, amount: amount.amount }
+			}
+		},
+		parseAmount: function (amount: string): number {
 			return amount == '' ? 0 : parseInt(amount)
 		},
 		addMapping: async function (balance: Amount): Promise<void> {
@@ -440,49 +493,65 @@ export default defineComponent({
 			}
 		},
 		resetTransaction: function (): void {
-			this.transfer.amount = [{ amount: '', denom: this.balances[0].denom }]
+			this.transfer.amount = [
+				this.buildMeta({ amount: '', denom: this.balances[0].denom })
+			]
 			this.transfer.recipient = ''
 			this.transfer.memo = ''
 			this.transfer.channel = ''
-			this.transfer.fees = [{ amount: '', denom: this.balances[0].denom }]
+			this.transfer.fees = [
+				this.buildMeta({ amount: '', denom: this.balances[0].denom })
+			]
 			this.feesOpen = false
 			this.memoOpen = false
 		},
 		resetFees: function (): void {
-			this.transfer.fees = [{ amount: '', denom: this.balances[0].denom }]
+			this.transfer.fees = [
+				this.buildMeta({ amount: '', denom: this.balances[0].denom })
+			]
 		},
 		addToken: function (): void {
-			this.transfer.amount.push({
-				amount: '',
-				denom: this.nextToAdd?.denom ?? ''
-			})
+			this.transfer.amount.push(
+				this.buildMeta({
+					amount: '',
+					denom: this.nextToAdd?.denom ?? ''
+				})
+			)
 		},
 		addFeeToken: function (): void {
-			this.transfer.fees.push({
-				amount: '',
-				denom: this.nextFeeToAdd?.denom ?? ''
-			})
+			this.transfer.fees.push(
+				this.buildMeta({
+					amount: '',
+					denom: this.nextFeeToAdd?.denom ?? ''
+				})
+			)
 		},
 		sendTransaction: async function (): Promise<void> {
 			if (this._depsLoaded && this.address) {
 				if (this.validForm && !this.inFlight) {
 					if (this.transfer.channel == '') {
 						const value = {
-							amount: this.transfer.amount,
+							amount: this.transfer.amount.map(this.removeMeta),
 							toAddress: this.transfer.recipient,
 							fromAddress: this.bankAddress
 						}
 
 						this.inFlight = true
+						/*
 						this.transfer.fees.forEach((x) => {
 							if (x.amount == '') {
 								x.amount = '0'
 							}
 						})
+						*/
 						try {
 							const txResult = await this.$store.dispatch(
 								'cosmos.bank.v1beta1/sendMsgSend',
-								{ value, fee: this.transfer.fees, memo: this.transfer.memo }
+								{
+									value,
+									fee: this.transfer.fees.map(this.removeMeta),
+									memo: this.transfer.memo
+								}
 							)
 							if (txResult && !txResult.code) {
 								this.resetTransaction()
@@ -507,9 +576,9 @@ export default defineComponent({
 										sender: this.bankAddress,
 										receiver: this.transfer.recipient,
 										timeoutTimestamp: new Date().getTime() + 60000 + '000000',
-										token: this.transfer.amount[0]
+										token: this.removeMeta(this.transfer.amount[0])
 									},
-									fee: this.transfer.fees,
+									fee: this.transfer.fees.map(this.removeMeta),
 									memo: this.transfer.memo
 								}
 							)

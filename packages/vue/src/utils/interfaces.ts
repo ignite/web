@@ -16,7 +16,25 @@ export interface Amount {
 	amount: string
 	denom: string
 }
+export interface IBCMeta {
+	source_chain: string
+	ibc_denom: string
+	path: string
+	verified_path: string[]
+}
+export interface MetaAmount {
+	address: string
+	base_denom: string
+	verified: boolean
+	native: boolean
+	amount: string
+	on_chain: string
+	fee_token: boolean
+	ibc: IBCMeta | Record<string, never>
+}
 export type ColoredAmount = Amount & { color: string }
+
+export type ColoredMetaAmount = MetaAmount & { color: string }
 export interface DenomTrace {
 	denom_trace: { path: string; base_denom: string }
 }
