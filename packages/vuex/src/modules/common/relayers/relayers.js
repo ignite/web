@@ -1,13 +1,13 @@
 import StarportSigningClient from './libs/starportSigningClient'
 import SpVuexError from '../../../errors/SpVuexError'
-import { IbcClient, Link } from '@confio/relayer/build/main'
+import { IbcClient, Link } from '@confio/relayer/build'
 import { Registry, DirectSecp256k1HdWallet } from '@cosmjs/proto-signing'
 import { stringToPath } from '@cosmjs/crypto'
 import { sleep } from '@cosmjs/utils'
 import { GasPrice } from '@cosmjs/launchpad'
 import { defaultRegistryTypes } from '@cosmjs/stargate'
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
-import { MsgTransfer } from '@confio/relayer/build/main/codec/ibc/applications/transfer/v1/tx'
+import { MsgTransfer } from '@confio/relayer/build/codec/ibc/applications/transfer/v1/tx'
 import {
 	MsgAcknowledgement,
 	MsgChannelOpenAck,
@@ -16,17 +16,17 @@ import {
 	MsgChannelOpenTry,
 	MsgRecvPacket,
 	MsgTimeout
-} from '@confio/relayer/build/main/codec/ibc/core/channel/v1/tx'
+} from '@confio/relayer/build/codec/ibc/core/channel/v1/tx'
 import {
 	MsgCreateClient,
 	MsgUpdateClient
-} from '@confio/relayer/build/main/codec/ibc/core/client/v1/tx'
+} from '@confio/relayer/build/codec/ibc/core/client/v1/tx'
 import {
 	MsgConnectionOpenAck,
 	MsgConnectionOpenConfirm,
 	MsgConnectionOpenInit,
 	MsgConnectionOpenTry
-} from '@confio/relayer/build/main/codec/ibc/core/connection/v1/tx'
+} from '@confio/relayer/build/codec/ibc/core/connection/v1/tx'
 
 function ibcRegistry() {
 	return new Registry([
