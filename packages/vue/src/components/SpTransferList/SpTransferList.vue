@@ -250,7 +250,7 @@ export default defineComponent({
 			)
 		}
 	},
-	beforeCreate: function():void {
+	beforeCreate: function (): void {
 		const vuexModule = ['common', 'transfers']
 		for (let i = 1; i <= vuexModule.length; i++) {
 			const submod = vuexModule.slice(0, i)
