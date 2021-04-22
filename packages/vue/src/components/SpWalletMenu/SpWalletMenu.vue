@@ -203,7 +203,7 @@ export default defineComponent({
 		SpButton,
 		SpLinkIcon
 	},
-	emits:['createNew'],
+	emits: ['createNew'],
 	data: function (): SpWalletMenuState {
 		return {
 			opened: false,

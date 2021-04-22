@@ -144,7 +144,7 @@ export default defineComponent({
 			return this._depsLoaded
 		}
 	},
-	beforeCreate: function():void {
+	beforeCreate: function (): void {
 		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			const submod = module.slice(0, i)
@@ -155,7 +155,7 @@ export default defineComponent({
 			}
 		}
 	},
-	created: async function():Promise<void> {
+	created: async function (): Promise<void> {
 		if (this._depsLoaded) {
 			this.fieldList = this.$store.getters[
 				this.modulePath + '/getTypeStructure'

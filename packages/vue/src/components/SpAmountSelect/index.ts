@@ -9,5 +9,4 @@ export const Plugin = {
 	}
 }
 
-
 export default SpAmountSelect

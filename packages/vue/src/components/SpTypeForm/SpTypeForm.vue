@@ -228,7 +228,7 @@ export default defineComponent({
 			return this._depsLoaded
 		}
 	},
-	beforeCreate: function():void {
+	beforeCreate: function (): void {
 		const module = [...this.modulePath.split('/')]
 		for (let i = 1; i <= module.length; i++) {
 			const submod = module.slice(0, i)
