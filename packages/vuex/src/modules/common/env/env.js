@@ -1,37 +1,32 @@
 import Client from '@starport/client-js'
 import SpVuexError from '../../../errors/SpVuexError'
 
-const GITPOD =
-	process.env.VUE_APP_CUSTOM_URL && new URL(process.env.VUE_APP_CUSTOM_URL)
 const apiNode =
-	(GITPOD && `${GITPOD.protocol}//1317-${GITPOD.hostname}`) ||
 	(process.env.VUE_APP_API_COSMOS &&
 		process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
 	'http://localhost:1317'
 const rpcNode =
-	(GITPOD && `${GITPOD.protocol}//26657-${GITPOD.hostname}`) ||
 	(process.env.VUE_APP_API_TENDERMINT &&
 		process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'http://localhost:26657'
-const addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
 const wsNode =
-	(GITPOD && `wss://26657-${GITPOD.hostname}/websocket`) ||
 	(process.env.VUE_APP_WS_TENDERMINT &&
 		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
+const addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
 
 export default {
 	namespaced: true,
 	state() {
 		return {
-			chainId: null,
+			chainId: '',
 			addrPrefix: addrPrefix,
 			sdkVersion: 'Stargate',
 			apiNode: apiNode,
 			rpcNode: rpcNode,
 			wsNode: wsNode,
 			client: null,
-			chainName: null,
+			chainName: '',
 			apiConnected: false,
 			rpcConnected: false,
 			wsConnected: false,
@@ -115,23 +110,12 @@ export default {
 				getTXApi: rpcNode + '/tx?hash=0x'
 			}
 		) {
-			if (this._actions['common/starport/init']) {
-				try {
-					await dispatch('common/starport/init', null, { root: true })
-				} catch (e) {
-					throw new SpVuexError(
-						'Env:Init:Starport',
-						'Could not initialize common/starport module'
-					)
-				}
-			} else {
-				try {
-					await dispatch('config', config)
-				} catch (e) {
-					throw new SpVuexError('Env:Config', 'Could not configure environment')
-				}
+			try {
+				await dispatch('config', config)
+				console.log('Vuex nodule: common.env initialized!')
+			} catch (e) {
+				throw new SpVuexError('Env:Config', 'Could not configure environment')
 			}
-			console.log('Vuex nodule: common.env initialized!')
 		},
 		setTxAPI({ commit }, payload) {
 			commit('SET_TX_API', payload)
@@ -182,10 +166,14 @@ export default {
 					})
 					client.setMaxListeners(0)
 					client.on('chain-id', (id) => {
-						commit('SET_CHAIN_ID', id)
+						if (id) {
+							commit('SET_CHAIN_ID', id)
+						}
 					})
 					client.on('chain-name', (name) => {
-						commit('SET_CHAIN_NAME', name)
+						if (name) {
+							commit('SET_CHAIN_NAME', name)
+						}
 					})
 					client.on('ws-status', (status) =>
 						dispatch('setConnectivity', { connection: 'ws', status: status })

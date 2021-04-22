@@ -74,9 +74,9 @@ export default class SPClient extends EventEmitter {
   private async connectivityTest(): Promise<void> {
     if (this.apiAddr) {
       try {
-        let status= await axios.get(this.apiAddr + '/node_info');
+        const status= await axios.get(this.apiAddr + '/node_info');
         this.emit('chain-id', status.data.node_info.network)
-        this.emit('chain-name', status.data.application_version.name)
+        status.data.application_version.name?this.emit('chain-name', status.data.application_version.name):this.emit('chain-name', status.data.node_info.network)
         this.emit('api-status', true);
       } catch (error) {
         if (!error.response) {

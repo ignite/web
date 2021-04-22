@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "npm install && vue-cli-service serve",
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",    
     "lint": "vue-cli-service lint",
     "build": "vue-cli-service build",
     "test": "echo \"Error: run tests from root\" && exit 1"
