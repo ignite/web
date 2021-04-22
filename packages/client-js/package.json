@@ -22,28 +22,27 @@
 				"test": "echo \"Error: run tests from root\" && exit 1"
 		},
 		"devDependencies": {
-				"@babel/cli": "^7.13.10",
-				"@babel/core": "^7.13.10",
-				"@babel/plugin-proposal-class-properties": "^7.13.0",
-				"@babel/preset-env": "^7.13.10",
-				"@babel/preset-typescript": "^7.13.0",
-				"@cosmjs/proto-signing": "^0.24.1",
-				"@types/node": "^12.20.5",
-				"@types/reconnectingwebsocket": "^1.0.6",
-				"@typescript-eslint/eslint-plugin": "^4.18.0",
-				"@typescript-eslint/parser": "^4.18.0",
-				"babel-loader": "^8.2.2",
-				"eslint": "^6.8.0",
-				"eslint-config-prettier": "^6.11.0",
-				"eslint-plugin-prettier": "^3.3.1",
-				"prettier": "^2.2.1",
-				"typescript": "~4.1.5"
+				"@babel/cli": "7.13.10",
+				"@babel/core": "7.13.10",
+				"@babel/plugin-proposal-class-properties": "7.13.0",
+				"@babel/preset-env": "7.13.10",
+				"@babel/preset-typescript": "7.13.0",
+				"@cosmjs/proto-signing": "0.24.1",
+				"@types/node": "12.20.5",
+				"@types/reconnectingwebsocket": "1.0.6",
+				"@typescript-eslint/eslint-plugin": "4.18.0",
+				"@typescript-eslint/parser": "4.18.0",
+				"babel-loader": "8.2.2",
+				"eslint": "6.8.0",
+				"eslint-config-prettier": "6.11.0",
+				"eslint-plugin-prettier": "3.3.1",
+				"prettier": "2.2.1",
+				"typescript": "4.1.5"
 		},
 		"dependencies": {
-				"@cosmjs/stargate": "^0.24.1",
-				"@types/axios": "^0.14.0",
-				"@types/reconnectingwebsocket": "^1.0.6",
-				"axios": "^0.21.1",
-				"reconnecting-websocket": "^4.4.0"
+				"@cosmjs/stargate": "0.24.1",
+				"@types/reconnectingwebsocket": "1.0.6",
+				"axios": "0.21.1",
+				"reconnecting-websocket": "4.4.0"
 		}
 }
