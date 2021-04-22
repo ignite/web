@@ -1,6 +1,6 @@
 {
 		"name": "@starport/client-js",
-		"version": "0.1.44",
+		"version": "0.1.45",
 		"description": "A generic JS client for the Websocket, high-level (Cosmos) and low-level (Tendermint) APIs",
 		"author": "Tendermint, Inc <hello@tendermint.com>",
 		"homepage": "https://github.com/tendermint/vue",
