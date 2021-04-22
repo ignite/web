@@ -45,13 +45,13 @@
     "webpack-bundle-analyzer": "4.4.0"
   },
   "peerDependencies": {
-    "@cosmjs/encoding": "^0.24.1",
-    "@cosmjs/launchpad": "^0.24.1",
-    "@starport/vuex": "^0.1.38",
-    "axios": "^0.21.1",
-    "vue": "^3.0.11",
-    "vue-router": "^4.0.3",
-    "vue-uuid": "^2.0.2",
-    "vuex": "^4.0.0"
+    "@cosmjs/encoding": "0.24.1",
+    "@cosmjs/launchpad": "0.24.1",
+    "@starport/vuex": "^0.1.44",
+    "axios": "0.21.1",
+    "vue": "3.0.11",
+    "vue-router": "4.0.3",
+    "vue-uuid": "2.0.2",
+    "vuex": "4.0.0"
   }
 }
