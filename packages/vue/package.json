@@ -19,7 +19,7 @@
     "js-base64": "3.6.0"
   },
   "devDependencies": {
-    "@cosmjs/proto-signing": "0.24.1",
+    "@cosmjs/proto-signing": "0.25.0-alpha.2",
     "@starport/vuex": "^0.1.45",
     "@types/crypto-js": "4.0.1",
     "@types/file-saver": "2.0.1",
@@ -45,8 +45,8 @@
     "webpack-bundle-analyzer": "4.4.0"
   },
   "peerDependencies": {
-    "@cosmjs/encoding": "0.24.1",
-    "@cosmjs/launchpad": "0.24.1",
+    "@cosmjs/encoding": "0.25.0-alpha.2",
+    "@cosmjs/launchpad": "0.25.0-alpha.2",
     "@starport/vuex": "^0.1.44",
     "axios": "0.21.1",
     "vue": "3.0.11",
