@@ -1,6 +1,6 @@
 {
   "name": "@starport/vue",
-  "version": "0.1.46",
+  "version": "0.1.47",
   "description": "A library of Vue 3 components for building frontends for cosmos-sdk chains",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@cosmjs/proto-signing": "0.25.0-alpha.2",
-    "@starport/vuex": "^0.1.46",
+    "@starport/vuex": "^0.1.47",
     "@types/crypto-js": "4.0.1",
     "@types/file-saver": "2.0.1",
     "@types/js-base64": "3.0.0",
