@@ -9,14 +9,25 @@ export interface IClientConfig {
   rpcAddr?: string;
   wsAddr?: string;
 }
-export type QueryParamsType = Record<string | number, any>;
+export type QueryParamsType = Record<string | number, unknown>;
 export interface IFullRequestParams {
   body?: unknown;
   path: string;
   query?: QueryParamsType;
   method: 'GET' | 'POST' | 'PUT';
 }
-
+export interface IResponse {
+  data: string
+}
+export interface ITypedResponse {
+  type: string
+}
+export interface IAPIResponse {
+  data:unknown
+}
+export interface IParsedResponse {
+  data: ITypedResponse
+}
 export default class SPClient extends EventEmitter {
   private apiAddr: string;
   private rpcAddr: string;
@@ -33,7 +44,7 @@ export default class SPClient extends EventEmitter {
     this.apiAddr = apiAddr;
     this.rpcAddr = rpcAddr;
     this.wsAddr = wsAddr;
-    const poll: any = this.connectivityTest.bind(this);
+    const poll: () =>Promise<void>  = this.connectivityTest.bind(this);
     this.timer = setInterval(poll, 5000);
     this.connectivityTest();
     if (this.wsAddr) {
@@ -124,15 +135,15 @@ export default class SPClient extends EventEmitter {
       }),
     );
   }
-  private onMessageWS(msg: any): void {
-    const result: any = JSON.parse(msg.data).result;
+  private onMessageWS(msg: IResponse): void {
+    const result: IParsedResponse = JSON.parse(msg.data).result;
     if (result.data && result.data.type === 'tendermint/event/NewBlock') {
       this.emit('newblock', JSON.parse(msg.data).result);
     }
   }
-  public async query(url: string, params = ''): Promise<any> {
+  public async query(url: string, params = ''): Promise<unknown> {
     try {
-      const response: any = await axios.get(this.apiAddr + url + params);
+      const response: IAPIResponse = await axios.get(this.apiAddr + url + params);
       return response.data;
     } catch (e) {
       console.error(
@@ -142,7 +153,7 @@ export default class SPClient extends EventEmitter {
   }
 
   private addQueryParam(query: QueryParamsType, key: string): string {
-    const value: any = query[key];
+    const value: unknown = query[key];
 
     return (
       encodeURIComponent(key) +
@@ -173,7 +184,7 @@ export default class SPClient extends EventEmitter {
     const queryString: string = this.toQueryString(rawQuery);
     return queryString ? `?${queryString}` : '';
   }
-  public async request<T = any>({
+  public async request<T = unknown>({
     body,
     path,
     query,
@@ -181,7 +192,7 @@ export default class SPClient extends EventEmitter {
   }: IFullRequestParams): Promise<AxiosResponse<T>> {
     const url: string = this.apiAddr + path + this.addQueryParams(query);
     try {
-      const response: AxiosPromise<any> = axios({
+      const response: AxiosPromise<T> = axios({
         url,
         method,
         data: body,
@@ -190,7 +201,7 @@ export default class SPClient extends EventEmitter {
           'Content-Type': 'application/json;charset=UTF-8',
         },
       });
-      const data: AxiosResponse<any> = await response;
+      const data: AxiosResponse<T> = await response;
       return data;
     } catch (e) {
       console.error(

@@ -2,16 +2,13 @@ import Client from '@starport/client-js'
 import SpVuexError from '../../../errors/SpVuexError'
 
 const apiNode =
-	(process.env.VUE_APP_API_COSMOS &&
-		process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
+	(process.env.VUE_APP_API_COSMOS && process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
 	'http://localhost:1317'
 const rpcNode =
-	(process.env.VUE_APP_API_TENDERMINT &&
-		process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+	(process.env.VUE_APP_API_TENDERMINT && process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'http://localhost:26657'
 const wsNode =
-	(process.env.VUE_APP_WS_TENDERMINT &&
-		process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
+	(process.env.VUE_APP_WS_TENDERMINT && process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
 	'ws://localhost:26657/websocket'
 const addrPrefix = process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
 
@@ -31,7 +28,7 @@ export default {
 			rpcConnected: false,
 			wsConnected: false,
 			getTXApi: '',
-			initialized: false
+			initialized: false,
 		}
 	},
 	getters: {
@@ -46,7 +43,7 @@ export default {
 		sdkVersion: (state) => state.sdkVersion,
 		apiConnected: (state) => state.apiConnected,
 		rpcConnected: (state) => state.rpcConnected,
-		wsConnected: (state) => state.wsConnected
+		wsConnected: (state) => state.wsConnected,
 	},
 	mutations: {
 		SET_CONFIG(state, config) {
@@ -93,7 +90,7 @@ export default {
 		},
 		SET_TX_API(state, txapi) {
 			state.getTXApi = txapi
-		}
+		},
 	},
 	actions: {
 		async init(
@@ -107,8 +104,8 @@ export default {
 				addrPrefix: addrPrefix,
 				chainName: '',
 				sdkVersion: 'Stargate',
-				getTXApi: rpcNode + '/tx?hash=0x'
-			}
+				getTXApi: rpcNode + '/tx?hash=0x',
+			},
 		) {
 			try {
 				await dispatch('config', config)
@@ -137,10 +134,7 @@ export default {
 			try {
 				await state.client.useSigner(signer)
 			} catch (e) {
-				throw new SpVuexError(
-					'Env:Client:Wallet',
-					'Could not create signing client with signer: ' + signer
-				)
+				throw new SpVuexError('Env:Client:Wallet', 'Could not create signing client with signer: ' + signer)
 			}
 		},
 		async config(
@@ -153,8 +147,8 @@ export default {
 				chainId: '',
 				addrPrefix: '',
 				sdkVersion: 'Stargate',
-				getTXApi: 'http://localhost:26657/tx?hash=0x'
-			}
+				getTXApi: 'http://localhost:26657/tx?hash=0x',
+			},
 		) {
 			try {
 				let client
@@ -162,7 +156,7 @@ export default {
 					client = new Client({
 						apiAddr: config.apiNode,
 						rpcAddr: config.rpcNode,
-						wsAddr: config.wsNode
+						wsAddr: config.wsNode,
 					})
 					client.setMaxListeners(0)
 					client.on('chain-id', (id) => {
@@ -175,33 +169,27 @@ export default {
 							commit('SET_CHAIN_NAME', name)
 						}
 					})
-					client.on('ws-status', (status) =>
-						dispatch('setConnectivity', { connection: 'ws', status: status })
-					)
-					client.on('api-status', (status) =>
-						dispatch('setConnectivity', { connection: 'api', status: status })
-					)
-					client.on('rpc-status', (status) =>
-						dispatch('setConnectivity', { connection: 'rpc', status: status })
-					)
+					client.on('ws-status', (status) => dispatch('setConnectivity', { connection: 'ws', status: status }))
+					client.on('api-status', (status) => dispatch('setConnectivity', { connection: 'api', status: status }))
+					client.on('rpc-status', (status) => dispatch('setConnectivity', { connection: 'rpc', status: status }))
 					commit('SET_CONFIG', config)
 					await dispatch(
 						'cosmos.staking.v1beta1/QueryParams',
 						{
 							options: { subscribe: false, all: false },
 							params: {},
-							query: null
+							query: null,
 						},
-						{ root: true }
+						{ root: true },
 					)
 					await dispatch(
 						'cosmos.bank.v1beta1/QueryTotalSupply',
 						{
 							options: { subscribe: false, all: false },
 							params: {},
-							query: null
+							query: null,
 						},
-						{ root: true }
+						{ root: true },
 					)
 					commit('CONNECT', { client })
 					commit('INITIALIZE_WS_COMPLETE')
@@ -225,10 +213,7 @@ export default {
 						try {
 							await client.switchWS(config.wsNode)
 						} catch (e) {
-							throw new SpVuexError(
-								'Env:Client:Websocket',
-								'Could not switch to websocket node:' + config.wsNode
-							)
+							throw new SpVuexError('Env:Client:Websocket', 'Could not switch to websocket node:' + config.wsNode)
 						}
 					}
 					if (reconnectClient && config.apiNode) {
@@ -240,7 +225,7 @@ export default {
 						} catch (e) {
 							throw new SpVuexError(
 								'Env:Client:TendermintRPC',
-								'Could not switch to Tendermint RPC node:' + config.rpcNode
+								'Could not switch to Tendermint RPC node:' + config.rpcNode,
 							)
 						}
 					}
@@ -248,6 +233,6 @@ export default {
 			} catch (e) {
 				console.error(e)
 			}
-		}
-	}
+		},
+	},
 }

@@ -16,22 +16,19 @@ export default class StarportSigningClient extends SigningStargateClient {
 		} catch (e) {
 			try {
 				let error = JSON.parse(e.message)
-				if (
-					error.code == -32603 &&
-					error.data == 'timed out waiting for tx to be included in a block'
-				) {
+				if (error.code == -32603 && error.data == 'timed out waiting for tx to be included in a block') {
 					let txHash = sha256(tx)
 					let i = 0
 					while (i < 20) {
 						try {
 							let res = await this.tmClient.tx({
 								hash: txHash,
-								prove: true
+								prove: true,
 							})
 							return {
 								height: res.height,
 								code: res.result.code,
-								rawLog: res.result.log
+								rawLog: res.result.log,
 							}
 						} catch (e) {
 							console.log('Waiting for tx to be included in a block')

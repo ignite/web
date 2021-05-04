@@ -1,10 +1,6 @@
 <template>
 	<div class="sp-status-rpc">
-		<SpStatusLED
-			:status="nodeStatus"
-			:alt="'RPCTendermint RPC' + rpcNode"
-			:title="'Tendermint RPC ' + rpcNode"
-		/>
+		<SpStatusLED :status="nodeStatus" :alt="'RPCTendermint RPC' + rpcNode" :title="'Tendermint RPC ' + rpcNode" />
 		<div
 			class="sp-status-rpc__text"
 			v-if="showText"
@@ -22,12 +18,12 @@ import SpStatusLED from '../SpStatusLED'
 export default defineComponent({
 	name: 'SpStatusRPC',
 	components: {
-		SpStatusLED
+		SpStatusLED,
 	},
 	props: {
 		showText: {
-			type: Boolean as PropType<boolean>
-		}
+			type: Boolean as PropType<boolean>,
+		},
 	},
 	computed: {
 		rpcNode: function (): string {
@@ -35,7 +31,7 @@ export default defineComponent({
 		},
 		nodeStatus: function (): boolean {
 			return this.$store.getters['common/env/rpcConnected']
-		}
-	}
+		},
+	},
 })
 </script>

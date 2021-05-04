@@ -2,11 +2,11 @@ module.exports = {
 	root: true,
 
 	env: {
-		node: true
+		node: true,
 	},
 
 	parserOptions: {
-		parser: '@typescript-eslint/parser'
+		parser: '@typescript-eslint/parser',
 	},
 
 	plugins: ['prettier'],
@@ -14,7 +14,7 @@ module.exports = {
 	rules: {
 		'no-console': 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-		'vue/component-name-in-template-casing': ['error', 'PascalCase']
+		'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 	},
 
 	extends: [
@@ -22,6 +22,6 @@ module.exports = {
 		'eslint:recommended',
 		'@vue/typescript/recommended',
 		'@vue/prettier',
-		'@vue/prettier/@typescript-eslint'
-	]
+		'@vue/prettier/@typescript-eslint',
+	],
 }

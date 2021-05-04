@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-      	<!-- this line is used by starport scaffolding # 4 -->
+			<!-- this line is used by starport scaffolding # 4 -->
 		</div>
 	</div>
 </template>
@@ -11,4 +11,3 @@ export default {
 	name: 'Types'
 }
 </script>
-

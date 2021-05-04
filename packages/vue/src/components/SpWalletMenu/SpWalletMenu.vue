@@ -10,37 +10,23 @@
 		"
 	>
 		<div class="sp-wallet-menu__toggle" v-on:click="opened = !opened">
-			<span
-				class="sp-icon"
-				:class="{ 'sp-icon-DownCaret': !opened, 'sp-icon-UpCaret': opened }"
-			/>
+			<span class="sp-icon" :class="{ 'sp-icon-DownCaret': !opened, 'sp-icon-UpCaret': opened }" />
 		</div>
 		<div class="sp-wallet-menu-items">
 			<template v-if="topWallet">
 				<div
 					class="sp-wallet-menu-item"
 					:class="{
-						'sp-wallet-menu-item__locked': topWallet.name != walletName
+						'sp-wallet-menu-item__locked': topWallet.name != walletName,
 					}"
 					v-on:click="opened = !opened"
 				>
-					<div
-						class="sp-wallet-menu-item__avatar"
-						v-html="getAvatar(topWallet.name)"
-					></div>
-					<div
-						class="sp-wallet-menu-item__avatar-shadow"
-						v-html="getAvatar(topWallet.name)"
-					></div>
+					<div class="sp-wallet-menu-item__avatar" v-html="getAvatar(topWallet.name)"></div>
+					<div class="sp-wallet-menu-item__avatar-shadow" v-html="getAvatar(topWallet.name)"></div>
 					<div class="sp-wallet-menu-item__info">
 						<span class="sp-text sp-bold sp-active">{{ topWallet.name }}</span>
 						<br />
-						<span
-							class="sp-text"
-							v-if="topWallet.name == walletName"
-							:alt="currentAccount"
-							:title="currentAccount"
-						>
+						<span class="sp-text" v-if="topWallet.name == walletName" :alt="currentAccount" :title="currentAccount">
 							{{ shortAddress }}
 						</span>
 						<span class="sp-text" v-else> Locked </span>
@@ -50,7 +36,7 @@
 							class="sp-icon"
 							:class="{
 								'sp-icon-Unlock': topWallet.name == walletName,
-								'sp-icon-Lock': topWallet.name != walletName
+								'sp-icon-Lock': topWallet.name != walletName,
 							}"
 							v-if="opened"
 							v-on:click="toggleWallet(topWallet.name)"
@@ -70,20 +56,10 @@
 				v-bind:key="wallet.name"
 				v-on:click="toggleWallet(wallet.name)"
 			>
-				<div
-					class="sp-wallet-menu-item__avatar"
-					v-html="getAvatar(wallet.name)"
-				></div>
-				<div
-					class="sp-wallet-menu-item__avatar-shadow"
-					v-html="getAvatar(wallet.name)"
-				></div>
+				<div class="sp-wallet-menu-item__avatar" v-html="getAvatar(wallet.name)"></div>
+				<div class="sp-wallet-menu-item__avatar-shadow" v-html="getAvatar(wallet.name)"></div>
 				<div class="sp-wallet-menu-item__info">
-					<span
-						class="sp-text sp-bold"
-						:class="{ 'sp-active': !topWallet && index == 0 }"
-						>{{ wallet.name }}</span
-					>
+					<span class="sp-text sp-bold" :class="{ 'sp-active': !topWallet && index == 0 }">{{ wallet.name }}</span>
 					<br />
 					<span class="sp-text" v-if="wallet.name == walletName">
 						{{ currentAccount }}
@@ -95,7 +71,7 @@
 						class="sp-icon"
 						:class="{
 							'sp-icon-Unlock': wallet.name == walletName,
-							'sp-icon-Lock': wallet.name != walletName
+							'sp-icon-Lock': wallet.name != walletName,
 						}"
 						v-if="topWallet || index > 0 || opened"
 						v-on:click="toggleWallet(wallet.name)"
@@ -112,70 +88,42 @@
 			</div>
 			//-->
 			<div class="sp-wallet-menu-action">
-				<SpLinkIcon
-					icon="AddNew"
-					text="Add New Wallet"
-					v-on:click="createNewWallet"
-				/>
+				<SpLinkIcon icon="AddNew" text="Add New Wallet" v-on:click="createNewWallet" />
 			</div>
 		</div>
 	</div>
-	<div
-		class="sp-wallet-menu sp-rounded sp-opened"
-		v-else-if="depsLoaded && unlocking"
-	>
-		<div
-			class="sp-wallet-menu__toggle"
-			v-on:click=";(unlocking = false), (toUnlock = null)"
-		>
+	<div class="sp-wallet-menu sp-rounded sp-opened" v-else-if="depsLoaded && unlocking">
+		<div class="sp-wallet-menu__toggle" v-on:click=";(unlocking = false), (toUnlock = null)">
 			<span
 				class="sp-icon"
 				:class="{
 					'sp-icon-DownCaret': !unlocking,
-					'sp-icon-Close': unlocking
+					'sp-icon-Close': unlocking,
 				}"
 			/>
 		</div>
 		<div class="sp-wallet-menu-items">
 			<div class="sp-wallet-menu-item">
-				<div
-					class="sp-wallet-menu-item__avatar"
-					v-html="getAvatar(walletToUnlock?.name ?? '')"
-				></div>
-				<div
-					class="sp-wallet-menu-item__avatar-shadow"
-					v-html="getAvatar(walletToUnlock?.name ?? '')"
-				></div>
+				<div class="sp-wallet-menu-item__avatar" v-html="getAvatar(walletToUnlock?.name ?? '')"></div>
+				<div class="sp-wallet-menu-item__avatar-shadow" v-html="getAvatar(walletToUnlock?.name ?? '')"></div>
 				<div class="sp-wallet-menu-item__info">
-					<span class="sp-text sp-bold sp-active">{{
-						walletToUnlock?.name
-					}}</span>
+					<span class="sp-text sp-bold sp-active">{{ walletToUnlock?.name }}</span>
 					<br />
 					<span class="sp-text"> Locked </span>
 				</div>
 			</div>
 		</div>
 		<div class="sp-wallet-menu-unlock">
-			<div class="sp-wallet-menu-unlock__title sp-header-text">
-				Unlock Wallet
-			</div>
+			<div class="sp-wallet-menu-unlock__title sp-header-text">Unlock Wallet</div>
 			<div class="sp-wallet-menu-unlock__text">
 				Enter your Wallet password below to unlock and access your addresses.
 			</div>
 			<div class="sp-wallet-menu-unlock__form">
 				<div class="sp-form-group">
-					<input
-						class="sp-input"
-						v-model="password"
-						type="password"
-						name="password"
-						placeholder="Password"
-					/>
+					<input class="sp-input" v-model="password" type="password" name="password" placeholder="Password" />
 				</div>
 
-				<SpButton v-on:click="unlockStoreWallet" type="primary"
-					>Unlock Wallet</SpButton
-				>
+				<SpButton v-on:click="unlockStoreWallet" type="primary">Unlock Wallet</SpButton>
 			</div>
 		</div>
 	</div>
@@ -201,7 +149,7 @@ export default defineComponent({
 	components: {
 		SpAccountList,
 		SpButton,
-		SpLinkIcon
+		SpLinkIcon,
 	},
 	emits: ['createNew'],
 	data: function (): SpWalletMenuState {
@@ -209,7 +157,7 @@ export default defineComponent({
 			opened: false,
 			unlocking: false,
 			toUnlock: null,
-			password: ''
+			password: '',
 		}
 	},
 	computed: {
@@ -225,11 +173,7 @@ export default defineComponent({
 		},
 		shortAddress: function (): string | null {
 			if (this.currentAccount) {
-				return (
-					this.currentAccount.substr(0, 10) +
-					'...' +
-					this.currentAccount.slice(-5)
-				)
+				return this.currentAccount.substr(0, 10) + '...' + this.currentAccount.slice(-5)
 			} else {
 				return null
 			}
@@ -274,7 +218,7 @@ export default defineComponent({
 		},
 		depsLoaded: function (): boolean {
 			return this._depsLoaded
-		}
+		},
 	},
 	beforeCreate: function (): void {
 		const vuexModule = ['common', 'wallet']
@@ -295,7 +239,7 @@ export default defineComponent({
 			if (this._depsLoaded) {
 				await this.$store.dispatch('common/wallet/unlockWallet', {
 					name: this.walletToUnlock?.name,
-					password: this.password
+					password: this.password,
 				})
 				this.unlocking = false
 			}
@@ -309,7 +253,7 @@ export default defineComponent({
 					await window.keplr.enable(this.$store.getters['common/env/chainId'])
 					await this.$store.dispatch('common/wallet/unlockWallet', {
 						name,
-						password: null
+						password: null,
 					})
 				} else {
 					this.toUnlock = name
@@ -320,7 +264,7 @@ export default defineComponent({
 				this.toUnlock = ''
 				this.unlocking = false
 			}
-		}
-	}
+		},
+	},
 })
 </script>

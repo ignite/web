@@ -8,12 +8,12 @@ import { defineComponent } from 'vue'
 export default defineComponent({
 	name: 'SpBlockDisplayFull',
 	props: {
-		block: Object
+		block: Object,
 	},
 	data() {
 		return {
-			txs: []
+			txs: [],
 		}
-	}
+	},
 })
 </script>

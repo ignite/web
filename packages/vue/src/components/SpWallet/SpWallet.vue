@@ -1,14 +1,7 @@
 <template>
 	<div class="sp-wallet" v-if="depsLoaded">
-		<SpWalletMenu
-			v-if="walletList.length > 0 && !create"
-			v-on:createNew="create = true"
-		/>
-		<SpButton
-			v-else-if="walletList.length == 0 && !create"
-			v-on:click="create = true"
-			>Access wallet</SpButton
-		>
+		<SpWalletMenu v-if="walletList.length > 0 && !create" v-on:createNew="create = true" />
+		<SpButton v-else-if="walletList.length == 0 && !create" v-on:click="create = true">Access wallet</SpButton>
 		<SpWalletCreate title="Access wallet" v-else v-on:close="create = false">
 			Create or import an existing wallet to manage your DeFi portfolio.
 		</SpWalletCreate>
@@ -28,11 +21,11 @@ export default defineComponent({
 	components: {
 		SpWalletMenu,
 		SpButton,
-		SpWalletCreate
+		SpWalletCreate,
 	},
 	data: function (): SpWalletState {
 		return {
-			create: false
+			create: false,
 		}
 	},
 	computed: {
@@ -45,7 +38,7 @@ export default defineComponent({
 		},
 		depsLoaded: function (): boolean {
 			return this._depsLoaded
-		}
+		},
 	},
 	beforeCreate: function (): void {
 		const vuexModule = ['common', 'wallet']
@@ -57,6 +50,6 @@ export default defineComponent({
 				break
 			}
 		}
-	}
+	},
 })
 </script>

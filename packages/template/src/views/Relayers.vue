@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-      	<SpRelayers/>
+			<SpRelayers />
 		</div>
 	</div>
 </template>
@@ -11,4 +11,3 @@ export default {
 	name: 'Relayers'
 }
 </script>
-

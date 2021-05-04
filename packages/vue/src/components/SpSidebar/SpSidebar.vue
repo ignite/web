@@ -1,8 +1,5 @@
 <template>
-	<div
-		class="sp-sidebar"
-		:class="{ 'sp-opened': opened, 'sp-mob-opened': mobOpened }"
-	>
+	<div class="sp-sidebar" :class="{ 'sp-opened': opened, 'sp-mob-opened': mobOpened }">
 		<div class="sp-hamburger sp-shadow" v-on:click="toggleMobOpen">
 			<div class="sp-icon sp-icon-Hamburger"></div>
 		</div>
@@ -39,7 +36,7 @@ export default defineComponent({
 	data: function (): SpSidebarState {
 		return {
 			opened: true,
-			mobOpened: false
+			mobOpened: false,
 		} as SpSidebarState
 	},
 	emits: ['sidebar-open', 'sidebar-close'],
@@ -51,7 +48,7 @@ export default defineComponent({
 		toggleMobOpen: function (): void {
 			this.mobOpened = !this.mobOpened
 			//this.mobOpened ? this.$emit('sidebar-open') : this.$emit('sidebar-close')
-		}
-	}
+		},
+	},
 })
 </script>

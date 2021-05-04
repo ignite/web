@@ -43,24 +43,24 @@ export default defineComponent({
 	name: 'SpButton',
 	props: {
 		busy: {
-			type: Boolean as PropType<boolean>
+			type: Boolean as PropType<boolean>,
 		},
 		link: {
-			type: String as PropType<string>
+			type: String as PropType<string>,
 		},
 		href: {
-			type: String as PropType<string>
+			type: String as PropType<string>,
 		},
 		target: {
-			type: String as PropType<string>
+			type: String as PropType<string>,
 		},
 		type: {
-			type: String as PropType<string>
+			type: String as PropType<string>,
 		},
 		disabled: {
 			type: Boolean as PropType<boolean>,
-			default: false
-		}
-	}
+			default: false,
+		},
+	},
 })
 </script>

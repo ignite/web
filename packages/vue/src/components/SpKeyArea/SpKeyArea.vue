@@ -1,11 +1,5 @@
 <template>
-	<div
-		contenteditable
-		v-on:keyup="keyUp"
-		v-on:blur="blur"
-		v-on:paste="paste"
-		v-on:delete="del"
-	></div>
+	<div contenteditable v-on:keyup="keyUp" v-on:blur="blur" v-on:paste="paste" v-on:delete="del"></div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
@@ -19,13 +13,13 @@ export default defineComponent({
 	name: 'SpKeyArea',
 	props: {
 		value: {
-			type: String as PropType<string>
-		}
+			type: String as PropType<string>,
+		},
 	},
 	data: function (): SpKeyAreaState {
 		return {
 			rawContent: this.value,
-			delayTimer: null
+			delayTimer: null,
 		}
 	},
 	methods: {
@@ -45,7 +39,7 @@ export default defineComponent({
 		},
 		del: function (event: KeyboardEvent): void {
 			this.validateInput(event.target as HTMLElement)
-		}
-	}
+		},
+	},
 })
 </script>

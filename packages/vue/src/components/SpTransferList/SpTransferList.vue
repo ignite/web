@@ -5,10 +5,7 @@
 			<span>|</span>
 			<span>A list of your recent transactions</span>
 		</div>
-		<table
-			class="sp-transfer-list__table sp-box sp-shadow"
-			v-if="address && transactions.length > 0"
-		>
+		<table class="sp-transfer-list__table sp-box sp-shadow" v-if="address && transactions.length > 0">
 			<thead>
 				<tr>
 					<th class="sp-transfer-list__status">STATUS</th>
@@ -23,30 +20,24 @@
 							<div
 								class="sp-transfer-list__status__icon"
 								:class="{
-									'sp-transfer-list__status__icon__failed':
-										tx.response.code != 0,
+									'sp-transfer-list__status__icon__failed': tx.response.code != 0,
 									'sp-transfer-list__status__icon__sent':
 										tx.response.code == 0 &&
-										(tx.body.messages[0].from_address == bankAddress ||
-											tx.body.messages[0].sender == bankAddress),
+										(tx.body.messages[0].from_address == bankAddress || tx.body.messages[0].sender == bankAddress),
 									'sp-transfer-list__status__icon__received':
 										tx.response.code == 0 &&
 										(tx.body.messages[0].to_address == bankAddress ||
-											(tx.body.messages[0]['@type'] ==
-												'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet?.data ?? '')
-													?.receiver == bankAddress)),
+											(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' &&
+												getDecoded(tx.body.messages[0].packet?.data ?? '')?.receiver == bankAddress)),
 									'sp-transfer-list__status__icon__success':
 										tx.response.code == 0 &&
 										tx.body.messages[0].to_address != bankAddress &&
 										tx.body.messages[0].from_address != bankAddress &&
 										tx.body.messages[0].sender != bankAddress &&
 										!(
-											tx.body.messages[0]['@type'] ==
-												'/ibc.core.channel.v1.MsgRecvPacket' &&
-											getDecoded(tx.body.messages[0].packet?.data ?? '')
-												?.receiver == bankAddress
-										)
+											tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' &&
+											getDecoded(tx.body.messages[0].packet?.data ?? '')?.receiver == bankAddress
+										),
 								}"
 							>
 								<span
@@ -55,26 +46,21 @@
 										'sp-icon-Close': tx.response.code != 0,
 										'sp-icon-UpArrow':
 											tx.response.code == 0 &&
-											(tx.body.messages[0].from_address == bankAddress ||
-												tx.body.messages[0].sender == bankAddress),
+											(tx.body.messages[0].from_address == bankAddress || tx.body.messages[0].sender == bankAddress),
 										'sp-icon-DownArrow':
 											tx.response.code == 0 &&
 											(tx.body.messages[0].to_address == bankAddress ||
-												(tx.body.messages[0]['@type'] ==
-													'/ibc.core.channel.v1.MsgRecvPacket' &&
-													getDecoded(tx.body.messages[0].packet?.data ?? '')
-														?.receiver == bankAddress)),
+												(tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' &&
+													getDecoded(tx.body.messages[0].packet?.data ?? '')?.receiver == bankAddress)),
 										'sp-icon-Docs':
 											tx.response.code == 0 &&
 											tx.body.messages[0].to_address != bankAddress &&
 											tx.body.messages[0].from_address != bankAddress &&
 											tx.body.messages[0].sender != bankAddress &&
 											!(
-												tx.body.messages[0]['@type'] ==
-													'/ibc.core.channel.v1.MsgRecvPacket' &&
-												getDecoded(tx.body.messages[0].packet?.data ?? '')
-													?.receiver == bankAddress
-											)
+												tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket' &&
+												getDecoded(tx.body.messages[0].packet?.data ?? '')?.receiver == bankAddress
+											),
 									}"
 								/>
 							</div>
@@ -93,14 +79,9 @@
 					</td>
 					<td
 						class="sp-transfer-list__table__amount"
-						v-if="
-							tx.body.messages[0]['@type'] == '/cosmos.bank.v1beta1.MsgSend'
-						"
+						v-if="tx.body.messages[0]['@type'] == '/cosmos.bank.v1beta1.MsgSend'"
 					>
-						<div
-							v-for="(token, index) in getAmounts(tx)"
-							v-bind:key="'am' + index"
-						>
+						<div v-for="(token, index) in getAmounts(tx)" v-bind:key="'am' + index">
 							{{
 								tx.body.messages[0].from_address == bankAddress
 									? '-' + token.amount + ' ' + token.denom.toUpperCase()
@@ -110,36 +91,23 @@
 					</td>
 					<td
 						class="sp-transfer-list__table__amount"
-						v-else-if="
-							tx.body.messages[0]['@type'] ==
-							'/ibc.applications.transfer.v1.MsgTransfer'
-						"
+						v-else-if="tx.body.messages[0]['@type'] == '/ibc.applications.transfer.v1.MsgTransfer'"
 					>
 						<div>
 							{{
 								tx.body.messages[0].sender == bankAddress
-									? '-' +
-									  tx.body.messages[0].token?.amount +
-									  ' ' +
-									  tx.body.messages[0].token?.denom.toUpperCase()
-									: '+' +
-									  tx.body.messages[0].token?.amount +
-									  ' ' +
-									  tx.body.messages[0].token?.denom.toUpperCase()
+									? '-' + tx.body.messages[0].token?.amount + ' ' + tx.body.messages[0].token?.denom.toUpperCase()
+									: '+' + tx.body.messages[0].token?.amount + ' ' + tx.body.messages[0].token?.denom.toUpperCase()
 							}}
 						</div>
 					</td>
 					<td
 						class="sp-transfer-list__table__amount"
-						v-else-if="
-							tx.body.messages[0]['@type'] ==
-							'/ibc.core.channel.v1.MsgRecvPacket'
-						"
+						v-else-if="tx.body.messages[0]['@type'] == '/ibc.core.channel.v1.MsgRecvPacket'"
 					>
 						<div>
 							{{
-								getDecoded(tx.body.messages[0].packet?.data ?? '').receiver ==
-								bankAddress
+								getDecoded(tx.body.messages[0].packet?.data ?? '').receiver == bankAddress
 									? '+' +
 									  getDecoded(tx.body.messages[0].packet?.data ?? '').amount +
 									  ' IBC/' +
@@ -147,9 +115,7 @@
 									  '/' +
 									  tx.body.messages[0].packet?.destination_channel.toUpperCase() +
 									  '/' +
-									  getDecoded(
-											tx.body.messages[0].packet?.data ?? ''
-									  )?.denom?.toUpperCase()
+									  getDecoded(tx.body.messages[0].packet?.data ?? '')?.denom?.toUpperCase()
 									: '-' +
 									  getDecoded(tx.body.messages[0].packet?.data ?? '').amount +
 									  ' IBC/' +
@@ -157,9 +123,7 @@
 									  '/' +
 									  tx.body.messages[0].packet?.destination_channel.toUpperCase() +
 									  '/' +
-									  getDecoded(
-											tx.body.messages[0].packet?.data ?? ''
-									  )?.denom?.toUpperCase()
+									  getDecoded(tx.body.messages[0].packet?.data ?? '')?.denom?.toUpperCase()
 							}}
 						</div>
 					</td>
@@ -173,19 +137,12 @@
 				<tr>
 					<td class="sp-transfer-list__status">
 						<div class="sp-transfer-list__status__wrapper">
-							<div
-								class="sp-transfer-list__status__icon sp-transfer-list__status__icon__empty"
-							>
+							<div class="sp-transfer-list__status__icon sp-transfer-list__status__icon__empty">
 								<span class="sp-icon sp-icon-Transactions" />
 							</div>
 							<div class="sp-transfer-list__status__action">
-								<div class="sp-transfer-list__status__action__text">
-									No transactions yet
-								</div>
-								<div
-									class="sp-transfer-list__status__action__date"
-									v-if="!address"
-								>
+								<div class="sp-transfer-list__status__action__text">No transactions yet</div>
+								<div class="sp-transfer-list__status__action__date" v-if="!address">
 									Add or unlock a wallet to see recent transactions
 								</div>
 							</div>
@@ -202,11 +159,7 @@
 import { defineComponent } from 'vue'
 import dayjs from 'dayjs'
 import { decode } from 'js-base64'
-import {
-	Transactions,
-	Transaction,
-	TxDecodedPacket
-} from '../../utils/interfaces'
+import { Transactions, Transaction, TxDecodedPacket } from '../../utils/interfaces'
 
 export interface SpTransferListState {
 	bankAddress: string
@@ -216,7 +169,7 @@ export default defineComponent({
 	props: { address: String, refresh: Boolean },
 	data: function (): SpTransferListState {
 		return {
-			bankAddress: ''
+			bankAddress: '',
 		} as SpTransferListState
 	},
 	computed: {
@@ -225,12 +178,12 @@ export default defineComponent({
 		},
 		sentTransactions: function (): Transactions {
 			return this.$store.getters['common/transfers/getGetTxsEvent']({
-				event: 'transfer.sender%3D%27' + this.bankAddress + '%27'
+				event: 'transfer.sender%3D%27' + this.bankAddress + '%27',
 			})
 		},
 		receivedTransactions: function (): Transactions {
 			return this.$store.getters['common/transfers/getGetTxsEvent']({
-				event: 'transfer.recipient%3D%27' + this.bankAddress + '%27'
+				event: 'transfer.recipient%3D%27' + this.bankAddress + '%27',
 			})
 		},
 		transactions: function (): Array<Transaction> {
@@ -244,11 +197,8 @@ export default defineComponent({
 					tx.response = this.receivedTransactions.tx_responses[index]
 					return tx
 				}) ?? []
-			return [...sent, ...received].sort(
-				(a: Transaction, b: Transaction) =>
-					b.response.height - a.response.height
-			)
-		}
+			return [...sent, ...received].sort((a: Transaction, b: Transaction) => b.response.height - a.response.height)
+		},
 	},
 	beforeCreate: function (): void {
 		const vuexModule = ['common', 'transfers']
@@ -267,11 +217,11 @@ export default defineComponent({
 			if (this.bankAddress != '') {
 				await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
 					subscribe: true,
-					event: 'transfer.sender%3D%27' + this.bankAddress + '%27'
+					event: 'transfer.sender%3D%27' + this.bankAddress + '%27',
 				})
 				await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
 					subscribe: true,
-					event: 'transfer.recipient%3D%27' + this.bankAddress + '%27'
+					event: 'transfer.recipient%3D%27' + this.bankAddress + '%27',
 				})
 			}
 		}
@@ -301,8 +251,7 @@ export default defineComponent({
 			} else {
 				if (
 					tx.body.messages[0]['@type'] == '/cosmos.bank.v1beta1.MsgSend' ||
-					tx.body.messages[0]['@type'] ==
-						'/ibc.applications.transfer.v1.MsgTransfer'
+					tx.body.messages[0]['@type'] == '/ibc.applications.transfer.v1.MsgTransfer'
 				) {
 					if (tx.body.messages[0].from_address == this.bankAddress) {
 						text = text + 'Sent to'
@@ -377,8 +326,7 @@ export default defineComponent({
 			} else {
 				if (
 					tx.body.messages[0]['@type'] == '/cosmos.bank.v1beta1.MsgSend' ||
-					tx.body.messages[0]['@type'] ==
-						'/ibc.applications.transfer.v1.MsgTransfer'
+					tx.body.messages[0]['@type'] == '/ibc.applications.transfer.v1.MsgTransfer'
 				) {
 					if (tx.body.messages[0].from_address == this.bankAddress) {
 						text = text + tx.body.messages[0].to_address
@@ -387,33 +335,21 @@ export default defineComponent({
 						text = text + tx.body.messages[0].from_address
 					}
 					if (tx.body.messages[0].sender == this.bankAddress) {
-						const chain = this.$store.getters[
-							'common/relayers/chainFromChannel'
-						](tx.body.messages[0].source_channel)
+						const chain = this.$store.getters['common/relayers/chainFromChannel'](tx.body.messages[0].source_channel)
 						text = text + chain + ':' + tx.body.messages[0].receiver
 					}
 					if (tx.body.messages[0].receiver == this.bankAddress) {
-						const chain = this.$store.getters['common/relayers/chainToChannel'](
-							tx.body.messages[0].source_channel
-						)
+						const chain = this.$store.getters['common/relayers/chainToChannel'](tx.body.messages[0].source_channel)
 						text = text + chain + ':' + tx.body.messages[0].receiver
 					}
 				} else {
 					let packet
 					switch (tx.body.messages[0]['@type']) {
 						case '/ibc.core.channel.v1.MsgChannelOpenAck':
-							text =
-								text +
-								tx.body.messages[0].port_id +
-								' / ' +
-								tx.body.messages[0].channel_id
+							text = text + tx.body.messages[0].port_id + ' / ' + tx.body.messages[0].channel_id
 							break
 						case '/ibc.core.channel.v1.MsgChannelOpenConfirm':
-							text =
-								text +
-								tx.body.messages[0].port_id +
-								' / ' +
-								tx.body.messages[0].channel_id
+							text = text + tx.body.messages[0].port_id + ' / ' + tx.body.messages[0].channel_id
 							break
 						case '/ibc.core.channel.v1.MsgChannelOpenTry':
 							text =
@@ -460,11 +396,7 @@ export default defineComponent({
 							text = text + tx.body.messages[0].client_id
 							break
 						case '/ibc.core.connection.v1.MsgConnectionOpenAck':
-							text =
-								text +
-								tx.body.messages[0].connection_id +
-								' / ' +
-								tx.body.messages[0].counterparty_connection_id
+							text = text + tx.body.messages[0].connection_id + ' / ' + tx.body.messages[0].counterparty_connection_id
 							break
 						case '/ibc.core.connection.v1.MsgConnectionOpenInit':
 							text = text + tx.body.messages[0].client_id
@@ -473,11 +405,7 @@ export default defineComponent({
 							text = text + tx.body.messages[0].connection_id
 							break
 						case '/ibc.core.connection.v1.MsgConnectionOpenTry':
-							text =
-								text +
-								tx.body.messages[0].client_id +
-								' / ' +
-								tx.body.messages[0].previous_connection_id
+							text = text + tx.body.messages[0].client_id + ' / ' + tx.body.messages[0].previous_connection_id
 							break
 						default:
 							text = text + 'Message'
@@ -486,7 +414,7 @@ export default defineComponent({
 				}
 			}
 			return text
-		}
+		},
 	},
 	watch: {
 		address: function (newAddr, oldAddr): void {
@@ -495,15 +423,15 @@ export default defineComponent({
 				if (this.bankAddress != '') {
 					this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
 						subscribe: true,
-						event: 'transfer.sender%3D%27' + this.bankAddress + '%27'
+						event: 'transfer.sender%3D%27' + this.bankAddress + '%27',
 					})
 					this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
 						subscribe: true,
-						event: 'transfer.recipient%3D%27' + this.bankAddress + '%27'
+						event: 'transfer.recipient%3D%27' + this.bankAddress + '%27',
 					})
 				}
 			}
-		}
-	}
+		},
+	},
 })
 </script>

@@ -13,37 +13,33 @@ function formatTx({
 	gas_wanted = null,
 	height = null,
 	code = 0,
-	log = null
+	log = null,
 }) {
 	return {
 		txHash,
 		body: {
 			messages,
-			memo
+			memo,
 		},
 		auth_info: {
 			signer_infos,
-			fee
+			fee,
 		},
 		meta: {
 			gas_used,
 			gas_wanted,
 			height,
 			code,
-			log
-		}
+			log,
+		},
 	}
 }
 
 async function getTx(apiCosmos, apiTendermint, encodedTx) {
 	const txHash = sha256(fromBase64(encodedTx))
 	try {
-		const rpcRes = await axios.get(
-			apiTendermint + '/tx?hash=0x' + toHex(txHash)
-		)
-		const apiRes = await axios.get(
-			apiCosmos + '/cosmos/tx/v1beta1/txs/' + toHex(txHash)
-		)
+		const rpcRes = await axios.get(apiTendermint + '/tx?hash=0x' + toHex(txHash))
+		const apiRes = await axios.get(apiCosmos + '/cosmos/tx/v1beta1/txs/' + toHex(txHash))
 		return { rpcRes, apiRes, txHash: toHex(txHash).toUpperCase() }
 	} catch (e) {
 		throw 'Error fetching TX data'
@@ -67,7 +63,7 @@ async function decodeTx(apiCosmos, apiTendermint, encodedTx) {
 		gas_wanted,
 		height,
 		code,
-		log
+		log,
 	})
 }
 
@@ -76,18 +72,16 @@ export default {
 	state() {
 		return {
 			blocks: [],
-			size: 20
+			size: 20,
 		}
 	},
 	getters: {
 		getBlocks: (state) => (howmany) => {
-			return [...state.blocks]
-				.sort((a, b) => b.height - a.height)
-				.slice(0, howmany)
+			return [...state.blocks].sort((a, b) => b.height - a.height).slice(0, howmany)
 		},
 		getBlockByHeight: (state) => (height) => {
 			return state.blocks.find((x) => x.height == height) || {}
-		}
+		},
 	},
 	mutations: {
 		ADD_BLOCK(state, block) {
@@ -101,7 +95,7 @@ export default {
 		},
 		SET_SIZE(state, size) {
 			state.size = size
-		}
+		},
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
@@ -114,20 +108,12 @@ export default {
 		async addBlock({ commit, rootGetters }, blockData) {
 			try {
 				const blockDetails = await axios.get(
-					rootGetters['common/env/apiTendermint'] +
-						'/block?height=' +
-						blockData.data.value.block.header.height
+					rootGetters['common/env/apiTendermint'] + '/block?height=' + blockData.data.value.block.header.height,
 				)
-				const txDecoded = blockData.data.value.block.data.txs.map(
-					async (tx) => {
-						const dec = await decodeTx(
-							rootGetters['common/env/apiCosmos'],
-							rootGetters['common/env/apiTendermint'],
-							tx
-						)
-						return dec
-					}
-				)
+				const txDecoded = blockData.data.value.block.data.txs.map(async (tx) => {
+					const dec = await decodeTx(rootGetters['common/env/apiCosmos'], rootGetters['common/env/apiTendermint'], tx)
+					return dec
+				})
 				const txs = await Promise.all(txDecoded)
 
 				const block = {
@@ -135,19 +121,16 @@ export default {
 					timestamp: blockData.data.value.block.header.time,
 					hash: blockDetails.data.result.block_id.hash,
 					details: blockData.data.value.block,
-					txDecoded: txs
+					txDecoded: txs,
 				}
 
 				commit('ADD_BLOCK', block)
 			} catch (e) {
-				throw new SpVuexError(
-					'Blocks:AddBlock',
-					'Could not add block. RPC node unavailable'
-				)
+				throw new SpVuexError('Blocks:AddBlock', 'Could not add block. RPC node unavailable')
 			}
 		},
 		resetState({ commit }) {
 			commit('RESET_STATE')
-		}
-	}
+		},
+	},
 }
