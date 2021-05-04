@@ -26,7 +26,7 @@ export default defineComponent({
 		},
 		depsLoaded: function (): boolean {
 			return this._depsLoaded
-		}
+		},
 	},
 	beforeCreate: function (): void {
 		const vuexModule = ['common', 'blocks']
@@ -38,6 +38,6 @@ export default defineComponent({
 				break
 			}
 		}
-	}
+	},
 })
 </script>

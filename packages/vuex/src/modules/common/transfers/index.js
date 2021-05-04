@@ -5,7 +5,7 @@ export default function init(store) {
 		store.registerModule(['common'], { namespaced: true })
 	}
 	store.registerModule(['common', 'transfers'], transfers)
-	store.subscribe(mutation => {
+	store.subscribe((mutation) => {
 		if (mutation.type == 'common/env/INITIALIZE_WS_COMPLETE') {
 			store.dispatch('common/transfers/init', null, { root: true })
 		}

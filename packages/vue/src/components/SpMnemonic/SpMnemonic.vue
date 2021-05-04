@@ -1,11 +1,7 @@
 <template>
 	<div class="sp-mnemonic">
 		<ul class="sp-mnemonic__list">
-			<li
-				class="sp-mnemonic__list__item"
-				v-for="(word, index) in firstHalfWords"
-				v-bind:key="'word' + index + 1"
-			>
+			<li class="sp-mnemonic__list__item" v-for="(word, index) in firstHalfWords" v-bind:key="'word' + index + 1">
 				<span>{{ index + 1 }}</span> {{ word }}
 			</li>
 		</ul>
@@ -33,11 +29,11 @@ export default defineComponent({
 	props: {
 		mnemonic: {
 			type: String as PropType<string>,
-			required: true
-		}
+			required: true,
+		},
 	},
 	components: {
-		SpLinkIcon
+		SpLinkIcon,
 	},
 	computed: {
 		words: function (): Array<string> {
@@ -48,12 +44,12 @@ export default defineComponent({
 		},
 		secondHalfWords: function (): Array<string> {
 			return this.words.slice(this.words.length / 2)
-		}
+		},
 	},
 	methods: {
 		copyMnemonic: function (): void {
 			copyToClipboard(this.mnemonic)
-		}
-	}
+		},
+	},
 })
 </script>

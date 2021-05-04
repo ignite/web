@@ -1,9 +1,7 @@
 <template>
 	<tr class="SpBlockDisplayLine">
 		<td class="blockHeight">
-			<router-link :to="'/block/' + block.height"
-				>{{ block.height }}
-			</router-link>
+			<router-link :to="'/block/' + block.height">{{ block.height }} </router-link>
 		</td>
 		<td class="blockHash">
 			{{ block.hash }}
@@ -24,13 +22,13 @@ export default defineComponent({
 	name: 'SpBlockDisplayLine',
 	props: {
 		block: Object,
-		tsFormat: String
+		tsFormat: String,
 	},
 	methods: {
 		formatTS(timestamp) {
 			const momentTime = dayjs(timestamp)
 			return momentTime.format(this.tsFormat)
-		}
-	}
+		},
+	},
 })
 </script>

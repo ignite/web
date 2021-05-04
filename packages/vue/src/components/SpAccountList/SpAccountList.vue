@@ -2,11 +2,7 @@
 	<div class="sp-accounts-list" v-if="depsLoaded">
 		<div v-if="!newAccount.show">
 			<ul v-if="accountList.length > 0" class="sp-accounts-list-items">
-				<li
-					v-for="account in accountList"
-					v-bind:key="account.address"
-					class="sp-accounts-list-item"
-				>
+				<li v-for="account in accountList" v-bind:key="account.address" class="sp-accounts-list-item">
 					<div class="sp-accounts-list-item__use">
 						<div class="sp-accounts-list-item__path">
 							{{ account.pathIncrement }}
@@ -18,27 +14,14 @@
 						>
 							{{ shortenAddress(account.address) }}
 						</div>
-						<div
-							class="sp-accounts-list-item__copy"
-							@click="copyAddress(account.address)"
-						>
+						<div class="sp-accounts-list-item__copy" @click="copyAddress(account.address)">
 							<span class="sp-icon sp-icon-Copy" />
 						</div>
 					</div>
 				</li>
 			</ul>
-			<div
-				class="sp-accounts-new"
-				v-if="
-					activeWallet.name != 'Keplr Integration' &&
-					activeWallet.password != null
-				"
-			>
-				<SpLinkIcon
-					icon="AddNew"
-					text="Generate new address"
-					v-on:click="createAccount"
-				/>
+			<div class="sp-accounts-new" v-if="activeWallet.name != 'Keplr Integration' && activeWallet.password != null">
+				<SpLinkIcon icon="AddNew" text="Generate new address" v-on:click="createAccount" />
 			</div>
 		</div>
 		<div class="SpAccountForm SpForm" v-if="newAccount.show">
@@ -49,19 +32,12 @@
 				<label for="SpAccountNextAvailable"
 					>CREATE NEXT AVAILABLE ACCOUNT?
 
-					<input
-						type="checkbox"
-						v-model="newAccount.nextAvailable"
-						id="SpAccountNextAvailable"
+					<input type="checkbox" v-model="newAccount.nextAvailable" id="SpAccountNextAvailable"
 				/></label>
 			</div>
 			<div class="SpAccountHDPath" v-if="!newAccount.nextAvailable">
 				USE SPECIFIC HD PATH: <em>{{ HDPath }}</em
-				><input
-					type="number"
-					v-model="newAccount.pathIncrement"
-					class="SpInputNumber"
-				/>
+				><input type="number" v-model="newAccount.pathIncrement" class="SpInputNumber" />
 			</div>
 			<div class="SpAccountCreate">
 				<button @click="createAccount()" class="SpButton">
@@ -92,12 +68,12 @@ export default defineComponent({
 			newAccount: {
 				show: false,
 				nextAvailable: true,
-				pathIncrement: null
-			} as NewAccount
+				pathIncrement: null,
+			} as NewAccount,
 		}
 	},
 	components: {
-		SpLinkIcon
+		SpLinkIcon,
 	},
 	emits: ['account-selected'],
 	computed: {
@@ -119,7 +95,7 @@ export default defineComponent({
 			} else {
 				return null
 			}
-		}
+		},
 	},
 	beforeCreate: function () {
 		const module = ['common', 'wallet']
@@ -141,8 +117,8 @@ export default defineComponent({
 				newAccount: {
 					show: false,
 					nextAvailable: true,
-					pathIncrement: null
-				}
+					pathIncrement: null,
+				},
 			}
 		},
 		reset: function (): void {
@@ -150,8 +126,8 @@ export default defineComponent({
 				newAccount: {
 					show: false,
 					nextAvailable: true,
-					pathIncrement: null
-				}
+					pathIncrement: null,
+				},
 			})
 		},
 		newAccountForm: function (): void {
@@ -171,14 +147,11 @@ export default defineComponent({
 				if (this.newAccount.nextAvailable) {
 					await this.$store.dispatch('common/wallet/addAccount')
 				} else {
-					await this.$store.dispatch(
-						'common/wallet/addAccount',
-						this.newAccount.pathIncrement
-					)
+					await this.$store.dispatch('common/wallet/addAccount', this.newAccount.pathIncrement)
 				}
 			}
 			this.reset()
-		}
-	}
+		},
+	},
 })
 </script>

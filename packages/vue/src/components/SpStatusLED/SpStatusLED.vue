@@ -9,8 +9,8 @@ export default defineComponent({
 	name: 'SpStatusLED',
 	props: {
 		status: {
-			type: Boolean as PropType<boolean>
-		}
-	}
+			type: Boolean as PropType<boolean>,
+		},
+	},
 })
 </script>

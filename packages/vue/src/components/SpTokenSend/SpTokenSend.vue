@@ -9,14 +9,8 @@
 				</div>
 				<div class="sp-token-send__main sp-box sp-shadow">
 					<form class="sp-token-send__main__form">
-						<div class="sp-token-send__main__rcpt__header sp-box-header">
-							SEND TO
-						</div>
-						<select
-							name="channel"
-							v-model="transfer.channel"
-							v-if="availableChannels.length > 0"
-						>
+						<div class="sp-token-send__main__rcpt__header sp-box-header">SEND TO</div>
+						<select name="channel" v-model="transfer.channel" v-if="availableChannels.length > 0">
 							<option value="">This chain</option>
 							<option
 								v-for="channel in availableChannels"
@@ -47,29 +41,15 @@
 								+Add memo
 							</div>
 						</div>
-						<div
-							class="sp-token-send__main__rcpt__memo__header sp-box-header"
-							v-if="memoOpen"
-						>
+						<div class="sp-token-send__main__rcpt__memo__header sp-box-header" v-if="memoOpen">
 							MEMO
-							<span
-								class="sp-icon sp-icon-Close"
-								v-on:click="memoOpen = false"
-							></span>
+							<span class="sp-icon sp-icon-Close" v-on:click="memoOpen = false"></span>
 						</div>
 						<div class="sp-token-send__main__rcpt__memo" v-if="memoOpen">
-							<textarea
-								class="sp-token-send__main__rcpt__memo__content sp-textarea"
-								v-model="transfer.memo"
-							/>
+							<textarea class="sp-token-send__main__rcpt__memo__content sp-textarea" v-model="transfer.memo" />
 						</div>
-						<div class="sp-token-send__main__amt__header sp-box-header">
-							AMOUNT
-						</div>
-						<div
-							class="sp-token-send__main__amt__wrapper"
-							v-if="balances.length > 0 && address"
-						>
+						<div class="sp-token-send__main__amt__header sp-box-header">AMOUNT</div>
+						<div class="sp-token-send__main__amt__wrapper" v-if="balances.length > 0 && address">
 							<SpAmountSelect
 								v-for="(amount, index) in transfer.amount"
 								:index="index"
@@ -94,20 +74,12 @@
 									<div class="sp-amount-select__denom">
 										<div class="sp-amount-select__denom__selected">
 											<div class="sp-amount-select__denom__name">
-												<div
-													class="sp-denom-marker"
-													style="background: #809cff"
-												/>
+												<div class="sp-denom-marker" style="background: #809cff" />
 												<div class="sp-dummy-fill" />
 											</div>
 										</div>
 									</div>
-									<input
-										class="sp-input sp-input-large"
-										value="0"
-										name="rcpt"
-										disabled="true"
-									/>
+									<input class="sp-input sp-input-large" value="0" name="rcpt" disabled="true" />
 								</div>
 							</div>
 						</div>
@@ -119,18 +91,11 @@
 						>
 							<div class="sp-token-send__main__fees__header sp-box-header">
 								FEES <span class="sp-circle">?</span>
-								<span
-									v-if="feesOpen"
-									v-on:click="feesOpen = false"
-									class="sp-icon sp-icon-UpCaret"
-								></span>
+								<span v-if="feesOpen" v-on:click="feesOpen = false" class="sp-icon sp-icon-UpCaret"></span>
 							</div>
 							<div class="sp-token-send__main__fees__content">
 								<template v-if="feesOpen">
-									<div
-										class="sp-token-send__main__amt__wrapper"
-										v-if="balances.length > 0"
-									>
+									<div class="sp-token-send__main__amt__wrapper" v-if="balances.length > 0">
 										<SpAmountSelect
 											v-for="(amount, index) in transfer.fees"
 											:index="index"
@@ -141,11 +106,7 @@
 											v-bind:key="'fee' + index"
 											v-on:self-remove="transfer.fees.splice(index, 1)"
 										/>
-										<div
-											class="sp-token-send__main__amt__add"
-											v-if="nextFeeToAdd != null"
-											v-on:click="addFeeToken"
-										>
+										<div class="sp-token-send__main__amt__add" v-if="nextFeeToAdd != null" v-on:click="addFeeToken">
 											+ Add Fee Token
 										</div>
 										<div class="sp-line"></div>
@@ -153,77 +114,41 @@
 								</template>
 								<template v-else>
 									<div class="sp-token-send__main__fees__small">
-										<span
-											v-for="(fee, index) in transfer.fees"
-											v-bind:key="'fee_small' + index"
-										>
+										<span v-for="(fee, index) in transfer.fees" v-bind:key="'fee_small' + index">
 											<strong>{{ fee.amount }}</strong>
 
 											<template v-if="fee.denom.indexOf('ibc/') == 0">
-												IBC/{{
-													denomTraces[
-														fee.denom.split('/')[1]
-													]?.denom_trace.path.toUpperCase() ?? ''
-												}}/{{
-													denomTraces[
-														fee.denom.split('/')[1]
-													]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
+												IBC/{{ denomTraces[fee.denom.split('/')[1]]?.denom_trace.path.toUpperCase() ?? '' }}/{{
+													denomTraces[fee.denom.split('/')[1]]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
 												}},
 											</template>
-											<template v-else>
-												{{ fee.denom.toUpperCase() }},
-											</template>
+											<template v-else> {{ fee.denom.toUpperCase() }}, </template>
 										</span>
-										<span
-											v-on:click="feesOpen = true"
-											class="sp-icon sp-icon-DownCaret"
-										></span>
+										<span v-on:click="feesOpen = true" class="sp-icon sp-icon-DownCaret"></span>
 									</div>
 								</template>
 							</div>
 							<div class="sp-token-send__main__btns">
-								<div
-									class="sp-token-send__main__btns__reset__fees"
-									v-on:click="resetFees"
-									v-if="feesOpen"
-								>
+								<div class="sp-token-send__main__btns__reset__fees" v-on:click="resetFees" v-if="feesOpen">
 									Reset Fees
 								</div>
 								<div class="sp-token-send__main__btns__tx">
-									<div
-										class="sp-token-send__main__btns__reset"
-										v-on:click="resetTransaction"
-									>
-										Reset
-									</div>
-									<SpButton
-										v-on:click="sendTransaction"
-										type="primary"
-										:disabled="!validForm"
-										:busy="inFlight"
+									<div class="sp-token-send__main__btns__reset" v-on:click="resetTransaction">Reset</div>
+									<SpButton v-on:click="sendTransaction" type="primary" :disabled="!validForm" :busy="inFlight"
 										>Send transaction</SpButton
 									>
 								</div>
 							</div>
 						</div>
 						<div class="sp-token-send__main__footer" v-else>
-							<div class="sp-token-send__main__fees__header sp-box-message">
-								Access a wallet to send transactions
-							</div>
+							<div class="sp-token-send__main__fees__header sp-box-message">Access a wallet to send transactions</div>
 							<div class="sp-token-send__main__fees__content"></div>
 							<div class="sp-token-send__main__btns">
-								<div
-									class="sp-token-send__main__btns__reset__fees"
-									v-on:click="resetFees"
-									v-if="feesOpen"
-								>
+								<div class="sp-token-send__main__btns__reset__fees" v-on:click="resetFees" v-if="feesOpen">
 									Reset Fees
 								</div>
 								<div class="sp-token-send__main__btns__tx">
-									<SpButton
-										v-on:click="sendTransaction"
-										type="primary"
-										:disabled="!validForm"
+									<SpButton v-on:click="sendTransaction" type="primary" :disabled="!validForm"
 										>Send transaction</SpButton
 									>
 								</div>
@@ -269,15 +194,15 @@ export default defineComponent({
 	components: {
 		SpButton,
 		SpAmountSelect,
-		SpAssets
+		SpAssets,
 	},
 	props: {
 		address: {
-			type: String as PropType<string>
+			type: String as PropType<string>,
 		},
 		refresh: {
-			type: Boolean as PropType<boolean>
-		}
+			type: Boolean as PropType<boolean>,
+		},
 	},
 	data: function (): SpTokenSendState {
 		return {
@@ -286,14 +211,14 @@ export default defineComponent({
 				channel: '',
 				amount: [],
 				memo: '',
-				fees: []
+				fees: [],
 			} as TransferData,
 			feesOpen: false,
 			memoOpen: false,
 			inFlight: false,
 			bankAddress: '',
 			staking: {},
-			denomTraces: {} as DenomTraces
+			denomTraces: {} as DenomTraces,
 		}
 	},
 	beforeCreate: function (): void {
@@ -314,7 +239,7 @@ export default defineComponent({
 			if (this.bankAddress != '') {
 				this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 					params: { address: this.address },
-					options: { all: true, subscribe: this.refresh }
+					options: { all: true, subscribe: this.refresh },
 				})
 			}
 		}
@@ -333,21 +258,18 @@ export default defineComponent({
 					if (this.bankAddress != '') {
 						this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 							params: { address: this.bankAddress },
-							options: { subscribe: this.refresh }
+							options: { subscribe: this.refresh },
 						})
 					}
 				}
 			}
-		}
+		},
 	},
 	computed: {
 		validForm: function (): boolean {
 			if (
 				this.transfer.amount.every(
-					(x) =>
-						!isNaN(this.parseAmount(x.amount)) &&
-						x.amount != '' &&
-						this.parseAmount(x.amount) != 0
+					(x) => !isNaN(this.parseAmount(x.amount)) && x.amount != '' && this.parseAmount(x.amount) != 0,
 				) &&
 				this.transfer.fees.every((x) => !isNaN(this.parseAmount(x.amount))) &&
 				this.validAddress &&
@@ -362,7 +284,7 @@ export default defineComponent({
 			if (this._depsLoaded) {
 				return (
 					this.$store.getters['cosmos.bank.v1beta1/getAllBalances']({
-						params: { address: this.bankAddress }
+						params: { address: this.bankAddress },
 					})?.balances ?? []
 				)
 			} else {
@@ -370,9 +292,7 @@ export default defineComponent({
 			}
 		},
 		nextToAdd: function (): Amount | null {
-			const i = this.balances.findIndex(
-				(x) => !this.selectedDenoms.includes(x.denom)
-			)
+			const i = this.balances.findIndex((x) => !this.selectedDenoms.includes(x.denom))
 			if (i == -1) {
 				return null
 			} else {
@@ -380,9 +300,7 @@ export default defineComponent({
 			}
 		},
 		nextFeeToAdd: function (): Amount | null {
-			const i = this.balances.findIndex(
-				(x) => !this.selectedFeeDenoms.includes(x.denom)
-			)
+			const i = this.balances.findIndex((x) => !this.selectedFeeDenoms.includes(x.denom))
 			if (i == -1) {
 				return null
 			} else {
@@ -402,9 +320,7 @@ export default defineComponent({
 			})
 		},
 		relayers: function (): Array<Relayer> {
-			return this.$store.hasModule(['common', 'relayers'])
-				? this.$store.getters['common/relayers/getRelayers']
-				: []
+			return this.$store.hasModule(['common', 'relayers']) ? this.$store.getters['common/relayers/getRelayers'] : []
 		},
 		availableChannels: function (): Array<Relayer> {
 			return this.relayers?.filter((x) => x.status == 'connected') ?? []
@@ -420,7 +336,7 @@ export default defineComponent({
 				toAddress = false
 			}
 			return toAddress
-		}
+		},
 	},
 	methods: {
 		parseAmount(amount: string): number {
@@ -430,13 +346,10 @@ export default defineComponent({
 			if (balance.denom.indexOf('ibc/') == 0) {
 				const denom = balance.denom.split('/')
 				const hash = denom[1]
-				this.denomTraces[hash] = await this.$store.dispatch(
-					'ibc.applications.transfer.v1/QueryDenomTrace',
-					{
-						options: { subscribe: false, all: false },
-						params: { hash }
-					}
-				)
+				this.denomTraces[hash] = await this.$store.dispatch('ibc.applications.transfer.v1/QueryDenomTrace', {
+					options: { subscribe: false, all: false },
+					params: { hash },
+				})
 			}
 		},
 		resetTransaction: function (): void {
@@ -454,13 +367,13 @@ export default defineComponent({
 		addToken: function (): void {
 			this.transfer.amount.push({
 				amount: '',
-				denom: this.nextToAdd?.denom ?? ''
+				denom: this.nextToAdd?.denom ?? '',
 			})
 		},
 		addFeeToken: function (): void {
 			this.transfer.fees.push({
 				amount: '',
-				denom: this.nextFeeToAdd?.denom ?? ''
+				denom: this.nextFeeToAdd?.denom ?? '',
 			})
 		},
 		sendTransaction: async function (): Promise<void> {
@@ -470,7 +383,7 @@ export default defineComponent({
 						const value = {
 							amount: this.transfer.amount,
 							toAddress: this.transfer.recipient,
-							fromAddress: this.bankAddress
+							fromAddress: this.bankAddress,
 						}
 
 						this.inFlight = true
@@ -480,10 +393,11 @@ export default defineComponent({
 							}
 						})
 						try {
-							const txResult = await this.$store.dispatch(
-								'cosmos.bank.v1beta1/sendMsgSend',
-								{ value, fee: this.transfer.fees, memo: this.transfer.memo }
-							)
+							const txResult = await this.$store.dispatch('cosmos.bank.v1beta1/sendMsgSend', {
+								value,
+								fee: this.transfer.fees,
+								memo: this.transfer.memo,
+							})
 							if (txResult && !txResult.code) {
 								this.resetTransaction()
 							}
@@ -494,25 +408,22 @@ export default defineComponent({
 						}
 						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 							params: { address: this.address },
-							options: { all: true, subscribe: false }
+							options: { all: true, subscribe: false },
 						})
 					} else {
 						try {
-							const txResult = await this.$store.dispatch(
-								'ibc.applications.transfer.v1/sendMsgTransfer',
-								{
-									value: {
-										sourcePort: 'transfer',
-										sourceChannel: this.transfer.channel,
-										sender: this.bankAddress,
-										receiver: this.transfer.recipient,
-										timeoutTimestamp: new Date().getTime() + 60000 + '000000',
-										token: this.transfer.amount[0]
-									},
-									fee: this.transfer.fees,
-									memo: this.transfer.memo
-								}
-							)
+							const txResult = await this.$store.dispatch('ibc.applications.transfer.v1/sendMsgTransfer', {
+								value: {
+									sourcePort: 'transfer',
+									sourceChannel: this.transfer.channel,
+									sender: this.bankAddress,
+									receiver: this.transfer.recipient,
+									timeoutTimestamp: new Date().getTime() + 60000 + '000000',
+									token: this.transfer.amount[0],
+								},
+								fee: this.transfer.fees,
+								memo: this.transfer.memo,
+							})
 							if (txResult && !txResult.code) {
 								this.resetTransaction()
 							}
@@ -523,12 +434,12 @@ export default defineComponent({
 						}
 						await this.$store.dispatch('cosmos.bank.v1beta1/QueryAllBalances', {
 							params: { address: this.address },
-							options: { all: true, subscribe: false }
+							options: { all: true, subscribe: false },
 						})
 					}
 				}
 			}
-		}
-	}
+		},
+	},
 })
 </script>

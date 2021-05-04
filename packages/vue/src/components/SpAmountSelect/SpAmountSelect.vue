@@ -1,42 +1,23 @@
 <template>
 	<div class="sp-amount-select">
-		<div
-			class="sp-amount-select__overlay"
-			v-if="modalOpen"
-			v-on:click="modalOpen = false"
-		></div>
-		<div
-			class="sp-form-group"
-			:class="{ 'sp-amount-select__overlay__open': modalOpen }"
-		>
+		<div class="sp-amount-select__overlay" v-if="modalOpen" v-on:click="modalOpen = false"></div>
+		<div class="sp-form-group" :class="{ 'sp-amount-select__overlay__open': modalOpen }">
 			<div class="sp-amount-select__denom" :class="{ 'sp-focused': focused }">
 				<div class="sp-amount-select__denom__selected" v-on:click="toggleModal">
 					<div class="sp-amount-select__denom__name">
 						<div
 							class="sp-amount-select__denom__balance"
 							:class="{
-								'sp-amount-select__denom__balance__fail':
-									parseAmount(fulldenom.amount) - parseAmount(amount) < 0
+								'sp-amount-select__denom__balance__fail': parseAmount(fulldenom.amount) - parseAmount(amount) < 0,
 							}"
 						>
 							<strong>Avail.</strong>
-							{{ parseAmount(fulldenom.amount) - parseAmount(amount) }}/{{
-								fulldenom.amount
-							}}
+							{{ parseAmount(fulldenom.amount) - parseAmount(amount) }}/{{ fulldenom.amount }}
 						</div>
-						<div
-							class="sp-denom-marker"
-							:style="'background: #' + fulldenom.color"
-						/>
+						<div class="sp-denom-marker" :style="'background: #' + fulldenom.color" />
 						<template v-if="fulldenom.denom.indexOf('ibc/') == 0">
-							IBC/{{
-								denomTraces[
-									fulldenom.denom.split('/')[1]
-								]?.denom_trace.path.toUpperCase() ?? ''
-							}}/{{
-								denomTraces[
-									fulldenom.denom.split('/')[1]
-								]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
+							IBC/{{ denomTraces[fulldenom.denom.split('/')[1]]?.denom_trace.path.toUpperCase() ?? '' }}/{{
+								denomTraces[fulldenom.denom.split('/')[1]]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
 							}}
 						</template>
 						<template v-else>
@@ -44,17 +25,11 @@
 						</template>
 					</div>
 					<div class="sp-amount-select__denom__controls">
-						<div
-							class="sp-amount-select__denom__remove"
-							v-if="modalOpen && !last"
-							v-on:click="selfRemove"
-						>
-							Remove
-						</div>
+						<div class="sp-amount-select__denom__remove" v-if="modalOpen && !last" v-on:click="selfRemove">Remove</div>
 						<span
 							:class="{
 								'sp-icon sp-icon-DownCaret': !modalOpen,
-								'sp-icon sp-icon-UpCaret': modalOpen
+								'sp-icon sp-icon-UpCaret': modalOpen,
 							}"
 						/>
 					</div>
@@ -71,40 +46,25 @@
 					</div>
 					<div class="sp-line"></div>
 					<div class="sp-amount-select__denom__modal__header">
-						<div class="sp-amount-select__denom__modal__header__token">
-							TOKEN
-						</div>
-						<div class="sp-amount-select__denom__modal__header__amount">
-							AMOUNT
-						</div>
+						<div class="sp-amount-select__denom__modal__header__token">TOKEN</div>
+						<div class="sp-amount-select__denom__modal__header__amount">AMOUNT</div>
 					</div>
 					<div
 						class="sp-amount-select__denom__modal__item"
 						:class="{
-							'sp-amount-select__denom__modal__item__selected':
-								avail.denom == fulldenom.denom,
-							'sp-amount-select__denom__modal__item__disabled':
-								enabledDenoms.findIndex((x) => x == avail) == -1
+							'sp-amount-select__denom__modal__item__selected': avail.denom == fulldenom.denom,
+							'sp-amount-select__denom__modal__item__disabled': enabledDenoms.findIndex((x) => x == avail) == -1,
 						}"
 						v-on:click="setDenom(avail)"
 						v-for="avail in filteredDenoms"
 						v-bind:key="'denom_' + avail.denom"
 					>
 						<div class="sp-amount-select__denom__name">
-							<div
-								class="sp-denom-marker"
-								:style="'background: #' + avail.color"
-							/>
+							<div class="sp-denom-marker" :style="'background: #' + avail.color" />
 
 							<template v-if="avail.denom.indexOf('ibc/') == 0">
-								IBC/{{
-									denomTraces[
-										avail.denom.split('/')[1]
-									]?.denom_trace.path.toUpperCase() ?? ''
-								}}/{{
-									denomTraces[
-										avail.denom.split('/')[1]
-									]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
+								IBC/{{ denomTraces[avail.denom.split('/')[1]]?.denom_trace.path.toUpperCase() ?? '' }}/{{
+									denomTraces[avail.denom.split('/')[1]]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
 								}}
 							</template>
 							<template v-else>
@@ -120,9 +80,7 @@
 			<input
 				class="sp-input sp-input-large"
 				:class="{
-					'sp-error':
-						fulldenom.amount != '' &&
-						parseAmount(fulldenom.amount) - parseAmount(amount) < 0
+					'sp-error': fulldenom.amount != '' && parseAmount(fulldenom.amount) - parseAmount(amount) < 0,
 				}"
 				name="rcpt"
 				v-model="amount"
@@ -156,23 +114,23 @@ export default defineComponent({
 			focused: false,
 			modalOpen: false,
 			searchTerm: '',
-			denomTraces: {} as DenomTraces
+			denomTraces: {} as DenomTraces,
 		}
 	},
 	props: {
 		modelValue: {
-			type: Object as PropType<Amount>
+			type: Object as PropType<Amount>,
 		},
 		available: {
-			type: Array as PropType<Array<Amount>>
+			type: Array as PropType<Array<Amount>>,
 		},
 		index: { type: Number as PropType<number> },
 		selected: {
-			type: Array as PropType<Array<string>>
+			type: Array as PropType<Array<string>>,
 		},
 		last: {
-			type: Boolean as PropType<boolean>
-		}
+			type: Boolean as PropType<boolean>,
+		},
 	},
 	emits: ['update:modelValue', 'self-remove'],
 	mounted: function () {
@@ -188,7 +146,7 @@ export default defineComponent({
 				this.denoms.find((x: ColoredAmount) => x.denom == this.denom) ?? {
 					amount: '',
 					denom: '',
-					color: ''
+					color: '',
 				}
 			)
 		},
@@ -197,7 +155,7 @@ export default defineComponent({
 				this.available?.filter(
 					(x) =>
 						this.selected?.findIndex((y) => y == x.denom) == -1 ||
-						this.selected?.findIndex((y) => y == x.denom) == this.index
+						this.selected?.findIndex((y) => y == x.denom) == this.index,
 				) ?? []
 			)
 		},
@@ -216,12 +174,8 @@ export default defineComponent({
 		filteredDenoms: function (): Array<ColoredAmount> {
 			return this.searchTerm == ''
 				? this.denoms
-				: this.denoms.filter(
-						(x) =>
-							x.denom.toUpperCase().indexOf(this.searchTerm.toUpperCase()) !==
-							-1
-				  )
-		}
+				: this.denoms.filter((x) => x.denom.toUpperCase().indexOf(this.searchTerm.toUpperCase()) !== -1)
+		},
 	},
 	methods: {
 		toggleModal: function (): void {
@@ -234,13 +188,10 @@ export default defineComponent({
 			if (balance.denom.indexOf('ibc/') == 0) {
 				const denom = balance.denom.split('/')
 				const hash = denom[1]
-				this.denomTraces[hash] = await this.$store.dispatch(
-					'ibc.applications.transfer.v1/QueryDenomTrace',
-					{
-						options: { subscribe: false, all: false },
-						params: { hash }
-					}
-				)
+				this.denomTraces[hash] = await this.$store.dispatch('ibc.applications.transfer.v1/QueryDenomTrace', {
+					options: { subscribe: false, all: false },
+					params: { hash },
+				})
 			}
 		},
 		setDenom: function (avail: Amount): void {
@@ -251,7 +202,7 @@ export default defineComponent({
 		},
 		parseAmount: function (amount: string): number {
 			return amount == '' ? 0 : parseInt(amount)
-		}
+		},
 	},
 	watch: {
 		modelValue: function (newVal: Amount): void {
@@ -267,7 +218,7 @@ export default defineComponent({
 			if (newVal != oldVal) {
 				this.$emit('update:modelValue', this.currentVal)
 			}
-		}
-	}
+		},
+	},
 })
 </script>

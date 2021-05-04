@@ -6,7 +6,7 @@ import { registerComponent } from './../../utils/plugins/index'
 export const Plugin = {
 	install(vue: Application): void {
 		registerComponent(vue, SpTypeList)
-	}
+	},
 }
 
 export default SpTypeList

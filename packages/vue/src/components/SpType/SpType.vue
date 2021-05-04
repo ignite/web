@@ -16,11 +16,7 @@
 						class="sp-type__create sp-shadow"
 					/>
 				</div>
-				<SpTypeList
-					:modulePath="modulePath"
-					:moduleType="moduleType"
-					class="sp-type__list"
-				/>
+				<SpTypeList :modulePath="modulePath" :moduleType="moduleType" class="sp-type__list" />
 			</div>
 		</div>
 	</div>
@@ -33,19 +29,19 @@ export default defineComponent({
 	name: 'SpType',
 	components: {
 		SpTypeList,
-		SpTypeForm
+		SpTypeForm,
 	},
 	props: {
 		modulePath: {
 			type: String as PropType<string>,
 			default: '',
-			required: true
+			required: true,
 		},
 		moduleType: {
 			type: String as PropType<string>,
 			default: '',
-			required: true
-		}
-	}
+			required: true,
+		},
+	},
 })
 </script>

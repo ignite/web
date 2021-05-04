@@ -4,10 +4,7 @@
 			<div class="sp-type-list__header sp-box-header">
 				{{ moduleType.toUpperCase() + 'S' }}
 			</div>
-			<div
-				class="sp-type-list-empty"
-				v-if="!typeItems || typeItems.length == 0"
-			>
+			<div class="sp-type-list-empty" v-if="!typeItems || typeItems.length == 0">
 				<div class="sp-type-list__item">
 					<div class="sp-type-list__item__icon">
 						<div class="sp-icon sp-icon-Docs" />
@@ -28,11 +25,7 @@
 							<div class="sp-icon sp-icon-Docs" />
 						</div>
 						<div class="sp-type-list__item__details">
-							<div
-								class="sp-type-list__item__details__field"
-								v-for="field in fieldList"
-								v-bind:key="field"
-							>
+							<div class="sp-type-list__item__details__field" v-for="field in fieldList" v-bind:key="field">
 								<strong> {{ capitalize(field.name) }} </strong><br />
 								{{ item[field.name] }}
 							</div>
@@ -43,14 +36,8 @@
 							v-if="address"
 						>
 							<div class="sp-icon sp-icon-More" v-on:click="moreOpen = index" />
-							<div
-								class="sp-type-list__item__options sp-box"
-								v-if="moreOpen == index"
-							>
-								<div
-									class="sp-type-list__item__options__edit"
-									v-on:click=";(editID = item['id']), (editOpen = true)"
-								>
+							<div class="sp-type-list__item__options sp-box" v-if="moreOpen == index">
+								<div class="sp-type-list__item__options__edit" v-on:click=";(editID = item['id']), (editOpen = true)">
 									Edit
 								</div>
 								<div
@@ -109,12 +96,12 @@ export default defineComponent({
 	props: {
 		moduleType: {
 			type: String as PropType<string>,
-			default: ''
+			default: '',
 		},
 		modulePath: {
 			type: String as PropType<string>,
-			default: ''
-		}
+			default: '',
+		},
 	},
 	data: function () {
 		return {
@@ -123,7 +110,7 @@ export default defineComponent({
 			editOpen: false,
 			deleteOpen: false,
 			editID: -1,
-			deleteID: -1
+			deleteID: -1,
 		} as SpTypeListState
 	},
 	computed: {
@@ -132,9 +119,7 @@ export default defineComponent({
 		},
 		typeItems: function (): Array<SpTypeObject> {
 			if (this._depsLoaded) {
-				const items = this.$store.getters[
-					this.modulePath + '/get' + this.moduleType + 'All'
-				]()
+				const items = this.$store.getters[this.modulePath + '/get' + this.moduleType + 'All']()
 				return items ? items[this.capitalize(this.moduleType)] : []
 			} else {
 				return []
@@ -142,7 +127,7 @@ export default defineComponent({
 		},
 		depsLoaded: function (): boolean {
 			return this._depsLoaded
-		}
+		},
 	},
 	beforeCreate: function (): void {
 		const module = [...this.modulePath.split('/')]
@@ -157,19 +142,14 @@ export default defineComponent({
 	},
 	created: async function (): Promise<void> {
 		if (this._depsLoaded) {
-			this.fieldList = this.$store.getters[
-				this.modulePath + '/getTypeStructure'
-			](this.moduleType)
-			await this.$store.dispatch(
-				this.modulePath + '/Query' + this.moduleType + 'All',
-				{ options: { subscribe: true } }
-			)
+			this.fieldList = this.$store.getters[this.modulePath + '/getTypeStructure'](this.moduleType)
+			await this.$store.dispatch(this.modulePath + '/Query' + this.moduleType + 'All', { options: { subscribe: true } })
 		}
 	},
 	methods: {
 		capitalize: function (str: string): string {
 			return str.charAt(0).toUpperCase() + str.slice(1)
-		}
-	}
+		},
+	},
 })
 </script>
