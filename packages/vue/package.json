@@ -53,15 +53,5 @@
     "sass-loader": "^8.0.2",
     "typescript": "^4.2.4",
     "webpack-bundle-analyzer": "^4.4.1"
-  },
-  "peerDependencies": {
-    "@cosmjs/encoding": "^0.25.0-alpha.2",
-    "@cosmjs/launchpad": "^0.25.0-alpha.2",
-    "@starport/vuex": "^0.1.44",
-    "axios": "^0.21.1",
-    "vue": "^3.0.11",
-    "vue-router": "^4.0.3",
-    "vue-uuid": "^2.0.2",
-    "vuex": "^4.0.0"
   }
 }
