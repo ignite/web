@@ -408,7 +408,31 @@
     opacity: 0.4;
   }
 }
-
+.sp-welcome {
+  .sp-welcome__main {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    &:before {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 70rem;
+      height: 70rem;
+      right: -25rem;
+      top: -33rem;
+      border-radius: 35rem;
+      background: linear-gradient(225.74deg, rgba(245, 246, 248, 0) 52.21%, #f5f6f8 86.29%);
+      z-index: -1;
+    }
+    .sp-welcome__btns {
+      margin-top: 4rem;
+      .sp-welcome__btns__github {
+        margin-left: 1rem;
+      }
+    }
+  }
+}
 .sp-logo {
   .sp-logo-wrapper {
     display: flex;
@@ -425,8 +449,9 @@
 }
 
 .sp-button {
+  appearance: button;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
   height: 4rem;
   padding: 0rem 2rem;
   background: $black;
@@ -440,7 +465,8 @@
   transition: 180ms ease;
   transform: translateZ(0);
   position: relative;
-
+  text-decoration: none;
+  align-items: center;
   .sp-button__loading {
     position: absolute;
     display: none;
@@ -453,6 +479,7 @@
     background: $black;
     border: 0.2rem solid $black;
     color: white;
+    margin-bottom: 1rem;
   }
 
   &.sp-button-secondary {
