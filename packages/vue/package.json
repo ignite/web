@@ -19,17 +19,7 @@
     "js-base64": "^3.6.0"
   },
   "devDependencies": {
-    "@cosmjs/amino": "0.25.0-alpha.2",
-    "@cosmjs/crypto": "0.25.0-alpha.2",
-    "@cosmjs/encoding": "0.25.0-alpha.2",
-    "@cosmjs/faucet-client": "0.25.0-alpha.2",
-    "@cosmjs/launchpad": "0.25.0-alpha.2",
-    "@cosmjs/math": "0.25.0-alpha.2",
-    "@cosmjs/proto-signing": "0.25.0-alpha.2",
-    "@cosmjs/stargate": "0.25.0-alpha.2",
-    "@cosmjs/stream": "0.25.0-alpha.2",
-    "@cosmjs/tendermint-rpc": "0.25.0-alpha.2",
-    "@cosmjs/utils": "0.25.0-alpha.2",
+    "@cosmjs/encoding": "0.25.0",
     "@starport/vuex": "^0.1.48",
     "@types/crypto-js": "^4.0.1",
     "@types/file-saver": "^2.0.2",
