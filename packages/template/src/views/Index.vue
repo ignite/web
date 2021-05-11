@@ -2,6 +2,7 @@
 	<div>
 		<div class="container">
 			<SpWelcome />
+			<SpLatestBlocks />
 			<SpTokenSend :address="address" />
 			<SpTransferList :address="address" />
 		</div>

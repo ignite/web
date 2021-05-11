@@ -1,16 +1,21 @@
 <template>
-	<div class="SpBlockDisplayFull">
+	<div class="sp-blockdisplayfull">
 		<pre>{{ block }}</pre>
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+export interface SpBlockDisplayFullState {
+	txs: Array<unknown>
+}
 export default defineComponent({
 	name: 'SpBlockDisplayFull',
 	props: {
-		block: Object,
+		block: {
+			type: Object as PropType<unknown>,
+		},
 	},
-	data() {
+	data: function (): SpBlockDisplayFullState {
 		return {
 			txs: [],
 		}

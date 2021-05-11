@@ -13,17 +13,21 @@
 	</router-link>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import dayjs from 'dayjs'
 
 export default defineComponent({
 	name: 'SpBlockDisplaySmall',
 	props: {
-		block: Object,
-		tsFormat: String,
+		block: {
+			type: Object as PropType<unknown>,
+		},
+		tsFormat: {
+			type: String as PropType<string>,
+		},
 	},
 	methods: {
-		formatTS(timestamp) {
+		formatTS: function (timestamp: number): string {
 			const momentTime = dayjs(timestamp)
 			return momentTime.format(this.tsFormat)
 		},
