@@ -67,10 +67,10 @@ export default {
 			return state.relayerLinks[name]
 		},
 		chainFromChannel: (state) => (channel) => {
-			return state.relayers.find((x) => x.status == 'connected' && x.src.channelId == channel)?.chainIdB ?? channel
+			return state.relayers.find((x) => x.status == 'connected' && x.src?.channelId == channel)?.chainIdB ?? channel
 		},
 		chainToChannel: (state) => (channel) => {
-			return state.relayers.find((x) => x.status == 'connected' && x.dest.channelId == channel)?.chainIdB ?? channel
+			return state.relayers.find((x) => x.status == 'connected' && x.dest?.channelId == channel)?.chainIdB ?? channel
 		},
 		log: (state) => state.transientLog.msg,
 	},
