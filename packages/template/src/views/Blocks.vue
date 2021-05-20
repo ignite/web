@@ -1,67 +1,78 @@
 <template>
-	<table>
-		<thead>
-			<tr>
-				<th><strong>Height</strong></th>
-				<th><strong>Hash</strong></th>
-				<th><strong>Time</strong></th>
-				<th><strong>TXs</strong></th>
-			</tr>
-		</thead>
-		<tbody>
-			<template v-for="block in blocks" v-bind:key="block.hash">
-				<SpBlockDisplayLine :block="block" />
-			</template>
-		</tbody>
-	</table>
-	<div class="pagination">
-		<span
-			class="page-link"
-			v-for="pageLink in pages"
-			v-bind:key="'page' + pageLink"
-		>
-			<router-link :to="'/blocks/' + pageLink">{{ pageLink }} </router-link>
-		</span>
+	<div class="container">
+		<div class="sp-component">
+			<table class="sp-box sp-shadow sp-blocks SpTable SpBlocksTable">
+				<thead>
+					<tr>
+						<th><strong>HEIGHT</strong></th>
+						<th><strong>HASH</strong></th>
+						<th><strong>TIME</strong></th>
+						<th><strong>TXs</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<SpBlockDisplayLine :block="block" tsFormat="YYYY-MM-DD HH:mm:ss" v-for="block in blocks" v-bind:key="block.hash" />
+				</tbody>
+			</table>
+			<div class="sp-component sp-pagination">
+				<div class="SpPaginationTitle">PAGES</div>
+				<router-link to="/blocks/1" v-if="page >= 2">
+					<button class="SpButton">
+						<div class="SpButtonText">&lt;&lt;</div>
+					</button>
+				</router-link>
+				<router-link :to="'/blocks/' + (page - 1)" v-if="page >= 2">
+					<button class="SpButton">
+						<div class="SpButtonText">&lt;</div>
+					</button>
+				</router-link>
+				<span class="SpPaginationItem active">
+					{{ page }}
+				</span>
+				<router-link :to="'/blocks/' + (page + 1)" v-if="page < pages">
+					<button class="SpButton">
+						<div class="SpButtonText">&gt;</div>
+					</button>
+				</router-link>
+				<router-link :to="'/blocks/' + pages" v-if="page < pages">
+					<button class="SpButton">
+						<div class="SpButtonText">&gt;&gt;</div>
+					</button>
+				</router-link>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 import axios from 'axios'
-
 export default {
 	data() {
 		return {
 			blocks: [],
-
 			pages: 1
 		}
 	},
-
 	computed: {
 		page() {
-			return this.$route.params.page || 1
+			return parseInt(this.$route.params.page) || 1
 		}
 	},
 	watch: {
 		page: async function (newPage) {
 			this.blocks = []
-			const chain = await axios.get(
-				this.$store.getters['common/env/apiTendermint'] +
-					'/blockchain?minHeight=1&maxHeight=20'
-			)
-			const lowest = parseInt(
-				chain.data.result.block_metas[chain.data.result.block_metas.length - 1]
-					.header.height
-			)
-
+			const chain = await axios.get(this.$store.getters['common/env/apiTendermint'] + '/blockchain?minHeight=1&maxHeight=20')
+			const lowest = parseInt(chain.data.result.block_metas[chain.data.result.block_metas.length - 1].header.height)
 			const highest = parseInt(chain.data.result.last_height)
-			this.pages = Math.ceil((highest - lowest) / 20)
+			this.pages = Math.ceil((highest - lowest + 1) / 20)
+			let from
+			if (highest + 1 - this.page * 20 >= 1) {
+				from = highest + 1 - this.page * 20
+			} else {
+				from = 1
+			}
 			const page = await axios.get(
-				this.$store.getters['common/env/apiTendermint'] +
-					'/blockchain?minHeight=' +
-					(highest + 1 - newPage * 20) +
-					'&maxHeight=' +
-					(highest - (newPage - 1) * 20)
+				this.$store.getters['common/env/apiTendermint'] + '/blockchain?minHeight=' + from + '&maxHeight=' + (highest - (newPage - 1) * 20)
 			)
 			for (let block_meta of page.data.result.block_metas) {
 				const block = {
@@ -75,28 +86,18 @@ export default {
 		}
 	},
 	async mounted() {
-		if (this.$route.params.page) {
-			this.page = this.$route.params.page
-		} else {
-			this.page = 1
-		}
-		const chain = await axios.get(
-			this.$store.getters['common/env/apiTendermint'] +
-				'/blockchain?minHeight=1&maxHeight=20'
-		)
-		const lowest = parseInt(
-			chain.data.result.block_metas[chain.data.result.block_metas.length - 1]
-				.header.height
-		)
-
+		const chain = await axios.get(this.$store.getters['common/env/apiTendermint'] + '/blockchain?minHeight=1&maxHeight=20')
+		const lowest = parseInt(chain.data.result.block_metas[chain.data.result.block_metas.length - 1].header.height)
 		const highest = parseInt(chain.data.result.last_height)
-		this.pages = Math.ceil((highest - lowest) / 20)
+		this.pages = Math.ceil((highest - lowest + 1) / 20)
+		let from
+		if (highest + 1 - this.page * 20 >= 1) {
+			from = highest + 1 - this.page * 20
+		} else {
+			from = 1
+		}
 		const page = await axios.get(
-			this.$store.getters['common/env/apiTendermint'] +
-				'/blockchain?minHeight=' +
-				(highest + 1 - this.page * 20) +
-				'&maxHeight=' +
-				(highest - (this.page - 1) * 20)
+			this.$store.getters['common/env/apiTendermint'] + '/blockchain?minHeight=' + from + '&maxHeight=' + (highest - (this.page - 1) * 20)
 		)
 		for (let block_meta of page.data.result.block_metas) {
 			const block = {

@@ -1,5 +1,5 @@
 <template>
-	<router-link class="SpBlockDisplaySmall" :to="'/block/' + block.height">
+	<router-link class="sp-box sp-blockdisplaysmall sp-shadow" :to="'/block/' + block.height">
 		<div class="SpBlockDisplaySmallHeight">
 			{{ block.height }}
 		</div>
