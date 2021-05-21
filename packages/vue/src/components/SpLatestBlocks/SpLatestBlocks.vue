@@ -15,21 +15,21 @@
 			<div v-else class="sp-latestblocks__main__empty">
 				<p>Generating blocks</p>
 			</div>
+			<SpButton type="primary" link="/blocks">View all blocks</SpButton>
 		</div>
-		<router-link to="/blocks/" class="SpButton">
-			<div class="SpButtonText">VIEW ALL BLOCKS</div>
-		</router-link>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import SpBlockDisplaySmall from '../SpBlockDisplaySmall'
+import SpButton from '../SpButton'
 
 export default defineComponent({
 	name: 'SpLatestBlocks',
 	components: {
 		SpBlockDisplaySmall,
+		SpButton,
 	},
 	computed: {
 		blocks: function (): Array<unknown> {

@@ -2,15 +2,124 @@
   margin-bottom: 5rem;
 }
 
+.sp-box {
+  background: white;
+  border-radius: 1.2rem;
+  padding: 2rem;
+  font-size: 1.4rem;
+
+  .sp-box-header {
+    opacity: 0.4;
+    font-weight: 600;
+    font-size: 1.3rem;
+    display: flex;
+    line-height: 2.2rem;
+  }
+}
 .sp-wallet {
   position: fixed;
   top: 2rem;
   right: 2rem;
   z-index: 90;
 }
+.sp-latestblocks {
+  &__main {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+      align-self: flex-start;
+    }
+    &__list {
+      width: 100%;
+    }
+  }
+}
+.sp-blockdisplayfull {
+  &__transaction {
+    margin-top: 2rem;
+    background: #fcfcfc;
+  }
+}
+.sp-blockdisplayline {
+  &__height {
+    text-align: center;
+    &__link {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.8rem;
+      color: $black;
+      opacity: 0.6;
+    }
+  }
+  &__hash {
+    opacity: 0.6;
+  }
+  &__timestamp {
+    opacity: 0.6;
+  }
+  &__txs {
+    text-align: center;
+    opacity: 0.6;
+  }
+}
+.sp-pagination {
+  display: flex;
+  margin-top: 3rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  &__item {
+    font-size: 1.4rem;
+    height: 4rem;
+    padding: 0 2rem;
+    line-height: 4rem;
+    font-weight: 600;
+  }
+  .sp-button {
+    margin: 0rem 0.5rem;
+    &.sp-button-secondary {
+      margin-bottom: 0rem;
+    }
+  }
+}
 .sp-blockdisplaysmall {
-  display: block;
+  display: flex;
+  color: $black;
   margin-bottom: 2rem;
+  text-decoration: none;
+  align-items: center;
+  background: #fcfcfc;
+  justify-content: space-between;
+  &__height {
+    opacity: 0.6;
+  }
+  &__hash {
+    opacity: 0.6;
+    font-weight: bold;
+  }
+  &__timestamp {
+    opacity: 0.6;
+  }
+  &__txs {
+    opacity: 0.6;
+  }
+}
+.sp-blockstable {
+  width: 100%;
+  &__hash {
+    text-align: left;
+  }
+  &__timestamp {
+    text-align: left;
+  }
+  th {
+    padding: 1rem;
+  }
+  td {
+    padding: 1rem;
+  }
 }
 .sp-wallet-menu {
   background: white;
@@ -711,20 +820,6 @@
     margin-left: 1.1rem;
     font-size: 1.4rem;
     opacity: 0.6;
-  }
-}
-.sp-box {
-  background: white;
-  border-radius: 1.2rem;
-  padding: 2rem;
-  font-size: 1.4rem;
-
-  .sp-box-header {
-    opacity: 0.4;
-    font-weight: 600;
-    font-size: 1.3rem;
-    display: flex;
-    line-height: 2.2rem;
   }
 }
 .sp-relayers__holder {

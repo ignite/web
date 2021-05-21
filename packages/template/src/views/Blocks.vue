@@ -1,44 +1,20 @@
 <template>
 	<div class="container">
 		<div class="sp-component">
-			<table class="sp-box sp-shadow sp-blocks SpTable SpBlocksTable">
-				<thead>
-					<tr>
-						<th><strong>HEIGHT</strong></th>
-						<th><strong>HASH</strong></th>
-						<th><strong>TIME</strong></th>
-						<th><strong>TXs</strong></th>
-					</tr>
-				</thead>
-				<tbody>
-					<SpBlockDisplayLine :block="block" tsFormat="YYYY-MM-DD HH:mm:ss" v-for="block in blocks" v-bind:key="block.hash" />
-				</tbody>
-			</table>
-			<div class="sp-component sp-pagination">
-				<div class="SpPaginationTitle">PAGES</div>
-				<router-link to="/blocks/1" v-if="page >= 2">
-					<button class="SpButton">
-						<div class="SpButtonText">&lt;&lt;</div>
-					</button>
-				</router-link>
-				<router-link :to="'/blocks/' + (page - 1)" v-if="page >= 2">
-					<button class="SpButton">
-						<div class="SpButtonText">&lt;</div>
-					</button>
-				</router-link>
-				<span class="SpPaginationItem active">
-					{{ page }}
-				</span>
-				<router-link :to="'/blocks/' + (page + 1)" v-if="page < pages">
-					<button class="SpButton">
-						<div class="SpButtonText">&gt;</div>
-					</button>
-				</router-link>
-				<router-link :to="'/blocks/' + pages" v-if="page < pages">
-					<button class="SpButton">
-						<div class="SpButtonText">&gt;&gt;</div>
-					</button>
-				</router-link>
+			<div class="sp-box sp-shadow">
+				<SpBlocksTable :blocks="blocks" />
+			</div>
+
+			<div class="sp-component">
+				<div class="sp-box sp-shadow sp-pagination">
+					<SpButton link="/blocks/1" v-if="page >= 2" type="secondary"> &lt;&lt; </SpButton>
+					<SpButton :link="'/blocks/' + (page - 1)" v-if="page >= 2" type="secondary"> &lt; </SpButton>
+					<span class="sp-pagination__item active">
+						{{ page }}
+					</span>
+					<SpButton :link="'/blocks/' + (page + 1)" v-if="page < pages" type="secondary"> &gt; </SpButton>
+					<SpButton :link="'/blocks/' + pages" v-if="page < pages" type="secondary"> &gt;&gt; </SpButton>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<SpBlockDisplayFull :block="block" v-if="block" />
+			<SpBlockDisplayFull :block="block" v-if="block" tsFormat="MMM D YYYY, HH:mm:ss" />
 		</div>
 	</div>
 </template>
@@ -16,17 +16,7 @@ export default {
 		}
 	},
 	async created() {
-		const blockDetails = await axios.get(
-			this.$store.getters['common/env/apiTendermint'] +
-				'/block?height=' +
-				this.$route.params.block
-		)
-		this.block = {
-			height: blockDetails.data.result.block.header.height,
-			timestamp: blockDetails.data.result.block.header.time,
-			hash: blockDetails.data.result.block_id.hash,
-			details: blockDetails.data.result.block
-		}
+		this.block = await this.$store.dispatch('common/blocks/getShiftedBlock', this.$route.params.block)
 	}
 }
 </script>
