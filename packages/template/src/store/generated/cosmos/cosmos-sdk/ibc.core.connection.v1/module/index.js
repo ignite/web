@@ -2,17 +2,17 @@
 import { SigningStargateClient } from '@cosmjs/stargate'
 import { Registry } from '@cosmjs/proto-signing'
 import { Api } from './rest'
-import { MsgConnectionOpenInit } from './types/ibc/core/connection/v1/tx'
 import { MsgConnectionOpenTry } from './types/ibc/core/connection/v1/tx'
 import { MsgConnectionOpenConfirm } from './types/ibc/core/connection/v1/tx'
+import { MsgConnectionOpenInit } from './types/ibc/core/connection/v1/tx'
 import { MsgConnectionOpenAck } from './types/ibc/core/connection/v1/tx'
 const types = [
-	['/ibc.core.connection.v1.MsgConnectionOpenInit', MsgConnectionOpenInit],
 	['/ibc.core.connection.v1.MsgConnectionOpenTry', MsgConnectionOpenTry],
 	[
 		'/ibc.core.connection.v1.MsgConnectionOpenConfirm',
 		MsgConnectionOpenConfirm
 	],
+	['/ibc.core.connection.v1.MsgConnectionOpenInit', MsgConnectionOpenInit],
 	['/ibc.core.connection.v1.MsgConnectionOpenAck', MsgConnectionOpenAck]
 ]
 export const MissingWalletError = new Error('wallet is required')
@@ -33,16 +33,16 @@ const txClient = async (
 	return {
 		signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: '' }) =>
 			client.signAndBroadcast(address, msgs, fee, memo),
-		msgConnectionOpenInit: (data) => ({
-			typeUrl: '/ibc.core.connection.v1.MsgConnectionOpenInit',
-			value: data
-		}),
 		msgConnectionOpenTry: (data) => ({
 			typeUrl: '/ibc.core.connection.v1.MsgConnectionOpenTry',
 			value: data
 		}),
 		msgConnectionOpenConfirm: (data) => ({
 			typeUrl: '/ibc.core.connection.v1.MsgConnectionOpenConfirm',
+			value: data
+		}),
+		msgConnectionOpenInit: (data) => ({
+			typeUrl: '/ibc.core.connection.v1.MsgConnectionOpenInit',
 			value: data
 		}),
 		msgConnectionOpenAck: (data) => ({
