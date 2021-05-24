@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Index from '@/views/Index.vue'
 import Types from '@/views/Types.vue'
 import Relayers from '@/views/Relayers.vue'
-import Block from '@/views/Block.vue'
-import Blocks from '@/views/Blocks.vue'
 
 const routerHistory = createWebHistory()
 const routes = [
@@ -11,8 +9,6 @@ const routes = [
 		path: '/',
 		component: Index
 	},
-	{ path: '/block/:block', component: Block },
-	{ path: '/blocks/:page?', component: Blocks },
 	{ path: '/types', component: Types },
 	{ path: '/relayers', component: Relayers }
 ]
