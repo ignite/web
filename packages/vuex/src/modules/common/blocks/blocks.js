@@ -105,6 +105,29 @@ export default {
 				})
 			}
 		},
+		async getShiftedBlock({ rootGetters }, blockHeight) {
+			try {
+				const blockDetails = await axios.get(rootGetters['common/env/apiTendermint'] + '/block?height=' + blockHeight)
+				const txDecoded = blockDetails.data.result.block.data.txs.map(async (tx) => {
+					const dec = await decodeTx(rootGetters['common/env/apiCosmos'], rootGetters['common/env/apiTendermint'], tx)
+					return dec
+				})
+				const txs = await Promise.all(txDecoded)
+
+				const block = {
+					height: blockDetails.data.result.block.header.height,
+					timestamp: blockDetails.data.result.block.header.time,
+					hash: blockDetails.data.result.block_id.hash,
+					details: blockDetails.data.result.block,
+					txDecoded: txs,
+				}
+
+				return block
+			} catch (e) {
+				console.log(e)
+				throw new SpVuexError('Blocks:AddBlock', 'Could not retrieve block. RPC node unavailable')
+			}
+		},
 		async addBlock({ commit, rootGetters }, blockData) {
 			try {
 				const blockDetails = await axios.get(
