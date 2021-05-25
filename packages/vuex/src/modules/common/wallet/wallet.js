@@ -176,11 +176,10 @@ export default {
 				if (wallet.name == 'Keplr Integration') {
 					accountSigner = window.getOfflineSigner(rootGetters['common/env/chainId'])
 				} else {
-					accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
-						wallet.mnemonic,
-						stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement),
-						wallet.prefix,
-					)
+					accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(wallet.mnemonic, {
+						HDPaths: [stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement)],
+						prefix: wallet.prefix,
+					})
 				}
 				try {
 					await dispatch('common/env/signIn', accountSigner, {
@@ -201,11 +200,10 @@ export default {
 		},
 		async switchAccount({ commit, state, rootGetters, dispatch }, address) {
 			const accountIndex = state.activeWallet.accounts.findIndex((acc) => acc.address == address)
-			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
-				state.activeWallet.mnemonic,
-				stringToPath(state.activeWallet.HDpath + state.activeWallet.accounts[accountIndex].pathIncrement),
-				state.activeWallet.prefix,
-			)
+			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(state.activeWallet.mnemonic, {
+				HDPaths: [stringToPath(state.activeWallet.HDpath + state.activeWallet.accounts[accountIndex].pathIncrement)],
+				prefix: state.activeWallet.prefix,
+			})
 
 			try {
 				await dispatch('common/env/signIn', accountSigner, { root: true })
@@ -222,11 +220,10 @@ export default {
 				pathIncrement = state.activeWallet.pathIncrement + 1
 				commit('PATH_INCREMENT')
 			}
-			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
-				state.activeWallet.mnemonic,
-				stringToPath(state.activeWallet.HDpath + pathIncrement),
-				state.activeWallet.prefix,
-			)
+			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(state.activeWallet.mnemonic, {
+				HDPaths: [stringToPath(state.activeWallet.HDpath + pathIncrement)],
+				prefix: state.activeWallet.prefix,
+			})
 			const [acc] = await accountSigner.getAccounts()
 			const account = {
 				address: acc.address,
@@ -245,7 +242,7 @@ export default {
 		},
 		async signInWithPrivateKey({ commit, rootGetters, dispatch }, { prefix = 'cosmos', privKey }) {
 			const pKey = keyFromWif(privKey.trim())
-			const accountSigner = await DirectSecp256k1Wallet.fromKey(pKey, prefix)
+			const accountSigner = await DirectSecp256k1Wallet.fromKey(pKey, { prefix })
 			const [firstAccount] = await accountSigner.getAccounts()
 
 			try {
@@ -266,11 +263,10 @@ export default {
 				incr++
 			}
 			wallet.name = newName
-			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(
-				wallet.mnemonic,
-				stringToPath(wallet.HDpath + '0'),
-				wallet.prefix,
-			)
+			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(wallet.mnemonic, {
+				HDPaths: [stringToPath(wallet.HDpath + '0')],
+				prefix: wallet.prefix,
+			})
 			const [firstAccount] = await accountSigner.getAccounts()
 			commit('ADD_WALLET', wallet)
 
@@ -299,7 +295,10 @@ export default {
 				pathIncrement: 0,
 				accounts: [],
 			}
-			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, stringToPath(HDpath + '0'), prefix)
+			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
+				HDPaths: [stringToPath(HDpath + '0')],
+				prefix,
+			})
 			const [firstAccount] = await accountSigner.getAccounts()
 			const account = { address: firstAccount.address, pathIncrement: 0 }
 			wallet.accounts.push(account)
