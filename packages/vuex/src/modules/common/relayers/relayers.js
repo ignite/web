@@ -161,16 +161,14 @@ export default {
 				}
 			}
 			if (!external) {
-				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(
-					rootGetters['common/wallet/getMnemonic'],
-					stringToPath(rootGetters['common/wallet/getPath']),
-					rootGetters['common/env/addrPrefix'],
-				)
-				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(
-					rootGetters['common/wallet/getMnemonic'],
-					stringToPath(rootGetters['common/wallet/getPath']),
-					relayer.prefix,
-				)
+				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
+					HDpaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					prefix: rootGetters['common/env/addrPrefix'],
+				})
+				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
+					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					prefix: relayer.prefix,
+				})
 				const [accountB] = await signerB.getAccounts()
 				const optionsA = {
 					prefix: rootGetters['common/env/addrPrefix'],
@@ -201,16 +199,14 @@ export default {
 				throw new SpVuexError('relayers:connectRelayer', 'Relayer already connected.')
 			}
 			try {
-				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(
-					rootGetters['common/wallet/getMnemonic'],
-					stringToPath(rootGetters['common/wallet/getPath']),
-					rootGetters['common/env/addrPrefix'],
-				)
-				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(
-					rootGetters['common/wallet/getMnemonic'],
-					stringToPath(rootGetters['common/wallet/getPath']),
-					relayer.prefix,
-				)
+				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
+					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					prefix: rootGetters['common/env/addrPrefix'],
+				})
+				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
+					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					prefix: relayer.prefix,
+				})
 				const [accountA] = await signerA.getAccounts()
 				const [accountB] = await signerB.getAccounts()
 				const transientLog = {
@@ -295,16 +291,14 @@ export default {
 				throw new SpVuexError('relayers:connectRelayer', 'Relayer already connected.')
 			}
 			try {
-				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(
-					rootGetters['common/wallet/getMnemonic'],
-					stringToPath(rootGetters['common/wallet/getPath']),
-					rootGetters['common/env/addrPrefix'],
-				)
-				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(
-					rootGetters['common/wallet/getMnemonic'],
-					stringToPath(rootGetters['common/wallet/getPath']),
-					relayer.prefix,
-				)
+				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
+					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					prefix: rootGetters['common/env/addrPrefix'],
+				})
+				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
+					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					prefix: relayer.prefix,
+				})
 				const [accountA] = await signerA.getAccounts()
 				const [accountB] = await signerB.getAccounts()
 				const transientLog = {
