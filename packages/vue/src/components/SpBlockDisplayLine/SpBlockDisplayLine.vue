@@ -1,31 +1,37 @@
 <template>
-	<tr class="SpBlockDisplayLine">
-		<td class="blockHeight">
-			<router-link :to="'/block/' + block.height">{{ block.height }} </router-link>
+	<tr class="sp-blockdisplayline">
+		<td class="sp-blockdisplayline__height">
+			<router-link :to="'/block/' + block.height" class="sp-blockdisplayline__height__link"
+				>{{ block.height }}
+			</router-link>
 		</td>
-		<td class="blockHash">
+		<td class="sp-blockdisplayline__hash">
 			{{ block.hash }}
 		</td>
-		<td class="blockTime">
+		<td class="sp-blockdisplayline__timestamp">
 			{{ formatTS(block.timestamp) }}
 		</td>
-		<td class="blockTxs">
+		<td class="sp-blockdisplayline__txs">
 			{{ block.details.num_txs }}
 		</td>
 	</tr>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import dayjs from 'dayjs'
 
 export default defineComponent({
 	name: 'SpBlockDisplayLine',
 	props: {
-		block: Object,
-		tsFormat: String,
+		block: {
+			type: Object as PropType<unknown>,
+		},
+		tsFormat: {
+			type: String as PropType<string>,
+		},
 	},
 	methods: {
-		formatTS(timestamp) {
+		formatTS(timestamp: number): string {
 			const momentTime = dayjs(timestamp)
 			return momentTime.format(this.tsFormat)
 		},

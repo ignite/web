@@ -1,12 +1,12 @@
 import { App as Application } from 'vue'
-import SpBlockDisplayLine from './SpBlockDisplayLine.vue'
+import SpWelcome from './SpWelcome.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
 export const Plugin = {
 	install(vue: Application): void {
-		registerComponent(vue, SpBlockDisplayLine)
+		registerComponent(vue, SpWelcome)
 	},
 }
 
-export default SpBlockDisplayLine
+export default SpWelcome
