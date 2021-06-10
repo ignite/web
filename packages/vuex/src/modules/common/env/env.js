@@ -48,22 +48,22 @@ export default {
 	mutations: {
 		SET_CONFIG(state, config) {
 			state.apiNode = config.apiNode
-			if (config.rpcNode) {
+			if (config.rpcNode || config.offline) {
 				state.rpcNode = config.rpcNode
 			}
-			if (config.wsNode) {
+			if (config.wsNode || config.offline) {
 				state.wsNode = config.wsNode
 			}
-			if (config.chainId) {
+			if (config.chainId || config.offline) {
 				state.chainId = config.chainId
 			}
-			if (config.addrPrefix) {
+			if (config.addrPrefix || config.offline) {
 				state.addrPrefix = config.addrPrefix
 			}
-			if (config.sdkVersion) {
+			if (config.sdkVersion || config.offline) {
 				state.sdkVersion = config.sdkVersion
 			}
-			if (config.getTXApi) {
+			if (config.getTXApi || config.offline) {
 				state.getTXApi = config.getTXApi
 			}
 		},
@@ -105,6 +105,7 @@ export default {
 				chainName: '',
 				sdkVersion: 'Stargate',
 				getTXApi: rpcNode + '/tx?hash=0x',
+				offline: false,
 			},
 		) {
 			try {
@@ -147,6 +148,7 @@ export default {
 				chainId: '',
 				addrPrefix: '',
 				sdkVersion: 'Stargate',
+				offline: false,
 				getTXApi: 'http://localhost:26657/tx?hash=0x',
 			},
 		) {
