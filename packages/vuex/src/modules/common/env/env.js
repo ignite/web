@@ -106,6 +106,7 @@ export default {
 				sdkVersion: 'Stargate',
 				getTXApi: rpcNode + '/tx?hash=0x',
 				offline: false,
+				refresh: 5000,
 			},
 		) {
 			try {
@@ -149,6 +150,7 @@ export default {
 				addrPrefix: '',
 				sdkVersion: 'Stargate',
 				offline: false,
+				refresh: 5000,
 				getTXApi: 'http://localhost:26657/tx?hash=0x',
 			},
 		) {
@@ -159,6 +161,8 @@ export default {
 						apiAddr: config.apiNode,
 						rpcAddr: config.rpcNode,
 						wsAddr: config.wsNode,
+						offline: config.offline,
+						refresh: config.refresh,
 					})
 					client.setMaxListeners(0)
 					client.on('chain-id', (id) => {
