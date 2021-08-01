@@ -1,6 +1,6 @@
-## App UI Boilerplate
+## App UI Template
 
-Cosmos DAAP boilerplate. Created as a boilerplate to help you easly bootstrap yours app and check the `@starport/vue` components overview and docs.
+[Vue.js](https://vuejs.org/)-based web app template for your Cosmos SDK blockchain. Use it to quickly bootstrap your app. Check out components in `@starport/vue` and the docs to learn more.
 
 
 ## Project setup
