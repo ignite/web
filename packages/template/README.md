@@ -1,8 +1,7 @@
-App UI
+## App UI Boilerplate
 
-This is the [vuejs](https://vuejs.org/) user interface for your app.
+Cosmos DAAP boilerplate. Created as a boilerplate to help you easly bootstrap yours app and check the `@starport/vue` components overview and docs.
 
-The vue.js framework for building your user interface helps with rapid app development. The framework provides UI components including a login and an HTML-based template.
 
 ## Project setup
 
@@ -13,7 +12,7 @@ npm install
 ### Compiles and hot-reloads for development
 
 ```
-npm run serve
+npm run dev
 ```
 
 ### Compiles and minifies for production
@@ -21,6 +20,20 @@ npm run serve
 ```
 npm run build
 ```
+
+### You can check Storybook for the @starport/vue components
+
+#### Run
+```
+npm install
+npm run storybook
+```
+
+#### Build a static
+```
+npm run build-storybook
+```
+
 
 ### Customize configuration
 
