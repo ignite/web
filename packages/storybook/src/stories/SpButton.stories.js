@@ -1,14 +1,8 @@
-// import StoryRouter from 'storybook-vue-router'
-
-// import { withLinks } from '@storybook/addon-links'
-// todo: import SpButton from '@StarportUI/SpButton';
 import SpButton from '../../../vue/src/components/SpButton'
 
 export default {
 	title: 'Example/SpButton',
 	component: SpButton,
-	// todo: call router-link navigation
-	// decorators: [StoryRouter],
 	argTypes: {
 		type: {
 			description: 'To switch the themes.',

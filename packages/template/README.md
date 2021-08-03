@@ -21,20 +21,6 @@ npm run dev
 npm run build
 ```
 
-### You can check Storybook for the @starport/vue components
-
-#### Run
-```
-npm install
-npm run storybook
-```
-
-#### Build a static
-```
-npm run build-storybook
-```
-
-
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).

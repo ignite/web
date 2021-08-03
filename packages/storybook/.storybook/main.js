@@ -6,15 +6,13 @@ module.exports = {
     '../src/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   'addons': [
-		'@storybook/addon-actions',
-    // '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-scss',
-		// 'storybook-vue-router'
   ],
 	features: {
 		postcss: false,
   },
+	// todo
 	// webpackFinal: async (config) => ({
 	// 	...config,
 	// 	resolve: {
