@@ -11,7 +11,7 @@ export default {
 			defaultValue: 'primary'
 		},
 		disabled: {
-			description: 'Disable yours button.',
+			description: 'Disable your button.',
 			type: 'boolean',
 			defaultValue: false
 		},
