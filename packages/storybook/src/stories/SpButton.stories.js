@@ -5,7 +5,7 @@ export default {
 	component: SpButton,
 	argTypes: {
 		type: {
-			description: 'To switch the themes.',
+			description: 'To switch the button themes.',
 			type: 'radio',
 			options: ['primary', 'secondary'],
 			defaultValue: 'primary'
@@ -21,17 +21,17 @@ export default {
 			defaultValue: false
 		},
 		href: {
-			description: 'Set yours href attribute.',
+			description: 'Set yours href attribute. If it defined SpButton becomes <a>.',
 			type: 'string',
 			defaultValue: ''
 		},
 		link: {
-			description: 'Set router-link "to" attribue.',
+			description: 'Set router-link "to" attribue. If it defined SpButton becomes <router-link>.',
 			type: 'string',
 			defaultValue: ''
 		},
 		target: {
-			description: `Set "target" attribute value.`,
+			description: `Set "target" attribute value. If it defined SpButton becomes <a>.`,
 			type: 'select',
 			options: ['_blank', '_self', '_parent', '_top', 'framename']
 		}
