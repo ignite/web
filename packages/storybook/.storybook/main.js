@@ -8,17 +8,9 @@ module.exports = {
   'addons': [
     '@storybook/addon-essentials',
     '@storybook/preset-scss',
+		'storybook-addon-pseudo-states'
   ],
 	features: {
 		postcss: false,
   },
-	// todo
-	// webpackFinal: async (config) => ({
-	// 	...config,
-	// 	resolve: {
-	// 		alias: {
-	// 			'@StarportUI': path.resolve(__dirname, '../..' ,'vue/src/components'),
-	// 		},
-	// 	},
-	// }),
 }
