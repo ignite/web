@@ -3,6 +3,7 @@ import SpButton from '../../../vue/src/components/SpButton'
 export default {
 	title: 'Example/SpButton',
 	component: SpButton,
+	decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
 	argTypes: {
 		type: {
 			description: 'To switch the button themes.',

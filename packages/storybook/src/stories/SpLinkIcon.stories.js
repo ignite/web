@@ -38,6 +38,7 @@ const icons = [
 export default {
 	title: 'Example/SpLinkIcon',
 	component: SpLinkIcon,
+	decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
 	argTypes: {
 		text: {
 			description: 'Link text',

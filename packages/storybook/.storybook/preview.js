@@ -1,6 +1,8 @@
 // explicitly import all @starport/vue styles
 import '../../vue/src/styles/app.scss'
 
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -10,4 +12,7 @@ export const parameters = {
     },
     expanded: true
   },
+	viewport: {
+		viewports: INITIAL_VIEWPORTS
+	}
 }
