@@ -1,4 +1,4 @@
-## Storybook
+# Storybook
 
 ## Project setup
 
