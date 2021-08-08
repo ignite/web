@@ -6,7 +6,7 @@ export default {
 	argTypes: {
 		type: {
 			description: 'To switch the themes.',
-			control: { type: 'radio' },
+			type: 'radio',
 			options: ['primary', 'secondary'],
 			defaultValue: 'primary'
 		},
@@ -34,11 +34,6 @@ export default {
 			description: `Set "target" attribute value.`,
 			type: 'select',
 			options: ['_blank', '_self', '_parent', '_top', 'framename']
-		},
-		text: {
-			description: 'Not a prop, but child. The text inside SpButton tag.',
-			type: 'string',
-			defaultValue: 'SpButton.'
 		}
 	}
 }
@@ -48,19 +43,17 @@ const Template = (args) => ({
 	setup() {
 		return { args }
 	},
-	template: '<SpButton v-bind="args">{{ args.text }}</SpButton>'
+	template: '<SpButton v-bind="args">SpButton</SpButton>'
 })
 
 export const Primary = Template.bind({})
 Primary.args = {
-	type: 'primary',
-	text: 'Primary'
+	type: 'primary'
 }
 
 export const Secondary = Template.bind({})
 Secondary.args = {
-	type: 'secondary',
-	text: 'Secondary'
+	type: 'secondary'
 }
 
 export const Loading = Template.bind({})
@@ -70,15 +63,13 @@ Loading.args = {
 
 export const Disabled = Template.bind({})
 Disabled.args = {
-	disabled: true,
-	text: 'Disabled'
+	disabled: true
 }
 
-export const GoParentTab = Template.bind({})
-GoParentTab.args = {
+export const OpenAtNewTab = Template.bind({})
+OpenAtNewTab.args = {
 	href: 'https://www.wikipedia.org',
-	target: '_blank',
-	text: 'Wikipedia'
+	target: '_blank'
 }
 
 // export const GoRouteLink = Template.bind({})
