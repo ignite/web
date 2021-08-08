@@ -5,6 +5,11 @@ export default {
 	component: SpButton,
 	decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
 	argTypes: {
+		default: {
+			control: 'text',
+			description: 'Content to be placed inside a button',
+			defaultValue: 'SpButton'
+		},
 		type: {
 			description: 'To switch the button themes.',
 			type: 'radio',
@@ -23,13 +28,11 @@ export default {
 		},
 		href: {
 			description: 'Set yours href attribute. If it defined SpButton becomes <a>.',
-			type: 'string',
-			defaultValue: ''
+			type: 'string'
 		},
 		link: {
 			description: 'Set router-link "to" attribue. If it defined SpButton becomes <router-link>.',
-			type: 'string',
-			defaultValue: ''
+			type: 'string'
 		},
 		target: {
 			description: `Set "target" attribute value. If it defined SpButton becomes <a>.`,
@@ -44,7 +47,7 @@ const Template = (args) => ({
 	setup() {
 		return { args }
 	},
-	template: '<SpButton v-bind="args">SpButton</SpButton>'
+	template: `<SpButton v-bind="args">${args.default}</SpButton>`
 })
 
 export const Primary = Template.bind({})
@@ -71,6 +74,13 @@ export const OpenAtNewTab = Template.bind({})
 OpenAtNewTab.args = {
 	href: 'https://www.wikipedia.org',
 	target: '_blank'
+}
+
+export const WithIcon = Template.bind({})
+WithIcon.args = {
+	href: 'https://www.wikipedia.org',
+	target: '_blank',
+	default: '<span class="sp-icon sp-icon-Docs"></span> Wikipedia'
 }
 
 // export const GoRouteLink = Template.bind({})
