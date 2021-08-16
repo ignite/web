@@ -1,0 +1,6 @@
+src
+.editorconfig
+.eslintignore
+.eslintrc.js
+.prettierrc
+babel.config.js
