@@ -29,7 +29,7 @@ Storybook is an open source tool for building UI components and pages in isolati
 npm install
 ```
 
-### Run
+### Run Storybook
 ```
 npm run storybook
 ```
