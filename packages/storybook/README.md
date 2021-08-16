@@ -1,0 +1,41 @@
+# Storybook
+
+Storybook is an open source tool for building UI components and pages in isolation. It streamlines UI development, testing, and documentation.
+
+- [Documentation](https://storybook.js.org/docs/vue/get-started/introduction)
+- [Writing Stories](https://storybook.js.org/docs/vue/writing-stories/introduction)
+- [Writing Docs](https://storybook.js.org/docs/vue/writing-docs/introduction)
+- [Testing with Storybook](https://storybook.js.org/docs/vue/workflows/testing-with-storybook)
+
+## The purpose
+
+### Development for the Starport
+
+- Help to develop new components in isolated way.
+- Be sure that component is isolated enoght and reusable.
+- Create e2e, unit and manual tests.
+- Create the documentation.
+
+### Starport usage
+
+- To get an overview for the `@starport/vue` components.
+- To see and play with component's props, slots, events and etc.
+- To get some kind of documentation.
+
+
+## Project setup
+
+```
+npm install
+```
+
+### Run Storybook
+```
+npm run storybook
+```
+Go to http://localhost:6006 
+
+### Build Storybook (static web app)
+```
+npm run build-storybook
+```
