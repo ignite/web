@@ -1,9 +1,10 @@
 import SpButton from '../../../vue/src/components/SpButton'
+import margin from './marginDecorator'
 
 export default {
 	title: 'Example/SpButton',
 	component: SpButton,
-	decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+	decorators: [margin],
 	argTypes: {
 		default: {
 			control: 'text',

@@ -1,7 +1,13 @@
-// explicitly import all @starport/vue styles
+import { app } from '@storybook/vue3';
+import Vuex from 'vuex'
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+
+import store from '../src/store'
+
 import '../../vue/src/styles/app.scss'
 
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+app.config.globalProperties._depsLoaded = true
+app.use(store)
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

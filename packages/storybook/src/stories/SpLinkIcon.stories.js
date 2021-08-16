@@ -1,4 +1,5 @@
 import SpLinkIcon from '../../../vue/src/components/SpLinkIcon'
+import margin from './marginDecorator'
 
 const icons = [
 	'Download',
@@ -38,7 +39,7 @@ const icons = [
 export default {
 	title: 'Example/SpLinkIcon',
 	component: SpLinkIcon,
-	decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+	decorators: [margin],
 	argTypes: {
 		text: {
 			description: 'Link text',

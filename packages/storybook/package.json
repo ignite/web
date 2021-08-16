@@ -11,7 +11,8 @@
     "build": "vue-cli-service build",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "link": "cd ../vuex && npm link && cd ../vue && npm link && cd ../storybook && npm link --ignore-scripts @starport/vue @starport/vuex"
   },
   "dependencies": {
     "core-js": "^3.11.2",
@@ -23,7 +24,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/node": "^7.13.13",
-    "@storybook/addon-actions": "^6.3.6",
     "@storybook/addon-essentials": "^6.3.6",
     "@storybook/addon-links": "^6.3.6",
     "@storybook/preset-scss": "^1.0.3",
