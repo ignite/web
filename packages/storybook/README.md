@@ -35,7 +35,7 @@ npm run storybook
 ```
 Go to http://localhost:6006 
 
-### Build a static
+### Build Storybook (static web app)
 ```
 npm run build-storybook
 ```
