@@ -1,5 +1,6 @@
 import { env, blocks, wallet, transfers, relayers } from '@starport/vuex'
-import generated from './generated'
+import generated from '../../../template/src/store/generated'
+
 export default function init(store) {
 	for (const moduleInit of Object.values(generated)) {
 		moduleInit(store)
