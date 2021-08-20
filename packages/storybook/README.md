@@ -39,3 +39,13 @@ Go to http://localhost:6006
 ```
 npm run build-storybook
 ```
+
+### If you plan to use `./packages/vue` and `./packages/vuex` source, run `npm run link`.
+
+import { Preview, Story } from '@storybook/addon-docs/blocks'
+import useEnv from '../utils/useEnv'
+
+### Keep in mind about enviroment
+```
+It's defined at the `.env` file. Without `.env` there is localhost default.
+```
