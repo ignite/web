@@ -1,13 +1,21 @@
 import { app } from '@storybook/vue3';
-import Vuex from 'vuex'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 
+import vueLib from '@starport/vue'
 import store from '../src/store'
 
 import '../../vue/src/styles/app.scss'
 
 app.config.globalProperties._depsLoaded = true
-app.use(store)
+app.use(store).use(vueLib)
+
+
+async function beforeStory() {
+	return store.dispatch('common/env/init')
+}
+
+beforeStory().then(() => console.log('init story'))
+
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -20,5 +28,5 @@ export const parameters = {
   },
 	viewport: {
 		viewports: INITIAL_VIEWPORTS
-	}
+	},
 }
