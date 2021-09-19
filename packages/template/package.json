@@ -4,6 +4,9 @@
   "description": "A Vue 3 boilerplate project utilizing @starport/vue and @starport/vuex",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "private": true,
+  "engines": {
+    "node": "^14.0.0"
+  },
   "scripts": {
     "serve": "vue-cli-service serve --mode=production",
     "dev": "vue-cli-service serve",
