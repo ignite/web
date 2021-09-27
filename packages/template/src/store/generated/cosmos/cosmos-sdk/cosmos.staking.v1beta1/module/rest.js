@@ -145,7 +145,7 @@ export class HttpClient {
     }
 }
 /**
- * @title cosmos/staking/v1beta1/genesis.proto
+ * @title cosmos/staking/v1beta1/authz.proto
  * @version version not set
  */
 export class Api extends HttpClient {
