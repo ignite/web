@@ -1,4 +1,4 @@
-import { txClient, queryClient, MissingWalletError } from './module';
+import { txClient, queryClient, MissingWalletError, registry } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
 import { SigningInfo } from "./module/types/cosmos/slashing/v1beta1/genesis";
@@ -50,6 +50,7 @@ const getDefaultState = () => {
             ValidatorSigningInfo: getStructure(ValidatorSigningInfo.fromPartial({})),
             Params: getStructure(Params.fromPartial({})),
         },
+        _Registry: registry,
         _Subscriptions: new Set(),
     };
 };
@@ -93,6 +94,9 @@ export default {
         },
         getTypeStructure: (state) => (type) => {
             return state._Structure[type].fields;
+        },
+        getRegistry: (state) => {
+            return state._Registry;
         }
     },
     actions: {
