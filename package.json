@@ -5,7 +5,7 @@
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
   "scripts": {
-    "netlify:prepare": "lerna bootstrap --hoist && lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'",
+    "netlify:prepare": "lerna bootstrap  && lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'",
     "netlify:linkvue": "cd ./packages/vue && npm link",
     "netlify:linkvuex": "cd ./packages/vuex && npm link",
     "netlify:build": "npm run netlify:prepare && npm run netlify:linkvue && npm run netlify:linkvuex && cd ./packages/template && npm install && npm link @starport/vue @starport/vuex && npm run build -- --mode spn"
