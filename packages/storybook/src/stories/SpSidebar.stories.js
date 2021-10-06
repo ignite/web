@@ -1,4 +1,4 @@
-import SpSidebar from '../../../vue/src/components/SpSidebar'
+import { SpSidebar } from '@starport/vue'
 
 export default {
 	title: 'Example/SpSidebar',

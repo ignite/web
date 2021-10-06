@@ -1,4 +1,4 @@
-import SpButton from '../../../vue/src/components/SpButton'
+import { SpButton } from '@starport/vue'
 
 export default {
 	title: 'Example/SpButton',

@@ -1,10 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const webpack = require('webpack')
-
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 
 module.exports = {
-	configureWebpack: {
+  transpileDependencies: true,
+  publicPath: './',
+  configureWebpack: {
 		externals: {
 			'element-ui': {
 				commonjs: 'element-ui',
@@ -24,29 +24,16 @@ module.exports = {
 				root: 'axios',
 				amd: 'axios',
 			},
-			moment: {
-				commonjs: 'moment',
-				commonjs2: 'moment',
-				root: 'moment',
-				amd: 'moment',
+			dayjs: {
+				commonjs: 'dayjs',
+				commonjs2: 'dayjs',
+				root: 'dayjs',
+				amd: 'dayjs',
 			},
 		},
-		entry: {
-			main: './src/index.ts',
-		},
-		plugins: [
-			new webpack.IgnorePlugin(/^\.\/wordlists\/(?!english)/),
-			//	,new BundleAnalyzerPlugin()
-		],
-		stats: {
-			logging: 'verbose',
-			modules: true,
-			moduleTrace: true,
-			moduleAssets: true,
-			children: true,
-			providedExports: true,
-			source: true,
-			reasons: true,
-		},
-	},
+    entry: {
+      main: './src/index.ts',
+    },
+    plugins: [new webpack.IgnorePlugin({ resourceRegExp: /^\.\/wordlists\/(?!english)/ }), new NodePolyfillPlugin()],
+  },
 }

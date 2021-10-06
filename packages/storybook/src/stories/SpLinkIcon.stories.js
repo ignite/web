@@ -1,4 +1,4 @@
-import SpLinkIcon from '../../../vue/src/components/SpLinkIcon'
+import { SpLinkIcon } from '@starport/vue'
 
 const icons = [
 	'Download',
