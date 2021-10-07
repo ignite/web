@@ -170,6 +170,7 @@ import SpAssets from '../SpAssets'
 import SpAmountSelect from '../SpAmountSelect'
 import { Bech32 } from '@cosmjs/encoding'
 import { Amount, DenomTraces, Relayer } from '../../utils/interfaces'
+import long from 'long';
 
 export interface TransferData {
   recipient: string
@@ -418,7 +419,8 @@ export default defineComponent({
                   sourceChannel: this.transfer.channel,
                   sender: this.bankAddress,
                   receiver: this.transfer.recipient,
-                  timeoutTimestamp: new Date().getTime() + 60000 + '000000',
+                  timeoutHeight: 0,
+                  timeoutTimestamp: long.fromNumber(new Date().getTime() + 60000 ).multiply(1000000),
                   token: this.transfer.amount[0],
                 },
                 fee: this.transfer.fees,
