@@ -412,6 +412,12 @@ export default defineComponent({
               options: { all: true, subscribe: false },
             })
           } else {
+            this.inFlight = true
+            this.transfer.fees.forEach((x) => {
+              if (x.amount == '') {
+                x.amount = '0'
+              }
+            })
             try {
               const txResult = await this.$store.dispatch('ibc.applications.transfer.v1/sendMsgTransfer', {
                 value: {
