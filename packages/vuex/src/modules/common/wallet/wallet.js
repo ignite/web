@@ -177,7 +177,7 @@ export default {
 					accountSigner = window.getOfflineSigner(rootGetters['common/env/chainId'])
 				} else {
 					accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(wallet.mnemonic, {
-						HDPaths: [stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement)],
+						hdPaths: [stringToPath(wallet.HDpath + wallet.accounts[0].pathIncrement)],
 						prefix: wallet.prefix,
 					})
 				}
@@ -201,7 +201,7 @@ export default {
 		async switchAccount({ commit, state, rootGetters, dispatch }, address) {
 			const accountIndex = state.activeWallet.accounts.findIndex((acc) => acc.address == address)
 			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(state.activeWallet.mnemonic, {
-				HDPaths: [stringToPath(state.activeWallet.HDpath + state.activeWallet.accounts[accountIndex].pathIncrement)],
+				hdPaths: [stringToPath(state.activeWallet.HDpath + state.activeWallet.accounts[accountIndex].pathIncrement)],
 				prefix: state.activeWallet.prefix,
 			})
 
@@ -221,7 +221,7 @@ export default {
 				commit('PATH_INCREMENT')
 			}
 			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(state.activeWallet.mnemonic, {
-				HDPaths: [stringToPath(state.activeWallet.HDpath + pathIncrement)],
+				hdPaths: [stringToPath(state.activeWallet.HDpath + pathIncrement)],
 				prefix: state.activeWallet.prefix,
 			})
 			const [acc] = await accountSigner.getAccounts()
@@ -264,7 +264,7 @@ export default {
 			}
 			wallet.name = newName
 			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(wallet.mnemonic, {
-				HDPaths: [stringToPath(wallet.HDpath + '0')],
+				hdPaths: [stringToPath(wallet.HDpath + '0')],
 				prefix: wallet.prefix,
 			})
 			const [firstAccount] = await accountSigner.getAccounts()
@@ -296,7 +296,7 @@ export default {
 				accounts: [],
 			}
 			const accountSigner = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-				HDPaths: [stringToPath(HDpath + '0')],
+				hdPaths: [stringToPath(HDpath + '0')],
 				prefix,
 			})
 			const [firstAccount] = await accountSigner.getAccounts()

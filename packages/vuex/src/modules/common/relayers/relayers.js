@@ -162,11 +162,11 @@ export default {
 			}
 			if (!external) {
 				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
-					HDpaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					hdPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
 					prefix: rootGetters['common/env/addrPrefix'],
 				})
 				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
-					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					hdPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
 					prefix: relayer.prefix,
 				})
 				const [accountB] = await signerB.getAccounts()
@@ -200,11 +200,11 @@ export default {
 			}
 			try {
 				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
-					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					hdPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
 					prefix: rootGetters['common/env/addrPrefix'],
 				})
 				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
-					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					hdPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
 					prefix: relayer.prefix,
 				})
 				const [accountA] = await signerA.getAccounts()
@@ -292,11 +292,11 @@ export default {
 			}
 			try {
 				const signerA = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
-					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					hdPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
 					prefix: rootGetters['common/env/addrPrefix'],
 				})
 				const signerB = await DirectSecp256k1HdWallet.fromMnemonic(rootGetters['common/wallet/getMnemonic'], {
-					HDPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
+					hdPaths: [stringToPath(rootGetters['common/wallet/getPath'])],
 					prefix: relayer.prefix,
 				})
 				const [accountA] = await signerA.getAccounts()

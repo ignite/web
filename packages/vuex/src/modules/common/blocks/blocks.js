@@ -46,7 +46,18 @@ async function getTx(apiCosmos, apiTendermint, encodedTx) {
 	}
 }
 async function decodeTx(apiCosmos, apiTendermint, encodedTx) {
-	const fullTx = await getTx(apiCosmos, apiTendermint, encodedTx)
+	let fullTx
+	let retries = 0
+	while (!fullTx && retries < 5) {
+		try {
+			fullTx = await getTx(apiCosmos, apiTendermint, encodedTx)
+		} catch (e) {
+			retries++
+			await new Promise((resolve) => {
+				setTimeout(resolve, 2000)
+			})
+		}
+	}
 	const { data } = fullTx.rpcRes
 	const { height, tx_result } = data.result
 	const { code, log, gas_used, gas_wanted } = tx_result
