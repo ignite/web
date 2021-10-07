@@ -14,7 +14,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
     'prettier/prettier': [
-      'error',
+      'warn',
       {
         trailingComma: 'all',
         semi: false,
