@@ -143,7 +143,9 @@ export default defineComponent({
   created: async function (): Promise<void> {
     if (this._depsLoaded) {
       this.fieldList = this.$store.getters[this.modulePath + '/getTypeStructure'](this.moduleType)
-      await this.$store.dispatch(this.modulePath + '/Query' + this.moduleType + 'All', { options: { subscribe: true } })
+      await this.$store.dispatch(this.modulePath + '/Query' + this.moduleType + 'All', {
+        options: { subscribe: true, all: true },
+      })
     }
   },
   methods: {
