@@ -23,7 +23,7 @@ jobs:
           scope: starport
           
       - name: Bootstrap
-        run: lerna bootstrap --hoist
+        run: lerna bootstrap
 
       - name: Build
         run: lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'

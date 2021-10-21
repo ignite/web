@@ -21,27 +21,27 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@confio/relayer": "^0.1.4",
-    "@cosmjs/crypto": "0.25.0",
-    "@cosmjs/encoding": "0.25.0",
-    "@cosmjs/launchpad": "0.25.0",
-    "@cosmjs/proto-signing": "0.25.0",
-    "@cosmjs/stargate": "0.25.0",
-    "@cosmjs/tendermint-rpc": "0.25.0",
-    "@cosmjs/utils": "0.25.0",
+    "@confio/relayer": "^0.3.0",
+    "@cosmjs/crypto": "^0.26.1",
+    "@cosmjs/encoding": "^0.26.1",
+    "@cosmjs/launchpad": "^0.26.1",
+    "@cosmjs/proto-signing": "^0.26.1",
+    "@cosmjs/stargate": "^0.26.1",
+    "@cosmjs/tendermint-rpc": "^0.26.1",
+    "@cosmjs/utils": "^0.26.1",
     "@starport/client-js": "^0.1.53",
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "bs58": "^4.0.1",
-    "crypto-js": "^4.0.0"
+    "crypto-js": "^4.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.0",
-    "@babel/preset-env": "^7.14.1",
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.2.1"
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "prettier": "^2.4.1"
   }
 }
