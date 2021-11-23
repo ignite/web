@@ -304,6 +304,7 @@ export default defineComponent({
 
         try {
           await window.keplr.experimentalSuggestChain({
+            features: ['no-legacy-stdTx'],
             chainId: chainId,
             chainName: this.$store.getters['common/env/chainName'],
             rpc: this.$store.getters['common/env/apiTendermint'],
