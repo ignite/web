@@ -9,3 +9,40 @@
 ### Changed:
 
 - updated codeowners
+
+## `v0.1.54`
+
+### Changed:
+
+- updated dependencies
+- updated generated cosmos-sdk code
+
+## `v0.1.53`
+
+### Features:
+- new storybook package
+
+### Changed:
+
+- updated generated cosmos-sdk code
+
+## `v0.1.52`
+
+### Changed:
+
+- added refresh for offline clients
+
+## `v0.1.51`
+
+### Features:
+
+- added offline client support
+- auto-updating balance in `SpTokenSend`
+
+## `v0.1.50`
+
+### Changed:
+- updated cosmjs wallet method signatures
+
+
+
