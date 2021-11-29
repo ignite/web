@@ -43,6 +43,3 @@
 
 ### Changed:
 - updated cosmjs wallet method signatures
-
-
-
