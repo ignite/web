@@ -1,6 +1,6 @@
 {
   "name": "@starport/storybook",
-  "version": "0.1.55",
+  "version": "0.1.56",
   "description": "Overview and docs for the @starport/vue components",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "private": true,
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/node": "^7.15.4",
-    "@starport/vue": "^0.1.55",
+    "@starport/vue": "^0.1.56",
     "@storybook/addon-actions": "^6.4.0-beta.4",
     "@storybook/addon-essentials": "^6.4.0-beta.4",
     "@storybook/addon-links": "^6.4.0-beta.4",
