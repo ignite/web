@@ -1,17 +1,12 @@
 /* eslint-disable */
 import './styles/app.scss'
 import { App as Application, Plugin } from 'vue'
-import * as components from './components/index'
 import { setVueInstance } from './utils/config/index'
-import { registerComponent } from './utils/plugins/index'
 
 const install: Exclude<Plugin['install'], undefined> = (
   instance: Application
 ) => {
   setVueInstance(instance)
-  for (const componentKey in components) {
-    registerComponent(instance, (components as any)[componentKey])
-  }
 
   instance.directive('click-outside', {
     beforeMount(el, binding) {
@@ -29,4 +24,3 @@ const install: Exclude<Plugin['install'], undefined> = (
 }
 
 export default install
-export * from './components'

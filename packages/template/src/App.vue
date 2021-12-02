@@ -1,15 +1,5 @@
 <template>
-  <div v-if="initialized">
-    <SpWallet ref="wallet" v-on:dropdown-opened="$refs.menu.closeDropdown()" />
-    <SpLayout>
-      <template v-slot:sidebar>
-        <Sidebar />
-      </template>
-      <template v-slot:content>
-        <router-view />
-      </template>
-    </SpLayout>
-  </div>
+  <div v-if="initialized">teseting</div>
 </template>
 
 <style>
@@ -19,14 +9,9 @@ body {
 </style>
 
 <script>
-import './scss/app.scss'
 import '@starport/vue/lib/starport-vue.css'
-import Sidebar from './components/Sidebar'
 
 export default {
-  components: {
-    Sidebar,
-  },
   data() {
     return {
       initialized: false,
