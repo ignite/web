@@ -1,5 +1,11 @@
 # Changelog
 
+## `v0.1.56`
+
+### Fixed:
+
+- adjusted `transpileDependencies` property
+
 ## `v0.1.55`
 
 ### Features:
