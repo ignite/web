@@ -9,6 +9,7 @@
         class="modal sp-box sp-shadow"
         role="dialog"
         @click.stop
+        tabindex="0"
       >
         <header
           class="modal-header"
@@ -85,14 +86,20 @@ export default {
       defaultsTo: true
     },
   },
-  data() {
-    return {
+  watch: {
+    visible: function (newVal) {
+      if (newVal) {
+        document.addEventListener('keyup', this.escapeHandler)
+      } else {
+        document.removeEventListener('keyup', this.escapeHandler)
+      }
     }
   },
-  computed: {
-  },
   methods: {
-  },
+    escapeHandler(evt) {
+      if (evt.key === 'Escape') this.$emit('close')
+    }
+  }
 }
 </script>
 
