@@ -5,6 +5,8 @@
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
   "scripts": {
+    "purge": "lerna exec -- rm -rf node_modules",
+    "dev:build": "lerna bootstrap --force-local  && lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'",
     "netlify:prepare": "lerna bootstrap  && lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'",
     "netlify:linkvue": "cd ./packages/vue && npm link",
     "netlify:linkvuex": "cd ./packages/vuex && npm link",
