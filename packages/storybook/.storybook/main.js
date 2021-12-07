@@ -1,16 +1,11 @@
-const path = require('path');
-
 module.exports = {
-  'stories': [
-    '../src/**/*.stories.mdx',
-    '../src/**/*.stories.@(js|jsx|ts|tsx)'
+  "stories": [
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
-  'addons': [
-    '@storybook/addon-essentials',
-    '@storybook/preset-scss',
-		'storybook-addon-pseudo-states'
+  "addons": [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials"
   ],
-	features: {
-		postcss: false,
-  },
+  "framework": "@storybook/vue3"
 }
