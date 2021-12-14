@@ -9,4 +9,4 @@ export const Plugin = {
   },
 }
 
-export default SpButton
+export default SpModal
