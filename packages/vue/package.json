@@ -16,7 +16,8 @@
     "file-saver": "^2.0.5",
     "gradient-avatar": "^1.0.2",
     "js-base64": "^3.7.2",
-    "long": "^4.0.0"
+    "long": "^4.0.0",
+    "qrcode": "^1.5.0"
   },
   "peerDependencies": {
     "@cosmjs/encoding": "^0.26.1",
@@ -33,6 +34,7 @@
     "@types/file-saver": "^2.0.3",
     "@types/jest": "^27.0.2",
     "@types/long": "^4.0.1",
+    "@types/qrcode": "^1.4.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@vue/cli-plugin-babel": "~5.0.0-beta.4",

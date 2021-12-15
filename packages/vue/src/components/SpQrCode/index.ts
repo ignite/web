@@ -1,13 +1,13 @@
 import { App as Application } from 'vue'
 
-import SpCard from './SpCard.vue'
+import SpQrCode from './SpQrCode.vue'
 
 import { registerComponent } from '@/utils/plugins/index'
 
 export const Plugin = {
   install(vue: Application): void {
-    registerComponent(vue, SpCard)
+    registerComponent(vue, SpQrCode)
   },
 }
 
-export default SpCard
+export default SpQrCode
