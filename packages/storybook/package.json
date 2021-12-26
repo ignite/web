@@ -1,6 +1,6 @@
 {
-  "name": "@starport/template",
-  "version": "0.1.53",
+  "name": "@starport/storybook",
+  "version": "0.2.0",
   "description": "Overview and docs for the @starport/vue components",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "private": true,
