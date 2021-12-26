@@ -1,4 +1,8 @@
 import { SpModal } from '@starport/vue'
+import '@starport/vue/lib/starport-vue.css'
+import { app } from '@storybook/vue3'
+import vueLib from '@starport/vue'
+app.use(vueLib)
 
 export default {
 	title: 'Example/SpModal',
@@ -11,9 +15,9 @@ export default {
 			defaultValue: 'Create post'
 		},
 		submitButton: {
-			control: 'text',
-			description: 'Text used for submit button',
-			defaultValue: 'Create'
+			description: 'Submit button visibility.',
+			type: 'boolean',
+			defaultValue: true
 		},
 		visible: {
 			description: 'Modal visibility.',
@@ -38,7 +42,8 @@ const Template = (args) => ({
 	setup() {
 		return { args }
 	},
-	template: `<SpModal v-bind="args" />`
+	template: `<SpModal v-bind="args">
+	</SpModal>`
 })
 
 export const VisibleModal = Template.bind({})

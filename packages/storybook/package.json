@@ -1,54 +1,52 @@
 {
-  "name": "@starport/storybook",
-  "version": "0.2.0",
+  "name": "@starport/template",
+  "version": "0.1.53",
   "description": "Overview and docs for the @starport/vue components",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "test": "echo \"Error: run tests from root\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "@cosmjs/launchpad": "0.25.0",
+    "@cosmjs/proto-signing": "0.25.0",
+    "@cosmjs/stargate": "0.25.0",
+    "@starport/vue": "^0.1.53",
+    "@starport/vuex": "^0.1.53",
+    "@vue/compiler-sfc": "^3.0.11",
+    "bip39": "^3.0.4",
+    "core-js": "^3.11.2",
+    "crypto-js": "^4.0.0",
+    "file-saver": "^2.0.5",
+    "vue": "^3.0.11",
+    "vue-router": "^4.0.3",
+    "vue-uuid": "^2.0.2",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "@starport/vue": "^0.1.56",
-    "@babel/core": "^7.16.0",
-    "@storybook/addon-actions": "^6.4.8",
-    "@storybook/addon-essentials": "^6.4.8",
-    "@storybook/addon-links": "^6.4.8",
-    "@storybook/vue3": "^6.4.8",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/vue3": "^6.4.9",
+    "@vue/cli-plugin-babel": "^4.5.12",
+    "@vue/cli-plugin-eslint": "^4.5.12",
+    "@vue/cli-plugin-vuex": "^4.5.12",
+    "@vue/cli-service": "^4.5.12",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.3",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.9.0",
+    "node-sass": "^4.12.0",
+    "prettier": "^2.2.1",
+    "protobufjs": "^6.11.2",
+    "sass-loader": "^8.0.2",
     "vue-loader": "^16.8.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }

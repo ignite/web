@@ -1,4 +1,8 @@
 import { SpButton } from '@starport/vue'
+import '@starport/vue/lib/starport-vue.css'
+import { app } from '@storybook/vue3'
+import vueLib from '@starport/vue'
+app.use(vueLib)
 
 export default {
 	title: 'Example/SpButton',
