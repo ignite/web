@@ -1,16 +1,13 @@
 import { App as Application } from 'vue'
 // @ts-ignore
-import SpAccountList from './SpAccountList.vue'
+import SpWelcome from './SpWelcome.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 
 export const Plugin = {
   install(vue: Application): void {
-    registerComponent(vue, SpAccountList)
+    registerComponent(vue, SpWelcome)
   },
 }
 
-// use(Plugin);
-
-export default SpAccountList
-  
+export default SpWelcome

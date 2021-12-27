@@ -1,6 +1,6 @@
 <template>
   <div v-if="initialized">
-    <SpWallet ref="wallet" v-on:dropdown-opened="$refs.menu.closeDropdown()" />
+    <SpWelcome />
   </div>
 </template>
 
@@ -11,12 +11,10 @@ body {
 </style>
 
 <script>
-import "./scss/app.scss";
+import "./style/app.css";
 import "@starport/vue/lib/style.css";
-import Sidebar from "./components/Sidebar.vue";
 
 export default {
-  components: { Sidebar },
   data() {
     return {
       initialized: false,
