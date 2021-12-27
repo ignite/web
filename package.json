@@ -5,7 +5,7 @@
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
   "scripts": {
-    "purge": "lerna exec -- rm -rf node_modules",
+    "purge": "lerna exec --parallel -- rm -rf node_modules",
     "bootstrap:local": "lerna bootstrap --force-local",
     "dev:watch": "npm run bootstrap:local && lerna exec --parallel --scope='{@starport/vue,@starport/vuex}' -- npm run dev",
     "dev:serve": "lerna exec --parallel --scope='@starport/template' -- npm run dev",
