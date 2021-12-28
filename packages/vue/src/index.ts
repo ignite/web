@@ -2,25 +2,20 @@
 import './styles/app.scss'
 import { App as Application, Plugin } from 'vue'
 import { setVueInstance } from './utils/config/index'
+import { registerComponent } from './utils/plugins/index'
+import * as components from './components/index'
 
-const install: Exclude<Plugin['install'], undefined> = (
-  instance: Application
-) => {
+import { Buffer } from 'buffer'
+
+// @ts-ignore
+globalThis['Buffer'] = Buffer
+
+const install: Exclude<Plugin['install'], undefined> = (instance: Application) => {
   setVueInstance(instance)
-
-  instance.directive('click-outside', {
-    beforeMount(el, binding) {
-      el.clickOutsideEvent = function (event: { target: any }) {
-        if (!(el === event.target || el.contains(event.target))) {
-          binding.value(event, el)
-        }
-      }
-      document.body.addEventListener('click', el.clickOutsideEvent)
-    },
-    unmounted(el) {
-      document.body.removeEventListener('click', el.clickOutsideEvent)
-    }
-  })
+  for (const componentKey in components) {
+    registerComponent(instance, (components as any)[componentKey])
+  }
 }
 
 export default install
+export * from './components'

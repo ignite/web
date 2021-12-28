@@ -3,7 +3,7 @@ import ReconnectingWebSocket from 'reconnecting-websocket'
 import axios, { AxiosPromise, AxiosResponse } from 'axios'
 import { SigningStargateClient } from '@cosmjs/stargate'
 import { OfflineDirectSigner, Registry } from '@cosmjs/proto-signing'
-import SpClientError from './errors/SpClientError'
+
 export interface IClientConfig {
   apiAddr: string
   rpcAddr?: string
@@ -86,7 +86,7 @@ export default class SPClient extends EventEmitter {
     }
     if (this.apiAddr) {
       try {
-        const status = await axios.get(this.apiAddr + '/node_info')
+        const status: any = await axios.get(this.apiAddr + '/node_info')
         this.emit('chain-id', status.data.node_info.network)
         status.data.application_version.name
           ? this.emit('chain-name', status.data.application_version.name)
@@ -95,7 +95,7 @@ export default class SPClient extends EventEmitter {
       } catch (error) {
         if (!error.response) {
           this.emit('api-status', false)
-          console.error(new SpClientError('Client-js:API', 'API Node unavailable'))
+          console.error(new Error('Client-js:API API Node unavailable'))
         } else {
           this.emit('api-status', true)
         }
@@ -107,7 +107,7 @@ export default class SPClient extends EventEmitter {
         this.emit('rpc-status', true)
       } catch (error) {
         if (!error.response) {
-          console.error(new SpClientError('Client-js:API', 'RPC Node unavailable'))
+          console.error(new Error('Client-js:API RPC Node unavailable'))
           this.emit('rpc-status', false)
         } else {
           this.emit('rpc-status', true)
@@ -116,7 +116,7 @@ export default class SPClient extends EventEmitter {
     }
   }
   private onErrorWS(): void {
-    console.error(new SpClientError('Client-js:WS', 'Could not connect to websocket.'))
+    console.error(new Error('Client-js:WS Could not connect to websocket.'))
   }
   private onCloseWS(): void {
     this.emit('ws-status', false)
@@ -143,7 +143,7 @@ export default class SPClient extends EventEmitter {
       const response: IAPIResponse = await axios.get(this.apiAddr + url + params)
       return response.data
     } catch (e) {
-      console.error(new SpClientError('Client-js:API', 'Could not access API: ' + url))
+      console.error(new Error('Client-js:API Could not access API: ' + url))
     }
   }
 
@@ -186,7 +186,7 @@ export default class SPClient extends EventEmitter {
       const data: AxiosResponse<T> = await response
       return data
     } catch (e) {
-      console.error(new SpClientError('Client-js:API', 'Could not access API: ' + url))
+      console.error(new Error('Client-js:API Could not access API: ' + url))
     }
   }
 }
