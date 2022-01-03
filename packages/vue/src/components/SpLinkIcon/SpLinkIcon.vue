@@ -1,6 +1,13 @@
 <template>
   <div class="sp-link-icon">
-    <a class="sp-link-icon-wrapper" v-if="href" :alt="text" :title="text" :href="href" :target="target">
+    <a
+      class="sp-link-icon-wrapper"
+      v-if="href"
+      :alt="text"
+      :title="text"
+      :href="href"
+      :target="target"
+    >
       <div class="sp-link-icon__icon">
         <span class="sp-icon" :class="'sp-icon-' + icon" v-if="icon" />
       </div>
@@ -24,21 +31,21 @@ export default defineComponent({
   name: 'SpLinkIcon',
   props: {
     link: {
-      type: String as PropType<string>,
+      type: String as PropType<string>
     },
     href: {
-      type: String as PropType<string>,
+      type: String as PropType<string>
     },
     target: {
-      type: String as PropType<string>,
+      type: String as PropType<string>
     },
     icon: {
-      type: String as PropType<string>,
+      type: String as PropType<string>
     },
     text: {
       type: String as PropType<string>,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 })
 </script>

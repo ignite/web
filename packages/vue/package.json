@@ -5,7 +5,8 @@
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w"
+    "dev": "rollup -c -w",
+    "lint": "prettier --check src"
   },
   "main": "lib/index.js",
   "dependencies": {

@@ -13,8 +13,20 @@
 
       <footer class="modal-footer">
         <slot name="footer">
-          <button v-if="submitButton" aria-label="Submit" @click="$emit('submit')">Submit</button>
-          <button v-if="cancelButton" aria-label="Close modal" @click="$emit('close')">Close</button>
+          <button
+            v-if="submitButton"
+            aria-label="Submit"
+            @click="$emit('submit')"
+          >
+            Submit
+          </button>
+          <button
+            v-if="cancelButton"
+            aria-label="Close modal"
+            @click="$emit('close')"
+          >
+            Close
+          </button>
         </slot>
       </footer>
     </div>

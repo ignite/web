@@ -1,11 +1,11 @@
-import cjs from "@rollup/plugin-commonjs";
-import ts from "@rollup/plugin-typescript";
+import cjs from '@rollup/plugin-commonjs'
+import ts from '@rollup/plugin-typescript'
 
 export default {
-	input: "src/index.js",
+	input: 'src/index.js',
 	output: {
-		dir: "lib",
-		format: "esm",
+		dir: 'lib',
+		format: 'esm'
 	},
-	plugins: [ts(), cjs()],
-};
+	plugins: [ts(), cjs()]
+}

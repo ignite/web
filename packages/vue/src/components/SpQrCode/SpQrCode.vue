@@ -14,20 +14,20 @@ export default defineComponent({
   props: {
     value: {
       type: String,
-      default: '',
+      default: ''
     },
     width: {
       type: Number,
-      default: 100,
+      default: 100
     },
     background: {
       type: String,
-      default: '#0000', // Transparent
+      default: '#0000' // Transparent
     },
     color: {
       type: String,
-      default: '#000000ff',
-    },
+      default: '#000000ff'
+    }
   },
 
   setup(props) {
@@ -39,8 +39,8 @@ export default defineComponent({
         width: (props as any).width,
         color: {
           dark: (props as any).color,
-          light: (props as any).background,
-        },
+          light: (props as any).background
+        }
       }
 
       toCanvas(canvas.value, props.value, options)
@@ -50,7 +50,7 @@ export default defineComponent({
     watch(props, generate)
 
     return { canvas }
-  },
+  }
 })
 </script>
 

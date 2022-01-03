@@ -11,7 +11,9 @@ import { Buffer } from 'buffer'
 // @ts-ignore
 globalThis['Buffer'] = Buffer
 
-const install: Exclude<Plugin['install'], undefined> = (instance: Application) => {
+const install: Exclude<Plugin['install'], undefined> = (
+  instance: Application
+) => {
   setVueInstance(instance)
   for (const componentKey in components) {
     registerComponent(instance, (components as any)[componentKey])

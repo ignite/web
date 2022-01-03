@@ -14,30 +14,30 @@ body {
 </style>
 
 <script>
-import { SpTx, SpTheme, SpWallet } from "@starport/vue";
+import { SpTx, SpTheme, SpWallet } from '@starport/vue'
 
 export default {
   data() {
     return {
-      initialized: false,
-    };
+      initialized: false
+    }
   },
   computed: {
     address() {
-      return this.$store.getters["common/wallet/address"];
+      return this.$store.getters['common/wallet/address']
     },
     hasWallet() {
-      return this.$store.hasModule(["common", "wallet"]);
-    },
+      return this.$store.hasModule(['common', 'wallet'])
+    }
   },
   async created() {
-    await this.$store.dispatch("common/env/init");
-    this.initialized = true;
+    await this.$store.dispatch('common/env/init')
+    this.initialized = true
   },
   errorCaptured(err) {
-    console.log(err);
-    return false;
+    console.log(err)
+    return false
   },
-  components: { SpTx, SpTheme, SpWallet },
-};
+  components: { SpTx, SpTheme, SpWallet }
+}
 </script>

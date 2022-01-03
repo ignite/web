@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="container">
-    </div>
+    <div class="container"></div>
   </div>
 </template>
 
@@ -11,7 +10,7 @@ export default {
   computed: {
     address() {
       return this.$store.getters['common/wallet/address']
-    },
-  },
+    }
+  }
 }
 </script>

@@ -15,7 +15,7 @@ const routes = [
 
 const router = createRouter({
   history: routerHistory,
-  routes,
+  routes
 })
 
 export default router

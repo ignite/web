@@ -15,6 +15,7 @@ export function str2rgba(r: string): string {
     o[c] = a
   }
   let n = -1
-  for (let t = 0; t < r.length; t++) n = (n >>> 8) ^ o[255 & (n ^ r.charCodeAt(t))]
+  for (let t = 0; t < r.length; t++)
+    n = (n >>> 8) ^ o[255 & (n ^ r.charCodeAt(t))]
   return ((-1 ^ n) >>> 0).toString(16)
 }
