@@ -1,8 +1,8 @@
 import { App as Application } from 'vue'
-// @ts-ignore
-import SpWelcome from './SpWelcome.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
+// @ts-ignore
+import SpWelcome from './SpWelcome.vue'
 
 export const Plugin = {
   install(vue: Application): void {

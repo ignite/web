@@ -1,3 +1,5 @@
+node_modules
+
 packages/**/node_modules
 packages/**/build
 packages/**/dist
@@ -7,3 +9,4 @@ packages/vuex/src/modules
 packages/template/src/store/
 
 .github
+.husky

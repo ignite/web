@@ -1,8 +1,8 @@
 import { App as Application } from 'vue'
-// @ts-ignore
-import SpWalletMenu from './SpWalletMenu.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
+// @ts-ignore
+import SpWalletMenu from './SpWalletMenu.vue'
 
 export const Plugin = {
   install(vue: Application): void {

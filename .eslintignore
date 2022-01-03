@@ -6,7 +6,7 @@ packages/**/dist
 packages/**/lib
 
 packages/vuex/src/modules
-packages/template
-packages/vue
+packages/template/src/store/
 
 .github
+.husky
