@@ -16,14 +16,16 @@
     "bootstrap:local": "lerna bootstrap --force-local",
     "dev:watch": "npm run bootstrap:local && lerna exec --parallel --scope='{@starport/vue,@starport/vuex}' -- npm run dev",
     "dev:serve": "lerna exec --parallel --scope='@starport/template' -- npm run dev",
-    "lint": "eslint --fix .",
-    "prettify": "prettier --write .",
-    "format": "npm run lint && npm run prettify",
+    "lint:check": "eslint .",
+    "lint:format": "eslint --fix .",
+    "prettify:check": "prettier --check .",
+    "prettify:format": "prettier --write .",
+    "code:check": "npm run lint:check && npm run prettify:check",
+    "code:format": "npm run lint:format && npm run prettify:format",
     "netlify:prepare": "lerna bootstrap  && lerna run build --scope='{@starport/vue,@starport/vuex}'",
     "netlify:linkvue": "cd ./packages/vue && npm link",
     "netlify:linkvuex": "cd ./packages/vuex && npm link",
-    "netlify:build": "npm run netlify:prepare && npm run netlify:linkvue && npm run netlify:linkvuex && cd ./packages/template && npm install && npm link @starport/vue @starport/vuex && npm run build -- --mode spn",
-    "prepare": "npm run format"
+    "netlify:build": "npm run netlify:prepare && npm run netlify:linkvue && npm run netlify:linkvuex && cd ./packages/template && npm install && npm link @starport/vue @starport/vuex && npm run build -- --mode spn"
   },
   "repository": {
     "type": "git",
