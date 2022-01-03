@@ -17,7 +17,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .sp-card-top {
   border-radius: 10px 10px 0px 0px;
   overflow: hidden;
