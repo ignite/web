@@ -12,10 +12,9 @@
             <path d="M2.1562 10.1835L16.4168 1.95008L30.6775 10.1835V26.6502L16.4168 34.8836L2.1562 26.6502V10.1835Z" stroke="#111111" stroke-width="2.8"/>
             <rect x="13.5" y="15.5" width="5.83333" height="5.83333" rx="2.91667" fill="#111111"/>
           </svg>
-          <span
-              style="padding: 4px 8px; margin-left: 10px; background: rgba(0, 0, 0, 0.03); border-radius: 24px; font-weight: 500; font-size: 10px">
-						Beta
-					</span>
+          <span style="padding: 4px 8px; margin-left: 10px; background: rgba(0, 0, 0, 0.03); border-radius: 24px; font-weight: 500; font-size: 10px">
+            Beta
+          </span>
         </div>
       </router-link>
       <router-link
@@ -39,15 +38,10 @@
           style="display: flex; align-items: center"
           @click="data.accontDropdown = true"
       >
-        <div
-            style="width: 32px;
-					height: 32px;
-					border-radius: 50%;
-					background: linear-gradient(276.98deg, #EAE501 3.37%, #A5FBFF 22.05%, #4251FA 56.21%, #320B93 95.92%);"
-        />
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(276.98deg, #EAE501 3.37%, #A5FBFF 22.05%, #4251FA 56.21%, #320B93 95.92%);" />
         <span style="margin-left: 12px; margin-right: 12px;">
-					{{ data.connectedWallet.name }}
-				</span>
+          {{ data.connectedWallet.name }}
+        </span>
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10 2L6 6L2 2" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"/>
         </svg>
@@ -173,8 +167,8 @@ export default defineComponent({
       ],
       selectedLink: 'Portfolio',
       connectedWallet: null,/* {
-				name: 'Alice'
-			},*/
+        name: 'Alice'
+      },*/
       modalPage: 'connect',
       connectWalletModal: false,
       accontDropdown: false,
