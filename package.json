@@ -12,6 +12,7 @@
     }
   ],
   "scripts": {
+    "build": "lerna exec --parallel -- npm run build",
     "purge": "lerna exec --parallel -- rm -rf node_modules",
     "bootstrap:local": "lerna bootstrap --force-local",
     "dev:watch": "npm run bootstrap:local && lerna exec --parallel --scope='{@starport/vue,@starport/vuex}' -- npm run dev",
@@ -21,11 +22,7 @@
     "prettify:check": "prettier --check .",
     "prettify:format": "prettier --write .",
     "code:check": "npm run lint:check && npm run prettify:check",
-    "code:format": "npm run lint:format && npm run prettify:format",
-    "netlify:prepare": "lerna bootstrap  && lerna run build --scope='{@starport/vue,@starport/vuex}'",
-    "netlify:linkvue": "cd ./packages/vue && npm link",
-    "netlify:linkvuex": "cd ./packages/vuex && npm link",
-    "netlify:build": "npm run netlify:prepare && npm run netlify:linkvue && npm run netlify:linkvuex && cd ./packages/template && npm install && npm link @starport/vue @starport/vuex && npm run build -- --mode spn"
+    "code:format": "npm run lint:format && npm run prettify:format"
   },
   "repository": {
     "type": "git",
