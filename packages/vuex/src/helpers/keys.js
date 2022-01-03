@@ -1,4 +1,4 @@
-import { encode, decode } from 'bs58'
+import { decode, encode } from 'bs58'
 import CryptoJS from 'crypto-js'
 export function keyFromWif(wif) {
 	return decode(wif).slice(1, 33)

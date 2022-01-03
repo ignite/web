@@ -20,6 +20,7 @@
 ## `v0.1.53`
 
 ### Features:
+
 - new storybook package
 
 ### Changed:
@@ -42,4 +43,5 @@
 ## `v0.1.50`
 
 ### Changed:
+
 - updated cosmjs wallet method signatures

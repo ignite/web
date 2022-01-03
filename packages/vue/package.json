@@ -5,8 +5,7 @@
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "lint": "prettier --check src"
+    "dev": "rollup -c -w"
   },
   "main": "lib/index.js",
   "dependencies": {
@@ -39,16 +38,12 @@
     "@types/jest": "^27.0.2",
     "@types/long": "^4.0.1",
     "@types/qrcode": "^1.4.1",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "@vitejs/plugin-vue": "^2.0.1",
     "core-js": "^3.18.2",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sass": "^1.2.10",
     "rollup-plugin-typescript2": "^0.31.1",
     "rollup-plugin-vue": "^6.0.0",
     "typescript": "^4.4.3",
-    "vite": "^2.7.6",
     "vue": "^3.2.6",
     "vue-router": "^4.0.3",
     "vue-tsc": "^0.30.0",

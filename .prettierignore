@@ -1,0 +1,9 @@
+packages/**/node_modules
+packages/**/build
+packages/**/dist
+packages/**/lib
+
+packages/vuex/src/modules
+packages/template/src/store/
+
+.github

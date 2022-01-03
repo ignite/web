@@ -1,7 +1,8 @@
-import axios from 'axios'
-import SpVuexError from '../../../errors/SpVuexError'
 import { sha256 } from '@cosmjs/crypto'
 import { fromBase64, toHex } from '@cosmjs/encoding'
+import axios from 'axios'
+
+import SpVuexError from '../../../errors/SpVuexError'
 
 function formatTx({
 	txHash = '',
