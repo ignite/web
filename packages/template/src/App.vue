@@ -1,20 +1,13 @@
 <template>
   <div v-if="initialized">
     <SpTheme>
-      <SpWallet />
-      <SpTx :fromAddress="address" />
+      <SpWelcome />
     </SpTheme>
   </div>
 </template>
 
-<style scoped lang="scss">
-body {
-  margin: 0;
-}
-</style>
-
 <script>
-import { SpTx, SpTheme, SpWallet } from '@starport/vue'
+import { SpTheme, SpWelcome } from '@starport/vue'
 
 export default {
   data() {
@@ -38,6 +31,12 @@ export default {
     console.log(err)
     return false
   },
-  components: { SpTx, SpTheme, SpWallet }
+  components: { SpTheme, SpWelcome }
 }
 </script>
+
+<style scoped lang="scss">
+body {
+  margin: 0;
+}
+</style>
