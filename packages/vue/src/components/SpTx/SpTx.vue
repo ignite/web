@@ -8,7 +8,13 @@
 
       <div class="tx-ongoing-subtitle">Sign transaction..</div>
 
-      <div style="width: 100%; height: 8px" />
+      <div style="width: 100%">
+        <div style="width: 100%; height: 8px" />
+
+        <SpButton style="width: 100%" @click="resetTx" type="secondary"
+          >Cancel</SpButton
+        >
+      </div>
     </div>
 
     <div v-else-if="isTxSuccess" class="feedback">
@@ -38,12 +44,12 @@
 
       <div style="width: 100%; height: 8px" />
 
-      <div class="tx-success-title">Assets transferred</div>
+      <div class="tx-feedback-title">Assets transferred</div>
 
       <div style="width: 100%; height: 8px" />
 
       <div
-        class="tx-success-subtitle"
+        class="tx-feedback-subtitle"
         v-for="(x, i) in state.tx.amount"
         :index="i"
         v-bind:key="'amount' + i"
@@ -53,15 +59,69 @@
 
       <div style="width: 100%; height: 8px" />
 
-      <div>
-        <SpButton @click="resetTx">done</SpButton>
+      <div style="width: 100%">
+        <SpButton style="width: 100%" @click="resetTx">done</SpButton>
       </div>
     </div>
 
     <div v-else-if="isTxError" class="feedback">
-      <div class="tx-success-title">tx errored</div>
-      <div>
-        <SpButton @click="resetTx">try again</SpButton>
+      <div class="warning-icon">
+        <svg
+          width="58"
+          height="54"
+          viewBox="0 0 58 54"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M29 44.5625C29.7249 44.5625 30.3125 43.9749 30.3125 43.25C30.3125 42.5251 29.7249 41.9375 29 41.9375C28.2751 41.9375 27.6875 42.5251 27.6875 43.25C27.6875 43.9749 28.2751 44.5625 29 44.5625Z"
+            fill="#FE475F"
+          />
+          <path
+            d="M1.4375 52.4375L29 1.25L56.5625 52.4375H1.4375Z"
+            stroke="#FE475F"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M29 19.625V34.0625"
+            stroke="#FE475F"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M29 44.5625C29.7249 44.5625 30.3125 43.9749 30.3125 43.25C30.3125 42.5251 29.7249 41.9375 29 41.9375C28.2751 41.9375 27.6875 42.5251 27.6875 43.25C27.6875 43.9749 28.2751 44.5625 29 44.5625Z"
+            stroke="#FE475F"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <div style="width: 100%; height: 24px" />
+
+      <div class="tx-feedback-title">Something went wrong</div>
+
+      <div style="width: 100%; height: 16px" />
+
+      <div class="tx-feedback-subtitle">
+        Your 299.98 FOOBAR could not be transferred and will remain on your
+        wallet.
+      </div>
+
+      <div style="width: 100%; height: 24px" />
+
+      <div style="width: 100%">
+        <SpButton style="width: 100%" @click="resetTx">Try again</SpButton>
+
+        <div style="width: 100%; height: 8px" />
+
+        <SpButton style="width: 100%" @click="resetTx" type="secondary"
+          >Cancel</SpButton
+        >
       </div>
     </div>
 
@@ -117,7 +177,16 @@
 
         <div style="width: 100%; height: 24px" />
 
-        <div class="advanced">
+        <div
+          class="advanced-label"
+          @click="state.advancedOpen = !state.advancedOpen"
+        >
+          Advanced
+        </div>
+
+        <div style="width: 100%; height: 24px" v-if="state.advancedOpen" />
+
+        <div class="advanced" v-if="state.advancedOpen">
           <div class="input-label">Fees</div>
 
           <div style="width: 100%; height: 8px" />
@@ -147,7 +216,9 @@
         <div style="width: 100%; height: 24px" />
 
         <div>
-          <SpButton @click="sendTx" :disabled="!ableToTx">Send</SpButton>
+          <SpButton style="width: 100%" @click="sendTx" :disabled="!ableToTx"
+            >Send</SpButton
+          >
         </div>
       </div>
 
@@ -251,7 +322,8 @@ export default {
         memo: '',
         fees: []
       } as TxData,
-      currentUIState: UI_STATE.SEND as UI_STATE
+      currentUIState: UI_STATE.TX_SIGNING as UI_STATE,
+      advancedOpen: false
     })
 
     // actions
@@ -344,18 +416,18 @@ export default {
     })
 
     // computed
-    const showSend = computed(() => {
-      return !showReceive.value
-    })
-    const showReceive = computed(() => {
-      return state.currentUIState === UI_STATE.RECEIVE
-    })
     const balances = computed(() => {
       return (
         $s.getters['cosmos.bank.v1beta1/getAllBalances']({
           params: { address: props.fromAddress }
         })?.balances ?? []
       )
+    })
+    const showSend = computed(() => {
+      return !showReceive.value
+    })
+    const showReceive = computed(() => {
+      return state.currentUIState === UI_STATE.RECEIVE
     })
     const hasAnyBalance = computed(
       () =>
@@ -455,6 +527,28 @@ export default {
 </script>
 
 <style scoped>
+.advanced-label {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 153.8%;
+  /* identical to box height, or 20px */
+
+  display: flex;
+  align-items: center;
+
+  /* base/black 0 */
+
+  color: #000000;
+}
+
+.advanced-label:hover {
+  cursor: pointer;
+}
+.copy {
+  padding: 12px 0;
+}
 .feedback {
   display: flex;
   flex-direction: column;
@@ -487,10 +581,12 @@ export default {
   display: flex;
   align-items: center;
 
+  word-break: break-all;
+
   color: #000000;
 }
 
-.tx-success-title {
+.tx-feedback-title {
   font-family: Inter;
   font-style: normal;
   font-weight: bold;
@@ -506,7 +602,7 @@ export default {
   color: #000000;
 }
 
-.tx-success-subtitle {
+.tx-feedback-subtitle {
   font-family: Inter;
   font-style: normal;
   font-weight: normal;

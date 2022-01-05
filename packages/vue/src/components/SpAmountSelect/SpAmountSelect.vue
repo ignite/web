@@ -20,7 +20,7 @@
         <div
           class="token-amount"
           :class="{
-            'not-enough-balance': !hasEnoughBalance(x, x.amount)
+            error: !hasEnoughBalance(x, x.amount)
           }"
         >
           {{ parseAmount(getBalanceAmount(x)) }}
@@ -226,7 +226,6 @@ export default defineComponent({
 .selected-item {
   display: flex;
   align-items: center;
-  padding: 16px 0;
 }
 .input.primary {
   padding: 16px 13.5px;
@@ -380,8 +379,10 @@ export default defineComponent({
   /* identical to box height, or 17px */
 
   /* light/muted */
+}
 
-  color: rgba(0, 0, 0, 0.667);
+.token-amount.error {
+  color: #d80228;
 }
 
 .input-wrapper {
