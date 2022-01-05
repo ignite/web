@@ -2,19 +2,29 @@
   <div class="tx">
     <!-- feedbacks -->
     <div v-if="isTxOngoing" class="feedback">
+      <div class="loading-spinner">
+        <svg
+          width="46"
+          height="46"
+          viewBox="0 0 46 46"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M44 23C44 11.402 34.598 2 23 2C11.402 2 2 11.402 2 23C2 34.598 11.402 44 23 44"
+            stroke="black"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div style="width: 100%; height: 24px" />
+
       <div class="tx-ongoing-title">Opening Keplr</div>
 
       <div style="width: 100%; height: 8px" />
 
-      <div class="tx-ongoing-subtitle">Sign transaction..</div>
-
-      <div style="width: 100%">
-        <div style="width: 100%; height: 8px" />
-
-        <SpButton style="width: 100%" @click="resetTx" type="secondary"
-          >Cancel</SpButton
-        >
-      </div>
+      <div class="tx-ongoing-subtitle">Sign transaction...</div>
     </div>
 
     <div v-else-if="isTxSuccess" class="feedback">
@@ -42,14 +52,14 @@
         </svg>
       </div>
 
-      <div style="width: 100%; height: 8px" />
+      <div style="width: 100%; height: 24px" />
 
       <div class="tx-feedback-title">Assets transferred</div>
 
       <div style="width: 100%; height: 8px" />
 
       <div
-        class="tx-feedback-subtitle"
+        class="tx-feedback-subtitle amount"
         v-for="(x, i) in state.tx.amount"
         :index="i"
         v-bind:key="'amount' + i"
@@ -60,7 +70,7 @@
       <div style="width: 100%; height: 8px" />
 
       <div style="width: 100%">
-        <SpButton style="width: 100%" @click="resetTx">done</SpButton>
+        <SpButton style="width: 100%" @click="resetTx">Done</SpButton>
       </div>
     </div>
 
@@ -108,14 +118,13 @@
       <div style="width: 100%; height: 16px" />
 
       <div class="tx-feedback-subtitle">
-        Your 299.98 FOOBAR could not be transferred and will remain on your
-        wallet.
+        Your tokens could not be transferred and will remain on your wallet.
       </div>
 
       <div style="width: 100%; height: 24px" />
 
       <div style="width: 100%">
-        <SpButton style="width: 100%" @click="resetTx">Try again</SpButton>
+        <SpButton style="width: 100%" @click="sendTx">Try again</SpButton>
 
         <div style="width: 100%; height: 8px" />
 
@@ -123,6 +132,11 @@
           >Cancel</SpButton
         >
       </div>
+    </div>
+
+    <!-- wallet locked-->
+    <div v-else-if="showWalletLocked">
+      <div class="wallet-locked-wrapper">unlock your wallet</div>
     </div>
 
     <!-- send/receive -->
@@ -223,7 +237,7 @@
       </div>
 
       <!-- receive-->
-      <div v-if="showReceive">
+      <div v-else-if="showReceive">
         <div class="receive-wrapper">
           <SpCard>
             <template v-slot:top>
@@ -279,6 +293,8 @@ export enum UI_STATE {
 
   'BOOTSTRAPED' = 2,
 
+  'WALLET_LOCKED' = 3,
+
   'SEND' = 100,
   'SEND_ADD_TOKEN' = 101,
 
@@ -287,6 +303,18 @@ export enum UI_STATE {
   'TX_ERROR' = 302,
 
   'RECEIVE' = 400
+}
+
+export let initialState = {
+  tx: {
+    toAddress: '',
+    ch: '',
+    amount: [],
+    memo: '',
+    fees: []
+  } as TxData,
+  currentUIState: UI_STATE.SEND as UI_STATE,
+  advancedOpen: false
 }
 
 export default {
@@ -311,38 +339,28 @@ export default {
 
   setup(props: any) {
     // store
-    const $s = useStore()
+    let $s = useStore()
 
     // state
-    const state: State = reactive({
-      tx: {
-        toAddress: '',
-        ch: '',
-        amount: [],
-        memo: '',
-        fees: []
-      } as TxData,
-      currentUIState: UI_STATE.TX_SIGNING as UI_STATE,
-      advancedOpen: false
-    })
+    let state: State = reactive(initialState)
 
     // actions
-    const sendMsgSend = (opts: any) =>
+    let sendMsgSend = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
-    const queryAllBalances = (opts: any) =>
+    let queryAllBalances = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
 
     // methods
-    const switchToSend = (): void => {
+    let switchToSend = (): void => {
       state.currentUIState = UI_STATE.SEND
     }
-    const switchToReceive = (): void => {
+    let switchToReceive = (): void => {
       state.currentUIState = UI_STATE.RECEIVE
     }
-    const parseAmount = (amount: string): number => {
+    let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
     }
-    const resetTx = (): void => {
+    let resetTx = (): void => {
       state.tx.amount = []
       state.tx.toAddress = ''
       state.tx.memo = ''
@@ -353,49 +371,47 @@ export default {
 
       bootstrapTxAmount()
     }
-    const sendTx = async (): Promise<void> => {
-      if (state.currentUIState === UI_STATE.SEND) {
-        state.currentUIState = UI_STATE.TX_SIGNING
+    let sendTx = async (): Promise<void> => {
+      state.currentUIState = UI_STATE.TX_SIGNING
 
-        const value = {
-          amount: state.tx.amount,
-          toAddress: state.tx.toAddress,
-          fromAddress: props.fromAddress
+      const value = {
+        amount: state.tx.amount,
+        toAddress: state.tx.toAddress,
+        fromAddress: props.fromAddress
+      }
+
+      const fees = state.tx.fees.map((x) => ({
+        ...x,
+        amount: x.amount == '' ? '0' : x.amount
+      }))
+
+      try {
+        const txResult = await sendMsgSend({
+          value,
+          fees,
+          memo: state.tx.memo
+        })
+
+        if (txResult.code) {
+          throw new Error()
         }
 
-        const fees = state.tx.fees.map((x) => ({
-          ...x,
-          amount: x.amount == '' ? '0' : x.amount
-        }))
-
-        try {
-          const txResult = await sendMsgSend({
-            value,
-            fees,
-            memo: state.tx.memo
-          })
-
-          if (txResult.code) {
-            throw new Error()
-          }
-
-          state.currentUIState = UI_STATE.TX_SUCCESS
-        } catch (e) {
-          console.error(e)
-          state.currentUIState = UI_STATE.TX_ERROR
-        }
+        state.currentUIState = UI_STATE.TX_SUCCESS
+      } catch (e) {
+        console.error(e)
+        state.currentUIState = UI_STATE.TX_ERROR
       }
     }
-    const resetFees = (): void => {
+    let resetFees = (): void => {
       state.tx.fees = []
     }
-    const handleTxAmountUpdate = ({ selected }) => {
+    let handleTxAmountUpdate = ({ selected }) => {
       state.tx.amount = selected
     }
-    const handleTxFeesUpdate = ({ selected }) => {
+    let handleTxFeesUpdate = ({ selected }) => {
       state.tx.fees = selected
     }
-    const bootstrapTxAmount = () => {
+    let bootstrapTxAmount = () => {
       if (hasAnyBalance.value) {
         const firstBalance = balances.value[0]
 
@@ -416,48 +432,53 @@ export default {
     })
 
     // computed
-    const balances = computed(() => {
+    let balances = computed(() => {
       return (
         $s.getters['cosmos.bank.v1beta1/getAllBalances']({
           params: { address: props.fromAddress }
         })?.balances ?? []
       )
     })
-    const showSend = computed(() => {
-      return !showReceive.value
+    let showSend = computed(() => {
+      return state.currentUIState === UI_STATE.SEND
     })
-    const showReceive = computed(() => {
+    let showReceive = computed(() => {
       return state.currentUIState === UI_STATE.RECEIVE
     })
-    const hasAnyBalance = computed(
+    let showWalletLocked = computed(() => {
+      return state.currentUIState === UI_STATE.WALLET_LOCKED
+    })
+    let hasAnyBalance = computed(
       () =>
         balances.value.length > 0 &&
         balances.value.some((x) => parseAmount(x.amount) > 0)
     )
-    const isTxOngoing = computed(() => {
+    let isTxOngoing = computed(() => {
       return state.currentUIState === UI_STATE.TX_SIGNING
     })
-    const isTxSuccess = computed(() => {
+    let isTxSuccess = computed(() => {
       return state.currentUIState === UI_STATE.TX_SUCCESS
     })
-    const isTxError = computed(() => {
+    let isTxError = computed(() => {
       return state.currentUIState === UI_STATE.TX_ERROR
     })
-    const validTxFees = computed(() =>
+    let validTxFees = computed(() =>
       state.tx.fees.every((x) => {
         const parsedAmount = parseAmount(x.amount)
 
         return !isNaN(parsedAmount) && parsedAmount > 0
       })
     )
-    const validTxAmount = computed(() =>
-      state.tx.amount.every((x) => {
-        const parsedAmount = parseAmount(x.amount)
+    let validTxAmount = computed(
+      () =>
+        state.tx.amount.length > 0 &&
+        state.tx.amount.every((x) => {
+          const parsedAmount = parseAmount(x.amount)
 
-        return !isNaN(parsedAmount) && parsedAmount > 0
-      })
+          return !isNaN(parsedAmount) && parsedAmount > 0
+        })
     )
-    const validToAddress = computed(() => {
+    let validToAddress = computed(() => {
       let valid = false
 
       try {
@@ -468,7 +489,7 @@ export default {
 
       return valid
     })
-    const ableToTx = computed(
+    let ableToTx = computed(
       () =>
         validTxAmount.value &&
         validToAddress.value &&
@@ -505,6 +526,7 @@ export default {
       // computed
       showSend,
       showReceive,
+      showWalletLocked,
       balances,
       hasAnyBalance,
       isTxOngoing,
@@ -601,7 +623,9 @@ export default {
 
   color: #000000;
 }
-
+.tx-feedback-subtitle.amount {
+  text-transform: uppercase;
+}
 .tx-feedback-subtitle {
   font-family: Inter;
   font-style: normal;
