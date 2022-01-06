@@ -4,7 +4,6 @@ This monorepo contains packages to simplify frontend development (primarily usin
 
 The included packages are:
 
-- [@starport/client-js](https://github.com/tendermint/vue/tree/develop/packages/client-js)
 - [@starport/vuex](https://github.com/tendermint/vue/tree/develop/packages/vuex)
 - [@starport/vue](https://github.com/tendermint/vue/tree/develop/packages/vue)
 - [App template](https://github.com/tendermint/vue/tree/develop/packages/template)

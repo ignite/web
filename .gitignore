@@ -22,3 +22,10 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+packages/**/.DS_Store
+packages/**/node_modules
+packages/**/build
+packages/**/dist
+packages/**/lib
+packages/**/.env.local
+packages/**/.env.*.local
