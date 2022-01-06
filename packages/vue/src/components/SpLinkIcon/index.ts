@@ -5,9 +5,9 @@ import { registerComponent } from './../../utils/plugins/index'
 import SpLinkIcon from './SpLinkIcon.vue'
 
 export const Plugin = {
-  install(vue: Application): void {
-    registerComponent(vue, SpLinkIcon)
-  }
+	install(vue: Application): void {
+		registerComponent(vue, SpLinkIcon)
+	}
 }
 
 export default SpLinkIcon

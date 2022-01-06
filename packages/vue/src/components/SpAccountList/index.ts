@@ -5,9 +5,9 @@ import { registerComponent } from './../../utils/plugins/index'
 import SpAccountList from './SpAccountList.vue'
 
 export const Plugin = {
-  install(vue: Application): void {
-    registerComponent(vue, SpAccountList)
-  }
+	install(vue: Application): void {
+		registerComponent(vue, SpAccountList)
+	}
 }
 
 // use(Plugin);

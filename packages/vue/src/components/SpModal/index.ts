@@ -5,9 +5,9 @@ import { registerComponent } from './../../utils/plugins/index'
 import SpModal from './SpModal.vue'
 
 export const Plugin = {
-  install(vue: Application): void {
-    registerComponent(vue, SpModal)
-  }
+	install(vue: Application): void {
+		registerComponent(vue, SpModal)
+	}
 }
 
 export default SpModal

@@ -5,9 +5,9 @@ import { registerComponent } from '../../utils/plugins/index'
 import SpCard from './SpCard.vue'
 
 export const Plugin = {
-  install(vue: Application): void {
-    registerComponent(vue, SpCard)
-  }
+	install(vue: Application): void {
+		registerComponent(vue, SpCard)
+	}
 }
 
 export default SpCard

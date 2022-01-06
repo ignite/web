@@ -5,9 +5,9 @@ import { registerComponent } from '../../utils/plugins/index'
 import SpTokenSend from './SpTx.vue'
 
 export const Plugin = {
-  install(vue: Application): void {
-    registerComponent(vue, SpTokenSend)
-  }
+	install(vue: Application): void {
+		registerComponent(vue, SpTokenSend)
+	}
 }
 
 export default SpTokenSend

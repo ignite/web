@@ -5,9 +5,9 @@ import { registerComponent } from '../../utils/plugins/index'
 import SpQrCode from './SpQrCode.vue'
 
 export const Plugin = {
-  install(vue: Application): void {
-    registerComponent(vue, SpQrCode)
-  }
+	install(vue: Application): void {
+		registerComponent(vue, SpQrCode)
+	}
 }
 
 export default SpQrCode

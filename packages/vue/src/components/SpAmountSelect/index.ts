@@ -5,9 +5,9 @@ import { registerComponent } from '../../utils/plugins/index'
 import SpAmountSelectNew from './SpAmountSelect.vue'
 
 export const Plugin = {
-  install(vue: Application): void {
-    registerComponent(vue, SpAmountSelectNew)
-  }
+	install(vue: Application): void {
+		registerComponent(vue, SpAmountSelectNew)
+	}
 }
 
 export default SpAmountSelectNew

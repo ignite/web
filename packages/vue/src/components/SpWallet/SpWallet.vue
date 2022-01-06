@@ -1,18 +1,18 @@
 <template>
-  <div class="sp-wallet">
-    <SpWalletMenu
-      v-if="walletList.length > 0 && !create"
-      v-on:createNew="create = true"
-    />
-    <SpButton
-      v-else-if="walletList.length == 0 && !create"
-      v-on:click="create = true"
-      >Access wallet</SpButton
-    >
-    <SpWalletCreate title="Access wallet" v-else v-on:close="create = false">
-      Create or import an existing wallet to manage your DeFi portfolio.
-    </SpWalletCreate>
-  </div>
+	<div class="sp-wallet">
+		<SpWalletMenu
+			v-if="walletList.length > 0 && !create"
+			v-on:createNew="create = true"
+		/>
+		<SpButton
+			v-else-if="walletList.length == 0 && !create"
+			v-on:click="create = true"
+			>Access wallet</SpButton
+		>
+		<SpWalletCreate title="Access wallet" v-else v-on:close="create = false">
+			Create or import an existing wallet to manage your DeFi portfolio.
+		</SpWalletCreate>
+	</div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -21,24 +21,24 @@ import SpButton from '../SpButton'
 import SpWalletCreate from '../SpWalletCreate'
 import type { Wallet } from '../../utils/interfaces'
 export interface SpWalletState {
-  create: boolean
+	create: boolean
 }
 export default defineComponent({
-  name: 'SpWallet',
-  components: {
-    SpWalletMenu,
-    SpButton,
-    SpWalletCreate
-  },
-  data: function (): SpWalletState {
-    return {
-      create: false
-    }
-  },
-  computed: {
-    walletList: function (): Array<Wallet> {
-      return this.$store.state.common.wallet.wallets
-    }
-  }
+	name: 'SpWallet',
+	components: {
+		SpWalletMenu,
+		SpButton,
+		SpWalletCreate
+	},
+	data: function (): SpWalletState {
+		return {
+			create: false
+		}
+	},
+	computed: {
+		walletList: function (): Array<Wallet> {
+			return this.$store.state.common.wallet.wallets
+		}
+	}
 })
 </script>
