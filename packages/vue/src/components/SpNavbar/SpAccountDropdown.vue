@@ -63,8 +63,8 @@
 <script>
 import { useStore } from 'vuex'
 import SpProfileIcon from './SpProfileIcon.vue'
-import ChevronRightIcon from './assets/ChevronRight.vue'
-import ExternalArrowIcon from './assets/ExternalArrow.vue'
+import ChevronRightIcon from '../assets/ChevronRight.vue'
+import ExternalArrowIcon from '../assets/ExternalArrow.vue'
 
 export default {
   name: 'SpAccountDropdown',
