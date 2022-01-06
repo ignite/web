@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import SpVuexError from '../../../errors/SpVuexError'
 
 const getDefaultState = () => {

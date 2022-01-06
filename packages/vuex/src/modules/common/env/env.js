@@ -1,4 +1,4 @@
-import Client from '@starport/client-js'
+import Client from '../../../client/SPClient'
 import SpVuexError from '../../../errors/SpVuexError'
 
 const apiNode =

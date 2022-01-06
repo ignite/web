@@ -1,26 +1,27 @@
 <template>
-  <div v-if="initialized">teseting</div>
+  <div v-if="initialized">
+    <SpTheme>
+      <SpWelcome />
+    </SpTheme>
+  </div>
 </template>
 
-<style>
-body {
-  margin: 0;
-}
-</style>
-
 <script>
-import '@starport/vue/lib/starport-vue.css'
+import { SpTheme, SpWelcome } from '@starport/vue'
 
 export default {
   data() {
     return {
-      initialized: false,
+      initialized: false
     }
   },
   computed: {
+    address() {
+      return this.$store.getters['common/wallet/address']
+    },
     hasWallet() {
       return this.$store.hasModule(['common', 'wallet'])
-    },
+    }
   },
   async created() {
     await this.$store.dispatch('common/env/init')
@@ -30,5 +31,12 @@ export default {
     console.log(err)
     return false
   },
+  components: { SpTheme, SpWelcome }
 }
 </script>
+
+<style scoped lang="scss">
+body {
+  margin: 0;
+}
+</style>

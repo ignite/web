@@ -1,3 +1,2 @@
-
-export { default as SpModal } from './SpModal'
-export { default as SpNavbar } from './SpNavbar'
+export { default as SpTheme } from './SpTheme'
+export { default as SpWelcome } from './SpWelcome'
