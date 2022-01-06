@@ -2,53 +2,53 @@
   <transition name="dropdown-fade">
     <div class="account-dropdown">
       <SpLinkIcon
-          icon="Close"
-          aria-label="Close modal"
-          class="close-icon"
-          text=""
-          @click="$emit('close')"
+        icon="Close"
+        aria-label="Close modal"
+        class="close-icon"
+        text=""
+        @click="$emit('close')"
       />
       <span class="description-grey mb-3 d-block">Connected wallet</span>
       <div class="mb-3" style="display: flex; align-items: center">
         <SpProfileIcon />
         <div style="display: flex; flex-flow: column; margin-left: 12px">
-					<span class="account-name">
-						{{ connectedWallet.name }}
-					</span>
+          <span class="account-name">
+            {{ connectedWallet.name }}
+          </span>
           <span class="description-grey">
-						Keplr
-					</span>
+            Keplr
+          </span>
         </div>
       </div>
       <div class="dropdown-option" @click="disconnectWallet">
-				<span>
-					Disconnect wallet
-				</span>
+        <span>
+          Disconnect wallet
+        </span>
       </div>
       <hr class="divider" />
       <div class="dropdown-option">
-				<span>
-					Settings
-				</span>
+        <span>
+          Settings
+        </span>
         <ChevronRightIcon />
       </div>
       <hr class="divider" />
       <div class="dropdown-option mb-3">
-				<span>
-					Support
-				</span>
+        <span>
+          Support
+        </span>
         <ExternalArrowIcon />
       </div>
       <div class="dropdown-option mb-3">
-				<span>
-					Twitter
-				</span>
+        <span>
+          Twitter
+        </span>
         <ExternalArrowIcon />
       </div>
       <div class="dropdown-option mb-3">
-				<span>
-					Telegram
-				</span>
+        <span>
+          Telegram
+        </span>
         <ExternalArrowIcon />
       </div>
       <div style="text-align: center; margin-top: 1.6rem;">

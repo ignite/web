@@ -2,10 +2,10 @@
   <div class="navbar-wrapper">
     <div class="navbar-section">
       <router-link
-          :to="'/'"
-          class="sp-nav-link"
-          :alt="'Home'"
-          :title="'Home'"
+        :to="'/'"
+        class="sp-nav-link"
+        :alt="'Home'"
+        :title="'Home'"
       >
         <div style="display: flex; align-items: center">
           <svg width="33" height="37" viewBox="0 0 33 37" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,13 +18,13 @@
         </div>
       </router-link>
       <router-link
-          :key="`link-${lid}`"
-          v-for="(link, lid) in data.links"
-          :to="link.url"
-          class="sp-nav-link"
-          :class="link.name === data.selectedLink ? 'selected' : ''"
-          :alt="link.name"
-          :title="link.name"
+        :key="`link-${lid}`"
+        v-for="(link, lid) in data.links"
+        :to="link.url"
+        class="sp-nav-link"
+        :class="link.name === data.selectedLink ? 'selected' : ''"
+        :alt="link.name"
+        :title="link.name"
       >
         <div class="">
           {{ link.name }}
@@ -33,10 +33,10 @@
     </div>
     <div class="navbar-section">
       <div
-          v-if="data.connectedWallet"
-          class="sp-nav-link selected"
-          style="display: flex; align-items: center"
-          @click="data.accontDropdown = true"
+        v-if="data.connectedWallet"
+        class="sp-nav-link selected"
+        style="display: flex; align-items: center"
+        @click="data.accontDropdown = true"
       >
         <SpProfileIcon />
         <span style="margin-left: 12px; margin-right: 12px;">
@@ -45,29 +45,29 @@
         <ChevronDownIcon />
       </div>
       <div
-          v-else
-          :ref="connectWalletButton"
-          class="sp-nav-link"
-          style="display: flex; align-items: center"
-          @click="data.connectWalletModal = true"
+        v-else
+        :ref="connectWalletButton"
+        class="sp-nav-link"
+        style="display: flex; align-items: center"
+        @click="data.connectWalletModal = true"
       >
         Connect wallet
       </div>
       <SpAccountDropdown
-          v-if="data.accontDropdown"
-          :connectedWallet="data.connectedWallet"
-          @disconnect="() => { data.connectedWallet = null; data.accontDropdown = false; }"
-          @close="data.accontDropdown = false"
+        v-if="data.accontDropdown"
+        :connectedWallet="data.connectedWallet"
+        @disconnect="() => { data.connectedWallet = null; data.accontDropdown = false; }"
+        @close="data.accontDropdown = false"
       />
     </div>
     <SpModal
-        :visible="data.connectWalletModal"
-        :closeIcon="false"
-        :cancelButton="false"
-        :submitButton="false"
-        @close="data.connectWalletModal = false"
-        @submit="data.connectWalletModal = false"
-        style="text-align: center;"
+      :visible="data.connectWalletModal"
+      :closeIcon="false"
+      :cancelButton="false"
+      :submitButton="false"
+      @close="data.connectWalletModal = false"
+      @submit="data.connectWalletModal = false"
+      style="text-align: center;"
     >
       <template v-slot:header>
         <div v-if="data.modalPage === 'connect'">
@@ -95,10 +95,10 @@
               <SpSpinner />
             </div>
             <SpButton
-                aria-label="Cancel"
-                type="secondary"
-                @click="data.modalPage = 'connect'"
-                style="margin-top: 3rem"
+              aria-label="Cancel"
+              type="secondary"
+              @click="data.modalPage = 'connect'"
+              style="margin-top: 3rem"
             >
               Cancel
             </SpButton>
@@ -117,28 +117,28 @@
       <template v-if="keplrAvailable" v-slot:footer>
         <div v-if="data.modalPage === 'connect'">
           <SpButton
-              aria-label="Connect Keplr"
-              type="primary"
-              @click="useKeplr"
+            aria-label="Connect Keplr"
+            type="primary"
+            @click="useKeplr"
           >
             Connect Keplr
           </SpButton>
         </div>
         <div
-            v-if="data.modalPage === 'error'"
-            style="gap: 10px; display: flex; justify-content: center;"
+          v-if="data.modalPage === 'error'"
+          style="gap: 10px; display: flex; justify-content: center;"
         >
           <SpButton
-              aria-label="Connect Keplr"
-              type="secondary"
-              @click="data.connectWalletModal = false"
+            aria-label="Connect Keplr"
+            type="secondary"
+            @click="data.connectWalletModal = false"
           >
             Cancel
           </SpButton>
           <SpButton
-              aria-label="Connect Keplr"
-              type="primary"
-              @click="data.modalPage = 'connect'"
+            aria-label="Connect Keplr"
+            type="primary"
+            @click="data.modalPage = 'connect'"
           >
             Try again
           </SpButton>
