@@ -38,13 +38,11 @@
           style="display: flex; align-items: center"
           @click="data.accontDropdown = true"
       >
-        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(276.98deg, #EAE501 3.37%, #A5FBFF 22.05%, #4251FA 56.21%, #320B93 95.92%);" />
+        <SpProfileIcon />
         <span style="margin-left: 12px; margin-right: 12px;">
           {{ data.connectedWallet.name }}
         </span>
-        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 2L6 6L2 2" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"/>
-        </svg>
+        <ChevronDownIcon />
       </div>
       <div
           v-else
@@ -57,6 +55,8 @@
       </div>
       <SpAccountDropdown
           v-if="data.accontDropdown"
+          :connectedWallet="data.connectedWallet"
+          @disconnect="() => { data.connectedWallet = null; data.accontDropdown = false; }"
           @close="data.accontDropdown = false"
       />
     </div>
@@ -76,24 +76,42 @@
           <h3 v-else>Install Keplr</h3>
         </div>
         <div v-else-if="data.modalPage === 'connecting'">
-          <h5>Opening Keplr</h5>
+          <div class="description-grey">Opening Keplr</div>
           <h3>Connecting</h3>
         </div>
         <div v-else-if="data.modalPage === 'error'">
-          <WarningIcon />
+          <WarningIcon style="margin-bottom: 20px;" />
           <h3>Keplr cannot launch</h3>
         </div>
       </template>
       <template v-slot:body>
-        <div v-if="data.modalPage === 'connect'">
-          <p v-if="keplrAvailable">Connect your Keplr wallet via the Keplr browser extension to use this app.</p>
-          <p v-else>Install & connect your Keplr wallet via the Keplr browser extension to use this app.</p>
-        </div>
-        <div v-else-if="data.modalPage === 'connecting'">
-          Loading...
-        </div>
-        <div v-else-if="data.modalPage === 'error'">
-          Keplr troubleshooting ↗️
+        <div style="max-width: 320px; text-align: center; margin: auto;">
+          <div v-if="data.modalPage === 'connect'">
+            <p v-if="keplrAvailable">Connect your Keplr wallet via the Keplr browser extension to use this app.</p>
+            <p v-else>Install & connect your Keplr wallet via the Keplr browser extension to use this app.</p>
+          </div>
+          <div v-else-if="data.modalPage === 'connecting'">
+            <div style="margin-top: 2rem">
+              <SpSpinner />
+            </div>
+            <SpButton
+                aria-label="Cancel"
+                type="secondary"
+                @click="data.modalPage = 'connect'"
+                style="margin-top: 3rem"
+            >
+              Cancel
+            </SpButton>
+            <div class="external-link" style="margin-top: 2rem">
+              Having trouble opening Keplr?
+            </div>
+          </div>
+          <div v-else-if="data.modalPage === 'error'" style="padding: 20px 0;">
+            <div class="external-link">
+              <span>Keplr troubleshooting</span>
+              <ExternalArrowIcon style="margin-left: 0.5rem;" />
+            </div>
+          </div>
         </div>
       </template>
       <template v-if="keplrAvailable" v-slot:footer>
@@ -133,10 +151,14 @@
 <script lang="ts">
 import SpModal from '../SpModal/SpModal.vue'
 import SpAccountDropdown from './SpAccountDropdown.vue'
-import { defineComponent, inject, computed, reactive, ref } from 'vue'
+import SpSpinner from './SpSpinner.vue'
+import SpProfileIcon from './SpProfileIcon.vue'
+import { defineComponent, inject, computed, reactive, ref, watch, onBeforeMount } from 'vue'
 import { useStore  } from 'vuex'
 import KeplrIcon from './assets/KeplrIcon.vue'
 import WarningIcon from './assets/WarningIcon.vue'
+import ExternalArrowIcon from './assets/ExternalArrow.vue'
+import ChevronDownIcon from './assets/ChevronDown.vue'
 
 export interface Amount {
   amount: string
@@ -153,9 +175,13 @@ export default defineComponent({
   name: 'SpNavbar',
   components: {
     SpModal,
+    SpSpinner,
+    SpProfileIcon,
     SpAccountDropdown,
     KeplrIcon,
     WarningIcon,
+    ExternalArrowIcon,
+    ChevronDownIcon,
   },
   props: {
   },
@@ -166,9 +192,7 @@ export default defineComponent({
         { name: 'Data', url: '/data' },
       ],
       selectedLink: 'Portfolio',
-      connectedWallet: null,/* {
-        name: 'Alice'
-      },*/
+      connectedWallet: null,
       modalPage: 'connect',
       connectWalletModal: false,
       accontDropdown: false,
@@ -182,8 +206,44 @@ export default defineComponent({
       return !!window.keplr
     })
 
+    const updateWalletData = async (chainId: string) => {
+      const walletParams = await window.keplr.getKey(chainId)
+      const offlineSigner = window.keplr.getOfflineSigner(chainId)
+      console.log(offlineSigner)
+      await store.dispatch('common/wallet/connectWithKeplr', offlineSigner)
+      data.connectedWallet = {
+        name: walletParams.name,
+        address: walletParams.bech32Address,
+      }
+    }
+
+    onBeforeMount(async () => {
+      const chainId = store.getters['common/env/chainId']
+      if (chainId) {
+        try {
+          await updateWalletData(chainId)
+        } catch (e) {
+          console.log('Keplr not connected')
+        }
+      }
+    })
+
+    watch(() => store.getters['common/env/chainId'],
+      async (newVal) => {
+        if (newVal) {
+          try {
+            await updateWalletData(newVal)
+          } catch (e) {
+            console.log('Keplr not connected')
+          }
+        }
+      }
+    )
+
     const useKeplr = async (): Promise<void> => {
-      if (_depsLoaded) {
+      try {
+        data.modalPage = 'connecting'
+
         const staking = store.getters['cosmos.staking.v1beta1/getParams']()
         const tokens = store.getters['cosmos.bank.v1beta1/getTotalSupply']()
         const chainId = store.getters['common/env/chainId']
@@ -191,8 +251,8 @@ export default defineComponent({
         const rpc = store.getters['common/env/apiTendermint']
         const rest = store.getters['common/env/apiCosmos']
         const addrPrefix = store.getters['common/env/addrPrefix']
-        try {
-          data.modalPage = 'connecting'
+
+        if (chainId) {
           await window.keplr.experimentalSuggestChain({
             features: ['no-legacy-stdTx'],
             chainId: chainId,
@@ -249,14 +309,16 @@ export default defineComponent({
             },
           })
           await window.keplr.enable(chainId)
-          const offlineSigner = window.getOfflineSigner(chainId)
-          await this.store.dispatch('common/wallet/connectWithKeplr', offlineSigner)
+          updateWalletData(chainId)
           data.connectWalletModal = false
           data.modalPage = 'connect'
-        } catch (e) {
+        } else {
           data.modalPage = 'error'
-          console.error(e)
+          console.error('Cannot access chain data from vuex store')
         }
+      } catch (e) {
+        data.modalPage = 'error'
+        console.error(e)
       }
     }
 
@@ -306,5 +368,21 @@ export default defineComponent({
 .sp-nav-link.selected {
   font-weight: 600;
   color: #000000;
+}
+
+.description-grey {
+  font-size: 13px;
+  line-height: 153.8%;
+  color: rgba(0, 0, 0, 0.667);
+}
+
+.external-link {
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.external-link:hover {
+  opacity: 0.8;
 }
 </style>

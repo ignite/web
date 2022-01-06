@@ -119,17 +119,16 @@ export default {
 }
 
 .modal {
+  box-sizing: border-box;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 400px;
-  min-height: 300px;
+  min-width: 384px;
 }
 
 .modal-header,
 .modal-footer {
-  padding: 15px;
   display: flex;
 }
 
@@ -144,8 +143,7 @@ export default {
 
 .modal-body {
   position: relative;
-  padding: 20px 10px;
-  min-height: 70px;
+  padding: 10px 0;
 }
 
 .close-icon {
