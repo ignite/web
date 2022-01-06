@@ -1,0 +1,15 @@
+node_modules
+package-lock.json
+
+packages/**/node_modules
+packages/**/build
+packages/**/dist
+packages/**/lib
+packages/**/package-lock.json
+
+packages/vuex/src/modules
+packages/template/src/store/
+
+
+.github
+.husky

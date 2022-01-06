@@ -534,7 +534,11 @@
       right: -25rem;
       top: -33rem;
       border-radius: 35rem;
-      background: linear-gradient(225.74deg, rgba(245, 246, 248, 0) 52.21%, #f5f6f8 86.29%);
+      background: linear-gradient(
+        225.74deg,
+        rgba(245, 246, 248, 0) 52.21%,
+        #f5f6f8 86.29%
+      );
       z-index: -1;
     }
     .sp-welcome__btns {

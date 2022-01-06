@@ -1,12 +1,4 @@
-import StarportSigningClient from './libs/starportSigningClient'
-import SpVuexError from '../../../errors/SpVuexError'
 import { IbcClient, Link } from '@confio/relayer/build'
-import { Registry, DirectSecp256k1HdWallet } from '@cosmjs/proto-signing'
-import { stringToPath } from '@cosmjs/crypto'
-import { sleep } from '@cosmjs/utils'
-import { GasPrice } from '@cosmjs/launchpad'
-import { defaultRegistryTypes } from '@cosmjs/stargate'
-import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
 import { MsgTransfer } from '@confio/relayer/build/codec/ibc/applications/transfer/v1/tx'
 import {
 	MsgAcknowledgement,
@@ -24,6 +16,15 @@ import {
 	MsgConnectionOpenInit,
 	MsgConnectionOpenTry,
 } from '@confio/relayer/build/codec/ibc/core/connection/v1/tx'
+import { stringToPath } from '@cosmjs/crypto'
+import { GasPrice } from '@cosmjs/launchpad'
+import { DirectSecp256k1HdWallet,Registry } from '@cosmjs/proto-signing'
+import { defaultRegistryTypes } from '@cosmjs/stargate'
+import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
+import { sleep } from '@cosmjs/utils'
+
+import SpVuexError from '../../../errors/SpVuexError'
+import StarportSigningClient from './libs/starportSigningClient'
 
 function ibcRegistry() {
 	return new Registry([
