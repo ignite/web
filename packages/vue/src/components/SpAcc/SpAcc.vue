@@ -1,132 +1,128 @@
 <template>
-  <div class="sp-acc">
-    <div
-      v-if="state.connectedWallet.name"
-      class="sp-nav-link selected"
-      style="display: flex; align-items: center"
-      @click="state.accountDropdown = true"
-    >
-      <SpProfileIcon />
-      <span style="margin-left: 12px; margin-right: 12px">
-        {{ state.connectedWallet.name }}
-      </span>
-      <SpChevronDownIcon />
-    </div>
-    <div
-      v-else
-      class="sp-nav-link"
-      style="display: flex; align-items: center"
-      @click="state.connectWalletModal = true"
-    >
-      Connect wallet
-    </div>
-    <SpAccountDropdown
-      v-if="state.accountDropdown"
-      :connectedWallet="state.connectedWallet"
-      @disconnect="
-        () => {
-          state.connectedWallet = {}
-          state.accountDropdown = false
-        }
-      "
-      @close="state.accountDropdown = false"
-    />
-    <SpModal
-      :visible="state.connectWalletModal"
-      :closeIcon="false"
-      :cancelButton="false"
-      :submitButton="false"
-      @close="state.connectWalletModal = false"
-      @submit="state.connectWalletModal = false"
-      style="text-align: center"
-    >
-      <template v-slot:header>
-        <div v-if="state.modalPage === 'connect'">
-          <SpKeplrIcon />
-          <h3 v-if="keplrAvailable">Connect your wallet</h3>
-          <h3 v-else>Install Keplr</h3>
-        </div>
-        <div v-else-if="state.modalPage === 'connecting'">
-          <div class="description-grey">Opening Keplr</div>
-          <h3>Connecting</h3>
-        </div>
-        <div v-else-if="state.modalPage === 'error'">
-          <SpWarningIcon style="margin-bottom: 20px" />
-          <h3>Keplr cannot launch</h3>
-        </div>
-      </template>
-      <template v-slot:body>
-        <div style="max-width: 320px; text-align: center; margin: auto">
-          <div v-if="state.modalPage === 'connect'">
-            <p v-if="keplrAvailable">
-              Connect your Keplr wallet via the Keplr browser extension to use
-              this app.
-            </p>
-            <p v-else>
-              Install & connect your Keplr wallet via the Keplr browser
-              extension to use this app.
-            </p>
-          </div>
-          <div v-else-if="state.modalPage === 'connecting'">
-            <div style="margin-top: 2rem">
-              <SpSpinner />
-            </div>
-            <SpButton
-              aria-label="Cancel"
-              type="secondary"
-              @click="state.modalPage = 'connect'"
-              style="margin-top: 3rem"
-            >
-              Cancel
-            </SpButton>
-            <div class="external-link" style="margin-top: 2rem">
-              Having trouble opening Keplr?
-            </div>
-          </div>
-          <div v-else-if="state.modalPage === 'error'" style="padding: 20px 0">
-            <div class="external-link">
-              <span>Keplr troubleshooting</span>
-              <SpExternalArrowIcon style="margin-left: 0.5rem" />
-            </div>
-          </div>
-        </div>
-      </template>
-      <template v-if="keplrAvailable" v-slot:footer>
-        <div v-if="state.modalPage === 'connect'">
-          <SpButton
-            aria-label="Connect Keplr"
-            type="primary"
-            @click="connectToKeplr"
-          >
-            Connect Keplr
-          </SpButton>
-        </div>
-        <div
-          v-if="state.modalPage === 'error'"
-          style="gap: 10px; display: flex; justify-content: center"
-        >
-          <SpButton
-            aria-label="Connect Keplr"
-            type="secondary"
-            @click="state.connectWalletModal = false"
-          >
-            Cancel
-          </SpButton>
-          <SpButton
-            aria-label="Connect Keplr"
-            type="primary"
-            @click="state.modalPage = 'connect'"
-          >
-            Try again
-          </SpButton>
-        </div>
-      </template>
-    </SpModal>
-  </div>
+	<div class="sp-acc">
+		<div
+			v-if="wallet"
+			class="sp-nav-link selected"
+			style="display: flex; align-items: center"
+			@click="state.accountDropdown = true"
+		>
+			<SpProfileIcon />
+			<span style="margin-left: 12px; margin-right: 12px">
+				{{ getAccName() }}
+			</span>
+			<SpChevronDownIcon />
+		</div>
+		<div
+			v-else
+			class="sp-nav-link"
+			style="display: flex; align-items: center"
+			@click="state.connectWalletModal = true"
+		>
+			Connect wallet
+		</div>
+		<SpAccountDropdown
+			v-if="state.accountDropdown"
+			:wallet="wallet"
+			:accName="getAccName()"
+			@disconnect="disconnect"
+			@close="state.accountDropdown = false"
+		/>
+		<SpModal
+			:visible="state.connectWalletModal"
+			:closeIcon="false"
+			:cancelButton="false"
+			:submitButton="false"
+			@close="state.connectWalletModal = false"
+			@submit="state.connectWalletModal = false"
+			style="text-align: center"
+		>
+			<template v-slot:header>
+				<div v-if="state.modalPage === 'connect'">
+					<SpKeplrIcon />
+					<h3 v-if="isKeplrAvailbe">Connect your wallet</h3>
+					<h3 v-else>Install Keplr</h3>
+				</div>
+				<div v-else-if="state.modalPage === 'connecting'">
+					<div class="description-grey">Opening Keplr</div>
+					<h3>Connecting</h3>
+				</div>
+				<div v-else-if="state.modalPage === 'error'">
+					<SpWarningIcon style="margin-bottom: 20px" />
+					<h3>Keplr cannot launch</h3>
+				</div>
+			</template>
+			<template v-slot:body>
+				<div style="max-width: 320px; text-align: center; margin: auto">
+					<div v-if="state.modalPage === 'connect'">
+						<p v-if="isKeplrAvailbe">
+							Connect your Keplr wallet via the Keplr browser extension to use
+							this app.
+						</p>
+						<p v-else>
+							Install & connect your Keplr wallet via the Keplr browser
+							extension to use this app.
+						</p>
+					</div>
+					<div v-else-if="state.modalPage === 'connecting'">
+						<div style="margin-top: 2rem">
+							<SpSpinner />
+						</div>
+						<SpButton
+							aria-label="Cancel"
+							type="secondary"
+							@click="state.modalPage = 'connect'"
+							style="margin-top: 3rem"
+						>
+							Cancel
+						</SpButton>
+						<div class="external-link" style="margin-top: 2rem">
+							Having trouble opening Keplr?
+						</div>
+					</div>
+					<div v-else-if="state.modalPage === 'error'" style="padding: 20px 0">
+						<div class="external-link">
+							<span>Keplr troubleshooting</span>
+							<SpExternalArrowIcon style="margin-left: 0.5rem" />
+						</div>
+					</div>
+				</div>
+			</template>
+			<template v-if="isKeplrAvailbe" v-slot:footer>
+				<div v-if="state.modalPage === 'connect'">
+					<SpButton
+						aria-label="Connect Keplr"
+						type="primary"
+						@click="tryToConnectToKeplr"
+					>
+						Connect Keplr
+					</SpButton>
+				</div>
+				<div
+					v-if="state.modalPage === 'error'"
+					style="gap: 10px; display: flex; justify-content: center"
+				>
+					<SpButton
+						aria-label="Connect Keplr"
+						type="secondary"
+						@click="state.connectWalletModal = false"
+					>
+						Cancel
+					</SpButton>
+					<SpButton
+						aria-label="Connect Keplr"
+						type="primary"
+						@click="state.modalPage = 'connect'"
+					>
+						Try again
+					</SpButton>
+				</div>
+			</template>
+		</SpModal>
+	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch, onBeforeMount } from 'vue'
+import { defineComponent, reactive, computed, ComputedRef } from 'vue'
 import { useStore } from 'vuex'
 
 import SpModal from '../SpModal'
@@ -140,145 +136,154 @@ import SpExternalArrowIcon from '../SpExternalArrow'
 import SpChevronDownIcon from '../SpChevronDown'
 
 import useKeplr from '@/composables/useKeplr'
+import { Wallet } from '@/utils/interfaces'
 
 export default defineComponent({
-  name: 'SpAcc',
+	name: 'SpAcc',
 
-  components: {
-    SpModal,
-    SpButton,
-    SpSpinner,
-    SpProfileIcon,
-    SpAccountDropdown,
-    SpKeplrIcon,
-    SpWarningIcon,
-    SpExternalArrowIcon,
-    SpChevronDownIcon
-  },
+	components: {
+		SpModal,
+		SpButton,
+		SpSpinner,
+		SpProfileIcon,
+		SpAccountDropdown,
+		SpKeplrIcon,
+		SpWarningIcon,
+		SpExternalArrowIcon,
+		SpChevronDownIcon
+	},
 
-  setup() {
-    // state
-    const state = reactive({
-      connectedWallet: {} as any,
-      modalPage: 'connect',
-      connectWalletModal: false,
-      accountDropdown: false
-    })
+	setup() {
+		// state
+		let state = reactive({
+			modalPage: 'connect',
+			connectWalletModal: false,
+			accountDropdown: false,
+			keplrParams: { name: String }
+		})
 
-    // $s
-    const $s = useStore()
+		// $s
+		let $s = useStore()
 
-    // computed
+		// composables
+		let {
+			connectToKeplr,
+			isKeplrAvailbe,
+			getOfflineSigner,
+			getKeplrAccParams,
+			listenToAccChange
+		} = useKeplr($s)
 
-    // composables
-    let { connectToKeplrAPI, keplrAvailable } = useKeplr($s)
+		// computed
+		let wallet: ComputedRef<Wallet> = computed(
+			() => $s.getters['common/wallet/wallet']
+		)
+		let chainId: ComputedRef<String> = computed(
+			() => $s.getters['common/env/chainId']
+		)
 
-    // methods
-    const updateWalletData = async (chainId: string) => {
-      const walletParams = await window.keplr.getKey(chainId)
-      const offlineSigner = window.keplr.getOfflineSigner(chainId)
-      await $s.dispatch('common/wallet/connectWithKeplr', offlineSigner)
-      state.connectedWallet = {
-        name: walletParams.name,
-        address: walletParams.bech32Address
-      }
-    }
-    const autoConnectToChain = async (chainId: string) => {
-      if (chainId) {
-        try {
-          await updateWalletData(chainId)
-        } catch (e) {
-          console.log('Keplr not connected')
-        }
-      }
-    }
-    const onKeplrConnect = () => {
-      updateWalletData($s.getters['common/env/chainId'])
-			state.connectWalletModal = false
-			state.modalPage = 'connect'
-    }
-    const onKeplrError = () => {
-			state.modalPage = 'error'
-    }
-    const connectToKeplr = () => {
-			state.modalPage = 'connecting'
-      connectToKeplrAPI(onKeplrConnect, onKeplrError)
-    }
+		// actions
+		let signInWithKeplr = async (offlineSigner: any) =>
+			$s.dispatch('common/wallet/connectWithKeplr', offlineSigner)
+		let signOut = async () => $s.dispatch('common/wallet/signOut')
 
-    // lh
-    onBeforeMount(async () => {
-      const chainId = $s.getters['common/env/chainId']
-      autoConnectToChain(chainId)
-    })
+		// methods
+		let tryToConnectToKeplr = () => {
+			let onKeplrConnect = async () => {
+				let { name } = await getKeplrAccParams(chainId.value)
+				state.keplrParams.name = name
 
-    // watch
-    watch(
-      () => $s.getters['common/env/chainId'],
-      async (newVal) => {
-        autoConnectToChain(newVal)
-      }
-    )
+				let offlineSigner = getOfflineSigner(chainId.value)
+				signInWithKeplr(offlineSigner)
 
-    return {
-      keplrAvailable,
-      connectToKeplr,
-      state
-    }
-  }
+				listenToAccChange(onKeplrConnect)
+
+				state.connectWalletModal = false
+				state.modalPage = 'connect'
+			}
+
+			let onKeplrError = () => {
+				state.modalPage = 'error'
+			}
+
+			connectToKeplr(onKeplrConnect, onKeplrError)
+		}
+		let getAccName = (): string => {
+			if (wallet.value?.name === 'Keplr Integration') {
+				return state.keplrParams?.name + ''
+			} else {
+				return ''
+			}
+		}
+		let disconnect = () => {
+			state.accountDropdown = false
+
+			signOut()
+		}
+
+		return {
+			isKeplrAvailbe,
+			tryToConnectToKeplr,
+			disconnect,
+			state,
+			wallet,
+			getAccName
+		}
+	}
 })
 </script>
 
 <style>
 .navbar-wrapper {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  height: 80px;
-  left: 0;
-  right: 0;
-  top: 0;
-  background: #ffffff;
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+	height: 80px;
+	left: 0;
+	right: 0;
+	top: 0;
+	background: #ffffff;
 }
 
 .navbar-section {
-  display: flex;
-  padding: 20px;
-  align-items: center;
+	display: flex;
+	padding: 20px;
+	align-items: center;
 }
 
 .sp-nav-link {
-  font-size: 16px;
-  line-height: 130%;
-  color: rgba(0, 0, 0, 0.667);
-  font-weight: 400;
-  text-decoration: none;
-  cursor: pointer;
-  margin: 0 1rem;
-  transition: font-weight 0.2s ease, color 0.2s ease;
+	font-size: 16px;
+	line-height: 130%;
+	color: rgba(0, 0, 0, 0.667);
+	font-weight: 400;
+	text-decoration: none;
+	cursor: pointer;
+	margin: 0 1rem;
+	transition: font-weight 0.2s ease, color 0.2s ease;
 }
 
 .sp-nav-link:hover {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 
 .sp-nav-link.selected {
-  font-weight: 600;
-  color: #000000;
+	font-weight: 600;
+	color: #000000;
 }
 
 .description-grey {
-  font-size: 13px;
-  line-height: 153.8%;
-  color: rgba(0, 0, 0, 0.667);
+	font-size: 13px;
+	line-height: 153.8%;
+	color: rgba(0, 0, 0, 0.667);
 }
 
 .external-link {
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 .external-link:hover {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 </style>

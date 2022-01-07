@@ -6,12 +6,12 @@
 				<SpProfileIcon />
 				<div style="display: flex; flex-flow: column; margin-left: 12px">
 					<span class="account-name">
-						{{ connectedWallet.name }}
+						{{ accName }}
 					</span>
 					<span class="description-grey"> Keplr </span>
 				</div>
 			</div>
-			<div class="dropdown-option" @click="disconnectWallet">
+			<div class="dropdown-option" @click="$emit('disconnect')">
 				<span> Disconnect wallet </span>
 			</div>
 			<hr class="divider" />
@@ -44,35 +44,30 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import { useStore } from 'vuex'
-
 import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 
 export default defineComponent({
 	name: 'SpAccountDropdown',
+
 	components: {
 		SpProfileIcon,
 		SpChevronRightIcon,
 		SpExternalArrowIcon
 	},
+
+	emits: ['disconnect'],
+
 	props: {
-		connectedWallet: {
+		wallet: {
 			type: Object,
 			required: true
-		}
-	},
-	setup(_, { emit }) {
-		const store = useStore()
+		},
 
-		const disconnectWallet = async () => {
-			await store.dispatch('common/wallet/signOut')
-			emit('disconnect')
-		}
-
-		return {
-			disconnectWallet
+		accName: {
+			type: String,
+			required: true
 		}
 	}
 })
