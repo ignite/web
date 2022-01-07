@@ -23,7 +23,6 @@ import store from './store' // See @starport/vuex documentation
 import vueLib from '@starport/vue'
 
 const app = createApp(App)
-app.config.globalProperties._depsLoaded = true
 app.use(store).use(vueLib).mount('#app')
 ```
 
@@ -36,7 +35,6 @@ import store from './store' // See @starport/vuex documentation
 import { SpTokenSend } from '@starport/vue'
 
 const app = createApp(App)
-app.config.globalProperties._depsLoaded = true
 app.use(store).use(SpTokenSend).mount('#app')
 ```
 

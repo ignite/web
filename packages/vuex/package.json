@@ -16,9 +16,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "babel src --out-dir lib  --source-maps",
-    "lint": "eslint 'src/**/*.js'",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "dependencies": {
     "@confio/relayer": "^0.3.0",
@@ -29,19 +28,16 @@
     "@cosmjs/stargate": "^0.26.1",
     "@cosmjs/tendermint-rpc": "^0.26.1",
     "@cosmjs/utils": "^0.26.1",
-    "@starport/client-js": "^0.1.55",
     "axios": "^0.22.0",
     "bs58": "^4.0.1",
-    "crypto-js": "^4.1.1"
+    "buffer": "^6.0.3",
+    "crypto-js": "^4.1.1",
+    "events": "^3.3.0",
+    "reconnecting-websocket": "^4.4.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.1",
-    "prettier": "^2.4.1"
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "rollup": "^2.62.0"
   }
 }

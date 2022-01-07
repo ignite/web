@@ -1,6 +1,6 @@
 # `@starport/vuex`
 
-A collection of Vuex store modules to help build [Starport](http://github.com/tendermint/starport) front-end applications in combination with the [Starport Vue  components library](https://github.com/tendermint/vue/tree/develop/packages/vue) `@starport/vue`.
+A collection of Vuex store modules to help build [Starport](http://github.com/tendermint/starport) front-end applications in combination with the [Starport Vue components library](https://github.com/tendermint/vue/tree/develop/packages/vue) `@starport/vue`.
 
 ## Install
 
@@ -16,8 +16,8 @@ npm install --save @starport/vuex
 First you need to create a config file in your store root `./src/store/config.js`:
 
 ```js
- // import modules
-import { env, starport, blocks, wallet,transfers } from '@starport/vuex'
+// import modules
+import { env, starport, blocks, wallet, transfers } from '@starport/vuex'
 
 // init modules you need
 export default function init(store) {
@@ -35,18 +35,18 @@ Then, in your app's `./src/store/index.js` file:
 import { createStore } from 'vuex'
 import init from './config'
 
-const store = createStore({  
+const store = createStore({
   state() {
     return {}
-   },
+  },
   mutations: {},
   actions: {}
-});
+})
 
 // init @starport/vuex
-init(store);
+init(store)
 
-export default store;
+export default store
 ```
 
 Finally, initialize the `env` store by dispatching the init action in the appropriate part of your app:
@@ -73,7 +73,7 @@ await this.$store.dispatch('common/env/init', {
 
 The registered modules for this package are:
 
-### env 
+### env
 
 Registered as `common/env`, this module provides basic environment setup, connection to API, RPC, and WS nodes, connection statuses, and access to the underlying `@starport/client-js` [client](https://github.com/tendermint/vue/tree/develop/packages/client-js).
 
@@ -103,13 +103,13 @@ Registered as `common/blocks`, this module will receive, store and decode the la
 Get the latest 10 blocks:
 
 ```js
-await this.$store.getters["common/blocks/getBlocks"](10)
+await this.$store.getters['common/blocks/getBlocks'](10)
 ```
 
 Get the block at height 15:
 
 ```js
-await this.$store.getters["common/blocks/getBlocks"](15)
+await this.$store.getters['common/blocks/getBlocks'](15)
 ```
 
 ### Transfers
@@ -128,20 +128,22 @@ The getter is:
 getGetTxsEvent(params)
 ```
 
-So if you wanted to query for all token transfers received by `cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5`, you would first dispatch the querying action like so: 
+So if you wanted to query for all token transfers received by `cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5`, you would first dispatch the querying action like so:
 
 ```js
 await this.$store.dispatch('common/transfers/ServiceGetTxsEvent', {
   subscribe: true,
-  event: 'transfer.recipient%3D%27cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5%27'
-});
+  event:
+    'transfer.recipient%3D%27cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5%27'
+})
 ```
 
 And access the resulting state anywhere in your app like so:
 
 ```js
 this.$store.getters['common/transfers/getGetTxsEvent']({
-  event: 'transfer.recipient%3D%27cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5%27'
+  event:
+    'transfer.recipient%3D%27cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5%27'
 })
 ```
 
@@ -161,7 +163,7 @@ await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
   mnemonic: "web fat decorate draw waste shiver toddler entire knee until board rent robust acid spatial hockey tobacco buddy buffalo flavor mass bridge report pioneer",
   HDpath: "m/44'/118'/0'/0/", // BIP32/44 derivation path
   prefix: "cosmos", // Address prfix for this chain
-  password: "password" 
+  password: "password"
 }
 ```
 
@@ -175,33 +177,33 @@ Unlocking a specific wallet from the wallet list and logging in
 
 ```js
 await this.$store.dispatch('common/wallet/unlockWallet', {
-  name: "My Wallet",
-  password: "password"
-});
+  name: 'My Wallet',
+  password: 'password'
+})
 ```
 
 Accessing logged-in/out status:
 
 ```js
-const loggedInStatus = this.$store.getters['common/wallet/loggedIn'];
+const loggedInStatus = this.$store.getters['common/wallet/loggedIn']
 ```
 
 Signing out:
 
 ```js
-await this.$store.dispatch('common/wallet/signOut');
-``` 
+await this.$store.dispatch('common/wallet/signOut')
+```
 
 Adding next available account to the current wallet:
 
 ```js
-await this.$store.dispatch('common/wallet/addAccount');
+await this.$store.dispatch('common/wallet/addAccount')
 ```
 
 Adding an account with a specific HD Path increment to the current wallet:
 
 ```js
-await this.$store.dispatch('common/wallet/addAccount', 3);
+await this.$store.dispatch('common/wallet/addAccount', 3)
 ```
 
 In the example above we are assuming wallet's HD Path is `m/44'/118'/0'/0/`, will add account corresponding to `m/44'/118'/0'/0/3`.
@@ -209,35 +211,39 @@ In the example above we are assuming wallet's HD Path is `m/44'/118'/0'/0/`, wil
 Switch to using a different account in the current wallet (account with this address must exist in the current wallet):
 
 ```js
-await this.$store.dispatch('common/wallet/switchAccount', 'cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5');
+await this.$store.dispatch(
+  'common/wallet/switchAccount',
+  'cosmos1xv9tklw7d82sezh9haa573wufgy59vmwe6xxe5'
+)
 ```
 
 Accessing current wallet name:
 
 ```js
-const walletName = this.$store.getters['common/wallet/walletName'];
+const walletName = this.$store.getters['common/wallet/walletName']
 ```
 
 Accessing name of last wallet used:
 
 ```js
-const lastWallet = this.$store.getters['common/wallet/lastWallet'];
+const lastWallet = this.$store.getters['common/wallet/lastWallet']
 ```
 
 Accessing currently active unlocked wallet:
 
 ```js
-const wallet = this.$store.getters['common/wallet/wallet'];
+const wallet = this.$store.getters['common/wallet/wallet']
 ```
 
 Accessing currently active address in wallet:
 
 ```js
-const address = this.$store.getters['common/wallet/address'];
+const address = this.$store.getters['common/wallet/address']
 ```
 
 Inquiring if a wallet name is already in use:
 
 ```js
-const isAvailable = this.$store.getters['common/wallet/nameAvailable'](walletNameToCheck);
+const isAvailable =
+  this.$store.getters['common/wallet/nameAvailable'](walletNameToCheck)
 ```
