@@ -2,12 +2,12 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 // @ts-ignore
-import SpButton from './SpButton.vue'
+import C from './SpAcc.vue'
 
 export const Plugin = {
 	install(vue: Application): void {
-		registerComponent(vue, SpButton)
+		registerComponent(vue, C)
 	}
 }
 
-export default SpButton
+export default C
