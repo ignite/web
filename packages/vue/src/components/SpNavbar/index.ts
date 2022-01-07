@@ -1,4 +1,5 @@
 import { App as Application } from 'vue'
+// @ts-ignore
 import SpNavbar from './SpNavbar.vue'
 
 import { registerComponent } from './../../utils/plugins/index'

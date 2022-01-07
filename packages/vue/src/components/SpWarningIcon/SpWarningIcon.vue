@@ -6,3 +6,9 @@
     <path d="M24 36.5C24.5523 36.5 25 36.0523 25 35.5C25 34.9477 24.5523 34.5 24 34.5C23.4477 34.5 23 34.9477 23 35.5C23 36.0523 23.4477 36.5 24 36.5Z" stroke="#FC8C0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </template>
+<script>
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'SpWarningIcon',
+})
+</script>

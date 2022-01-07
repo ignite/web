@@ -1,13 +1,13 @@
 import { App as Application } from 'vue'
+// @ts-ignore
+import C from './SpWarningIcon.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
-// @ts-ignore
-import SpWelcome from './SpWelcome.vue'
 
 export const Plugin = {
   install(vue: Application): void {
-    registerComponent(vue, SpWelcome)
-  }
+    registerComponent(vue, C)
+  },
 }
 
-export default SpWelcome
+export default C

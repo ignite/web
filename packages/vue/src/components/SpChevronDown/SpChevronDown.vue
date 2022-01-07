@@ -3,3 +3,10 @@
     <path d="M10 2L6 6L2 2" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"/>
   </svg>
 </template>
+
+<script>
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'SpChevronDown',
+})
+</script>
