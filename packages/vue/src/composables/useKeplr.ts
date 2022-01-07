@@ -16,7 +16,7 @@ export default function useKeplr(
 	$s: Store<any>,
 	updateWalletData: (chainId: string) => any
 ): any {
-	let connect = async () => {
+	const connectToKeplr = async () => {
 		try {
 			const staking = $s.getters['cosmos.staking.v1beta1/getParams']()
 			const tokens = $s.getters['cosmos.bank.v1beta1/getTotalSupply']()
@@ -93,12 +93,12 @@ export default function useKeplr(
 		}
 	}
 
-	let keplrAvailable = computed(() => {
+	const keplrAvailable = computed(() => {
 		return !!window.keplr
 	})
 
 	return {
-		connect,
+		connectToKeplr,
 		keplrAvailable
 	}
 }

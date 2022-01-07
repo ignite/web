@@ -205,10 +205,7 @@ export default defineComponent({
 		)
 
 		// composables
-		let { connect: connectToKeplr, keplrAvailable } = useKeplr(
-			$s,
-			updateWalletData
-		)
+		let { connectToKeplr, keplrAvailable } = useKeplr($s, updateWalletData)
 
 		return {
 			keplrAvailable,

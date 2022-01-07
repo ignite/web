@@ -1,9 +1,8 @@
 import { App as Application } from 'vue'
-// @ts-ignore
-
-import SpButton from './SpButton.vue'
 
 import { registerComponent } from './../../utils/plugins/index'
+// @ts-ignore
+import SpButton from './SpButton.vue'
 
 export const Plugin = {
 	install(vue: Application): void {
