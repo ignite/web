@@ -11,10 +11,8 @@ export type AmountWithMeta = Amount & {
 	coinDecimals: number
 }
 
-export default async function useKeplr(store: Store<any>, data: any, updateWalletData: (chainId: string) => null) {
+export default async function useKeplr(store: Store<any>, onSuccessCb: () => null, onErrorCb: () => null) {
 	try {
-		data.modalPage = 'connecting'
-
 		const staking = store.getters['cosmos.staking.v1beta1/getParams']()
 		const tokens = store.getters['cosmos.bank.v1beta1/getTotalSupply']()
 		const chainId = store.getters['common/env/chainId']
@@ -80,15 +78,13 @@ export default async function useKeplr(store: Store<any>, data: any, updateWalle
 				},
 			})
 			await window.keplr.enable(chainId)
-			updateWalletData(chainId)
-			data.connectWalletModal = false
-			data.modalPage = 'connect'
+			onSuccessCb()
 		} else {
-			data.modalPage = 'error'
 			console.error('Cannot access chain data from vuex store')
+			onErrorCb()
 		}
 	} catch (e) {
-		data.modalPage = 'error'
 		console.error(e)
+		onErrorCb()
 	}
 }

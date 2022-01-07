@@ -236,8 +236,19 @@ export default defineComponent({
 			}
 		)
 
+		const onKeplrConnect = () => {
+			updateWalletData(store.getters['common/env/chainId'])
+			data.connectWalletModal = false
+			data.modalPage = 'connect'
+		}
+
+		const onKeplrError = () => {
+			data.modalPage = 'error'
+		}
+
 		const connectToKeplr = () => {
-			useKeplr(store, data, updateWalletData)
+			data.modalPage = 'connecting'
+			useKeplr(store, onKeplrConnect, onKeplrError)
 		}
 
 		return {
