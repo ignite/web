@@ -283,11 +283,6 @@ export interface TxData {
 	fees: Array<Amount>
 }
 
-export interface State {
-	tx: TxData
-	currentUIState: UI_STATE
-}
-
 export enum UI_STATE {
 	'FRESH' = 1,
 
@@ -305,14 +300,20 @@ export enum UI_STATE {
 	'RECEIVE' = 400
 }
 
-export let initialState = {
+export interface State {
+	tx: TxData
+	currentUIState: UI_STATE
+	advancedOpen: boolean
+}
+
+export let initialState: State = {
 	tx: {
 		toAddress: '',
 		ch: '',
 		amount: [],
 		memo: '',
 		fees: []
-	} as TxData,
+	},
 	currentUIState: UI_STATE.SEND as UI_STATE,
 	advancedOpen: false
 }
