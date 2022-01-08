@@ -1,37 +1,51 @@
 <template>
-	<div v-if="initialized">
+	<div v-if="state.initialized">
 		<SpTheme>
 			<SpNavbar />
+			<SpTx v-if="address" :fromAddress="address" />
 		</SpTheme>
 	</div>
 </template>
 
-<script>
-import { SpTheme, SpNavbar } from '@starport/vue'
+<script lang="ts">
+import { computed, onMounted, reactive } from 'vue'
+import { useStore } from 'vuex'
+import { SpTheme, SpNavbar, SpTx } from '@starport/vue'
+
+export interface State {
+	initialized: Boolean
+}
+
+export let initialState = {
+	initialized: false
+}
 
 export default {
-	data() {
+	components: { SpTheme, SpNavbar, SpTx },
+
+	setup() {
+		// store
+		let $s = useStore()
+
+		// state
+		let state: State = reactive(initialState)
+
+		// lh
+		onMounted(async () => {
+			await $s.dispatch('common/env/init')
+			state.initialized = true
+		})
+
+		// computed
+		let address = computed(() => $s.getters['common/wallet/address'])
+
 		return {
-			initialized: false
+			//state,
+			state,
+			// computed
+			address
 		}
-	},
-	computed: {
-		address() {
-			return this.$store.getters['common/wallet/address']
-		},
-		hasWallet() {
-			return this.$store.hasModule(['common', 'wallet'])
-		}
-	},
-	async created() {
-		await this.$store.dispatch('common/env/init')
-		this.initialized = true
-	},
-	errorCaptured(err) {
-		console.log(err)
-		return false
-	},
-	components: { SpTheme, SpNavbar }
+	}
 }
 </script>
 

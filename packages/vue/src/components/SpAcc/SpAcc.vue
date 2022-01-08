@@ -20,7 +20,7 @@
 		>
 			Connect wallet
 		</div>
-		<SpAccountDropdown
+		<SpAccDropdown
 			v-if="state.accountDropdown"
 			:wallet="wallet"
 			:accName="getAccName()"
@@ -127,7 +127,7 @@ import { useStore } from 'vuex'
 
 import SpModal from '../SpModal'
 import SpButton from '../SpButton'
-import SpAccountDropdown from '../SpAccountDropdown'
+import SpAccDropdown from '../SpAccDropdown'
 import SpSpinner from '../SpSpinner'
 import SpProfileIcon from '../SpProfileIcon'
 import SpKeplrIcon from '../SpKeplrIcon'
@@ -135,8 +135,22 @@ import SpWarningIcon from '../SpWarningIcon'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpChevronDownIcon from '../SpChevronDown'
 
-import useKeplr from '@/composables/useKeplr'
-import { Wallet } from '@/utils/interfaces'
+import useKeplr from '../../composables/useKeplr'
+import { Wallet } from '../../utils/interfaces'
+
+export interface State {
+	modalPage: string
+	connectWalletModal: boolean
+	accountDropdown: boolean
+	keplrParams: { name: String }
+}
+
+export let initialState: State = {
+	modalPage: 'connect',
+	connectWalletModal: false,
+	accountDropdown: false,
+	keplrParams: { name: '' }
+}
 
 export default defineComponent({
 	name: 'SpAcc',
@@ -146,7 +160,7 @@ export default defineComponent({
 		SpButton,
 		SpSpinner,
 		SpProfileIcon,
-		SpAccountDropdown,
+		SpAccDropdown,
 		SpKeplrIcon,
 		SpWarningIcon,
 		SpExternalArrowIcon,
@@ -155,12 +169,7 @@ export default defineComponent({
 
 	setup() {
 		// state
-		let state = reactive({
-			modalPage: 'connect',
-			connectWalletModal: false,
-			accountDropdown: false,
-			keplrParams: { name: String }
-		})
+		let state = reactive(initialState)
 
 		// $s
 		let $s = useStore()

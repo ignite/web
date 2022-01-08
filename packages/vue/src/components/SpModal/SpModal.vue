@@ -43,9 +43,11 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
+
 import SpButton from '../SpButton/SpButton.vue'
 
-export default {
+export default defineComponent({
 	name: 'SpModal',
 
 	components: { SpButton },
@@ -86,7 +88,7 @@ export default {
 			if (evt.key === 'Escape') this.$emit('close')
 		}
 	}
-}
+})
 </script>
 
 <style>
@@ -110,23 +112,15 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	min-width: 384px;
+	min-width: 400px;
+	min-height: 300px;
 }
 
 .modal-header,
 .modal-footer {
 	display: flex;
-}
-
-.modal-header {
-	position: relative;
-	justify-content: center;
-}
-
-.modal-footer {
 	flex-direction: column;
 }
-
 .modal-body {
 	position: relative;
 	padding: 10px 0;
@@ -143,14 +137,6 @@ export default {
 	background: transparent;
 }
 
-.modal-fade-enter,
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-	opacity: 0;
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-	transition: opacity 0.2s ease;
+.modal-fade-enter-active {
 }
 </style>
