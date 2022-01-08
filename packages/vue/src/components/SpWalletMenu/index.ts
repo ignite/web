@@ -2,12 +2,12 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 // @ts-ignore
-import C from './SpTheme.vue'
+import SpWalletMenu from './SpWalletMenu.vue'
 
 export const Plugin = {
 	install(vue: Application): void {
-		registerComponent(vue, C)
+		registerComponent(vue, SpWalletMenu)
 	}
 }
 
-export default C
+export default SpWalletMenu

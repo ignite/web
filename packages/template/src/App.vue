@@ -1,42 +1,56 @@
 <template>
-  <div v-if="initialized">
-    <SpTheme>
-      <SpWelcome />
-    </SpTheme>
-  </div>
+	<div v-if="state.initialized">
+		<SpTheme>
+			<SpWallet />
+			<SpTx v-if="address" :fromAddress="address" />
+		</SpTheme>
+	</div>
 </template>
 
-<script>
-import { SpTheme, SpWelcome } from '@starport/vue'
+<script lang="ts">
+import { computed, onMounted, reactive } from 'vue'
+import { useStore } from 'vuex'
+import { SpTheme, SpWallet, SpTx } from '@starport/vue'
+
+export interface State {
+	initialized: Boolean
+}
+
+export let initialState = {
+	initialized: false
+}
 
 export default {
-  data() {
-    return {
-      initialized: false
-    }
-  },
-  computed: {
-    address() {
-      return this.$store.getters['common/wallet/address']
-    },
-    hasWallet() {
-      return this.$store.hasModule(['common', 'wallet'])
-    }
-  },
-  async created() {
-    await this.$store.dispatch('common/env/init')
-    this.initialized = true
-  },
-  errorCaptured(err) {
-    console.log(err)
-    return false
-  },
-  components: { SpTheme, SpWelcome }
+	components: { SpTheme, SpWallet, SpTx },
+
+	setup() {
+		// store
+		let $s = useStore()
+
+		// state
+		let state: State = reactive(initialState)
+
+		// lh
+		onMounted(async () => {
+			await $s.dispatch('common/env/init')
+			state.initialized = true
+		})
+
+		// computed
+		let address = computed(() => $s.getters['common/wallet/address'])
+
+		return {
+			//state,
+			state,
+			// computed
+			address
+		}
+	}
 }
 </script>
 
 <style scoped lang="scss">
 body {
-  margin: 0;
+	margin: 0;
 }
 </style>
