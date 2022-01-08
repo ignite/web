@@ -30,16 +30,16 @@ export default defineComponent({
 		}
 	},
 
-	setup(props) {
-		const canvas = ref(null)
+	setup(props: any) {
+		let canvas = ref(null)
 
-		const generate = () => {
+		let generate = () => {
 			const options = {
 				margin: 0,
-				width: (props as any).width,
+				width: props.width,
 				color: {
-					dark: (props as any).color,
-					light: (props as any).background
+					dark: props.color,
+					light: props.background
 				}
 			}
 

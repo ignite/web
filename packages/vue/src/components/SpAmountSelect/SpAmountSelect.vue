@@ -141,17 +141,26 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, reactive } from 'vue'
 
-import { Amount } from '@/utils//interfaces'
+import { Amount } from '@/utils/interfaces'
+
+import SpModal from '../SpModal'
 
 export interface State {
 	tokenSearch: string
 	modalOpen: boolean
 }
 
+export let initialState: State = {
+	tokenSearch: '',
+	modalOpen: false
+}
+
 export default defineComponent({
 	name: 'SpAmountSelect',
 
 	emits: ['update'],
+
+	components: { SpModal },
 
 	props: {
 		selected: {
@@ -164,26 +173,23 @@ export default defineComponent({
 
 	setup(props: any, { emit }) {
 		// state
-		const state: State = reactive({
-			tokenSearch: '',
-			modalOpen: false
-		})
+		let state: State = reactive(initialState)
 
 		// computed
-		const ableToBeSelected = computed(() => {
-			const notSelected = (x: Amount) =>
+		let ableToBeSelected = computed(() => {
+			let notSelected = (x: Amount) =>
 				props.selected.every((y: Amount) => x.denom !== y.denom)
-			const searchFilter = (x: Amount) =>
+			let searchFilter = (x: Amount) =>
 				x.denom.toUpperCase().includes(state.tokenSearch.toUpperCase())
 
 			return props.balances.filter(notSelected).filter(searchFilter)
 		})
 
 		// methods
-		const parseAmount = (amount: string): number => {
+		let parseAmount = (amount: string): number => {
 			return amount == '' ? 0 : parseInt(amount)
 		}
-		const handleAmountInput = (evt: Event, x: Amount) => {
+		let handleAmountInput = (evt: Event, x: Amount) => {
 			let newAmount = (evt.target as HTMLInputElement).value
 
 			let newSelected: Array<Amount> = [...props.selected]
@@ -193,17 +199,17 @@ export default defineComponent({
 
 			emit('update', { selected: newSelected })
 		}
-		const handleTokenSelect = (x: Amount) => {
+		let handleTokenSelect = (x: Amount) => {
 			let newSelected: Array<Amount> = [...props.selected, { ...x, amount: '' }]
 
 			emit('update', { selected: newSelected })
 
 			state.modalOpen = false
 		}
-		const getBalanceAmount = (x: Amount) => {
+		let getBalanceAmount = (x: Amount) => {
 			return (props.balances.find((y) => y.denom === x.denom) as Amount).amount
 		}
-		const hasEnoughBalance = (x: Amount, desiredToTx) =>
+		let hasEnoughBalance = (x: Amount, desiredToTx) =>
 			parseAmount(getBalanceAmount(x)) >= parseAmount(desiredToTx)
 
 		return {
