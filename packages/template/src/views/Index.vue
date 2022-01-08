@@ -8,3 +8,4 @@
 export default {
 	name: 'Index'
 }
+</script>

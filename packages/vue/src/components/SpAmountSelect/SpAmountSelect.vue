@@ -217,7 +217,7 @@ export default defineComponent({
 			state,
 			// computed
 			ableToBeSelected,
-			// methods	
+			// methods
 			parseAmount,
 			hasEnoughBalance,
 			handleAmountInput,
