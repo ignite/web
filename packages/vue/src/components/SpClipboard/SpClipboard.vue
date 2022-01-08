@@ -26,7 +26,7 @@ export default defineComponent({
 	},
 
 	setup() {
-		const { copy } = useClipboard()
+		let { copy } = useClipboard()
 
 		return { copy }
 	}
