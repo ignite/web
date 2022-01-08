@@ -4,10 +4,10 @@ import ts from 'rollup-plugin-typescript2'
 import vue from 'rollup-plugin-vue'
 
 export default {
-	input: 'src/index.ts',
-	output: {
-		dir: 'lib',
-		format: 'esm'
-	},
-	plugins: [vue(), postcss(), ts(), cjs()]
+  input: 'src/index.ts',
+  output: {
+    dir: 'lib',
+    format: 'esm'
+  },
+  plugins: [vue(), postcss(), ts(), cjs()]
 }

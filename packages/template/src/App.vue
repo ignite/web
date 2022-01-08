@@ -37,9 +37,7 @@ export default {
 		})
 
 		// computed
-		let address = computed(
-			() => $s.getters['common/wallet/address']
-		)
+		let address = computed(() => $s.getters['common/wallet/address'])
 
 		return {
 			//state,
@@ -50,3 +48,9 @@ export default {
 	}
 }
 </script>
+
+<style scoped lang="scss">
+body {
+	margin: 0;
+}
+</style>

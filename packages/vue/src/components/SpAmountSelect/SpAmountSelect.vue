@@ -141,7 +141,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, reactive } from 'vue'
 
-import { Amount } from '@/utils/interfaces'
+import { Amount } from '../../utils/interfaces'
 
 import SpModal from '../SpModal'
 

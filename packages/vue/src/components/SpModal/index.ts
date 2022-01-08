@@ -2,12 +2,12 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 // @ts-ignore
-import SpModal from './SpModal.vue'
+import C from './SpModal.vue'
 
 export const Plugin = {
 	install(vue: Application): void {
-		registerComponent(vue, SpModal)
+		registerComponent(vue, C)
 	}
 }
 
-export default SpModal
+export default C

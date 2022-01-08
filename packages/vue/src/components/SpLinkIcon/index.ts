@@ -2,12 +2,12 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 // @ts-ignore
-import SpLinkIcon from './SpLinkIcon.vue'
+import C from './SpLinkIcon.vue'
 
 export const Plugin = {
 	install(vue: Application): void {
-		registerComponent(vue, SpLinkIcon)
+		registerComponent(vue, C)
 	}
 }
 
-export default SpLinkIcon
+export default C
