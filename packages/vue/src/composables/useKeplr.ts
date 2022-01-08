@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import { Store } from 'vuex'
+import { OfflineDirectSigner } from '@cosmjs/proto-signing'
 
 import { Amount, AmountWithMeta } from '../utils/interfaces'
 
@@ -9,13 +10,13 @@ export default function useKeplr($s: Store<any>): any {
 		onErrorCb: () => void
 	) => {
 		try {
-			const staking = $s.getters['cosmos.staking.v1beta1/getParams']()
-			const tokens = $s.getters['cosmos.bank.v1beta1/getTotalSupply']()
-			const chainId = $s.getters['common/env/chainId']
-			const chainName = $s.getters['common/env/chainName']
-			const rpc = $s.getters['common/env/apiTendermint']
-			const rest = $s.getters['common/env/apiCosmos']
-			const addrPrefix = $s.getters['common/env/addrPrefix']
+			let staking = $s.getters['cosmos.staking.v1beta1/getParams']()
+			let tokens = $s.getters['cosmos.bank.v1beta1/getTotalSupply']()
+			let chainId = $s.getters['common/env/chainId']
+			let chainName = $s.getters['common/env/chainName']
+			let rpc = $s.getters['common/env/apiTendermint']
+			let rest = $s.getters['common/env/apiCosmos']
+			let addrPrefix = $s.getters['common/env/addrPrefix']
 
 			if (chainId) {
 				await window.keplr.experimentalSuggestChain({
@@ -90,7 +91,7 @@ export default function useKeplr($s: Store<any>): any {
 		return !!window.keplr
 	})
 
-	let getOfflineSigner = (chainId: string) =>
+	let getOfflineSigner: (string) => OfflineDirectSigner = (chainId: string) =>
 		window.keplr.getOfflineSigner(chainId)
 
 	let getKeplrAccParams = async (chainId: string) =>
