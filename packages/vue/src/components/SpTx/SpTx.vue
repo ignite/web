@@ -262,7 +262,14 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, watch, reactive, onMounted } from 'vue'
+import {
+	defineComponent,
+	computed,
+	PropType,
+	watch,
+	reactive,
+	onMounted
+} from 'vue'
 import { useStore } from 'vuex'
 import { Bech32 } from '@cosmjs/encoding'
 
@@ -318,7 +325,7 @@ export let initialState: State = {
 	advancedOpen: false
 }
 
-export default {
+export default defineComponent({
 	name: 'SpTx',
 
 	components: {
@@ -546,7 +553,7 @@ export default {
 			handleTxFeesUpdate
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

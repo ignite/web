@@ -2,12 +2,12 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 // @ts-ignore
-import C from './SpWalletCreate.vue'
+import SpNavbar from './SpNavbar.vue'
 
 export const Plugin = {
 	install(vue: Application): void {
-		registerComponent(vue, C)
+		registerComponent(vue, SpNavbar)
 	}
 }
 
-export default C
+export default SpNavbar

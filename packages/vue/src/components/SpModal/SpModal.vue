@@ -1,46 +1,61 @@
 <template>
-	<div v-if="visible" class="modal-backdrop" @click="$emit('close')">
-		<div class="modal sp-box sp-shadow" role="dialog" @click.stop tabindex="0">
-			<header class="modal-header" id="modalTitle">
-				<slot name="header">
-					<h3>{{ title || 'Default title' }}</h3>
-				</slot>
-			</header>
+	<transition name="modal-fade">
+		<div v-if="visible" class="modal-backdrop" @click="$emit('close')">
+			<div
+				class="modal sp-box sp-shadow"
+				role="dialog"
+				@click.stop
+				tabindex="0"
+			>
+				<header class="modal-header" id="modalTitle">
+					<slot name="header">
+						<h3>{{ title || 'Default title' }}</h3>
+					</slot>
+				</header>
 
-			<section class="modal-body" id="modalDescription">
-				<slot name="body"> Default body </slot>
-			</section>
+				<section class="modal-body" id="modalDescription">
+					<slot name="body"> Default body </slot>
+				</section>
 
-			<footer class="modal-footer">
-				<slot name="footer">
-					<button
-						v-if="submitButton"
-						aria-label="Submit"
-						@click="$emit('submit')"
-					>
-						Submit
-					</button>
-					<button
-						v-if="cancelButton"
-						aria-label="Close modal"
-						@click="$emit('close')"
-					>
-						Close
-					</button>
-				</slot>
-			</footer>
+				<footer class="modal-footer">
+					<slot name="footer">
+						<SpButton
+							v-if="submitButton"
+							aria-label="Submit"
+							type="primary"
+							@click="$emit('submit')"
+						>
+							Submit
+						</SpButton>
+						<SpButton
+							v-if="cancelButton"
+							aria-label="Close modal"
+							type="secondary"
+							@click="$emit('close')"
+						>
+							Close
+						</SpButton>
+					</slot>
+				</footer>
+			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
-<script lang="ts">
-export default {
+<script>
+import { defineComponent } from 'vue'
+
+import SpButton from '../SpButton/SpButton.vue'
+
+export default defineComponent({
 	name: 'SpModal',
+
+	components: { SpButton },
 
 	props: {
 		visible: {
 			type: Boolean,
-			defaultsTo: true
+			defaultsTo: false
 		},
 		title: {
 			type: String,
@@ -58,8 +73,22 @@ export default {
 			type: Boolean,
 			defaultsTo: true
 		}
+	},
+	watch: {
+		visible: function (newVal) {
+			if (newVal) {
+				document.addEventListener('keyup', this.escapeHandler)
+			} else {
+				document.removeEventListener('keyup', this.escapeHandler)
+			}
+		}
+	},
+	methods: {
+		escapeHandler(evt) {
+			if (evt.key === 'Escape') this.$emit('close')
+		}
 	}
-}
+})
 </script>
 
 <style>
@@ -78,6 +107,7 @@ export default {
 }
 
 .modal {
+	box-sizing: border-box;
 	overflow-x: auto;
 	display: flex;
 	flex-direction: column;
@@ -88,23 +118,12 @@ export default {
 
 .modal-header,
 .modal-footer {
-	padding: 15px;
 	display: flex;
-}
-
-.modal-header {
-	position: relative;
-	justify-content: center;
-}
-
-.modal-footer {
 	flex-direction: column;
 }
-
 .modal-body {
 	position: relative;
-	padding: 20px 10px;
-	min-height: 70px;
+	padding: 10px 0;
 }
 
 .close-icon {
@@ -118,14 +137,6 @@ export default {
 	background: transparent;
 }
 
-.modal-fade-enter,
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-	opacity: 0;
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-	transition: opacity 0.2s ease;
+.modal-fade-enter-active {
 }
 </style>
