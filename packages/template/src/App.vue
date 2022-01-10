@@ -1,8 +1,7 @@
 <template>
 	<div v-if="state.initialized">
 		<SpTheme>
-			<SpWallet />
-			<SpTx v-if="address" :fromAddress="address" />
+			<SpAssets />
 		</SpTheme>
 	</div>
 </template>
@@ -10,10 +9,10 @@
 <script lang="ts">
 import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
-import { SpTheme, SpWallet, SpTx } from '@starport/vue'
+import { SpTheme, SpAssets } from '@starport/vue'
 
 export interface State {
-	initialized: Boolean
+	initialized: boolean
 }
 
 export let initialState = {
@@ -21,7 +20,7 @@ export let initialState = {
 }
 
 export default {
-	components: { SpTheme, SpWallet, SpTx },
+	components: { SpTheme, SpAssets },
 
 	setup() {
 		// store

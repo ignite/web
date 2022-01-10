@@ -1,0 +1,82 @@
+@use "sass:map";
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+/**
+ * Define font, line-heights, letter-spacing, weight for body text, headings etc.
+ */
+
+$font-family-base: 'Inter', Helvetica, sans-serif;
+
+/* Font paths
+   ========================================================================== */
+
+$font-path-inter: "assets/fonts/Inter";
+
+/* Font sizes
+   ========================================================================== */
+
+$font-sizes: () !default;
+$font-sizes: map.deep-merge(
+  (
+    'base': 1rem,
+    'small': null,
+    'large': null
+  ),
+  $font-sizes
+);
+
+/* Font weights
+   ========================================================================== */
+
+$font-weights: () !default;
+$font-weights: map.deep-merge(
+  (
+    'thin': 100,
+    'extra-light': 200,
+    'light': 300,
+    'regular': 400,
+    'medium': 500,
+    'semi-bold': 600,
+    'bold': 700,
+    'extra-bold': 800,
+    'black': 900,
+  ),
+  $font-weights
+);
+
+/* Line heights
+   ========================================================================== */
+
+$line-heights: () !default;
+$line-heights: map.deep-merge(
+  (
+    'base': 1.5,
+    'small': 1.25,
+    'large': 2
+  ),
+  $line-heights
+);
+
+/* Headings
+   ========================================================================== */
+
+$font-family-headings: null !default;
+$headings: () !default;
+$headings: map.deep-merge(
+  (
+    'h1': (
+      'size': map-get($font-sizes, 'base') * 2.5,
+      'weight': map-get($font-weights, 'thin'),
+      'line-height': 6rem,
+      'letter-spacing': -.015625em,
+      'font-family': $font-family-headings,
+      'text-transform': null
+    )
+  ),
+  $headings
+)
+
+

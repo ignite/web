@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Global
+   ========================================================================== */
+
+/**
+ * Normalizing global elements, general font-family and color for different HTML elements
+ */
+
+/* Body
+   ========================================================================== */
+
+body {
+  margin: 0;
+  font-family: $font-family-base;
+  font-size: map-get($font-sizes, 'base');
+  font-weight: map-get($font-weights, 'regular');
+  line-height: map-get($line-heights, 'base');
+}

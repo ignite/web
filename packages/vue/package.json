@@ -39,6 +39,7 @@
     "@types/long": "^4.0.1",
     "@types/qrcode": "^1.4.1",
     "core-js": "^3.18.2",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sass": "^1.2.10",
     "rollup-plugin-typescript2": "^0.31.1",
