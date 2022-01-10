@@ -13,7 +13,7 @@
 						{{ balance.denom.toUpperCase() }}
 					</td>
 					<td class='assets-table__amount'>
-						{{ balance.amount }}
+						{{ new Intl.NumberFormat('en-GB').format(balance.amount) }}
 					</td>
 				</tr>
 			</tbody>
@@ -31,6 +31,7 @@
 
 import { computed, defineComponent, onMounted } from 'vue'
 import { useStore } from "vuex"
+
 import SpHeading from '../basic/typography/SpHeading'
 
 export default defineComponent({
@@ -101,7 +102,7 @@ export default defineComponent({
 	vertical-align: middle;
 	margin-right: 0.8rem;
 	background: radial-gradient(83.33% 83.33% at 16.67% 16.67%, #F5F5F5 0%, #D7D7D7 42.19%, #FDFDFD 100%);
-	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.62);
+	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.62);
 	border-radius: 24px;
 	text-align: center;
 }
