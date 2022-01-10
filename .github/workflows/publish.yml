@@ -31,6 +31,6 @@ jobs:
         run: npm run build
 
       - name: Publish
-        run: lerna publish --force-publish --canary --preid beta --dist-tag next --yes --no-verify-access
+        run: lerna publish --preid alpha-$(git rev-parse HEAD) -dist-tag alpha --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
