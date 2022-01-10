@@ -5,9 +5,9 @@ import { registerComponent } from './../../utils/plugins/index'
 import C from './SpTheme.vue'
 
 export const Plugin = {
-	install(vue: Application): void {
-		registerComponent(vue, C)
-	}
+  install(vue: Application): void {
+    registerComponent(vue, C)
+  }
 }
 
 export default C

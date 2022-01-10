@@ -7,16 +7,16 @@ import envCompatible from 'vite-plugin-env-compatible'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	resolve: {
-		alias: {
-			// "@": path.resolve(__dirname, "./src"),
-		}
-	},
-	define: {
-		// 'process.env': process.env,
-		global: {
-			Buffer: Buffer,
-		}
-	},
-	plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()],
+  resolve: {
+    alias: {
+      // "@": path.resolve(__dirname, "./src"),
+    }
+  },
+  define: {
+    // 'process.env': process.env,
+    global: {
+      Buffer: Buffer
+    }
+  },
+  plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()]
 })
