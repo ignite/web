@@ -7,5 +7,6 @@ export default {
 		dir: 'lib',
 		format: 'esm'
 	},
-	plugins: [ts(), cjs()]
+	plugins: [ts(), cjs()],
+	// external: ['vuex'],
 }

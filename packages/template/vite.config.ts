@@ -13,10 +13,10 @@ export default defineConfig({
 		}
 	},
 	define: {
-		'process.env': process.env,
+		// 'process.env': process.env,
 		global: {
-			Buffer: Buffer
+			Buffer: Buffer,
 		}
 	},
-	plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()]
+	plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()],
 })
