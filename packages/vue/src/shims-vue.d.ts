@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { ComponentCustomProperties } from 'vue'
-import { Store } from 'vuex'
 
 import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types'
 
@@ -24,7 +23,6 @@ declare global {
 
 	interface CustomKeplr extends Keplr {
 		enable(chainId: string | string[]): Promise<void>
-
 		defaultOptions: KeplrIntereactionOptions
 	}
 	interface Window extends KeplrWindow {
