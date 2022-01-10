@@ -3,7 +3,9 @@ name: Build and publish pre-release
 # Controls when the action will run. 
 on:
   push:
-    branches: [ develop ]
+    branches: 
+    - develop
+    - release/milestone-01
 
   workflow_dispatch:
 
@@ -29,6 +31,6 @@ jobs:
         run: lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'
 
       - name: Publish
-        run: lerna publish --canary --preid beta --dist-tag next --yes --no-verify-access
+        run: lerna publish --force-publish --canary --preid beta --dist-tag next --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
