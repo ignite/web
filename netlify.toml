@@ -1,0 +1,4 @@
+[build]
+base = "packages/template"
+command = "npm run bootstrap:local && npm run build"
+publish = "dist"
