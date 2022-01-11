@@ -1,6 +1,6 @@
 {
   "name": "@starport/template",
-  "version": "0.2.0",
+  "version": "0.2.0-alpha-c20ca865562bfe682645ad7181badf77a68db8d3",
   "description": "A Vue 3 boilerplate project utilizing @starport/vue and @starport/vuex",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "private": true,
@@ -10,15 +10,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@starport/vuex": "0.2.1-beta.0",
-    "@starport/vue": "0.2.1-beta.0",
     "@cosmjs/launchpad": "^0.26.1",
     "@cosmjs/proto-signing": "^0.26.1",
     "@cosmjs/stargate": "^0.26.1",
+    "@starport/vue": "0.2.1-beta.0",
+    "@starport/vuex": "0.2.1-beta.0",
     "buffer": "^6.0.3",
     "core-js": "^3.18.2",
-    "vue-router": "^4.0.3",
     "vue": "^3.2.6",
+    "vue-router": "^4.0.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
