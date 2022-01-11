@@ -1,7 +1,7 @@
 <template>
   <div
-      class="avatar"
-      v-html="getAvatar()"
+    class="avatar"
+    v-html="getAvatar()"
   />
 </template>
 
