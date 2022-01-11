@@ -18,5 +18,10 @@ export default defineConfig({
       Buffer: Buffer
     }
   },
+  server: {
+    watch: {
+      ignored: ['!**/node_modules/@starport/**']
+    }
+  },
   plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()]
 })

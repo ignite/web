@@ -29,7 +29,7 @@ export default {
     // store
     let $s = useStore()
 
-    // state
+// state
     let state: State = reactive(initialState)
 
     // lh

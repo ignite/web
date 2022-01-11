@@ -15,10 +15,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w"
-  },
   "dependencies": {
     "@confio/relayer": "^0.3.0",
     "@cosmjs/crypto": "^0.26.1",
@@ -34,9 +30,5 @@
     "crypto-js": "^4.1.1",
     "events": "^3.3.0",
     "reconnecting-websocket": "^4.4.0"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-typescript": "^8.3.0"
   }
 }

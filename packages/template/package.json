@@ -1,6 +1,6 @@
 {
   "name": "@starport/template",
-  "version": "0.2.0-alpha-c20ca865562bfe682645ad7181badf77a68db8d3",
+  "version": "0.2.0",
   "description": "A Vue 3 boilerplate project utilizing @starport/vue and @starport/vuex",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "private": true,
