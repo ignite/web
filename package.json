@@ -12,9 +12,9 @@
     }
   ],
   "scripts": {
+    "purge": "lerna exec -- rm -rf node_modules",
+    "dev": "lerna bootstrap --force-local && lerna exec --scope='@starport/template' -- npm run dev",
     "build": "lerna exec --scope='@starport/template' -- npm run build",
-    "purge": "lerna exec --parallel -- rm -rf node_modules",
-    "dev": "lerna bootstrap --force-local && lerna exec --parallel --scope='@starport/template' -- npm run dev",
     "lint:check": "eslint .",
     "lint:format": "eslint --fix .",
     "prettify:check": "prettier --check .",
