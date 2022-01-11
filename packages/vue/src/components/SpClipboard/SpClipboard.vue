@@ -1,7 +1,7 @@
 <template>
-	<div class="clipboard">
-		<SpButton @click="() => copy(text)">copy</SpButton>
-	</div>
+  <div class="clipboard">
+    <SpButton @click="() => copy(text)">copy</SpButton>
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,24 +12,24 @@ import SpButton from '../SpButton'
 import useClipboard from '../../composables/useClipboard'
 
 export default defineComponent({
-	name: 'SpClipboard',
+  name: 'SpClipboard',
 
-	components: {
-		SpButton
-	},
+  components: {
+    SpButton
+  },
 
-	props: {
-		text: {
-			type: String,
-			default: ''
-		}
-	},
+  props: {
+    text: {
+      type: String,
+      default: ''
+    }
+  },
 
-	setup() {
-		let { copy } = useClipboard()
+  setup() {
+    let { copy } = useClipboard()
 
-		return { copy }
-	}
+    return { copy }
+  }
 })
 </script>
 

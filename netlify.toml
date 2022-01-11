@@ -1,0 +1,4 @@
+[build]
+base = "/"
+command = "lerna bootstrap && npm run build"
+publish = "packages/template/dist"
