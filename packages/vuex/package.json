@@ -12,9 +12,6 @@
     }
   ],
   "main": "src/index.js",
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
     "@confio/relayer": "^0.3.0",
     "@cosmjs/crypto": "^0.26.1",

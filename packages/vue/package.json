@@ -12,6 +12,8 @@
     }
   ],
   "dependencies": {
+    "@cosmjs/proto-signing": "^0.26.5",
+    "@cosmjs/encoding": "^0.26.1",
     "bip39": "^3.0.4",
     "buffer": "^6.0.3",
     "crypto-js": "^4.1.1",
@@ -21,26 +23,18 @@
     "js-base64": "^3.7.2",
     "long": "^4.0.0",
     "qrcode": "^1.5.0",
-    "safe-buffer": "^5.2.1"
-  },
-  "peerDependencies": {
+    "safe-buffer": "^5.2.1",
     "vue": "^3.2.6",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@cosmjs/encoding": "^0.26.1",
-    "@cosmjs/proto-signing": "^0.26.5",
     "@keplr-wallet/types": "^0.9.10",
-    "@rollup/plugin-commonjs": "^21.0.1",
     "@types/crypto-js": "^4.0.2",
     "@types/file-saver": "^2.0.3",
     "@types/jest": "^27.0.2",
     "@types/long": "^4.0.1",
     "@types/qrcode": "^1.4.1",
-    "core-js": "^3.18.2",
     "sass": "^1.47.0",
-    "vue": "^3.2.6",
-    "vue-tsc": "^0.30.0",
-    "vuex": "^4.0.2"
+    "vue-tsc": "^0.30.0"
   }
 }
