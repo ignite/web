@@ -1,14 +1,27 @@
 <template>
   <transition name="dropdown-fade">
     <div class="account-dropdown">
+      <SpLinkIcon
+        icon="Close"
+        aria-label="Close modal"
+        class="close-icon"
+        text=""
+        @click="$emit('close')"
+      />
       <span class="description-grey mb-3 d-block">Connected wallet</span>
       <div class="mb-3" style="display: flex; align-items: center">
-        <SpProfileIcon />
+        <SpProfileIcon :address="address" />
         <div style="display: flex; flex-flow: column; margin-left: 12px">
           <span class="account-name">
             {{ accName }}
           </span>
-          <span class="description-grey"> Keplr </span>
+          <span
+            class="description-grey copy-address"
+            title="Copy address"
+            @click="copyToClipboard(address)"
+          >
+            {{ shortAddress(address) }}
+          </span>
         </div>
       </div>
       <div class="dropdown-option" @click="$emit('disconnect')">
@@ -47,6 +60,7 @@ import { defineComponent } from 'vue'
 import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
+import SpLinkIcon from '../SpLinkIcon'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -54,10 +68,11 @@ export default defineComponent({
   components: {
     SpProfileIcon,
     SpChevronRightIcon,
-    SpExternalArrowIcon
+    SpExternalArrowIcon,
+    SpLinkIcon
   },
 
-  emits: ['disconnect'],
+  emits: ['disconnect', 'close'],
 
   props: {
     wallet: {
@@ -68,6 +83,26 @@ export default defineComponent({
     accName: {
       type: String,
       required: true
+    },
+
+    address: {
+      type: String,
+      required: true
+    }
+  },
+
+  setup() {
+    const shortAddress = (address) => {
+      return address.substring(0, 10) + '...' + address.slice(-4)
+    }
+
+    const copyToClipboard = (text) => {
+      navigator.clipboard.writeText(text)
+    }
+
+    return {
+      shortAddress,
+      copyToClipboard,
     }
   }
 })
@@ -157,6 +192,17 @@ export default defineComponent({
   font-size: 13px;
   line-height: 153.8%;
   color: rgba(0, 0, 0, 0.667);
+}
+
+.copy-address {
+  cursor: pointer;
+  user-select: none;
+}
+.copy-address:hover {
+  opacity: 0.8;
+}
+.copy-address:active {
+  color: #4251fa;
 }
 
 .dropdown-fade-enter,

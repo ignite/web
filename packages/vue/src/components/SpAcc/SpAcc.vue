@@ -6,7 +6,7 @@
       style="display: flex; align-items: center"
       @click="state.accountDropdown = true"
     >
-      <SpProfileIcon />
+      <SpProfileIcon :address="state.keplrParams?.bech32Address" />
       <span style="margin-left: 12px; margin-right: 12px">
         {{ getAccName() }}
       </span>
@@ -24,6 +24,7 @@
       v-if="state.accountDropdown"
       :wallet="wallet"
       :accName="getAccName()"
+      :address="state.keplrParams?.bech32Address"
       @disconnect="disconnect"
       @close="state.accountDropdown = false"
     />
@@ -142,14 +143,14 @@ export interface State {
   modalPage: string
   connectWalletModal: boolean
   accountDropdown: boolean
-  keplrParams: { name: String }
+  keplrParams: { name: String, bech32Address: String }
 }
 
 export let initialState: State = {
   modalPage: 'connect',
   connectWalletModal: false,
   accountDropdown: false,
-  keplrParams: { name: '' }
+  keplrParams: { name: '', bech32Address: '' }
 }
 
 export default defineComponent({
@@ -199,8 +200,9 @@ export default defineComponent({
     // methods
     let tryToConnectToKeplr = () => {
       let onKeplrConnect = async () => {
-        let { name } = await getKeplrAccParams(chainId.value)
+        let { name, bech32Address } = await getKeplrAccParams(chainId.value)
         state.keplrParams.name = name
+        state.keplrParams.bech32Address = bech32Address
 
         let offlineSigner = getOfflineSigner(chainId.value)
         signInWithKeplr(offlineSigner)

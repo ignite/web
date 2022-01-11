@@ -1,31 +1,50 @@
 <template>
   <div
-    class="profile-gradient profile-shadow"
-    style="width: 32px; height: 32px; border-radius: 50%"
+    class="avatar"
+    v-html="getAvatar()"
   />
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 
+import MD5 from 'crypto-js/md5'
+import avatar from 'gradient-avatar'
+
 export default defineComponent({
-  name: 'SpProfileIcon'
+  name: 'SpProfileIcon',
+
+  props: {
+    address: {
+      type: String,
+      default: 'Demo Account'
+    }
+  },
+
+  setup(props) {
+    const getAvatar = () => {
+      return avatar(MD5(props.address) + '', 64)
+    }
+
+    return {
+      getAvatar
+    }
+  }
 })
 </script>
 
 <style>
-.profile-gradient {
-  background: linear-gradient(
-    276.98deg,
-    #eae501 3.37%,
-    #a5fbff 22.05%,
-    #4251fa 56.21%,
-    #320b93 95.92%
-  );
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+  rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.profile-shadow {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+.avatar > svg {
+  width: 32px;
+  height: 32px;
 }
 </style>
