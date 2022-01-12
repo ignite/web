@@ -1,4 +1,4 @@
 [build]
 base = "/"
-command = "npm run purge && lerna bootstrap && cd packages/template && npm i @starport/vue@alpha @starport/vuex@alpha && cd ../.. && npm run build"
+command = ""
 publish = "packages/template/dist"
