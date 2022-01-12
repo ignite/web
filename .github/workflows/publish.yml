@@ -1,4 +1,4 @@
-name: Build and publish pre-release
+name: Alpha releaase & deploy
 
 # Controls when the action will run. 
 on:
@@ -39,7 +39,6 @@ jobs:
         with:
           args: deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
