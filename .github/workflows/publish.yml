@@ -43,8 +43,9 @@ jobs:
       - name: Deploy
         uses: netlify/actions/cli@master
         with:
-          args: deploy --alias 'alpha' --message $(git log -1 --pretty="%B by %an")
+          args: deploy --alias 'alpha' --message $MESSAGE
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          MESSAGE: $(git log -1 --pretty="%B by %an")
 
