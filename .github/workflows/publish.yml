@@ -1,10 +1,10 @@
-name: Alpha releaase & deploy
+name: alpha release & deploy
 
 # Controls when the action will run. 
 on:
   push:
     branches:
-    - release/milestone-01
+    - release/*
 
   workflow_dispatch:
 
@@ -33,6 +33,12 @@ jobs:
         run: lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
+
+      - name: Install alpha
+        run: lerna exec --scope='@starport/template' -- npm i @starport/vue@alpha @starport/vuex@alpha
+
+      - name: Build
+        run: npm run build
 
       - name: Deploy
         uses: netlify/actions/cli@master
