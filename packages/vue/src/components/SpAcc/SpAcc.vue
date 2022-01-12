@@ -6,10 +6,12 @@
       style="display: flex; align-items: center"
       @click="state.accountDropdown = true"
     >
-      <SpProfileIcon :address="state.keplrParams?.bech32Address" />
-      <span style="margin-left: 12px; margin-right: 12px">
-        {{ getAccName() }}
-      </span>
+      <div class="hide-on-small" style="display: flex; align-items: center">
+        <SpProfileIcon :address="state.keplrParams?.bech32Address" />
+        <span style="margin-left: 12px; margin-right: 12px">
+          {{ getAccName() }}
+        </span>
+      </div>
       <SpChevronDownIcon />
     </div>
     <div
@@ -199,6 +201,8 @@ export default defineComponent({
 
     // methods
     let tryToConnectToKeplr = () => {
+      state.modalPage = 'connecting'
+
       let onKeplrConnect = async () => {
         let { name, bech32Address } = await getKeplrAccParams(chainId.value)
         state.keplrParams.name = name
@@ -275,7 +279,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped lang="scss">
 .navbar-wrapper {
   display: flex;
   justify-content: space-between;
@@ -327,5 +331,11 @@ export default defineComponent({
 
 .external-link:hover {
   opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .hide-on-small {
+    display: none !important;
+  }
 }
 </style>

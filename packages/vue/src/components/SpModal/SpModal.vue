@@ -126,6 +126,15 @@ export default defineComponent({
   padding: 10px 0;
 }
 
+@media (max-width: 600px) {
+  .modal-backdrop {
+    background-color: white;
+  }
+  .modal {
+    box-shadow: none !important;
+  }
+}
+
 .close-icon {
   position: absolute;
   top: 0;
