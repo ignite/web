@@ -1,11 +1,8 @@
 <template>
   <transition name="dropdown-fade">
     <div class="account-dropdown">
-      <SpLinkIcon
-        icon="Close"
-        aria-label="Close modal"
-        class="close-icon"
-        text=""
+      <SpTimes
+        class="close-dropdown-icon"
         @click="$emit('close')"
       />
       <span class="description-grey mb-3 d-block">Connected wallet</span>
@@ -45,10 +42,10 @@
         <span> Telegram </span>
         <SpExternalArrowIcon />
       </div>
-      <div style="text-align: center; margin-top: 1.6rem">
+      <div style="text-align: center; margin-top: 2rem">
         <span class="description-grey terms-link mr-2">Privacy</span>•
         <span class="description-grey terms-link mr-2 ml-1">Terms of use</span>•
-        <span class="description-grey terms-link ml-1">Cookies Policy</span>
+        <span class="description-grey terms-link ml-1">Cookies</span>
       </div>
     </div>
   </transition>
@@ -61,6 +58,7 @@ import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
+import SpTimes from '../SpTimes'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -69,7 +67,8 @@ export default defineComponent({
     SpProfileIcon,
     SpChevronRightIcon,
     SpExternalArrowIcon,
-    SpLinkIcon
+    SpLinkIcon,
+    SpTimes
   },
 
   emits: ['disconnect', 'close'],
@@ -171,13 +170,12 @@ export default defineComponent({
   opacity: 0.8;
 }
 
-.close-icon {
+.close-dropdown-icon {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 20px;
+  right: 20px;
   border: none;
   font-size: 20px;
-  padding: 10px;
   cursor: pointer;
   background: transparent;
 }
