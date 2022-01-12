@@ -4,7 +4,6 @@ name: Build and publish pre-release
 on:
   push:
     branches:
-    - develop
     - release/milestone-01
 
   workflow_dispatch:
