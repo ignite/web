@@ -1,5 +1,5 @@
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
-import { Writer, Reader } from 'protobufjs/minimal';
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "cosmos.bank.v1beta1";
 /** Params defines the parameters for the bank module. */
 export interface Params {
@@ -67,11 +67,17 @@ export interface Metadata {
      * displayed in clients.
      */
     display: string;
-    /** name defines the name of the token (eg: Cosmos Atom) */
+    /**
+     * name defines the name of the token (eg: Cosmos Atom)
+     *
+     * Since: cosmos-sdk 0.43
+     */
     name: string;
     /**
      * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
      * be the same as the display.
+     *
+     * Since: cosmos-sdk 0.43
      */
     symbol: string;
 }

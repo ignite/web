@@ -1,6 +1,6 @@
-import { Writer, Reader } from 'protobufjs/minimal';
-import { BaseAccount } from '../../../cosmos/auth/v1beta1/auth';
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
+import { Writer, Reader } from "protobufjs/minimal";
+import { BaseAccount } from "../../../cosmos/auth/v1beta1/auth";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "cosmos.vesting.v1beta1";
 /**
  * BaseVestingAccount implements the VestingAccount interface. It contains all
@@ -47,6 +47,8 @@ export interface PeriodicVestingAccount {
  * PermanentLockedAccount implements the VestingAccount interface. It does
  * not ever release coins, locking them indefinitely. Coins in this account can
  * still be used for delegating and for governance votes even while locked.
+ *
+ * Since: cosmos-sdk 0.43
  */
 export interface PermanentLockedAccount {
     baseVestingAccount: BaseVestingAccount | undefined;

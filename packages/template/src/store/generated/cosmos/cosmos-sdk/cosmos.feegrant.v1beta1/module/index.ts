@@ -43,8 +43,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgGrantAllowance: (data: MsgGrantAllowance): EncodeObject => ({ typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance", value: data }),
-    msgRevokeAllowance: (data: MsgRevokeAllowance): EncodeObject => ({ typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance", value: data }),
+    msgGrantAllowance: (data: MsgGrantAllowance): EncodeObject => ({ typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance", value: MsgGrantAllowance.fromPartial( data ) }),
+    msgRevokeAllowance: (data: MsgRevokeAllowance): EncodeObject => ({ typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance", value: MsgRevokeAllowance.fromPartial( data ) }),
     
   };
 };

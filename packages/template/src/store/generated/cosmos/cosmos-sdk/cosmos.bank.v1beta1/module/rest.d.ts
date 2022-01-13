@@ -56,10 +56,13 @@ export interface V1Beta1Metadata {
      * displayed in clients.
      */
     display?: string;
+    /** Since: cosmos-sdk 0.43 */
     name?: string;
     /**
      * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
      * be the same as the display.
+     *
+     * Since: cosmos-sdk 0.43
      */
     symbol?: string;
 }
@@ -112,7 +115,11 @@ export interface V1Beta1PageRequest {
      * is set.
      */
     countTotal?: boolean;
-    /** reverse is set to true if results are to be returned in the descending order. */
+    /**
+     * reverse is set to true if results are to be returned in the descending order.
+     *
+     * Since: cosmos-sdk 0.43
+     */
     reverse?: boolean;
 }
 /**
@@ -188,7 +195,11 @@ export interface V1Beta1QuerySupplyOfResponse {
 }
 export interface V1Beta1QueryTotalSupplyResponse {
     supply?: V1Beta1Coin[];
-    /** pagination defines the pagination in the response. */
+    /**
+     * pagination defines the pagination in the response.
+     *
+     * Since: cosmos-sdk 0.43
+     */
     pagination?: V1Beta1PageResponse;
 }
 /**
@@ -278,9 +289,11 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @tags Query
      * @name QueryBalance
      * @summary Balance queries the balance of a single coin for a single account.
-     * @request GET:/cosmos/bank/v1beta1/balances/{address}/{denom}
+     * @request GET:/cosmos/bank/v1beta1/balances/{address}/by_denom
      */
-    queryBalance: (address: string, denom: string, params?: RequestParams) => Promise<HttpResponse<V1Beta1QueryBalanceResponse, RpcStatus>>;
+    queryBalance: (address: string, query?: {
+        denom?: string;
+    }, params?: RequestParams) => Promise<HttpResponse<V1Beta1QueryBalanceResponse, RpcStatus>>;
     /**
      * No description
      *
