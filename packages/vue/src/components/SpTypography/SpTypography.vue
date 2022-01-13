@@ -17,7 +17,7 @@ export default {
   props: {
     modifier: {
       type: String,
-      required: true
+      default: 'content'
     },
 
     feedback: {
@@ -51,6 +51,18 @@ export default {
 .typography.inverse::selection {
   color: #000;
   background: #fff;
+}
+
+.typography.link {
+  color: #094EFD;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+  &:active {
+    opacity: 0.6;
+  }
 }
 
 /* Highlight */
