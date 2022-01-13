@@ -1,8 +1,12 @@
 /* eslint-disable */
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
-import { Writer, Reader } from 'protobufjs/minimal';
-export const protobufPackage = 'cosmos.staking.v1beta1';
-/** AuthorizationType defines the type of staking module authorization type */
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Writer, Reader } from "protobufjs/minimal";
+export const protobufPackage = "cosmos.staking.v1beta1";
+/**
+ * AuthorizationType defines the type of staking module authorization type
+ *
+ * Since: cosmos-sdk 0.43
+ */
 export var AuthorizationType;
 (function (AuthorizationType) {
     /** AUTHORIZATION_TYPE_UNSPECIFIED - AUTHORIZATION_TYPE_UNSPECIFIED specifies an unknown authorization type */
@@ -18,19 +22,19 @@ export var AuthorizationType;
 export function authorizationTypeFromJSON(object) {
     switch (object) {
         case 0:
-        case 'AUTHORIZATION_TYPE_UNSPECIFIED':
+        case "AUTHORIZATION_TYPE_UNSPECIFIED":
             return AuthorizationType.AUTHORIZATION_TYPE_UNSPECIFIED;
         case 1:
-        case 'AUTHORIZATION_TYPE_DELEGATE':
+        case "AUTHORIZATION_TYPE_DELEGATE":
             return AuthorizationType.AUTHORIZATION_TYPE_DELEGATE;
         case 2:
-        case 'AUTHORIZATION_TYPE_UNDELEGATE':
+        case "AUTHORIZATION_TYPE_UNDELEGATE":
             return AuthorizationType.AUTHORIZATION_TYPE_UNDELEGATE;
         case 3:
-        case 'AUTHORIZATION_TYPE_REDELEGATE':
+        case "AUTHORIZATION_TYPE_REDELEGATE":
             return AuthorizationType.AUTHORIZATION_TYPE_REDELEGATE;
         case -1:
-        case 'UNRECOGNIZED':
+        case "UNRECOGNIZED":
         default:
             return AuthorizationType.UNRECOGNIZED;
     }
@@ -38,15 +42,15 @@ export function authorizationTypeFromJSON(object) {
 export function authorizationTypeToJSON(object) {
     switch (object) {
         case AuthorizationType.AUTHORIZATION_TYPE_UNSPECIFIED:
-            return 'AUTHORIZATION_TYPE_UNSPECIFIED';
+            return "AUTHORIZATION_TYPE_UNSPECIFIED";
         case AuthorizationType.AUTHORIZATION_TYPE_DELEGATE:
-            return 'AUTHORIZATION_TYPE_DELEGATE';
+            return "AUTHORIZATION_TYPE_DELEGATE";
         case AuthorizationType.AUTHORIZATION_TYPE_UNDELEGATE:
-            return 'AUTHORIZATION_TYPE_UNDELEGATE';
+            return "AUTHORIZATION_TYPE_UNDELEGATE";
         case AuthorizationType.AUTHORIZATION_TYPE_REDELEGATE:
-            return 'AUTHORIZATION_TYPE_REDELEGATE';
+            return "AUTHORIZATION_TYPE_REDELEGATE";
         default:
-            return 'UNKNOWN';
+            return "UNKNOWN";
     }
 }
 const baseStakeAuthorization = { authorizationType: 0 };
@@ -112,7 +116,8 @@ export const StakeAuthorization = {
         else {
             message.denyList = undefined;
         }
-        if (object.authorizationType !== undefined && object.authorizationType !== null) {
+        if (object.authorizationType !== undefined &&
+            object.authorizationType !== null) {
             message.authorizationType = authorizationTypeFromJSON(object.authorizationType);
         }
         else {
@@ -122,10 +127,20 @@ export const StakeAuthorization = {
     },
     toJSON(message) {
         const obj = {};
-        message.maxTokens !== undefined && (obj.maxTokens = message.maxTokens ? Coin.toJSON(message.maxTokens) : undefined);
-        message.allowList !== undefined && (obj.allowList = message.allowList ? StakeAuthorization_Validators.toJSON(message.allowList) : undefined);
-        message.denyList !== undefined && (obj.denyList = message.denyList ? StakeAuthorization_Validators.toJSON(message.denyList) : undefined);
-        message.authorizationType !== undefined && (obj.authorizationType = authorizationTypeToJSON(message.authorizationType));
+        message.maxTokens !== undefined &&
+            (obj.maxTokens = message.maxTokens
+                ? Coin.toJSON(message.maxTokens)
+                : undefined);
+        message.allowList !== undefined &&
+            (obj.allowList = message.allowList
+                ? StakeAuthorization_Validators.toJSON(message.allowList)
+                : undefined);
+        message.denyList !== undefined &&
+            (obj.denyList = message.denyList
+                ? StakeAuthorization_Validators.toJSON(message.denyList)
+                : undefined);
+        message.authorizationType !== undefined &&
+            (obj.authorizationType = authorizationTypeToJSON(message.authorizationType));
         return obj;
     },
     fromPartial(object) {
@@ -148,16 +163,17 @@ export const StakeAuthorization = {
         else {
             message.denyList = undefined;
         }
-        if (object.authorizationType !== undefined && object.authorizationType !== null) {
+        if (object.authorizationType !== undefined &&
+            object.authorizationType !== null) {
             message.authorizationType = object.authorizationType;
         }
         else {
             message.authorizationType = 0;
         }
         return message;
-    }
+    },
 };
-const baseStakeAuthorization_Validators = { address: '' };
+const baseStakeAuthorization_Validators = { address: "" };
 export const StakeAuthorization_Validators = {
     encode(message, writer = Writer.create()) {
         for (const v of message.address) {
@@ -168,7 +184,9 @@ export const StakeAuthorization_Validators = {
     decode(input, length) {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseStakeAuthorization_Validators };
+        const message = {
+            ...baseStakeAuthorization_Validators,
+        };
         message.address = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -184,7 +202,9 @@ export const StakeAuthorization_Validators = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseStakeAuthorization_Validators };
+        const message = {
+            ...baseStakeAuthorization_Validators,
+        };
         message.address = [];
         if (object.address !== undefined && object.address !== null) {
             for (const e of object.address) {
@@ -204,7 +224,9 @@ export const StakeAuthorization_Validators = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseStakeAuthorization_Validators };
+        const message = {
+            ...baseStakeAuthorization_Validators,
+        };
         message.address = [];
         if (object.address !== undefined && object.address !== null) {
             for (const e of object.address) {
@@ -212,5 +234,5 @@ export const StakeAuthorization_Validators = {
             }
         }
         return message;
-    }
+    },
 };

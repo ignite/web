@@ -47,10 +47,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgSetWithdrawAddress: (data: MsgSetWithdrawAddress): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress", value: data }),
-    msgWithdrawValidatorCommission: (data: MsgWithdrawValidatorCommission): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission", value: data }),
-    msgFundCommunityPool: (data: MsgFundCommunityPool): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgFundCommunityPool", value: data }),
-    msgWithdrawDelegatorReward: (data: MsgWithdrawDelegatorReward): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward", value: data }),
+    msgSetWithdrawAddress: (data: MsgSetWithdrawAddress): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress", value: MsgSetWithdrawAddress.fromPartial( data ) }),
+    msgWithdrawValidatorCommission: (data: MsgWithdrawValidatorCommission): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission", value: MsgWithdrawValidatorCommission.fromPartial( data ) }),
+    msgFundCommunityPool: (data: MsgFundCommunityPool): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgFundCommunityPool", value: MsgFundCommunityPool.fromPartial( data ) }),
+    msgWithdrawDelegatorReward: (data: MsgWithdrawDelegatorReward): EncodeObject => ({ typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward", value: MsgWithdrawDelegatorReward.fromPartial( data ) }),
     
   };
 };
