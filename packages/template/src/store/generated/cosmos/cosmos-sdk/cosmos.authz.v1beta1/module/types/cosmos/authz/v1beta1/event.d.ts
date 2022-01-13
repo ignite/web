@@ -1,5 +1,6 @@
-import { Writer, Reader } from 'protobufjs/minimal';
+import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "cosmos.authz.v1beta1";
+/** Since: cosmos-sdk 0.43 */
 /** EventGrant is emitted on Msg/Grant */
 export interface EventGrant {
     /** Msg type URL for which an autorization is granted */

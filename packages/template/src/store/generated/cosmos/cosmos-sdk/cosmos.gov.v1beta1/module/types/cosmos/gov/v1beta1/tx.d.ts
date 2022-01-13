@@ -1,7 +1,7 @@
-import { VoteOption, WeightedVoteOption } from '../../../cosmos/gov/v1beta1/gov';
-import { Reader, Writer } from 'protobufjs/minimal';
-import { Any } from '../../../google/protobuf/any';
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
+import { VoteOption, WeightedVoteOption } from "../../../cosmos/gov/v1beta1/gov";
+import { Reader, Writer } from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "cosmos.gov.v1beta1";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
@@ -25,13 +25,21 @@ export interface MsgVote {
 /** MsgVoteResponse defines the Msg/Vote response type. */
 export interface MsgVoteResponse {
 }
-/** MsgVoteWeighted defines a message to cast a vote. */
+/**
+ * MsgVoteWeighted defines a message to cast a vote.
+ *
+ * Since: cosmos-sdk 0.43
+ */
 export interface MsgVoteWeighted {
     proposalId: number;
     voter: string;
     options: WeightedVoteOption[];
 }
-/** MsgVoteWeightedResponse defines the Msg/VoteWeighted response type. */
+/**
+ * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
+ *
+ * Since: cosmos-sdk 0.43
+ */
 export interface MsgVoteWeightedResponse {
 }
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
@@ -105,7 +113,11 @@ export interface Msg {
     SubmitProposal(request: MsgSubmitProposal): Promise<MsgSubmitProposalResponse>;
     /** Vote defines a method to add a vote on a specific proposal. */
     Vote(request: MsgVote): Promise<MsgVoteResponse>;
-    /** VoteWeighted defines a method to add a weighted vote on a specific proposal. */
+    /**
+     * VoteWeighted defines a method to add a weighted vote on a specific proposal.
+     *
+     * Since: cosmos-sdk 0.43
+     */
     VoteWeighted(request: MsgVoteWeighted): Promise<MsgVoteWeightedResponse>;
     /** Deposit defines a method to add deposit on a specific proposal. */
     Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;

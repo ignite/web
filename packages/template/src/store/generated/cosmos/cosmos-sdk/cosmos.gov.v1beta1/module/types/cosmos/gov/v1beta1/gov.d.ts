@@ -1,7 +1,7 @@
-import { Writer, Reader } from 'protobufjs/minimal';
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
-import { Any } from '../../../google/protobuf/any';
-import { Duration } from '../../../google/protobuf/duration';
+import { Writer, Reader } from "protobufjs/minimal";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Any } from "../../../google/protobuf/any";
+import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "cosmos.gov.v1beta1";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
 export declare enum VoteOption {
@@ -52,7 +52,11 @@ export declare enum ProposalStatus {
 }
 export declare function proposalStatusFromJSON(object: any): ProposalStatus;
 export declare function proposalStatusToJSON(object: ProposalStatus): string;
-/** WeightedVoteOption defines a unit of vote for vote split. */
+/**
+ * WeightedVoteOption defines a unit of vote for vote split.
+ *
+ * Since: cosmos-sdk 0.43
+ */
 export interface WeightedVoteOption {
     option: VoteOption;
     weight: string;
@@ -108,6 +112,7 @@ export interface Vote {
      * @deprecated
      */
     option: VoteOption;
+    /** Since: cosmos-sdk 0.43 */
     options: WeightedVoteOption[];
 }
 /** DepositParams defines the params for deposits on governance proposals. */

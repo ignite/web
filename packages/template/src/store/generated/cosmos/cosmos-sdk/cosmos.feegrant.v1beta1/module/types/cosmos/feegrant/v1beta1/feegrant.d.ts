@@ -1,8 +1,9 @@
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
-import { Duration } from '../../../google/protobuf/duration';
-import { Any } from '../../../google/protobuf/any';
-import { Writer, Reader } from 'protobufjs/minimal';
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Duration } from "../../../google/protobuf/duration";
+import { Any } from "../../../google/protobuf/any";
+import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "cosmos.feegrant.v1beta1";
+/** Since: cosmos-sdk 0.43 */
 /**
  * BasicAllowance implements Allowance with a one-time grant of tokens
  * that optionally expires. The grantee can use up to SpendLimit to cover fees.
