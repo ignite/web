@@ -55,7 +55,7 @@
         :alt="link.name"
         :title="link.name"
       >
-        <div class="">
+        <div :class="link.url === activeRoute ? 'link-active' : ''">
           {{ link.name }}
         </div>
       </router-link>
@@ -67,11 +67,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 import SpModal from '../SpModal'
 import SpButton from '../SpButton'
 import SpAcc from '../SpAcc'
+
+export interface NavbarLink {
+  name: string
+  url: string
+}
 
 export default defineComponent({
   name: 'SpNavbar',
@@ -82,16 +87,16 @@ export default defineComponent({
     SpButton
   },
 
-  setup() {
-    let links = [
-      { name: 'Portfolio', url: '/portfolio' },
-      { name: 'Data', url: '/data' }
-    ]
-
-    return {
-      links
+  props: {
+    links: {
+      type: Object as PropType<NavbarLink[]>,
+      required: true
+    },
+    activeRoute: {
+      type: String,
+      required: false
     }
-  }
+  },
 })
 </script>
 
@@ -99,7 +104,6 @@ export default defineComponent({
 .navbar-wrapper {
   display: flex;
   justify-content: space-between;
-  position: absolute;
   height: 80px;
   left: 0;
   right: 0;
@@ -147,6 +151,10 @@ export default defineComponent({
 
 .external-link:hover {
   opacity: 0.8;
+}
+
+.link-active {
+  font-weight: 600;
 }
 
 @media (max-width: 600px) {
