@@ -27,9 +27,9 @@ export default defineComponent({
     let visible = ref(false)
 
     const clickOutsideHandler = (evt) => {
-      let dropdownEl = document.querySelector('.dropdown-dropdown')
+      // let dropdownEl = document.querySelector('.dropdown-dropdown')
       let dropdownButtonEl = document.querySelector('.dropdown-button')
-      if (!dropdownEl?.contains(evt.target) && !dropdownButtonEl?.contains(evt.target)) {
+      if (!dropdownButtonEl?.contains(evt.target)) {
         visible.value = false
       }
     }
