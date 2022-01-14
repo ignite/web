@@ -30,11 +30,13 @@ export default {
   setup() {
     // store
     let $s = useStore()
+
+    // router
     let router = useRouter()
 
     // state
     let state: State = reactive(initialState)
-    const navbarLinks = [
+    let navbarLinks = [
       { name: 'Portfolio', url: '/portfolio' },
       { name: 'Data', url: '/data' }
     ]
@@ -43,7 +45,7 @@ export default {
     onMounted(async () => {
       await $s.dispatch('common/env/init')
       state.initialized = true
-      window.history.pushState({ page: 'portfolio' }, 'Portfolio', 'portfolio')
+      router.push('portfolio')
     })
 
     // computed
@@ -52,8 +54,9 @@ export default {
     return {
       //state,
       state,
-      router,
       navbarLinks,
+      // router
+      router,
       // computed
       address
     }
