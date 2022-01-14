@@ -1,19 +1,21 @@
 <template>
   <div>
     <div style="margin-top: 10px; width: 400px; padding: 20px; float: right">
+      <SpAssets v-if="address" :address="address" />
       <SpTx v-if="address" :fromAddress="address" />
     </div>
   </div>
 </template>
 
 <script>
-import { SpTx } from '@starport/vue'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
+import { SpTx, SpAssets } from '@starport/vue'
 
 export default {
   name: 'Portfolio',
-  components: { SpTx },
+  
+  components: { SpTx, SpAssets },
 
   setup() {
     // store

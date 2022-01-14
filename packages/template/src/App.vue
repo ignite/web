@@ -13,8 +13,8 @@
 <script lang="ts">
 import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
+import { SpTheme, SpNavbar, SpTx } from '@starport/vue'
 import { useRouter } from 'vue-router'
-import { SpTheme, SpNavbar } from '@starport/vue'
 
 export interface State {
   initialized: Boolean
@@ -25,7 +25,7 @@ export let initialState = {
 }
 
 export default {
-  components: { SpTheme, SpNavbar },
+  components: { SpTheme, SpNavbar, SpTx },
 
   setup() {
     // store
