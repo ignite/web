@@ -125,7 +125,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, watch, ComputedRef, onBeforeMount } from 'vue'
+import {
+  defineComponent,
+  reactive,
+  computed,
+  watch,
+  ComputedRef,
+  onBeforeMount
+} from 'vue'
 import { useStore } from 'vuex'
 
 import SpModal from '../SpModal'
@@ -145,7 +152,7 @@ export interface State {
   modalPage: string
   connectWalletModal: boolean
   accountDropdown: boolean
-  keplrParams: { name: String, bech32Address: String }
+  keplrParams: { name: String; bech32Address: String }
 }
 
 export let initialState: State = {
@@ -223,7 +230,7 @@ export default defineComponent({
 
       connectToKeplr(onKeplrConnect, onKeplrError)
     }
-    const connectAutomatically = async (chainId: string) => {
+    let connectAutomatically = async (chainId: string) => {
       let { name, bech32Address } = await getKeplrAccParams(chainId.value)
       state.keplrParams.name = name
       state.keplrParams.bech32Address = bech32Address
