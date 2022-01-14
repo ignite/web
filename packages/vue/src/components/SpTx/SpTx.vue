@@ -382,13 +382,13 @@ export default defineComponent({
     let sendTx = async (): Promise<void> => {
       state.currentUIState = UI_STATE.TX_SIGNING
 
-      const value = {
+      let value = {
         amount: state.tx.amount,
         toAddress: state.tx.toAddress,
         fromAddress: props.fromAddress
       }
 
-      const fees = state.tx.fees.map((x) => ({
+      let fee = state.tx.fees.map((x) => ({
         ...x,
         amount: x.amount == '' ? '0' : x.amount
       }))
@@ -396,7 +396,7 @@ export default defineComponent({
       try {
         const txResult = await sendMsgSend({
           value,
-          fees,
+          fee,
           memo: state.tx.memo
         })
 
@@ -421,7 +421,7 @@ export default defineComponent({
     }
     let bootstrapTxAmount = () => {
       if (hasAnyBalance.value) {
-        const firstBalance = balances.value[0]
+        let firstBalance = balances.value[0]
 
         state.tx.amount[0] = { ...firstBalance, amount: '' }
       }
@@ -472,7 +472,7 @@ export default defineComponent({
     })
     let validTxFees = computed(() =>
       state.tx.fees.every((x) => {
-        const parsedAmount = parseAmount(x.amount)
+        let parsedAmount = parseAmount(x.amount)
 
         return !isNaN(parsedAmount) && parsedAmount > 0
       })
@@ -481,7 +481,7 @@ export default defineComponent({
       () =>
         state.tx.amount.length > 0 &&
         state.tx.amount.every((x) => {
-          const parsedAmount = parseAmount(x.amount)
+          let parsedAmount = parseAmount(x.amount)
 
           return !isNaN(parsedAmount) && parsedAmount > 0
         })
