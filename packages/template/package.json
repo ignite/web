@@ -10,9 +10,11 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@cosmjs/launchpad": "^0.26.1",
-    "@cosmjs/proto-signing": "^0.26.1",
-    "@cosmjs/stargate": "^0.26.1",
+    "@cosmjs/launchpad": "^0.27.0",
+    "@cosmjs/proto-signing": "^0.27.0",
+    "@cosmjs/amino": "^0.27.0",
+    "@cosmjs/math": "^0.27.0",
+    "@cosmjs/stargate": "^0.27.0",
     "@starport/vue": "^0.2.1-alpha-041732a553ab8c8cb98c15a41f1b39411c298534.0",
     "@starport/vuex": "^0.2.1-alpha-041732a553ab8c8cb98c15a41f1b39411c298534.0",
     "buffer": "^6.0.3",
