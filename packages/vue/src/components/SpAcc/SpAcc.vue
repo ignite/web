@@ -249,7 +249,7 @@ export default defineComponent({
         try {
           await tryToConnectToKeplr()
         } catch (e) {
-          console.log('Keplr not connected')
+          console.warn('Keplr not connected')
         }
       }
     })
