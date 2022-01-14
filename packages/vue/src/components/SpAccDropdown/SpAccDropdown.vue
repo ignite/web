@@ -1,7 +1,7 @@
 <template>
   <transition name="dropdown-fade">
     <div class="account-dropdown">
-      <SpTimes
+      <SpTimesIcon
         class="close-dropdown-icon"
         @click="$emit('close')"
       />
@@ -52,13 +52,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, onBeforeUnmount } from 'vue'
 
 import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
-import SpTimes from '../SpTimes'
+import SpTimesIcon from '../SpTimesIcon'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -68,7 +68,7 @@ export default defineComponent({
     SpChevronRightIcon,
     SpExternalArrowIcon,
     SpLinkIcon,
-    SpTimes
+    SpTimesIcon
   },
 
   emits: ['disconnect', 'close'],
@@ -90,7 +90,7 @@ export default defineComponent({
     }
   },
 
-  setup() {
+  setup(props, { emit }) {
     const shortAddress = (address) => {
       return address.substring(0, 10) + '...' + address.slice(-4)
     }
@@ -98,6 +98,21 @@ export default defineComponent({
     const copyToClipboard = (text) => {
       navigator.clipboard.writeText(text)
     }
+
+    const clickOutsideHandler = (evt) => {
+      let dropdownEl = document.querySelector('.account-dropdown')
+      let dropdownButtonEl = document.querySelector('.account-dropdown-button')
+      if (!dropdownEl?.contains(evt.target) && !dropdownButtonEl?.contains(evt.target)) {
+        emit('close')
+      }
+    }
+
+    onMounted(() => {
+      document.addEventListener('click', clickOutsideHandler)
+    })
+    onBeforeUnmount(() => {
+      document.removeEventListener('click', clickOutsideHandler)
+    })
 
     return {
       shortAddress,

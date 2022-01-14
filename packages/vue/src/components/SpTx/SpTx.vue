@@ -27,7 +27,7 @@
       <div class="tx-ongoing-subtitle">Sign transaction...</div>
     </div>
 
-<div v-else-if="isTxSuccess" class="feedback">
+    <div v-else-if="isTxSuccess" class="feedback">
       <div class="check-icon">
         <svg
           width="64"

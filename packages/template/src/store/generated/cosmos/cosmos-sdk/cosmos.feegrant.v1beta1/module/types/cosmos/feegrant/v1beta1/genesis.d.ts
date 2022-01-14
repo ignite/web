@@ -1,6 +1,7 @@
-import { Grant } from '../../../cosmos/feegrant/v1beta1/feegrant';
-import { Writer, Reader } from 'protobufjs/minimal';
+import { Grant } from "../../../cosmos/feegrant/v1beta1/feegrant";
+import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "cosmos.feegrant.v1beta1";
+/** Since: cosmos-sdk 0.43 */
 /** GenesisState contains a set of fee allowances, persisted from the store */
 export interface GenesisState {
     allowances: Grant[];

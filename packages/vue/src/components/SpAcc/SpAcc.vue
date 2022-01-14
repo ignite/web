@@ -2,7 +2,7 @@
   <div class="sp-acc">
     <div
       v-if="wallet"
-      class="sp-nav-link selected"
+      class="sp-nav-link selected account-dropdown-button"
       style="display: flex; align-items: center"
       @click="state.accountDropdown = true"
     >
