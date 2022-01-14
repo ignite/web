@@ -1,10 +1,11 @@
 <template>
   <div v-if="state.initialized">
     <SpTheme>
-      <SpNavbar />
-      <div style="margin-top: 100px; width: 400px; padding: 20px; float: right">
-        <SpTx v-if="address" :fromAddress="address" />
-      </div>
+      <SpNavbar
+        :links="navbarLinks"
+        :activeRoute="router.currentRoute.value.path"
+      />
+      <router-view />
     </SpTheme>
   </div>
 </template>
@@ -13,9 +14,10 @@
 import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { SpTheme, SpNavbar, SpTx } from '@starport/vue'
+import { useRouter } from 'vue-router'
 
 export interface State {
-  initialized: Boolean
+  initialized: boolean
 }
 
 export let initialState = {
@@ -29,13 +31,21 @@ export default {
     // store
     let $s = useStore()
 
-// state
+    // router
+    let router = useRouter()
+
+    // state
     let state: State = reactive(initialState)
+    let navbarLinks = [
+      { name: 'Portfolio', url: '/portfolio' },
+      { name: 'Data', url: '/data' }
+    ]
 
     // lh
     onMounted(async () => {
       await $s.dispatch('common/env/init')
       state.initialized = true
+      router.push('portfolio')
     })
 
     // computed
@@ -44,6 +54,9 @@ export default {
     return {
       //state,
       state,
+      navbarLinks,
+      // router
+      router,
       // computed
       address
     }

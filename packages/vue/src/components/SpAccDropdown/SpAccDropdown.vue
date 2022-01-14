@@ -1,13 +1,7 @@
 <template>
   <transition name="dropdown-fade">
     <div class="account-dropdown">
-      <SpLinkIcon
-        icon="Close"
-        aria-label="Close modal"
-        class="close-icon"
-        text=""
-        @click="$emit('close')"
-      />
+      <SpTimesIcon class="close-dropdown-icon" @click="$emit('close')" />
       <span class="description-grey mb-3 d-block">Connected wallet</span>
       <div class="mb-3" style="display: flex; align-items: center">
         <SpProfileIcon :address="address" />
@@ -45,22 +39,23 @@
         <span> Telegram </span>
         <SpExternalArrowIcon />
       </div>
-      <div style="text-align: center; margin-top: 1.6rem">
+      <div style="text-align: center; margin-top: 2rem">
         <span class="description-grey terms-link mr-2">Privacy</span>•
         <span class="description-grey terms-link mr-2 ml-1">Terms of use</span>•
-        <span class="description-grey terms-link ml-1">Cookies Policy</span>
+        <span class="description-grey terms-link ml-1">Cookies</span>
       </div>
     </div>
   </transition>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, onBeforeUnmount } from 'vue'
 
 import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
+import SpTimesIcon from '../SpTimesIcon'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -69,7 +64,8 @@ export default defineComponent({
     SpProfileIcon,
     SpChevronRightIcon,
     SpExternalArrowIcon,
-    SpLinkIcon
+    SpLinkIcon,
+    SpTimesIcon
   },
 
   emits: ['disconnect', 'close'],
@@ -91,7 +87,7 @@ export default defineComponent({
     }
   },
 
-  setup() {
+  setup(props, { emit }) {
     const shortAddress = (address) => {
       return address.substring(0, 10) + '...' + address.slice(-4)
     }
@@ -100,9 +96,27 @@ export default defineComponent({
       navigator.clipboard.writeText(text)
     }
 
+    const clickOutsideHandler = (evt) => {
+      let dropdownEl = document.querySelector('.account-dropdown')
+      let dropdownButtonEl = document.querySelector('.account-dropdown-button')
+      if (
+        !dropdownEl?.contains(evt.target) &&
+        !dropdownButtonEl?.contains(evt.target)
+      ) {
+        emit('close')
+      }
+    }
+
+    onMounted(() => {
+      document.addEventListener('click', clickOutsideHandler)
+    })
+    onBeforeUnmount(() => {
+      document.removeEventListener('click', clickOutsideHandler)
+    })
+
     return {
       shortAddress,
-      copyToClipboard,
+      copyToClipboard
     }
   }
 })
@@ -171,13 +185,12 @@ export default defineComponent({
   opacity: 0.8;
 }
 
-.close-icon {
+.close-dropdown-icon {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 20px;
+  right: 20px;
   border: none;
   font-size: 20px;
-  padding: 10px;
   cursor: pointer;
   background: transparent;
 }

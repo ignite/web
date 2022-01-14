@@ -1,7 +1,11 @@
-import { Coin } from '../../../cosmos/base/v1beta1/coin';
-import { Writer, Reader } from 'protobufjs/minimal';
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "cosmos.staking.v1beta1";
-/** AuthorizationType defines the type of staking module authorization type */
+/**
+ * AuthorizationType defines the type of staking module authorization type
+ *
+ * Since: cosmos-sdk 0.43
+ */
 export declare enum AuthorizationType {
     /** AUTHORIZATION_TYPE_UNSPECIFIED - AUTHORIZATION_TYPE_UNSPECIFIED specifies an unknown authorization type */
     AUTHORIZATION_TYPE_UNSPECIFIED = 0,
@@ -15,7 +19,11 @@ export declare enum AuthorizationType {
 }
 export declare function authorizationTypeFromJSON(object: any): AuthorizationType;
 export declare function authorizationTypeToJSON(object: AuthorizationType): string;
-/** StakeAuthorization defines authorization for delegate/undelegate/redelegate. */
+/**
+ * StakeAuthorization defines authorization for delegate/undelegate/redelegate.
+ *
+ * Since: cosmos-sdk 0.43
+ */
 export interface StakeAuthorization {
     /**
      * max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is

@@ -188,8 +188,10 @@ export interface V1Beta1MsgSubmitProposalResponse {
 export type V1Beta1MsgVoteResponse = object;
 
 /**
- * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- */
+* MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
+
+Since: cosmos-sdk 0.43
+*/
 export type V1Beta1MsgVoteWeightedResponse = object;
 
 /**
@@ -230,7 +232,11 @@ export interface V1Beta1PageRequest {
    */
   countTotal?: boolean;
 
-  /** reverse is set to true if results are to be returned in the descending order. */
+  /**
+   * reverse is set to true if results are to be returned in the descending order.
+   *
+   * Since: cosmos-sdk 0.43
+   */
   reverse?: boolean;
 }
 
@@ -559,8 +565,10 @@ export interface V1Beta1VotingParams {
 }
 
 /**
- * WeightedVoteOption defines a unit of vote for vote split.
- */
+* WeightedVoteOption defines a unit of vote for vote split.
+
+Since: cosmos-sdk 0.43
+*/
 export interface V1Beta1WeightedVoteOption {
   /**
    * VoteOption enumerates the valid vote options for a given governance proposal.

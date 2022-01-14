@@ -2,14 +2,16 @@
   <div class="sp-acc">
     <div
       v-if="wallet"
-      class="sp-nav-link selected"
+      class="sp-nav-link selected account-dropdown-button"
       style="display: flex; align-items: center"
       @click="state.accountDropdown = true"
     >
-      <SpProfileIcon :address="state.keplrParams?.bech32Address" />
-      <span style="margin-left: 12px; margin-right: 12px">
-        {{ getAccName() }}
-      </span>
+      <div class="hide-on-small" style="display: flex; align-items: center">
+        <SpProfileIcon :address="state.keplrParams?.bech32Address" />
+        <span style="margin-left: 12px; margin-right: 12px">
+          {{ getAccName() }}
+        </span>
+      </div>
       <SpChevronDownIcon />
     </div>
     <div
@@ -123,7 +125,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, ComputedRef } from 'vue'
+import {
+  defineComponent,
+  reactive,
+  computed,
+  watch,
+  ComputedRef,
+  onMounted
+} from 'vue'
 import { useStore } from 'vuex'
 
 import SpModal from '../SpModal'
@@ -143,7 +152,7 @@ export interface State {
   modalPage: string
   connectWalletModal: boolean
   accountDropdown: boolean
-  keplrParams: { name: String, bech32Address: String }
+  keplrParams: { name: String; bech32Address: String }
 }
 
 export let initialState: State = {
@@ -188,7 +197,7 @@ export default defineComponent({
     let wallet: ComputedRef<Wallet> = computed(
       () => $s.getters['common/wallet/wallet']
     )
-    let chainId: ComputedRef<String> = computed(
+    let chainId: ComputedRef<string> = computed(
       () => $s.getters['common/env/chainId']
     )
 
@@ -199,6 +208,8 @@ export default defineComponent({
 
     // methods
     let tryToConnectToKeplr = () => {
+      state.modalPage = 'connecting'
+
       let onKeplrConnect = async () => {
         let { name, bech32Address } = await getKeplrAccParams(chainId.value)
         state.keplrParams.name = name
@@ -232,6 +243,17 @@ export default defineComponent({
       signOut()
     }
 
+    // check if already connected
+    onMounted(async () => {
+      if (chainId.value) {
+        try {
+          await tryToConnectToKeplr()
+        } catch (e) {
+          console.warn('Keplr not connected')
+        }
+      }
+    })
+
     return {
       isKeplrAvailbe,
       tryToConnectToKeplr,
@@ -244,7 +266,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped lang="scss">
 .navbar-wrapper {
   display: flex;
   justify-content: space-between;
@@ -296,5 +318,11 @@ export default defineComponent({
 
 .external-link:hover {
   opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .hide-on-small {
+    display: none !important;
+  }
 }
 </style>
