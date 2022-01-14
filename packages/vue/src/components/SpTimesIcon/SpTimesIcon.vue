@@ -9,6 +9,6 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'SpTimes'
+  name: 'SpTimesIcon'
 })
 </script>

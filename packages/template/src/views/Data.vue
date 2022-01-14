@@ -151,7 +151,7 @@
           </svg>
         </div>
         <SpSpacer size="xs" />
-        <SpTypography size="md" modifier="highlight" style="font-weight: 700">
+        <SpTypography size="sm" modifier="highlight" style="font-weight: 700">
           Delete this post?
         </SpTypography>
       </template>

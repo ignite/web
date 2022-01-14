@@ -1,7 +1,7 @@
 <template>
   <transition name="dropdown-fade">
     <div class="account-dropdown">
-      <SpTimes
+      <SpTimesIcon
         class="close-dropdown-icon"
         @click="$emit('close')"
       />
@@ -58,7 +58,7 @@ import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
-import SpTimes from '../SpTimes'
+import SpTimesIcon from '../SpTimesIcon'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -68,7 +68,7 @@ export default defineComponent({
     SpChevronRightIcon,
     SpExternalArrowIcon,
     SpLinkIcon,
-    SpTimes
+    SpTimesIcon
   },
 
   emits: ['disconnect', 'close'],

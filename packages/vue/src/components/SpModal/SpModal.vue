@@ -38,13 +38,13 @@
           </slot>
         </footer>
 
-        <SpTimes
+        <SpTimesIcon
           v-if="closeIcon"
           style="position: absolute; top: 26px; right: 20px; cursor: pointer"
           @click="$emit('close')"
         >
           Close
-        </SpTimes>
+        </SpTimesIcon>
       </div>
     </div>
   </transition>
@@ -54,12 +54,12 @@
 import { defineComponent } from 'vue'
 
 import SpButton from '../SpButton'
-import SpTimes from '../SpTimes'
+import SpTimesIcon from '../SpTimesIcon'
 
 export default defineComponent({
   name: 'SpModal',
 
-  components: { SpButton, SpTimes },
+  components: { SpButton, SpTimesIcon },
 
   props: {
     visible: {

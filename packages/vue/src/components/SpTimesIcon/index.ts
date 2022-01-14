@@ -2,7 +2,7 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from './../../utils/plugins/index'
 // @ts-ignore
-import C from './SpTimes.vue'
+import C from './SpTimesIcon.vue'
 
 export const Plugin = {
   install(vue: Application): void {
