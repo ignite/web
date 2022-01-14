@@ -585,9 +585,6 @@ export default defineComponent({
   align-items: center;
 }
 .tx {
-  padding: 12px;
-  background: white;
-  border-radius: 10px;
 }
 .token-selector {
 }
