@@ -12,16 +12,14 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, onBeforeUnmount, ref} from 'vue'
+import { defineComponent, onMounted, onBeforeUnmount, ref } from 'vue'
 
 export default defineComponent({
   name: 'SpDropdown',
 
-  components: {
-  },
+  components: {},
 
-  props: {
-  },
+  props: {},
 
   setup() {
     let visible = ref(false)

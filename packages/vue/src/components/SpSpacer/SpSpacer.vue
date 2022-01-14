@@ -13,7 +13,7 @@ export default defineComponent({
       type: String,
       required: true
     }
-  },
+  }
 })
 </script>
 

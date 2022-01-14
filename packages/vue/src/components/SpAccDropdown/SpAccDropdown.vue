@@ -1,10 +1,7 @@
 <template>
   <transition name="dropdown-fade">
     <div class="account-dropdown">
-      <SpTimesIcon
-        class="close-dropdown-icon"
-        @click="$emit('close')"
-      />
+      <SpTimesIcon class="close-dropdown-icon" @click="$emit('close')" />
       <span class="description-grey mb-3 d-block">Connected wallet</span>
       <div class="mb-3" style="display: flex; align-items: center">
         <SpProfileIcon :address="address" />
@@ -102,7 +99,10 @@ export default defineComponent({
     const clickOutsideHandler = (evt) => {
       let dropdownEl = document.querySelector('.account-dropdown')
       let dropdownButtonEl = document.querySelector('.account-dropdown-button')
-      if (!dropdownEl?.contains(evt.target) && !dropdownButtonEl?.contains(evt.target)) {
+      if (
+        !dropdownEl?.contains(evt.target) &&
+        !dropdownButtonEl?.contains(evt.target)
+      ) {
         emit('close')
       }
     }
@@ -116,7 +116,7 @@ export default defineComponent({
 
     return {
       shortAddress,
-      copyToClipboard,
+      copyToClipboard
     }
   }
 })

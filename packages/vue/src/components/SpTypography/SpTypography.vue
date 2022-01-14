@@ -1,13 +1,5 @@
 <template>
-  <div
-    :class="[
-      'typography',
-      inverse && 'inverse',
-      feedback,
-      modifier,
-      size
-    ]"
-  >
+  <div :class="['typography', inverse && 'inverse', feedback, modifier, size]">
     <slot></slot>
   </div>
 </template>
@@ -54,7 +46,7 @@ export default {
 }
 
 .typography.link {
-  color: #094EFD;
+  color: #094efd;
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -172,11 +164,11 @@ export default {
 }
 
 .content.success {
-  color: #4251FA;
+  color: #4251fa;
 }
 
 .content.error {
-  color: #CC0025;
+  color: #cc0025;
 }
 
 .content.sm {
@@ -232,5 +224,4 @@ export default {
     line-height: 159.8%;
   }
 }
-
 </style>
