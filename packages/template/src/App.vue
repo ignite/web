@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="state.initialized">
     <SpTheme>
       <SpNavbar
         :links="navbarLinks"
@@ -16,9 +16,13 @@ import { useStore } from 'vuex'
 import { SpTheme, SpNavbar, SpTx } from '@starport/vue'
 import { useRouter } from 'vue-router'
 
-export interface State {}
+export interface State {
+  initialized: boolean
+}
 
-export let initialState = {}
+export let initialState = {
+  initialized: false
+}
 
 export default {
   components: { SpTheme, SpNavbar, SpTx },
@@ -40,6 +44,7 @@ export default {
     // lh
     onMounted(async () => {
       await $s.dispatch('common/env/init')
+      state.initialized = true
       router.push('portfolio')
     })
 
