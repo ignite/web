@@ -41,7 +41,7 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgUnjail: (data: MsgUnjail): EncodeObject => ({ typeUrl: "/cosmos.slashing.v1beta1.MsgUnjail", value: data }),
+    msgUnjail: (data: MsgUnjail): EncodeObject => ({ typeUrl: "/cosmos.slashing.v1beta1.MsgUnjail", value: MsgUnjail.fromPartial( data ) }),
     
   };
 };
