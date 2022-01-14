@@ -131,7 +131,7 @@ import {
   computed,
   watch,
   ComputedRef,
-  onBeforeMount
+  onMounted
 } from 'vue'
 import { useStore } from 'vuex'
 
@@ -197,7 +197,7 @@ export default defineComponent({
     let wallet: ComputedRef<Wallet> = computed(
       () => $s.getters['common/wallet/wallet']
     )
-    let chainId: ComputedRef<String> = computed(
+    let chainId: ComputedRef<string> = computed(
       () => $s.getters['common/env/chainId']
     )
 
@@ -230,14 +230,6 @@ export default defineComponent({
 
       connectToKeplr(onKeplrConnect, onKeplrError)
     }
-    let connectAutomatically = async (chainId: string) => {
-      let { name, bech32Address } = await getKeplrAccParams(chainId.value)
-      state.keplrParams.name = name
-      state.keplrParams.bech32Address = bech32Address
-
-      let offlineSigner = getOfflineSigner(chainId.value)
-      await signInWithKeplr(offlineSigner)
-    }
     let getAccName = (): string => {
       if (wallet.value?.name === 'Keplr Integration') {
         return state.keplrParams?.name + ''
@@ -252,27 +244,15 @@ export default defineComponent({
     }
 
     // check if already connected
-    onBeforeMount(async () => {
-      if (chainId) {
+    onMounted(async () => {
+      if (chainId.value) {
         try {
-          await connectAutomatically(chainId)
+          await tryToConnectToKeplr()
         } catch (e) {
           console.log('Keplr not connected')
         }
       }
     })
-    // watch for chain changes
-    watch(() => chainId,
-        async (newVal) => {
-          if (newVal) {
-            try {
-              await connectAutomatically(newVal)
-            } catch (e) {
-              console.log('Keplr not connected')
-            }
-          }
-        }
-    )
 
     return {
       isKeplrAvailbe,
