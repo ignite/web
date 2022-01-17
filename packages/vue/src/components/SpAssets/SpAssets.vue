@@ -72,7 +72,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .assets-header {
   display: flex;
   align-items: center;
@@ -136,7 +136,7 @@ export default defineComponent({
   box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.62);
   border-radius: 24px;
   text-align: center;
-  font-family: Inter;
+  font-family: Inter, serif;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
