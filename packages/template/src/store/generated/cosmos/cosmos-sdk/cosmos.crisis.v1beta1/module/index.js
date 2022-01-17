@@ -1,5 +1,5 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
-import { SigningStargateClient } from "@cosmjs/stargate";
+import { SigningStargateClient } from "@cosmjs/launchpad";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgVerifyInvariant } from "./types/cosmos/crisis/v1beta1/tx";

@@ -19,7 +19,7 @@ import {
 import { stringToPath } from '@cosmjs/crypto'
 import { GasPrice } from '@cosmjs/launchpad'
 import { DirectSecp256k1HdWallet,Registry } from '@cosmjs/proto-signing'
-import { defaultRegistryTypes } from '@cosmjs/stargate'
+import { defaultRegistryTypes } from '@cosmjs/launchpad'
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
 import { sleep } from '@cosmjs/utils'
 

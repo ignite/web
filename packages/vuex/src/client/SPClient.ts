@@ -1,5 +1,5 @@
 import { OfflineDirectSigner, Registry } from '@cosmjs/proto-signing'
-import { SigningStargateClient } from '@cosmjs/stargate'
+import { SigningStargateClient } from '@cosmjs/launchpad'
 import axios, { AxiosPromise, AxiosResponse } from 'axios'
 import { EventEmitter } from 'events'
 import ReconnectingWebSocket from 'reconnecting-websocket'

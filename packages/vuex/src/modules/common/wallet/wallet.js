@@ -1,6 +1,6 @@
 import { stringToPath } from '@cosmjs/crypto'
 import { DirectSecp256k1HdWallet, DirectSecp256k1Wallet } from '@cosmjs/proto-signing'
-import { assertIsBroadcastTxSuccess } from '@cosmjs/stargate'
+import { assertIsBroadcastTxSuccess } from '@cosmjs/launchpad'
 import CryptoJS from 'crypto-js'
 
 import { keyFromWif, keyToWif } from '../../../helpers/keys'

@@ -1,5 +1,5 @@
 import { sha256 } from '@cosmjs/crypto'
-import { SigningStargateClient } from '@cosmjs/stargate'
+import { SigningStargateClient } from '@cosmjs/launchpad'
 import { sleep } from '@cosmjs/utils'
 
 // This is a wrapper around SigningStargateClient that waits up to an additional 1 minute for a Tx to be committed regardless of rpc endpoint timeout response
