@@ -6,14 +6,14 @@ import relayers from './modules/common/relayers'
 import transfers from './modules/common/transfers'
 import wallet from './modules/common/wallet'
 export {
-	blocks,
-	env,
-	keyFromWif,
-	keyToWif,
-	relayers,
-	SpVuexError,
-	transfers,
-	wallet
+  blocks,
+  env,
+  keyFromWif,
+  keyToWif,
+  relayers,
+  SpVuexError,
+  transfers,
+  wallet
 }
 
 import { Buffer } from 'buffer'

@@ -41,7 +41,7 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgVerifyInvariant: (data: MsgVerifyInvariant): EncodeObject => ({ typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariant", value: data }),
+    msgVerifyInvariant: (data: MsgVerifyInvariant): EncodeObject => ({ typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariant", value: MsgVerifyInvariant.fromPartial( data ) }),
     
   };
 };

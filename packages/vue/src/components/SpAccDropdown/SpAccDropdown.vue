@@ -1,0 +1,231 @@
+<template>
+  <transition name="dropdown-fade">
+    <div class="account-dropdown">
+      <SpTimesIcon class="close-dropdown-icon" @click="$emit('close')" />
+      <span class="description-grey mb-3 d-block">Connected wallet</span>
+      <div class="mb-3" style="display: flex; align-items: center">
+        <SpProfileIcon :address="address" />
+        <div style="display: flex; flex-flow: column; margin-left: 12px">
+          <span class="account-name">
+            {{ accName }}
+          </span>
+          <span
+            class="description-grey copy-address"
+            title="Copy address"
+            @click="copyToClipboard(address)"
+          >
+            {{ shortAddress(address) }}
+          </span>
+        </div>
+      </div>
+      <div class="dropdown-option" @click="$emit('disconnect')">
+        <span> Disconnect wallet </span>
+      </div>
+      <hr class="divider" />
+      <div class="dropdown-option">
+        <span> Settings </span>
+        <SpChevronRightIcon />
+      </div>
+      <hr class="divider" />
+      <div class="dropdown-option mb-3">
+        <span> Support </span>
+        <SpExternalArrowIcon />
+      </div>
+      <div class="dropdown-option mb-3">
+        <span> Twitter </span>
+        <SpExternalArrowIcon />
+      </div>
+      <div class="dropdown-option mb-3">
+        <span> Telegram </span>
+        <SpExternalArrowIcon />
+      </div>
+      <div style="text-align: center; margin-top: 2rem">
+        <span class="description-grey terms-link mr-2">Privacy</span>•
+        <span class="description-grey terms-link mr-2 ml-1">Terms of use</span>•
+        <span class="description-grey terms-link ml-1">Cookies</span>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<script lang="ts">
+import { defineComponent, onMounted, onBeforeUnmount } from 'vue'
+
+import SpProfileIcon from '../SpProfileIcon'
+import SpChevronRightIcon from '../SpChevronRight'
+import SpExternalArrowIcon from '../SpExternalArrow'
+import SpLinkIcon from '../SpLinkIcon'
+import SpTimesIcon from '../SpTimesIcon'
+
+export default defineComponent({
+  name: 'SpAccountDropdown',
+
+  components: {
+    SpProfileIcon,
+    SpChevronRightIcon,
+    SpExternalArrowIcon,
+    SpLinkIcon,
+    SpTimesIcon
+  },
+
+  emits: ['disconnect', 'close'],
+
+  props: {
+    wallet: {
+      type: Object,
+      required: true
+    },
+
+    accName: {
+      type: String,
+      required: true
+    },
+
+    address: {
+      type: String,
+      required: true
+    }
+  },
+
+  setup(props, { emit }) {
+    const shortAddress = (address) => {
+      return address.substring(0, 10) + '...' + address.slice(-4)
+    }
+
+    const copyToClipboard = (text) => {
+      navigator.clipboard.writeText(text)
+    }
+
+    const clickOutsideHandler = (evt) => {
+      let dropdownEl = document.querySelector('.account-dropdown')
+      let dropdownButtonEl = document.querySelector('.account-dropdown-button')
+      if (
+        !dropdownEl?.contains(evt.target) &&
+        !dropdownButtonEl?.contains(evt.target)
+      ) {
+        emit('close')
+      }
+    }
+
+    onMounted(() => {
+      document.addEventListener('click', clickOutsideHandler)
+    })
+    onBeforeUnmount(() => {
+      document.removeEventListener('click', clickOutsideHandler)
+    })
+
+    return {
+      shortAddress,
+      copyToClipboard
+    }
+  }
+})
+</script>
+
+<style>
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
+.d-block {
+  display: block;
+}
+
+.account-dropdown {
+  position: fixed;
+  box-sizing: border-box;
+  top: 2rem;
+  right: 2rem;
+  z-index: 90;
+  background: #fff;
+  height: auto;
+  padding: 2.8rem;
+  max-width: 288px;
+  width: 100%;
+  box-shadow: 40px 64px 128px -8px rgba(0, 0, 0, 0.14);
+  border-radius: 10px;
+}
+
+.divider {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  margin: 1.2rem -2.8rem;
+}
+
+.dropdown-option {
+  font-size: 16px;
+  line-height: 150%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-option:hover {
+  opacity: 0.8;
+}
+
+.terms-link {
+  cursor: pointer;
+}
+
+.terms-link:hover {
+  opacity: 0.8;
+}
+
+.close-dropdown-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.account-name {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 153.8%;
+}
+
+.description-grey {
+  font-size: 13px;
+  line-height: 153.8%;
+  color: rgba(0, 0, 0, 0.667);
+}
+
+.copy-address {
+  cursor: pointer;
+  user-select: none;
+}
+.copy-address:hover {
+  opacity: 0.8;
+}
+.copy-address:active {
+  color: #4251fa;
+}
+
+.dropdown-fade-enter,
+.dropdown-fade-enter-from,
+.dropdown-fade-leave-to {
+  opacity: 0;
+}
+
+.dropdown-fade-enter-active,
+.dropdown-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+</style>

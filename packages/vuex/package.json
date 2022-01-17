@@ -1,6 +1,6 @@
 {
   "name": "@starport/vuex",
-  "version": "0.1.55",
+  "version": "0.2.0-alpha-c20ca865562bfe682645ad7181badf77a68db8d3",
   "description": "A library of Vuex 4 (for Vue 3) standard store modules for state management of cosmos-sdk chains' frontends",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
@@ -11,33 +11,21 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "main": "lib/index.js",
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w"
-  },
+  "main": "src/index.js",
   "dependencies": {
     "@confio/relayer": "^0.3.0",
-    "@cosmjs/crypto": "^0.26.1",
-    "@cosmjs/encoding": "^0.26.1",
-    "@cosmjs/launchpad": "^0.26.1",
-    "@cosmjs/proto-signing": "^0.26.1",
-    "@cosmjs/stargate": "^0.26.1",
-    "@cosmjs/tendermint-rpc": "^0.26.1",
-    "@cosmjs/utils": "^0.26.1",
+    "@cosmjs/crypto": "^0.27.0",
+    "@cosmjs/encoding": "^0.27.0",
+    "@cosmjs/launchpad": "^0.27.0",
+    "@cosmjs/proto-signing": "^0.27.0",
+    "@cosmjs/stargate": "^0.27.0",
+    "@cosmjs/tendermint-rpc": "^0.27.0",
+    "@cosmjs/utils": "^0.27.0",
     "axios": "^0.22.0",
     "bs58": "^4.0.1",
     "buffer": "^6.0.3",
     "crypto-js": "^4.1.1",
     "events": "^3.3.0",
     "reconnecting-websocket": "^4.4.0"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-typescript": "^8.3.0",
-    "rollup": "^2.62.0"
   }
 }

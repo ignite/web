@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { ComponentCustomProperties } from 'vue'
-import { Store } from 'vuex'
+
+import { Window as KeplrWindow, Keplr } from '@keplr-wallet/types'
+
 declare module '*.vue' {
   import { defineComponent } from 'vue'
   const Component: ReturnType<typeof defineComponent>
@@ -9,19 +11,21 @@ declare module '*.vue' {
 
 declare global {
   import { OfflineDirectSigner } from '@cosmjs/proto-signing'
-  interface Window {
-    keplr: any
-    Vue: any
-    getOfflineSigner: (string) => OfflineDirectSigner
-  }
-}
-declare module '@vue/runtime-core' {
-  // Declare your own store states.
-  interface State {
-    [key: string]: any
+  interface KeplrIntereactionOptions {
+    readonly sign?: KeplrSignOptions
   }
 
-  interface ComponentCustomProperties {
-    $store: Store<State>
+  export interface KeplrSignOptions {
+    readonly preferNoSetFee?: boolean
+    readonly preferNoSetMemo?: boolean
+  }
+
+  interface CustomKeplr extends Keplr {
+    enable(chainId: string | string[]): Promise<void>
+    defaultOptions: KeplrIntereactionOptions
+  }
+  interface Window extends KeplrWindow {
+    Vue: any
+    keplr: CustomKeplr
   }
 }

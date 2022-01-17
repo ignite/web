@@ -1,0 +1,4 @@
+[build]
+base = "/"
+command = ""
+publish = "packages/template/dist"

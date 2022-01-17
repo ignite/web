@@ -13,9 +13,14 @@ export default defineConfig({
     }
   },
   define: {
-    'process.env': process.env,
+    // 'process.env': process.env,
     global: {
       Buffer: Buffer
+    }
+  },
+  server: {
+    watch: {
+      ignored: ['!**/node_modules/@starport/**']
     }
   },
   plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()]
