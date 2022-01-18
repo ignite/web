@@ -1,7 +1,6 @@
 <template>
   <transition name="dropdown-fade">
     <div class="account-dropdown">
-      <SpTimesIcon class="close-dropdown-icon" @click="$emit('close')" />
       <span class="description-grey mb-3 d-block">Connected wallet</span>
       <div class="mb-3" style="display: flex; align-items: center">
         <SpProfileIcon :address="address" />
@@ -55,7 +54,6 @@ import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
-import SpTimesIcon from '../SpTimesIcon'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -65,7 +63,6 @@ export default defineComponent({
     SpChevronRightIcon,
     SpExternalArrowIcon,
     SpLinkIcon,
-    SpTimesIcon
   },
 
   emits: ['disconnect', 'close'],
@@ -146,7 +143,7 @@ export default defineComponent({
 .account-dropdown {
   position: fixed;
   box-sizing: border-box;
-  top: 2rem;
+  top: 7rem;
   right: 2rem;
   z-index: 90;
   background: #fff;
