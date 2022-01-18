@@ -4,7 +4,7 @@
       v-if="wallet"
       class="sp-nav-link selected account-dropdown-button"
       style="display: flex; align-items: center"
-      @click="state.accountDropdown = true"
+      @click="state.accountDropdown = !state.accountDropdown"
     >
       <div class="hide-on-small" style="display: flex; align-items: center">
         <SpProfileIcon :address="state.keplrParams?.bech32Address" />
