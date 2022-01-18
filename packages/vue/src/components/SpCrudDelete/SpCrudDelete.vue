@@ -33,14 +33,14 @@
       <div style="display: flex; gap: 10px; justify-content: center">
         <SpButton
           type="secondary"
-          @click="visibleModal = ''"
+          @submit="$emit('close')"
           style="width: 40%;"
         >
           Cancel
         </SpButton>
         <SpButton
           type="primary"
-          @click="visibleModal = ''"
+          @submit="$emit('delete')"
           style="width: 40%;"
         >
           Delete
