@@ -1,5 +1,6 @@
 export { default as SpAcc } from './SpAcc'
 export { default as SpAmountSelect } from './SpAmountSelect'
+export { default as SpAssets } from './SpAssets'
 export { default as SpButton } from './SpButton'
 export { default as SpCardNew } from './SpCard'
 export { default as SpClipboard } from './SpClipboard'
