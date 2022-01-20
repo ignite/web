@@ -1,7 +1,11 @@
-import { computed, reactive, onBeforeMount, ComputedRef } from 'vue'
+import { computed, reactive, onBeforeMount, ComputedRef, Ref } from 'vue'
 import { Store } from 'vuex'
 
 import { Transactions } from '../utils/interfaces'
+
+import usePagination from './usePagination'
+
+import axios, { AxiosResponse } from 'axios'
 
 export interface State {
   loading: boolean
@@ -12,13 +16,24 @@ export let initialState: State = {
 }
 
 type ResponseType = State & {
-  sentTxs: ComputedRef<Transactions>
-  receivedTxs: ComputedRef<Transactions>
+  sentTxs: Ref<any[]>
+  receivedTxs: Ref<any[]>
 }
 
 type Response = ResponseType | null
 
-export default function useTxs($s: Store<any>): Response {
+export default async function useTxs($s: Store<any>): Promise<Response> {
+  let normalizeAPIResponse = (resp: AxiosResponse) => {
+    let responseData = resp.data
+
+    return {
+      data: responseData.txs,
+      total: responseData.pagination.total
+    }
+  }
+
+  let API_COSMOS = computed<string>(() => $s.getters['common/env/apiCosmos'])
+
   // store
   let address = computed(() => $s.getters['common/wallet/address'])
 
@@ -31,51 +46,42 @@ export default function useTxs($s: Store<any>): Response {
   let state = reactive(initialState)
   let SENT_EVENT = `transfer.sender%3D%27${address.value}%27`
   let RECEIVED_EVENT = `transfer.recipient%3D%27${address.value}%27`
-  let SERVICE_ACTION = 'common/transfers/ServiceGetTxsEvent'
-  let GET_TXS_ACTION = 'common/transfers/getTxs'
 
-  // actions
-  let initSentTxService = async () =>
-    await $s.dispatch(SERVICE_ACTION, {
-      subscribe: true,
-      event: SENT_EVENT
-    })
-
-  let initReceivedTxService = async () =>
-    await $s.dispatch(SERVICE_ACTION, {
-      subscribe: true,
-      event: RECEIVED_EVENT
-    })
-
-  // methods
-  let initServices = async () => {
-    await initSentTxService()
-    await initReceivedTxService()
-
-    state.loading = false
-  }
-
-  // lh
-  onBeforeMount(() => {
-    initServices()
+  let receivedTxsPagination = await usePagination({
+    opts: { pageSize: 517 },
+    getters: {
+      fetchList: async ({ offset, limit }) =>
+        normalizeAPIResponse(
+          await axios.get(
+            `${API_COSMOS.value}` +
+              `/cosmos/tx/v1beta1/txs` +
+              `?events=${RECEIVED_EVENT}` +
+              `&pagination.offset=${offset}` +
+              `&pagination.limit=${limit}`
+          )
+        )
+    }
   })
 
-  // computed
-  let sentTxs = computed<Transactions>(() =>
-    $s.getters[GET_TXS_ACTION]({
-      event: SENT_EVENT
-    })
-  )
-
-  let receivedTxs = computed<Transactions>(() =>
-    $s.getters[GET_TXS_ACTION]({
-      event: RECEIVED_EVENT
-    })
-  )
+  let sentTxsPagination = await usePagination({
+    opts: { pageSize: 1200 },
+    getters: {
+      fetchList: async ({ offset, limit }) =>
+        normalizeAPIResponse(
+          await axios.get(
+            `${API_COSMOS.value}` +
+              `/cosmos/tx/v1beta1/txs` +
+              `?events=${SENT_EVENT}` +
+              `&pagination.offset=${offset}` +
+              `&pagination.limit=${limit}`
+          )
+        )
+    }
+  })
 
   return {
     ...state,
-    sentTxs,
-    receivedTxs
+    receivedTxs: receivedTxsPagination.page,
+    sentTxs: sentTxsPagination.page
   }
 }
