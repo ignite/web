@@ -20,7 +20,7 @@
           <div
             v-for="field in itemStructure"
           >
-            <div class="item-title">{{ field.name }}</div>
+            <div class="item-title capitalize-first-letter">{{ field.name }}</div>
             <div class="item-value">{{ post[field.name] }}</div>
             <SpSpacer size="xs" />
           </div>
@@ -169,5 +169,9 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin: 4px 0px;
+}
+
+.capitalize-first-letter:first-letter {
+  text-transform: uppercase;
 }
 </style>

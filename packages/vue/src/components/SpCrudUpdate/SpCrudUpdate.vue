@@ -11,23 +11,21 @@
   >
     <template v-slot:body>
       <SpSpacer size="sm" />
-      <div>
-        <label for="ptitle" class="sp-label">Title</label>
-        <input placeholder="Enter title" type="text" id="ptitle" name="ptitle" class="sp-input">
+      <div
+        v-for="field in itemStructure"
+      >
+        <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">{{ field.name }}</label>
+        <input :placeholder="`Enter ${field.name}`" type="text" :id="`p${field.name}`" :name="`p${field.name}`" class="sp-input">
+        <SpSpacer size="xs" />
       </div>
-      <SpSpacer size="xs" />
-      <div>
-        <label for="pdescription" class="sp-label">Description</label>
-        <input placeholder="Enter description" type="text" id="pdescription" name="pdescription" class="sp-input">
-      </div>
-      <SpSpacer size="xs" />
     </template>
   </SpModal>
 </template>
 
 <script lang="ts">
 import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'SpCrudUpdate',
@@ -45,9 +43,23 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemName: {
+      type: String,
+      required: true
+    },
   },
 
-  setup() {
+  setup(props) {
+    // store
+    let $s = useStore()
+
+    // computed
+    let itemStructure = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
+
+    return {
+      itemStructure
+    }
   }
 })
 </script>
@@ -89,5 +101,9 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin: 4px 0px;
+}
+
+.capitalize-first-letter:first-letter {
+  text-transform: uppercase;
 }
 </style>

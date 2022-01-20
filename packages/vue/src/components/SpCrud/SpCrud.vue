@@ -30,10 +30,14 @@
     />
 
     <SpCrudCreate
+      :storeName="storeName"
+      :itemName="itemName"
       v-if="visibleModal === 'create-post'"
       @close="visibleModal = ''"
     />
     <SpCrudUpdate
+      :storeName="storeName"
+      :itemName="itemName"
       v-if="visibleModal === 'edit-post'"
       @close="visibleModal = ''"
     />
