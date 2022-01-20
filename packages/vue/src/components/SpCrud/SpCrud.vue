@@ -21,8 +21,13 @@
     </div>
 
     <SpSpacer size="sm" />
-
-    <SpCrudRead :storeName="storeName" />
+    <SpCrudRead
+      :storeName="storeName"
+      :itemName="itemName"
+      @createPost="visibleModal = 'create-post'"
+      @editPost="visibleModal = 'edit-post'"
+      @deletePost="visibleModal = 'delete-post'"
+    />
 
     <SpCrudCreate
       v-if="visibleModal === 'create-post'"
@@ -71,6 +76,11 @@ export default defineComponent({
 
   props: {
     storeName: {
+      type: String,
+      required: true
+    },
+
+    itemName: {
       type: String,
       required: true
     },

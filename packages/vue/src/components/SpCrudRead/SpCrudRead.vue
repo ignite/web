@@ -3,8 +3,8 @@
     <div v-if="posts" style="max-width: 600px;">
       <div
           :key="post.id"
-          v-for="post in posts.Posts"
-          style="display: flex; justify-content: space-between; gap: 14px"
+          v-for="post in posts"
+          style="display: flex; justify-content: space-between; gap: 14px; margin-bottom: 3rem"
       >
         <div style="width: 50px">
           <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,14 +17,13 @@
           </svg>
         </div>
         <div style="width: 100%">
-          <div class="item-title">Title</div>
-          <div class="item-value">{{ post.title }}</div>
-          <SpSpacer size="xs" />
-          <div class="item-title">Description</div>
-          <div class="item-value">{{ post.description }}</div>
-          <SpSpacer size="xs" />
-          <div class="item-title">by {{ post.author }}</div>
-          <SpSpacer size="md" />
+          <div
+            v-for="field in itemStructure"
+          >
+            <div class="item-title">{{ field.name }}</div>
+            <div class="item-value">{{ post[field.name] }}</div>
+            <SpSpacer size="xs" />
+          </div>
         </div>
         <div style="width: 20px">
           <SpDropdown>
@@ -37,10 +36,10 @@
             </template>
             <template v-slot:dropdown>
               <div style="width: 160px;">
-                <div class="dropdown-option" @click="visibleModal = 'edit-post'">
+                <div class="dropdown-option" @click="$emit('editPost')">
                   Edit
                 </div>
-                <div class="dropdown-option" style="color: #D80228;" @click="visibleModal = 'delete-post'">
+                <div class="dropdown-option" style="color: #D80228;" @click="$emit('deletePost')">
                   Delete
                 </div>
               </div>
@@ -48,12 +47,17 @@
           </SpDropdown>
         </div>
       </div>
-      <div v-if="(posts.Posts || []).length === 0" style="text-align: center">
+      <div v-if="(posts || []).length === 0" style="text-align: center">
         <SpSpacer size="md" />
         <SpTypography size="md">
           No post items
         </SpTypography>
-        <SpTypography size="sm" feedback="link">
+        <SpTypography
+          size="sm"
+          feedback="link"
+          style="display: inline-block"
+          @click="$emit('createPost')"
+        >
           Create your first post
         </SpTypography>
       </div>
@@ -83,6 +87,11 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemName: {
+      type: String,
+      required: true
+    },
   },
 
   setup(props) {
@@ -92,19 +101,31 @@ export default defineComponent({
 
     // computed
     let address = computed(() => $s.getters['common/wallet/address'])
+    let itemStructure = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
     let posts = computed(
-        () => $s.state[props.storeName]
+      () => {
+        const postData = $s.state[props.storeName].Posts
+        const queryKey = Object.keys(postData)[0]
+        if (queryKey && postData[queryKey]) return postData[queryKey].Post
+        return []
+      }
     )
 
-    onBeforeMount(async () => {
-      await $s.dispatch(`${props.storeName}/QueryPosts`, {
-        options: { subscribe: true },
-      })
+    $s.dispatch(`${props.storeName}/QueryPosts`, {
+      options: { subscribe: true },
+      params: {},
+      query: {}
     })
+
+    const shortAddress = (address) => {
+      return address.substring(0, 10) + '...' + address.slice(-4)
+    }
 
     return {
       address,
       visibleModal,
+      itemStructure,
+      shortAddress,
       posts
     }
   }
