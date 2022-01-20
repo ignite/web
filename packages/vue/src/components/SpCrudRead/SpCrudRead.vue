@@ -18,7 +18,7 @@
         </div>
         <div style="width: 100%">
           <div
-            v-for="field in itemStructure"
+            v-for="field in itemFields"
           >
             <div class="item-title capitalize-first-letter">{{ field.name }}</div>
             <div class="item-value">{{ post[field.name] }}</div>
@@ -101,7 +101,7 @@ export default defineComponent({
 
     // computed
     let address = computed(() => $s.getters['common/wallet/address'])
-    let itemStructure = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
+    let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
     let posts = computed(
       () => {
         const postData = $s.state[props.storeName].Posts
@@ -124,7 +124,7 @@ export default defineComponent({
     return {
       address,
       visibleModal,
-      itemStructure,
+      itemFields,
       shortAddress,
       posts
     }

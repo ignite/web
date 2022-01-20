@@ -12,7 +12,7 @@
     <template v-slot:body>
       <SpSpacer size="sm" />
       <div
-        v-for="field in itemStructure"
+        v-for="field in itemFields"
       >
         <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">{{ field.name }}</label>
         <input :placeholder="`Enter ${field.name}`" type="text" :id="`p${field.name}`" :name="`p${field.name}`" class="sp-input">
@@ -55,10 +55,10 @@ export default defineComponent({
     let $s = useStore()
 
     // computed
-    let itemStructure = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
+    let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
 
     return {
-      itemStructure
+      itemFields
     }
   }
 })
