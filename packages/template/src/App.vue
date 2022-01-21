@@ -1,31 +1,30 @@
 <template>
-  <div v-if="state.initialized">
+  <div>
     <SpTheme>
       <SpNavbar
         :links="navbarLinks"
         :activeRoute="router.currentRoute.value.path"
       />
       <router-view />
+      <Suspense>
+        <SpTxList v-if="address" :address="address" />
+      </Suspense>
     </SpTheme>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onBeforeMount, reactive } from 'vue'
 import { useStore } from 'vuex'
-import { SpTheme, SpNavbar, SpTx } from '@starport/vue'
+import { SpTheme, SpNavbar, SpTx, SpTxList } from '@starport/vue'
 import { useRouter } from 'vue-router'
 
-export interface State {
-  initialized: boolean
-}
+export interface State {}
 
-export let initialState = {
-  initialized: false
-}
+export let initialState = {}
 
 export default {
-  components: { SpTheme, SpNavbar, SpTx },
+  components: { SpTheme, SpNavbar, SpTx, SpTxList },
 
   setup() {
     // store
@@ -41,15 +40,15 @@ export default {
       { name: 'Data', url: '/data' }
     ]
 
-    // lh
-    onMounted(async () => {
-      await $s.dispatch('common/env/init')
-      state.initialized = true
-      router.push('portfolio')
-    })
-
     // computed
     let address = computed(() => $s.getters['common/wallet/address'])
+
+    // lh
+    onBeforeMount(async () => {
+      await $s.dispatch('common/env/init')
+
+      router.push('portfolio')
+    })
 
     return {
       //state,
