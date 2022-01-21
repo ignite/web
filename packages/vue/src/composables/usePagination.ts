@@ -1,67 +1,56 @@
-import { ref, Ref } from 'vue'
+import { computed, ComputedRef, ref, Ref } from 'vue'
 
-type Response = {
+export type Response = {
+  hasNextPage: ComputedRef<boolean>
+  hasBackPage: ComputedRef<boolean>
   next: () => Promise<any>
   back: () => Promise<any>
   page: Ref<any[]>
 }
 
 export default async function usePagination({
-  opts: { pageSize = 200, initialOffset = 0 },
+  opts: { initialPage = 1 },
   getters: { fetchList }
 }): Promise<Response> {
   // state
-  let offset = ref(initialOffset)
+  let currentPage = ref(initialPage)
   let page = ref([])
   let totalAvailable = ref(0)
 
+  // computed
+  let amountOfPages = computed(() => Math.round(totalAvailable.value / 100))
+  let hasNextPage = computed(() => currentPage.value < amountOfPages.value)
+  let hasBackPage = computed(() => currentPage.value > 1)
+
   // methods
   let next = async () => {
-    offset.value -= pageSize
+    currentPage.value++
     page.value = []
 
-    await fillPage()
+    await getPage()
   }
 
   let back = async () => {
-    offset.value -= pageSize
+    currentPage.value--
     page.value = []
 
-    await fillPage()
+    await getPage()
   }
 
-  let getNextLimit = (total: number): number =>
-    getRemainingToBeFetched(total) > 100 ? 100 : getRemainingToBeFetched(total)
+  let getPage = async () => {
+    let response = await fetchList({
+      offset: currentPage.value === 1 ? 0 : (currentPage.value - 1) * 100
+    })
 
-  let getRemainingToBeFetched = (total: number): number => {
-    let desired = pageSize - page.value.length
-    let available = total - page.value.length
-
-    return Math.min(desired, available)
+    page.value = [...page.value, ...response.data]
+    totalAvailable.value = response.total
   }
 
-  let fillPage = async () => {
-    let count = 0
-    while (count == 0 || getRemainingToBeFetched(totalAvailable.value) > 0) {
-      let response = await fetchList({
-        offset: offset.value,
-        limit: getNextLimit(totalAvailable.value)
-      })
-
-      page.value = [...page.value, ...response.data]
-      totalAvailable.value = response.total
-
-      if (getRemainingToBeFetched(totalAvailable.value) > 0) {
-        offset.value = page.value.length
-      }
-
-      count++
-    }
-  }
-
-  await fillPage()
+  await getPage()
 
   return {
+    hasNextPage,
+    hasBackPage,
     next,
     back,
     page
