@@ -1,9 +1,7 @@
-import { computed, reactive, onBeforeMount, ComputedRef, Ref } from 'vue'
+import { computed, reactive, Ref } from 'vue'
 import { Store } from 'vuex'
 
-import { Transactions } from '../utils/interfaces'
-
-import usePagination from './usePagination'
+import usePagination, { Response as PaginationResponse } from './usePagination'
 
 import axios, { AxiosResponse } from 'axios'
 
@@ -16,8 +14,8 @@ export let initialState: State = {
 }
 
 type ResponseType = State & {
-  sentTxs: Ref<any[]>
-  receivedTxs: Ref<any[]>
+  sentTxsPager: PaginationResponse
+  receivedTxsPager: PaginationResponse
 }
 
 type Response = ResponseType | null
@@ -47,33 +45,31 @@ export default async function useTxs($s: Store<any>): Promise<Response> {
   let SENT_EVENT = `transfer.sender%3D%27${address.value}%27`
   let RECEIVED_EVENT = `transfer.recipient%3D%27${address.value}%27`
 
-  let receivedTxsPagination = await usePagination({
-    opts: { pageSize: 517 },
+  let receivedPager: PaginationResponse = await usePagination({
+    opts: {},
     getters: {
-      fetchList: async ({ offset, limit }) =>
+      fetchList: async ({ offset }) =>
         normalizeAPIResponse(
           await axios.get(
             `${API_COSMOS.value}` +
               `/cosmos/tx/v1beta1/txs` +
               `?events=${RECEIVED_EVENT}` +
-              `&pagination.offset=${offset}` +
-              `&pagination.limit=${limit}`
+              `&pagination.offset=${offset}`
           )
         )
     }
   })
 
-  let sentTxsPagination = await usePagination({
-    opts: { pageSize: 1200 },
+  let sentPager: PaginationResponse = await usePagination({
+    opts: {},
     getters: {
-      fetchList: async ({ offset, limit }) =>
+      fetchList: async ({ offset }) =>
         normalizeAPIResponse(
           await axios.get(
             `${API_COSMOS.value}` +
               `/cosmos/tx/v1beta1/txs` +
               `?events=${SENT_EVENT}` +
-              `&pagination.offset=${offset}` +
-              `&pagination.limit=${limit}`
+              `&pagination.offset=${offset}`
           )
         )
     }
@@ -81,7 +77,7 @@ export default async function useTxs($s: Store<any>): Promise<Response> {
 
   return {
     ...state,
-    receivedTxs: receivedTxsPagination.page,
-    sentTxs: sentTxsPagination.page
+    receivedTxsPager: receivedPager,
+    sentTxsPager: sentPager
   }
 }
