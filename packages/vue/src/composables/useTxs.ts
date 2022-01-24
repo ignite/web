@@ -1,7 +1,9 @@
-import { computed, reactive, Ref } from 'vue'
+import { computed, reactive } from 'vue'
 import { Store } from 'vuex'
 
-import usePagination, { Response as PaginationResponse } from './usePagination'
+import useAPIPagination, {
+  Response as PaginationResponse
+} from './useAPIPagination'
 
 import axios, { AxiosResponse } from 'axios'
 
@@ -20,7 +22,18 @@ type ResponseType = State & {
 
 type Response = ResponseType | null
 
-export default async function useTxs($s: Store<any>): Promise<Response> {
+type Params = {
+  $s: Store<any>
+  opts: {
+    order: 'asc' | 'desc'
+    realTime: boolean
+  }
+}
+
+export default async function useTxs({
+  $s,
+  opts: { order, realTime }
+}: Params): Promise<Response> {
   let normalizeAPIResponse = (resp: AxiosResponse) => {
     let responseData = resp.data
 
@@ -30,10 +43,13 @@ export default async function useTxs($s: Store<any>): Promise<Response> {
     }
   }
 
+  let orderParam = order === 'asc' ? 1 : 2
+
   let API_COSMOS = computed<string>(() => $s.getters['common/env/apiCosmos'])
 
   // store
   let address = computed(() => $s.getters['common/wallet/address'])
+  let client = computed(() => $s.getters['common/env/client'])
 
   if (!address.value) {
     console.error('useTx: no address')
@@ -45,7 +61,7 @@ export default async function useTxs($s: Store<any>): Promise<Response> {
   let SENT_EVENT = `transfer.sender%3D%27${address.value}%27`
   let RECEIVED_EVENT = `transfer.recipient%3D%27${address.value}%27`
 
-  let receivedPager: PaginationResponse = await usePagination({
+  let receivedPager: PaginationResponse = await useAPIPagination({
     opts: {},
     getters: {
       fetchList: async ({ offset }) =>
@@ -54,13 +70,14 @@ export default async function useTxs($s: Store<any>): Promise<Response> {
             `${API_COSMOS.value}` +
               `/cosmos/tx/v1beta1/txs` +
               `?events=${RECEIVED_EVENT}` +
-              `&pagination.offset=${offset}`
+              `&pagination.offset=${offset}` +
+              `&order_by=${orderParam}`
           )
         )
     }
   })
 
-  let sentPager: PaginationResponse = await usePagination({
+  let sentPager: PaginationResponse = await useAPIPagination({
     opts: {},
     getters: {
       fetchList: async ({ offset }) =>
@@ -69,11 +86,20 @@ export default async function useTxs($s: Store<any>): Promise<Response> {
             `${API_COSMOS.value}` +
               `/cosmos/tx/v1beta1/txs` +
               `?events=${SENT_EVENT}` +
-              `&pagination.offset=${offset}`
+              `&pagination.offset=${offset}` +
+              `&order_by=${orderParam}`
           )
         )
     }
   })
+
+  if (realTime) {
+    console.log('realtime')
+    client.value.on('newblock', () => {
+      receivedPager.reload()
+      sentPager.reload()
+    })
+  }
 
   return {
     ...state,
