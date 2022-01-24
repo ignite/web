@@ -1,4 +1,4 @@
-import { SigningStargateClient } from '@cosmjs/launchpad'
+import { SigningStargateClient } from '@cosmjs/stargate'
 import { OfflineDirectSigner, Registry } from '@cosmjs/proto-signing'
 import axios, { AxiosPromise, AxiosResponse } from 'axios'
 import { EventEmitter } from 'events'
