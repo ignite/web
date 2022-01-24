@@ -9,9 +9,7 @@ import CosmosCosmosSdkCosmosGovV1Beta1 from './cosmos/cosmos-sdk/cosmos.gov.v1be
 import CosmosCosmosSdkCosmosSlashingV1Beta1 from './cosmos/cosmos-sdk/cosmos.slashing.v1beta1';
 import CosmosCosmosSdkCosmosStakingV1Beta1 from './cosmos/cosmos-sdk/cosmos.staking.v1beta1';
 import CosmosCosmosSdkCosmosVestingV1Beta1 from './cosmos/cosmos-sdk/cosmos.vesting.v1beta1';
-import TendermintSpnTendermintSpnCampaign from './tendermint/spn/tendermint.spn.campaign';
-import TendermintSpnTendermintSpnLaunch from './tendermint/spn/tendermint.spn.launch';
-import TendermintSpnTendermintSpnProfile from './tendermint/spn/tendermint.spn.profile';
+import CosmosIbcGoIbcApplicationsTransferV1 from './cosmos/ibc-go/ibc.applications.transfer.v1';
 export default {
     CosmosCosmosSdkCosmosAuthzV1Beta1: load(CosmosCosmosSdkCosmosAuthzV1Beta1, 'cosmos.authz.v1beta1'),
     CosmosCosmosSdkCosmosBankV1Beta1: load(CosmosCosmosSdkCosmosBankV1Beta1, 'cosmos.bank.v1beta1'),
@@ -23,9 +21,7 @@ export default {
     CosmosCosmosSdkCosmosSlashingV1Beta1: load(CosmosCosmosSdkCosmosSlashingV1Beta1, 'cosmos.slashing.v1beta1'),
     CosmosCosmosSdkCosmosStakingV1Beta1: load(CosmosCosmosSdkCosmosStakingV1Beta1, 'cosmos.staking.v1beta1'),
     CosmosCosmosSdkCosmosVestingV1Beta1: load(CosmosCosmosSdkCosmosVestingV1Beta1, 'cosmos.vesting.v1beta1'),
-    TendermintSpnTendermintSpnCampaign: load(TendermintSpnTendermintSpnCampaign, 'tendermint.spn.campaign'),
-    TendermintSpnTendermintSpnLaunch: load(TendermintSpnTendermintSpnLaunch, 'tendermint.spn.launch'),
-    TendermintSpnTendermintSpnProfile: load(TendermintSpnTendermintSpnProfile, 'tendermint.spn.profile'),
+    CosmosIbcGoIbcApplicationsTransferV1: load(CosmosIbcGoIbcApplicationsTransferV1, 'ibc.applications.transfer.v1'),
 };
 function load(mod, fullns) {
     return function init(store) {
