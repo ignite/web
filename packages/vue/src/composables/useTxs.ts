@@ -94,7 +94,6 @@ export default async function useTxs({
   })
 
   if (realTime) {
-    console.log('realtime')
     client.value.on('newblock', () => {
       receivedPager.reload()
       sentPager.reload()
