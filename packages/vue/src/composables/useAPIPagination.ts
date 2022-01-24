@@ -3,12 +3,16 @@ import { computed, ComputedRef, ref, Ref } from 'vue'
 export type Response = {
   hasNextPage: ComputedRef<boolean>
   hasBackPage: ComputedRef<boolean>
+  amountOfPages: ComputedRef<number>
+  currentPage: Ref<number>
+  total: Ref<number>
   next: () => Promise<any>
   back: () => Promise<any>
   page: Ref<any[]>
+  reload: () => any
 }
 
-export default async function usePagination({
+export default async function useAPIPagination({
   opts: { initialPage = 1 },
   getters: { fetchList }
 }): Promise<Response> {
@@ -42,7 +46,7 @@ export default async function usePagination({
       offset: currentPage.value === 1 ? 0 : (currentPage.value - 1) * 100
     })
 
-    page.value = [...page.value, ...response.data]
+    page.value = [...response.data]
     totalAvailable.value = response.total
   }
 
@@ -51,8 +55,12 @@ export default async function usePagination({
   return {
     hasNextPage,
     hasBackPage,
+    amountOfPages,
+    currentPage,
+    total: totalAvailable,
     next,
     back,
-    page
+    page,
+    reload: getPage
   }
 }
