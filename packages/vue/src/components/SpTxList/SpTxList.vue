@@ -1,6 +1,10 @@
 <template>
   <div>
-    total sent {{ sentTxsPager.page.value.length }}<br />
+    <div>
+      <span>total {{ sentTxsPager.total.value }} </span>
+      <span>currentPage {{ sentTxsPager.currentPage.value }}</span>
+      <span>page size {{ sentTxsPager.page.value.length }}</span>
+    </div>
     <button
       @click="sentTxsPager.back"
       :disabled="!sentTxsPager.hasBackPage.value"
@@ -20,7 +24,11 @@
       </div>
     </div>
 
-    total received {{ receivedTxsPager.page.value.length }}<br />
+    <div>
+      <span>total {{ receivedTxsPager.total.value }} </span>
+      <span>currentPage {{ receivedTxsPager.currentPage.value }}</span>
+      <span>page size {{ receivedTxsPager.page.value.length }}</span>
+    </div>
 
     <button
       @click="receivedTxsPager.back"
@@ -62,7 +70,10 @@ export default defineComponent({
     // store
     let $s = useStore()
 
-    let { receivedTxsPager, sentTxsPager } = await useTxs($s)
+    let { receivedTxsPager, sentTxsPager } = await useTxs({
+      $s,
+      opts: { order: 'desc', realTime: true }
+    })
 
     return {
       receivedTxsPager,
