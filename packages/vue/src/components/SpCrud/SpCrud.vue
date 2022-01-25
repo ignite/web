@@ -25,7 +25,7 @@
       :storeName="storeName"
       :itemName="itemName"
       @createPost="visibleModal = 'create-post'"
-      @editPost="visibleModal = 'edit-post'"
+      @editPost="(post) => { activePost = post; visibleModal = 'edit-post' }"
       @deletePost="visibleModal = 'delete-post'"
     />
 
@@ -38,6 +38,7 @@
     <SpCrudUpdate
       :storeName="storeName"
       :itemName="itemName"
+      :itemData="activePost"
       v-if="visibleModal === 'edit-post'"
       @close="visibleModal = ''"
     />
@@ -60,7 +61,7 @@ import {
   SpCrudCreate,
   SpCrudDelete
 } from '../'
-import { ref, defineComponent } from 'vue'
+import { ref, reactive, defineComponent } from 'vue'
 
 
 export default defineComponent({
@@ -93,9 +94,11 @@ export default defineComponent({
   setup() {
     // store
     let visibleModal = ref('')
+    let activePost = reactive({})
 
     return {
       visibleModal,
+      activePost,
     }
   }
 })

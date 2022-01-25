@@ -40,7 +40,7 @@
         </SpButton>
         <SpButton
           type="primary"
-          @submit="$emit('delete')"
+          @submit="deleteItem"
           style="width: 40%;"
         >
           Delete
@@ -52,7 +52,8 @@
 
 <script lang="ts">
 import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
-import { defineComponent } from 'vue'
+import {computed, defineComponent, reactive} from 'vue'
+import {useStore} from "vuex";
 
 export default defineComponent({
   name: 'SpCrudDelete',
@@ -72,7 +73,21 @@ export default defineComponent({
     },
   },
 
-  setup() {
+  setup(props, { emit }) {
+    // store
+    let $s = useStore()
+
+    // computed
+    let creator = $s.getters['common/wallet/address']
+
+    let deleteItem = async () => {
+      await $s.dispatch(props.storeName + '/sendMsgCreatePost', { value: { ...formData, creator } })
+      emit('close')
+    }
+
+    return {
+      deleteItem
+    }
   }
 })
 </script>

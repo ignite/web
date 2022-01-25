@@ -3,7 +3,7 @@
     <div v-if="posts" style="max-width: 600px;">
       <div
           :key="post.id"
-          v-for="post in posts"
+          v-for="post in posts.sort((a, b) => { return b.id - a.id })"
           style="display: flex; justify-content: space-between; gap: 14px; margin-bottom: 3rem"
       >
         <div style="width: 50px">
@@ -36,7 +36,7 @@
             </template>
             <template v-slot:dropdown>
               <div style="width: 160px;">
-                <div class="dropdown-option" @click="$emit('editPost')">
+                <div class="dropdown-option" @click="$emit('editPost', post)">
                   Edit
                 </div>
                 <div class="dropdown-option" style="color: #D80228;" @click="$emit('deletePost')">

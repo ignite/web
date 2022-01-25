@@ -6,16 +6,28 @@
     :submitButton="true"
     :cancelButton="true"
     @close="$emit('close')"
-    @submit="$emit('close')"
+    @submit="editItem"
     style="text-align: center"
   >
     <template v-slot:body>
       <SpSpacer size="sm" />
       <div
-        v-for="field in itemFields"
+        v-for="field in itemFields.filter(f => f.name !== 'id' && f.name !== 'creator')"
       >
-        <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">{{ field.name }}</label>
-        <input :placeholder="`Enter ${field.name}`" type="text" :id="`p${field.name}`" :name="`p${field.name}`" class="sp-input">
+        <label
+          :for="`p${field.name}`"
+          class="sp-label capitalize-first-letter"
+        >
+          {{ field.name }}
+        </label>
+        <input
+          v-model="formData[field.name]"
+          :placeholder="`Enter ${field.name}`"
+          type="text"
+          :id="`p${field.name}`"
+          :name="`p${field.name}`"
+          class="sp-input"
+        >
         <SpSpacer size="xs" />
       </div>
     </template>
@@ -24,7 +36,7 @@
 
 <script lang="ts">
 import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -48,17 +60,31 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemData: {
+      type: Object,
+      required: true
+    },
   },
 
-  setup(props) {
+  setup(props, { emit }) {
     // store
     let $s = useStore()
+    let formData = reactive({ ...props.itemData })
 
     // computed
     let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
+    let creator = $s.getters['common/wallet/address']
+
+    let editItem = async () => {
+      await $s.dispatch(props.storeName + '/sendMsgCreatePost', { value: { ...formData, creator, id: props.itemData.id } })
+      emit('close')
+    }
 
     return {
-      itemFields
+      itemFields,
+      formData,
+      editItem,
     }
   }
 })
