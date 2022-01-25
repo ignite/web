@@ -7,7 +7,12 @@
       />
       <router-view />
       <Suspense>
-        <SpTxList v-if="address" :address="address" />
+        <template #default>
+          <SpTxList v-if="address" :address="address" />
+        </template>
+        <template #fallback>
+          loading
+        </template>
       </Suspense>
     </SpTheme>
   </div>
