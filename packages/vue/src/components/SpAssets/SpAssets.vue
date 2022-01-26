@@ -4,7 +4,7 @@
       <h2 class="title">Assets</h2>
       <div class='assets-header__search'>
         <div class='assets-header__search-content'>
-          <input type="text" autocomplete="off" placeholder="Search assets" class="input--search">
+          <input v-model="searchQuery" type="text" autocomplete="off" placeholder="Search assets" class="input--search">
         </div>
       </div>
     </header>
@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="balance in balances"
+          v-for="balance in filteredBalanceList"
           :key="balance"
           class="assets-table__row"
         >
@@ -35,11 +35,14 @@
         </tr>
       </tbody>
     </table>
+    <div v-if='filteredBalanceList.length >= 3' class='show-more'>
+      Show more
+    </div>
   </section>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType } from 'vue'
+import { computed, defineComponent, onMounted, PropType, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -54,6 +57,11 @@ export default defineComponent({
   setup(props) {
     // store
     const $s = useStore()
+    const state = reactive({
+      searchQuery: "",
+    })
+
+
 
     // actions
     let queryAllBalances = (opts: any) =>
@@ -68,6 +76,29 @@ export default defineComponent({
       )
     })
 
+    const filteredBalanceList = computed(() => {
+
+      let searchArray = balances.value,
+        searchString = state.searchQuery
+
+      console.log({searchString})
+
+      if (!searchString) {
+        return sortList(searchArray)
+      }
+
+      searchString = searchString.trim().toLowerCase()
+
+      searchArray = searchArray.filter((item) => {
+        if (item.denom.toLowerCase().indexOf(searchString) !== -1) {
+          return item
+        }
+      })
+
+      // Return an array with the filtered data.
+      return sortList(searchArray)
+    })
+
     // lh
     onMounted(async () => {
       await queryAllBalances({
@@ -78,10 +109,15 @@ export default defineComponent({
     })
 
     return {
-      balances
+      filteredBalanceList,
+      ...toRefs(state),
     }
   }
 })
+
+function sortList(list) {
+  return list.sort((a, b) => (a.symbol > b.symbol ? 1 : -1))
+}
 </script>
 
 <style lang="scss" scoped>
@@ -219,5 +255,32 @@ export default defineComponent({
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     width: 100%;
   }
+}
+
+.show-more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  width: 124px;
+  height: 36px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #FFFFFF;
+  box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
+  border-radius: 56px;
+  color: #000000;
+  font-weight: 500;
+  font-size: 13px;
+  position: absolute;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+section {
+  position: relative;
+  padding-bottom: 48px;
 }
 </style>
