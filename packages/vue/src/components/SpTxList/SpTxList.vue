@@ -83,7 +83,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .tx-pill {
   font-size: 18px;
   padding: 10px;
