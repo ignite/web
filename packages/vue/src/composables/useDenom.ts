@@ -1,4 +1,4 @@
-import { Amount, DenomTrace } from '@/utils/interfaces'
+import { DenomTrace } from '@/utils/interfaces'
 import { Store } from 'vuex'
 
 export interface State {}
@@ -12,10 +12,10 @@ type Response = {
 
 type Params = {
   $s: Store<any>
-  opts: {}
+  opts?: {}
 }
 
-export default function useDenom({ $s, opts: {} }: Params): Response {
+export default function useDenom({ $s }: Params): Response {
   //actions
   let queryDenomTrace = (opts: any) =>
     $s.dispatch('ibc.applications.transfer.v1/QueryDenomTrace', opts)
@@ -31,9 +31,8 @@ export default function useDenom({ $s, opts: {} }: Params): Response {
 
     return denomTrace
   }
-
   let normalizeDenom = async (denom: string): Promise<string> => {
-    let normalized = denom
+    let normalized = denom.toUpperCase()
 
     let isIBC = denom.indexOf('ibc/') == 0
 

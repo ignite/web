@@ -39,7 +39,7 @@ export default defineComponent({
     let normalizedPath: any
 
     // composables
-    let { normalizeDenom } = useDenom({ $s, opts: {} })
+    let { normalizeDenom } = useDenom({ $s })
 
     normalizedDenom = await normalizeDenom(props.denom)
 
