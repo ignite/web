@@ -1,10 +1,6 @@
 import { DenomTrace } from '@/utils/interfaces'
 import { Store } from 'vuex'
 
-export interface State {}
-
-export let initialState: State = {}
-
 type Response = {
   getDenomTrace: (denom: string) => Promise<DenomTrace>
   normalizeDenom: (denom: string) => Promise<string>
