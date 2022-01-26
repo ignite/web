@@ -2,13 +2,14 @@
   <span v-if="modifier === 'base'">
     {{ normalizedDenom }}
   </span>
-  <span v-if="modifier === 'path'">
+  <span v-else-if="modifier === 'path'">
     {{ normalizedDenom }}
   </span>
   <div class="token-avatar" v-else-if="modifier === 'avatar'">
     {{ normalizedDenom.slice(0, 1) }}
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import useDenom from '../../composables/useDenom'
