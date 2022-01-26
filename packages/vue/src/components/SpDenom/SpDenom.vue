@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref, Ref } from 'vue'
 import useDenom from '../../composables/useDenom'
 import { useStore } from 'vuex'
 
@@ -36,13 +36,13 @@ export default defineComponent({
     let $s = useStore()
 
     // state
-    let normalizedDenom: any = props.denom
-    let normalizedPath: any
+    let normalizedDenom: Ref<string> = ref(props.denom)
+    let normalizedPath: Ref<string> = ref('')
 
     // composables
     let { normalizeDenom } = useDenom({ $s })
 
-    normalizedDenom = await normalizeDenom(props.denom)
+    normalizedDenom.value = await normalizeDenom(props.denom)
 
     return { normalizedDenom, normalizedPath }
   }
