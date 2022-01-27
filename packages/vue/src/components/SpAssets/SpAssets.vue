@@ -17,13 +17,15 @@
       </thead>
       <tbody>
         <tr
-          v-for="balance in filteredBalanceList"
-          :key="balance"
+          v-for="(balance, index) in filteredBalanceList"
+          :key="index"
           class="assets-table__row"
         >
           <td class="assets-table__denom">
             <div class="sp-denom-marker">
-              {{ balance.denom.charAt(0).toUpperCase() }}
+              <Suspense>
+                <SpDenom :denom="balance.denom" modifier="avatar" size='24' />
+              </Suspense>
             </div>
             <div class="sp-denom-name">
               {{ balance.denom.toUpperCase() }}
@@ -45,15 +47,18 @@
 import { computed, defineComponent, onMounted, PropType, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
+import SpDenom from '../SpDenom'
+
 export default defineComponent({
   name: 'SpAssets',
+  components: { SpDenom },
 
   props: {
     address: {
       type: String as PropType<string>
     },
     resultLimit: {
-      type: String || Number,
+      type: Number,
       default: 3,
       required: false
     }
@@ -127,8 +132,7 @@ export default defineComponent({
     })
 
     const filteredBalanceList = computed(() => {
-
-      let searchArray = balances.value.concat(state.demoDenoms),
+      let searchArray = balances.value.length ? balances.value.concat(state.demoDenoms) : [],
           searchString = state.searchQuery
 
       if (!searchString) {
@@ -251,8 +255,6 @@ export default defineComponent({
 
 .sp-denom-marker {
   display: inline-flex;
-  height: 24px;
-  width: 24px;
   vertical-align: middle;
   margin-right: 0.8rem;
   background: radial-gradient(

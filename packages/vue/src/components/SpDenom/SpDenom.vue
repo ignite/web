@@ -5,15 +5,16 @@
   <span v-else-if="modifier === 'path'">
     {{ normalizedDenom }}
   </span>
-  <div class="token-avatar" v-else-if="modifier === 'avatar'">
+  <div v-else-if="modifier === 'avatar'" class="token-avatar">
     {{ normalizedDenom.slice(0, 1) }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, Ref } from 'vue'
-import useDenom from '../../composables/useDenom'
+import { defineComponent, PropType, Ref,ref } from 'vue'
 import { useStore } from 'vuex'
+
+import useDenom from '../../composables/useDenom'
 
 type Modifier = 'avatar' | 'path' | 'base'
 
@@ -28,12 +29,20 @@ export default defineComponent({
     modifier: {
       type: String as PropType<Modifier>,
       default: 'base'
+    },
+    size: {
+      type: [String, Number],
+      default: 32
     }
   },
 
   async setup(props) {
     // store
     let $s = useStore()
+
+    const avatarTheme = ref({
+      size: props.size + 'px',
+    });
 
     // state
     let normalizedDenom: Ref<string> = ref(props.denom)
@@ -44,12 +53,12 @@ export default defineComponent({
 
     normalizedDenom.value = await normalizeDenom(props.denom)
 
-    return { normalizedDenom, normalizedPath }
+    return { normalizedDenom, normalizedPath, avatarTheme }
   }
 })
 </script>
 
-<style lang="scss">
+<style lang='scss' scoped>
 .token-avatar {
   background: radial-gradient(
     83.33% 83.33% at 16.67% 16.67%,
@@ -64,8 +73,8 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
 
-  width: 32px;
-  height: 32px;
+  width: v-bind("avatarTheme.size");
+  height: v-bind("avatarTheme.size");
 
   font-family: Inter;
   font-style: normal;
