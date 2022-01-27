@@ -225,6 +225,20 @@
               v-model="state.tx.memo"
             />
           </div>
+
+          <div style="width: 100%; height: 8px" />
+
+          <div class="input-label">Channel</div>
+
+          <div style="width: 100%; height: 8px" />
+
+          <div class="input-wrapper">
+            <input
+              class="input"
+              placeholder="Enter a channel"
+              v-model="state.tx.ch"
+            />
+          </div>
         </div>
 
         <div style="width: 100%; height: 24px" />
@@ -280,6 +294,8 @@ import SpCard from '../SpCard'
 import SpQrCode from '../SpQrCode'
 import SpButton from '../SpButton'
 import SpClipboard from '../SpClipboard'
+
+import long from 'long'
 
 // types
 export interface TxData {
@@ -355,6 +371,8 @@ export default defineComponent({
     // actions
     let sendMsgSend = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
+    let sendMsgTransfer = (opts: any) =>
+      $s.dispatch('ibc.applications.transfer.v1/sendMsgTransfer', opts)
     let queryAllBalances = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
 
@@ -382,28 +400,58 @@ export default defineComponent({
     let sendTx = async (): Promise<void> => {
       state.currentUIState = UI_STATE.TX_SIGNING
 
-      let value = {
-        amount: state.tx.amount,
-        toAddress: state.tx.toAddress,
-        fromAddress: props.fromAddress
-      }
-
       let fee = state.tx.fees.map((x) => ({
         ...x,
         amount: x.amount == '' ? '0' : x.amount
       }))
 
+      let memo = state.tx.memo
+
+      let isIBC = state.tx.ch !== ''
+
+      let send
+
+      let payload: any = {
+        amount: state.tx.amount,
+        toAddress: state.tx.toAddress,
+        fromAddress: props.fromAddress
+      }
+
       try {
-        const txResult = await sendMsgSend({
-          value,
-          fee,
-          memo: state.tx.memo
-        })
+        if (isIBC) {
+          payload = {
+            ...payload,
+            sourcePort: 'transfer',
+            sourceChannel: state.tx.ch,
+            sender: props.fromAddress,
+            receiver: state.tx.toAddress,
+            timeoutHeight: 0,
+            timeoutTimestamp: long
+              .fromNumber(new Date().getTime() + 60000)
+              .multiply(1000000),
+            token: state.tx.amount[0]
+          }
+
+          send = () =>
+            sendMsgTransfer({
+              value: payload,
+              fee,
+              memo
+            })
+        } else {
+          send = () =>
+            sendMsgSend({
+              value: payload,
+              fee,
+              memo
+            })
+        }
+
+        const txResult = await send()
 
         if (txResult.code) {
           throw new Error()
         }
-
         state.currentUIState = UI_STATE.TX_SUCCESS
       } catch (e) {
         console.error(e)
