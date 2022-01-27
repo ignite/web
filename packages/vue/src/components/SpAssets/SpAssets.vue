@@ -35,7 +35,7 @@
         </tr>
       </tbody>
     </table>
-    <div v-if='filteredBalanceList.length >= 3' class='show-more'>
+    <div v-if='isShowMore' class='show-more' @click='showMore()'>
       Show more
     </div>
   </section>
@@ -51,6 +51,11 @@ export default defineComponent({
   props: {
     address: {
       type: String as PropType<string>
+    },
+    resultLimit: {
+      type: String || Number,
+      default: 3,
+      required: false
     }
   },
 
@@ -59,13 +64,60 @@ export default defineComponent({
     const $s = useStore()
     const state = reactive({
       searchQuery: "",
+      displayLimit: props.resultLimit,
+      demoDenoms:[
+        {
+          denom: "AAAA",
+          amount: "12312312"
+        },
+        {
+          denom: "BBB",
+          amount: "12312312"
+        },
+        {
+          denom: "CCC",
+          amount: "12312312"
+        },
+        {
+          denom: "DDD",
+          amount: "12312312"
+        },
+        {
+          denom: "EEE",
+          amount: "12312312"
+        },
+        {
+          denom: "AAAA2",
+          amount: "12312312"
+        },
+        {
+          denom: "BBB2",
+          amount: "12312312"
+        },
+        {
+          denom: "CCC2",
+          amount: "12312312"
+        },
+        {
+          denom: "DDD2",
+          amount: "12312312"
+        },
+        {
+          denom: "EEE2",
+          amount: "12312312"
+        }
+      ]
     })
-
-
 
     // actions
     let queryAllBalances = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
+
+    // methods
+
+    const sortList = (list) => {
+      return list.sort((a, b) => (a.symbol > b.symbol ? 1 : -1))
+    }
 
     // computed
     let balances = computed(() => {
@@ -76,15 +128,17 @@ export default defineComponent({
       )
     })
 
+    let isShowMore = computed(() => {
+      return filteredBalanceList.value.length < balances.value.concat(state.demoDenoms).length
+    })
+
     const filteredBalanceList = computed(() => {
 
-      let searchArray = balances.value,
-        searchString = state.searchQuery
-
-      console.log({searchString})
+      let searchArray = balances.value.concat(state.demoDenoms),
+          searchString = state.searchQuery
 
       if (!searchString) {
-        return sortList(searchArray)
+        return sortList(searchArray.slice(0, state.displayLimit));
       }
 
       searchString = searchString.trim().toLowerCase()
@@ -96,8 +150,12 @@ export default defineComponent({
       })
 
       // Return an array with the filtered data.
-      return sortList(searchArray)
+      return sortList(searchArray.slice(0, state.displayLimit))
     })
+
+    const showMore = () => {
+      state.displayLimit += state.displayLimit
+    }
 
     // lh
     onMounted(async () => {
@@ -110,14 +168,13 @@ export default defineComponent({
 
     return {
       filteredBalanceList,
+      showMore,
+      isShowMore,
       ...toRefs(state),
     }
   }
 })
 
-function sortList(list) {
-  return list.sort((a, b) => (a.symbol > b.symbol ? 1 : -1))
-}
 </script>
 
 <style lang="scss" scoped>
