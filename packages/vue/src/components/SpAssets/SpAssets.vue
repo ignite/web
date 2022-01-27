@@ -113,11 +113,6 @@ export default defineComponent({
     let queryAllBalances = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
 
-    // methods
-    const sortList = (list) => {
-      return list.sort((a, b) => (a.symbol > b.symbol ? 1 : -1))
-    }
-
     // computed
     let balances = computed(() => {
       return (
@@ -137,20 +132,19 @@ export default defineComponent({
           searchString = state.searchQuery
 
       if (!searchString) {
-        console.log(searchArray.slice(0, state.displayLimit))
         return searchArray.slice(0, state.displayLimit);
       }
 
       searchString = searchString.trim().toLowerCase()
 
       searchArray = searchArray.filter((item) => {
-        if (item.denom.toLowerCase().indexOf(searchString) !== -1) {
+        if (item.denom.toLowerCase().includes(searchString)) {
           return item
         }
       })
 
       // Return an array with the filtered data.
-      return sortList(searchArray.slice(0, state.displayLimit))
+      return searchArray.slice(0, state.displayLimit)
     })
 
     const showMore = () => {
