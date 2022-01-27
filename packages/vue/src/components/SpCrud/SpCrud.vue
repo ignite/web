@@ -9,14 +9,13 @@
           size="md"
           style="font-weight: 700"
       >
-        Post items
+        {{ itemName }} items
       </SpTypography>
       <SpButton
-          aria-label="Create post"
           type="primary"
-          @click="visibleModal = 'create-post'"
+          @click="visibleModal = 'create-item'"
       >
-        Create post
+        Create {{ itemName }}
       </SpButton>
     </div>
 
@@ -24,26 +23,33 @@
     <SpCrudRead
       :storeName="storeName"
       :itemName="itemName"
-      @createPost="visibleModal = 'create-post'"
-      @editPost="(post) => { activePost = post; visibleModal = 'edit-post' }"
-      @deletePost="visibleModal = 'delete-post'"
+      :commandName="`/Query${itemName}s`"
+      @createItem="visibleModal = 'create-item'"
+      @editItem="(item) => { activeItem = item; visibleModal = 'edit-item' }"
+      @deleteItem="visibleModal = 'delete-item'"
     />
 
     <SpCrudCreate
+      v-if="visibleModal === 'create-item'"
       :storeName="storeName"
       :itemName="itemName"
-      v-if="visibleModal === 'create-post'"
+      :commandName="`/sendMsgCreate${itemName}`"
       @close="visibleModal = ''"
     />
     <SpCrudUpdate
+      v-if="visibleModal === 'edit-item'"
       :storeName="storeName"
       :itemName="itemName"
-      :itemData="activePost"
-      v-if="visibleModal === 'edit-post'"
+      :itemData="activeItem"
+      :commandName="`/sendMsgUpdate${itemName}`"
       @close="visibleModal = ''"
     />
     <SpCrudDelete
-      v-if="visibleModal === 'delete-post'"
+      v-if="visibleModal === 'delete-item'"
+      :storeName="storeName"
+      :itemName="itemName"
+      :itemData="activeItem"
+      :commandName="`/sendMsgDelete${itemName}`"
       @close="visibleModal = ''"
     />
   </div>
@@ -94,11 +100,11 @@ export default defineComponent({
   setup() {
     // store
     let visibleModal = ref('')
-    let activePost = reactive({})
+    let activeItem = reactive({})
 
     return {
       visibleModal,
-      activePost,
+      activeItem,
     }
   }
 })

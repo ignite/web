@@ -18,7 +18,7 @@
       </div>
       <SpSpacer size="xs" />
       <SpTypography size="sm" modifier="highlight" style="font-weight: 700">
-        Delete this post?
+        Delete this item?
       </SpTypography>
     </template>
     <template v-slot:body>
@@ -33,14 +33,14 @@
       <div style="display: flex; gap: 10px; justify-content: center">
         <SpButton
           type="secondary"
-          @submit="$emit('close')"
+          @click="$emit('close')"
           style="width: 40%;"
         >
           Cancel
         </SpButton>
         <SpButton
           type="primary"
-          @submit="deleteItem"
+          @click="deleteItem"
           style="width: 40%;"
         >
           Delete
@@ -71,6 +71,21 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemName: {
+      type: String,
+      required: true
+    },
+
+    itemData: {
+      type: Object,
+      required: true
+    },
+
+    commandName: {
+      type: String,
+      required: true
+    },
   },
 
   setup(props, { emit }) {
@@ -81,7 +96,7 @@ export default defineComponent({
     let creator = $s.getters['common/wallet/address']
 
     let deleteItem = async () => {
-      await $s.dispatch(props.storeName + '/sendMsgCreatePost', { value: { ...formData, creator } })
+      await $s.dispatch(props.storeName + props.commandName, { value: { creator, id: props.itemData.id } })
       emit('close')
     }
 

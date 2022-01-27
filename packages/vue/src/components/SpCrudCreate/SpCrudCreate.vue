@@ -1,7 +1,7 @@
 <template>
   <SpModal
     :visible="true"
-    title="Create post"
+    :title="`Create ${itemName}`"
     :closeIcon="true"
     :submitButton="true"
     :cancelButton="true"
@@ -60,6 +60,11 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    commandName: {
+      type: String,
+      required: true
+    },
   },
 
   setup(props, { emit }) {
@@ -72,7 +77,7 @@ export default defineComponent({
     let creator = $s.getters['common/wallet/address']
 
     let submitItem = async () => {
-      await $s.dispatch(props.storeName + '/sendMsgCreatePost', { value: { ...formData, creator } })
+      await $s.dispatch(props.storeName + props.commandName, { value: { ...formData, creator } })
       emit('close')
     }
 

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="posts" style="max-width: 600px;">
+    <div v-if="items" style="max-width: 600px;">
       <div
-          :key="post.id"
-          v-for="post in posts.sort((a, b) => { return b.id - a.id })"
+          :key="item.id"
+          v-for="item in items.sort((a, b) => { return b.id - a.id })"
           style="display: flex; justify-content: space-between; gap: 14px; margin-bottom: 3rem"
       >
         <div style="width: 50px">
@@ -21,7 +21,7 @@
             v-for="field in itemFields"
           >
             <div class="item-title capitalize-first-letter">{{ field.name }}</div>
-            <div class="item-value">{{ post[field.name] }}</div>
+            <div class="item-value">{{ item[field.name] }}</div>
             <SpSpacer size="xs" />
           </div>
         </div>
@@ -36,10 +36,10 @@
             </template>
             <template v-slot:dropdown>
               <div style="width: 160px;">
-                <div class="dropdown-option" @click="$emit('editPost', post)">
+                <div class="dropdown-option" @click="$emit('editItem', item)">
                   Edit
                 </div>
-                <div class="dropdown-option" style="color: #D80228;" @click="$emit('deletePost')">
+                <div class="dropdown-option" style="color: #D80228;" @click="$emit('deleteItem')">
                   Delete
                 </div>
               </div>
@@ -47,18 +47,18 @@
           </SpDropdown>
         </div>
       </div>
-      <div v-if="(posts || []).length === 0" style="text-align: center">
+      <div v-if="(items || []).length === 0" style="text-align: center">
         <SpSpacer size="md" />
         <SpTypography size="md">
-          No post items
+          No items
         </SpTypography>
         <SpTypography
           size="sm"
           feedback="link"
           style="display: inline-block"
-          @click="$emit('createPost')"
+          @click="$emit('createItem')"
         >
-          Create your first post
+          Create your first item
         </SpTypography>
       </div>
     </div>
@@ -92,6 +92,11 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    commandName: {
+      type: String,
+      required: true
+    },
   },
 
   setup(props) {
@@ -102,16 +107,16 @@ export default defineComponent({
     // computed
     let address = computed(() => $s.getters['common/wallet/address'])
     let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
-    let posts = computed(
+    let items = computed(
       () => {
-        const postData = $s.state[props.storeName].Posts
-        const queryKey = Object.keys(postData)[0]
-        if (queryKey && postData[queryKey]) return postData[queryKey].Post
+        const itemData = $s.state[props.storeName][props.itemName + 's']
+        const queryKey = Object.keys(itemData)[0]
+        if (queryKey && itemData[queryKey]) return itemData[queryKey][props.itemName]
         return []
       }
     )
 
-    $s.dispatch(`${props.storeName}/QueryPosts`, {
+    $s.dispatch(`${props.storeName}${props.commandName}`, {
       options: { subscribe: true },
       params: {},
       query: {}
@@ -126,7 +131,7 @@ export default defineComponent({
       visibleModal,
       itemFields,
       shortAddress,
-      posts
+      items
     }
   }
 })
