@@ -114,7 +114,6 @@ export default defineComponent({
       $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
 
     // methods
-
     const sortList = (list) => {
       return list.sort((a, b) => (a.symbol > b.symbol ? 1 : -1))
     }
@@ -138,7 +137,8 @@ export default defineComponent({
           searchString = state.searchQuery
 
       if (!searchString) {
-        return sortList(searchArray.slice(0, state.displayLimit));
+        console.log(searchArray.slice(0, state.displayLimit))
+        return searchArray.slice(0, state.displayLimit);
       }
 
       searchString = searchString.trim().toLowerCase()
