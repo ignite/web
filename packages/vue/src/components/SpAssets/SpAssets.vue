@@ -35,6 +35,12 @@
             {{ new Intl.NumberFormat('en-GB').format(balance.amount) }}
           </td>
         </tr>
+        <tr v-if='filteredBalanceList<=0' class='assets-table__row'>
+          <td class='assets-table__row--no-results' colspan='2'>
+            <h4>No results for '{{ searchQuery }}' </h4>
+            <p>Try again with another search</p>
+          </td>
+        </tr>
       </tbody>
     </table>
     <div v-if='isShowMore' class='show-more' @click='showMore()'>
@@ -67,6 +73,7 @@ export default defineComponent({
   setup(props) {
     // store
     const $s = useStore()
+    let filteredArrayLength = 0;
     const state = reactive({
       searchQuery: "",
       displayLimit: props.resultLimit,
@@ -128,9 +135,11 @@ export default defineComponent({
     })
 
     let isShowMore = computed(() => {
-      console.log("filteredBalanceList.value.length = ", filteredBalanceList.value.length);
-      console.log("balances.value.concat(state.demoDenoms).length = ", balances.value.concat(state.demoDenoms).length);
-      return filteredBalanceList.value.length < balances.value.concat(state.demoDenoms).length
+      if (!state.searchQuery) {
+        return filteredBalanceList.value.length < balances.value.concat(state.demoDenoms).length
+      } else {
+        return filteredBalanceList.value.length < filteredArrayLength
+      }
     })
 
     const filteredBalanceList = computed(() => {
@@ -148,6 +157,7 @@ export default defineComponent({
           return item
         }
       })
+      filteredArrayLength = searchArray.length
 
       // Return an array with the filtered data.
       return searchArray.slice(0, state.displayLimit)
@@ -248,6 +258,28 @@ export default defineComponent({
   }
   &__align-right {
     text-align: right;
+  }
+  &__row {
+    &--no-results {
+      text-align: center;
+      padding-top: 32px;
+      h4 {
+        padding: 0;
+        margin: 0;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: -0.007em;
+      }
+      p {
+        padding: 0;
+        margin: 4px 0 0 0;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.667);
+      }
+    }
   }
 }
 
