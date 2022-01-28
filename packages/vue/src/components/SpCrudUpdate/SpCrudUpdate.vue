@@ -12,7 +12,7 @@
     <template v-slot:body>
       <SpSpacer size="sm" />
       <div
-        v-for="field in itemFields.filter(f => f.name !== 'id' && f.name !== 'creator')"
+        v-for="field in itemFieldsFiltered"
       >
         <label
           :for="`p${field.name}`"
@@ -79,6 +79,7 @@ export default defineComponent({
 
     // computed
     let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
+    let itemFieldsFiltered = computed(() => itemFields.value.filter(f => f.name !== 'id' && f.name !== 'creator'))
     let creator = $s.getters['common/wallet/address']
 
     let editItem = async () => {
@@ -87,7 +88,7 @@ export default defineComponent({
     }
 
     return {
-      itemFields,
+      itemFieldsFiltered,
       formData,
       editItem,
     }

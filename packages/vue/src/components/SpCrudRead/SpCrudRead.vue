@@ -3,7 +3,7 @@
     <div v-if="items" style="max-width: 600px;">
       <div
           :key="item.id"
-          v-for="item in items.sort((a, b) => { return b.id - a.id })"
+          v-for="item in items"
           style="display: flex; justify-content: space-between; gap: 14px; margin-bottom: 3rem"
       >
         <div style="width: 50px">
@@ -111,7 +111,10 @@ export default defineComponent({
       () => {
         const itemData = $s.state[props.storeName][props.itemName + 's']
         const queryKey = Object.keys(itemData)[0]
-        if (queryKey && itemData[queryKey]) return itemData[queryKey][props.itemName]
+        if (queryKey && itemData[queryKey]) {
+          return itemData[queryKey][props.itemName]
+            .sort((a, b) => { return b.id - a.id })
+        }
         return []
       }
     )
