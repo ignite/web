@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, reactive, toRefs } from 'vue'
+import { computed, defineComponent, onMounted, PropType, reactive, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import SpDenom from '../SpDenom'
@@ -128,6 +128,8 @@ export default defineComponent({
     })
 
     let isShowMore = computed(() => {
+      console.log("filteredBalanceList.value.length = ", filteredBalanceList.value.length);
+      console.log("balances.value.concat(state.demoDenoms).length = ", balances.value.concat(state.demoDenoms).length);
       return filteredBalanceList.value.length < balances.value.concat(state.demoDenoms).length
     })
 
@@ -154,6 +156,15 @@ export default defineComponent({
     const showMore = () => {
       state.displayLimit += state.displayLimit
     }
+
+    watch(
+      () => state.searchQuery,
+      (searchQuery, prevSearchQuery) => {
+        if (!searchQuery) {
+          state.displayLimit = props.resultLimit
+        }
+      }
+    )
 
     // lh
     onMounted(async () => {
