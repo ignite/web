@@ -23,7 +23,7 @@
     <SpCrudRead
       :storeName="storeName"
       :itemName="itemName"
-      :commandName="`/Query${itemName}s`"
+      :commandName="`/Query${itemName}All`"
       @createItem="visibleModal = 'create-item'"
       @editItem="(item) => { activeItem = item; visibleModal = 'edit-item' }"
       @deleteItem="visibleModal = 'delete-item'"

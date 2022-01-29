@@ -109,7 +109,7 @@ export default defineComponent({
     let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
     let items = computed(
       () => {
-        const itemData = $s.state[props.storeName][props.itemName + 's']
+        const itemData = $s.state[props.storeName][props.itemName + 'All']
         const queryKey = Object.keys(itemData)[0]
         if (queryKey && itemData[queryKey]) {
           return itemData[queryKey][props.itemName]
