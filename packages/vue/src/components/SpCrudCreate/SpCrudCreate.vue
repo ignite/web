@@ -1,33 +1,43 @@
 <template>
   <SpModal
     :visible="true"
-    title="Create post"
+    :title="`Create ${itemName}`"
     :closeIcon="true"
     :submitButton="true"
     :cancelButton="true"
     @close="$emit('close')"
-    @submit="$emit('close')"
+    @submit="submitItem"
     style="text-align: center"
   >
     <template v-slot:body>
       <SpSpacer size="sm" />
-      <div>
-        <label for="ptitle" class="sp-label">Title</label>
-        <input placeholder="Enter title" type="text" id="ptitle" name="ptitle" class="sp-input">
+      <div
+        v-for="field in itemFieldsFiltered"
+      >
+        <label
+          :for="`p${field.name}`"
+          class="sp-label capitalize-first-letter"
+        >
+          {{ field.name }}
+        </label>
+        <input
+          v-model="formData[field.name]"
+          :placeholder="`Enter ${field.name}`"
+          type="text"
+          :id="`p${field.name}`"
+          :name="`p${field.name}`"
+          class="sp-input"
+        >
+        <SpSpacer size="xs" />
       </div>
-      <SpSpacer size="xs" />
-      <div>
-        <label for="pdescription" class="sp-label">Description</label>
-        <input placeholder="Enter description" type="text" id="pdescription" name="pdescription" class="sp-input">
-      </div>
-      <SpSpacer size="xs" />
     </template>
   </SpModal>
 </template>
 
 <script lang="ts">
 import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, ref, reactive } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'SpCrudCreate',
@@ -45,9 +55,38 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemName: {
+      type: String,
+      required: true
+    },
+
+    commandName: {
+      type: String,
+      required: true
+    },
   },
 
-  setup() {
+  setup(props, { emit }) {
+    // store
+    let $s = useStore()
+    let formData = reactive({})
+
+    // computed
+    let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
+    let itemFieldsFiltered = computed(() => itemFields.value.filter(f => f.name !== 'id' && f.name !== 'creator'))
+    let creator = $s.getters['common/wallet/address']
+
+    let submitItem = async () => {
+      $s.dispatch(props.storeName + props.commandName, { value: { ...formData, creator } })
+      emit('close')
+    }
+
+    return {
+      itemFieldsFiltered,
+      formData,
+      submitItem,
+    }
   }
 })
 </script>
@@ -89,5 +128,9 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin: 4px 0px;
+}
+
+.capitalize-first-letter:first-letter {
+  text-transform: uppercase;
 }
 </style>
