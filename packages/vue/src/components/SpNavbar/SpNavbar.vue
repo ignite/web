@@ -94,18 +94,6 @@
               </linearGradient>
             </defs>
           </svg>
-          <span
-            style="
-              padding: 4px 8px;
-              margin-left: 10px;
-              background: rgba(0, 0, 0, 0.03);
-              border-radius: 24px;
-              font-weight: 500;
-              font-size: 10px;
-            "
-          >
-            Beta
-          </span>
         </div>
       </router-link>
       <router-link
