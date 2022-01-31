@@ -1,5 +1,5 @@
 <template>
-  <div class="row" v-if="address">
+  <div class="container d-flex" v-if="address">
     <div class="col">
       <SpAssets :address="address" />
     </div>
@@ -34,10 +34,16 @@ export default {
 </script>
 
 <style scoped>
-.row {
+.d-flex {
   display: flex;
-  flex-wrap: wrap;
 }
+
+@media (max-width: 900px) {
+  .d-flex {
+    flex-direction: column;
+  }
+}
+
 .col {
   flex-grow: 1;
   padding: 20px;
