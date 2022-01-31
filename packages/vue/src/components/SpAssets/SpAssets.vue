@@ -73,6 +73,11 @@
     <div v-if='!uiState.isAssetsLoading && !balances.length' class='no-result-label'>You have no assets</div>
     <div v-if='!uiState.isAssetsLoading && isShowMore' class='show-more' @click='showMore()'>
       Show more
+      <span class='arrow-icon'>
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.0001 7.4001L0.600098 2.0001L2.0001 0.600098L6.0001 4.6001L10.0001 0.600098L11.4001 2.0001L6.0001 7.4001Z" fill="black"/>
+        </svg>
+      </span>
     </div>
   </section>
 </template>
@@ -459,7 +464,6 @@ $avatar-offset: 32 + 16;
 
 .show-more {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0 16px;
@@ -589,4 +593,7 @@ section {
   }
 }
 
+.arrow-icon {
+  margin-left: 9px;
+}
 </style>
