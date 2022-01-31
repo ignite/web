@@ -96,7 +96,7 @@ export default defineComponent({
     let creator = $s.getters['common/wallet/address']
 
     let deleteItem = async () => {
-      await $s.dispatch(props.storeName + props.commandName, { value: { creator, id: props.itemData.id } })
+      $s.dispatch(props.storeName + props.commandName, { value: { creator, id: props.itemData.id } })
       emit('close')
     }
 

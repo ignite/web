@@ -26,7 +26,7 @@
       :commandName="`/Query${itemName}All`"
       @createItem="visibleModal = 'create-item'"
       @editItem="(item) => { activeItem = item; visibleModal = 'edit-item' }"
-      @deleteItem="visibleModal = 'delete-item'"
+      @deleteItem="(item) => { activeItem = item; visibleModal = 'delete-item' }"
     />
 
     <SpCrudCreate

@@ -83,7 +83,7 @@ export default defineComponent({
     let creator = $s.getters['common/wallet/address']
 
     let editItem = async () => {
-      await $s.dispatch(props.storeName + props.commandName, { value: { ...formData, creator, id: props.itemData.id } })
+      $s.dispatch(props.storeName + props.commandName, { value: { ...formData, creator, id: props.itemData.id } })
       emit('close')
     }
 

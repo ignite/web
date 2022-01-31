@@ -39,7 +39,7 @@
                 <div class="dropdown-option" @click="$emit('editItem', item)">
                   Edit
                 </div>
-                <div class="dropdown-option" style="color: #D80228;" @click="$emit('deleteItem')">
+                <div class="dropdown-option" style="color: #D80228;" @click="$emit('deleteItem', item)">
                   Delete
                 </div>
               </div>
