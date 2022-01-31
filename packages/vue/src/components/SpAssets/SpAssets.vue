@@ -8,7 +8,7 @@
         </div>
       </div>
     </header>
-    <table class="assets-table">
+    <table v-if='!uiState.isAssetsLoading' class="assets-table">
       <thead v-if='balances.length' class='assets-table__thead'>
         <tr>
           <td>Asset</td>
@@ -24,7 +24,7 @@
           <td class="assets-table__denom">
             <div class="sp-denom-marker">
               <Suspense>
-                <SpDenom :denom="balance.denom" modifier="avatar" size='24' />
+                <SpDenom :denom="balance.denom" modifier="avatar" />
               </Suspense>
             </div>
             <div class="sp-denom-name">
@@ -58,7 +58,7 @@
       </div>
     </template>
     <div v-if='!uiState.isAssetsLoading && !balances.length' class='no-result-label'>You have no assets</div>
-    <div v-if='isShowMore' class='show-more' @click='showMore()'>
+    <div v-if='!uiState.isAssetsLoading && isShowMore' class='show-more' @click='showMore()'>
       Show more
     </div>
   </section>
@@ -106,7 +106,7 @@ export default defineComponent({
       displayLimit: props.resultLimit,
       demoDenoms:[
         {
-          denom: "AAAA",
+          denom: "ibc/C053D637CCA2A2BA030E2C5EE1B28A16F71CCB0E45E8BE52766DC1B241B77878",
           amount: "12312312"
         },
         {
@@ -342,13 +342,6 @@ $avatar-offset: 32 + 16;
   display: inline-flex;
   vertical-align: middle;
   margin-right: 0.8rem;
-  background: radial-gradient(
-    83.33% 83.33% at 16.67% 16.67%,
-    #f5f5f5 0%,
-    #d7d7d7 42.19%,
-    #fdfdfd 100%
-  );
-  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.62);
   border-radius: 24px;
   text-align: center;
   font-family: Inter, serif;
