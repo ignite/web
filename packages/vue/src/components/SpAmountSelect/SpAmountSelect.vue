@@ -6,15 +6,17 @@
       :index="i"
       v-bind:key="'selected' + i"
     >
-      <div class="token-avatar">
-        {{ x.denom.slice(0, 1) }}
-      </div>
+      <Suspense>
+        <SpDenom :denom="x?.denom" modifier="avatar" />
+      </Suspense>
 
       <div style="width: 12px; height: 100%" />
 
       <div class="token-info">
         <div class="token-denom">
-          {{ x?.denom }}
+          <Suspense>
+            <SpDenom :denom="x?.denom" />
+          </Suspense>
         </div>
 
         <div
@@ -115,15 +117,17 @@
               v-bind:key="'balance' + i"
               @click="() => handleTokenSelect(x)"
             >
-              <div class="token-avatar">
-                {{ x.denom.slice(0, 1) }}
-              </div>
+              <Suspense>
+                <SpDenom :denom="x?.denom" modifier="avatar" />
+              </Suspense>
 
               <div style="width: 12px; height: 100%" />
 
               <div class="token-info">
                 <div class="token-denom">
-                  {{ x.denom }}
+                  <Suspense>
+                    <SpDenom :denom="x?.denom" />
+                  </Suspense>
                 </div>
 
                 <div class="token-amount">
@@ -144,6 +148,7 @@ import { defineComponent, PropType, computed, reactive } from 'vue'
 import { Amount } from '../../utils/interfaces'
 
 import SpModal from '../SpModal'
+import SpDenom from '../SpDenom'
 
 export interface State {
   tokenSearch: string
@@ -160,7 +165,7 @@ export default defineComponent({
 
   emits: ['update'],
 
-  components: { SpModal },
+  components: { SpModal, SpDenom },
 
   props: {
     selected: {
@@ -275,37 +280,7 @@ export default defineComponent({
 
   color: rgba(0, 0, 0, 0.667);
 }
-.token-avatar {
-  background: radial-gradient(
-    83.33% 83.33% at 16.67% 16.67%,
-    #f5f5f5 0%,
-    #d7d7d7 42.19%,
-    #fdfdfd 100%
-  );
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.62);
-  border-radius: 24px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 32px;
-  height: 32px;
-
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 125%;
-  /* or 20px */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.007em;
-
-  text-transform: uppercase;
-}
 .modal-list {
   display: flex;
   flex-direction: column;

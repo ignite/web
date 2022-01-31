@@ -9,8 +9,6 @@ declare const _default: {
     CosmosCosmosSdkCosmosSlashingV1Beta1: (store: any) => void;
     CosmosCosmosSdkCosmosStakingV1Beta1: (store: any) => void;
     CosmosCosmosSdkCosmosVestingV1Beta1: (store: any) => void;
-    TendermintSpnTendermintSpnCampaign: (store: any) => void;
-    TendermintSpnTendermintSpnLaunch: (store: any) => void;
-    TendermintSpnTendermintSpnProfile: (store: any) => void;
+    CosmosIbcGoIbcApplicationsTransferV1: (store: any) => void;
 };
 export default _default;
