@@ -1,8 +1,8 @@
 <template>
   <div class="page-background">
     <SpCrud
-      :storeName="'cosmonaut.blog.blog'"
-      :itemName="'Post'"
+      storeName="cosmonaut.blog.blog"
+      itemName="Post"
     />
   </div>
 </template>
