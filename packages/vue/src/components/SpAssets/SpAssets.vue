@@ -4,7 +4,20 @@
       <h2 class="title">Assets</h2>
       <div v-if='balances.length' class='assets-header__search'>
         <div class='assets-header__search-content'>
-          <input v-model="searchQuery" type="search" autocomplete="off" placeholder="Search assets" class="input--search">
+          <div class='search-container'>
+            <span class='search-icon'>
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.5 12.5C9.81371 12.5 12.5 9.81371 12.5 6.5C12.5 3.18629 9.81371 0.5 6.5 0.5C3.18629 0.5 0.5 3.18629 0.5 6.5C0.5 9.81371 3.18629 12.5 6.5 12.5Z" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14.5002 14.5002L10.7422 10.7422" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <input ref='searchInput' v-model="searchQuery" type="search" autocomplete="off" placeholder="Search assets" class="input--search">
+            <span v-if='searchQuery' class='clear-icon' @click.prevent='resetSearch'>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4182 16 8C16 3.5818 12.4183 0 8 0C3.58172 0 0 3.5818 0 8C0 12.4182 3.58172 16 8 16ZM11.5442 4.45588C11.8382 4.74977 11.8382 5.22656 11.5442 5.52068L9.06483 8L11.5442 10.4793C11.8382 10.7734 11.8382 11.2502 11.5442 11.5441C11.2501 11.8382 10.7734 11.8382 10.4793 11.5441L8 9.0648L5.52065 11.5441C5.22662 11.8382 4.74989 11.8382 4.45582 11.5441C4.16179 11.2502 4.16179 10.7734 4.45582 10.4793L6.93517 8L4.45582 5.52068C4.16179 5.22656 4.16179 4.74977 4.45582 4.45588C4.74986 4.16176 5.22659 4.16176 5.52065 4.45588L8 6.9352L10.4793 4.45588C10.7734 4.16176 11.2501 4.16176 11.5442 4.45588Z" fill="black" fill-opacity="0.20"/>
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
     </header>
@@ -65,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, reactive, toRefs, watch } from 'vue'
+import { computed, defineComponent, onMounted, PropType, reactive, ref, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import SpDenom from '../SpDenom'
@@ -96,6 +109,7 @@ export default defineComponent({
   setup(props) {
     // store
     const $s = useStore()
+    const searchInput = ref<null | { focus: () => null }>(null)
 
     // state
     let uiState: State = reactive(initialState)
@@ -106,7 +120,7 @@ export default defineComponent({
       displayLimit: props.resultLimit,
       demoDenoms:[
         {
-          denom: "ibc/C053D637CCA2A2BA030E2C5EE1B28A16F71CCB0E45E8BE52766DC1B241B77878",
+          denom: "AAA",
           amount: "12312312"
         },
         {
@@ -200,6 +214,11 @@ export default defineComponent({
       state.displayLimit += state.displayLimit
     }
 
+    const resetSearch = () => {
+      state.searchQuery = "";
+      searchInput.value?.focus();
+    }
+
     watch(
       () => state.searchQuery,
       (searchQuery, prevSearchQuery) => {
@@ -227,6 +246,8 @@ export default defineComponent({
       showMore,
       isShowMore,
       ...toRefs(state),
+      resetSearch,
+      searchInput
     }
   }
 })
@@ -259,8 +280,51 @@ $avatar-offset: 32 + 16;
   &__search-content {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
     height: 100%;
+    position: relative;
+
+    .search-container {
+      position: relative;
+      > input[type=search] {
+        padding: 0 40px 0 36px;
+        width: 200px;
+        height: 52px;
+        background: #FFFFFF;
+        border: 2px solid transparent;
+        border-radius: 12px;
+
+        &:focus {
+          border-color: #094EFD;
+          color: #000;
+        }
+
+        &::placeholder {
+          color: rgba(0, 0, 0, 0.33);
+        }
+
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+          display: none;
+          -webkit-appearance:none;
+        }
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 19px;
+      }
+
+      .clear-icon {
+        position: absolute;
+        right: 18px;
+        top: 18px;
+        cursor: pointer;
+      }
+    }
   }
 }
 
@@ -297,6 +361,11 @@ $avatar-offset: 32 + 16;
     font-size: 13px;
     line-height: 153.8%;
     color: rgba(0, 0, 0, 0.667);
+
+    td {
+      padding-top: 32px;
+      padding-bottom: 7px;
+    }
   }
   &__align-right {
     text-align: right;
