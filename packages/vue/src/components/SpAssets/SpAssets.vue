@@ -2,14 +2,14 @@
   <section>
     <header class="assets-header">
       <h2 class="title">Assets</h2>
-      <div class='assets-header__search'>
+      <div v-if='balances.length' class='assets-header__search'>
         <div class='assets-header__search-content'>
-          <input v-model="searchQuery" type="text" autocomplete="off" placeholder="Search assets" class="input--search">
+          <input v-model="searchQuery" type="search" autocomplete="off" placeholder="Search assets" class="input--search">
         </div>
       </div>
     </header>
     <table class="assets-table">
-      <thead class='assets-table__thead'>
+      <thead v-if='balances.length' class='assets-table__thead'>
         <tr>
           <td>Asset</td>
           <td class='assets-table__align-right'>Available balance</td>
@@ -35,7 +35,7 @@
             {{ new Intl.NumberFormat('en-GB').format(balance.amount) }}
           </td>
         </tr>
-        <tr v-if='filteredBalanceList<=0' class='assets-table__row'>
+        <tr v-if='filteredBalanceList<=0 && searchQuery !== ""' class='assets-table__row'>
           <td class='assets-table__row--no-results' colspan='2'>
             <h4>No results for '{{ searchQuery }}' </h4>
             <p>Try again with another search</p>
@@ -43,6 +43,21 @@
         </tr>
       </tbody>
     </table>
+    <template v-if='uiState.isAssetsLoading'>
+      <div v-for='n in 2' :key='n' class='loading__row'>
+        <div class='loading__col'>
+          <span class='loading__avatar'></span>
+          <span class='loading__denom'></span>
+        </div>
+        <div class='loading__col loading__col--justify-end'>
+          <span class='loading__ibc'></span>
+        </div>
+        <div class='loading__col loading__col--justify-end'>
+          <span class='loading__amount'></span>
+        </div>
+      </div>
+    </template>
+    <div v-if='!uiState.isAssetsLoading && !balances.length' class='no-result-label'>You have no assets</div>
     <div v-if='isShowMore' class='show-more' @click='showMore()'>
       Show more
     </div>
@@ -54,6 +69,14 @@ import { computed, defineComponent, onMounted, PropType, reactive, toRefs, watch
 import { useStore } from 'vuex'
 
 import SpDenom from '../SpDenom'
+
+export interface State {
+  isAssetsLoading: boolean
+}
+
+export let initialState: State = {
+  isAssetsLoading: true
+}
 
 export default defineComponent({
   name: 'SpAssets',
@@ -73,6 +96,10 @@ export default defineComponent({
   setup(props) {
     // store
     const $s = useStore()
+
+    // state
+    let uiState: State = reactive(initialState)
+
     let filteredArrayLength = 0;
     const state = reactive({
       searchQuery: "",
@@ -122,8 +149,10 @@ export default defineComponent({
     })
 
     // actions
-    let queryAllBalances = (opts: any) =>
-      $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
+    let queryAllBalances = (opts: any) => {
+      return $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
+    }
+
 
     // computed
     let balances = computed(() => {
@@ -135,6 +164,10 @@ export default defineComponent({
     })
 
     let isShowMore = computed(() => {
+      if (!balances.value.length) {
+        return
+      }
+
       if (!state.searchQuery) {
         return filteredBalanceList.value.length < balances.value.concat(state.demoDenoms).length
       } else {
@@ -182,11 +215,15 @@ export default defineComponent({
         params: { address: props.address},
         query: {"pagination.reverse": false},
         options: { all: true, subscribe: true }
+      }).then(() => {
+        setTimeout(() => uiState.isAssetsLoading = false, 1500);
       })
     })
 
     return {
+      uiState,
       filteredBalanceList,
+      balances,
       showMore,
       isShowMore,
       ...toRefs(state),
@@ -197,6 +234,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$base-color: rgba(0, 0, 0, 0.03);
+$animation-duration: 1.6s;
+$shine-color: rgba(0, 0, 0, 0.06);
+$avatar-offset: 32 + 16;
+
 .assets-header {
   display: flex;
   flex-wrap: wrap;
@@ -324,12 +366,12 @@ export default defineComponent({
 .title {
   font-family: Inter, serif;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 28px;
   line-height: 127%;
   /* identical to box height, or 36px */
 
-  letter-spacing: -0.016em;
+  letter-spacing: -0.02em;
   font-feature-settings: 'zero';
 
   color: #000000;
@@ -375,8 +417,114 @@ export default defineComponent({
   margin: 0 auto;
 }
 
+.no-result-label {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.667);
+  margin-top: 22px;
+}
+
 section {
   position: relative;
   padding-bottom: 48px;
 }
+
+.loading {
+  &__row {
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 29px;
+  }
+
+  &__col {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+
+    &--justify-center {
+      justify-content: center;
+    }
+
+    &--justify-end {
+      justify-content: end;
+    }
+  }
+
+  &__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 24px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-avatar $animation-duration infinite linear
+  }
+
+  &__denom {
+    width: 96px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    margin-left: 16px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-lines $animation-duration infinite linear
+  }
+
+  &__amount {
+    width: 96px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    margin-left: 16px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-lines $animation-duration infinite linear
+  }
+
+  &__ibc {
+    width: 64px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    margin-left: 16px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-lines $animation-duration infinite linear
+  }
+}
+
+@keyframes shine-avatar {
+  0% {
+    background-position: -100px + $avatar-offset
+  }
+  40%, 100% {
+    background-position: 140px + $avatar-offset
+  }
+}
+
+@keyframes shine-lines {
+  0% {
+    background-position: -100px
+  }
+  40%, 100% {
+    background-position: 140px
+  }
+}
+
 </style>
