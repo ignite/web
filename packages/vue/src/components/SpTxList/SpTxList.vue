@@ -1,61 +1,47 @@
 <template>
-  <div>
-    <div>
-      <span>total {{ sentTxsPager.total.value }} </span>
-      <span>currentPage {{ sentTxsPager.currentPage.value }}</span>
-      <span>page size {{ sentTxsPager.page.value.length }}</span>
-    </div>
-    <button
-      @click="sentTxsPager.back"
-      :disabled="!sentTxsPager.hasBackPage.value"
+  <div class="tx-list">
+    <div
+      v-if="newTxs > 0"
+      @click="loadNewItems"
+      class="load-more"
+      role="button"
     >
-      backSentPage
-    </button>
-    <button
-      @click="sentTxsPager.next"
-      :disabled="!sentTxsPager.hasNextPage.value"
-    >
-      nextSentPage
-    </button>
-
-    <div style="display: flex; flex-wrap: wrap">
-      <div v-for="i in sentTxsPager.page.value" class="tx-pill out">
-        {{ i.signatures[0].substr(0, 4) }}
-      </div>
+      {{ newTxs + 'new' + (newTxs > 1 ? 'items' : 'item') }}
     </div>
 
-    <div>
-      <span>total {{ receivedTxsPager.total.value }} </span>
-      <span>currentPage {{ receivedTxsPager.currentPage.value }}</span>
-      <span>page size {{ receivedTxsPager.page.value.length }}</span>
+    <div class="list">
+      <SpTxListItem v-for="i in paginated" :key="i.hash" :tx="i" />
     </div>
 
-    <button
-      @click="receivedTxsPager.back"
-      :disabled="!receivedTxsPager.hasBackPage.value"
+    <div
+      v-if="leftToShowMore > 0"
+      @click="showMoreItems"
+      class="show-more"
+      role="button"
     >
-      backReceivedPage
-    </button>
-    <button
-      @click="receivedTxsPager.next"
-      :disabled="!receivedTxsPager.hasNextPage.value"
-    >
-      nextReceivedPage
-    </button>
-
-    <div style="display: flex; flex-wrap: wrap">
-      <div v-for="i in receivedTxsPager.page.value" class="tx-pill in">
-        {{ i.signatures[0].substr(0, 4) }}
-      </div>
+      show more {{ leftToShowMore }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import {
+  computed,
+  ComputedRef,
+  defineComponent,
+  PropType,
+  reactive,
+  Ref,
+  ref,
+  watch
+} from 'vue'
 import { useStore } from 'vuex'
+import { usePagination } from 'vue-composable'
 
 import { useTxs } from '../../composables'
+import { TxForUI } from '../../composables/useTxs'
+
+import SpTxListItem from '../SpTxListItem'
 
 export default defineComponent({
   name: 'SpTxList',
@@ -66,37 +52,129 @@ export default defineComponent({
     }
   },
 
+  components: { SpTxListItem },
+
   async setup() {
     // store
     let $s = useStore()
 
-    let { receivedTxsPager, sentTxsPager } = await useTxs({
+    // state
+    let txsDisplayed: Ref<number> = ref(10) // increase pageSize on user click
+    let { pager, normalize, newTxs } = await useTxs({
       $s,
       opts: { order: 'desc', realTime: true }
     })
 
+    // computed
+    let page: ComputedRef<TxForUI[]> = computed(() =>
+      pager.value.page.value.map(normalize).sort((a, b) => b.height - a.height)
+    )
+
+    // state
+    let pagResul = reactive(
+      usePagination({
+        currentPage: 1,
+        pageSize: txsDisplayed.value,
+        total: computed(() => page.value.length)
+      })
+    )
+    let { currentPage, lastPage, offset, pageSize, first } = pagResul
+
+    // computed
+    let paginated: ComputedRef<TxForUI[]> = computed(() =>
+      page.value.slice(offset, offset + txsDisplayed.value)
+    )
+    let leftToShowMore: ComputedRef<number> = computed(() => {
+      let leftTotal = page.value.length - paginated.value.length
+      return leftTotal > 10 ? 10 : leftTotal
+    })
+
+    //watch
+    watch(
+      () => txsDisplayed.value,
+      async () => {
+        pagResul = reactive(
+          usePagination({
+            currentPage: 1,
+            pageSize: 20,
+            total: computed(() => page.value.length)
+          })
+        )
+      }
+    )
+
+    // methods
+    let loadNewItems = () => {
+      pager.value.load()
+      first()
+    }
+    let showMoreItems = () => {
+      txsDisplayed.value += leftToShowMore.value
+    }
+
     return {
-      receivedTxsPager,
-      sentTxsPager
+      newTxs,
+      paginated,
+      currentPage,
+      lastPage,
+      offset,
+      pageSize,
+      loadNewItems,
+      showMoreItems,
+      leftToShowMore
     }
   }
 })
 </script>
 
 <style scoped lang="scss">
-.tx-pill {
-  font-size: 18px;
-  padding: 10px;
-  margin: 4px;
-  background: #ccc;
-  border-radius: 20px;
+.tx-list {
+  position: relative;
 }
-
-.tx-pill.out {
-  background: red;
+.list {
+  display: flex;
+  flex-direction: column;
 }
-
-.tx-pill.in {
-  background: green;
+.load-more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  width: 124px;
+  height: 36px;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #ffffff;
+  box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
+  border-radius: 56px;
+  color: #000000;
+  font-weight: 500;
+  font-size: 13px;
+  position: absolute;
+  cursor: pointer;
+  margin: 0 auto;
+}
+.show-more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  width: 124px;
+  height: 36px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
+  border-radius: 56px;
+  color: #000000;
+  font-weight: 500;
+  font-size: 13px;
+  position: absolute;
+  cursor: pointer;
+  margin: 0 auto;
 }
 </style>
