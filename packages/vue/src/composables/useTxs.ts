@@ -1,4 +1,4 @@
-import { computed, ComputedRef, ref, Ref } from 'vue'
+import { computed, ComputedRef, ref, Ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import useAPIPagination, {
@@ -110,8 +110,12 @@ export default async function useTxs({
 
   // state
   let API_COSMOS = computed<string>(() => $s.getters['common/env/apiCosmos'])
-  let SENT_EVENT = `transfer.sender%3D%27${address.value}%27`
-  let RECEIVED_EVENT = `transfer.recipient%3D%27${address.value}%27`
+  let SENT_EVENT = computed<string>(
+    () => `transfer.sender%3D%27${address.value}%27`
+  )
+  let RECEIVED_EVENT = computed<string>(
+    () => `transfer.recipient%3D%27${address.value}%27`
+  )
   let orderParam = order === 'asc' ? 1 : 2
   let newTxs = ref(0)
 
@@ -119,14 +123,18 @@ export default async function useTxs({
     opts: {},
     getters: {
       fetchList: async ({ offset }) =>
-        normalizeAPIResponse(await fetchTxs(offset, RECEIVED_EVENT, orderParam))
+        normalizeAPIResponse(
+          await fetchTxs(offset, RECEIVED_EVENT.value, orderParam)
+        )
     }
   })
   let { pager: sentPager }: APIPagination = await useAPIPagination({
     opts: {},
     getters: {
       fetchList: async ({ offset }) =>
-        normalizeAPIResponse(await fetchTxs(offset, SENT_EVENT, orderParam))
+        normalizeAPIResponse(
+          await fetchTxs(offset, SENT_EVENT.value, orderParam)
+        )
     }
   })
 
@@ -138,11 +146,20 @@ export default async function useTxs({
     merge(recvPager, sentPager)
   )
 
+  //watch
+  watch(
+    () => address.value,
+    async () => {
+      console.log('watch addr', address.value)
+      recvAndSentPager.value.load()
+    }
+  )
+
   if (realTime) {
     client.value.on('newblock', async () => {
       // there's got bet a better way to diff latest vs. current while sparing this wasted round-trip
-      let recv = await fetchTxs(0, RECEIVED_EVENT, orderParam)
-      let sent = await fetchTxs(0, SENT_EVENT, orderParam)
+      let recv = await fetchTxs(0, RECEIVED_EVENT.value, orderParam)
+      let sent = await fetchTxs(0, SENT_EVENT.value, orderParam)
 
       let currentTotal = recvAndSentPager.value.total.value
       let latestTotal =

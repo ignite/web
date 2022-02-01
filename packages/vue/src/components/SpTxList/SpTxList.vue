@@ -1,16 +1,25 @@
 <template>
   <div class="tx-list">
+    <div class="title">Transactions</div>
     <div
       v-if="newTxs > 0"
       @click="loadNewItems"
       class="load-more"
       role="button"
     >
-      {{ newTxs + 'new' + (newTxs > 1 ? 'items' : 'item') }}
+      {{ newTxs + ' ' + 'new' + ' ' + (newTxs > 1 ? 'items' : 'item') }}
     </div>
 
     <div class="list">
-      <SpTxListItem v-for="i in paginated" :key="i.hash" :tx="i" />
+      <SpTxListItem
+        v-for="i in paginated"
+        :key="i.hash"
+        :tx="i"
+        v-if="paginated.length > 0"
+      />
+      <div v-else="paginated.length > 0" class="empty">
+        Transaction history is empty
+      </div>
     </div>
 
     <div
@@ -19,7 +28,7 @@
       class="show-more"
       role="button"
     >
-      show more {{ leftToShowMore }}
+      Show more {{ leftToShowMore }}
     </div>
   </div>
 </template>
@@ -29,7 +38,6 @@ import {
   computed,
   ComputedRef,
   defineComponent,
-  PropType,
   reactive,
   Ref,
   ref,
@@ -45,12 +53,6 @@ import SpTxListItem from '../SpTxListItem'
 
 export default defineComponent({
   name: 'SpTxList',
-
-  props: {
-    address: {
-      type: String as PropType<string>
-    }
-  },
 
   components: { SpTxListItem },
 
@@ -128,6 +130,31 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.empty {
+  /* Body/M */
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+  /* identical to box height, or 24px */
+
+  /* light/muted */
+
+  color: rgba(0, 0, 0, 0.667);
+}
+.title {
+  font-family: Inter, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 127%;
+  /* identical to box height, or 36px */
+  letter-spacing: -0.02em;
+  font-feature-settings: 'zero';
+  color: #000000;
+}
 .tx-list {
   position: relative;
 }

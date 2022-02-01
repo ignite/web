@@ -95,7 +95,12 @@ export default defineComponent({
       () => AMOUNT_SIGN[props.tx.dir]
     )
 
-    return { addrDesc, dirDescription, amountSign }
+    return {
+      //computed
+      addrDesc,
+      dirDescription,
+      amountSign
+    }
   }
 })
 </script>
