@@ -1,26 +1,15 @@
 <template>
   <div class="tx-list">
     <div class="title">Transactions</div>
-    <div
-      v-if="newTxs > 0"
-      @click="loadNewItems"
-      class="load-more"
-      role="button"
-    >
-      {{ newTxs + ' ' + 'new' + ' ' + (newTxs > 1 ? 'items' : 'item') }}
+
+    <div v-if="newTxs" @click="loadNewItems" class="load-more" role="button">
+      {{ showMoreText }}
     </div>
 
-    <div class="list">
-      <SpTxListItem
-        v-for="i in list"
-        :key="i.hash"
-        :tx="i"
-        v-if="list.length > 0"
-      />
-      <div v-else="paginated.length > 0" class="empty">
-        Transaction history is empty
-      </div>
+    <div class="list" v-if="list.length > 0">
+      <SpTxListItem v-for="i in list" :key="i.hash" :tx="i" />
     </div>
+    <div v-else class="empty">Transaction history is empty</div>
 
     <div
       v-if="leftToShowMore"
@@ -82,6 +71,9 @@ export default defineComponent({
         state.listSize < state.listMaxSize &&
         pager.value.page.value.length > state.listSize
     )
+    let showMoreText: ComputedRef<string> = computed(
+      () => `${newTxs.value} new ${newTxs.value > 1 ? 'items' : 'item'}`
+    )
 
     // methods
     let loadNewItems = () => {
@@ -97,6 +89,7 @@ export default defineComponent({
       // computed
       list,
       leftToShowMore,
+      showMoreText,
       /// methods
       loadNewItems,
       showMoreItems
