@@ -96,7 +96,7 @@ export default defineComponent({
         pagResul = reactive(
           usePagination({
             currentPage: 1,
-            pageSize: 20,
+            pageSize: txsDisplayed.value,
             total: computed(() => page.value.length)
           })
         )
