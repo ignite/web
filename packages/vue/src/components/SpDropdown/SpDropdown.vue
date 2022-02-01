@@ -1,6 +1,6 @@
 <template>
   <div style="position: relative">
-    <div class="dropdown-button" @click="visible = true">
+    <div ref="buttonEl" class="dropdown-button" @click="visible = true">
       <slot name="button" />
     </div>
     <transition name="dropdown-fade">
@@ -23,11 +23,10 @@ export default defineComponent({
 
   setup() {
     let visible = ref(false)
+    let buttonEl = ref(null)
 
     const clickOutsideHandler = (evt) => {
-      // let dropdownEl = document.querySelector('.dropdown-dropdown')
-      let dropdownButtonEl = document.querySelector('.dropdown-button')
-      if (!dropdownButtonEl?.contains(evt.target)) {
+      if (!buttonEl.value?.contains(evt.target)) {
         visible.value = false
       }
     }
@@ -40,7 +39,8 @@ export default defineComponent({
     })
 
     return {
-      visible
+      visible,
+      buttonEl,
     }
   }
 })
