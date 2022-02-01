@@ -1,7 +1,6 @@
 import { Any } from "../../../google/protobuf/any";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "cosmos.authz.v1beta1";
-/** Since: cosmos-sdk 0.43 */
 /**
  * GenericAuthorization gives the grantee unrestricted permissions to execute
  * the provided method on behalf of the granter's account.

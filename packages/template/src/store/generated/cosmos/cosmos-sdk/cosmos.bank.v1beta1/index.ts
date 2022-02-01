@@ -182,13 +182,9 @@ export default {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
-				let value= (await queryClient.queryBalance( key.address, query)).data
+				let value= (await queryClient.queryBalance( key.address,  key.denom)).data
 				
 					
-				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
-					let next_values=(await queryClient.queryBalance( key.address, {...query, 'pagination.key':(<any> value).pagination.next_key})).data
-					value = mergeResults(value, next_values);
-				}
 				commit('QUERY', { query: 'Balance', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryBalance', payload: { options: { all }, params: {...key},query }})
 				return getters['getBalance']( { params: {...key}, query}) ?? {}

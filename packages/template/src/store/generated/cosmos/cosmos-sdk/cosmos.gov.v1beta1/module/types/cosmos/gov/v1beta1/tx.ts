@@ -37,22 +37,14 @@ export interface MsgVote {
 /** MsgVoteResponse defines the Msg/Vote response type. */
 export interface MsgVoteResponse {}
 
-/**
- * MsgVoteWeighted defines a message to cast a vote.
- *
- * Since: cosmos-sdk 0.43
- */
+/** MsgVoteWeighted defines a message to cast a vote. */
 export interface MsgVoteWeighted {
   proposalId: number;
   voter: string;
   options: WeightedVoteOption[];
 }
 
-/**
- * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- *
- * Since: cosmos-sdk 0.43
- */
+/** MsgVoteWeightedResponse defines the Msg/VoteWeighted response type. */
 export interface MsgVoteWeightedResponse {}
 
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
@@ -649,11 +641,7 @@ export interface Msg {
   ): Promise<MsgSubmitProposalResponse>;
   /** Vote defines a method to add a vote on a specific proposal. */
   Vote(request: MsgVote): Promise<MsgVoteResponse>;
-  /**
-   * VoteWeighted defines a method to add a weighted vote on a specific proposal.
-   *
-   * Since: cosmos-sdk 0.43
-   */
+  /** VoteWeighted defines a method to add a weighted vote on a specific proposal. */
   VoteWeighted(request: MsgVoteWeighted): Promise<MsgVoteWeightedResponse>;
   /** Deposit defines a method to add deposit on a specific proposal. */
   Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;

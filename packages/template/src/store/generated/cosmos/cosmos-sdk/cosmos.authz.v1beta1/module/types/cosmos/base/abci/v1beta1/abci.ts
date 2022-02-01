@@ -42,15 +42,6 @@ export interface TxResponse {
    * it's genesis time.
    */
   timestamp: string;
-  /**
-   * Events defines all the events emitted by processing a transaction. Note,
-   * these events include those emitted by processing all the messages and those
-   * emitted from the ante handler. Whereas Logs contains the events, with
-   * additional metadata, emitted only by processing the messages.
-   *
-   * Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
-   */
-  events: Event[];
 }
 
 /** ABCIMessageLog defines a structure containing an indexed tx ABCI message log. */
@@ -199,9 +190,6 @@ export const TxResponse = {
     if (message.timestamp !== "") {
       writer.uint32(98).string(message.timestamp);
     }
-    for (const v of message.events) {
-      Event.encode(v!, writer.uint32(106).fork()).ldelim();
-    }
     return writer;
   },
 
@@ -210,7 +198,6 @@ export const TxResponse = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseTxResponse } as TxResponse;
     message.logs = [];
-    message.events = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -250,9 +237,6 @@ export const TxResponse = {
         case 12:
           message.timestamp = reader.string();
           break;
-        case 13:
-          message.events.push(Event.decode(reader, reader.uint32()));
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -264,7 +248,6 @@ export const TxResponse = {
   fromJSON(object: any): TxResponse {
     const message = { ...baseTxResponse } as TxResponse;
     message.logs = [];
-    message.events = [];
     if (object.height !== undefined && object.height !== null) {
       message.height = Number(object.height);
     } else {
@@ -325,11 +308,6 @@ export const TxResponse = {
     } else {
       message.timestamp = "";
     }
-    if (object.events !== undefined && object.events !== null) {
-      for (const e of object.events) {
-        message.events.push(Event.fromJSON(e));
-      }
-    }
     return message;
   },
 
@@ -354,18 +332,12 @@ export const TxResponse = {
     message.tx !== undefined &&
       (obj.tx = message.tx ? Any.toJSON(message.tx) : undefined);
     message.timestamp !== undefined && (obj.timestamp = message.timestamp);
-    if (message.events) {
-      obj.events = message.events.map((e) => (e ? Event.toJSON(e) : undefined));
-    } else {
-      obj.events = [];
-    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<TxResponse>): TxResponse {
     const message = { ...baseTxResponse } as TxResponse;
     message.logs = [];
-    message.events = [];
     if (object.height !== undefined && object.height !== null) {
       message.height = object.height;
     } else {
@@ -425,11 +397,6 @@ export const TxResponse = {
       message.timestamp = object.timestamp;
     } else {
       message.timestamp = "";
-    }
-    if (object.events !== undefined && object.events !== null) {
-      for (const e of object.events) {
-        message.events.push(Event.fromPartial(e));
-      }
     }
     return message;
   },

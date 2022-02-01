@@ -1,7 +1,6 @@
 import { Reader, Writer } from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 export declare const protobufPackage = "cosmos.feegrant.v1beta1";
-/** Since: cosmos-sdk 0.43 */
 /**
  * MsgGrantAllowance adds permission for Grantee to spend up to Allowance
  * of fees from the account of Granter.

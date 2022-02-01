@@ -76,17 +76,11 @@ export interface Metadata {
    * displayed in clients.
    */
   display: string;
-  /**
-   * name defines the name of the token (eg: Cosmos Atom)
-   *
-   * Since: cosmos-sdk 0.43
-   */
+  /** name defines the name of the token (eg: Cosmos Atom) */
   name: string;
   /**
    * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
    * be the same as the display.
-   *
-   * Since: cosmos-sdk 0.43
    */
   symbol: string;
 }

@@ -2,11 +2,7 @@
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "cosmos.staking.v1beta1";
-/**
- * AuthorizationType defines the type of staking module authorization type
- *
- * Since: cosmos-sdk 0.43
- */
+/** AuthorizationType defines the type of staking module authorization type */
 export var AuthorizationType;
 (function (AuthorizationType) {
     /** AUTHORIZATION_TYPE_UNSPECIFIED - AUTHORIZATION_TYPE_UNSPECIFIED specifies an unknown authorization type */

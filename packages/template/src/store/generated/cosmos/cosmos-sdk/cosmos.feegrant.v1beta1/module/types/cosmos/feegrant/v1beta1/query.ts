@@ -8,8 +8,6 @@ import {
 
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 
-/** Since: cosmos-sdk 0.43 */
-
 /** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
 export interface QueryAllowanceRequest {
   /** granter is the address of the user granting an allowance of their funds. */

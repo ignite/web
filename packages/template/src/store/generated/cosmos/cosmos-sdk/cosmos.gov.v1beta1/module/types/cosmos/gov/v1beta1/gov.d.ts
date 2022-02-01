@@ -52,11 +52,7 @@ export declare enum ProposalStatus {
 }
 export declare function proposalStatusFromJSON(object: any): ProposalStatus;
 export declare function proposalStatusToJSON(object: ProposalStatus): string;
-/**
- * WeightedVoteOption defines a unit of vote for vote split.
- *
- * Since: cosmos-sdk 0.43
- */
+/** WeightedVoteOption defines a unit of vote for vote split. */
 export interface WeightedVoteOption {
     option: VoteOption;
     weight: string;
@@ -112,7 +108,6 @@ export interface Vote {
      * @deprecated
      */
     option: VoteOption;
-    /** Since: cosmos-sdk 0.43 */
     options: WeightedVoteOption[];
 }
 /** DepositParams defines the params for deposits on governance proposals. */

@@ -5,8 +5,6 @@ import { Any } from "../../../google/protobuf/any";
 
 export const protobufPackage = "cosmos.authz.v1beta1";
 
-/** Since: cosmos-sdk 0.43 */
-
 /**
  * MsgGrant is a request type for Grant method. It declares authorization to the grantee
  * on behalf of the granter with the provided expiration time.
