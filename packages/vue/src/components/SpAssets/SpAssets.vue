@@ -41,7 +41,9 @@
               </Suspense>
             </div>
             <div class="sp-denom-name">
-              {{ balance.denom.toUpperCase() }}
+              <Suspense>
+                <SpDenom :denom="balance.denom" modifier="path" />
+              </Suspense>
             </div>
           </td>
           <td class="assets-table__amount">
@@ -415,7 +417,7 @@ $avatar-offset: 32 + 16;
 .sp-denom-marker {
   display: inline-flex;
   vertical-align: middle;
-  margin-right: 0.8rem;
+  margin-right: 16px;
   border-radius: 24px;
   text-align: center;
   font-family: Inter, serif;

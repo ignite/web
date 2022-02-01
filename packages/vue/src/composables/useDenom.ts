@@ -1,5 +1,6 @@
-import { DenomTrace } from '@/utils/interfaces'
 import { Store } from 'vuex'
+
+import { DenomTrace } from '@/utils/interfaces'
 
 type Response = {
   getDenomTrace: (denom: string) => Promise<DenomTrace>
@@ -8,7 +9,7 @@ type Response = {
 
 type Params = {
   $s: Store<any>
-  opts?: {}
+  opts?: unknown
 }
 
 export default function useDenom({ $s }: Params): Response {
@@ -33,7 +34,7 @@ export default function useDenom({ $s }: Params): Response {
     let isIBC = denom.indexOf('ibc/') == 0
 
     if (isIBC) {
-      normalized = (await getDenomTrace(denom)).denom_trace.base_denom
+      normalized = (await getDenomTrace(denom)).denom_trace.base_denom.toUpperCase()
     }
 
     return normalized
