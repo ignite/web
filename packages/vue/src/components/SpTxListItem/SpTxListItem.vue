@@ -56,13 +56,13 @@ import { computed, ComputedRef, defineComponent, PropType } from 'vue'
 import SpDenom from '../SpDenom/SpDenom.vue'
 
 enum DIR_DESC {
-  self = 'Receive',
+  self = 'Self',
   in = 'Receive',
   out = 'Send'
 }
 
 enum ADDR_DESC {
-  self = 'Receive',
+  self = 'self',
   in = 'from',
   out = 'to'
 }

@@ -94,7 +94,6 @@ export default async function useTxs({
 
     return normalized as TxForUI
   }
-
   let fetchTxs = async (offset: number, event: string, orderParam: number) =>
     axios.get(
       `${API_COSMOS.value}` +
@@ -105,20 +104,23 @@ export default async function useTxs({
     )
 
   // store
-  let address = computed(() => $s.getters['common/wallet/address'])
-  let client = computed(() => $s.getters['common/env/client'])
-
-  // state
+  let address = computed<string>(() => $s.getters['common/wallet/address'])
+  let client = computed<string>(() => $s.getters['common/env/client'])
   let API_COSMOS = computed<string>(() => $s.getters['common/env/apiCosmos'])
+
+  // computed
   let SENT_EVENT = computed<string>(
     () => `transfer.sender%3D%27${address.value}%27`
   )
   let RECEIVED_EVENT = computed<string>(
     () => `transfer.recipient%3D%27${address.value}%27`
   )
+
+  // state
   let orderParam = order === 'asc' ? 1 : 2
   let newTxs = ref(0)
 
+  // composables
   let { pager: recvPager }: APIPagination = await useAPIPagination({
     opts: {},
     getters: {
@@ -150,7 +152,6 @@ export default async function useTxs({
   watch(
     () => address.value,
     async () => {
-      console.log('watch addr', address.value)
       recvAndSentPager.value.load()
     }
   )

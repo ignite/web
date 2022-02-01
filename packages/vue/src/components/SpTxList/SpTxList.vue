@@ -12,10 +12,10 @@
 
     <div class="list">
       <SpTxListItem
-        v-for="i in paginated"
+        v-for="i in list"
         :key="i.hash"
         :tx="i"
-        v-if="paginated.length > 0"
+        v-if="list.length > 0"
       />
       <div v-else="paginated.length > 0" class="empty">
         Transaction history is empty
@@ -23,33 +23,34 @@
     </div>
 
     <div
-      v-if="leftToShowMore > 0"
+      v-if="leftToShowMore"
       @click="showMoreItems"
       class="show-more"
       role="button"
     >
-      Show more {{ leftToShowMore }}
+      Show more
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  ComputedRef,
-  defineComponent,
-  reactive,
-  Ref,
-  ref,
-  watch
-} from 'vue'
+import { computed, ComputedRef, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
-import { usePagination } from 'vue-composable'
 
 import { useTxs } from '../../composables'
 import { TxForUI } from '../../composables/useTxs'
 
 import SpTxListItem from '../SpTxListItem'
+
+export interface State {
+  listSize: number
+  listMaxSize: number
+}
+
+export let initialState: State = {
+  listSize: 10,
+  listMaxSize: 15
+}
 
 export default defineComponent({
   name: 'SpTxList',
@@ -61,69 +62,44 @@ export default defineComponent({
     let $s = useStore()
 
     // state
-    let txsDisplayed: Ref<number> = ref(10) // increase pageSize on user click
+    let state: State = reactive(initialState)
+
+    // composables
     let { pager, normalize, newTxs } = await useTxs({
       $s,
       opts: { order: 'desc', realTime: true }
     })
 
     // computed
-    let page: ComputedRef<TxForUI[]> = computed(() =>
-      pager.value.page.value.map(normalize).sort((a, b) => b.height - a.height)
+    let list: ComputedRef<TxForUI[]> = computed(() =>
+      pager.value.page.value
+        .map(normalize)
+        .sort((a, b) => b.height - a.height)
+        .slice(0, state.listSize)
     )
-
-    // state
-    let pagResul = reactive(
-      usePagination({
-        currentPage: 1,
-        pageSize: txsDisplayed.value,
-        total: computed(() => page.value.length)
-      })
-    )
-    let { currentPage, lastPage, offset, pageSize, first } = pagResul
-
-    // computed
-    let paginated: ComputedRef<TxForUI[]> = computed(() =>
-      page.value.slice(offset, offset + txsDisplayed.value)
-    )
-    let leftToShowMore: ComputedRef<number> = computed(() => {
-      let leftTotal = page.value.length - paginated.value.length
-      return leftTotal > 10 ? 10 : leftTotal
-    })
-
-    //watch
-    watch(
-      () => txsDisplayed.value,
-      async () => {
-        pagResul = reactive(
-          usePagination({
-            currentPage: 1,
-            pageSize: txsDisplayed.value,
-            total: computed(() => page.value.length)
-          })
-        )
-      }
+    let leftToShowMore: ComputedRef<boolean> = computed(
+      () =>
+        state.listSize < state.listMaxSize &&
+        pager.value.page.value.length > state.listSize
     )
 
     // methods
     let loadNewItems = () => {
       pager.value.load()
-      first()
     }
     let showMoreItems = () => {
-      txsDisplayed.value += leftToShowMore.value
+      state.listSize = state.listMaxSize
     }
 
     return {
+      //state
       newTxs,
-      paginated,
-      currentPage,
-      lastPage,
-      offset,
-      pageSize,
+      // computed
+      list,
+      leftToShowMore,
+      /// methods
       loadNewItems,
-      showMoreItems,
-      leftToShowMore
+      showMoreItems
     }
   }
 })

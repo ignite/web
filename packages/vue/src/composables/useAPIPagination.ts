@@ -71,16 +71,23 @@ export default async function useAPIPagination({
 }
 
 export function merge(a: Pager, b: Pager): Pager {
+  //state
   let page = ref([...b.page.value, ...a.page.value])
-
   let amountOfPages: ComputedRef<number> = computed(
     () => b.amountOfPages.value + a.amountOfPages.value
   )
 
+  // computed
   let total: Ref<number> = computed(() => b.total.value + a.total.value)
-
   let currentPage: Ref<number> = computed(() => -1)
+  let hasBackPage: ComputedRef<boolean> = computed(
+    () => b.hasBackPage.value || a.hasBackPage.value
+  )
+  let hasNextPage: ComputedRef<boolean> = computed(
+    () => b.hasNextPage.value || a.hasNextPage.value
+  )
 
+  // methods
   let back = (): Promise<any> => {
     let promises: Promise<any>[] = []
 
@@ -107,13 +114,6 @@ export function merge(a: Pager, b: Pager): Pager {
 
     return Promise.all(promises)
   }
-
-  let hasBackPage: ComputedRef<boolean> = computed(
-    () => b.hasBackPage.value || a.hasBackPage.value
-  )
-  let hasNextPage: ComputedRef<boolean> = computed(
-    () => b.hasNextPage.value || a.hasNextPage.value
-  )
 
   let load = (): any => {
     b.load()
