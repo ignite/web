@@ -337,7 +337,7 @@ export let initialState: State = {
     memo: '',
     fees: []
   },
-  currentUIState: UI_STATE.SEND as UI_STATE,
+  currentUIState: UI_STATE.SEND,
   advancedOpen: false
 }
 
