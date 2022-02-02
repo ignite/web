@@ -1,102 +1,176 @@
 <template>
-  <div>
-    <div>
-      <span>total {{ sentTxsPager.total.value }} </span>
-      <span>currentPage {{ sentTxsPager.currentPage.value }}</span>
-      <span>page size {{ sentTxsPager.page.value.length }}</span>
-    </div>
-    <button
-      @click="sentTxsPager.back"
-      :disabled="!sentTxsPager.hasBackPage.value"
-    >
-      backSentPage
-    </button>
-    <button
-      @click="sentTxsPager.next"
-      :disabled="!sentTxsPager.hasNextPage.value"
-    >
-      nextSentPage
-    </button>
+  <div class="tx-list">
+    <div class="title">Transactions</div>
 
-    <div style="display: flex; flex-wrap: wrap">
-      <div v-for="i in sentTxsPager.page.value" class="tx-pill out">
-        {{ i.signatures[0].substr(0, 4) }}
-      </div>
+    <div v-if="newTxs" @click="loadNewItems" class="load-more" role="button">
+      {{ showMoreText }}
     </div>
 
-    <div>
-      <span>total {{ receivedTxsPager.total.value }} </span>
-      <span>currentPage {{ receivedTxsPager.currentPage.value }}</span>
-      <span>page size {{ receivedTxsPager.page.value.length }}</span>
+    <div class="list" v-if="list.length > 0">
+      <SpTxListItem v-for="i in list" :key="i.hash" :tx="i" />
     </div>
+    <div v-else class="empty">Transaction history is empty</div>
 
-    <button
-      @click="receivedTxsPager.back"
-      :disabled="!receivedTxsPager.hasBackPage.value"
+    <div
+      v-if="leftToShowMore"
+      @click="showMoreItems"
+      class="show-more"
+      role="button"
     >
-      backReceivedPage
-    </button>
-    <button
-      @click="receivedTxsPager.next"
-      :disabled="!receivedTxsPager.hasNextPage.value"
-    >
-      nextReceivedPage
-    </button>
-
-    <div style="display: flex; flex-wrap: wrap">
-      <div v-for="i in receivedTxsPager.page.value" class="tx-pill in">
-        {{ i.signatures[0].substr(0, 4) }}
-      </div>
+      Show more
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { computed, ComputedRef, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 import { useTxs } from '../../composables'
+import { TxForUI } from '../../composables/useTxs'
+
+import SpTxListItem from '../SpTxListItem'
+
+export interface State {
+  listSize: number
+  listMaxSize: number
+}
+
+export let initialState: State = {
+  listSize: 10,
+  listMaxSize: 15
+}
 
 export default defineComponent({
   name: 'SpTxList',
 
-  props: {
-    address: {
-      type: String as PropType<string>
-    }
-  },
+  components: { SpTxListItem },
 
   async setup() {
     // store
     let $s = useStore()
 
-    let { receivedTxsPager, sentTxsPager } = await useTxs({
+    // state
+    let state: State = reactive(initialState)
+
+    // composables
+    let { pager, normalize, newTxs } = await useTxs({
       $s,
       opts: { order: 'desc', realTime: true }
     })
 
+    // computed
+    let list: ComputedRef<TxForUI[]> = computed(() =>
+      pager.value.page.value
+        .map(normalize)
+        .sort((a, b) => b.height - a.height)
+        .slice(0, state.listSize)
+    )
+    let leftToShowMore: ComputedRef<boolean> = computed(
+      () =>
+        state.listSize < state.listMaxSize &&
+        pager.value.page.value.length > state.listSize
+    )
+    let showMoreText: ComputedRef<string> = computed(
+      () => `${newTxs.value} new ${newTxs.value > 1 ? 'items' : 'item'}`
+    )
+
+    // methods
+    let loadNewItems = () => {
+      pager.value.load()
+    }
+    let showMoreItems = () => {
+      state.listSize = state.listMaxSize
+    }
+
     return {
-      receivedTxsPager,
-      sentTxsPager
+      //state
+      newTxs,
+      // computed
+      list,
+      leftToShowMore,
+      showMoreText,
+      /// methods
+      loadNewItems,
+      showMoreItems
     }
   }
 })
 </script>
 
 <style scoped lang="scss">
-.tx-pill {
-  font-size: 18px;
-  padding: 10px;
-  margin: 4px;
-  background: #ccc;
-  border-radius: 20px;
-}
+.empty {
+  /* Body/M */
 
-.tx-pill.out {
-  background: red;
-}
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+  /* identical to box height, or 24px */
 
-.tx-pill.in {
-  background: green;
+  /* light/muted */
+
+  color: rgba(0, 0, 0, 0.667);
+}
+.title {
+  font-family: Inter, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 127%;
+  /* identical to box height, or 36px */
+  letter-spacing: -0.02em;
+  font-feature-settings: 'zero';
+  color: #000000;
+}
+.tx-list {
+  position: relative;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+}
+.load-more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  width: 124px;
+  height: 36px;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #ffffff;
+  box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
+  border-radius: 56px;
+  color: #000000;
+  font-weight: 500;
+  font-size: 13px;
+  position: absolute;
+  cursor: pointer;
+  margin: 0 auto;
+}
+.show-more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  width: 124px;
+  height: 36px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
+  border-radius: 56px;
+  color: #000000;
+  font-weight: 500;
+  font-size: 13px;
+  position: absolute;
+  cursor: pointer;
+  margin: 0 auto;
 }
 </style>
