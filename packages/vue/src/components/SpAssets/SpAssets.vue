@@ -21,7 +21,7 @@
         </div>
       </div>
     </header>
-    <table v-if='isAssetsLoading' class="assets-table">
+    <table v-if='!isAssetsLoading' class="assets-table">
       <thead v-if='balances.length' class='assets-table__thead'>
         <tr>
           <td>Asset</td>
@@ -58,7 +58,7 @@
         </tr>
       </tbody>
     </table>
-    <template v-if='isAssetsLoading'>
+    <template v-else>
       <div v-for='n in 2' :key='n' class='loading__row'>
         <div class='loading__col'>
           <span class='loading__avatar'></span>
@@ -149,7 +149,10 @@ export default defineComponent({
       let searchArray = balances.value.length ? balances.value : [],
           searchString = state.searchQuery
 
+      console.log("balances = ", balances.value)
+
       if (!searchString) {
+        console.log("searchArray = ",searchArray)
         return searchArray.slice(0, state.displayLimit);
       }
 
@@ -162,9 +165,15 @@ export default defineComponent({
       })
       filteredArrayLength = searchArray.length
 
+
+
+
+
       // Return an array with the filtered data.
       return searchArray.slice(0, state.displayLimit)
     })
+
+    console.log({filteredBalanceList})
 
     const showMore = () => {
       state.displayLimit += state.displayLimit
