@@ -21,7 +21,7 @@
         </div>
       </div>
     </header>
-    <table v-if='!uiState.isAssetsLoading' class="assets-table">
+    <table v-if='isAssetsLoading' class="assets-table">
       <thead v-if='balances.length' class='assets-table__thead'>
         <tr>
           <td>Asset</td>
@@ -58,7 +58,7 @@
         </tr>
       </tbody>
     </table>
-    <template v-if='uiState.isAssetsLoading'>
+    <template v-if='isAssetsLoading'>
       <div v-for='n in 2' :key='n' class='loading__row'>
         <div class='loading__col'>
           <span class='loading__avatar'></span>
@@ -72,8 +72,8 @@
         </div>
       </div>
     </template>
-    <div v-if='!uiState.isAssetsLoading && !balances.length' class='no-result-label'>You have no assets</div>
-    <div v-if='!uiState.isAssetsLoading && isShowMore' class='show-more' @click='showMore()'>
+    <div v-if='!isAssetsLoading && !balances.length' class='no-result-label'>You have no assets</div>
+    <div v-if='!isAssetsLoading && isShowMore' class='show-more' @click='showMore()'>
       Show more
       <span class='arrow-icon'>
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,14 +89,6 @@ import { computed, defineComponent, onMounted, PropType, reactive, ref, toRefs, 
 import { useStore } from 'vuex'
 
 import SpDenom from '../SpDenom'
-
-export interface State {
-  isAssetsLoading: boolean
-}
-
-export let initialState: State = {
-  isAssetsLoading: true
-}
 
 export default defineComponent({
   name: 'SpAssets',
@@ -119,61 +111,18 @@ export default defineComponent({
     const searchInput = ref<null | { focus: () => null }>(null)
 
     // state
-    let uiState: State = reactive(initialState)
 
     let filteredArrayLength = 0;
     const state = reactive({
+      isAssetsLoading: true,
       searchQuery: "",
-      displayLimit: props.resultLimit,
-      demoDenoms:[
-        {
-          denom: "AAA",
-          amount: "12312312"
-        },
-        {
-          denom: "BBB",
-          amount: "12312312"
-        },
-        {
-          denom: "CCC",
-          amount: "12312312"
-        },
-        {
-          denom: "DDD",
-          amount: "12312312"
-        },
-        {
-          denom: "EEE",
-          amount: "12312312"
-        },
-        {
-          denom: "AAAA2",
-          amount: "12312312"
-        },
-        {
-          denom: "BBB2",
-          amount: "12312312"
-        },
-        {
-          denom: "CCC2",
-          amount: "12312312"
-        },
-        {
-          denom: "DDD2",
-          amount: "12312312"
-        },
-        {
-          denom: "EEE2",
-          amount: "12312312"
-        }
-      ]
+      displayLimit: props.resultLimit
     })
 
     // actions
     let queryAllBalances = (opts: any) => {
       return $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
     }
-
 
     // computed
     let balances = computed(() => {
@@ -190,14 +139,14 @@ export default defineComponent({
       }
 
       if (!state.searchQuery) {
-        return filteredBalanceList.value.length < balances.value.concat(state.demoDenoms).length
+        return filteredBalanceList.value.length < balances.value.length
       } else {
         return filteredBalanceList.value.length < filteredArrayLength
       }
     })
 
     const filteredBalanceList = computed(() => {
-      let searchArray = balances.value.length ? balances.value.concat(state.demoDenoms) : [],
+      let searchArray = balances.value.length ? balances.value : [],
           searchString = state.searchQuery
 
       if (!searchString) {
@@ -241,13 +190,12 @@ export default defineComponent({
         params: { address: props.address},
         query: {"pagination.reverse": false},
         options: { all: true, subscribe: true }
-      }).then(() => {
-        setTimeout(() => uiState.isAssetsLoading = false, 1500);
+      }).finally(() => {
+        state.isAssetsLoading = false
       })
     })
 
     return {
-      uiState,
       filteredBalanceList,
       balances,
       showMore,
