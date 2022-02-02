@@ -149,9 +149,11 @@ export default defineComponent({
     // state
     let state: State = reactive({
       ...initialState,
-      apiNode: apiCosmos.value,
-      rpcNode: apiTendermint.value,
-      wsNode: apiWS.value
+      envConfig: {
+        apiNode: apiCosmos.value,
+        rpcNode: apiTendermint.value,
+        wsNode: apiWS.value
+      }
     })
 
     // actions
