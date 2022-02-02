@@ -1,11 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgClientImpl = exports.MsgRevokeResponse = exports.MsgRevoke = exports.MsgGrantResponse = exports.MsgExec = exports.MsgExecResponse = exports.MsgGrant = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Grant } from "../../../cosmos/authz/v1beta1/authz";
-import { Any } from "../../../google/protobuf/any";
-export const protobufPackage = "cosmos.authz.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+const authz_1 = require("../../../cosmos/authz/v1beta1/authz");
+const any_1 = require("../../../google/protobuf/any");
+exports.protobufPackage = "cosmos.authz.v1beta1";
 const baseMsgGrant = { granter: "", grantee: "" };
-export const MsgGrant = {
-    encode(message, writer = Writer.create()) {
+exports.MsgGrant = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.granter !== "") {
             writer.uint32(10).string(message.granter);
         }
@@ -13,12 +16,12 @@ export const MsgGrant = {
             writer.uint32(18).string(message.grantee);
         }
         if (message.grant !== undefined) {
-            Grant.encode(message.grant, writer.uint32(26).fork()).ldelim();
+            authz_1.Grant.encode(message.grant, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgGrant };
         while (reader.pos < end) {
@@ -31,7 +34,7 @@ export const MsgGrant = {
                     message.grantee = reader.string();
                     break;
                 case 3:
-                    message.grant = Grant.decode(reader, reader.uint32());
+                    message.grant = authz_1.Grant.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -55,7 +58,7 @@ export const MsgGrant = {
             message.grantee = "";
         }
         if (object.grant !== undefined && object.grant !== null) {
-            message.grant = Grant.fromJSON(object.grant);
+            message.grant = authz_1.Grant.fromJSON(object.grant);
         }
         else {
             message.grant = undefined;
@@ -67,7 +70,7 @@ export const MsgGrant = {
         message.granter !== undefined && (obj.granter = message.granter);
         message.grantee !== undefined && (obj.grantee = message.grantee);
         message.grant !== undefined &&
-            (obj.grant = message.grant ? Grant.toJSON(message.grant) : undefined);
+            (obj.grant = message.grant ? authz_1.Grant.toJSON(message.grant) : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -85,7 +88,7 @@ export const MsgGrant = {
             message.grantee = "";
         }
         if (object.grant !== undefined && object.grant !== null) {
-            message.grant = Grant.fromPartial(object.grant);
+            message.grant = authz_1.Grant.fromPartial(object.grant);
         }
         else {
             message.grant = undefined;
@@ -94,15 +97,15 @@ export const MsgGrant = {
     },
 };
 const baseMsgExecResponse = {};
-export const MsgExecResponse = {
-    encode(message, writer = Writer.create()) {
+exports.MsgExecResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.results) {
             writer.uint32(10).bytes(v);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgExecResponse };
         message.results = [];
@@ -151,18 +154,18 @@ export const MsgExecResponse = {
     },
 };
 const baseMsgExec = { grantee: "" };
-export const MsgExec = {
-    encode(message, writer = Writer.create()) {
+exports.MsgExec = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.grantee !== "") {
             writer.uint32(10).string(message.grantee);
         }
         for (const v of message.msgs) {
-            Any.encode(v, writer.uint32(18).fork()).ldelim();
+            any_1.Any.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgExec };
         message.msgs = [];
@@ -173,7 +176,7 @@ export const MsgExec = {
                     message.grantee = reader.string();
                     break;
                 case 2:
-                    message.msgs.push(Any.decode(reader, reader.uint32()));
+                    message.msgs.push(any_1.Any.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -193,7 +196,7 @@ export const MsgExec = {
         }
         if (object.msgs !== undefined && object.msgs !== null) {
             for (const e of object.msgs) {
-                message.msgs.push(Any.fromJSON(e));
+                message.msgs.push(any_1.Any.fromJSON(e));
             }
         }
         return message;
@@ -202,7 +205,7 @@ export const MsgExec = {
         const obj = {};
         message.grantee !== undefined && (obj.grantee = message.grantee);
         if (message.msgs) {
-            obj.msgs = message.msgs.map((e) => (e ? Any.toJSON(e) : undefined));
+            obj.msgs = message.msgs.map((e) => (e ? any_1.Any.toJSON(e) : undefined));
         }
         else {
             obj.msgs = [];
@@ -220,19 +223,19 @@ export const MsgExec = {
         }
         if (object.msgs !== undefined && object.msgs !== null) {
             for (const e of object.msgs) {
-                message.msgs.push(Any.fromPartial(e));
+                message.msgs.push(any_1.Any.fromPartial(e));
             }
         }
         return message;
     },
 };
 const baseMsgGrantResponse = {};
-export const MsgGrantResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgGrantResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgGrantResponse };
         while (reader.pos < end) {
@@ -259,8 +262,8 @@ export const MsgGrantResponse = {
     },
 };
 const baseMsgRevoke = { granter: "", grantee: "", msgTypeUrl: "" };
-export const MsgRevoke = {
-    encode(message, writer = Writer.create()) {
+exports.MsgRevoke = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.granter !== "") {
             writer.uint32(10).string(message.granter);
         }
@@ -273,7 +276,7 @@ export const MsgRevoke = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgRevoke };
         while (reader.pos < end) {
@@ -348,12 +351,12 @@ export const MsgRevoke = {
     },
 };
 const baseMsgRevokeResponse = {};
-export const MsgRevokeResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgRevokeResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgRevokeResponse };
         while (reader.pos < end) {
@@ -379,26 +382,27 @@ export const MsgRevokeResponse = {
         return message;
     },
 };
-export class MsgClientImpl {
+class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     Grant(request) {
-        const data = MsgGrant.encode(request).finish();
+        const data = exports.MsgGrant.encode(request).finish();
         const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Grant", data);
-        return promise.then((data) => MsgGrantResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgGrantResponse.decode(new minimal_1.Reader(data)));
     }
     Exec(request) {
-        const data = MsgExec.encode(request).finish();
+        const data = exports.MsgExec.encode(request).finish();
         const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Exec", data);
-        return promise.then((data) => MsgExecResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgExecResponse.decode(new minimal_1.Reader(data)));
     }
     Revoke(request) {
-        const data = MsgRevoke.encode(request).finish();
+        const data = exports.MsgRevoke.encode(request).finish();
         const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Revoke", data);
-        return promise.then((data) => MsgRevokeResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgRevokeResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.MsgClientImpl = MsgClientImpl;
 var globalThis = (() => {
     if (typeof globalThis !== "undefined")
         return globalThis;

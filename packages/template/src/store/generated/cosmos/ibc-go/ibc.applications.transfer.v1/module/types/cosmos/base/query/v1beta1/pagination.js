@@ -1,10 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PageResponse = exports.PageRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.base.query.v1beta1";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.base.query.v1beta1";
 const basePageRequest = { offset: 0, limit: 0, countTotal: false };
-export const PageRequest = {
-    encode(message, writer = Writer.create()) {
+exports.PageRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.key.length !== 0) {
             writer.uint32(10).bytes(message.key);
         }
@@ -20,7 +23,7 @@ export const PageRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...basePageRequest };
         while (reader.pos < end) {
@@ -109,8 +112,8 @@ export const PageRequest = {
     },
 };
 const basePageResponse = { total: 0 };
-export const PageResponse = {
-    encode(message, writer = Writer.create()) {
+exports.PageResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.nextKey.length !== 0) {
             writer.uint32(10).bytes(message.nextKey);
         }
@@ -120,7 +123,7 @@ export const PageResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...basePageResponse };
         while (reader.pos < end) {
@@ -212,7 +215,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

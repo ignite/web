@@ -1,20 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgClientImpl = exports.MsgSubmitEvidenceResponse = exports.MsgSubmitEvidence = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-export const protobufPackage = "cosmos.evidence.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+const any_1 = require("../../../google/protobuf/any");
+exports.protobufPackage = "cosmos.evidence.v1beta1";
 const baseMsgSubmitEvidence = { submitter: "" };
-export const MsgSubmitEvidence = {
-    encode(message, writer = Writer.create()) {
+exports.MsgSubmitEvidence = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.submitter !== "") {
             writer.uint32(10).string(message.submitter);
         }
         if (message.evidence !== undefined) {
-            Any.encode(message.evidence, writer.uint32(18).fork()).ldelim();
+            any_1.Any.encode(message.evidence, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgSubmitEvidence };
         while (reader.pos < end) {
@@ -24,7 +27,7 @@ export const MsgSubmitEvidence = {
                     message.submitter = reader.string();
                     break;
                 case 2:
-                    message.evidence = Any.decode(reader, reader.uint32());
+                    message.evidence = any_1.Any.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -42,7 +45,7 @@ export const MsgSubmitEvidence = {
             message.submitter = "";
         }
         if (object.evidence !== undefined && object.evidence !== null) {
-            message.evidence = Any.fromJSON(object.evidence);
+            message.evidence = any_1.Any.fromJSON(object.evidence);
         }
         else {
             message.evidence = undefined;
@@ -54,7 +57,7 @@ export const MsgSubmitEvidence = {
         message.submitter !== undefined && (obj.submitter = message.submitter);
         message.evidence !== undefined &&
             (obj.evidence = message.evidence
-                ? Any.toJSON(message.evidence)
+                ? any_1.Any.toJSON(message.evidence)
                 : undefined);
         return obj;
     },
@@ -67,7 +70,7 @@ export const MsgSubmitEvidence = {
             message.submitter = "";
         }
         if (object.evidence !== undefined && object.evidence !== null) {
-            message.evidence = Any.fromPartial(object.evidence);
+            message.evidence = any_1.Any.fromPartial(object.evidence);
         }
         else {
             message.evidence = undefined;
@@ -76,15 +79,15 @@ export const MsgSubmitEvidence = {
     },
 };
 const baseMsgSubmitEvidenceResponse = {};
-export const MsgSubmitEvidenceResponse = {
-    encode(message, writer = Writer.create()) {
+exports.MsgSubmitEvidenceResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.hash.length !== 0) {
             writer.uint32(34).bytes(message.hash);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgSubmitEvidenceResponse,
@@ -130,16 +133,17 @@ export const MsgSubmitEvidenceResponse = {
         return message;
     },
 };
-export class MsgClientImpl {
+class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     SubmitEvidence(request) {
-        const data = MsgSubmitEvidence.encode(request).finish();
+        const data = exports.MsgSubmitEvidence.encode(request).finish();
         const promise = this.rpc.request("cosmos.evidence.v1beta1.Msg", "SubmitEvidence", data);
-        return promise.then((data) => MsgSubmitEvidenceResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgSubmitEvidenceResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.MsgClientImpl = MsgClientImpl;
 var globalThis = (() => {
     if (typeof globalThis !== "undefined")
         return globalThis;

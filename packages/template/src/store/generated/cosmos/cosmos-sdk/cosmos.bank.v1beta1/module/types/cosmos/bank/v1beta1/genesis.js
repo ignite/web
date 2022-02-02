@@ -1,27 +1,30 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Balance = exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Params, Metadata } from "../../../cosmos/bank/v1beta1/bank";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.bank.v1beta1";
+const bank_1 = require("../../../cosmos/bank/v1beta1/bank");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.bank.v1beta1";
 const baseGenesisState = {};
-export const GenesisState = {
-    encode(message, writer = Writer.create()) {
+exports.GenesisState = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.params !== undefined) {
-            Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+            bank_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         for (const v of message.balances) {
-            Balance.encode(v, writer.uint32(18).fork()).ldelim();
+            exports.Balance.encode(v, writer.uint32(18).fork()).ldelim();
         }
         for (const v of message.supply) {
-            Coin.encode(v, writer.uint32(26).fork()).ldelim();
+            coin_1.Coin.encode(v, writer.uint32(26).fork()).ldelim();
         }
         for (const v of message.denomMetadata) {
-            Metadata.encode(v, writer.uint32(34).fork()).ldelim();
+            bank_1.Metadata.encode(v, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
         message.balances = [];
@@ -31,16 +34,16 @@ export const GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.params = Params.decode(reader, reader.uint32());
+                    message.params = bank_1.Params.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.balances.push(Balance.decode(reader, reader.uint32()));
+                    message.balances.push(exports.Balance.decode(reader, reader.uint32()));
                     break;
                 case 3:
-                    message.supply.push(Coin.decode(reader, reader.uint32()));
+                    message.supply.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 4:
-                    message.denomMetadata.push(Metadata.decode(reader, reader.uint32()));
+                    message.denomMetadata.push(bank_1.Metadata.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -55,24 +58,24 @@ export const GenesisState = {
         message.supply = [];
         message.denomMetadata = [];
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromJSON(object.params);
+            message.params = bank_1.Params.fromJSON(object.params);
         }
         else {
             message.params = undefined;
         }
         if (object.balances !== undefined && object.balances !== null) {
             for (const e of object.balances) {
-                message.balances.push(Balance.fromJSON(e));
+                message.balances.push(exports.Balance.fromJSON(e));
             }
         }
         if (object.supply !== undefined && object.supply !== null) {
             for (const e of object.supply) {
-                message.supply.push(Coin.fromJSON(e));
+                message.supply.push(coin_1.Coin.fromJSON(e));
             }
         }
         if (object.denomMetadata !== undefined && object.denomMetadata !== null) {
             for (const e of object.denomMetadata) {
-                message.denomMetadata.push(Metadata.fromJSON(e));
+                message.denomMetadata.push(bank_1.Metadata.fromJSON(e));
             }
         }
         return message;
@@ -80,21 +83,21 @@ export const GenesisState = {
     toJSON(message) {
         const obj = {};
         message.params !== undefined &&
-            (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+            (obj.params = message.params ? bank_1.Params.toJSON(message.params) : undefined);
         if (message.balances) {
-            obj.balances = message.balances.map((e) => e ? Balance.toJSON(e) : undefined);
+            obj.balances = message.balances.map((e) => e ? exports.Balance.toJSON(e) : undefined);
         }
         else {
             obj.balances = [];
         }
         if (message.supply) {
-            obj.supply = message.supply.map((e) => (e ? Coin.toJSON(e) : undefined));
+            obj.supply = message.supply.map((e) => (e ? coin_1.Coin.toJSON(e) : undefined));
         }
         else {
             obj.supply = [];
         }
         if (message.denomMetadata) {
-            obj.denomMetadata = message.denomMetadata.map((e) => e ? Metadata.toJSON(e) : undefined);
+            obj.denomMetadata = message.denomMetadata.map((e) => e ? bank_1.Metadata.toJSON(e) : undefined);
         }
         else {
             obj.denomMetadata = [];
@@ -107,42 +110,42 @@ export const GenesisState = {
         message.supply = [];
         message.denomMetadata = [];
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromPartial(object.params);
+            message.params = bank_1.Params.fromPartial(object.params);
         }
         else {
             message.params = undefined;
         }
         if (object.balances !== undefined && object.balances !== null) {
             for (const e of object.balances) {
-                message.balances.push(Balance.fromPartial(e));
+                message.balances.push(exports.Balance.fromPartial(e));
             }
         }
         if (object.supply !== undefined && object.supply !== null) {
             for (const e of object.supply) {
-                message.supply.push(Coin.fromPartial(e));
+                message.supply.push(coin_1.Coin.fromPartial(e));
             }
         }
         if (object.denomMetadata !== undefined && object.denomMetadata !== null) {
             for (const e of object.denomMetadata) {
-                message.denomMetadata.push(Metadata.fromPartial(e));
+                message.denomMetadata.push(bank_1.Metadata.fromPartial(e));
             }
         }
         return message;
     },
 };
 const baseBalance = { address: "" };
-export const Balance = {
-    encode(message, writer = Writer.create()) {
+exports.Balance = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
         }
         for (const v of message.coins) {
-            Coin.encode(v, writer.uint32(18).fork()).ldelim();
+            coin_1.Coin.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseBalance };
         message.coins = [];
@@ -153,7 +156,7 @@ export const Balance = {
                     message.address = reader.string();
                     break;
                 case 2:
-                    message.coins.push(Coin.decode(reader, reader.uint32()));
+                    message.coins.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -173,7 +176,7 @@ export const Balance = {
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
-                message.coins.push(Coin.fromJSON(e));
+                message.coins.push(coin_1.Coin.fromJSON(e));
             }
         }
         return message;
@@ -182,7 +185,7 @@ export const Balance = {
         const obj = {};
         message.address !== undefined && (obj.address = message.address);
         if (message.coins) {
-            obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined));
+            obj.coins = message.coins.map((e) => (e ? coin_1.Coin.toJSON(e) : undefined));
         }
         else {
             obj.coins = [];
@@ -200,7 +203,7 @@ export const Balance = {
         }
         if (object.coins !== undefined && object.coins !== null) {
             for (const e of object.coins) {
-                message.coins.push(Coin.fromPartial(e));
+                message.coins.push(coin_1.Coin.fromPartial(e));
             }
         }
         return message;

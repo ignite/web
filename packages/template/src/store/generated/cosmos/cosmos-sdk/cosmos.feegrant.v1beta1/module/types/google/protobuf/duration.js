@@ -1,10 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Duration = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "google.protobuf";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "google.protobuf";
 const baseDuration = { seconds: 0, nanos: 0 };
-export const Duration = {
-    encode(message, writer = Writer.create()) {
+exports.Duration = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.seconds !== 0) {
             writer.uint32(8).int64(message.seconds);
         }
@@ -14,7 +17,7 @@ export const Duration = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseDuration };
         while (reader.pos < end) {
@@ -89,7 +92,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

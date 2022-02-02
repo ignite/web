@@ -1,37 +1,62 @@
-import { txClient, queryClient, MissingWalletError, registry } from './module';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Pool = exports.RedelegationResponse = exports.RedelegationEntryResponse = exports.DelegationResponse = exports.Params = exports.Redelegation = exports.RedelegationEntry = exports.UnbondingDelegationEntry = exports.UnbondingDelegation = exports.Delegation = exports.DVVTriplets = exports.DVVTriplet = exports.DVPairs = exports.DVPair = exports.ValAddresses = exports.Validator = exports.Description = exports.Commission = exports.CommissionRates = exports.HistoricalInfo = exports.LastValidatorPower = exports.StakeAuthorization_Validators = exports.StakeAuthorization = void 0;
+const module_1 = require("./module");
 // @ts-ignore
-import { SpVuexError } from '@starport/vuex';
-import { StakeAuthorization } from "./module/types/cosmos/staking/v1beta1/authz";
-import { StakeAuthorization_Validators } from "./module/types/cosmos/staking/v1beta1/authz";
-import { LastValidatorPower } from "./module/types/cosmos/staking/v1beta1/genesis";
-import { HistoricalInfo } from "./module/types/cosmos/staking/v1beta1/staking";
-import { CommissionRates } from "./module/types/cosmos/staking/v1beta1/staking";
-import { Commission } from "./module/types/cosmos/staking/v1beta1/staking";
-import { Description } from "./module/types/cosmos/staking/v1beta1/staking";
-import { Validator } from "./module/types/cosmos/staking/v1beta1/staking";
-import { ValAddresses } from "./module/types/cosmos/staking/v1beta1/staking";
-import { DVPair } from "./module/types/cosmos/staking/v1beta1/staking";
-import { DVPairs } from "./module/types/cosmos/staking/v1beta1/staking";
-import { DVVTriplet } from "./module/types/cosmos/staking/v1beta1/staking";
-import { DVVTriplets } from "./module/types/cosmos/staking/v1beta1/staking";
-import { Delegation } from "./module/types/cosmos/staking/v1beta1/staking";
-import { UnbondingDelegation } from "./module/types/cosmos/staking/v1beta1/staking";
-import { UnbondingDelegationEntry } from "./module/types/cosmos/staking/v1beta1/staking";
-import { RedelegationEntry } from "./module/types/cosmos/staking/v1beta1/staking";
-import { Redelegation } from "./module/types/cosmos/staking/v1beta1/staking";
-import { Params } from "./module/types/cosmos/staking/v1beta1/staking";
-import { DelegationResponse } from "./module/types/cosmos/staking/v1beta1/staking";
-import { RedelegationEntryResponse } from "./module/types/cosmos/staking/v1beta1/staking";
-import { RedelegationResponse } from "./module/types/cosmos/staking/v1beta1/staking";
-import { Pool } from "./module/types/cosmos/staking/v1beta1/staking";
-export { StakeAuthorization, StakeAuthorization_Validators, LastValidatorPower, HistoricalInfo, CommissionRates, Commission, Description, Validator, ValAddresses, DVPair, DVPairs, DVVTriplet, DVVTriplets, Delegation, UnbondingDelegation, UnbondingDelegationEntry, RedelegationEntry, Redelegation, Params, DelegationResponse, RedelegationEntryResponse, RedelegationResponse, Pool };
+const vuex_1 = require("@starport/vuex");
+const authz_1 = require("./module/types/cosmos/staking/v1beta1/authz");
+Object.defineProperty(exports, "StakeAuthorization", { enumerable: true, get: function () { return authz_1.StakeAuthorization; } });
+const authz_2 = require("./module/types/cosmos/staking/v1beta1/authz");
+Object.defineProperty(exports, "StakeAuthorization_Validators", { enumerable: true, get: function () { return authz_2.StakeAuthorization_Validators; } });
+const genesis_1 = require("./module/types/cosmos/staking/v1beta1/genesis");
+Object.defineProperty(exports, "LastValidatorPower", { enumerable: true, get: function () { return genesis_1.LastValidatorPower; } });
+const staking_1 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "HistoricalInfo", { enumerable: true, get: function () { return staking_1.HistoricalInfo; } });
+const staking_2 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "CommissionRates", { enumerable: true, get: function () { return staking_2.CommissionRates; } });
+const staking_3 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "Commission", { enumerable: true, get: function () { return staking_3.Commission; } });
+const staking_4 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "Description", { enumerable: true, get: function () { return staking_4.Description; } });
+const staking_5 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "Validator", { enumerable: true, get: function () { return staking_5.Validator; } });
+const staking_6 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "ValAddresses", { enumerable: true, get: function () { return staking_6.ValAddresses; } });
+const staking_7 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "DVPair", { enumerable: true, get: function () { return staking_7.DVPair; } });
+const staking_8 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "DVPairs", { enumerable: true, get: function () { return staking_8.DVPairs; } });
+const staking_9 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "DVVTriplet", { enumerable: true, get: function () { return staking_9.DVVTriplet; } });
+const staking_10 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "DVVTriplets", { enumerable: true, get: function () { return staking_10.DVVTriplets; } });
+const staking_11 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "Delegation", { enumerable: true, get: function () { return staking_11.Delegation; } });
+const staking_12 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "UnbondingDelegation", { enumerable: true, get: function () { return staking_12.UnbondingDelegation; } });
+const staking_13 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "UnbondingDelegationEntry", { enumerable: true, get: function () { return staking_13.UnbondingDelegationEntry; } });
+const staking_14 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "RedelegationEntry", { enumerable: true, get: function () { return staking_14.RedelegationEntry; } });
+const staking_15 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "Redelegation", { enumerable: true, get: function () { return staking_15.Redelegation; } });
+const staking_16 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "Params", { enumerable: true, get: function () { return staking_16.Params; } });
+const staking_17 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "DelegationResponse", { enumerable: true, get: function () { return staking_17.DelegationResponse; } });
+const staking_18 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "RedelegationEntryResponse", { enumerable: true, get: function () { return staking_18.RedelegationEntryResponse; } });
+const staking_19 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "RedelegationResponse", { enumerable: true, get: function () { return staking_19.RedelegationResponse; } });
+const staking_20 = require("./module/types/cosmos/staking/v1beta1/staking");
+Object.defineProperty(exports, "Pool", { enumerable: true, get: function () { return staking_20.Pool; } });
 async function initTxClient(vuexGetters) {
-    return await txClient(vuexGetters['common/wallet/signer'], {
+    return await module_1.txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
     });
 }
 async function initQueryClient(vuexGetters) {
-    return await queryClient({
+    return await module_1.queryClient({
         addr: vuexGetters['common/env/apiCosmos']
     });
 }
@@ -73,37 +98,37 @@ const getDefaultState = () => {
         Pool: {},
         Params: {},
         _Structure: {
-            StakeAuthorization: getStructure(StakeAuthorization.fromPartial({})),
-            StakeAuthorization_Validators: getStructure(StakeAuthorization_Validators.fromPartial({})),
-            LastValidatorPower: getStructure(LastValidatorPower.fromPartial({})),
-            HistoricalInfo: getStructure(HistoricalInfo.fromPartial({})),
-            CommissionRates: getStructure(CommissionRates.fromPartial({})),
-            Commission: getStructure(Commission.fromPartial({})),
-            Description: getStructure(Description.fromPartial({})),
-            Validator: getStructure(Validator.fromPartial({})),
-            ValAddresses: getStructure(ValAddresses.fromPartial({})),
-            DVPair: getStructure(DVPair.fromPartial({})),
-            DVPairs: getStructure(DVPairs.fromPartial({})),
-            DVVTriplet: getStructure(DVVTriplet.fromPartial({})),
-            DVVTriplets: getStructure(DVVTriplets.fromPartial({})),
-            Delegation: getStructure(Delegation.fromPartial({})),
-            UnbondingDelegation: getStructure(UnbondingDelegation.fromPartial({})),
-            UnbondingDelegationEntry: getStructure(UnbondingDelegationEntry.fromPartial({})),
-            RedelegationEntry: getStructure(RedelegationEntry.fromPartial({})),
-            Redelegation: getStructure(Redelegation.fromPartial({})),
-            Params: getStructure(Params.fromPartial({})),
-            DelegationResponse: getStructure(DelegationResponse.fromPartial({})),
-            RedelegationEntryResponse: getStructure(RedelegationEntryResponse.fromPartial({})),
-            RedelegationResponse: getStructure(RedelegationResponse.fromPartial({})),
-            Pool: getStructure(Pool.fromPartial({})),
+            StakeAuthorization: getStructure(authz_1.StakeAuthorization.fromPartial({})),
+            StakeAuthorization_Validators: getStructure(authz_2.StakeAuthorization_Validators.fromPartial({})),
+            LastValidatorPower: getStructure(genesis_1.LastValidatorPower.fromPartial({})),
+            HistoricalInfo: getStructure(staking_1.HistoricalInfo.fromPartial({})),
+            CommissionRates: getStructure(staking_2.CommissionRates.fromPartial({})),
+            Commission: getStructure(staking_3.Commission.fromPartial({})),
+            Description: getStructure(staking_4.Description.fromPartial({})),
+            Validator: getStructure(staking_5.Validator.fromPartial({})),
+            ValAddresses: getStructure(staking_6.ValAddresses.fromPartial({})),
+            DVPair: getStructure(staking_7.DVPair.fromPartial({})),
+            DVPairs: getStructure(staking_8.DVPairs.fromPartial({})),
+            DVVTriplet: getStructure(staking_9.DVVTriplet.fromPartial({})),
+            DVVTriplets: getStructure(staking_10.DVVTriplets.fromPartial({})),
+            Delegation: getStructure(staking_11.Delegation.fromPartial({})),
+            UnbondingDelegation: getStructure(staking_12.UnbondingDelegation.fromPartial({})),
+            UnbondingDelegationEntry: getStructure(staking_13.UnbondingDelegationEntry.fromPartial({})),
+            RedelegationEntry: getStructure(staking_14.RedelegationEntry.fromPartial({})),
+            Redelegation: getStructure(staking_15.Redelegation.fromPartial({})),
+            Params: getStructure(staking_16.Params.fromPartial({})),
+            DelegationResponse: getStructure(staking_17.DelegationResponse.fromPartial({})),
+            RedelegationEntryResponse: getStructure(staking_18.RedelegationEntryResponse.fromPartial({})),
+            RedelegationResponse: getStructure(staking_19.RedelegationResponse.fromPartial({})),
+            Pool: getStructure(staking_20.Pool.fromPartial({})),
         },
-        _Registry: registry,
+        _Registry: module_1.registry,
         _Subscriptions: new Set(),
     };
 };
 // initial state
 const state = getDefaultState();
-export default {
+exports.default = {
     namespaced: true,
     state,
     mutations: {
@@ -234,7 +259,7 @@ export default {
                     await dispatch(sub.action, sub.payload);
                 }
                 catch (e) {
-                    throw new SpVuexError('Subscriptions: ' + e.message);
+                    throw new vuex_1.SpVuexError('Subscriptions: ' + e.message);
                 }
             });
         },
@@ -253,7 +278,7 @@ export default {
                 return getters['getValidators']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryValidators', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryValidators', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryValidator({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -267,7 +292,7 @@ export default {
                 return getters['getValidator']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryValidator', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryValidator', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryValidatorDelegations({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -285,7 +310,7 @@ export default {
                 return getters['getValidatorDelegations']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryValidatorDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryValidatorDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryValidatorUnbondingDelegations({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -303,7 +328,7 @@ export default {
                 return getters['getValidatorUnbondingDelegations']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryValidatorUnbondingDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryValidatorUnbondingDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDelegation({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -317,7 +342,7 @@ export default {
                 return getters['getDelegation']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDelegation', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDelegation', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryUnbondingDelegation({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -331,7 +356,7 @@ export default {
                 return getters['getUnbondingDelegation']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryUnbondingDelegation', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryUnbondingDelegation', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDelegatorDelegations({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -349,7 +374,7 @@ export default {
                 return getters['getDelegatorDelegations']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDelegatorDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDelegatorDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDelegatorUnbondingDelegations({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -367,7 +392,7 @@ export default {
                 return getters['getDelegatorUnbondingDelegations']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDelegatorUnbondingDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDelegatorUnbondingDelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryRedelegations({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -385,7 +410,7 @@ export default {
                 return getters['getRedelegations']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryRedelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryRedelegations', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDelegatorValidators({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -403,7 +428,7 @@ export default {
                 return getters['getDelegatorValidators']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDelegatorValidators', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDelegatorValidators', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDelegatorValidator({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -417,7 +442,7 @@ export default {
                 return getters['getDelegatorValidator']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDelegatorValidator', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDelegatorValidator', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryHistoricalInfo({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -431,7 +456,7 @@ export default {
                 return getters['getHistoricalInfo']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryHistoricalInfo', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryHistoricalInfo', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryPool({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -445,7 +470,7 @@ export default {
                 return getters['getPool']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryPool', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryPool', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -459,40 +484,23 @@ export default {
                 return getters['getParams']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
-        async sendMsgUndelegate({ rootGetters }, { value, fee = [], memo = '' }) {
+        async sendMsgBeginRedelegate({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgUndelegate(value);
+                const msg = await txClient.msgBeginRedelegate(value);
                 const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
                         gas: "200000" }, memo });
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgUndelegate:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgBeginRedelegate:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgUndelegate:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async sendMsgEditValidator({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgEditValidator(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgEditValidator:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgEditValidator:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgBeginRedelegate:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -505,11 +513,45 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDelegate:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgDelegate:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgDelegate:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgDelegate:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgEditValidator({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgEditValidator(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgEditValidator:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgEditValidator:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgUndelegate({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUndelegate(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgUndelegate:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgUndelegate:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -522,88 +564,11 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateValidator:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateValidator:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgCreateValidator:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async sendMsgBeginRedelegate({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgBeginRedelegate(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgBeginRedelegate:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgBeginRedelegate:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async MsgUndelegate({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgUndelegate(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgUndelegate:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgUndelegate:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgEditValidator({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgEditValidator(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgEditValidator:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgEditValidator:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgDelegate({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgDelegate(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDelegate:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgDelegate:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgCreateValidator({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgCreateValidator(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateValidator:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgCreateValidator:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateValidator:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -614,11 +579,71 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgBeginRedelegate:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgBeginRedelegate:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgBeginRedelegate:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgBeginRedelegate:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgDelegate({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDelegate(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgDelegate:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgDelegate:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgEditValidator({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgEditValidator(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgEditValidator:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgEditValidator:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgUndelegate({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUndelegate(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgUndelegate:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgUndelegate:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgCreateValidator({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateValidator(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateValidator:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateValidator:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

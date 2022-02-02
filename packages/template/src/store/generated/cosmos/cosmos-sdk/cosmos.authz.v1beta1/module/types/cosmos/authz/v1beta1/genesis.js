@@ -1,18 +1,21 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GrantAuthorization = exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Any } from "../../../google/protobuf/any";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.authz.v1beta1";
+const timestamp_1 = require("../../../google/protobuf/timestamp");
+const any_1 = require("../../../google/protobuf/any");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.authz.v1beta1";
 const baseGenesisState = {};
-export const GenesisState = {
-    encode(message, writer = Writer.create()) {
+exports.GenesisState = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.authorization) {
-            GrantAuthorization.encode(v, writer.uint32(10).fork()).ldelim();
+            exports.GrantAuthorization.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
         message.authorization = [];
@@ -20,7 +23,7 @@ export const GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.authorization.push(GrantAuthorization.decode(reader, reader.uint32()));
+                    message.authorization.push(exports.GrantAuthorization.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -34,7 +37,7 @@ export const GenesisState = {
         message.authorization = [];
         if (object.authorization !== undefined && object.authorization !== null) {
             for (const e of object.authorization) {
-                message.authorization.push(GrantAuthorization.fromJSON(e));
+                message.authorization.push(exports.GrantAuthorization.fromJSON(e));
             }
         }
         return message;
@@ -42,7 +45,7 @@ export const GenesisState = {
     toJSON(message) {
         const obj = {};
         if (message.authorization) {
-            obj.authorization = message.authorization.map((e) => e ? GrantAuthorization.toJSON(e) : undefined);
+            obj.authorization = message.authorization.map((e) => e ? exports.GrantAuthorization.toJSON(e) : undefined);
         }
         else {
             obj.authorization = [];
@@ -54,15 +57,15 @@ export const GenesisState = {
         message.authorization = [];
         if (object.authorization !== undefined && object.authorization !== null) {
             for (const e of object.authorization) {
-                message.authorization.push(GrantAuthorization.fromPartial(e));
+                message.authorization.push(exports.GrantAuthorization.fromPartial(e));
             }
         }
         return message;
     },
 };
 const baseGrantAuthorization = { granter: "", grantee: "" };
-export const GrantAuthorization = {
-    encode(message, writer = Writer.create()) {
+exports.GrantAuthorization = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.granter !== "") {
             writer.uint32(10).string(message.granter);
         }
@@ -70,15 +73,15 @@ export const GrantAuthorization = {
             writer.uint32(18).string(message.grantee);
         }
         if (message.authorization !== undefined) {
-            Any.encode(message.authorization, writer.uint32(26).fork()).ldelim();
+            any_1.Any.encode(message.authorization, writer.uint32(26).fork()).ldelim();
         }
         if (message.expiration !== undefined) {
-            Timestamp.encode(toTimestamp(message.expiration), writer.uint32(34).fork()).ldelim();
+            timestamp_1.Timestamp.encode(toTimestamp(message.expiration), writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGrantAuthorization };
         while (reader.pos < end) {
@@ -91,10 +94,10 @@ export const GrantAuthorization = {
                     message.grantee = reader.string();
                     break;
                 case 3:
-                    message.authorization = Any.decode(reader, reader.uint32());
+                    message.authorization = any_1.Any.decode(reader, reader.uint32());
                     break;
                 case 4:
-                    message.expiration = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    message.expiration = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -118,7 +121,7 @@ export const GrantAuthorization = {
             message.grantee = "";
         }
         if (object.authorization !== undefined && object.authorization !== null) {
-            message.authorization = Any.fromJSON(object.authorization);
+            message.authorization = any_1.Any.fromJSON(object.authorization);
         }
         else {
             message.authorization = undefined;
@@ -137,7 +140,7 @@ export const GrantAuthorization = {
         message.grantee !== undefined && (obj.grantee = message.grantee);
         message.authorization !== undefined &&
             (obj.authorization = message.authorization
-                ? Any.toJSON(message.authorization)
+                ? any_1.Any.toJSON(message.authorization)
                 : undefined);
         message.expiration !== undefined &&
             (obj.expiration =
@@ -161,7 +164,7 @@ export const GrantAuthorization = {
             message.grantee = "";
         }
         if (object.authorization !== undefined && object.authorization !== null) {
-            message.authorization = Any.fromPartial(object.authorization);
+            message.authorization = any_1.Any.fromPartial(object.authorization);
         }
         else {
             message.authorization = undefined;
@@ -193,6 +196,6 @@ function fromJsonTimestamp(o) {
         return new Date(o);
     }
     else {
-        return fromTimestamp(Timestamp.fromJSON(o));
+        return fromTimestamp(timestamp_1.Timestamp.fromJSON(o));
     }
 }

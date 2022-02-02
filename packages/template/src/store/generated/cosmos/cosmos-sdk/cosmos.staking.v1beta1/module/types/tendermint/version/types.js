@@ -1,10 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Consensus = exports.App = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "tendermint.version";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "tendermint.version";
 const baseApp = { protocol: 0, software: "" };
-export const App = {
-    encode(message, writer = Writer.create()) {
+exports.App = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.protocol !== 0) {
             writer.uint32(8).uint64(message.protocol);
         }
@@ -14,7 +17,7 @@ export const App = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseApp };
         while (reader.pos < end) {
@@ -73,8 +76,8 @@ export const App = {
     },
 };
 const baseConsensus = { block: 0, app: 0 };
-export const Consensus = {
-    encode(message, writer = Writer.create()) {
+exports.Consensus = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.block !== 0) {
             writer.uint32(8).uint64(message.block);
         }
@@ -84,7 +87,7 @@ export const Consensus = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseConsensus };
         while (reader.pos < end) {
@@ -159,7 +162,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

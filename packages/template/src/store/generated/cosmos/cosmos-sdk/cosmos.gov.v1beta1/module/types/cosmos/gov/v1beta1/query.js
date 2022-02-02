@@ -1,19 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.QueryClientImpl = exports.QueryTallyResultResponse = exports.QueryTallyResultRequest = exports.QueryDepositsResponse = exports.QueryDepositsRequest = exports.QueryDepositResponse = exports.QueryDepositRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryVotesResponse = exports.QueryVotesRequest = exports.QueryVoteResponse = exports.QueryVoteRequest = exports.QueryProposalsResponse = exports.QueryProposalsRequest = exports.QueryProposalResponse = exports.QueryProposalRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Proposal, Vote, VotingParams, DepositParams, TallyParams, Deposit, TallyResult, proposalStatusFromJSON, proposalStatusToJSON, } from "../../../cosmos/gov/v1beta1/gov";
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
-import { PageRequest, PageResponse, } from "../../../cosmos/base/query/v1beta1/pagination";
-export const protobufPackage = "cosmos.gov.v1beta1";
+const gov_1 = require("../../../cosmos/gov/v1beta1/gov");
+const minimal_1 = require("protobufjs/minimal");
+const Long = require("long");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+exports.protobufPackage = "cosmos.gov.v1beta1";
 const baseQueryProposalRequest = { proposalId: 0 };
-export const QueryProposalRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryProposalRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposalId !== 0) {
             writer.uint32(8).uint64(message.proposalId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryProposalRequest };
         while (reader.pos < end) {
@@ -56,22 +59,22 @@ export const QueryProposalRequest = {
     },
 };
 const baseQueryProposalResponse = {};
-export const QueryProposalResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryProposalResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposal !== undefined) {
-            Proposal.encode(message.proposal, writer.uint32(10).fork()).ldelim();
+            gov_1.Proposal.encode(message.proposal, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryProposalResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.proposal = Proposal.decode(reader, reader.uint32());
+                    message.proposal = gov_1.Proposal.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -83,7 +86,7 @@ export const QueryProposalResponse = {
     fromJSON(object) {
         const message = { ...baseQueryProposalResponse };
         if (object.proposal !== undefined && object.proposal !== null) {
-            message.proposal = Proposal.fromJSON(object.proposal);
+            message.proposal = gov_1.Proposal.fromJSON(object.proposal);
         }
         else {
             message.proposal = undefined;
@@ -94,14 +97,14 @@ export const QueryProposalResponse = {
         const obj = {};
         message.proposal !== undefined &&
             (obj.proposal = message.proposal
-                ? Proposal.toJSON(message.proposal)
+                ? gov_1.Proposal.toJSON(message.proposal)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryProposalResponse };
         if (object.proposal !== undefined && object.proposal !== null) {
-            message.proposal = Proposal.fromPartial(object.proposal);
+            message.proposal = gov_1.Proposal.fromPartial(object.proposal);
         }
         else {
             message.proposal = undefined;
@@ -114,8 +117,8 @@ const baseQueryProposalsRequest = {
     voter: "",
     depositor: "",
 };
-export const QueryProposalsRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryProposalsRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposalStatus !== 0) {
             writer.uint32(8).int32(message.proposalStatus);
         }
@@ -126,12 +129,12 @@ export const QueryProposalsRequest = {
             writer.uint32(26).string(message.depositor);
         }
         if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(34).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryProposalsRequest };
         while (reader.pos < end) {
@@ -147,7 +150,7 @@ export const QueryProposalsRequest = {
                     message.depositor = reader.string();
                     break;
                 case 4:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -159,7 +162,7 @@ export const QueryProposalsRequest = {
     fromJSON(object) {
         const message = { ...baseQueryProposalsRequest };
         if (object.proposalStatus !== undefined && object.proposalStatus !== null) {
-            message.proposalStatus = proposalStatusFromJSON(object.proposalStatus);
+            message.proposalStatus = gov_1.proposalStatusFromJSON(object.proposalStatus);
         }
         else {
             message.proposalStatus = 0;
@@ -177,7 +180,7 @@ export const QueryProposalsRequest = {
             message.depositor = "";
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -187,12 +190,12 @@ export const QueryProposalsRequest = {
     toJSON(message) {
         const obj = {};
         message.proposalStatus !== undefined &&
-            (obj.proposalStatus = proposalStatusToJSON(message.proposalStatus));
+            (obj.proposalStatus = gov_1.proposalStatusToJSON(message.proposalStatus));
         message.voter !== undefined && (obj.voter = message.voter);
         message.depositor !== undefined && (obj.depositor = message.depositor);
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageRequest.toJSON(message.pagination)
+                ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -217,7 +220,7 @@ export const QueryProposalsRequest = {
             message.depositor = "";
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -226,18 +229,18 @@ export const QueryProposalsRequest = {
     },
 };
 const baseQueryProposalsResponse = {};
-export const QueryProposalsResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryProposalsResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.proposals) {
-            Proposal.encode(v, writer.uint32(10).fork()).ldelim();
+            gov_1.Proposal.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
-            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryProposalsResponse };
         message.proposals = [];
@@ -245,10 +248,10 @@ export const QueryProposalsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.proposals.push(Proposal.decode(reader, reader.uint32()));
+                    message.proposals.push(gov_1.Proposal.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -262,11 +265,11 @@ export const QueryProposalsResponse = {
         message.proposals = [];
         if (object.proposals !== undefined && object.proposals !== null) {
             for (const e of object.proposals) {
-                message.proposals.push(Proposal.fromJSON(e));
+                message.proposals.push(gov_1.Proposal.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -276,14 +279,14 @@ export const QueryProposalsResponse = {
     toJSON(message) {
         const obj = {};
         if (message.proposals) {
-            obj.proposals = message.proposals.map((e) => e ? Proposal.toJSON(e) : undefined);
+            obj.proposals = message.proposals.map((e) => e ? gov_1.Proposal.toJSON(e) : undefined);
         }
         else {
             obj.proposals = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageResponse.toJSON(message.pagination)
+                ? pagination_1.PageResponse.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -292,11 +295,11 @@ export const QueryProposalsResponse = {
         message.proposals = [];
         if (object.proposals !== undefined && object.proposals !== null) {
             for (const e of object.proposals) {
-                message.proposals.push(Proposal.fromPartial(e));
+                message.proposals.push(gov_1.Proposal.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -305,8 +308,8 @@ export const QueryProposalsResponse = {
     },
 };
 const baseQueryVoteRequest = { proposalId: 0, voter: "" };
-export const QueryVoteRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryVoteRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposalId !== 0) {
             writer.uint32(8).uint64(message.proposalId);
         }
@@ -316,7 +319,7 @@ export const QueryVoteRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryVoteRequest };
         while (reader.pos < end) {
@@ -375,22 +378,22 @@ export const QueryVoteRequest = {
     },
 };
 const baseQueryVoteResponse = {};
-export const QueryVoteResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryVoteResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.vote !== undefined) {
-            Vote.encode(message.vote, writer.uint32(10).fork()).ldelim();
+            gov_1.Vote.encode(message.vote, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryVoteResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.vote = Vote.decode(reader, reader.uint32());
+                    message.vote = gov_1.Vote.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -402,7 +405,7 @@ export const QueryVoteResponse = {
     fromJSON(object) {
         const message = { ...baseQueryVoteResponse };
         if (object.vote !== undefined && object.vote !== null) {
-            message.vote = Vote.fromJSON(object.vote);
+            message.vote = gov_1.Vote.fromJSON(object.vote);
         }
         else {
             message.vote = undefined;
@@ -412,13 +415,13 @@ export const QueryVoteResponse = {
     toJSON(message) {
         const obj = {};
         message.vote !== undefined &&
-            (obj.vote = message.vote ? Vote.toJSON(message.vote) : undefined);
+            (obj.vote = message.vote ? gov_1.Vote.toJSON(message.vote) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryVoteResponse };
         if (object.vote !== undefined && object.vote !== null) {
-            message.vote = Vote.fromPartial(object.vote);
+            message.vote = gov_1.Vote.fromPartial(object.vote);
         }
         else {
             message.vote = undefined;
@@ -427,18 +430,18 @@ export const QueryVoteResponse = {
     },
 };
 const baseQueryVotesRequest = { proposalId: 0 };
-export const QueryVotesRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryVotesRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposalId !== 0) {
             writer.uint32(8).uint64(message.proposalId);
         }
         if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryVotesRequest };
         while (reader.pos < end) {
@@ -448,7 +451,7 @@ export const QueryVotesRequest = {
                     message.proposalId = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -466,7 +469,7 @@ export const QueryVotesRequest = {
             message.proposalId = 0;
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -478,7 +481,7 @@ export const QueryVotesRequest = {
         message.proposalId !== undefined && (obj.proposalId = message.proposalId);
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageRequest.toJSON(message.pagination)
+                ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -491,7 +494,7 @@ export const QueryVotesRequest = {
             message.proposalId = 0;
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -500,18 +503,18 @@ export const QueryVotesRequest = {
     },
 };
 const baseQueryVotesResponse = {};
-export const QueryVotesResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryVotesResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.votes) {
-            Vote.encode(v, writer.uint32(10).fork()).ldelim();
+            gov_1.Vote.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
-            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryVotesResponse };
         message.votes = [];
@@ -519,10 +522,10 @@ export const QueryVotesResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.votes.push(Vote.decode(reader, reader.uint32()));
+                    message.votes.push(gov_1.Vote.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -536,11 +539,11 @@ export const QueryVotesResponse = {
         message.votes = [];
         if (object.votes !== undefined && object.votes !== null) {
             for (const e of object.votes) {
-                message.votes.push(Vote.fromJSON(e));
+                message.votes.push(gov_1.Vote.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -550,14 +553,14 @@ export const QueryVotesResponse = {
     toJSON(message) {
         const obj = {};
         if (message.votes) {
-            obj.votes = message.votes.map((e) => (e ? Vote.toJSON(e) : undefined));
+            obj.votes = message.votes.map((e) => (e ? gov_1.Vote.toJSON(e) : undefined));
         }
         else {
             obj.votes = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageResponse.toJSON(message.pagination)
+                ? pagination_1.PageResponse.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -566,11 +569,11 @@ export const QueryVotesResponse = {
         message.votes = [];
         if (object.votes !== undefined && object.votes !== null) {
             for (const e of object.votes) {
-                message.votes.push(Vote.fromPartial(e));
+                message.votes.push(gov_1.Vote.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -579,15 +582,15 @@ export const QueryVotesResponse = {
     },
 };
 const baseQueryParamsRequest = { paramsType: "" };
-export const QueryParamsRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryParamsRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.paramsType !== "") {
             writer.uint32(10).string(message.paramsType);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryParamsRequest };
         while (reader.pos < end) {
@@ -630,34 +633,34 @@ export const QueryParamsRequest = {
     },
 };
 const baseQueryParamsResponse = {};
-export const QueryParamsResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryParamsResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.votingParams !== undefined) {
-            VotingParams.encode(message.votingParams, writer.uint32(10).fork()).ldelim();
+            gov_1.VotingParams.encode(message.votingParams, writer.uint32(10).fork()).ldelim();
         }
         if (message.depositParams !== undefined) {
-            DepositParams.encode(message.depositParams, writer.uint32(18).fork()).ldelim();
+            gov_1.DepositParams.encode(message.depositParams, writer.uint32(18).fork()).ldelim();
         }
         if (message.tallyParams !== undefined) {
-            TallyParams.encode(message.tallyParams, writer.uint32(26).fork()).ldelim();
+            gov_1.TallyParams.encode(message.tallyParams, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryParamsResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.votingParams = VotingParams.decode(reader, reader.uint32());
+                    message.votingParams = gov_1.VotingParams.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.depositParams = DepositParams.decode(reader, reader.uint32());
+                    message.depositParams = gov_1.DepositParams.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.tallyParams = TallyParams.decode(reader, reader.uint32());
+                    message.tallyParams = gov_1.TallyParams.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -669,19 +672,19 @@ export const QueryParamsResponse = {
     fromJSON(object) {
         const message = { ...baseQueryParamsResponse };
         if (object.votingParams !== undefined && object.votingParams !== null) {
-            message.votingParams = VotingParams.fromJSON(object.votingParams);
+            message.votingParams = gov_1.VotingParams.fromJSON(object.votingParams);
         }
         else {
             message.votingParams = undefined;
         }
         if (object.depositParams !== undefined && object.depositParams !== null) {
-            message.depositParams = DepositParams.fromJSON(object.depositParams);
+            message.depositParams = gov_1.DepositParams.fromJSON(object.depositParams);
         }
         else {
             message.depositParams = undefined;
         }
         if (object.tallyParams !== undefined && object.tallyParams !== null) {
-            message.tallyParams = TallyParams.fromJSON(object.tallyParams);
+            message.tallyParams = gov_1.TallyParams.fromJSON(object.tallyParams);
         }
         else {
             message.tallyParams = undefined;
@@ -692,34 +695,34 @@ export const QueryParamsResponse = {
         const obj = {};
         message.votingParams !== undefined &&
             (obj.votingParams = message.votingParams
-                ? VotingParams.toJSON(message.votingParams)
+                ? gov_1.VotingParams.toJSON(message.votingParams)
                 : undefined);
         message.depositParams !== undefined &&
             (obj.depositParams = message.depositParams
-                ? DepositParams.toJSON(message.depositParams)
+                ? gov_1.DepositParams.toJSON(message.depositParams)
                 : undefined);
         message.tallyParams !== undefined &&
             (obj.tallyParams = message.tallyParams
-                ? TallyParams.toJSON(message.tallyParams)
+                ? gov_1.TallyParams.toJSON(message.tallyParams)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryParamsResponse };
         if (object.votingParams !== undefined && object.votingParams !== null) {
-            message.votingParams = VotingParams.fromPartial(object.votingParams);
+            message.votingParams = gov_1.VotingParams.fromPartial(object.votingParams);
         }
         else {
             message.votingParams = undefined;
         }
         if (object.depositParams !== undefined && object.depositParams !== null) {
-            message.depositParams = DepositParams.fromPartial(object.depositParams);
+            message.depositParams = gov_1.DepositParams.fromPartial(object.depositParams);
         }
         else {
             message.depositParams = undefined;
         }
         if (object.tallyParams !== undefined && object.tallyParams !== null) {
-            message.tallyParams = TallyParams.fromPartial(object.tallyParams);
+            message.tallyParams = gov_1.TallyParams.fromPartial(object.tallyParams);
         }
         else {
             message.tallyParams = undefined;
@@ -728,8 +731,8 @@ export const QueryParamsResponse = {
     },
 };
 const baseQueryDepositRequest = { proposalId: 0, depositor: "" };
-export const QueryDepositRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDepositRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposalId !== 0) {
             writer.uint32(8).uint64(message.proposalId);
         }
@@ -739,7 +742,7 @@ export const QueryDepositRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryDepositRequest };
         while (reader.pos < end) {
@@ -798,22 +801,22 @@ export const QueryDepositRequest = {
     },
 };
 const baseQueryDepositResponse = {};
-export const QueryDepositResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDepositResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.deposit !== undefined) {
-            Deposit.encode(message.deposit, writer.uint32(10).fork()).ldelim();
+            gov_1.Deposit.encode(message.deposit, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryDepositResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.deposit = Deposit.decode(reader, reader.uint32());
+                    message.deposit = gov_1.Deposit.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -825,7 +828,7 @@ export const QueryDepositResponse = {
     fromJSON(object) {
         const message = { ...baseQueryDepositResponse };
         if (object.deposit !== undefined && object.deposit !== null) {
-            message.deposit = Deposit.fromJSON(object.deposit);
+            message.deposit = gov_1.Deposit.fromJSON(object.deposit);
         }
         else {
             message.deposit = undefined;
@@ -836,14 +839,14 @@ export const QueryDepositResponse = {
         const obj = {};
         message.deposit !== undefined &&
             (obj.deposit = message.deposit
-                ? Deposit.toJSON(message.deposit)
+                ? gov_1.Deposit.toJSON(message.deposit)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryDepositResponse };
         if (object.deposit !== undefined && object.deposit !== null) {
-            message.deposit = Deposit.fromPartial(object.deposit);
+            message.deposit = gov_1.Deposit.fromPartial(object.deposit);
         }
         else {
             message.deposit = undefined;
@@ -852,18 +855,18 @@ export const QueryDepositResponse = {
     },
 };
 const baseQueryDepositsRequest = { proposalId: 0 };
-export const QueryDepositsRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDepositsRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposalId !== 0) {
             writer.uint32(8).uint64(message.proposalId);
         }
         if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryDepositsRequest };
         while (reader.pos < end) {
@@ -873,7 +876,7 @@ export const QueryDepositsRequest = {
                     message.proposalId = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -891,7 +894,7 @@ export const QueryDepositsRequest = {
             message.proposalId = 0;
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -903,7 +906,7 @@ export const QueryDepositsRequest = {
         message.proposalId !== undefined && (obj.proposalId = message.proposalId);
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageRequest.toJSON(message.pagination)
+                ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -916,7 +919,7 @@ export const QueryDepositsRequest = {
             message.proposalId = 0;
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -925,18 +928,18 @@ export const QueryDepositsRequest = {
     },
 };
 const baseQueryDepositsResponse = {};
-export const QueryDepositsResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDepositsResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.deposits) {
-            Deposit.encode(v, writer.uint32(10).fork()).ldelim();
+            gov_1.Deposit.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
-            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryDepositsResponse };
         message.deposits = [];
@@ -944,10 +947,10 @@ export const QueryDepositsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.deposits.push(Deposit.decode(reader, reader.uint32()));
+                    message.deposits.push(gov_1.Deposit.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -961,11 +964,11 @@ export const QueryDepositsResponse = {
         message.deposits = [];
         if (object.deposits !== undefined && object.deposits !== null) {
             for (const e of object.deposits) {
-                message.deposits.push(Deposit.fromJSON(e));
+                message.deposits.push(gov_1.Deposit.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -975,14 +978,14 @@ export const QueryDepositsResponse = {
     toJSON(message) {
         const obj = {};
         if (message.deposits) {
-            obj.deposits = message.deposits.map((e) => e ? Deposit.toJSON(e) : undefined);
+            obj.deposits = message.deposits.map((e) => e ? gov_1.Deposit.toJSON(e) : undefined);
         }
         else {
             obj.deposits = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageResponse.toJSON(message.pagination)
+                ? pagination_1.PageResponse.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -991,11 +994,11 @@ export const QueryDepositsResponse = {
         message.deposits = [];
         if (object.deposits !== undefined && object.deposits !== null) {
             for (const e of object.deposits) {
-                message.deposits.push(Deposit.fromPartial(e));
+                message.deposits.push(gov_1.Deposit.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -1004,15 +1007,15 @@ export const QueryDepositsResponse = {
     },
 };
 const baseQueryTallyResultRequest = { proposalId: 0 };
-export const QueryTallyResultRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryTallyResultRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.proposalId !== 0) {
             writer.uint32(8).uint64(message.proposalId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryTallyResultRequest,
@@ -1061,15 +1064,15 @@ export const QueryTallyResultRequest = {
     },
 };
 const baseQueryTallyResultResponse = {};
-export const QueryTallyResultResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryTallyResultResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.tally !== undefined) {
-            TallyResult.encode(message.tally, writer.uint32(10).fork()).ldelim();
+            gov_1.TallyResult.encode(message.tally, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryTallyResultResponse,
@@ -1078,7 +1081,7 @@ export const QueryTallyResultResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.tally = TallyResult.decode(reader, reader.uint32());
+                    message.tally = gov_1.TallyResult.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1092,7 +1095,7 @@ export const QueryTallyResultResponse = {
             ...baseQueryTallyResultResponse,
         };
         if (object.tally !== undefined && object.tally !== null) {
-            message.tally = TallyResult.fromJSON(object.tally);
+            message.tally = gov_1.TallyResult.fromJSON(object.tally);
         }
         else {
             message.tally = undefined;
@@ -1103,7 +1106,7 @@ export const QueryTallyResultResponse = {
         const obj = {};
         message.tally !== undefined &&
             (obj.tally = message.tally
-                ? TallyResult.toJSON(message.tally)
+                ? gov_1.TallyResult.toJSON(message.tally)
                 : undefined);
         return obj;
     },
@@ -1112,7 +1115,7 @@ export const QueryTallyResultResponse = {
             ...baseQueryTallyResultResponse,
         };
         if (object.tally !== undefined && object.tally !== null) {
-            message.tally = TallyResult.fromPartial(object.tally);
+            message.tally = gov_1.TallyResult.fromPartial(object.tally);
         }
         else {
             message.tally = undefined;
@@ -1120,51 +1123,52 @@ export const QueryTallyResultResponse = {
         return message;
     },
 };
-export class QueryClientImpl {
+class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     Proposal(request) {
-        const data = QueryProposalRequest.encode(request).finish();
+        const data = exports.QueryProposalRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Proposal", data);
-        return promise.then((data) => QueryProposalResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryProposalResponse.decode(new minimal_1.Reader(data)));
     }
     Proposals(request) {
-        const data = QueryProposalsRequest.encode(request).finish();
+        const data = exports.QueryProposalsRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Proposals", data);
-        return promise.then((data) => QueryProposalsResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryProposalsResponse.decode(new minimal_1.Reader(data)));
     }
     Vote(request) {
-        const data = QueryVoteRequest.encode(request).finish();
+        const data = exports.QueryVoteRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Vote", data);
-        return promise.then((data) => QueryVoteResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryVoteResponse.decode(new minimal_1.Reader(data)));
     }
     Votes(request) {
-        const data = QueryVotesRequest.encode(request).finish();
+        const data = exports.QueryVotesRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Votes", data);
-        return promise.then((data) => QueryVotesResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryVotesResponse.decode(new minimal_1.Reader(data)));
     }
     Params(request) {
-        const data = QueryParamsRequest.encode(request).finish();
+        const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Params", data);
-        return promise.then((data) => QueryParamsResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.Reader(data)));
     }
     Deposit(request) {
-        const data = QueryDepositRequest.encode(request).finish();
+        const data = exports.QueryDepositRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Deposit", data);
-        return promise.then((data) => QueryDepositResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryDepositResponse.decode(new minimal_1.Reader(data)));
     }
     Deposits(request) {
-        const data = QueryDepositsRequest.encode(request).finish();
+        const data = exports.QueryDepositsRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Deposits", data);
-        return promise.then((data) => QueryDepositsResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryDepositsResponse.decode(new minimal_1.Reader(data)));
     }
     TallyResult(request) {
-        const data = QueryTallyResultRequest.encode(request).finish();
+        const data = exports.QueryTallyResultRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "TallyResult", data);
-        return promise.then((data) => QueryTallyResultResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryTallyResultResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.QueryClientImpl = QueryClientImpl;
 var globalThis = (() => {
     if (typeof globalThis !== "undefined")
         return globalThis;
@@ -1182,7 +1186,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

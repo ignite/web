@@ -1,23 +1,34 @@
-import { txClient, queryClient, MissingWalletError, registry } from './module';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Balance = exports.Metadata = exports.DenomUnit = exports.Supply = exports.Output = exports.Input = exports.SendEnabled = exports.Params = exports.SendAuthorization = void 0;
+const module_1 = require("./module");
 // @ts-ignore
-import { SpVuexError } from '@starport/vuex';
-import { SendAuthorization } from "./module/types/cosmos/bank/v1beta1/authz";
-import { Params } from "./module/types/cosmos/bank/v1beta1/bank";
-import { SendEnabled } from "./module/types/cosmos/bank/v1beta1/bank";
-import { Input } from "./module/types/cosmos/bank/v1beta1/bank";
-import { Output } from "./module/types/cosmos/bank/v1beta1/bank";
-import { Supply } from "./module/types/cosmos/bank/v1beta1/bank";
-import { DenomUnit } from "./module/types/cosmos/bank/v1beta1/bank";
-import { Metadata } from "./module/types/cosmos/bank/v1beta1/bank";
-import { Balance } from "./module/types/cosmos/bank/v1beta1/genesis";
-export { SendAuthorization, Params, SendEnabled, Input, Output, Supply, DenomUnit, Metadata, Balance };
+const vuex_1 = require("@starport/vuex");
+const authz_1 = require("./module/types/cosmos/bank/v1beta1/authz");
+Object.defineProperty(exports, "SendAuthorization", { enumerable: true, get: function () { return authz_1.SendAuthorization; } });
+const bank_1 = require("./module/types/cosmos/bank/v1beta1/bank");
+Object.defineProperty(exports, "Params", { enumerable: true, get: function () { return bank_1.Params; } });
+const bank_2 = require("./module/types/cosmos/bank/v1beta1/bank");
+Object.defineProperty(exports, "SendEnabled", { enumerable: true, get: function () { return bank_2.SendEnabled; } });
+const bank_3 = require("./module/types/cosmos/bank/v1beta1/bank");
+Object.defineProperty(exports, "Input", { enumerable: true, get: function () { return bank_3.Input; } });
+const bank_4 = require("./module/types/cosmos/bank/v1beta1/bank");
+Object.defineProperty(exports, "Output", { enumerable: true, get: function () { return bank_4.Output; } });
+const bank_5 = require("./module/types/cosmos/bank/v1beta1/bank");
+Object.defineProperty(exports, "Supply", { enumerable: true, get: function () { return bank_5.Supply; } });
+const bank_6 = require("./module/types/cosmos/bank/v1beta1/bank");
+Object.defineProperty(exports, "DenomUnit", { enumerable: true, get: function () { return bank_6.DenomUnit; } });
+const bank_7 = require("./module/types/cosmos/bank/v1beta1/bank");
+Object.defineProperty(exports, "Metadata", { enumerable: true, get: function () { return bank_7.Metadata; } });
+const genesis_1 = require("./module/types/cosmos/bank/v1beta1/genesis");
+Object.defineProperty(exports, "Balance", { enumerable: true, get: function () { return genesis_1.Balance; } });
 async function initTxClient(vuexGetters) {
-    return await txClient(vuexGetters['common/wallet/signer'], {
+    return await module_1.txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
     });
 }
 async function initQueryClient(vuexGetters) {
-    return await queryClient({
+    return await module_1.queryClient({
         addr: vuexGetters['common/env/apiCosmos']
     });
 }
@@ -52,23 +63,23 @@ const getDefaultState = () => {
         DenomMetadata: {},
         DenomsMetadata: {},
         _Structure: {
-            SendAuthorization: getStructure(SendAuthorization.fromPartial({})),
-            Params: getStructure(Params.fromPartial({})),
-            SendEnabled: getStructure(SendEnabled.fromPartial({})),
-            Input: getStructure(Input.fromPartial({})),
-            Output: getStructure(Output.fromPartial({})),
-            Supply: getStructure(Supply.fromPartial({})),
-            DenomUnit: getStructure(DenomUnit.fromPartial({})),
-            Metadata: getStructure(Metadata.fromPartial({})),
-            Balance: getStructure(Balance.fromPartial({})),
+            SendAuthorization: getStructure(authz_1.SendAuthorization.fromPartial({})),
+            Params: getStructure(bank_1.Params.fromPartial({})),
+            SendEnabled: getStructure(bank_2.SendEnabled.fromPartial({})),
+            Input: getStructure(bank_3.Input.fromPartial({})),
+            Output: getStructure(bank_4.Output.fromPartial({})),
+            Supply: getStructure(bank_5.Supply.fromPartial({})),
+            DenomUnit: getStructure(bank_6.DenomUnit.fromPartial({})),
+            Metadata: getStructure(bank_7.Metadata.fromPartial({})),
+            Balance: getStructure(genesis_1.Balance.fromPartial({})),
         },
-        _Registry: registry,
+        _Registry: module_1.registry,
         _Subscriptions: new Set(),
     };
 };
 // initial state
 const state = getDefaultState();
-export default {
+exports.default = {
     namespaced: true,
     state,
     mutations: {
@@ -157,7 +168,7 @@ export default {
                     await dispatch(sub.action, sub.payload);
                 }
                 catch (e) {
-                    throw new SpVuexError('Subscriptions: ' + e.message);
+                    throw new vuex_1.SpVuexError('Subscriptions: ' + e.message);
                 }
             });
         },
@@ -176,7 +187,7 @@ export default {
                 return getters['getBalance']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryBalance', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryBalance', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryAllBalances({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -194,7 +205,7 @@ export default {
                 return getters['getAllBalances']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryAllBalances', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryAllBalances', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryTotalSupply({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -212,7 +223,7 @@ export default {
                 return getters['getTotalSupply']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryTotalSupply', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryTotalSupply', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QuerySupplyOf({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -226,7 +237,7 @@ export default {
                 return getters['getSupplyOf']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QuerySupplyOf', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QuerySupplyOf', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -240,7 +251,7 @@ export default {
                 return getters['getParams']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDenomMetadata({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -254,7 +265,7 @@ export default {
                 return getters['getDenomMetadata']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDenomMetadata', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDenomMetadata', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDenomsMetadata({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -272,24 +283,7 @@ export default {
                 return getters['getDenomsMetadata']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDenomsMetadata', 'API Node Unavailable. Could not perform query: ' + e.message);
-            }
-        },
-        async sendMsgSend({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgSend(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgSend:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgSend:Send', 'Could not broadcast Tx: ' + e.message);
-                }
+                throw new vuex_1.SpVuexError('QueryClient:QueryDenomsMetadata', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async sendMsgMultiSend({ rootGetters }, { value, fee = [], memo = '' }) {
@@ -301,26 +295,28 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgMultiSend:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgMultiSend:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgMultiSend:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgMultiSend:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
-        async MsgSend({ rootGetters }, { value }) {
+        async sendMsgSend({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
                 const msg = await txClient.msgSend(value);
-                return msg;
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgSend:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgSend:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgSend:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgSend:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -331,11 +327,26 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgMultiSend:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgMultiSend:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgMultiSend:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgMultiSend:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgSend({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgSend(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgSend:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgSend:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

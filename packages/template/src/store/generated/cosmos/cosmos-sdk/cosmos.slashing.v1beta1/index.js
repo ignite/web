@@ -1,19 +1,26 @@
-import { txClient, queryClient, MissingWalletError, registry } from './module';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Params = exports.ValidatorSigningInfo = exports.MissedBlock = exports.ValidatorMissedBlocks = exports.SigningInfo = void 0;
+const module_1 = require("./module");
 // @ts-ignore
-import { SpVuexError } from '@starport/vuex';
-import { SigningInfo } from "./module/types/cosmos/slashing/v1beta1/genesis";
-import { ValidatorMissedBlocks } from "./module/types/cosmos/slashing/v1beta1/genesis";
-import { MissedBlock } from "./module/types/cosmos/slashing/v1beta1/genesis";
-import { ValidatorSigningInfo } from "./module/types/cosmos/slashing/v1beta1/slashing";
-import { Params } from "./module/types/cosmos/slashing/v1beta1/slashing";
-export { SigningInfo, ValidatorMissedBlocks, MissedBlock, ValidatorSigningInfo, Params };
+const vuex_1 = require("@starport/vuex");
+const genesis_1 = require("./module/types/cosmos/slashing/v1beta1/genesis");
+Object.defineProperty(exports, "SigningInfo", { enumerable: true, get: function () { return genesis_1.SigningInfo; } });
+const genesis_2 = require("./module/types/cosmos/slashing/v1beta1/genesis");
+Object.defineProperty(exports, "ValidatorMissedBlocks", { enumerable: true, get: function () { return genesis_2.ValidatorMissedBlocks; } });
+const genesis_3 = require("./module/types/cosmos/slashing/v1beta1/genesis");
+Object.defineProperty(exports, "MissedBlock", { enumerable: true, get: function () { return genesis_3.MissedBlock; } });
+const slashing_1 = require("./module/types/cosmos/slashing/v1beta1/slashing");
+Object.defineProperty(exports, "ValidatorSigningInfo", { enumerable: true, get: function () { return slashing_1.ValidatorSigningInfo; } });
+const slashing_2 = require("./module/types/cosmos/slashing/v1beta1/slashing");
+Object.defineProperty(exports, "Params", { enumerable: true, get: function () { return slashing_2.Params; } });
 async function initTxClient(vuexGetters) {
-    return await txClient(vuexGetters['common/wallet/signer'], {
+    return await module_1.txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
     });
 }
 async function initQueryClient(vuexGetters) {
-    return await queryClient({
+    return await module_1.queryClient({
         addr: vuexGetters['common/env/apiCosmos']
     });
 }
@@ -44,19 +51,19 @@ const getDefaultState = () => {
         SigningInfo: {},
         SigningInfos: {},
         _Structure: {
-            SigningInfo: getStructure(SigningInfo.fromPartial({})),
-            ValidatorMissedBlocks: getStructure(ValidatorMissedBlocks.fromPartial({})),
-            MissedBlock: getStructure(MissedBlock.fromPartial({})),
-            ValidatorSigningInfo: getStructure(ValidatorSigningInfo.fromPartial({})),
-            Params: getStructure(Params.fromPartial({})),
+            SigningInfo: getStructure(genesis_1.SigningInfo.fromPartial({})),
+            ValidatorMissedBlocks: getStructure(genesis_2.ValidatorMissedBlocks.fromPartial({})),
+            MissedBlock: getStructure(genesis_3.MissedBlock.fromPartial({})),
+            ValidatorSigningInfo: getStructure(slashing_1.ValidatorSigningInfo.fromPartial({})),
+            Params: getStructure(slashing_2.Params.fromPartial({})),
         },
-        _Registry: registry,
+        _Registry: module_1.registry,
         _Subscriptions: new Set(),
     };
 };
 // initial state
 const state = getDefaultState();
-export default {
+exports.default = {
     namespaced: true,
     state,
     mutations: {
@@ -121,7 +128,7 @@ export default {
                     await dispatch(sub.action, sub.payload);
                 }
                 catch (e) {
-                    throw new SpVuexError('Subscriptions: ' + e.message);
+                    throw new vuex_1.SpVuexError('Subscriptions: ' + e.message);
                 }
             });
         },
@@ -136,7 +143,7 @@ export default {
                 return getters['getParams']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QuerySigningInfo({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -150,7 +157,7 @@ export default {
                 return getters['getSigningInfo']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QuerySigningInfo', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QuerySigningInfo', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QuerySigningInfos({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -168,7 +175,7 @@ export default {
                 return getters['getSigningInfos']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QuerySigningInfos', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QuerySigningInfos', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async sendMsgUnjail({ rootGetters }, { value, fee = [], memo = '' }) {
@@ -180,11 +187,11 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgUnjail:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgUnjail:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgUnjail:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgUnjail:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -195,11 +202,11 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgUnjail:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgUnjail:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgUnjail:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgUnjail:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

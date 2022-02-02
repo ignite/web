@@ -1,10 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgClientImpl = exports.MsgRevokeAllowanceResponse = exports.MsgRevokeAllowance = exports.MsgGrantAllowanceResponse = exports.MsgGrantAllowance = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-export const protobufPackage = "cosmos.feegrant.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+const any_1 = require("../../../google/protobuf/any");
+exports.protobufPackage = "cosmos.feegrant.v1beta1";
 const baseMsgGrantAllowance = { granter: "", grantee: "" };
-export const MsgGrantAllowance = {
-    encode(message, writer = Writer.create()) {
+exports.MsgGrantAllowance = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.granter !== "") {
             writer.uint32(10).string(message.granter);
         }
@@ -12,12 +15,12 @@ export const MsgGrantAllowance = {
             writer.uint32(18).string(message.grantee);
         }
         if (message.allowance !== undefined) {
-            Any.encode(message.allowance, writer.uint32(26).fork()).ldelim();
+            any_1.Any.encode(message.allowance, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgGrantAllowance };
         while (reader.pos < end) {
@@ -30,7 +33,7 @@ export const MsgGrantAllowance = {
                     message.grantee = reader.string();
                     break;
                 case 3:
-                    message.allowance = Any.decode(reader, reader.uint32());
+                    message.allowance = any_1.Any.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -54,7 +57,7 @@ export const MsgGrantAllowance = {
             message.grantee = "";
         }
         if (object.allowance !== undefined && object.allowance !== null) {
-            message.allowance = Any.fromJSON(object.allowance);
+            message.allowance = any_1.Any.fromJSON(object.allowance);
         }
         else {
             message.allowance = undefined;
@@ -67,7 +70,7 @@ export const MsgGrantAllowance = {
         message.grantee !== undefined && (obj.grantee = message.grantee);
         message.allowance !== undefined &&
             (obj.allowance = message.allowance
-                ? Any.toJSON(message.allowance)
+                ? any_1.Any.toJSON(message.allowance)
                 : undefined);
         return obj;
     },
@@ -86,7 +89,7 @@ export const MsgGrantAllowance = {
             message.grantee = "";
         }
         if (object.allowance !== undefined && object.allowance !== null) {
-            message.allowance = Any.fromPartial(object.allowance);
+            message.allowance = any_1.Any.fromPartial(object.allowance);
         }
         else {
             message.allowance = undefined;
@@ -95,12 +98,12 @@ export const MsgGrantAllowance = {
     },
 };
 const baseMsgGrantAllowanceResponse = {};
-export const MsgGrantAllowanceResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgGrantAllowanceResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgGrantAllowanceResponse,
@@ -133,8 +136,8 @@ export const MsgGrantAllowanceResponse = {
     },
 };
 const baseMsgRevokeAllowance = { granter: "", grantee: "" };
-export const MsgRevokeAllowance = {
-    encode(message, writer = Writer.create()) {
+exports.MsgRevokeAllowance = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.granter !== "") {
             writer.uint32(10).string(message.granter);
         }
@@ -144,7 +147,7 @@ export const MsgRevokeAllowance = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgRevokeAllowance };
         while (reader.pos < end) {
@@ -203,12 +206,12 @@ export const MsgRevokeAllowance = {
     },
 };
 const baseMsgRevokeAllowanceResponse = {};
-export const MsgRevokeAllowanceResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgRevokeAllowanceResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgRevokeAllowanceResponse,
@@ -240,18 +243,19 @@ export const MsgRevokeAllowanceResponse = {
         return message;
     },
 };
-export class MsgClientImpl {
+class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     GrantAllowance(request) {
-        const data = MsgGrantAllowance.encode(request).finish();
+        const data = exports.MsgGrantAllowance.encode(request).finish();
         const promise = this.rpc.request("cosmos.feegrant.v1beta1.Msg", "GrantAllowance", data);
-        return promise.then((data) => MsgGrantAllowanceResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgGrantAllowanceResponse.decode(new minimal_1.Reader(data)));
     }
     RevokeAllowance(request) {
-        const data = MsgRevokeAllowance.encode(request).finish();
+        const data = exports.MsgRevokeAllowance.encode(request).finish();
         const promise = this.rpc.request("cosmos.feegrant.v1beta1.Msg", "RevokeAllowance", data);
-        return promise.then((data) => MsgRevokeAllowanceResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgRevokeAllowanceResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.MsgClientImpl = MsgClientImpl;

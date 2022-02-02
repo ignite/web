@@ -1,3 +1,4 @@
+import { Registry } from "@cosmjs/proto-signing";
 declare const _default: {
     CosmosCosmosSdkCosmosAuthzV1Beta1: (store: any) => void;
     CosmosCosmosSdkCosmosBankV1Beta1: (store: any) => void;
@@ -10,5 +11,7 @@ declare const _default: {
     CosmosCosmosSdkCosmosStakingV1Beta1: (store: any) => void;
     CosmosCosmosSdkCosmosVestingV1Beta1: (store: any) => void;
     CosmosIbcGoIbcApplicationsTransferV1: (store: any) => void;
+    CosmosIbcGoIbcApplicationsTransferV2: (store: any) => void;
 };
 export default _default;
+export declare const registry: Registry;

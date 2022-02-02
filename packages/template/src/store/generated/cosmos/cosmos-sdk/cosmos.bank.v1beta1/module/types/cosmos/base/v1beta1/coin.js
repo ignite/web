@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DecProto = exports.IntProto = exports.DecCoin = exports.Coin = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.base.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.base.v1beta1";
 const baseCoin = { denom: "", amount: "" };
-export const Coin = {
-    encode(message, writer = Writer.create()) {
+exports.Coin = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.denom !== "") {
             writer.uint32(10).string(message.denom);
         }
@@ -13,7 +16,7 @@ export const Coin = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseCoin };
         while (reader.pos < end) {
@@ -72,8 +75,8 @@ export const Coin = {
     },
 };
 const baseDecCoin = { denom: "", amount: "" };
-export const DecCoin = {
-    encode(message, writer = Writer.create()) {
+exports.DecCoin = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.denom !== "") {
             writer.uint32(10).string(message.denom);
         }
@@ -83,7 +86,7 @@ export const DecCoin = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseDecCoin };
         while (reader.pos < end) {
@@ -142,15 +145,15 @@ export const DecCoin = {
     },
 };
 const baseIntProto = { int: "" };
-export const IntProto = {
-    encode(message, writer = Writer.create()) {
+exports.IntProto = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.int !== "") {
             writer.uint32(10).string(message.int);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseIntProto };
         while (reader.pos < end) {
@@ -193,15 +196,15 @@ export const IntProto = {
     },
 };
 const baseDecProto = { dec: "" };
-export const DecProto = {
-    encode(message, writer = Writer.create()) {
+exports.DecProto = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.dec !== "") {
             writer.uint32(10).string(message.dec);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseDecProto };
         while (reader.pos < end) {

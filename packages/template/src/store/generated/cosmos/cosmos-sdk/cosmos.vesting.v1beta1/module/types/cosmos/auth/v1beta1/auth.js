@@ -1,16 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Params = exports.ModuleAccount = exports.BaseAccount = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-export const protobufPackage = "cosmos.auth.v1beta1";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+const any_1 = require("../../../google/protobuf/any");
+exports.protobufPackage = "cosmos.auth.v1beta1";
 const baseBaseAccount = { address: "", accountNumber: 0, sequence: 0 };
-export const BaseAccount = {
-    encode(message, writer = Writer.create()) {
+exports.BaseAccount = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
         }
         if (message.pubKey !== undefined) {
-            Any.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
+            any_1.Any.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
         }
         if (message.accountNumber !== 0) {
             writer.uint32(24).uint64(message.accountNumber);
@@ -21,7 +24,7 @@ export const BaseAccount = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseBaseAccount };
         while (reader.pos < end) {
@@ -31,7 +34,7 @@ export const BaseAccount = {
                     message.address = reader.string();
                     break;
                 case 2:
-                    message.pubKey = Any.decode(reader, reader.uint32());
+                    message.pubKey = any_1.Any.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.accountNumber = longToNumber(reader.uint64());
@@ -55,7 +58,7 @@ export const BaseAccount = {
             message.address = "";
         }
         if (object.pubKey !== undefined && object.pubKey !== null) {
-            message.pubKey = Any.fromJSON(object.pubKey);
+            message.pubKey = any_1.Any.fromJSON(object.pubKey);
         }
         else {
             message.pubKey = undefined;
@@ -78,7 +81,7 @@ export const BaseAccount = {
         const obj = {};
         message.address !== undefined && (obj.address = message.address);
         message.pubKey !== undefined &&
-            (obj.pubKey = message.pubKey ? Any.toJSON(message.pubKey) : undefined);
+            (obj.pubKey = message.pubKey ? any_1.Any.toJSON(message.pubKey) : undefined);
         message.accountNumber !== undefined &&
             (obj.accountNumber = message.accountNumber);
         message.sequence !== undefined && (obj.sequence = message.sequence);
@@ -93,7 +96,7 @@ export const BaseAccount = {
             message.address = "";
         }
         if (object.pubKey !== undefined && object.pubKey !== null) {
-            message.pubKey = Any.fromPartial(object.pubKey);
+            message.pubKey = any_1.Any.fromPartial(object.pubKey);
         }
         else {
             message.pubKey = undefined;
@@ -114,10 +117,10 @@ export const BaseAccount = {
     },
 };
 const baseModuleAccount = { name: "", permissions: "" };
-export const ModuleAccount = {
-    encode(message, writer = Writer.create()) {
+exports.ModuleAccount = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.baseAccount !== undefined) {
-            BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim();
+            exports.BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim();
         }
         if (message.name !== "") {
             writer.uint32(18).string(message.name);
@@ -128,7 +131,7 @@ export const ModuleAccount = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseModuleAccount };
         message.permissions = [];
@@ -136,7 +139,7 @@ export const ModuleAccount = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.baseAccount = BaseAccount.decode(reader, reader.uint32());
+                    message.baseAccount = exports.BaseAccount.decode(reader, reader.uint32());
                     break;
                 case 2:
                     message.name = reader.string();
@@ -155,7 +158,7 @@ export const ModuleAccount = {
         const message = { ...baseModuleAccount };
         message.permissions = [];
         if (object.baseAccount !== undefined && object.baseAccount !== null) {
-            message.baseAccount = BaseAccount.fromJSON(object.baseAccount);
+            message.baseAccount = exports.BaseAccount.fromJSON(object.baseAccount);
         }
         else {
             message.baseAccount = undefined;
@@ -177,7 +180,7 @@ export const ModuleAccount = {
         const obj = {};
         message.baseAccount !== undefined &&
             (obj.baseAccount = message.baseAccount
-                ? BaseAccount.toJSON(message.baseAccount)
+                ? exports.BaseAccount.toJSON(message.baseAccount)
                 : undefined);
         message.name !== undefined && (obj.name = message.name);
         if (message.permissions) {
@@ -192,7 +195,7 @@ export const ModuleAccount = {
         const message = { ...baseModuleAccount };
         message.permissions = [];
         if (object.baseAccount !== undefined && object.baseAccount !== null) {
-            message.baseAccount = BaseAccount.fromPartial(object.baseAccount);
+            message.baseAccount = exports.BaseAccount.fromPartial(object.baseAccount);
         }
         else {
             message.baseAccount = undefined;
@@ -218,8 +221,8 @@ const baseParams = {
     sigVerifyCostEd25519: 0,
     sigVerifyCostSecp256k1: 0,
 };
-export const Params = {
-    encode(message, writer = Writer.create()) {
+exports.Params = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.maxMemoCharacters !== 0) {
             writer.uint32(8).uint64(message.maxMemoCharacters);
         }
@@ -238,7 +241,7 @@ export const Params = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseParams };
         while (reader.pos < end) {
@@ -373,7 +376,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

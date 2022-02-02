@@ -1,20 +1,28 @@
-import { txClient, queryClient, MissingWalletError, registry } from './module';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PermanentLockedAccount = exports.PeriodicVestingAccount = exports.Period = exports.DelayedVestingAccount = exports.ContinuousVestingAccount = exports.BaseVestingAccount = void 0;
+const module_1 = require("./module");
 // @ts-ignore
-import { SpVuexError } from '@starport/vuex';
-import { BaseVestingAccount } from "./module/types/cosmos/vesting/v1beta1/vesting";
-import { ContinuousVestingAccount } from "./module/types/cosmos/vesting/v1beta1/vesting";
-import { DelayedVestingAccount } from "./module/types/cosmos/vesting/v1beta1/vesting";
-import { Period } from "./module/types/cosmos/vesting/v1beta1/vesting";
-import { PeriodicVestingAccount } from "./module/types/cosmos/vesting/v1beta1/vesting";
-import { PermanentLockedAccount } from "./module/types/cosmos/vesting/v1beta1/vesting";
-export { BaseVestingAccount, ContinuousVestingAccount, DelayedVestingAccount, Period, PeriodicVestingAccount, PermanentLockedAccount };
+const vuex_1 = require("@starport/vuex");
+const vesting_1 = require("./module/types/cosmos/vesting/v1beta1/vesting");
+Object.defineProperty(exports, "BaseVestingAccount", { enumerable: true, get: function () { return vesting_1.BaseVestingAccount; } });
+const vesting_2 = require("./module/types/cosmos/vesting/v1beta1/vesting");
+Object.defineProperty(exports, "ContinuousVestingAccount", { enumerable: true, get: function () { return vesting_2.ContinuousVestingAccount; } });
+const vesting_3 = require("./module/types/cosmos/vesting/v1beta1/vesting");
+Object.defineProperty(exports, "DelayedVestingAccount", { enumerable: true, get: function () { return vesting_3.DelayedVestingAccount; } });
+const vesting_4 = require("./module/types/cosmos/vesting/v1beta1/vesting");
+Object.defineProperty(exports, "Period", { enumerable: true, get: function () { return vesting_4.Period; } });
+const vesting_5 = require("./module/types/cosmos/vesting/v1beta1/vesting");
+Object.defineProperty(exports, "PeriodicVestingAccount", { enumerable: true, get: function () { return vesting_5.PeriodicVestingAccount; } });
+const vesting_6 = require("./module/types/cosmos/vesting/v1beta1/vesting");
+Object.defineProperty(exports, "PermanentLockedAccount", { enumerable: true, get: function () { return vesting_6.PermanentLockedAccount; } });
 async function initTxClient(vuexGetters) {
-    return await txClient(vuexGetters['common/wallet/signer'], {
+    return await module_1.txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
     });
 }
 async function initQueryClient(vuexGetters) {
-    return await queryClient({
+    return await module_1.queryClient({
         addr: vuexGetters['common/env/apiCosmos']
     });
 }
@@ -42,20 +50,20 @@ function getStructure(template) {
 const getDefaultState = () => {
     return {
         _Structure: {
-            BaseVestingAccount: getStructure(BaseVestingAccount.fromPartial({})),
-            ContinuousVestingAccount: getStructure(ContinuousVestingAccount.fromPartial({})),
-            DelayedVestingAccount: getStructure(DelayedVestingAccount.fromPartial({})),
-            Period: getStructure(Period.fromPartial({})),
-            PeriodicVestingAccount: getStructure(PeriodicVestingAccount.fromPartial({})),
-            PermanentLockedAccount: getStructure(PermanentLockedAccount.fromPartial({})),
+            BaseVestingAccount: getStructure(vesting_1.BaseVestingAccount.fromPartial({})),
+            ContinuousVestingAccount: getStructure(vesting_2.ContinuousVestingAccount.fromPartial({})),
+            DelayedVestingAccount: getStructure(vesting_3.DelayedVestingAccount.fromPartial({})),
+            Period: getStructure(vesting_4.Period.fromPartial({})),
+            PeriodicVestingAccount: getStructure(vesting_5.PeriodicVestingAccount.fromPartial({})),
+            PermanentLockedAccount: getStructure(vesting_6.PermanentLockedAccount.fromPartial({})),
         },
-        _Registry: registry,
+        _Registry: module_1.registry,
         _Subscriptions: new Set(),
     };
 };
 // initial state
 const state = getDefaultState();
-export default {
+exports.default = {
     namespaced: true,
     state,
     mutations: {
@@ -102,7 +110,7 @@ export default {
                     await dispatch(sub.action, sub.payload);
                 }
                 catch (e) {
-                    throw new SpVuexError('Subscriptions: ' + e.message);
+                    throw new vuex_1.SpVuexError('Subscriptions: ' + e.message);
                 }
             });
         },
@@ -115,11 +123,11 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateVestingAccount:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateVestingAccount:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgCreateVestingAccount:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateVestingAccount:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -130,11 +138,11 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateVestingAccount:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateVestingAccount:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgCreateVestingAccount:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgCreateVestingAccount:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

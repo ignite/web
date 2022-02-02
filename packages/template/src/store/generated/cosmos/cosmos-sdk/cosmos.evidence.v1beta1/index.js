@@ -1,15 +1,18 @@
-import { txClient, queryClient, MissingWalletError, registry } from './module';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Equivocation = void 0;
+const module_1 = require("./module");
 // @ts-ignore
-import { SpVuexError } from '@starport/vuex';
-import { Equivocation } from "./module/types/cosmos/evidence/v1beta1/evidence";
-export { Equivocation };
+const vuex_1 = require("@starport/vuex");
+const evidence_1 = require("./module/types/cosmos/evidence/v1beta1/evidence");
+Object.defineProperty(exports, "Equivocation", { enumerable: true, get: function () { return evidence_1.Equivocation; } });
 async function initTxClient(vuexGetters) {
-    return await txClient(vuexGetters['common/wallet/signer'], {
+    return await module_1.txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
     });
 }
 async function initQueryClient(vuexGetters) {
-    return await queryClient({
+    return await module_1.queryClient({
         addr: vuexGetters['common/env/apiCosmos']
     });
 }
@@ -39,15 +42,15 @@ const getDefaultState = () => {
         Evidence: {},
         AllEvidence: {},
         _Structure: {
-            Equivocation: getStructure(Equivocation.fromPartial({})),
+            Equivocation: getStructure(evidence_1.Equivocation.fromPartial({})),
         },
-        _Registry: registry,
+        _Registry: module_1.registry,
         _Subscriptions: new Set(),
     };
 };
 // initial state
 const state = getDefaultState();
-export default {
+exports.default = {
     namespaced: true,
     state,
     mutations: {
@@ -106,7 +109,7 @@ export default {
                     await dispatch(sub.action, sub.payload);
                 }
                 catch (e) {
-                    throw new SpVuexError('Subscriptions: ' + e.message);
+                    throw new vuex_1.SpVuexError('Subscriptions: ' + e.message);
                 }
             });
         },
@@ -121,7 +124,7 @@ export default {
                 return getters['getEvidence']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryEvidence', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryEvidence', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryAllEvidence({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -139,7 +142,7 @@ export default {
                 return getters['getAllEvidence']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryAllEvidence', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryAllEvidence', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async sendMsgSubmitEvidence({ rootGetters }, { value, fee = [], memo = '' }) {
@@ -151,11 +154,11 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgSubmitEvidence:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitEvidence:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgSubmitEvidence:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitEvidence:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -166,11 +169,11 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgSubmitEvidence:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitEvidence:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgSubmitEvidence:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitEvidence:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

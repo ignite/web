@@ -1,11 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.QueryClientImpl = exports.QueryAllowancesResponse = exports.QueryAllowancesRequest = exports.QueryAllowanceResponse = exports.QueryAllowanceRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Grant } from "../../../cosmos/feegrant/v1beta1/feegrant";
-import { PageRequest, PageResponse, } from "../../../cosmos/base/query/v1beta1/pagination";
-export const protobufPackage = "cosmos.feegrant.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+const feegrant_1 = require("../../../cosmos/feegrant/v1beta1/feegrant");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+exports.protobufPackage = "cosmos.feegrant.v1beta1";
 const baseQueryAllowanceRequest = { granter: "", grantee: "" };
-export const QueryAllowanceRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryAllowanceRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.granter !== "") {
             writer.uint32(10).string(message.granter);
         }
@@ -15,7 +18,7 @@ export const QueryAllowanceRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryAllowanceRequest };
         while (reader.pos < end) {
@@ -74,22 +77,22 @@ export const QueryAllowanceRequest = {
     },
 };
 const baseQueryAllowanceResponse = {};
-export const QueryAllowanceResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryAllowanceResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.allowance !== undefined) {
-            Grant.encode(message.allowance, writer.uint32(10).fork()).ldelim();
+            feegrant_1.Grant.encode(message.allowance, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryAllowanceResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.allowance = Grant.decode(reader, reader.uint32());
+                    message.allowance = feegrant_1.Grant.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -101,7 +104,7 @@ export const QueryAllowanceResponse = {
     fromJSON(object) {
         const message = { ...baseQueryAllowanceResponse };
         if (object.allowance !== undefined && object.allowance !== null) {
-            message.allowance = Grant.fromJSON(object.allowance);
+            message.allowance = feegrant_1.Grant.fromJSON(object.allowance);
         }
         else {
             message.allowance = undefined;
@@ -112,14 +115,14 @@ export const QueryAllowanceResponse = {
         const obj = {};
         message.allowance !== undefined &&
             (obj.allowance = message.allowance
-                ? Grant.toJSON(message.allowance)
+                ? feegrant_1.Grant.toJSON(message.allowance)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryAllowanceResponse };
         if (object.allowance !== undefined && object.allowance !== null) {
-            message.allowance = Grant.fromPartial(object.allowance);
+            message.allowance = feegrant_1.Grant.fromPartial(object.allowance);
         }
         else {
             message.allowance = undefined;
@@ -128,18 +131,18 @@ export const QueryAllowanceResponse = {
     },
 };
 const baseQueryAllowancesRequest = { grantee: "" };
-export const QueryAllowancesRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryAllowancesRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.grantee !== "") {
             writer.uint32(10).string(message.grantee);
         }
         if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryAllowancesRequest };
         while (reader.pos < end) {
@@ -149,7 +152,7 @@ export const QueryAllowancesRequest = {
                     message.grantee = reader.string();
                     break;
                 case 2:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -167,7 +170,7 @@ export const QueryAllowancesRequest = {
             message.grantee = "";
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -179,7 +182,7 @@ export const QueryAllowancesRequest = {
         message.grantee !== undefined && (obj.grantee = message.grantee);
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageRequest.toJSON(message.pagination)
+                ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -192,7 +195,7 @@ export const QueryAllowancesRequest = {
             message.grantee = "";
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -201,18 +204,18 @@ export const QueryAllowancesRequest = {
     },
 };
 const baseQueryAllowancesResponse = {};
-export const QueryAllowancesResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryAllowancesResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.allowances) {
-            Grant.encode(v, writer.uint32(10).fork()).ldelim();
+            feegrant_1.Grant.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
-            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryAllowancesResponse,
@@ -222,10 +225,10 @@ export const QueryAllowancesResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.allowances.push(Grant.decode(reader, reader.uint32()));
+                    message.allowances.push(feegrant_1.Grant.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -241,11 +244,11 @@ export const QueryAllowancesResponse = {
         message.allowances = [];
         if (object.allowances !== undefined && object.allowances !== null) {
             for (const e of object.allowances) {
-                message.allowances.push(Grant.fromJSON(e));
+                message.allowances.push(feegrant_1.Grant.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -255,14 +258,14 @@ export const QueryAllowancesResponse = {
     toJSON(message) {
         const obj = {};
         if (message.allowances) {
-            obj.allowances = message.allowances.map((e) => e ? Grant.toJSON(e) : undefined);
+            obj.allowances = message.allowances.map((e) => e ? feegrant_1.Grant.toJSON(e) : undefined);
         }
         else {
             obj.allowances = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageResponse.toJSON(message.pagination)
+                ? pagination_1.PageResponse.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -273,11 +276,11 @@ export const QueryAllowancesResponse = {
         message.allowances = [];
         if (object.allowances !== undefined && object.allowances !== null) {
             for (const e of object.allowances) {
-                message.allowances.push(Grant.fromPartial(e));
+                message.allowances.push(feegrant_1.Grant.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -285,18 +288,19 @@ export const QueryAllowancesResponse = {
         return message;
     },
 };
-export class QueryClientImpl {
+class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     Allowance(request) {
-        const data = QueryAllowanceRequest.encode(request).finish();
+        const data = exports.QueryAllowanceRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "Allowance", data);
-        return promise.then((data) => QueryAllowanceResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryAllowanceResponse.decode(new minimal_1.Reader(data)));
     }
     Allowances(request) {
-        const data = QueryAllowancesRequest.encode(request).finish();
+        const data = exports.QueryAllowancesRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "Allowances", data);
-        return promise.then((data) => QueryAllowancesResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryAllowancesResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.QueryClientImpl = QueryClientImpl;

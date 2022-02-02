@@ -1,3 +1,4 @@
+"use strict";
 /* eslint-disable */
 /* tslint:disable */
 /*
@@ -8,13 +9,15 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-export var ContentType;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Api = exports.HttpClient = exports.ContentType = void 0;
+var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";
     ContentType["FormData"] = "multipart/form-data";
     ContentType["UrlEncoded"] = "application/x-www-form-urlencoded";
-})(ContentType || (ContentType = {}));
-export class HttpClient {
+})(ContentType = exports.ContentType || (exports.ContentType = {}));
+class HttpClient {
     constructor(apiConfig = {}) {
         this.baseUrl = "";
         this.securityData = null;
@@ -129,9 +132,11 @@ export class HttpClient {
         };
     }
 }
+exports.HttpClient = HttpClient;
 /**
  * @title cosmos/vesting/v1beta1/tx.proto
  * @version version not set
  */
-export class Api extends HttpClient {
+class Api extends HttpClient {
 }
+exports.Api = Api;

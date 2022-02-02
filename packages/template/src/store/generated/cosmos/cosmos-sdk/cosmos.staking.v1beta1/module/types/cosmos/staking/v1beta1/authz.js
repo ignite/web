@@ -1,13 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StakeAuthorization_Validators = exports.StakeAuthorization = exports.authorizationTypeToJSON = exports.authorizationTypeFromJSON = exports.AuthorizationType = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.staking.v1beta1";
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.staking.v1beta1";
 /**
  * AuthorizationType defines the type of staking module authorization type
  *
  * Since: cosmos-sdk 0.43
  */
-export var AuthorizationType;
+var AuthorizationType;
 (function (AuthorizationType) {
     /** AUTHORIZATION_TYPE_UNSPECIFIED - AUTHORIZATION_TYPE_UNSPECIFIED specifies an unknown authorization type */
     AuthorizationType[AuthorizationType["AUTHORIZATION_TYPE_UNSPECIFIED"] = 0] = "AUTHORIZATION_TYPE_UNSPECIFIED";
@@ -18,8 +21,8 @@ export var AuthorizationType;
     /** AUTHORIZATION_TYPE_REDELEGATE - AUTHORIZATION_TYPE_REDELEGATE defines an authorization type for Msg/BeginRedelegate */
     AuthorizationType[AuthorizationType["AUTHORIZATION_TYPE_REDELEGATE"] = 3] = "AUTHORIZATION_TYPE_REDELEGATE";
     AuthorizationType[AuthorizationType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(AuthorizationType || (AuthorizationType = {}));
-export function authorizationTypeFromJSON(object) {
+})(AuthorizationType = exports.AuthorizationType || (exports.AuthorizationType = {}));
+function authorizationTypeFromJSON(object) {
     switch (object) {
         case 0:
         case "AUTHORIZATION_TYPE_UNSPECIFIED":
@@ -39,7 +42,8 @@ export function authorizationTypeFromJSON(object) {
             return AuthorizationType.UNRECOGNIZED;
     }
 }
-export function authorizationTypeToJSON(object) {
+exports.authorizationTypeFromJSON = authorizationTypeFromJSON;
+function authorizationTypeToJSON(object) {
     switch (object) {
         case AuthorizationType.AUTHORIZATION_TYPE_UNSPECIFIED:
             return "AUTHORIZATION_TYPE_UNSPECIFIED";
@@ -53,17 +57,18 @@ export function authorizationTypeToJSON(object) {
             return "UNKNOWN";
     }
 }
+exports.authorizationTypeToJSON = authorizationTypeToJSON;
 const baseStakeAuthorization = { authorizationType: 0 };
-export const StakeAuthorization = {
-    encode(message, writer = Writer.create()) {
+exports.StakeAuthorization = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.maxTokens !== undefined) {
-            Coin.encode(message.maxTokens, writer.uint32(10).fork()).ldelim();
+            coin_1.Coin.encode(message.maxTokens, writer.uint32(10).fork()).ldelim();
         }
         if (message.allowList !== undefined) {
-            StakeAuthorization_Validators.encode(message.allowList, writer.uint32(18).fork()).ldelim();
+            exports.StakeAuthorization_Validators.encode(message.allowList, writer.uint32(18).fork()).ldelim();
         }
         if (message.denyList !== undefined) {
-            StakeAuthorization_Validators.encode(message.denyList, writer.uint32(26).fork()).ldelim();
+            exports.StakeAuthorization_Validators.encode(message.denyList, writer.uint32(26).fork()).ldelim();
         }
         if (message.authorizationType !== 0) {
             writer.uint32(32).int32(message.authorizationType);
@@ -71,20 +76,20 @@ export const StakeAuthorization = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseStakeAuthorization };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.maxTokens = Coin.decode(reader, reader.uint32());
+                    message.maxTokens = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.allowList = StakeAuthorization_Validators.decode(reader, reader.uint32());
+                    message.allowList = exports.StakeAuthorization_Validators.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.denyList = StakeAuthorization_Validators.decode(reader, reader.uint32());
+                    message.denyList = exports.StakeAuthorization_Validators.decode(reader, reader.uint32());
                     break;
                 case 4:
                     message.authorizationType = reader.int32();
@@ -99,19 +104,19 @@ export const StakeAuthorization = {
     fromJSON(object) {
         const message = { ...baseStakeAuthorization };
         if (object.maxTokens !== undefined && object.maxTokens !== null) {
-            message.maxTokens = Coin.fromJSON(object.maxTokens);
+            message.maxTokens = coin_1.Coin.fromJSON(object.maxTokens);
         }
         else {
             message.maxTokens = undefined;
         }
         if (object.allowList !== undefined && object.allowList !== null) {
-            message.allowList = StakeAuthorization_Validators.fromJSON(object.allowList);
+            message.allowList = exports.StakeAuthorization_Validators.fromJSON(object.allowList);
         }
         else {
             message.allowList = undefined;
         }
         if (object.denyList !== undefined && object.denyList !== null) {
-            message.denyList = StakeAuthorization_Validators.fromJSON(object.denyList);
+            message.denyList = exports.StakeAuthorization_Validators.fromJSON(object.denyList);
         }
         else {
             message.denyList = undefined;
@@ -129,15 +134,15 @@ export const StakeAuthorization = {
         const obj = {};
         message.maxTokens !== undefined &&
             (obj.maxTokens = message.maxTokens
-                ? Coin.toJSON(message.maxTokens)
+                ? coin_1.Coin.toJSON(message.maxTokens)
                 : undefined);
         message.allowList !== undefined &&
             (obj.allowList = message.allowList
-                ? StakeAuthorization_Validators.toJSON(message.allowList)
+                ? exports.StakeAuthorization_Validators.toJSON(message.allowList)
                 : undefined);
         message.denyList !== undefined &&
             (obj.denyList = message.denyList
-                ? StakeAuthorization_Validators.toJSON(message.denyList)
+                ? exports.StakeAuthorization_Validators.toJSON(message.denyList)
                 : undefined);
         message.authorizationType !== undefined &&
             (obj.authorizationType = authorizationTypeToJSON(message.authorizationType));
@@ -146,19 +151,19 @@ export const StakeAuthorization = {
     fromPartial(object) {
         const message = { ...baseStakeAuthorization };
         if (object.maxTokens !== undefined && object.maxTokens !== null) {
-            message.maxTokens = Coin.fromPartial(object.maxTokens);
+            message.maxTokens = coin_1.Coin.fromPartial(object.maxTokens);
         }
         else {
             message.maxTokens = undefined;
         }
         if (object.allowList !== undefined && object.allowList !== null) {
-            message.allowList = StakeAuthorization_Validators.fromPartial(object.allowList);
+            message.allowList = exports.StakeAuthorization_Validators.fromPartial(object.allowList);
         }
         else {
             message.allowList = undefined;
         }
         if (object.denyList !== undefined && object.denyList !== null) {
-            message.denyList = StakeAuthorization_Validators.fromPartial(object.denyList);
+            message.denyList = exports.StakeAuthorization_Validators.fromPartial(object.denyList);
         }
         else {
             message.denyList = undefined;
@@ -174,15 +179,15 @@ export const StakeAuthorization = {
     },
 };
 const baseStakeAuthorization_Validators = { address: "" };
-export const StakeAuthorization_Validators = {
-    encode(message, writer = Writer.create()) {
+exports.StakeAuthorization_Validators = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.address) {
             writer.uint32(10).string(v);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseStakeAuthorization_Validators,

@@ -1,15 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GenesisState = exports.ValidatorSlashEventRecord = exports.DelegatorStartingInfoRecord = exports.ValidatorCurrentRewardsRecord = exports.ValidatorHistoricalRewardsRecord = exports.ValidatorAccumulatedCommissionRecord = exports.ValidatorOutstandingRewardsRecord = exports.DelegatorWithdrawInfo = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
-import { ValidatorAccumulatedCommission, ValidatorHistoricalRewards, ValidatorCurrentRewards, DelegatorStartingInfo, ValidatorSlashEvent, Params, FeePool, } from "../../../cosmos/distribution/v1beta1/distribution";
-export const protobufPackage = "cosmos.distribution.v1beta1";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const distribution_1 = require("../../../cosmos/distribution/v1beta1/distribution");
+exports.protobufPackage = "cosmos.distribution.v1beta1";
 const baseDelegatorWithdrawInfo = {
     delegatorAddress: "",
     withdrawAddress: "",
 };
-export const DelegatorWithdrawInfo = {
-    encode(message, writer = Writer.create()) {
+exports.DelegatorWithdrawInfo = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.delegatorAddress !== "") {
             writer.uint32(10).string(message.delegatorAddress);
         }
@@ -19,7 +22,7 @@ export const DelegatorWithdrawInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseDelegatorWithdrawInfo };
         while (reader.pos < end) {
@@ -84,18 +87,18 @@ export const DelegatorWithdrawInfo = {
     },
 };
 const baseValidatorOutstandingRewardsRecord = { validatorAddress: "" };
-export const ValidatorOutstandingRewardsRecord = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorOutstandingRewardsRecord = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.validatorAddress !== "") {
             writer.uint32(10).string(message.validatorAddress);
         }
         for (const v of message.outstandingRewards) {
-            DecCoin.encode(v, writer.uint32(18).fork()).ldelim();
+            coin_1.DecCoin.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseValidatorOutstandingRewardsRecord,
@@ -108,7 +111,7 @@ export const ValidatorOutstandingRewardsRecord = {
                     message.validatorAddress = reader.string();
                     break;
                 case 2:
-                    message.outstandingRewards.push(DecCoin.decode(reader, reader.uint32()));
+                    message.outstandingRewards.push(coin_1.DecCoin.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -132,7 +135,7 @@ export const ValidatorOutstandingRewardsRecord = {
         if (object.outstandingRewards !== undefined &&
             object.outstandingRewards !== null) {
             for (const e of object.outstandingRewards) {
-                message.outstandingRewards.push(DecCoin.fromJSON(e));
+                message.outstandingRewards.push(coin_1.DecCoin.fromJSON(e));
             }
         }
         return message;
@@ -142,7 +145,7 @@ export const ValidatorOutstandingRewardsRecord = {
         message.validatorAddress !== undefined &&
             (obj.validatorAddress = message.validatorAddress);
         if (message.outstandingRewards) {
-            obj.outstandingRewards = message.outstandingRewards.map((e) => e ? DecCoin.toJSON(e) : undefined);
+            obj.outstandingRewards = message.outstandingRewards.map((e) => e ? coin_1.DecCoin.toJSON(e) : undefined);
         }
         else {
             obj.outstandingRewards = [];
@@ -164,7 +167,7 @@ export const ValidatorOutstandingRewardsRecord = {
         if (object.outstandingRewards !== undefined &&
             object.outstandingRewards !== null) {
             for (const e of object.outstandingRewards) {
-                message.outstandingRewards.push(DecCoin.fromPartial(e));
+                message.outstandingRewards.push(coin_1.DecCoin.fromPartial(e));
             }
         }
         return message;
@@ -173,18 +176,18 @@ export const ValidatorOutstandingRewardsRecord = {
 const baseValidatorAccumulatedCommissionRecord = {
     validatorAddress: "",
 };
-export const ValidatorAccumulatedCommissionRecord = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorAccumulatedCommissionRecord = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.validatorAddress !== "") {
             writer.uint32(10).string(message.validatorAddress);
         }
         if (message.accumulated !== undefined) {
-            ValidatorAccumulatedCommission.encode(message.accumulated, writer.uint32(18).fork()).ldelim();
+            distribution_1.ValidatorAccumulatedCommission.encode(message.accumulated, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseValidatorAccumulatedCommissionRecord,
@@ -196,7 +199,7 @@ export const ValidatorAccumulatedCommissionRecord = {
                     message.validatorAddress = reader.string();
                     break;
                 case 2:
-                    message.accumulated = ValidatorAccumulatedCommission.decode(reader, reader.uint32());
+                    message.accumulated = distribution_1.ValidatorAccumulatedCommission.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -217,7 +220,7 @@ export const ValidatorAccumulatedCommissionRecord = {
             message.validatorAddress = "";
         }
         if (object.accumulated !== undefined && object.accumulated !== null) {
-            message.accumulated = ValidatorAccumulatedCommission.fromJSON(object.accumulated);
+            message.accumulated = distribution_1.ValidatorAccumulatedCommission.fromJSON(object.accumulated);
         }
         else {
             message.accumulated = undefined;
@@ -230,7 +233,7 @@ export const ValidatorAccumulatedCommissionRecord = {
             (obj.validatorAddress = message.validatorAddress);
         message.accumulated !== undefined &&
             (obj.accumulated = message.accumulated
-                ? ValidatorAccumulatedCommission.toJSON(message.accumulated)
+                ? distribution_1.ValidatorAccumulatedCommission.toJSON(message.accumulated)
                 : undefined);
         return obj;
     },
@@ -246,7 +249,7 @@ export const ValidatorAccumulatedCommissionRecord = {
             message.validatorAddress = "";
         }
         if (object.accumulated !== undefined && object.accumulated !== null) {
-            message.accumulated = ValidatorAccumulatedCommission.fromPartial(object.accumulated);
+            message.accumulated = distribution_1.ValidatorAccumulatedCommission.fromPartial(object.accumulated);
         }
         else {
             message.accumulated = undefined;
@@ -258,8 +261,8 @@ const baseValidatorHistoricalRewardsRecord = {
     validatorAddress: "",
     period: 0,
 };
-export const ValidatorHistoricalRewardsRecord = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorHistoricalRewardsRecord = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.validatorAddress !== "") {
             writer.uint32(10).string(message.validatorAddress);
         }
@@ -267,12 +270,12 @@ export const ValidatorHistoricalRewardsRecord = {
             writer.uint32(16).uint64(message.period);
         }
         if (message.rewards !== undefined) {
-            ValidatorHistoricalRewards.encode(message.rewards, writer.uint32(26).fork()).ldelim();
+            distribution_1.ValidatorHistoricalRewards.encode(message.rewards, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseValidatorHistoricalRewardsRecord,
@@ -287,7 +290,7 @@ export const ValidatorHistoricalRewardsRecord = {
                     message.period = longToNumber(reader.uint64());
                     break;
                 case 3:
-                    message.rewards = ValidatorHistoricalRewards.decode(reader, reader.uint32());
+                    message.rewards = distribution_1.ValidatorHistoricalRewards.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -314,7 +317,7 @@ export const ValidatorHistoricalRewardsRecord = {
             message.period = 0;
         }
         if (object.rewards !== undefined && object.rewards !== null) {
-            message.rewards = ValidatorHistoricalRewards.fromJSON(object.rewards);
+            message.rewards = distribution_1.ValidatorHistoricalRewards.fromJSON(object.rewards);
         }
         else {
             message.rewards = undefined;
@@ -328,7 +331,7 @@ export const ValidatorHistoricalRewardsRecord = {
         message.period !== undefined && (obj.period = message.period);
         message.rewards !== undefined &&
             (obj.rewards = message.rewards
-                ? ValidatorHistoricalRewards.toJSON(message.rewards)
+                ? distribution_1.ValidatorHistoricalRewards.toJSON(message.rewards)
                 : undefined);
         return obj;
     },
@@ -350,7 +353,7 @@ export const ValidatorHistoricalRewardsRecord = {
             message.period = 0;
         }
         if (object.rewards !== undefined && object.rewards !== null) {
-            message.rewards = ValidatorHistoricalRewards.fromPartial(object.rewards);
+            message.rewards = distribution_1.ValidatorHistoricalRewards.fromPartial(object.rewards);
         }
         else {
             message.rewards = undefined;
@@ -359,18 +362,18 @@ export const ValidatorHistoricalRewardsRecord = {
     },
 };
 const baseValidatorCurrentRewardsRecord = { validatorAddress: "" };
-export const ValidatorCurrentRewardsRecord = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorCurrentRewardsRecord = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.validatorAddress !== "") {
             writer.uint32(10).string(message.validatorAddress);
         }
         if (message.rewards !== undefined) {
-            ValidatorCurrentRewards.encode(message.rewards, writer.uint32(18).fork()).ldelim();
+            distribution_1.ValidatorCurrentRewards.encode(message.rewards, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseValidatorCurrentRewardsRecord,
@@ -382,7 +385,7 @@ export const ValidatorCurrentRewardsRecord = {
                     message.validatorAddress = reader.string();
                     break;
                 case 2:
-                    message.rewards = ValidatorCurrentRewards.decode(reader, reader.uint32());
+                    message.rewards = distribution_1.ValidatorCurrentRewards.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -403,7 +406,7 @@ export const ValidatorCurrentRewardsRecord = {
             message.validatorAddress = "";
         }
         if (object.rewards !== undefined && object.rewards !== null) {
-            message.rewards = ValidatorCurrentRewards.fromJSON(object.rewards);
+            message.rewards = distribution_1.ValidatorCurrentRewards.fromJSON(object.rewards);
         }
         else {
             message.rewards = undefined;
@@ -416,7 +419,7 @@ export const ValidatorCurrentRewardsRecord = {
             (obj.validatorAddress = message.validatorAddress);
         message.rewards !== undefined &&
             (obj.rewards = message.rewards
-                ? ValidatorCurrentRewards.toJSON(message.rewards)
+                ? distribution_1.ValidatorCurrentRewards.toJSON(message.rewards)
                 : undefined);
         return obj;
     },
@@ -432,7 +435,7 @@ export const ValidatorCurrentRewardsRecord = {
             message.validatorAddress = "";
         }
         if (object.rewards !== undefined && object.rewards !== null) {
-            message.rewards = ValidatorCurrentRewards.fromPartial(object.rewards);
+            message.rewards = distribution_1.ValidatorCurrentRewards.fromPartial(object.rewards);
         }
         else {
             message.rewards = undefined;
@@ -444,8 +447,8 @@ const baseDelegatorStartingInfoRecord = {
     delegatorAddress: "",
     validatorAddress: "",
 };
-export const DelegatorStartingInfoRecord = {
-    encode(message, writer = Writer.create()) {
+exports.DelegatorStartingInfoRecord = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.delegatorAddress !== "") {
             writer.uint32(10).string(message.delegatorAddress);
         }
@@ -453,12 +456,12 @@ export const DelegatorStartingInfoRecord = {
             writer.uint32(18).string(message.validatorAddress);
         }
         if (message.startingInfo !== undefined) {
-            DelegatorStartingInfo.encode(message.startingInfo, writer.uint32(26).fork()).ldelim();
+            distribution_1.DelegatorStartingInfo.encode(message.startingInfo, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseDelegatorStartingInfoRecord,
@@ -473,7 +476,7 @@ export const DelegatorStartingInfoRecord = {
                     message.validatorAddress = reader.string();
                     break;
                 case 3:
-                    message.startingInfo = DelegatorStartingInfo.decode(reader, reader.uint32());
+                    message.startingInfo = distribution_1.DelegatorStartingInfo.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -501,7 +504,7 @@ export const DelegatorStartingInfoRecord = {
             message.validatorAddress = "";
         }
         if (object.startingInfo !== undefined && object.startingInfo !== null) {
-            message.startingInfo = DelegatorStartingInfo.fromJSON(object.startingInfo);
+            message.startingInfo = distribution_1.DelegatorStartingInfo.fromJSON(object.startingInfo);
         }
         else {
             message.startingInfo = undefined;
@@ -516,7 +519,7 @@ export const DelegatorStartingInfoRecord = {
             (obj.validatorAddress = message.validatorAddress);
         message.startingInfo !== undefined &&
             (obj.startingInfo = message.startingInfo
-                ? DelegatorStartingInfo.toJSON(message.startingInfo)
+                ? distribution_1.DelegatorStartingInfo.toJSON(message.startingInfo)
                 : undefined);
         return obj;
     },
@@ -539,7 +542,7 @@ export const DelegatorStartingInfoRecord = {
             message.validatorAddress = "";
         }
         if (object.startingInfo !== undefined && object.startingInfo !== null) {
-            message.startingInfo = DelegatorStartingInfo.fromPartial(object.startingInfo);
+            message.startingInfo = distribution_1.DelegatorStartingInfo.fromPartial(object.startingInfo);
         }
         else {
             message.startingInfo = undefined;
@@ -552,8 +555,8 @@ const baseValidatorSlashEventRecord = {
     height: 0,
     period: 0,
 };
-export const ValidatorSlashEventRecord = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorSlashEventRecord = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.validatorAddress !== "") {
             writer.uint32(10).string(message.validatorAddress);
         }
@@ -564,12 +567,12 @@ export const ValidatorSlashEventRecord = {
             writer.uint32(24).uint64(message.period);
         }
         if (message.validatorSlashEvent !== undefined) {
-            ValidatorSlashEvent.encode(message.validatorSlashEvent, writer.uint32(34).fork()).ldelim();
+            distribution_1.ValidatorSlashEvent.encode(message.validatorSlashEvent, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseValidatorSlashEventRecord,
@@ -587,7 +590,7 @@ export const ValidatorSlashEventRecord = {
                     message.period = longToNumber(reader.uint64());
                     break;
                 case 4:
-                    message.validatorSlashEvent = ValidatorSlashEvent.decode(reader, reader.uint32());
+                    message.validatorSlashEvent = distribution_1.ValidatorSlashEvent.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -621,7 +624,7 @@ export const ValidatorSlashEventRecord = {
         }
         if (object.validatorSlashEvent !== undefined &&
             object.validatorSlashEvent !== null) {
-            message.validatorSlashEvent = ValidatorSlashEvent.fromJSON(object.validatorSlashEvent);
+            message.validatorSlashEvent = distribution_1.ValidatorSlashEvent.fromJSON(object.validatorSlashEvent);
         }
         else {
             message.validatorSlashEvent = undefined;
@@ -636,7 +639,7 @@ export const ValidatorSlashEventRecord = {
         message.period !== undefined && (obj.period = message.period);
         message.validatorSlashEvent !== undefined &&
             (obj.validatorSlashEvent = message.validatorSlashEvent
-                ? ValidatorSlashEvent.toJSON(message.validatorSlashEvent)
+                ? distribution_1.ValidatorSlashEvent.toJSON(message.validatorSlashEvent)
                 : undefined);
         return obj;
     },
@@ -665,7 +668,7 @@ export const ValidatorSlashEventRecord = {
         }
         if (object.validatorSlashEvent !== undefined &&
             object.validatorSlashEvent !== null) {
-            message.validatorSlashEvent = ValidatorSlashEvent.fromPartial(object.validatorSlashEvent);
+            message.validatorSlashEvent = distribution_1.ValidatorSlashEvent.fromPartial(object.validatorSlashEvent);
         }
         else {
             message.validatorSlashEvent = undefined;
@@ -674,42 +677,42 @@ export const ValidatorSlashEventRecord = {
     },
 };
 const baseGenesisState = { previousProposer: "" };
-export const GenesisState = {
-    encode(message, writer = Writer.create()) {
+exports.GenesisState = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.params !== undefined) {
-            Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+            distribution_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         if (message.feePool !== undefined) {
-            FeePool.encode(message.feePool, writer.uint32(18).fork()).ldelim();
+            distribution_1.FeePool.encode(message.feePool, writer.uint32(18).fork()).ldelim();
         }
         for (const v of message.delegatorWithdrawInfos) {
-            DelegatorWithdrawInfo.encode(v, writer.uint32(26).fork()).ldelim();
+            exports.DelegatorWithdrawInfo.encode(v, writer.uint32(26).fork()).ldelim();
         }
         if (message.previousProposer !== "") {
             writer.uint32(34).string(message.previousProposer);
         }
         for (const v of message.outstandingRewards) {
-            ValidatorOutstandingRewardsRecord.encode(v, writer.uint32(42).fork()).ldelim();
+            exports.ValidatorOutstandingRewardsRecord.encode(v, writer.uint32(42).fork()).ldelim();
         }
         for (const v of message.validatorAccumulatedCommissions) {
-            ValidatorAccumulatedCommissionRecord.encode(v, writer.uint32(50).fork()).ldelim();
+            exports.ValidatorAccumulatedCommissionRecord.encode(v, writer.uint32(50).fork()).ldelim();
         }
         for (const v of message.validatorHistoricalRewards) {
-            ValidatorHistoricalRewardsRecord.encode(v, writer.uint32(58).fork()).ldelim();
+            exports.ValidatorHistoricalRewardsRecord.encode(v, writer.uint32(58).fork()).ldelim();
         }
         for (const v of message.validatorCurrentRewards) {
-            ValidatorCurrentRewardsRecord.encode(v, writer.uint32(66).fork()).ldelim();
+            exports.ValidatorCurrentRewardsRecord.encode(v, writer.uint32(66).fork()).ldelim();
         }
         for (const v of message.delegatorStartingInfos) {
-            DelegatorStartingInfoRecord.encode(v, writer.uint32(74).fork()).ldelim();
+            exports.DelegatorStartingInfoRecord.encode(v, writer.uint32(74).fork()).ldelim();
         }
         for (const v of message.validatorSlashEvents) {
-            ValidatorSlashEventRecord.encode(v, writer.uint32(82).fork()).ldelim();
+            exports.ValidatorSlashEventRecord.encode(v, writer.uint32(82).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
         message.delegatorWithdrawInfos = [];
@@ -723,34 +726,34 @@ export const GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.params = Params.decode(reader, reader.uint32());
+                    message.params = distribution_1.Params.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.feePool = FeePool.decode(reader, reader.uint32());
+                    message.feePool = distribution_1.FeePool.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.delegatorWithdrawInfos.push(DelegatorWithdrawInfo.decode(reader, reader.uint32()));
+                    message.delegatorWithdrawInfos.push(exports.DelegatorWithdrawInfo.decode(reader, reader.uint32()));
                     break;
                 case 4:
                     message.previousProposer = reader.string();
                     break;
                 case 5:
-                    message.outstandingRewards.push(ValidatorOutstandingRewardsRecord.decode(reader, reader.uint32()));
+                    message.outstandingRewards.push(exports.ValidatorOutstandingRewardsRecord.decode(reader, reader.uint32()));
                     break;
                 case 6:
-                    message.validatorAccumulatedCommissions.push(ValidatorAccumulatedCommissionRecord.decode(reader, reader.uint32()));
+                    message.validatorAccumulatedCommissions.push(exports.ValidatorAccumulatedCommissionRecord.decode(reader, reader.uint32()));
                     break;
                 case 7:
-                    message.validatorHistoricalRewards.push(ValidatorHistoricalRewardsRecord.decode(reader, reader.uint32()));
+                    message.validatorHistoricalRewards.push(exports.ValidatorHistoricalRewardsRecord.decode(reader, reader.uint32()));
                     break;
                 case 8:
-                    message.validatorCurrentRewards.push(ValidatorCurrentRewardsRecord.decode(reader, reader.uint32()));
+                    message.validatorCurrentRewards.push(exports.ValidatorCurrentRewardsRecord.decode(reader, reader.uint32()));
                     break;
                 case 9:
-                    message.delegatorStartingInfos.push(DelegatorStartingInfoRecord.decode(reader, reader.uint32()));
+                    message.delegatorStartingInfos.push(exports.DelegatorStartingInfoRecord.decode(reader, reader.uint32()));
                     break;
                 case 10:
-                    message.validatorSlashEvents.push(ValidatorSlashEventRecord.decode(reader, reader.uint32()));
+                    message.validatorSlashEvents.push(exports.ValidatorSlashEventRecord.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -769,13 +772,13 @@ export const GenesisState = {
         message.delegatorStartingInfos = [];
         message.validatorSlashEvents = [];
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromJSON(object.params);
+            message.params = distribution_1.Params.fromJSON(object.params);
         }
         else {
             message.params = undefined;
         }
         if (object.feePool !== undefined && object.feePool !== null) {
-            message.feePool = FeePool.fromJSON(object.feePool);
+            message.feePool = distribution_1.FeePool.fromJSON(object.feePool);
         }
         else {
             message.feePool = undefined;
@@ -783,7 +786,7 @@ export const GenesisState = {
         if (object.delegatorWithdrawInfos !== undefined &&
             object.delegatorWithdrawInfos !== null) {
             for (const e of object.delegatorWithdrawInfos) {
-                message.delegatorWithdrawInfos.push(DelegatorWithdrawInfo.fromJSON(e));
+                message.delegatorWithdrawInfos.push(exports.DelegatorWithdrawInfo.fromJSON(e));
             }
         }
         if (object.previousProposer !== undefined &&
@@ -796,37 +799,37 @@ export const GenesisState = {
         if (object.outstandingRewards !== undefined &&
             object.outstandingRewards !== null) {
             for (const e of object.outstandingRewards) {
-                message.outstandingRewards.push(ValidatorOutstandingRewardsRecord.fromJSON(e));
+                message.outstandingRewards.push(exports.ValidatorOutstandingRewardsRecord.fromJSON(e));
             }
         }
         if (object.validatorAccumulatedCommissions !== undefined &&
             object.validatorAccumulatedCommissions !== null) {
             for (const e of object.validatorAccumulatedCommissions) {
-                message.validatorAccumulatedCommissions.push(ValidatorAccumulatedCommissionRecord.fromJSON(e));
+                message.validatorAccumulatedCommissions.push(exports.ValidatorAccumulatedCommissionRecord.fromJSON(e));
             }
         }
         if (object.validatorHistoricalRewards !== undefined &&
             object.validatorHistoricalRewards !== null) {
             for (const e of object.validatorHistoricalRewards) {
-                message.validatorHistoricalRewards.push(ValidatorHistoricalRewardsRecord.fromJSON(e));
+                message.validatorHistoricalRewards.push(exports.ValidatorHistoricalRewardsRecord.fromJSON(e));
             }
         }
         if (object.validatorCurrentRewards !== undefined &&
             object.validatorCurrentRewards !== null) {
             for (const e of object.validatorCurrentRewards) {
-                message.validatorCurrentRewards.push(ValidatorCurrentRewardsRecord.fromJSON(e));
+                message.validatorCurrentRewards.push(exports.ValidatorCurrentRewardsRecord.fromJSON(e));
             }
         }
         if (object.delegatorStartingInfos !== undefined &&
             object.delegatorStartingInfos !== null) {
             for (const e of object.delegatorStartingInfos) {
-                message.delegatorStartingInfos.push(DelegatorStartingInfoRecord.fromJSON(e));
+                message.delegatorStartingInfos.push(exports.DelegatorStartingInfoRecord.fromJSON(e));
             }
         }
         if (object.validatorSlashEvents !== undefined &&
             object.validatorSlashEvents !== null) {
             for (const e of object.validatorSlashEvents) {
-                message.validatorSlashEvents.push(ValidatorSlashEventRecord.fromJSON(e));
+                message.validatorSlashEvents.push(exports.ValidatorSlashEventRecord.fromJSON(e));
             }
         }
         return message;
@@ -834,13 +837,13 @@ export const GenesisState = {
     toJSON(message) {
         const obj = {};
         message.params !== undefined &&
-            (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+            (obj.params = message.params ? distribution_1.Params.toJSON(message.params) : undefined);
         message.feePool !== undefined &&
             (obj.feePool = message.feePool
-                ? FeePool.toJSON(message.feePool)
+                ? distribution_1.FeePool.toJSON(message.feePool)
                 : undefined);
         if (message.delegatorWithdrawInfos) {
-            obj.delegatorWithdrawInfos = message.delegatorWithdrawInfos.map((e) => e ? DelegatorWithdrawInfo.toJSON(e) : undefined);
+            obj.delegatorWithdrawInfos = message.delegatorWithdrawInfos.map((e) => e ? exports.DelegatorWithdrawInfo.toJSON(e) : undefined);
         }
         else {
             obj.delegatorWithdrawInfos = [];
@@ -848,37 +851,37 @@ export const GenesisState = {
         message.previousProposer !== undefined &&
             (obj.previousProposer = message.previousProposer);
         if (message.outstandingRewards) {
-            obj.outstandingRewards = message.outstandingRewards.map((e) => e ? ValidatorOutstandingRewardsRecord.toJSON(e) : undefined);
+            obj.outstandingRewards = message.outstandingRewards.map((e) => e ? exports.ValidatorOutstandingRewardsRecord.toJSON(e) : undefined);
         }
         else {
             obj.outstandingRewards = [];
         }
         if (message.validatorAccumulatedCommissions) {
-            obj.validatorAccumulatedCommissions = message.validatorAccumulatedCommissions.map((e) => (e ? ValidatorAccumulatedCommissionRecord.toJSON(e) : undefined));
+            obj.validatorAccumulatedCommissions = message.validatorAccumulatedCommissions.map((e) => (e ? exports.ValidatorAccumulatedCommissionRecord.toJSON(e) : undefined));
         }
         else {
             obj.validatorAccumulatedCommissions = [];
         }
         if (message.validatorHistoricalRewards) {
-            obj.validatorHistoricalRewards = message.validatorHistoricalRewards.map((e) => (e ? ValidatorHistoricalRewardsRecord.toJSON(e) : undefined));
+            obj.validatorHistoricalRewards = message.validatorHistoricalRewards.map((e) => (e ? exports.ValidatorHistoricalRewardsRecord.toJSON(e) : undefined));
         }
         else {
             obj.validatorHistoricalRewards = [];
         }
         if (message.validatorCurrentRewards) {
-            obj.validatorCurrentRewards = message.validatorCurrentRewards.map((e) => e ? ValidatorCurrentRewardsRecord.toJSON(e) : undefined);
+            obj.validatorCurrentRewards = message.validatorCurrentRewards.map((e) => e ? exports.ValidatorCurrentRewardsRecord.toJSON(e) : undefined);
         }
         else {
             obj.validatorCurrentRewards = [];
         }
         if (message.delegatorStartingInfos) {
-            obj.delegatorStartingInfos = message.delegatorStartingInfos.map((e) => e ? DelegatorStartingInfoRecord.toJSON(e) : undefined);
+            obj.delegatorStartingInfos = message.delegatorStartingInfos.map((e) => e ? exports.DelegatorStartingInfoRecord.toJSON(e) : undefined);
         }
         else {
             obj.delegatorStartingInfos = [];
         }
         if (message.validatorSlashEvents) {
-            obj.validatorSlashEvents = message.validatorSlashEvents.map((e) => e ? ValidatorSlashEventRecord.toJSON(e) : undefined);
+            obj.validatorSlashEvents = message.validatorSlashEvents.map((e) => e ? exports.ValidatorSlashEventRecord.toJSON(e) : undefined);
         }
         else {
             obj.validatorSlashEvents = [];
@@ -895,13 +898,13 @@ export const GenesisState = {
         message.delegatorStartingInfos = [];
         message.validatorSlashEvents = [];
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromPartial(object.params);
+            message.params = distribution_1.Params.fromPartial(object.params);
         }
         else {
             message.params = undefined;
         }
         if (object.feePool !== undefined && object.feePool !== null) {
-            message.feePool = FeePool.fromPartial(object.feePool);
+            message.feePool = distribution_1.FeePool.fromPartial(object.feePool);
         }
         else {
             message.feePool = undefined;
@@ -909,7 +912,7 @@ export const GenesisState = {
         if (object.delegatorWithdrawInfos !== undefined &&
             object.delegatorWithdrawInfos !== null) {
             for (const e of object.delegatorWithdrawInfos) {
-                message.delegatorWithdrawInfos.push(DelegatorWithdrawInfo.fromPartial(e));
+                message.delegatorWithdrawInfos.push(exports.DelegatorWithdrawInfo.fromPartial(e));
             }
         }
         if (object.previousProposer !== undefined &&
@@ -922,37 +925,37 @@ export const GenesisState = {
         if (object.outstandingRewards !== undefined &&
             object.outstandingRewards !== null) {
             for (const e of object.outstandingRewards) {
-                message.outstandingRewards.push(ValidatorOutstandingRewardsRecord.fromPartial(e));
+                message.outstandingRewards.push(exports.ValidatorOutstandingRewardsRecord.fromPartial(e));
             }
         }
         if (object.validatorAccumulatedCommissions !== undefined &&
             object.validatorAccumulatedCommissions !== null) {
             for (const e of object.validatorAccumulatedCommissions) {
-                message.validatorAccumulatedCommissions.push(ValidatorAccumulatedCommissionRecord.fromPartial(e));
+                message.validatorAccumulatedCommissions.push(exports.ValidatorAccumulatedCommissionRecord.fromPartial(e));
             }
         }
         if (object.validatorHistoricalRewards !== undefined &&
             object.validatorHistoricalRewards !== null) {
             for (const e of object.validatorHistoricalRewards) {
-                message.validatorHistoricalRewards.push(ValidatorHistoricalRewardsRecord.fromPartial(e));
+                message.validatorHistoricalRewards.push(exports.ValidatorHistoricalRewardsRecord.fromPartial(e));
             }
         }
         if (object.validatorCurrentRewards !== undefined &&
             object.validatorCurrentRewards !== null) {
             for (const e of object.validatorCurrentRewards) {
-                message.validatorCurrentRewards.push(ValidatorCurrentRewardsRecord.fromPartial(e));
+                message.validatorCurrentRewards.push(exports.ValidatorCurrentRewardsRecord.fromPartial(e));
             }
         }
         if (object.delegatorStartingInfos !== undefined &&
             object.delegatorStartingInfos !== null) {
             for (const e of object.delegatorStartingInfos) {
-                message.delegatorStartingInfos.push(DelegatorStartingInfoRecord.fromPartial(e));
+                message.delegatorStartingInfos.push(exports.DelegatorStartingInfoRecord.fromPartial(e));
             }
         }
         if (object.validatorSlashEvents !== undefined &&
             object.validatorSlashEvents !== null) {
             for (const e of object.validatorSlashEvents) {
-                message.validatorSlashEvents.push(ValidatorSlashEventRecord.fromPartial(e));
+                message.validatorSlashEvents.push(exports.ValidatorSlashEventRecord.fromPartial(e));
             }
         }
         return message;
@@ -975,7 +978,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PublicKey = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "tendermint.crypto";
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "tendermint.crypto";
 const basePublicKey = {};
-export const PublicKey = {
-    encode(message, writer = Writer.create()) {
+exports.PublicKey = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.ed25519 !== undefined) {
             writer.uint32(10).bytes(message.ed25519);
         }
@@ -13,7 +16,7 @@ export const PublicKey = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...basePublicKey };
         while (reader.pos < end) {

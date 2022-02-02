@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EventRevoke = exports.EventGrant = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.authz.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.authz.v1beta1";
 const baseEventGrant = { msgTypeUrl: "", granter: "", grantee: "" };
-export const EventGrant = {
-    encode(message, writer = Writer.create()) {
+exports.EventGrant = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.msgTypeUrl !== "") {
             writer.uint32(18).string(message.msgTypeUrl);
         }
@@ -16,7 +19,7 @@ export const EventGrant = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseEventGrant };
         while (reader.pos < end) {
@@ -91,8 +94,8 @@ export const EventGrant = {
     },
 };
 const baseEventRevoke = { msgTypeUrl: "", granter: "", grantee: "" };
-export const EventRevoke = {
-    encode(message, writer = Writer.create()) {
+exports.EventRevoke = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.msgTypeUrl !== "") {
             writer.uint32(18).string(message.msgTypeUrl);
         }
@@ -105,7 +108,7 @@ export const EventRevoke = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseEventRevoke };
         while (reader.pos < end) {

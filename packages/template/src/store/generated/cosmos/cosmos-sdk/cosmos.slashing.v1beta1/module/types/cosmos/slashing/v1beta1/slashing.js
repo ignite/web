@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Params = exports.ValidatorSigningInfo = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Duration } from "../../../google/protobuf/duration";
-export const protobufPackage = "cosmos.slashing.v1beta1";
+const timestamp_1 = require("../../../google/protobuf/timestamp");
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+const duration_1 = require("../../../google/protobuf/duration");
+exports.protobufPackage = "cosmos.slashing.v1beta1";
 const baseValidatorSigningInfo = {
     address: "",
     startHeight: 0,
@@ -11,8 +14,8 @@ const baseValidatorSigningInfo = {
     tombstoned: false,
     missedBlocksCounter: 0,
 };
-export const ValidatorSigningInfo = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorSigningInfo = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
         }
@@ -23,7 +26,7 @@ export const ValidatorSigningInfo = {
             writer.uint32(24).int64(message.indexOffset);
         }
         if (message.jailedUntil !== undefined) {
-            Timestamp.encode(toTimestamp(message.jailedUntil), writer.uint32(34).fork()).ldelim();
+            timestamp_1.Timestamp.encode(toTimestamp(message.jailedUntil), writer.uint32(34).fork()).ldelim();
         }
         if (message.tombstoned === true) {
             writer.uint32(40).bool(message.tombstoned);
@@ -34,7 +37,7 @@ export const ValidatorSigningInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseValidatorSigningInfo };
         while (reader.pos < end) {
@@ -50,7 +53,7 @@ export const ValidatorSigningInfo = {
                     message.indexOffset = longToNumber(reader.int64());
                     break;
                 case 4:
-                    message.jailedUntil = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    message.jailedUntil = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     break;
                 case 5:
                     message.tombstoned = reader.bool();
@@ -166,8 +169,8 @@ export const ValidatorSigningInfo = {
     },
 };
 const baseParams = { signedBlocksWindow: 0 };
-export const Params = {
-    encode(message, writer = Writer.create()) {
+exports.Params = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.signedBlocksWindow !== 0) {
             writer.uint32(8).int64(message.signedBlocksWindow);
         }
@@ -175,7 +178,7 @@ export const Params = {
             writer.uint32(18).bytes(message.minSignedPerWindow);
         }
         if (message.downtimeJailDuration !== undefined) {
-            Duration.encode(message.downtimeJailDuration, writer.uint32(26).fork()).ldelim();
+            duration_1.Duration.encode(message.downtimeJailDuration, writer.uint32(26).fork()).ldelim();
         }
         if (message.slashFractionDoubleSign.length !== 0) {
             writer.uint32(34).bytes(message.slashFractionDoubleSign);
@@ -186,7 +189,7 @@ export const Params = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseParams };
         while (reader.pos < end) {
@@ -199,7 +202,7 @@ export const Params = {
                     message.minSignedPerWindow = reader.bytes();
                     break;
                 case 3:
-                    message.downtimeJailDuration = Duration.decode(reader, reader.uint32());
+                    message.downtimeJailDuration = duration_1.Duration.decode(reader, reader.uint32());
                     break;
                 case 4:
                     message.slashFractionDoubleSign = reader.bytes();
@@ -229,7 +232,7 @@ export const Params = {
         }
         if (object.downtimeJailDuration !== undefined &&
             object.downtimeJailDuration !== null) {
-            message.downtimeJailDuration = Duration.fromJSON(object.downtimeJailDuration);
+            message.downtimeJailDuration = duration_1.Duration.fromJSON(object.downtimeJailDuration);
         }
         else {
             message.downtimeJailDuration = undefined;
@@ -254,7 +257,7 @@ export const Params = {
                 : new Uint8Array()));
         message.downtimeJailDuration !== undefined &&
             (obj.downtimeJailDuration = message.downtimeJailDuration
-                ? Duration.toJSON(message.downtimeJailDuration)
+                ? duration_1.Duration.toJSON(message.downtimeJailDuration)
                 : undefined);
         message.slashFractionDoubleSign !== undefined &&
             (obj.slashFractionDoubleSign = base64FromBytes(message.slashFractionDoubleSign !== undefined
@@ -284,7 +287,7 @@ export const Params = {
         }
         if (object.downtimeJailDuration !== undefined &&
             object.downtimeJailDuration !== null) {
-            message.downtimeJailDuration = Duration.fromPartial(object.downtimeJailDuration);
+            message.downtimeJailDuration = duration_1.Duration.fromPartial(object.downtimeJailDuration);
         }
         else {
             message.downtimeJailDuration = undefined;
@@ -354,7 +357,7 @@ function fromJsonTimestamp(o) {
         return new Date(o);
     }
     else {
-        return fromTimestamp(Timestamp.fromJSON(o));
+        return fromTimestamp(timestamp_1.Timestamp.fromJSON(o));
     }
 }
 function longToNumber(long) {
@@ -363,7 +366,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Any = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "google.protobuf";
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "google.protobuf";
 const baseAny = { typeUrl: "" };
-export const Any = {
-    encode(message, writer = Writer.create()) {
+exports.Any = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.typeUrl !== "") {
             writer.uint32(10).string(message.typeUrl);
         }
@@ -13,7 +16,7 @@ export const Any = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseAny };
         while (reader.pos < end) {

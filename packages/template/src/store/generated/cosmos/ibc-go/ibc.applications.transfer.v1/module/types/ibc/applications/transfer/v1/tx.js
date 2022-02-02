@@ -1,9 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgClientImpl = exports.MsgTransferResponse = exports.MsgTransfer = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
-import { Coin } from "../../../../cosmos/base/v1beta1/coin";
-import { Height } from "../../../../ibc/core/client/v1/client";
-export const protobufPackage = "ibc.applications.transfer.v1";
+const minimal_1 = require("protobufjs/minimal");
+const Long = require("long");
+const coin_1 = require("../../../../cosmos/base/v1beta1/coin");
+const client_1 = require("../../../../ibc/core/client/v1/client");
+exports.protobufPackage = "ibc.applications.transfer.v1";
 const baseMsgTransfer = {
     sourcePort: "",
     sourceChannel: "",
@@ -11,8 +14,8 @@ const baseMsgTransfer = {
     receiver: "",
     timeoutTimestamp: 0,
 };
-export const MsgTransfer = {
-    encode(message, writer = Writer.create()) {
+exports.MsgTransfer = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.sourcePort !== "") {
             writer.uint32(10).string(message.sourcePort);
         }
@@ -20,7 +23,7 @@ export const MsgTransfer = {
             writer.uint32(18).string(message.sourceChannel);
         }
         if (message.token !== undefined) {
-            Coin.encode(message.token, writer.uint32(26).fork()).ldelim();
+            coin_1.Coin.encode(message.token, writer.uint32(26).fork()).ldelim();
         }
         if (message.sender !== "") {
             writer.uint32(34).string(message.sender);
@@ -29,7 +32,7 @@ export const MsgTransfer = {
             writer.uint32(42).string(message.receiver);
         }
         if (message.timeoutHeight !== undefined) {
-            Height.encode(message.timeoutHeight, writer.uint32(50).fork()).ldelim();
+            client_1.Height.encode(message.timeoutHeight, writer.uint32(50).fork()).ldelim();
         }
         if (message.timeoutTimestamp !== 0) {
             writer.uint32(56).uint64(message.timeoutTimestamp);
@@ -37,7 +40,7 @@ export const MsgTransfer = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgTransfer };
         while (reader.pos < end) {
@@ -50,7 +53,7 @@ export const MsgTransfer = {
                     message.sourceChannel = reader.string();
                     break;
                 case 3:
-                    message.token = Coin.decode(reader, reader.uint32());
+                    message.token = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 4:
                     message.sender = reader.string();
@@ -59,7 +62,7 @@ export const MsgTransfer = {
                     message.receiver = reader.string();
                     break;
                 case 6:
-                    message.timeoutHeight = Height.decode(reader, reader.uint32());
+                    message.timeoutHeight = client_1.Height.decode(reader, reader.uint32());
                     break;
                 case 7:
                     message.timeoutTimestamp = longToNumber(reader.uint64());
@@ -86,7 +89,7 @@ export const MsgTransfer = {
             message.sourceChannel = "";
         }
         if (object.token !== undefined && object.token !== null) {
-            message.token = Coin.fromJSON(object.token);
+            message.token = coin_1.Coin.fromJSON(object.token);
         }
         else {
             message.token = undefined;
@@ -104,7 +107,7 @@ export const MsgTransfer = {
             message.receiver = "";
         }
         if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
-            message.timeoutHeight = Height.fromJSON(object.timeoutHeight);
+            message.timeoutHeight = client_1.Height.fromJSON(object.timeoutHeight);
         }
         else {
             message.timeoutHeight = undefined;
@@ -124,12 +127,12 @@ export const MsgTransfer = {
         message.sourceChannel !== undefined &&
             (obj.sourceChannel = message.sourceChannel);
         message.token !== undefined &&
-            (obj.token = message.token ? Coin.toJSON(message.token) : undefined);
+            (obj.token = message.token ? coin_1.Coin.toJSON(message.token) : undefined);
         message.sender !== undefined && (obj.sender = message.sender);
         message.receiver !== undefined && (obj.receiver = message.receiver);
         message.timeoutHeight !== undefined &&
             (obj.timeoutHeight = message.timeoutHeight
-                ? Height.toJSON(message.timeoutHeight)
+                ? client_1.Height.toJSON(message.timeoutHeight)
                 : undefined);
         message.timeoutTimestamp !== undefined &&
             (obj.timeoutTimestamp = message.timeoutTimestamp);
@@ -150,7 +153,7 @@ export const MsgTransfer = {
             message.sourceChannel = "";
         }
         if (object.token !== undefined && object.token !== null) {
-            message.token = Coin.fromPartial(object.token);
+            message.token = coin_1.Coin.fromPartial(object.token);
         }
         else {
             message.token = undefined;
@@ -168,7 +171,7 @@ export const MsgTransfer = {
             message.receiver = "";
         }
         if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
-            message.timeoutHeight = Height.fromPartial(object.timeoutHeight);
+            message.timeoutHeight = client_1.Height.fromPartial(object.timeoutHeight);
         }
         else {
             message.timeoutHeight = undefined;
@@ -184,12 +187,12 @@ export const MsgTransfer = {
     },
 };
 const baseMsgTransferResponse = {};
-export const MsgTransferResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgTransferResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgTransferResponse };
         while (reader.pos < end) {
@@ -215,16 +218,17 @@ export const MsgTransferResponse = {
         return message;
     },
 };
-export class MsgClientImpl {
+class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     Transfer(request) {
-        const data = MsgTransfer.encode(request).finish();
+        const data = exports.MsgTransfer.encode(request).finish();
         const promise = this.rpc.request("ibc.applications.transfer.v1.Msg", "Transfer", data);
-        return promise.then((data) => MsgTransferResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgTransferResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.MsgClientImpl = MsgClientImpl;
 var globalThis = (() => {
     if (typeof globalThis !== "undefined")
         return globalThis;
@@ -242,7 +246,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

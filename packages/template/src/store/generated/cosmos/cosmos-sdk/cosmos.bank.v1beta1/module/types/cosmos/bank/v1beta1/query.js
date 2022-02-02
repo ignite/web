@@ -1,12 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.QueryClientImpl = exports.QueryDenomMetadataResponse = exports.QueryDenomMetadataRequest = exports.QueryDenomsMetadataResponse = exports.QueryDenomsMetadataRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QuerySupplyOfResponse = exports.QuerySupplyOfRequest = exports.QueryTotalSupplyResponse = exports.QueryTotalSupplyRequest = exports.QueryAllBalancesResponse = exports.QueryAllBalancesRequest = exports.QueryBalanceResponse = exports.QueryBalanceRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { PageRequest, PageResponse, } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Params, Metadata } from "../../../cosmos/bank/v1beta1/bank";
-export const protobufPackage = "cosmos.bank.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+const bank_1 = require("../../../cosmos/bank/v1beta1/bank");
+exports.protobufPackage = "cosmos.bank.v1beta1";
 const baseQueryBalanceRequest = { address: "", denom: "" };
-export const QueryBalanceRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryBalanceRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
         }
@@ -16,7 +19,7 @@ export const QueryBalanceRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryBalanceRequest };
         while (reader.pos < end) {
@@ -75,22 +78,22 @@ export const QueryBalanceRequest = {
     },
 };
 const baseQueryBalanceResponse = {};
-export const QueryBalanceResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryBalanceResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.balance !== undefined) {
-            Coin.encode(message.balance, writer.uint32(10).fork()).ldelim();
+            coin_1.Coin.encode(message.balance, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryBalanceResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.balance = Coin.decode(reader, reader.uint32());
+                    message.balance = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -102,7 +105,7 @@ export const QueryBalanceResponse = {
     fromJSON(object) {
         const message = { ...baseQueryBalanceResponse };
         if (object.balance !== undefined && object.balance !== null) {
-            message.balance = Coin.fromJSON(object.balance);
+            message.balance = coin_1.Coin.fromJSON(object.balance);
         }
         else {
             message.balance = undefined;
@@ -113,14 +116,14 @@ export const QueryBalanceResponse = {
         const obj = {};
         message.balance !== undefined &&
             (obj.balance = message.balance
-                ? Coin.toJSON(message.balance)
+                ? coin_1.Coin.toJSON(message.balance)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryBalanceResponse };
         if (object.balance !== undefined && object.balance !== null) {
-            message.balance = Coin.fromPartial(object.balance);
+            message.balance = coin_1.Coin.fromPartial(object.balance);
         }
         else {
             message.balance = undefined;
@@ -129,18 +132,18 @@ export const QueryBalanceResponse = {
     },
 };
 const baseQueryAllBalancesRequest = { address: "" };
-export const QueryAllBalancesRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryAllBalancesRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
         }
         if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryAllBalancesRequest,
@@ -152,7 +155,7 @@ export const QueryAllBalancesRequest = {
                     message.address = reader.string();
                     break;
                 case 2:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -172,7 +175,7 @@ export const QueryAllBalancesRequest = {
             message.address = "";
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -184,7 +187,7 @@ export const QueryAllBalancesRequest = {
         message.address !== undefined && (obj.address = message.address);
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageRequest.toJSON(message.pagination)
+                ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -199,7 +202,7 @@ export const QueryAllBalancesRequest = {
             message.address = "";
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -208,18 +211,18 @@ export const QueryAllBalancesRequest = {
     },
 };
 const baseQueryAllBalancesResponse = {};
-export const QueryAllBalancesResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryAllBalancesResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.balances) {
-            Coin.encode(v, writer.uint32(10).fork()).ldelim();
+            coin_1.Coin.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
-            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryAllBalancesResponse,
@@ -229,10 +232,10 @@ export const QueryAllBalancesResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.balances.push(Coin.decode(reader, reader.uint32()));
+                    message.balances.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -248,11 +251,11 @@ export const QueryAllBalancesResponse = {
         message.balances = [];
         if (object.balances !== undefined && object.balances !== null) {
             for (const e of object.balances) {
-                message.balances.push(Coin.fromJSON(e));
+                message.balances.push(coin_1.Coin.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -262,14 +265,14 @@ export const QueryAllBalancesResponse = {
     toJSON(message) {
         const obj = {};
         if (message.balances) {
-            obj.balances = message.balances.map((e) => e ? Coin.toJSON(e) : undefined);
+            obj.balances = message.balances.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
         }
         else {
             obj.balances = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageResponse.toJSON(message.pagination)
+                ? pagination_1.PageResponse.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -280,11 +283,11 @@ export const QueryAllBalancesResponse = {
         message.balances = [];
         if (object.balances !== undefined && object.balances !== null) {
             for (const e of object.balances) {
-                message.balances.push(Coin.fromPartial(e));
+                message.balances.push(coin_1.Coin.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -293,15 +296,15 @@ export const QueryAllBalancesResponse = {
     },
 };
 const baseQueryTotalSupplyRequest = {};
-export const QueryTotalSupplyRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryTotalSupplyRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryTotalSupplyRequest,
@@ -310,7 +313,7 @@ export const QueryTotalSupplyRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -324,7 +327,7 @@ export const QueryTotalSupplyRequest = {
             ...baseQueryTotalSupplyRequest,
         };
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -335,7 +338,7 @@ export const QueryTotalSupplyRequest = {
         const obj = {};
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageRequest.toJSON(message.pagination)
+                ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -344,7 +347,7 @@ export const QueryTotalSupplyRequest = {
             ...baseQueryTotalSupplyRequest,
         };
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -353,18 +356,18 @@ export const QueryTotalSupplyRequest = {
     },
 };
 const baseQueryTotalSupplyResponse = {};
-export const QueryTotalSupplyResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryTotalSupplyResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.supply) {
-            Coin.encode(v, writer.uint32(10).fork()).ldelim();
+            coin_1.Coin.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
-            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryTotalSupplyResponse,
@@ -374,10 +377,10 @@ export const QueryTotalSupplyResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.supply.push(Coin.decode(reader, reader.uint32()));
+                    message.supply.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -393,11 +396,11 @@ export const QueryTotalSupplyResponse = {
         message.supply = [];
         if (object.supply !== undefined && object.supply !== null) {
             for (const e of object.supply) {
-                message.supply.push(Coin.fromJSON(e));
+                message.supply.push(coin_1.Coin.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -407,14 +410,14 @@ export const QueryTotalSupplyResponse = {
     toJSON(message) {
         const obj = {};
         if (message.supply) {
-            obj.supply = message.supply.map((e) => (e ? Coin.toJSON(e) : undefined));
+            obj.supply = message.supply.map((e) => (e ? coin_1.Coin.toJSON(e) : undefined));
         }
         else {
             obj.supply = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageResponse.toJSON(message.pagination)
+                ? pagination_1.PageResponse.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -425,11 +428,11 @@ export const QueryTotalSupplyResponse = {
         message.supply = [];
         if (object.supply !== undefined && object.supply !== null) {
             for (const e of object.supply) {
-                message.supply.push(Coin.fromPartial(e));
+                message.supply.push(coin_1.Coin.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -438,15 +441,15 @@ export const QueryTotalSupplyResponse = {
     },
 };
 const baseQuerySupplyOfRequest = { denom: "" };
-export const QuerySupplyOfRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QuerySupplyOfRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.denom !== "") {
             writer.uint32(10).string(message.denom);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQuerySupplyOfRequest };
         while (reader.pos < end) {
@@ -489,22 +492,22 @@ export const QuerySupplyOfRequest = {
     },
 };
 const baseQuerySupplyOfResponse = {};
-export const QuerySupplyOfResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QuerySupplyOfResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.amount !== undefined) {
-            Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
+            coin_1.Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQuerySupplyOfResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.amount = Coin.decode(reader, reader.uint32());
+                    message.amount = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -516,7 +519,7 @@ export const QuerySupplyOfResponse = {
     fromJSON(object) {
         const message = { ...baseQuerySupplyOfResponse };
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = Coin.fromJSON(object.amount);
+            message.amount = coin_1.Coin.fromJSON(object.amount);
         }
         else {
             message.amount = undefined;
@@ -526,13 +529,13 @@ export const QuerySupplyOfResponse = {
     toJSON(message) {
         const obj = {};
         message.amount !== undefined &&
-            (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+            (obj.amount = message.amount ? coin_1.Coin.toJSON(message.amount) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQuerySupplyOfResponse };
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = Coin.fromPartial(object.amount);
+            message.amount = coin_1.Coin.fromPartial(object.amount);
         }
         else {
             message.amount = undefined;
@@ -541,12 +544,12 @@ export const QuerySupplyOfResponse = {
     },
 };
 const baseQueryParamsRequest = {};
-export const QueryParamsRequest = {
-    encode(_, writer = Writer.create()) {
+exports.QueryParamsRequest = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryParamsRequest };
         while (reader.pos < end) {
@@ -573,22 +576,22 @@ export const QueryParamsRequest = {
     },
 };
 const baseQueryParamsResponse = {};
-export const QueryParamsResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryParamsResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.params !== undefined) {
-            Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+            bank_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryParamsResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.params = Params.decode(reader, reader.uint32());
+                    message.params = bank_1.Params.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -600,7 +603,7 @@ export const QueryParamsResponse = {
     fromJSON(object) {
         const message = { ...baseQueryParamsResponse };
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromJSON(object.params);
+            message.params = bank_1.Params.fromJSON(object.params);
         }
         else {
             message.params = undefined;
@@ -610,13 +613,13 @@ export const QueryParamsResponse = {
     toJSON(message) {
         const obj = {};
         message.params !== undefined &&
-            (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+            (obj.params = message.params ? bank_1.Params.toJSON(message.params) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryParamsResponse };
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromPartial(object.params);
+            message.params = bank_1.Params.fromPartial(object.params);
         }
         else {
             message.params = undefined;
@@ -625,15 +628,15 @@ export const QueryParamsResponse = {
     },
 };
 const baseQueryDenomsMetadataRequest = {};
-export const QueryDenomsMetadataRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDenomsMetadataRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryDenomsMetadataRequest,
@@ -642,7 +645,7 @@ export const QueryDenomsMetadataRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -656,7 +659,7 @@ export const QueryDenomsMetadataRequest = {
             ...baseQueryDenomsMetadataRequest,
         };
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -667,7 +670,7 @@ export const QueryDenomsMetadataRequest = {
         const obj = {};
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageRequest.toJSON(message.pagination)
+                ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -676,7 +679,7 @@ export const QueryDenomsMetadataRequest = {
             ...baseQueryDenomsMetadataRequest,
         };
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -685,18 +688,18 @@ export const QueryDenomsMetadataRequest = {
     },
 };
 const baseQueryDenomsMetadataResponse = {};
-export const QueryDenomsMetadataResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDenomsMetadataResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.metadatas) {
-            Metadata.encode(v, writer.uint32(10).fork()).ldelim();
+            bank_1.Metadata.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
-            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryDenomsMetadataResponse,
@@ -706,10 +709,10 @@ export const QueryDenomsMetadataResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.metadatas.push(Metadata.decode(reader, reader.uint32()));
+                    message.metadatas.push(bank_1.Metadata.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -725,11 +728,11 @@ export const QueryDenomsMetadataResponse = {
         message.metadatas = [];
         if (object.metadatas !== undefined && object.metadatas !== null) {
             for (const e of object.metadatas) {
-                message.metadatas.push(Metadata.fromJSON(e));
+                message.metadatas.push(bank_1.Metadata.fromJSON(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromJSON(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -739,14 +742,14 @@ export const QueryDenomsMetadataResponse = {
     toJSON(message) {
         const obj = {};
         if (message.metadatas) {
-            obj.metadatas = message.metadatas.map((e) => e ? Metadata.toJSON(e) : undefined);
+            obj.metadatas = message.metadatas.map((e) => e ? bank_1.Metadata.toJSON(e) : undefined);
         }
         else {
             obj.metadatas = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
-                ? PageResponse.toJSON(message.pagination)
+                ? pagination_1.PageResponse.toJSON(message.pagination)
                 : undefined);
         return obj;
     },
@@ -757,11 +760,11 @@ export const QueryDenomsMetadataResponse = {
         message.metadatas = [];
         if (object.metadatas !== undefined && object.metadatas !== null) {
             for (const e of object.metadatas) {
-                message.metadatas.push(Metadata.fromPartial(e));
+                message.metadatas.push(bank_1.Metadata.fromPartial(e));
             }
         }
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageResponse.fromPartial(object.pagination);
+            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
         }
         else {
             message.pagination = undefined;
@@ -770,15 +773,15 @@ export const QueryDenomsMetadataResponse = {
     },
 };
 const baseQueryDenomMetadataRequest = { denom: "" };
-export const QueryDenomMetadataRequest = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDenomMetadataRequest = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.denom !== "") {
             writer.uint32(10).string(message.denom);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryDenomMetadataRequest,
@@ -827,15 +830,15 @@ export const QueryDenomMetadataRequest = {
     },
 };
 const baseQueryDenomMetadataResponse = {};
-export const QueryDenomMetadataResponse = {
-    encode(message, writer = Writer.create()) {
+exports.QueryDenomMetadataResponse = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.metadata !== undefined) {
-            Metadata.encode(message.metadata, writer.uint32(10).fork()).ldelim();
+            bank_1.Metadata.encode(message.metadata, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseQueryDenomMetadataResponse,
@@ -844,7 +847,7 @@ export const QueryDenomMetadataResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.metadata = Metadata.decode(reader, reader.uint32());
+                    message.metadata = bank_1.Metadata.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -858,7 +861,7 @@ export const QueryDenomMetadataResponse = {
             ...baseQueryDenomMetadataResponse,
         };
         if (object.metadata !== undefined && object.metadata !== null) {
-            message.metadata = Metadata.fromJSON(object.metadata);
+            message.metadata = bank_1.Metadata.fromJSON(object.metadata);
         }
         else {
             message.metadata = undefined;
@@ -869,7 +872,7 @@ export const QueryDenomMetadataResponse = {
         const obj = {};
         message.metadata !== undefined &&
             (obj.metadata = message.metadata
-                ? Metadata.toJSON(message.metadata)
+                ? bank_1.Metadata.toJSON(message.metadata)
                 : undefined);
         return obj;
     },
@@ -878,7 +881,7 @@ export const QueryDenomMetadataResponse = {
             ...baseQueryDenomMetadataResponse,
         };
         if (object.metadata !== undefined && object.metadata !== null) {
-            message.metadata = Metadata.fromPartial(object.metadata);
+            message.metadata = bank_1.Metadata.fromPartial(object.metadata);
         }
         else {
             message.metadata = undefined;
@@ -886,43 +889,44 @@ export const QueryDenomMetadataResponse = {
         return message;
     },
 };
-export class QueryClientImpl {
+class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     Balance(request) {
-        const data = QueryBalanceRequest.encode(request).finish();
+        const data = exports.QueryBalanceRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "Balance", data);
-        return promise.then((data) => QueryBalanceResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryBalanceResponse.decode(new minimal_1.Reader(data)));
     }
     AllBalances(request) {
-        const data = QueryAllBalancesRequest.encode(request).finish();
+        const data = exports.QueryAllBalancesRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "AllBalances", data);
-        return promise.then((data) => QueryAllBalancesResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryAllBalancesResponse.decode(new minimal_1.Reader(data)));
     }
     TotalSupply(request) {
-        const data = QueryTotalSupplyRequest.encode(request).finish();
+        const data = exports.QueryTotalSupplyRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "TotalSupply", data);
-        return promise.then((data) => QueryTotalSupplyResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryTotalSupplyResponse.decode(new minimal_1.Reader(data)));
     }
     SupplyOf(request) {
-        const data = QuerySupplyOfRequest.encode(request).finish();
+        const data = exports.QuerySupplyOfRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "SupplyOf", data);
-        return promise.then((data) => QuerySupplyOfResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QuerySupplyOfResponse.decode(new minimal_1.Reader(data)));
     }
     Params(request) {
-        const data = QueryParamsRequest.encode(request).finish();
+        const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "Params", data);
-        return promise.then((data) => QueryParamsResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.Reader(data)));
     }
     DenomMetadata(request) {
-        const data = QueryDenomMetadataRequest.encode(request).finish();
+        const data = exports.QueryDenomMetadataRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "DenomMetadata", data);
-        return promise.then((data) => QueryDenomMetadataResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryDenomMetadataResponse.decode(new minimal_1.Reader(data)));
     }
     DenomsMetadata(request) {
-        const data = QueryDenomsMetadataRequest.encode(request).finish();
+        const data = exports.QueryDenomsMetadataRequest.encode(request).finish();
         const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "DenomsMetadata", data);
-        return promise.then((data) => QueryDenomsMetadataResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.QueryDenomsMetadataResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.QueryClientImpl = QueryClientImpl;

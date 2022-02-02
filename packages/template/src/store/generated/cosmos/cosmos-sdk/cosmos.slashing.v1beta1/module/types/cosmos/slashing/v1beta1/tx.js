@@ -1,16 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgClientImpl = exports.MsgUnjailResponse = exports.MsgUnjail = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.slashing.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.slashing.v1beta1";
 const baseMsgUnjail = { validatorAddr: "" };
-export const MsgUnjail = {
-    encode(message, writer = Writer.create()) {
+exports.MsgUnjail = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.validatorAddr !== "") {
             writer.uint32(10).string(message.validatorAddr);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgUnjail };
         while (reader.pos < end) {
@@ -54,12 +57,12 @@ export const MsgUnjail = {
     },
 };
 const baseMsgUnjailResponse = {};
-export const MsgUnjailResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgUnjailResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgUnjailResponse };
         while (reader.pos < end) {
@@ -85,13 +88,14 @@ export const MsgUnjailResponse = {
         return message;
     },
 };
-export class MsgClientImpl {
+class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     Unjail(request) {
-        const data = MsgUnjail.encode(request).finish();
+        const data = exports.MsgUnjail.encode(request).finish();
         const promise = this.rpc.request("cosmos.slashing.v1beta1.Msg", "Unjail", data);
-        return promise.then((data) => MsgUnjailResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgUnjailResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.MsgClientImpl = MsgClientImpl;

@@ -1,16 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CancelSoftwareUpgradeProposal = exports.SoftwareUpgradeProposal = exports.Plan = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.upgrade.v1beta1";
+const timestamp_1 = require("../../../google/protobuf/timestamp");
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.upgrade.v1beta1";
 const basePlan = { name: "", height: 0, info: "" };
-export const Plan = {
-    encode(message, writer = Writer.create()) {
+exports.Plan = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.name !== "") {
             writer.uint32(10).string(message.name);
         }
         if (message.time !== undefined) {
-            Timestamp.encode(toTimestamp(message.time), writer.uint32(18).fork()).ldelim();
+            timestamp_1.Timestamp.encode(toTimestamp(message.time), writer.uint32(18).fork()).ldelim();
         }
         if (message.height !== 0) {
             writer.uint32(24).int64(message.height);
@@ -21,7 +24,7 @@ export const Plan = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...basePlan };
         while (reader.pos < end) {
@@ -31,7 +34,7 @@ export const Plan = {
                     message.name = reader.string();
                     break;
                 case 2:
-                    message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+                    message.time = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     break;
                 case 3:
                     message.height = longToNumber(reader.int64());
@@ -114,8 +117,8 @@ export const Plan = {
     },
 };
 const baseSoftwareUpgradeProposal = { title: "", description: "" };
-export const SoftwareUpgradeProposal = {
-    encode(message, writer = Writer.create()) {
+exports.SoftwareUpgradeProposal = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -123,12 +126,12 @@ export const SoftwareUpgradeProposal = {
             writer.uint32(18).string(message.description);
         }
         if (message.plan !== undefined) {
-            Plan.encode(message.plan, writer.uint32(26).fork()).ldelim();
+            exports.Plan.encode(message.plan, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseSoftwareUpgradeProposal,
@@ -143,7 +146,7 @@ export const SoftwareUpgradeProposal = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.plan = Plan.decode(reader, reader.uint32());
+                    message.plan = exports.Plan.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -169,7 +172,7 @@ export const SoftwareUpgradeProposal = {
             message.description = "";
         }
         if (object.plan !== undefined && object.plan !== null) {
-            message.plan = Plan.fromJSON(object.plan);
+            message.plan = exports.Plan.fromJSON(object.plan);
         }
         else {
             message.plan = undefined;
@@ -182,7 +185,7 @@ export const SoftwareUpgradeProposal = {
         message.description !== undefined &&
             (obj.description = message.description);
         message.plan !== undefined &&
-            (obj.plan = message.plan ? Plan.toJSON(message.plan) : undefined);
+            (obj.plan = message.plan ? exports.Plan.toJSON(message.plan) : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -202,7 +205,7 @@ export const SoftwareUpgradeProposal = {
             message.description = "";
         }
         if (object.plan !== undefined && object.plan !== null) {
-            message.plan = Plan.fromPartial(object.plan);
+            message.plan = exports.Plan.fromPartial(object.plan);
         }
         else {
             message.plan = undefined;
@@ -214,8 +217,8 @@ const baseCancelSoftwareUpgradeProposal = {
     title: "",
     description: "",
 };
-export const CancelSoftwareUpgradeProposal = {
-    encode(message, writer = Writer.create()) {
+exports.CancelSoftwareUpgradeProposal = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -225,7 +228,7 @@ export const CancelSoftwareUpgradeProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseCancelSoftwareUpgradeProposal,
@@ -319,7 +322,7 @@ function fromJsonTimestamp(o) {
         return new Date(o);
     }
     else {
-        return fromTimestamp(Timestamp.fromJSON(o));
+        return fromTimestamp(timestamp_1.Timestamp.fromJSON(o));
     }
 }
 function longToNumber(long) {
@@ -328,7 +331,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

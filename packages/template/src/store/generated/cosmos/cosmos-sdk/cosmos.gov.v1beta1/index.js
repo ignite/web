@@ -1,23 +1,34 @@
-import { txClient, queryClient, MissingWalletError, registry } from './module';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TallyParams = exports.VotingParams = exports.DepositParams = exports.Vote = exports.TallyResult = exports.Proposal = exports.Deposit = exports.TextProposal = exports.WeightedVoteOption = void 0;
+const module_1 = require("./module");
 // @ts-ignore
-import { SpVuexError } from '@starport/vuex';
-import { WeightedVoteOption } from "./module/types/cosmos/gov/v1beta1/gov";
-import { TextProposal } from "./module/types/cosmos/gov/v1beta1/gov";
-import { Deposit } from "./module/types/cosmos/gov/v1beta1/gov";
-import { Proposal } from "./module/types/cosmos/gov/v1beta1/gov";
-import { TallyResult } from "./module/types/cosmos/gov/v1beta1/gov";
-import { Vote } from "./module/types/cosmos/gov/v1beta1/gov";
-import { DepositParams } from "./module/types/cosmos/gov/v1beta1/gov";
-import { VotingParams } from "./module/types/cosmos/gov/v1beta1/gov";
-import { TallyParams } from "./module/types/cosmos/gov/v1beta1/gov";
-export { WeightedVoteOption, TextProposal, Deposit, Proposal, TallyResult, Vote, DepositParams, VotingParams, TallyParams };
+const vuex_1 = require("@starport/vuex");
+const gov_1 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "WeightedVoteOption", { enumerable: true, get: function () { return gov_1.WeightedVoteOption; } });
+const gov_2 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "TextProposal", { enumerable: true, get: function () { return gov_2.TextProposal; } });
+const gov_3 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "Deposit", { enumerable: true, get: function () { return gov_3.Deposit; } });
+const gov_4 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "Proposal", { enumerable: true, get: function () { return gov_4.Proposal; } });
+const gov_5 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "TallyResult", { enumerable: true, get: function () { return gov_5.TallyResult; } });
+const gov_6 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "Vote", { enumerable: true, get: function () { return gov_6.Vote; } });
+const gov_7 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "DepositParams", { enumerable: true, get: function () { return gov_7.DepositParams; } });
+const gov_8 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "VotingParams", { enumerable: true, get: function () { return gov_8.VotingParams; } });
+const gov_9 = require("./module/types/cosmos/gov/v1beta1/gov");
+Object.defineProperty(exports, "TallyParams", { enumerable: true, get: function () { return gov_9.TallyParams; } });
 async function initTxClient(vuexGetters) {
-    return await txClient(vuexGetters['common/wallet/signer'], {
+    return await module_1.txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
     });
 }
 async function initQueryClient(vuexGetters) {
-    return await queryClient({
+    return await module_1.queryClient({
         addr: vuexGetters['common/env/apiCosmos']
     });
 }
@@ -53,23 +64,23 @@ const getDefaultState = () => {
         Deposits: {},
         TallyResult: {},
         _Structure: {
-            WeightedVoteOption: getStructure(WeightedVoteOption.fromPartial({})),
-            TextProposal: getStructure(TextProposal.fromPartial({})),
-            Deposit: getStructure(Deposit.fromPartial({})),
-            Proposal: getStructure(Proposal.fromPartial({})),
-            TallyResult: getStructure(TallyResult.fromPartial({})),
-            Vote: getStructure(Vote.fromPartial({})),
-            DepositParams: getStructure(DepositParams.fromPartial({})),
-            VotingParams: getStructure(VotingParams.fromPartial({})),
-            TallyParams: getStructure(TallyParams.fromPartial({})),
+            WeightedVoteOption: getStructure(gov_1.WeightedVoteOption.fromPartial({})),
+            TextProposal: getStructure(gov_2.TextProposal.fromPartial({})),
+            Deposit: getStructure(gov_3.Deposit.fromPartial({})),
+            Proposal: getStructure(gov_4.Proposal.fromPartial({})),
+            TallyResult: getStructure(gov_5.TallyResult.fromPartial({})),
+            Vote: getStructure(gov_6.Vote.fromPartial({})),
+            DepositParams: getStructure(gov_7.DepositParams.fromPartial({})),
+            VotingParams: getStructure(gov_8.VotingParams.fromPartial({})),
+            TallyParams: getStructure(gov_9.TallyParams.fromPartial({})),
         },
-        _Registry: registry,
+        _Registry: module_1.registry,
         _Subscriptions: new Set(),
     };
 };
 // initial state
 const state = getDefaultState();
-export default {
+exports.default = {
     namespaced: true,
     state,
     mutations: {
@@ -164,7 +175,7 @@ export default {
                     await dispatch(sub.action, sub.payload);
                 }
                 catch (e) {
-                    throw new SpVuexError('Subscriptions: ' + e.message);
+                    throw new vuex_1.SpVuexError('Subscriptions: ' + e.message);
                 }
             });
         },
@@ -179,7 +190,7 @@ export default {
                 return getters['getProposal']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryProposal', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryProposal', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryProposals({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -197,7 +208,7 @@ export default {
                 return getters['getProposals']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryProposals', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryProposals', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryVote({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -211,7 +222,7 @@ export default {
                 return getters['getVote']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryVote', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryVote', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryVotes({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -229,7 +240,7 @@ export default {
                 return getters['getVotes']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryVotes', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryVotes', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -243,7 +254,7 @@ export default {
                 return getters['getParams']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDeposit({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -257,7 +268,7 @@ export default {
                 return getters['getDeposit']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDeposit', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDeposit', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryDeposits({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -275,7 +286,7 @@ export default {
                 return getters['getDeposits']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryDeposits', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryDeposits', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async QueryTallyResult({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
@@ -289,24 +300,7 @@ export default {
                 return getters['getTallyResult']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryTallyResult', 'API Node Unavailable. Could not perform query: ' + e.message);
-            }
-        },
-        async sendMsgDeposit({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgDeposit(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDeposit:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgDeposit:Send', 'Could not broadcast Tx: ' + e.message);
-                }
+                throw new vuex_1.SpVuexError('QueryClient:QueryTallyResult', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async sendMsgSubmitProposal({ rootGetters }, { value, fee = [], memo = '' }) {
@@ -318,11 +312,11 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgSubmitProposal:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitProposal:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgSubmitProposal:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitProposal:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -335,11 +329,11 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgVoteWeighted:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgVoteWeighted:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgVoteWeighted:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgVoteWeighted:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -352,26 +346,28 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgVote:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgVote:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgVote:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgVote:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
-        async MsgDeposit({ rootGetters }, { value }) {
+        async sendMsgDeposit({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
                 const msg = await txClient.msgDeposit(value);
-                return msg;
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDeposit:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgDeposit:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgDeposit:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgDeposit:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -382,11 +378,11 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgSubmitProposal:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitProposal:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgSubmitProposal:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgSubmitProposal:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -397,11 +393,11 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgVoteWeighted:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgVoteWeighted:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgVoteWeighted:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgVoteWeighted:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -412,11 +408,26 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgVote:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgVote:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgVote:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgVote:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgDeposit({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDeposit(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgDeposit:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgDeposit:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

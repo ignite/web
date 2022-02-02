@@ -1,3 +1,4 @@
+"use strict";
 /* eslint-disable */
 /* tslint:disable */
 /*
@@ -8,6 +9,8 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Api = exports.HttpClient = exports.ContentType = exports.V1Beta1VoteOption = exports.V1Beta1ProposalStatus = void 0;
 /**
 * ProposalStatus enumerates the valid statuses of a proposal.
 
@@ -23,7 +26,7 @@ been rejected.
  - PROPOSAL_STATUS_FAILED: PROPOSAL_STATUS_FAILED defines a proposal status of a proposal that has
 failed.
 */
-export var V1Beta1ProposalStatus;
+var V1Beta1ProposalStatus;
 (function (V1Beta1ProposalStatus) {
     V1Beta1ProposalStatus["PROPOSAL_STATUS_UNSPECIFIED"] = "PROPOSAL_STATUS_UNSPECIFIED";
     V1Beta1ProposalStatus["PROPOSAL_STATUS_DEPOSIT_PERIOD"] = "PROPOSAL_STATUS_DEPOSIT_PERIOD";
@@ -31,7 +34,7 @@ export var V1Beta1ProposalStatus;
     V1Beta1ProposalStatus["PROPOSAL_STATUS_PASSED"] = "PROPOSAL_STATUS_PASSED";
     V1Beta1ProposalStatus["PROPOSAL_STATUS_REJECTED"] = "PROPOSAL_STATUS_REJECTED";
     V1Beta1ProposalStatus["PROPOSAL_STATUS_FAILED"] = "PROPOSAL_STATUS_FAILED";
-})(V1Beta1ProposalStatus || (V1Beta1ProposalStatus = {}));
+})(V1Beta1ProposalStatus = exports.V1Beta1ProposalStatus || (exports.V1Beta1ProposalStatus = {}));
 /**
 * VoteOption enumerates the valid vote options for a given governance proposal.
 
@@ -41,21 +44,21 @@ export var V1Beta1ProposalStatus;
  - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
  - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
 */
-export var V1Beta1VoteOption;
+var V1Beta1VoteOption;
 (function (V1Beta1VoteOption) {
     V1Beta1VoteOption["VOTE_OPTION_UNSPECIFIED"] = "VOTE_OPTION_UNSPECIFIED";
     V1Beta1VoteOption["VOTE_OPTION_YES"] = "VOTE_OPTION_YES";
     V1Beta1VoteOption["VOTE_OPTION_ABSTAIN"] = "VOTE_OPTION_ABSTAIN";
     V1Beta1VoteOption["VOTE_OPTION_NO"] = "VOTE_OPTION_NO";
     V1Beta1VoteOption["VOTE_OPTION_NO_WITH_VETO"] = "VOTE_OPTION_NO_WITH_VETO";
-})(V1Beta1VoteOption || (V1Beta1VoteOption = {}));
-export var ContentType;
+})(V1Beta1VoteOption = exports.V1Beta1VoteOption || (exports.V1Beta1VoteOption = {}));
+var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";
     ContentType["FormData"] = "multipart/form-data";
     ContentType["UrlEncoded"] = "application/x-www-form-urlencoded";
-})(ContentType || (ContentType = {}));
-export class HttpClient {
+})(ContentType = exports.ContentType || (exports.ContentType = {}));
+class HttpClient {
     constructor(apiConfig = {}) {
         this.baseUrl = "";
         this.securityData = null;
@@ -170,11 +173,12 @@ export class HttpClient {
         };
     }
 }
+exports.HttpClient = HttpClient;
 /**
  * @title cosmos/gov/v1beta1/genesis.proto
  * @version version not set
  */
-export class Api extends HttpClient {
+class Api extends HttpClient {
     constructor() {
         super(...arguments);
         /**
@@ -294,3 +298,4 @@ export class Api extends HttpClient {
         });
     }
 }
+exports.Api = Api;

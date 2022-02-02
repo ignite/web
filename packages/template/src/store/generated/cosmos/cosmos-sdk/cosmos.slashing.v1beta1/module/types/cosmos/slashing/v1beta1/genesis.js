@@ -1,24 +1,27 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MissedBlock = exports.ValidatorMissedBlocks = exports.SigningInfo = exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Params, ValidatorSigningInfo, } from "../../../cosmos/slashing/v1beta1/slashing";
-export const protobufPackage = "cosmos.slashing.v1beta1";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+const slashing_1 = require("../../../cosmos/slashing/v1beta1/slashing");
+exports.protobufPackage = "cosmos.slashing.v1beta1";
 const baseGenesisState = {};
-export const GenesisState = {
-    encode(message, writer = Writer.create()) {
+exports.GenesisState = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.params !== undefined) {
-            Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+            slashing_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         for (const v of message.signingInfos) {
-            SigningInfo.encode(v, writer.uint32(18).fork()).ldelim();
+            exports.SigningInfo.encode(v, writer.uint32(18).fork()).ldelim();
         }
         for (const v of message.missedBlocks) {
-            ValidatorMissedBlocks.encode(v, writer.uint32(26).fork()).ldelim();
+            exports.ValidatorMissedBlocks.encode(v, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
         message.signingInfos = [];
@@ -27,13 +30,13 @@ export const GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.params = Params.decode(reader, reader.uint32());
+                    message.params = slashing_1.Params.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.signingInfos.push(SigningInfo.decode(reader, reader.uint32()));
+                    message.signingInfos.push(exports.SigningInfo.decode(reader, reader.uint32()));
                     break;
                 case 3:
-                    message.missedBlocks.push(ValidatorMissedBlocks.decode(reader, reader.uint32()));
+                    message.missedBlocks.push(exports.ValidatorMissedBlocks.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -47,19 +50,19 @@ export const GenesisState = {
         message.signingInfos = [];
         message.missedBlocks = [];
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromJSON(object.params);
+            message.params = slashing_1.Params.fromJSON(object.params);
         }
         else {
             message.params = undefined;
         }
         if (object.signingInfos !== undefined && object.signingInfos !== null) {
             for (const e of object.signingInfos) {
-                message.signingInfos.push(SigningInfo.fromJSON(e));
+                message.signingInfos.push(exports.SigningInfo.fromJSON(e));
             }
         }
         if (object.missedBlocks !== undefined && object.missedBlocks !== null) {
             for (const e of object.missedBlocks) {
-                message.missedBlocks.push(ValidatorMissedBlocks.fromJSON(e));
+                message.missedBlocks.push(exports.ValidatorMissedBlocks.fromJSON(e));
             }
         }
         return message;
@@ -67,15 +70,15 @@ export const GenesisState = {
     toJSON(message) {
         const obj = {};
         message.params !== undefined &&
-            (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+            (obj.params = message.params ? slashing_1.Params.toJSON(message.params) : undefined);
         if (message.signingInfos) {
-            obj.signingInfos = message.signingInfos.map((e) => e ? SigningInfo.toJSON(e) : undefined);
+            obj.signingInfos = message.signingInfos.map((e) => e ? exports.SigningInfo.toJSON(e) : undefined);
         }
         else {
             obj.signingInfos = [];
         }
         if (message.missedBlocks) {
-            obj.missedBlocks = message.missedBlocks.map((e) => e ? ValidatorMissedBlocks.toJSON(e) : undefined);
+            obj.missedBlocks = message.missedBlocks.map((e) => e ? exports.ValidatorMissedBlocks.toJSON(e) : undefined);
         }
         else {
             obj.missedBlocks = [];
@@ -87,37 +90,37 @@ export const GenesisState = {
         message.signingInfos = [];
         message.missedBlocks = [];
         if (object.params !== undefined && object.params !== null) {
-            message.params = Params.fromPartial(object.params);
+            message.params = slashing_1.Params.fromPartial(object.params);
         }
         else {
             message.params = undefined;
         }
         if (object.signingInfos !== undefined && object.signingInfos !== null) {
             for (const e of object.signingInfos) {
-                message.signingInfos.push(SigningInfo.fromPartial(e));
+                message.signingInfos.push(exports.SigningInfo.fromPartial(e));
             }
         }
         if (object.missedBlocks !== undefined && object.missedBlocks !== null) {
             for (const e of object.missedBlocks) {
-                message.missedBlocks.push(ValidatorMissedBlocks.fromPartial(e));
+                message.missedBlocks.push(exports.ValidatorMissedBlocks.fromPartial(e));
             }
         }
         return message;
     },
 };
 const baseSigningInfo = { address: "" };
-export const SigningInfo = {
-    encode(message, writer = Writer.create()) {
+exports.SigningInfo = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
         }
         if (message.validatorSigningInfo !== undefined) {
-            ValidatorSigningInfo.encode(message.validatorSigningInfo, writer.uint32(18).fork()).ldelim();
+            slashing_1.ValidatorSigningInfo.encode(message.validatorSigningInfo, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseSigningInfo };
         while (reader.pos < end) {
@@ -127,7 +130,7 @@ export const SigningInfo = {
                     message.address = reader.string();
                     break;
                 case 2:
-                    message.validatorSigningInfo = ValidatorSigningInfo.decode(reader, reader.uint32());
+                    message.validatorSigningInfo = slashing_1.ValidatorSigningInfo.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -146,7 +149,7 @@ export const SigningInfo = {
         }
         if (object.validatorSigningInfo !== undefined &&
             object.validatorSigningInfo !== null) {
-            message.validatorSigningInfo = ValidatorSigningInfo.fromJSON(object.validatorSigningInfo);
+            message.validatorSigningInfo = slashing_1.ValidatorSigningInfo.fromJSON(object.validatorSigningInfo);
         }
         else {
             message.validatorSigningInfo = undefined;
@@ -158,7 +161,7 @@ export const SigningInfo = {
         message.address !== undefined && (obj.address = message.address);
         message.validatorSigningInfo !== undefined &&
             (obj.validatorSigningInfo = message.validatorSigningInfo
-                ? ValidatorSigningInfo.toJSON(message.validatorSigningInfo)
+                ? slashing_1.ValidatorSigningInfo.toJSON(message.validatorSigningInfo)
                 : undefined);
         return obj;
     },
@@ -172,7 +175,7 @@ export const SigningInfo = {
         }
         if (object.validatorSigningInfo !== undefined &&
             object.validatorSigningInfo !== null) {
-            message.validatorSigningInfo = ValidatorSigningInfo.fromPartial(object.validatorSigningInfo);
+            message.validatorSigningInfo = slashing_1.ValidatorSigningInfo.fromPartial(object.validatorSigningInfo);
         }
         else {
             message.validatorSigningInfo = undefined;
@@ -181,18 +184,18 @@ export const SigningInfo = {
     },
 };
 const baseValidatorMissedBlocks = { address: "" };
-export const ValidatorMissedBlocks = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorMissedBlocks = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
         }
         for (const v of message.missedBlocks) {
-            MissedBlock.encode(v, writer.uint32(18).fork()).ldelim();
+            exports.MissedBlock.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseValidatorMissedBlocks };
         message.missedBlocks = [];
@@ -203,7 +206,7 @@ export const ValidatorMissedBlocks = {
                     message.address = reader.string();
                     break;
                 case 2:
-                    message.missedBlocks.push(MissedBlock.decode(reader, reader.uint32()));
+                    message.missedBlocks.push(exports.MissedBlock.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -223,7 +226,7 @@ export const ValidatorMissedBlocks = {
         }
         if (object.missedBlocks !== undefined && object.missedBlocks !== null) {
             for (const e of object.missedBlocks) {
-                message.missedBlocks.push(MissedBlock.fromJSON(e));
+                message.missedBlocks.push(exports.MissedBlock.fromJSON(e));
             }
         }
         return message;
@@ -232,7 +235,7 @@ export const ValidatorMissedBlocks = {
         const obj = {};
         message.address !== undefined && (obj.address = message.address);
         if (message.missedBlocks) {
-            obj.missedBlocks = message.missedBlocks.map((e) => e ? MissedBlock.toJSON(e) : undefined);
+            obj.missedBlocks = message.missedBlocks.map((e) => e ? exports.MissedBlock.toJSON(e) : undefined);
         }
         else {
             obj.missedBlocks = [];
@@ -250,15 +253,15 @@ export const ValidatorMissedBlocks = {
         }
         if (object.missedBlocks !== undefined && object.missedBlocks !== null) {
             for (const e of object.missedBlocks) {
-                message.missedBlocks.push(MissedBlock.fromPartial(e));
+                message.missedBlocks.push(exports.MissedBlock.fromPartial(e));
             }
         }
         return message;
     },
 };
 const baseMissedBlock = { index: 0, missed: false };
-export const MissedBlock = {
-    encode(message, writer = Writer.create()) {
+exports.MissedBlock = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.index !== 0) {
             writer.uint32(8).int64(message.index);
         }
@@ -268,7 +271,7 @@ export const MissedBlock = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMissedBlock };
         while (reader.pos < end) {
@@ -343,7 +346,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

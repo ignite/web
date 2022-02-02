@@ -1,13 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgClientImpl = exports.MsgVerifyInvariantResponse = exports.MsgVerifyInvariant = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.crisis.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.crisis.v1beta1";
 const baseMsgVerifyInvariant = {
     sender: "",
     invariantModuleName: "",
     invariantRoute: "",
 };
-export const MsgVerifyInvariant = {
-    encode(message, writer = Writer.create()) {
+exports.MsgVerifyInvariant = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.sender !== "") {
             writer.uint32(10).string(message.sender);
         }
@@ -20,7 +23,7 @@ export const MsgVerifyInvariant = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgVerifyInvariant };
         while (reader.pos < end) {
@@ -99,12 +102,12 @@ export const MsgVerifyInvariant = {
     },
 };
 const baseMsgVerifyInvariantResponse = {};
-export const MsgVerifyInvariantResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgVerifyInvariantResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgVerifyInvariantResponse,
@@ -136,13 +139,14 @@ export const MsgVerifyInvariantResponse = {
         return message;
     },
 };
-export class MsgClientImpl {
+class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     VerifyInvariant(request) {
-        const data = MsgVerifyInvariant.encode(request).finish();
+        const data = exports.MsgVerifyInvariant.encode(request).finish();
         const promise = this.rpc.request("cosmos.crisis.v1beta1.Msg", "VerifyInvariant", data);
-        return promise.then((data) => MsgVerifyInvariantResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgVerifyInvariantResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.MsgClientImpl = MsgClientImpl;

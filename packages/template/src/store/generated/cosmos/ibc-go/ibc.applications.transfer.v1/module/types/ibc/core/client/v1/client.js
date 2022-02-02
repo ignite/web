@@ -1,22 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Params = exports.Height = exports.UpgradeProposal = exports.ClientUpdateProposal = exports.ClientConsensusStates = exports.ConsensusStateWithHeight = exports.IdentifiedClientState = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { Any } from "../../../../google/protobuf/any";
-import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade";
-export const protobufPackage = "ibc.core.client.v1";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+const any_1 = require("../../../../google/protobuf/any");
+const upgrade_1 = require("../../../../cosmos/upgrade/v1beta1/upgrade");
+exports.protobufPackage = "ibc.core.client.v1";
 const baseIdentifiedClientState = { clientId: "" };
-export const IdentifiedClientState = {
-    encode(message, writer = Writer.create()) {
+exports.IdentifiedClientState = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.clientId !== "") {
             writer.uint32(10).string(message.clientId);
         }
         if (message.clientState !== undefined) {
-            Any.encode(message.clientState, writer.uint32(18).fork()).ldelim();
+            any_1.Any.encode(message.clientState, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseIdentifiedClientState };
         while (reader.pos < end) {
@@ -26,7 +29,7 @@ export const IdentifiedClientState = {
                     message.clientId = reader.string();
                     break;
                 case 2:
-                    message.clientState = Any.decode(reader, reader.uint32());
+                    message.clientState = any_1.Any.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -44,7 +47,7 @@ export const IdentifiedClientState = {
             message.clientId = "";
         }
         if (object.clientState !== undefined && object.clientState !== null) {
-            message.clientState = Any.fromJSON(object.clientState);
+            message.clientState = any_1.Any.fromJSON(object.clientState);
         }
         else {
             message.clientState = undefined;
@@ -56,7 +59,7 @@ export const IdentifiedClientState = {
         message.clientId !== undefined && (obj.clientId = message.clientId);
         message.clientState !== undefined &&
             (obj.clientState = message.clientState
-                ? Any.toJSON(message.clientState)
+                ? any_1.Any.toJSON(message.clientState)
                 : undefined);
         return obj;
     },
@@ -69,7 +72,7 @@ export const IdentifiedClientState = {
             message.clientId = "";
         }
         if (object.clientState !== undefined && object.clientState !== null) {
-            message.clientState = Any.fromPartial(object.clientState);
+            message.clientState = any_1.Any.fromPartial(object.clientState);
         }
         else {
             message.clientState = undefined;
@@ -78,18 +81,18 @@ export const IdentifiedClientState = {
     },
 };
 const baseConsensusStateWithHeight = {};
-export const ConsensusStateWithHeight = {
-    encode(message, writer = Writer.create()) {
+exports.ConsensusStateWithHeight = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.height !== undefined) {
-            Height.encode(message.height, writer.uint32(10).fork()).ldelim();
+            exports.Height.encode(message.height, writer.uint32(10).fork()).ldelim();
         }
         if (message.consensusState !== undefined) {
-            Any.encode(message.consensusState, writer.uint32(18).fork()).ldelim();
+            any_1.Any.encode(message.consensusState, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseConsensusStateWithHeight,
@@ -98,10 +101,10 @@ export const ConsensusStateWithHeight = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.height = Height.decode(reader, reader.uint32());
+                    message.height = exports.Height.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.consensusState = Any.decode(reader, reader.uint32());
+                    message.consensusState = any_1.Any.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -115,13 +118,13 @@ export const ConsensusStateWithHeight = {
             ...baseConsensusStateWithHeight,
         };
         if (object.height !== undefined && object.height !== null) {
-            message.height = Height.fromJSON(object.height);
+            message.height = exports.Height.fromJSON(object.height);
         }
         else {
             message.height = undefined;
         }
         if (object.consensusState !== undefined && object.consensusState !== null) {
-            message.consensusState = Any.fromJSON(object.consensusState);
+            message.consensusState = any_1.Any.fromJSON(object.consensusState);
         }
         else {
             message.consensusState = undefined;
@@ -131,10 +134,10 @@ export const ConsensusStateWithHeight = {
     toJSON(message) {
         const obj = {};
         message.height !== undefined &&
-            (obj.height = message.height ? Height.toJSON(message.height) : undefined);
+            (obj.height = message.height ? exports.Height.toJSON(message.height) : undefined);
         message.consensusState !== undefined &&
             (obj.consensusState = message.consensusState
-                ? Any.toJSON(message.consensusState)
+                ? any_1.Any.toJSON(message.consensusState)
                 : undefined);
         return obj;
     },
@@ -143,13 +146,13 @@ export const ConsensusStateWithHeight = {
             ...baseConsensusStateWithHeight,
         };
         if (object.height !== undefined && object.height !== null) {
-            message.height = Height.fromPartial(object.height);
+            message.height = exports.Height.fromPartial(object.height);
         }
         else {
             message.height = undefined;
         }
         if (object.consensusState !== undefined && object.consensusState !== null) {
-            message.consensusState = Any.fromPartial(object.consensusState);
+            message.consensusState = any_1.Any.fromPartial(object.consensusState);
         }
         else {
             message.consensusState = undefined;
@@ -158,18 +161,18 @@ export const ConsensusStateWithHeight = {
     },
 };
 const baseClientConsensusStates = { clientId: "" };
-export const ClientConsensusStates = {
-    encode(message, writer = Writer.create()) {
+exports.ClientConsensusStates = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.clientId !== "") {
             writer.uint32(10).string(message.clientId);
         }
         for (const v of message.consensusStates) {
-            ConsensusStateWithHeight.encode(v, writer.uint32(18).fork()).ldelim();
+            exports.ConsensusStateWithHeight.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseClientConsensusStates };
         message.consensusStates = [];
@@ -180,7 +183,7 @@ export const ClientConsensusStates = {
                     message.clientId = reader.string();
                     break;
                 case 2:
-                    message.consensusStates.push(ConsensusStateWithHeight.decode(reader, reader.uint32()));
+                    message.consensusStates.push(exports.ConsensusStateWithHeight.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -201,7 +204,7 @@ export const ClientConsensusStates = {
         if (object.consensusStates !== undefined &&
             object.consensusStates !== null) {
             for (const e of object.consensusStates) {
-                message.consensusStates.push(ConsensusStateWithHeight.fromJSON(e));
+                message.consensusStates.push(exports.ConsensusStateWithHeight.fromJSON(e));
             }
         }
         return message;
@@ -210,7 +213,7 @@ export const ClientConsensusStates = {
         const obj = {};
         message.clientId !== undefined && (obj.clientId = message.clientId);
         if (message.consensusStates) {
-            obj.consensusStates = message.consensusStates.map((e) => e ? ConsensusStateWithHeight.toJSON(e) : undefined);
+            obj.consensusStates = message.consensusStates.map((e) => e ? exports.ConsensusStateWithHeight.toJSON(e) : undefined);
         }
         else {
             obj.consensusStates = [];
@@ -229,7 +232,7 @@ export const ClientConsensusStates = {
         if (object.consensusStates !== undefined &&
             object.consensusStates !== null) {
             for (const e of object.consensusStates) {
-                message.consensusStates.push(ConsensusStateWithHeight.fromPartial(e));
+                message.consensusStates.push(exports.ConsensusStateWithHeight.fromPartial(e));
             }
         }
         return message;
@@ -241,8 +244,8 @@ const baseClientUpdateProposal = {
     subjectClientId: "",
     substituteClientId: "",
 };
-export const ClientUpdateProposal = {
-    encode(message, writer = Writer.create()) {
+exports.ClientUpdateProposal = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -258,7 +261,7 @@ export const ClientUpdateProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseClientUpdateProposal };
         while (reader.pos < end) {
@@ -356,8 +359,8 @@ export const ClientUpdateProposal = {
     },
 };
 const baseUpgradeProposal = { title: "", description: "" };
-export const UpgradeProposal = {
-    encode(message, writer = Writer.create()) {
+exports.UpgradeProposal = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -365,15 +368,15 @@ export const UpgradeProposal = {
             writer.uint32(18).string(message.description);
         }
         if (message.plan !== undefined) {
-            Plan.encode(message.plan, writer.uint32(26).fork()).ldelim();
+            upgrade_1.Plan.encode(message.plan, writer.uint32(26).fork()).ldelim();
         }
         if (message.upgradedClientState !== undefined) {
-            Any.encode(message.upgradedClientState, writer.uint32(34).fork()).ldelim();
+            any_1.Any.encode(message.upgradedClientState, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseUpgradeProposal };
         while (reader.pos < end) {
@@ -386,10 +389,10 @@ export const UpgradeProposal = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.plan = Plan.decode(reader, reader.uint32());
+                    message.plan = upgrade_1.Plan.decode(reader, reader.uint32());
                     break;
                 case 4:
-                    message.upgradedClientState = Any.decode(reader, reader.uint32());
+                    message.upgradedClientState = any_1.Any.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -413,14 +416,14 @@ export const UpgradeProposal = {
             message.description = "";
         }
         if (object.plan !== undefined && object.plan !== null) {
-            message.plan = Plan.fromJSON(object.plan);
+            message.plan = upgrade_1.Plan.fromJSON(object.plan);
         }
         else {
             message.plan = undefined;
         }
         if (object.upgradedClientState !== undefined &&
             object.upgradedClientState !== null) {
-            message.upgradedClientState = Any.fromJSON(object.upgradedClientState);
+            message.upgradedClientState = any_1.Any.fromJSON(object.upgradedClientState);
         }
         else {
             message.upgradedClientState = undefined;
@@ -433,10 +436,10 @@ export const UpgradeProposal = {
         message.description !== undefined &&
             (obj.description = message.description);
         message.plan !== undefined &&
-            (obj.plan = message.plan ? Plan.toJSON(message.plan) : undefined);
+            (obj.plan = message.plan ? upgrade_1.Plan.toJSON(message.plan) : undefined);
         message.upgradedClientState !== undefined &&
             (obj.upgradedClientState = message.upgradedClientState
-                ? Any.toJSON(message.upgradedClientState)
+                ? any_1.Any.toJSON(message.upgradedClientState)
                 : undefined);
         return obj;
     },
@@ -455,14 +458,14 @@ export const UpgradeProposal = {
             message.description = "";
         }
         if (object.plan !== undefined && object.plan !== null) {
-            message.plan = Plan.fromPartial(object.plan);
+            message.plan = upgrade_1.Plan.fromPartial(object.plan);
         }
         else {
             message.plan = undefined;
         }
         if (object.upgradedClientState !== undefined &&
             object.upgradedClientState !== null) {
-            message.upgradedClientState = Any.fromPartial(object.upgradedClientState);
+            message.upgradedClientState = any_1.Any.fromPartial(object.upgradedClientState);
         }
         else {
             message.upgradedClientState = undefined;
@@ -471,8 +474,8 @@ export const UpgradeProposal = {
     },
 };
 const baseHeight = { revisionNumber: 0, revisionHeight: 0 };
-export const Height = {
-    encode(message, writer = Writer.create()) {
+exports.Height = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.revisionNumber !== 0) {
             writer.uint32(8).uint64(message.revisionNumber);
         }
@@ -482,7 +485,7 @@ export const Height = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseHeight };
         while (reader.pos < end) {
@@ -543,15 +546,15 @@ export const Height = {
     },
 };
 const baseParams = { allowedClients: "" };
-export const Params = {
-    encode(message, writer = Writer.create()) {
+exports.Params = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.allowedClients) {
             writer.uint32(10).string(v);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseParams };
         message.allowedClients = [];
@@ -616,7 +619,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

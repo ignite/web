@@ -1,10 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProofOps = exports.ProofOp = exports.DominoOp = exports.ValueOp = exports.Proof = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "tendermint.crypto";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "tendermint.crypto";
 const baseProof = { total: 0, index: 0 };
-export const Proof = {
-    encode(message, writer = Writer.create()) {
+exports.Proof = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.total !== 0) {
             writer.uint32(8).int64(message.total);
         }
@@ -20,7 +23,7 @@ export const Proof = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseProof };
         message.aunts = [];
@@ -115,18 +118,18 @@ export const Proof = {
     },
 };
 const baseValueOp = {};
-export const ValueOp = {
-    encode(message, writer = Writer.create()) {
+exports.ValueOp = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.key.length !== 0) {
             writer.uint32(10).bytes(message.key);
         }
         if (message.proof !== undefined) {
-            Proof.encode(message.proof, writer.uint32(18).fork()).ldelim();
+            exports.Proof.encode(message.proof, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseValueOp };
         while (reader.pos < end) {
@@ -136,7 +139,7 @@ export const ValueOp = {
                     message.key = reader.bytes();
                     break;
                 case 2:
-                    message.proof = Proof.decode(reader, reader.uint32());
+                    message.proof = exports.Proof.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -151,7 +154,7 @@ export const ValueOp = {
             message.key = bytesFromBase64(object.key);
         }
         if (object.proof !== undefined && object.proof !== null) {
-            message.proof = Proof.fromJSON(object.proof);
+            message.proof = exports.Proof.fromJSON(object.proof);
         }
         else {
             message.proof = undefined;
@@ -163,7 +166,7 @@ export const ValueOp = {
         message.key !== undefined &&
             (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
         message.proof !== undefined &&
-            (obj.proof = message.proof ? Proof.toJSON(message.proof) : undefined);
+            (obj.proof = message.proof ? exports.Proof.toJSON(message.proof) : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -175,7 +178,7 @@ export const ValueOp = {
             message.key = new Uint8Array();
         }
         if (object.proof !== undefined && object.proof !== null) {
-            message.proof = Proof.fromPartial(object.proof);
+            message.proof = exports.Proof.fromPartial(object.proof);
         }
         else {
             message.proof = undefined;
@@ -184,8 +187,8 @@ export const ValueOp = {
     },
 };
 const baseDominoOp = { key: "", input: "", output: "" };
-export const DominoOp = {
-    encode(message, writer = Writer.create()) {
+exports.DominoOp = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
         }
@@ -198,7 +201,7 @@ export const DominoOp = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseDominoOp };
         while (reader.pos < end) {
@@ -273,8 +276,8 @@ export const DominoOp = {
     },
 };
 const baseProofOp = { type: "" };
-export const ProofOp = {
-    encode(message, writer = Writer.create()) {
+exports.ProofOp = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.type !== "") {
             writer.uint32(10).string(message.type);
         }
@@ -287,7 +290,7 @@ export const ProofOp = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseProofOp };
         while (reader.pos < end) {
@@ -358,15 +361,15 @@ export const ProofOp = {
     },
 };
 const baseProofOps = {};
-export const ProofOps = {
-    encode(message, writer = Writer.create()) {
+exports.ProofOps = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.ops) {
-            ProofOp.encode(v, writer.uint32(10).fork()).ldelim();
+            exports.ProofOp.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseProofOps };
         message.ops = [];
@@ -374,7 +377,7 @@ export const ProofOps = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.ops.push(ProofOp.decode(reader, reader.uint32()));
+                    message.ops.push(exports.ProofOp.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -388,7 +391,7 @@ export const ProofOps = {
         message.ops = [];
         if (object.ops !== undefined && object.ops !== null) {
             for (const e of object.ops) {
-                message.ops.push(ProofOp.fromJSON(e));
+                message.ops.push(exports.ProofOp.fromJSON(e));
             }
         }
         return message;
@@ -396,7 +399,7 @@ export const ProofOps = {
     toJSON(message) {
         const obj = {};
         if (message.ops) {
-            obj.ops = message.ops.map((e) => (e ? ProofOp.toJSON(e) : undefined));
+            obj.ops = message.ops.map((e) => (e ? exports.ProofOp.toJSON(e) : undefined));
         }
         else {
             obj.ops = [];
@@ -408,7 +411,7 @@ export const ProofOps = {
         message.ops = [];
         if (object.ops !== undefined && object.ops !== null) {
             for (const e of object.ops) {
-                message.ops.push(ProofOp.fromPartial(e));
+                message.ops.push(exports.ProofOp.fromPartial(e));
             }
         }
         return message;
@@ -450,7 +453,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

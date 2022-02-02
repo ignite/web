@@ -1,16 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SimpleValidator = exports.Validator = exports.ValidatorSet = exports.protobufPackage = void 0;
 /* eslint-disable */
-import * as Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { PublicKey } from "../../tendermint/crypto/keys";
-export const protobufPackage = "tendermint.types";
+const Long = require("long");
+const minimal_1 = require("protobufjs/minimal");
+const keys_1 = require("../../tendermint/crypto/keys");
+exports.protobufPackage = "tendermint.types";
 const baseValidatorSet = { totalVotingPower: 0 };
-export const ValidatorSet = {
-    encode(message, writer = Writer.create()) {
+exports.ValidatorSet = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.validators) {
-            Validator.encode(v, writer.uint32(10).fork()).ldelim();
+            exports.Validator.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.proposer !== undefined) {
-            Validator.encode(message.proposer, writer.uint32(18).fork()).ldelim();
+            exports.Validator.encode(message.proposer, writer.uint32(18).fork()).ldelim();
         }
         if (message.totalVotingPower !== 0) {
             writer.uint32(24).int64(message.totalVotingPower);
@@ -18,7 +21,7 @@ export const ValidatorSet = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseValidatorSet };
         message.validators = [];
@@ -26,10 +29,10 @@ export const ValidatorSet = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.validators.push(Validator.decode(reader, reader.uint32()));
+                    message.validators.push(exports.Validator.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.proposer = Validator.decode(reader, reader.uint32());
+                    message.proposer = exports.Validator.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.totalVotingPower = longToNumber(reader.int64());
@@ -46,11 +49,11 @@ export const ValidatorSet = {
         message.validators = [];
         if (object.validators !== undefined && object.validators !== null) {
             for (const e of object.validators) {
-                message.validators.push(Validator.fromJSON(e));
+                message.validators.push(exports.Validator.fromJSON(e));
             }
         }
         if (object.proposer !== undefined && object.proposer !== null) {
-            message.proposer = Validator.fromJSON(object.proposer);
+            message.proposer = exports.Validator.fromJSON(object.proposer);
         }
         else {
             message.proposer = undefined;
@@ -67,14 +70,14 @@ export const ValidatorSet = {
     toJSON(message) {
         const obj = {};
         if (message.validators) {
-            obj.validators = message.validators.map((e) => e ? Validator.toJSON(e) : undefined);
+            obj.validators = message.validators.map((e) => e ? exports.Validator.toJSON(e) : undefined);
         }
         else {
             obj.validators = [];
         }
         message.proposer !== undefined &&
             (obj.proposer = message.proposer
-                ? Validator.toJSON(message.proposer)
+                ? exports.Validator.toJSON(message.proposer)
                 : undefined);
         message.totalVotingPower !== undefined &&
             (obj.totalVotingPower = message.totalVotingPower);
@@ -85,11 +88,11 @@ export const ValidatorSet = {
         message.validators = [];
         if (object.validators !== undefined && object.validators !== null) {
             for (const e of object.validators) {
-                message.validators.push(Validator.fromPartial(e));
+                message.validators.push(exports.Validator.fromPartial(e));
             }
         }
         if (object.proposer !== undefined && object.proposer !== null) {
-            message.proposer = Validator.fromPartial(object.proposer);
+            message.proposer = exports.Validator.fromPartial(object.proposer);
         }
         else {
             message.proposer = undefined;
@@ -105,13 +108,13 @@ export const ValidatorSet = {
     },
 };
 const baseValidator = { votingPower: 0, proposerPriority: 0 };
-export const Validator = {
-    encode(message, writer = Writer.create()) {
+exports.Validator = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.address.length !== 0) {
             writer.uint32(10).bytes(message.address);
         }
         if (message.pubKey !== undefined) {
-            PublicKey.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
+            keys_1.PublicKey.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
         }
         if (message.votingPower !== 0) {
             writer.uint32(24).int64(message.votingPower);
@@ -122,7 +125,7 @@ export const Validator = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseValidator };
         while (reader.pos < end) {
@@ -132,7 +135,7 @@ export const Validator = {
                     message.address = reader.bytes();
                     break;
                 case 2:
-                    message.pubKey = PublicKey.decode(reader, reader.uint32());
+                    message.pubKey = keys_1.PublicKey.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.votingPower = longToNumber(reader.int64());
@@ -153,7 +156,7 @@ export const Validator = {
             message.address = bytesFromBase64(object.address);
         }
         if (object.pubKey !== undefined && object.pubKey !== null) {
-            message.pubKey = PublicKey.fromJSON(object.pubKey);
+            message.pubKey = keys_1.PublicKey.fromJSON(object.pubKey);
         }
         else {
             message.pubKey = undefined;
@@ -179,7 +182,7 @@ export const Validator = {
             (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
         message.pubKey !== undefined &&
             (obj.pubKey = message.pubKey
-                ? PublicKey.toJSON(message.pubKey)
+                ? keys_1.PublicKey.toJSON(message.pubKey)
                 : undefined);
         message.votingPower !== undefined &&
             (obj.votingPower = message.votingPower);
@@ -196,7 +199,7 @@ export const Validator = {
             message.address = new Uint8Array();
         }
         if (object.pubKey !== undefined && object.pubKey !== null) {
-            message.pubKey = PublicKey.fromPartial(object.pubKey);
+            message.pubKey = keys_1.PublicKey.fromPartial(object.pubKey);
         }
         else {
             message.pubKey = undefined;
@@ -218,10 +221,10 @@ export const Validator = {
     },
 };
 const baseSimpleValidator = { votingPower: 0 };
-export const SimpleValidator = {
-    encode(message, writer = Writer.create()) {
+exports.SimpleValidator = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.pubKey !== undefined) {
-            PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();
+            keys_1.PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();
         }
         if (message.votingPower !== 0) {
             writer.uint32(16).int64(message.votingPower);
@@ -229,14 +232,14 @@ export const SimpleValidator = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseSimpleValidator };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.pubKey = PublicKey.decode(reader, reader.uint32());
+                    message.pubKey = keys_1.PublicKey.decode(reader, reader.uint32());
                     break;
                 case 2:
                     message.votingPower = longToNumber(reader.int64());
@@ -251,7 +254,7 @@ export const SimpleValidator = {
     fromJSON(object) {
         const message = { ...baseSimpleValidator };
         if (object.pubKey !== undefined && object.pubKey !== null) {
-            message.pubKey = PublicKey.fromJSON(object.pubKey);
+            message.pubKey = keys_1.PublicKey.fromJSON(object.pubKey);
         }
         else {
             message.pubKey = undefined;
@@ -268,7 +271,7 @@ export const SimpleValidator = {
         const obj = {};
         message.pubKey !== undefined &&
             (obj.pubKey = message.pubKey
-                ? PublicKey.toJSON(message.pubKey)
+                ? keys_1.PublicKey.toJSON(message.pubKey)
                 : undefined);
         message.votingPower !== undefined &&
             (obj.votingPower = message.votingPower);
@@ -277,7 +280,7 @@ export const SimpleValidator = {
     fromPartial(object) {
         const message = { ...baseSimpleValidator };
         if (object.pubKey !== undefined && object.pubKey !== null) {
-            message.pubKey = PublicKey.fromPartial(object.pubKey);
+            message.pubKey = keys_1.PublicKey.fromPartial(object.pubKey);
         }
         else {
             message.pubKey = undefined;
@@ -327,7 +330,7 @@ function longToNumber(long) {
     }
     return long.toNumber();
 }
-if (util.Long !== Long) {
-    util.Long = Long;
-    configure();
+if (minimal_1.util.Long !== Long) {
+    minimal_1.util.Long = Long;
+    minimal_1.configure();
 }

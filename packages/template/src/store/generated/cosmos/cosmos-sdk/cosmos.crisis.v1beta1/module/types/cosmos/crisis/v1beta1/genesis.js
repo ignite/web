@@ -1,24 +1,27 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Writer, Reader } from "protobufjs/minimal";
-export const protobufPackage = "cosmos.crisis.v1beta1";
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const minimal_1 = require("protobufjs/minimal");
+exports.protobufPackage = "cosmos.crisis.v1beta1";
 const baseGenesisState = {};
-export const GenesisState = {
-    encode(message, writer = Writer.create()) {
+exports.GenesisState = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.constantFee !== undefined) {
-            Coin.encode(message.constantFee, writer.uint32(26).fork()).ldelim();
+            coin_1.Coin.encode(message.constantFee, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 3:
-                    message.constantFee = Coin.decode(reader, reader.uint32());
+                    message.constantFee = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -30,7 +33,7 @@ export const GenesisState = {
     fromJSON(object) {
         const message = { ...baseGenesisState };
         if (object.constantFee !== undefined && object.constantFee !== null) {
-            message.constantFee = Coin.fromJSON(object.constantFee);
+            message.constantFee = coin_1.Coin.fromJSON(object.constantFee);
         }
         else {
             message.constantFee = undefined;
@@ -41,14 +44,14 @@ export const GenesisState = {
         const obj = {};
         message.constantFee !== undefined &&
             (obj.constantFee = message.constantFee
-                ? Coin.toJSON(message.constantFee)
+                ? coin_1.Coin.toJSON(message.constantFee)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseGenesisState };
         if (object.constantFee !== undefined && object.constantFee !== null) {
-            message.constantFee = Coin.fromPartial(object.constantFee);
+            message.constantFee = coin_1.Coin.fromPartial(object.constantFee);
         }
         else {
             message.constantFee = undefined;

@@ -1,3 +1,4 @@
+"use strict";
 /* eslint-disable */
 /* tslint:disable */
 /*
@@ -8,6 +9,8 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Api = exports.HttpClient = exports.ContentType = exports.V1Beta1BondStatus = void 0;
 /**
 * BondStatus is the status of a validator.
 
@@ -16,20 +19,20 @@
  - BOND_STATUS_UNBONDING: UNBONDING defines a validator that is unbonding.
  - BOND_STATUS_BONDED: BONDED defines a validator that is bonded.
 */
-export var V1Beta1BondStatus;
+var V1Beta1BondStatus;
 (function (V1Beta1BondStatus) {
     V1Beta1BondStatus["BOND_STATUS_UNSPECIFIED"] = "BOND_STATUS_UNSPECIFIED";
     V1Beta1BondStatus["BOND_STATUS_UNBONDED"] = "BOND_STATUS_UNBONDED";
     V1Beta1BondStatus["BOND_STATUS_UNBONDING"] = "BOND_STATUS_UNBONDING";
     V1Beta1BondStatus["BOND_STATUS_BONDED"] = "BOND_STATUS_BONDED";
-})(V1Beta1BondStatus || (V1Beta1BondStatus = {}));
-export var ContentType;
+})(V1Beta1BondStatus = exports.V1Beta1BondStatus || (exports.V1Beta1BondStatus = {}));
+var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";
     ContentType["FormData"] = "multipart/form-data";
     ContentType["UrlEncoded"] = "application/x-www-form-urlencoded";
-})(ContentType || (ContentType = {}));
-export class HttpClient {
+})(ContentType = exports.ContentType || (exports.ContentType = {}));
+class HttpClient {
     constructor(apiConfig = {}) {
         this.baseUrl = "";
         this.securityData = null;
@@ -144,11 +147,12 @@ export class HttpClient {
         };
     }
 }
+exports.HttpClient = HttpClient;
 /**
  * @title cosmos/staking/v1beta1/authz.proto
  * @version version not set
  */
-export class Api extends HttpClient {
+class Api extends HttpClient {
     constructor() {
         super(...arguments);
         /**
@@ -360,3 +364,4 @@ export class Api extends HttpClient {
         });
     }
 }
+exports.Api = Api;

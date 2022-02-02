@@ -1,2 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.protobufPackage = void 0;
 /* eslint-disable */
-export const protobufPackage = "cosmos_proto";
+exports.protobufPackage = "cosmos_proto";

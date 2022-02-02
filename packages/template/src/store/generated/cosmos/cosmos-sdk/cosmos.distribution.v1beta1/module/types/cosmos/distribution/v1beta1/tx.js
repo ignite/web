@@ -1,13 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MsgClientImpl = exports.MsgFundCommunityPoolResponse = exports.MsgFundCommunityPool = exports.MsgWithdrawValidatorCommissionResponse = exports.MsgWithdrawValidatorCommission = exports.MsgWithdrawDelegatorRewardResponse = exports.MsgWithdrawDelegatorReward = exports.MsgSetWithdrawAddressResponse = exports.MsgSetWithdrawAddress = exports.protobufPackage = void 0;
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-export const protobufPackage = "cosmos.distribution.v1beta1";
+const minimal_1 = require("protobufjs/minimal");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+exports.protobufPackage = "cosmos.distribution.v1beta1";
 const baseMsgSetWithdrawAddress = {
     delegatorAddress: "",
     withdrawAddress: "",
 };
-export const MsgSetWithdrawAddress = {
-    encode(message, writer = Writer.create()) {
+exports.MsgSetWithdrawAddress = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.delegatorAddress !== "") {
             writer.uint32(10).string(message.delegatorAddress);
         }
@@ -17,7 +20,7 @@ export const MsgSetWithdrawAddress = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgSetWithdrawAddress };
         while (reader.pos < end) {
@@ -82,12 +85,12 @@ export const MsgSetWithdrawAddress = {
     },
 };
 const baseMsgSetWithdrawAddressResponse = {};
-export const MsgSetWithdrawAddressResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgSetWithdrawAddressResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgSetWithdrawAddressResponse,
@@ -123,8 +126,8 @@ const baseMsgWithdrawDelegatorReward = {
     delegatorAddress: "",
     validatorAddress: "",
 };
-export const MsgWithdrawDelegatorReward = {
-    encode(message, writer = Writer.create()) {
+exports.MsgWithdrawDelegatorReward = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.delegatorAddress !== "") {
             writer.uint32(10).string(message.delegatorAddress);
         }
@@ -134,7 +137,7 @@ export const MsgWithdrawDelegatorReward = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgWithdrawDelegatorReward,
@@ -205,12 +208,12 @@ export const MsgWithdrawDelegatorReward = {
     },
 };
 const baseMsgWithdrawDelegatorRewardResponse = {};
-export const MsgWithdrawDelegatorRewardResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgWithdrawDelegatorRewardResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgWithdrawDelegatorRewardResponse,
@@ -243,15 +246,15 @@ export const MsgWithdrawDelegatorRewardResponse = {
     },
 };
 const baseMsgWithdrawValidatorCommission = { validatorAddress: "" };
-export const MsgWithdrawValidatorCommission = {
-    encode(message, writer = Writer.create()) {
+exports.MsgWithdrawValidatorCommission = {
+    encode(message, writer = minimal_1.Writer.create()) {
         if (message.validatorAddress !== "") {
             writer.uint32(10).string(message.validatorAddress);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgWithdrawValidatorCommission,
@@ -303,12 +306,12 @@ export const MsgWithdrawValidatorCommission = {
     },
 };
 const baseMsgWithdrawValidatorCommissionResponse = {};
-export const MsgWithdrawValidatorCommissionResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgWithdrawValidatorCommissionResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgWithdrawValidatorCommissionResponse,
@@ -341,10 +344,10 @@ export const MsgWithdrawValidatorCommissionResponse = {
     },
 };
 const baseMsgFundCommunityPool = { depositor: "" };
-export const MsgFundCommunityPool = {
-    encode(message, writer = Writer.create()) {
+exports.MsgFundCommunityPool = {
+    encode(message, writer = minimal_1.Writer.create()) {
         for (const v of message.amount) {
-            Coin.encode(v, writer.uint32(10).fork()).ldelim();
+            coin_1.Coin.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.depositor !== "") {
             writer.uint32(18).string(message.depositor);
@@ -352,7 +355,7 @@ export const MsgFundCommunityPool = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgFundCommunityPool };
         message.amount = [];
@@ -360,7 +363,7 @@ export const MsgFundCommunityPool = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.amount.push(Coin.decode(reader, reader.uint32()));
+                    message.amount.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 2:
                     message.depositor = reader.string();
@@ -377,7 +380,7 @@ export const MsgFundCommunityPool = {
         message.amount = [];
         if (object.amount !== undefined && object.amount !== null) {
             for (const e of object.amount) {
-                message.amount.push(Coin.fromJSON(e));
+                message.amount.push(coin_1.Coin.fromJSON(e));
             }
         }
         if (object.depositor !== undefined && object.depositor !== null) {
@@ -391,7 +394,7 @@ export const MsgFundCommunityPool = {
     toJSON(message) {
         const obj = {};
         if (message.amount) {
-            obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
+            obj.amount = message.amount.map((e) => (e ? coin_1.Coin.toJSON(e) : undefined));
         }
         else {
             obj.amount = [];
@@ -404,7 +407,7 @@ export const MsgFundCommunityPool = {
         message.amount = [];
         if (object.amount !== undefined && object.amount !== null) {
             for (const e of object.amount) {
-                message.amount.push(Coin.fromPartial(e));
+                message.amount.push(coin_1.Coin.fromPartial(e));
             }
         }
         if (object.depositor !== undefined && object.depositor !== null) {
@@ -417,12 +420,12 @@ export const MsgFundCommunityPool = {
     },
 };
 const baseMsgFundCommunityPoolResponse = {};
-export const MsgFundCommunityPoolResponse = {
-    encode(_, writer = Writer.create()) {
+exports.MsgFundCommunityPoolResponse = {
+    encode(_, writer = minimal_1.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        const reader = input instanceof Uint8Array ? new minimal_1.Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
             ...baseMsgFundCommunityPoolResponse,
@@ -454,28 +457,29 @@ export const MsgFundCommunityPoolResponse = {
         return message;
     },
 };
-export class MsgClientImpl {
+class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
     SetWithdrawAddress(request) {
-        const data = MsgSetWithdrawAddress.encode(request).finish();
+        const data = exports.MsgSetWithdrawAddress.encode(request).finish();
         const promise = this.rpc.request("cosmos.distribution.v1beta1.Msg", "SetWithdrawAddress", data);
-        return promise.then((data) => MsgSetWithdrawAddressResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgSetWithdrawAddressResponse.decode(new minimal_1.Reader(data)));
     }
     WithdrawDelegatorReward(request) {
-        const data = MsgWithdrawDelegatorReward.encode(request).finish();
+        const data = exports.MsgWithdrawDelegatorReward.encode(request).finish();
         const promise = this.rpc.request("cosmos.distribution.v1beta1.Msg", "WithdrawDelegatorReward", data);
-        return promise.then((data) => MsgWithdrawDelegatorRewardResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawDelegatorRewardResponse.decode(new minimal_1.Reader(data)));
     }
     WithdrawValidatorCommission(request) {
-        const data = MsgWithdrawValidatorCommission.encode(request).finish();
+        const data = exports.MsgWithdrawValidatorCommission.encode(request).finish();
         const promise = this.rpc.request("cosmos.distribution.v1beta1.Msg", "WithdrawValidatorCommission", data);
-        return promise.then((data) => MsgWithdrawValidatorCommissionResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawValidatorCommissionResponse.decode(new minimal_1.Reader(data)));
     }
     FundCommunityPool(request) {
-        const data = MsgFundCommunityPool.encode(request).finish();
+        const data = exports.MsgFundCommunityPool.encode(request).finish();
         const promise = this.rpc.request("cosmos.distribution.v1beta1.Msg", "FundCommunityPool", data);
-        return promise.then((data) => MsgFundCommunityPoolResponse.decode(new Reader(data)));
+        return promise.then((data) => exports.MsgFundCommunityPoolResponse.decode(new minimal_1.Reader(data)));
     }
 }
+exports.MsgClientImpl = MsgClientImpl;

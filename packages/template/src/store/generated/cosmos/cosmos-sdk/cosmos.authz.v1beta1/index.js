@@ -1,19 +1,26 @@
-import { txClient, queryClient, MissingWalletError, registry } from './module';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GrantAuthorization = exports.EventRevoke = exports.EventGrant = exports.Grant = exports.GenericAuthorization = void 0;
+const module_1 = require("./module");
 // @ts-ignore
-import { SpVuexError } from '@starport/vuex';
-import { GenericAuthorization } from "./module/types/cosmos/authz/v1beta1/authz";
-import { Grant } from "./module/types/cosmos/authz/v1beta1/authz";
-import { EventGrant } from "./module/types/cosmos/authz/v1beta1/event";
-import { EventRevoke } from "./module/types/cosmos/authz/v1beta1/event";
-import { GrantAuthorization } from "./module/types/cosmos/authz/v1beta1/genesis";
-export { GenericAuthorization, Grant, EventGrant, EventRevoke, GrantAuthorization };
+const vuex_1 = require("@starport/vuex");
+const authz_1 = require("./module/types/cosmos/authz/v1beta1/authz");
+Object.defineProperty(exports, "GenericAuthorization", { enumerable: true, get: function () { return authz_1.GenericAuthorization; } });
+const authz_2 = require("./module/types/cosmos/authz/v1beta1/authz");
+Object.defineProperty(exports, "Grant", { enumerable: true, get: function () { return authz_2.Grant; } });
+const event_1 = require("./module/types/cosmos/authz/v1beta1/event");
+Object.defineProperty(exports, "EventGrant", { enumerable: true, get: function () { return event_1.EventGrant; } });
+const event_2 = require("./module/types/cosmos/authz/v1beta1/event");
+Object.defineProperty(exports, "EventRevoke", { enumerable: true, get: function () { return event_2.EventRevoke; } });
+const genesis_1 = require("./module/types/cosmos/authz/v1beta1/genesis");
+Object.defineProperty(exports, "GrantAuthorization", { enumerable: true, get: function () { return genesis_1.GrantAuthorization; } });
 async function initTxClient(vuexGetters) {
-    return await txClient(vuexGetters['common/wallet/signer'], {
+    return await module_1.txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
     });
 }
 async function initQueryClient(vuexGetters) {
-    return await queryClient({
+    return await module_1.queryClient({
         addr: vuexGetters['common/env/apiCosmos']
     });
 }
@@ -42,19 +49,19 @@ const getDefaultState = () => {
     return {
         Grants: {},
         _Structure: {
-            GenericAuthorization: getStructure(GenericAuthorization.fromPartial({})),
-            Grant: getStructure(Grant.fromPartial({})),
-            EventGrant: getStructure(EventGrant.fromPartial({})),
-            EventRevoke: getStructure(EventRevoke.fromPartial({})),
-            GrantAuthorization: getStructure(GrantAuthorization.fromPartial({})),
+            GenericAuthorization: getStructure(authz_1.GenericAuthorization.fromPartial({})),
+            Grant: getStructure(authz_2.Grant.fromPartial({})),
+            EventGrant: getStructure(event_1.EventGrant.fromPartial({})),
+            EventRevoke: getStructure(event_2.EventRevoke.fromPartial({})),
+            GrantAuthorization: getStructure(genesis_1.GrantAuthorization.fromPartial({})),
         },
-        _Registry: registry,
+        _Registry: module_1.registry,
         _Subscriptions: new Set(),
     };
 };
 // initial state
 const state = getDefaultState();
-export default {
+exports.default = {
     namespaced: true,
     state,
     mutations: {
@@ -107,7 +114,7 @@ export default {
                     await dispatch(sub.action, sub.payload);
                 }
                 catch (e) {
-                    throw new SpVuexError('Subscriptions: ' + e.message);
+                    throw new vuex_1.SpVuexError('Subscriptions: ' + e.message);
                 }
             });
         },
@@ -126,23 +133,23 @@ export default {
                 return getters['getGrants']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                throw new SpVuexError('QueryClient:QueryGrants', 'API Node Unavailable. Could not perform query: ' + e.message);
+                throw new vuex_1.SpVuexError('QueryClient:QueryGrants', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
-        async sendMsgGrant({ rootGetters }, { value, fee = [], memo = '' }) {
+        async sendMsgRevoke({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgGrant(value);
+                const msg = await txClient.msgRevoke(value);
                 const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
                         gas: "200000" }, memo });
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgGrant:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgRevoke:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgGrant:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgRevoke:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -155,58 +162,28 @@ export default {
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgExec:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgExec:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgExec:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgExec:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
-        async sendMsgRevoke({ rootGetters }, { value, fee = [], memo = '' }) {
+        async sendMsgGrant({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgRevoke(value);
+                const msg = await txClient.msgGrant(value);
                 const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
                         gas: "200000" }, memo });
                 return result;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgRevoke:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgGrant:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgRevoke:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async MsgGrant({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgGrant(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgGrant:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgGrant:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgExec({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgExec(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgExec:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgExec:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgGrant:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -217,11 +194,41 @@ export default {
                 return msg;
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgRevoke:Init', 'Could not initialize signing client. Wallet is required.');
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgRevoke:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgRevoke:Create', 'Could not create message: ' + e.message);
+                    throw new vuex_1.SpVuexError('TxClient:MsgRevoke:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgExec({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgExec(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgExec:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgExec:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgGrant({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgGrant(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == module_1.MissingWalletError) {
+                    throw new vuex_1.SpVuexError('TxClient:MsgGrant:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new vuex_1.SpVuexError('TxClient:MsgGrant:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
