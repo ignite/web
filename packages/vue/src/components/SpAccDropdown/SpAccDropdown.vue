@@ -46,23 +46,50 @@
     </div>
     <div class="account-dropdown" v-else-if="showSettings">
       <div class="dropdown-option mb-3">
+        <span> Chain </span>
+        <span> {{ chainId }} </span>
+      </div>
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
+        <span> Cosmos SDK API </span>
+        <span> {{ apiConnected ? 'connected' : 'disconnected' }} </span>
+      </div>
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
+        <span> Tendermint RPC </span>
+        <span> {{ rpcConnected ? 'connected' : 'disconnected' }} </span>
+      </div>
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
+        <span> WebSocket </span>
+        <span> {{ wsConnected ? 'connected' : 'disconnected' }} </span>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
         <input
           class="input"
-          placeholder="Enter a API "
+          placeholder="Enter API hostname"
           v-model="state.envConfig.apiNode"
         />
       </div>
+
       <div class="dropdown-option mb-3">
         <input
           class="input"
-          placeholder="Enter a RPC"
+          placeholder="Enter RPC hostname"
           v-model="state.envConfig.rpcNode"
         />
       </div>
+
       <div class="dropdown-option mb-3">
         <input
           class="input"
-          placeholder="Enter a WS"
+          placeholder="Enter WebSocket hostname"
           v-model="state.envConfig.wsNode"
         />
       </div>
@@ -149,9 +176,28 @@ export default defineComponent({
     let { shortAddress } = useAddress({ $s })
     let { copy } = useClipboard()
 
-    let apiTendermint = computed(() => $s.getters['common/env/apiTendermint'])
-    let apiCosmos = computed(() => $s.getters['common/env/apiCosmos'])
-    let apiWS = computed(() => $s.getters['common/env/apiWS'])
+    // computed
+    let apiTendermint = computed<string>(
+      () => $s.getters['common/env/apiTendermint']
+    )
+    let apiCosmos = computed<string>(() => $s.getters['common/env/apiCosmos'])
+    let apiWS = computed<string>(() => $s.getters['common/env/apiWS'])
+    let chainId = computed<string>(() => $s.getters['common/env/chainId'])
+    let apiConnected = computed<boolean>(
+      () => $s.getters['common/env/apiConnected']
+    )
+    let rpcConnected = computed<boolean>(
+      () => $s.getters['common/env/rpcConnected']
+    )
+    let wsConnected = computed<boolean>(
+      () => $s.getters['common/env/wsConnected']
+    )
+    let showDefault = computed<boolean>(
+      () => state.currentUIState === UI_STATE.DEFAULT
+    )
+    let showSettings = computed<boolean>(
+      () => state.currentUIState === UI_STATE.SETTINGS
+    )
 
     // state
     let state: State = reactive({
@@ -165,12 +211,6 @@ export default defineComponent({
 
     // actions
     let setEnvConfig = (opts) => $s.dispatch('common/env/config', opts)
-
-    // computed
-    let showDefault = computed(() => state.currentUIState === UI_STATE.DEFAULT)
-    let showSettings = computed(
-      () => state.currentUIState === UI_STATE.SETTINGS
-    )
 
     // methods
     let clickOutsideHandler = (evt) => {
@@ -207,7 +247,11 @@ export default defineComponent({
       switchToSettings,
       // computed
       showDefault,
-      showSettings
+      showSettings,
+      chainId,
+      apiConnected,
+      rpcConnected,
+      wsConnected
     }
   }
 })

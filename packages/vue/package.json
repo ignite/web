@@ -30,6 +30,7 @@
   "devDependencies": {
     "@keplr-wallet/types": "^0.9.10",
     "@types/crypto-js": "^4.0.2",
+    "@types/events": "^3.0.0",
     "@types/file-saver": "^2.0.3",
     "@types/jest": "^27.0.2",
     "@types/long": "^4.0.1",
