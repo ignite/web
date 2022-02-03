@@ -61,10 +61,7 @@ export default defineComponent({
 
     // computed
     let list = computed<TxForUI[]>(() =>
-      pager.value.page.value
-        .map(normalize)
-        .sort((a, b) => b.height - a.height)
-        .slice(0, state.listSize)
+      pager.value.page.value.map(normalize).slice(0, state.listSize)
     )
     let leftToShowMore = computed<boolean>(
       () =>
