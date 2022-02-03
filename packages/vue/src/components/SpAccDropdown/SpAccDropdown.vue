@@ -1,6 +1,6 @@
 <template>
   <transition name="dropdown-fade">
-    <div class="account-dropdown">
+    <div class="account-dropdown" v-if="showDefault">
       <span class="description-grey mb-3 d-block">Connected wallet</span>
       <div class="mb-3" style="display: flex; align-items: center">
         <SpProfileIcon :address="address" />
@@ -21,7 +21,7 @@
         <span> Disconnect wallet </span>
       </div>
       <hr class="divider" />
-      <div class="dropdown-option">
+      <div class="dropdown-option" @click="switchToSettings">
         <span> Settings </span>
         <SpChevronRightIcon />
       </div>
@@ -44,16 +44,71 @@
         <span class="description-grey terms-link ml-1">Cookies</span>
       </div>
     </div>
+    <div class="account-dropdown" v-else-if="showSettings">
+      <div class="dropdown-option mb-3">
+        <input
+          class="input"
+          placeholder="Enter a API "
+          v-model="state.envConfig.apiNode"
+        />
+      </div>
+      <div class="dropdown-option mb-3">
+        <input
+          class="input"
+          placeholder="Enter a RPC"
+          v-model="state.envConfig.rpcNode"
+        />
+      </div>
+      <div class="dropdown-option mb-3">
+        <input
+          class="input"
+          placeholder="Enter a WS"
+          v-model="state.envConfig.wsNode"
+        />
+      </div>
+    </div>
   </transition>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount } from 'vue'
+import {
+  defineComponent,
+  onMounted,
+  onBeforeUnmount,
+  reactive,
+  computed
+} from 'vue'
 
 import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
+import { useStore } from 'vuex'
+
+export enum UI_STATE {
+  'DEFAULT' = 1,
+
+  'SETTINGS' = 2
+}
+export interface EnvConfigData {
+  apiNode: string
+  rpcNode: string
+  wsNode: string
+}
+
+export interface State {
+  currentUIState: UI_STATE
+  envConfig: EnvConfigData
+}
+
+export let initialState: State = {
+  currentUIState: UI_STATE.DEFAULT,
+  envConfig: {
+    apiNode: 'http://localhost:1317',
+    rpcNode: 'http://localhost:26657',
+    wsNode: 'ws://localhost:26657/websocket'
+  }
+}
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -62,7 +117,7 @@ export default defineComponent({
     SpProfileIcon,
     SpChevronRightIcon,
     SpExternalArrowIcon,
-    SpLinkIcon,
+    SpLinkIcon
   },
 
   emits: ['disconnect', 'close'],
@@ -84,16 +139,41 @@ export default defineComponent({
     }
   },
 
-  setup(props, { emit }) {
-    const shortAddress = (address) => {
+  setup(_, { emit }) {
+    // store
+    let $s = useStore()
+    let apiTendermint = computed(() => $s.getters['common/env/apiTendermint'])
+    let apiCosmos = computed(() => $s.getters['common/env/apiCosmos'])
+    let apiWS = computed(() => $s.getters['common/env/apiWS'])
+
+    // state
+    let state: State = reactive({
+      ...initialState,
+      envConfig: {
+        apiNode: apiCosmos.value,
+        rpcNode: apiTendermint.value,
+        wsNode: apiWS.value
+      }
+    })
+
+    // actions
+    let setEnvConfig = (opts) => $s.dispatch('common/env/config', opts)
+
+    // computed
+    let showDefault = computed(() => state.currentUIState === UI_STATE.DEFAULT)
+    let showSettings = computed(
+      () => state.currentUIState === UI_STATE.SETTINGS
+    )
+
+    // methods
+    let shortAddress = (address) => {
       return address.substring(0, 10) + '...' + address.slice(-4)
     }
 
-    const copyToClipboard = (text) => {
+    let copyToClipboard = (text) => {
       navigator.clipboard.writeText(text)
     }
-
-    const clickOutsideHandler = (evt) => {
+    let clickOutsideHandler = (evt) => {
       let dropdownEl = document.querySelector('.account-dropdown')
       let dropdownButtonEl = document.querySelector('.account-dropdown-button')
       if (
@@ -101,9 +181,16 @@ export default defineComponent({
         !dropdownButtonEl?.contains(evt.target)
       ) {
         emit('close')
+        setEnvConfig({
+          ...state.envConfig
+        })
       }
     }
+    let switchToSettings = () => {
+      state.currentUIState = UI_STATE.SETTINGS
+    }
 
+    // lh
     onMounted(() => {
       document.addEventListener('click', clickOutsideHandler)
     })
@@ -112,14 +199,44 @@ export default defineComponent({
     })
 
     return {
+      //state
+      state,
+      // methods
       shortAddress,
-      copyToClipboard
+      copyToClipboard,
+      switchToSettings,
+      // computed
+      showDefault,
+      showSettings
     }
   }
 })
 </script>
 
 <style>
+.input {
+  padding: 16px 13.5px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 0;
+  border-radius: 10px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 130%;
+  color: #000000;
+  width: 100%;
+}
+
+.input:placeholder {
+  color: rgba(0, 0, 0, 0.33);
+}
+
+.input-wrapper {
+  display: flex;
+  flex: 1;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }

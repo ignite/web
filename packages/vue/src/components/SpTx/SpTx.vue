@@ -57,6 +57,7 @@
       <div class="tx-feedback-title">Assets transferred</div>
 
       <div style="width: 100%; height: 8px" />
+      
 
       <div
         class="tx-feedback-subtitle amount"
@@ -337,7 +338,7 @@ export let initialState: State = {
     memo: '',
     fees: []
   },
-  currentUIState: UI_STATE.SEND as UI_STATE,
+  currentUIState: UI_STATE.SEND,
   advancedOpen: false
 }
 

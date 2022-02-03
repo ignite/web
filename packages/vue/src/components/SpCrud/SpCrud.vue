@@ -9,31 +9,47 @@
           size="md"
           style="font-weight: 700"
       >
-        Post items
+        {{ itemName }} items
       </SpTypography>
       <SpButton
-          aria-label="Create post"
           type="primary"
-          @click="visibleModal = 'create-post'"
+          @click="visibleModal = 'create-item'"
       >
-        Create post
+        Create {{ itemName }}
       </SpButton>
     </div>
 
     <SpSpacer size="sm" />
-
-    <SpCrudRead :storeName="storeName" />
+    <SpCrudRead
+      :storeName="storeName"
+      :itemName="itemName"
+      :commandName="`/Query${itemName}All`"
+      @createItem="visibleModal = 'create-item'"
+      @editItem="(item) => { activeItem = item; visibleModal = 'edit-item' }"
+      @deleteItem="(item) => { activeItem = item; visibleModal = 'delete-item' }"
+    />
 
     <SpCrudCreate
-      v-if="visibleModal === 'create-post'"
+      v-if="visibleModal === 'create-item'"
+      :storeName="storeName"
+      :itemName="itemName"
+      :commandName="`/sendMsgCreate${itemName}`"
       @close="visibleModal = ''"
     />
     <SpCrudUpdate
-      v-if="visibleModal === 'edit-post'"
+      v-if="visibleModal === 'edit-item'"
+      :storeName="storeName"
+      :itemName="itemName"
+      :itemData="activeItem"
+      :commandName="`/sendMsgUpdate${itemName}`"
       @close="visibleModal = ''"
     />
     <SpCrudDelete
-      v-if="visibleModal === 'delete-post'"
+      v-if="visibleModal === 'delete-item'"
+      :storeName="storeName"
+      :itemName="itemName"
+      :itemData="activeItem"
+      :commandName="`/sendMsgDelete${itemName}`"
       @close="visibleModal = ''"
     />
   </div>
@@ -51,7 +67,7 @@ import {
   SpCrudCreate,
   SpCrudDelete
 } from '../'
-import { ref, defineComponent } from 'vue'
+import { ref, reactive, defineComponent } from 'vue'
 
 
 export default defineComponent({
@@ -74,14 +90,21 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemName: {
+      type: String,
+      required: true
+    },
   },
 
   setup() {
     // store
     let visibleModal = ref('')
+    let activeItem = reactive({})
 
     return {
       visibleModal,
+      activeItem,
     }
   }
 })

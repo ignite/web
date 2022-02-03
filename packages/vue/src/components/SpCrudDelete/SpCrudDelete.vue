@@ -18,7 +18,7 @@
       </div>
       <SpSpacer size="xs" />
       <SpTypography size="sm" modifier="highlight" style="font-weight: 700">
-        Delete this post?
+        Delete this item?
       </SpTypography>
     </template>
     <template v-slot:body>
@@ -33,14 +33,14 @@
       <div style="display: flex; gap: 10px; justify-content: center">
         <SpButton
           type="secondary"
-          @submit="$emit('close')"
+          @click="$emit('close')"
           style="width: 40%;"
         >
           Cancel
         </SpButton>
         <SpButton
           type="primary"
-          @submit="$emit('delete')"
+          @click="deleteItem"
           style="width: 40%;"
         >
           Delete
@@ -52,7 +52,8 @@
 
 <script lang="ts">
 import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
-import { defineComponent } from 'vue'
+import {computed, defineComponent, reactive} from 'vue'
+import {useStore} from "vuex";
 
 export default defineComponent({
   name: 'SpCrudDelete',
@@ -70,9 +71,38 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemName: {
+      type: String,
+      required: true
+    },
+
+    itemData: {
+      type: Object,
+      required: true
+    },
+
+    commandName: {
+      type: String,
+      required: true
+    },
   },
 
-  setup() {
+  setup(props, { emit }) {
+    // store
+    let $s = useStore()
+
+    // computed
+    let creator = $s.getters['common/wallet/address']
+
+    let deleteItem = async () => {
+      $s.dispatch(props.storeName + props.commandName, { value: { creator, id: props.itemData.id } })
+      emit('close')
+    }
+
+    return {
+      deleteItem
+    }
   }
 })
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="posts" style="max-width: 600px;">
+    <div v-if="items" style="max-width: 600px;">
       <div
-          :key="post.id"
-          v-for="post in posts.Posts"
-          style="display: flex; justify-content: space-between; gap: 14px"
+          :key="item.id"
+          v-for="item in items"
+          style="display: flex; justify-content: space-between; gap: 14px; margin-bottom: 3rem"
       >
         <div style="width: 50px">
           <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,14 +17,13 @@
           </svg>
         </div>
         <div style="width: 100%">
-          <div class="item-title">Title</div>
-          <div class="item-value">{{ post.title }}</div>
-          <SpSpacer size="xs" />
-          <div class="item-title">Description</div>
-          <div class="item-value">{{ post.description }}</div>
-          <SpSpacer size="xs" />
-          <div class="item-title">by {{ post.author }}</div>
-          <SpSpacer size="md" />
+          <div
+            v-for="field in itemFields"
+          >
+            <div class="item-title capitalize-first-letter">{{ field.name }}</div>
+            <div class="item-value">{{ item[field.name] }}</div>
+            <SpSpacer size="xs" />
+          </div>
         </div>
         <div style="width: 20px">
           <SpDropdown>
@@ -37,10 +36,10 @@
             </template>
             <template v-slot:dropdown>
               <div style="width: 160px;">
-                <div class="dropdown-option" @click="visibleModal = 'edit-post'">
+                <div class="dropdown-option" @click="$emit('editItem', item)">
                   Edit
                 </div>
-                <div class="dropdown-option" style="color: #D80228;" @click="visibleModal = 'delete-post'">
+                <div class="dropdown-option" style="color: #D80228;" @click="$emit('deleteItem', item)">
                   Delete
                 </div>
               </div>
@@ -48,13 +47,18 @@
           </SpDropdown>
         </div>
       </div>
-      <div v-if="(posts.Posts || []).length === 0" style="text-align: center">
+      <div v-if="(items || []).length === 0" style="text-align: center">
         <SpSpacer size="md" />
         <SpTypography size="md">
-          No post items
+          No items
         </SpTypography>
-        <SpTypography size="sm" feedback="link">
-          Create your first post
+        <SpTypography
+          size="sm"
+          feedback="link"
+          style="display: inline-block"
+          @click="$emit('createItem')"
+        >
+          Create your first item
         </SpTypography>
       </div>
     </div>
@@ -83,6 +87,16 @@ export default defineComponent({
       type: String,
       required: true
     },
+
+    itemName: {
+      type: String,
+      required: true
+    },
+
+    commandName: {
+      type: String,
+      required: true
+    },
   },
 
   setup(props) {
@@ -92,20 +106,35 @@ export default defineComponent({
 
     // computed
     let address = computed(() => $s.getters['common/wallet/address'])
-    let posts = computed(
-        () => $s.state[props.storeName]
+    let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
+    let items = computed(
+      () => {
+        const itemData = $s.state[props.storeName][props.itemName + 'All']
+        const queryKey = Object.keys(itemData)[0]
+        if (queryKey && itemData[queryKey]) {
+          return itemData[queryKey][props.itemName]
+            .sort((a, b) => { return b.id - a.id })
+        }
+        return []
+      }
     )
 
-    onBeforeMount(async () => {
-      await $s.dispatch(`${props.storeName}/QueryPosts`, {
-        options: { subscribe: true },
-      })
+    $s.dispatch(`${props.storeName}${props.commandName}`, {
+      options: { subscribe: true },
+      params: {},
+      query: {}
     })
+
+    const shortAddress = (address) => {
+      return address.substring(0, 10) + '...' + address.slice(-4)
+    }
 
     return {
       address,
       visibleModal,
-      posts
+      itemFields,
+      shortAddress,
+      items
     }
   }
 })
@@ -148,5 +177,9 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin: 4px 0px;
+}
+
+.capitalize-first-letter:first-letter {
+  text-transform: uppercase;
 }
 </style>

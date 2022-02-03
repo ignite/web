@@ -6,30 +6,18 @@
         :activeRoute="router.currentRoute.value.path"
       />
       <router-view />
-      <Suspense>
-        <template #default>
-          <SpTxList v-if="address" :address="address" />
-        </template>
-        <template #fallback>
-          loading
-        </template>
-      </Suspense>
     </SpTheme>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, onBeforeMount, reactive } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
-import { SpTheme, SpNavbar, SpTx, SpTxList } from '@starport/vue'
+import { SpTheme, SpNavbar, SpTx } from '@starport/vue'
 import { useRouter } from 'vue-router'
 
-export interface State {}
-
-export let initialState = {}
-
 export default {
-  components: { SpTheme, SpNavbar, SpTx, SpTxList },
+  components: { SpTheme, SpNavbar, SpTx },
 
   setup() {
     // store
@@ -39,7 +27,6 @@ export default {
     let router = useRouter()
 
     // state
-    let state: State = reactive(initialState)
     let navbarLinks = [
       { name: 'Portfolio', url: '/portfolio' },
       { name: 'Data', url: '/data' }
@@ -56,8 +43,6 @@ export default {
     })
 
     return {
-      //state,
-      state,
       navbarLinks,
       // router
       router,
