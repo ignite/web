@@ -57,7 +57,6 @@
       <div class="tx-feedback-title">Assets transferred</div>
 
       <div style="width: 100%; height: 8px" />
-      
 
       <div
         class="tx-feedback-subtitle amount"
@@ -356,9 +355,6 @@ export default defineComponent({
   props: {
     fromAddress: {
       type: String as PropType<string>
-    },
-    refresh: {
-      type: Boolean as PropType<boolean>
     }
   },
 
@@ -481,7 +477,7 @@ export default defineComponent({
       if (props.fromAddress) {
         queryAllBalances({
           params: { address: props.fromAddress },
-          options: { subscribe: props.refresh }
+          options: { subscribe: true }
         })
 
         bootstrapTxAmount()
@@ -489,44 +485,44 @@ export default defineComponent({
     })
 
     // computed
-    let balances = computed(() => {
+    let balances = computed<any[]>(() => {
       return (
         $s.getters['cosmos.bank.v1beta1/getAllBalances']({
           params: { address: props.fromAddress }
         })?.balances ?? []
       )
     })
-    let showSend = computed(() => {
+    let showSend = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.SEND
     })
-    let showReceive = computed(() => {
+    let showReceive = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.RECEIVE
     })
-    let showWalletLocked = computed(() => {
+    let showWalletLocked = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.WALLET_LOCKED
     })
-    let hasAnyBalance = computed(
+    let hasAnyBalance = computed<boolean>(
       () =>
         balances.value.length > 0 &&
         balances.value.some((x) => parseAmount(x.amount) > 0)
     )
-    let isTxOngoing = computed(() => {
+    let isTxOngoing = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_SIGNING
     })
-    let isTxSuccess = computed(() => {
+    let isTxSuccess = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_SUCCESS
     })
-    let isTxError = computed(() => {
+    let isTxError = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_ERROR
     })
-    let validTxFees = computed(() =>
+    let validTxFees = computed<boolean>(() =>
       state.tx.fees.every((x) => {
         let parsedAmount = parseAmount(x.amount)
 
         return !isNaN(parsedAmount) && parsedAmount > 0
       })
     )
-    let validTxAmount = computed(
+    let validTxAmount = computed<boolean>(
       () =>
         state.tx.amount.length > 0 &&
         state.tx.amount.every((x) => {
@@ -535,7 +531,7 @@ export default defineComponent({
           return !isNaN(parsedAmount) && parsedAmount > 0
         })
     )
-    let validToAddress = computed(() => {
+    let validToAddress = computed<boolean>(() => {
       let valid = false
 
       try {
@@ -546,7 +542,7 @@ export default defineComponent({
 
       return valid
     })
-    let ableToTx = computed(
+    let ableToTx = computed<boolean>(
       () =>
         validTxAmount.value &&
         validToAddress.value &&
@@ -561,7 +557,7 @@ export default defineComponent({
         if (newValue !== oldValue) {
           queryAllBalances({
             params: { address: newValue },
-            options: { subscribe: props.refresh }
+            options: { subscribe: true }
           })
 
           bootstrapTxAmount()

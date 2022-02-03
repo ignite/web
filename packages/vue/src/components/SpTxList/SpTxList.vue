@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ComputedRef, defineComponent, reactive } from 'vue'
+import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 import { useTxs } from '../../composables'
@@ -60,18 +60,18 @@ export default defineComponent({
     })
 
     // computed
-    let list: ComputedRef<TxForUI[]> = computed(() =>
+    let list = computed<TxForUI[]>(() =>
       pager.value.page.value
         .map(normalize)
         .sort((a, b) => b.height - a.height)
         .slice(0, state.listSize)
     )
-    let leftToShowMore: ComputedRef<boolean> = computed(
+    let leftToShowMore = computed<boolean>(
       () =>
         state.listSize < state.listMaxSize &&
         pager.value.page.value.length > state.listSize
     )
-    let showMoreText: ComputedRef<string> = computed(
+    let showMoreText = computed<string>(
       () => `${newTxs.value} new ${newTxs.value > 1 ? 'items' : 'item'}`
     )
 

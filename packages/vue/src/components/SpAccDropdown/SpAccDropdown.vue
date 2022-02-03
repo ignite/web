@@ -11,9 +11,9 @@
           <span
             class="description-grey copy-address"
             title="Copy address"
-            @click="copyToClipboard(address)"
+            @click="copy(address)"
           >
-            {{ shortAddress(address) }}
+            {{ shortAddress }}
           </span>
         </div>
       </div>
@@ -49,11 +49,14 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onBeforeUnmount } from 'vue'
+import { useStore } from 'vuex'
 
 import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
+
+import { useClipboard, useAddress } from '../../composables'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -62,7 +65,7 @@ export default defineComponent({
     SpProfileIcon,
     SpChevronRightIcon,
     SpExternalArrowIcon,
-    SpLinkIcon,
+    SpLinkIcon
   },
 
   emits: ['disconnect', 'close'],
@@ -84,14 +87,13 @@ export default defineComponent({
     }
   },
 
-  setup(props, { emit }) {
-    const shortAddress = (address) => {
-      return address.substring(0, 10) + '...' + address.slice(-4)
-    }
+  setup(_, { emit }) {
+    // store
+    let $s = useStore()
 
-    const copyToClipboard = (text) => {
-      navigator.clipboard.writeText(text)
-    }
+    // composables
+    let { shortAddress } = useAddress({ $s })
+    let { copy } = useClipboard()
 
     const clickOutsideHandler = (evt) => {
       let dropdownEl = document.querySelector('.account-dropdown')
@@ -104,6 +106,7 @@ export default defineComponent({
       }
     }
 
+    // lh
     onMounted(() => {
       document.addEventListener('click', clickOutsideHandler)
     })
@@ -113,7 +116,7 @@ export default defineComponent({
 
     return {
       shortAddress,
-      copyToClipboard
+      copy
     }
   }
 })

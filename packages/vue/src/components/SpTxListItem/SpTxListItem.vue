@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { TxForUI } from '../../composables/useTxs'
-import { computed, ComputedRef, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import SpDenom from '../SpDenom/SpDenom.vue'
 
 enum DIR_DESC {
@@ -87,13 +87,9 @@ export default defineComponent({
 
   setup(props) {
     // computed
-    let dirDescription: ComputedRef<string> = computed(
-      () => DIR_DESC[props.tx.dir]
-    )
-    let addrDesc: ComputedRef<string> = computed(() => ADDR_DESC[props.tx.dir])
-    let amountSign: ComputedRef<string> = computed(
-      () => AMOUNT_SIGN[props.tx.dir]
-    )
+    let dirDescription = computed<string>(() => DIR_DESC[props.tx.dir])
+    let addrDesc = computed<string>(() => ADDR_DESC[props.tx.dir])
+    let amountSign = computed<string>(() => AMOUNT_SIGN[props.tx.dir])
 
     return {
       //computed
