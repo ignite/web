@@ -111,7 +111,47 @@ export default defineComponent({
     const searchInput = ref<null | { focus: () => null }>(null)
 
     // state
-
+    const demoData =         [{
+      amount: "1",
+      denom: "A"
+    },
+    {
+      amount: "2",
+      denom: "AB"
+    },
+    {
+      amount: "3",
+      denom: "AC"
+    },
+    {
+      amount: "4",
+      denom: "AA"
+    },
+    {
+      amount: "5",
+      denom: "ABB"
+    },
+    {
+      amount: "6",
+      denom: "ACC"
+    },
+    {
+      amount: "7",
+      denom: "AAA"
+    },
+    {
+      amount: "8",
+      denom: "ABBB"
+    },
+    {
+      amount: "9",
+      denom: "ACCC"
+    },
+    {
+      amount: "10",
+      denom: "ADDDD"
+    },
+    ];
     let filteredArrayLength = 0;
     const state = reactive({
       isAssetsLoading: true,
@@ -145,35 +185,33 @@ export default defineComponent({
       }
     })
 
+    const filterArray = (array, fields, value) => {
+      return array.filter((item) => [fields].some((field) => item[field] === value));
+    }
+
+    filterArray(demoData, 'denom', 'A')
+
     const filteredBalanceList = computed(() => {
-      let searchArray = balances.value.length ? balances.value : [],
-          searchString = state.searchQuery
-
-      console.log("balances = ", balances.value)
-
-      if (!searchString) {
-        console.log("searchArray = ",searchArray)
-        return searchArray.slice(0, state.displayLimit);
+      if(state.searchQuery){
+        console.log(state.searchQuery.trimStart().toLowerCase().split(" "))
+        console.log(demoData.filter(item =>
+          state.searchQuery.trimStart().toLowerCase().split(" ").forEach(v =>
+            item.denom.toLowerCase().includes(v)
+          ))
+        )
+        // console.log(balances.value.filter(item => state.searchQuery.toLowerCase().split(" ").every(v => item.denom.toLowerCase().includes(v))));
+        return demoData.filter(item =>
+          // item.denom.toLowerCase().includes(state.searchQuery.toLowerCase())
+          state.searchQuery.trimStart().toLowerCase().split(" ").forEach(v =>
+            item.denom.toLowerCase().includes(v)
+          )
+        )
       }
-
-      searchString = searchString.trim().toLowerCase()
-
-      searchArray = searchArray.filter((item) => {
-        if (item.denom.toLowerCase().includes(searchString)) {
-          return item
-        }
-      })
-      filteredArrayLength = searchArray.length
-
-
-
-
-
+      console.log(2)
       // Return an array with the filtered data.
-      return searchArray.slice(0, state.displayLimit)
+      return demoData
     })
 
-    console.log({filteredBalanceList})
 
     const showMore = () => {
       state.displayLimit += state.displayLimit
@@ -200,6 +238,7 @@ export default defineComponent({
         query: {"pagination.reverse": false},
         options: { all: true, subscribe: true }
       }).finally(() => {
+
         state.isAssetsLoading = false
       })
     })
@@ -211,7 +250,8 @@ export default defineComponent({
       isShowMore,
       ...toRefs(state),
       resetSearch,
-      searchInput
+      searchInput,
+      demoData
     }
   }
 })
