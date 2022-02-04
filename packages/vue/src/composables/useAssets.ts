@@ -60,7 +60,7 @@ export default function ({ $s }: Params): Response {
   })
 
   // methods
-  let normalize = async (balance: any) => {
+  let normalize = async (balance: any): Promise<AssetForUI> => {
     let isIBC = balance.denom.indexOf('ibc/') == 0
 
     let normalized: AssetForUI = {
@@ -81,7 +81,7 @@ export default function ({ $s }: Params): Response {
 
     normalized.amount.amount = balance.amount
 
-    return normalized as AssetForUI
+    return normalized
   }
 
   //watch
