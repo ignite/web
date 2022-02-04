@@ -7,7 +7,7 @@
       v-bind:key="'selected' + i"
     >
       <Suspense>
-        <SpDenom :denom="x?.denom" modifier="avatar" />
+        <SpDenom :denom="x.amount.denom" modifier="avatar" />
       </Suspense>
 
       <div style="width: 12px; height: 100%" />
@@ -15,25 +15,24 @@
       <div class="token-info">
         <div class="token-denom">
           <Suspense>
-            <SpDenom :denom="x?.denom" />
+            <SpDenom :denom="x.amount.denom" />
           </Suspense>
         </div>
 
         <div
           class="token-amount"
           :class="{
-            error: !hasEnoughBalance(x, x.amount)
+            error: !hasEnoughBalance(x, x.amount.amount)
           }"
         >
-          {{ parseAmount(getBalanceAmount(x)) }}
-          available
+          {{ parseAmount(getBalanceAmount(x)) }} available
         </div>
       </div>
 
       <div class="input-wrapper">
         <input
           class="input secondary"
-          :value="x.amount"
+          :value="x.amount.amount"
           @input="(evt) => handleAmountInput(evt, x)"
           placeholder="0"
         />
@@ -118,7 +117,7 @@
               @click="() => handleTokenSelect(x)"
             >
               <Suspense>
-                <SpDenom :denom="x?.denom" modifier="avatar" />
+                <SpDenom :denom="x.amount.denom" modifier="avatar" />
               </Suspense>
 
               <div style="width: 12px; height: 100%" />
@@ -126,12 +125,12 @@
               <div class="token-info">
                 <div class="token-denom">
                   <Suspense>
-                    <SpDenom :denom="x?.denom" />
+                    <SpDenom :denom="x.amount.denom" />
                   </Suspense>
                 </div>
 
                 <div class="token-amount">
-                  {{ parseAmount(x.amount) }} available
+                  {{ parseAmount(x.amount.amount) }} available
                 </div>
               </div>
             </div>
@@ -145,10 +144,9 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, reactive } from 'vue'
 
-import { Amount } from '../../utils/interfaces'
-
 import SpModal from '../SpModal'
 import SpDenom from '../SpDenom'
+import { AssetForUI } from '@/composables/useAssets'
 
 export interface State {
   tokenSearch: string
@@ -169,10 +167,10 @@ export default defineComponent({
 
   props: {
     selected: {
-      type: Array as PropType<Array<Amount>>
+      type: Array as PropType<Array<AssetForUI>>
     },
     balances: {
-      type: Array as PropType<Array<Amount>>
+      type: Array as PropType<Array<AssetForUI>>
     }
   },
 
@@ -181,11 +179,14 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // computed
-    let ableToBeSelected = computed(() => {
-      let notSelected = (x: Amount) =>
-        props.selected.every((y: Amount) => x.denom !== y.denom)
-      let searchFilter = (x: Amount) =>
-        x.denom.toUpperCase().includes(state.tokenSearch.toUpperCase())
+    let ableToBeSelected = computed<AssetForUI[]>(() => {
+      let notSelected = (x: AssetForUI) =>
+        props.selected.every(
+          (y: AssetForUI) => x.amount.denom !== y.amount.denom
+        )
+
+      let searchFilter = (x: AssetForUI) =>
+        x.amount.denom.toUpperCase().includes(state.tokenSearch.toUpperCase())
 
       return props.balances.filter(notSelected).filter(searchFilter)
     })
@@ -194,28 +195,44 @@ export default defineComponent({
     let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
     }
-    let handleAmountInput = (evt: Event, x: Amount) => {
+    let handleAmountInput = (evt: Event, x: AssetForUI) => {
       let newAmount = (evt.target as HTMLInputElement).value
 
-      let newSelected: Array<Amount> = [...props.selected]
+      let newSelected: Array<AssetForUI> = [...props.selected]
 
-      newSelected[newSelected.findIndex((y) => x.denom === y.denom)].amount =
-        newAmount
+      newSelected[
+        newSelected.findIndex(
+          (y: AssetForUI) => x.amount.denom === y.amount.denom
+        )
+      ].amount.amount = newAmount
 
       emit('update', { selected: newSelected })
     }
-    let handleTokenSelect = (x: Amount) => {
-      let newSelected: Array<Amount> = [...props.selected, { ...x, amount: '' }]
+    let handleTokenSelect = (x: AssetForUI) => {
+      let newSelected: Array<AssetForUI> = [
+        ...props.selected,
+        {
+          ...x,
+          amount: {
+            amount: '',
+            denom: x.amount.denom
+          }
+        }
+      ]
 
       emit('update', { selected: newSelected })
 
       state.modalOpen = false
     }
-    let getBalanceAmount = (x: Amount) => {
-      return (props.balances.find((y) => y.denom === x.denom) as Amount).amount
-    }
-    let hasEnoughBalance = (x: Amount, desiredToTx) =>
-      parseAmount(getBalanceAmount(x)) >= parseAmount(desiredToTx)
+    let getBalanceAmount = (x: AssetForUI): string =>
+      (
+        props.balances.find(
+          (y: AssetForUI) => y.amount.denom === x.amount.denom
+        ) as AssetForUI
+      ).amount.amount
+
+    let hasEnoughBalance = (x: AssetForUI, amountDesired: string) =>
+      parseAmount(getBalanceAmount(x)) >= parseAmount(amountDesired)
 
     return {
       // state

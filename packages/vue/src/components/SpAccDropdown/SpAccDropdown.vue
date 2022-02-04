@@ -11,9 +11,9 @@
           <span
             class="description-grey copy-address"
             title="Copy address"
-            @click="copyToClipboard(address)"
+            @click="copy(address)"
           >
-            {{ shortAddress(address) }}
+            {{ shortAddress }}
           </span>
         </div>
       </div>
@@ -46,23 +46,50 @@
     </div>
     <div class="account-dropdown" v-else-if="showSettings">
       <div class="dropdown-option mb-3">
+        <span> Chain </span>
+        <span> {{ chainId }} </span>
+      </div>
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
+        <span> Cosmos SDK API </span>
+        <span> {{ apiConnected ? 'connected' : 'disconnected' }} </span>
+      </div>
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
+        <span> Tendermint RPC </span>
+        <span> {{ rpcConnected ? 'connected' : 'disconnected' }} </span>
+      </div>
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
+        <span> WebSocket </span>
+        <span> {{ wsConnected ? 'connected' : 'disconnected' }} </span>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="dropdown-option mb-3">
         <input
           class="input"
-          placeholder="Enter a API "
+          placeholder="Enter API hostname"
           v-model="state.envConfig.apiNode"
         />
       </div>
+
       <div class="dropdown-option mb-3">
         <input
           class="input"
-          placeholder="Enter a RPC"
+          placeholder="Enter RPC hostname"
           v-model="state.envConfig.rpcNode"
         />
       </div>
+
       <div class="dropdown-option mb-3">
         <input
           class="input"
-          placeholder="Enter a WS"
+          placeholder="Enter WebSocket hostname"
           v-model="state.envConfig.wsNode"
         />
       </div>
@@ -75,15 +102,15 @@ import {
   defineComponent,
   onMounted,
   onBeforeUnmount,
-  reactive,
-  computed
+  computed,
+  reactive
 } from 'vue'
+import { useStore } from 'vuex'
 
 import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
-import { useStore } from 'vuex'
 
 export enum UI_STATE {
   'DEFAULT' = 1,
@@ -109,6 +136,8 @@ export let initialState: State = {
     wsNode: 'ws://localhost:26657/websocket'
   }
 }
+
+import { useClipboard, useAddress } from '../../composables'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -142,9 +171,33 @@ export default defineComponent({
   setup(_, { emit }) {
     // store
     let $s = useStore()
-    let apiTendermint = computed(() => $s.getters['common/env/apiTendermint'])
-    let apiCosmos = computed(() => $s.getters['common/env/apiCosmos'])
-    let apiWS = computed(() => $s.getters['common/env/apiWS'])
+
+    // composables
+    let { shortAddress } = useAddress({ $s })
+    let { copy } = useClipboard()
+
+    // computed
+    let apiTendermint = computed<string>(
+      () => $s.getters['common/env/apiTendermint']
+    )
+    let apiCosmos = computed<string>(() => $s.getters['common/env/apiCosmos'])
+    let apiWS = computed<string>(() => $s.getters['common/env/apiWS'])
+    let chainId = computed<string>(() => $s.getters['common/env/chainId'])
+    let apiConnected = computed<boolean>(
+      () => $s.getters['common/env/apiConnected']
+    )
+    let rpcConnected = computed<boolean>(
+      () => $s.getters['common/env/rpcConnected']
+    )
+    let wsConnected = computed<boolean>(
+      () => $s.getters['common/env/wsConnected']
+    )
+    let showDefault = computed<boolean>(
+      () => state.currentUIState === UI_STATE.DEFAULT
+    )
+    let showSettings = computed<boolean>(
+      () => state.currentUIState === UI_STATE.SETTINGS
+    )
 
     // state
     let state: State = reactive({
@@ -159,20 +212,7 @@ export default defineComponent({
     // actions
     let setEnvConfig = (opts) => $s.dispatch('common/env/config', opts)
 
-    // computed
-    let showDefault = computed(() => state.currentUIState === UI_STATE.DEFAULT)
-    let showSettings = computed(
-      () => state.currentUIState === UI_STATE.SETTINGS
-    )
-
     // methods
-    let shortAddress = (address) => {
-      return address.substring(0, 10) + '...' + address.slice(-4)
-    }
-
-    let copyToClipboard = (text) => {
-      navigator.clipboard.writeText(text)
-    }
     let clickOutsideHandler = (evt) => {
       let dropdownEl = document.querySelector('.account-dropdown')
       let dropdownButtonEl = document.querySelector('.account-dropdown-button')
@@ -203,11 +243,15 @@ export default defineComponent({
       state,
       // methods
       shortAddress,
-      copyToClipboard,
+      copy,
       switchToSettings,
       // computed
       showDefault,
-      showSettings
+      showSettings,
+      chainId,
+      apiConnected,
+      rpcConnected,
+      wsConnected
     }
   }
 })

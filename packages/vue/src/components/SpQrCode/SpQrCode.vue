@@ -31,8 +31,10 @@ export default defineComponent({
   },
 
   setup(props: any) {
+    // state
     let canvas = ref(null)
 
+    // methods
     let generate = () => {
       const options = {
         margin: 0,
@@ -46,7 +48,10 @@ export default defineComponent({
       toCanvas(canvas.value, props.value, options)
     }
 
+    // lh
     onMounted(generate)
+
+    // watch
     watch(props, generate)
 
     return { canvas }

@@ -1,20 +1,12 @@
 <template>
   <div class="container">
-
     <SpSpacer size="md" />
 
     <div style="display: flex; justify-content: space-between">
-      <SpTypography
-          modifier="highlight"
-          size="md"
-          style="font-weight: 700"
-      >
+      <SpTypography modifier="highlight" size="md" style="font-weight: 700">
         {{ itemName }} items
       </SpTypography>
-      <SpButton
-          type="primary"
-          @click="visibleModal = 'create-item'"
-      >
+      <SpButton type="primary" @click="visibleModal = 'create-item'">
         Create {{ itemName }}
       </SpButton>
     </div>
@@ -25,8 +17,18 @@
       :itemName="itemName"
       :commandName="`/Query${itemName}All`"
       @createItem="visibleModal = 'create-item'"
-      @editItem="(item) => { activeItem = item; visibleModal = 'edit-item' }"
-      @deleteItem="(item) => { activeItem = item; visibleModal = 'delete-item' }"
+      @editItem="
+        (item) => {
+          activeItem = item
+          visibleModal = 'edit-item'
+        }
+      "
+      @deleteItem="
+        (item) => {
+          activeItem = item
+          visibleModal = 'delete-item'
+        }
+      "
     />
 
     <SpCrudCreate
@@ -67,8 +69,17 @@ import {
   SpCrudCreate,
   SpCrudDelete
 } from '../'
-import { ref, reactive, defineComponent } from 'vue'
+import { toRefs, reactive, defineComponent } from 'vue'
 
+export interface State {
+  visibleModal: string
+  activeItem: any
+}
+
+export let initialState: State = {
+  visibleModal: '',
+  activeItem: {}
+}
 
 export default defineComponent({
   name: 'SpCrud',
@@ -94,17 +105,15 @@ export default defineComponent({
     itemName: {
       type: String,
       required: true
-    },
+    }
   },
 
   setup() {
-    // store
-    let visibleModal = ref('')
-    let activeItem = reactive({})
+    // state
+    let state = reactive(initialState)
 
     return {
-      visibleModal,
-      activeItem,
+      ...toRefs(state)
     }
   }
 })

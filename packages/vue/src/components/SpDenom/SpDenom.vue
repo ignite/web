@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, Ref, ref } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import { useStore } from 'vuex'
 
 import useDenom from '../../composables/useDenom'
@@ -42,8 +42,8 @@ export default defineComponent({
     let $s = useStore()
 
     // state
-    let normalizedDenom: Ref<string> = ref(props.denom)
-    let normalizedPath: Ref<string> = ref('')
+    let normalizedDenom = ref<string>(props.denom)
+    let normalizedPath = ref<string>('')
 
     // computed
     const sizeClassObject = computed(() => {
