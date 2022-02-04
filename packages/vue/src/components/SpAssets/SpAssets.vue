@@ -5,21 +5,20 @@
     </header>
     <table class="assets-table">
       <tbody>
-        <tr
-          v-for="balance in balances"
-          :key="balance"
-          class="assets-table__row"
-        >
+        <tr v-for="b in balances" class="assets-table__row">
           <td class="assets-table__denom">
             <div class="sp-denom-marker">
-              {{ balance.denom.charAt(0).toUpperCase() }}
+              {{ b.amount.denom.charAt(0) }}
             </div>
             <div class="sp-denom-name">
-              {{ balance.denom.toUpperCase() }}
+              {{ b.amount.denom }}
+            </div>
+            <div class="sp-denom-ibc-path" v-if="b.path">
+              {{ b.path }}
             </div>
           </td>
           <td class="assets-table__amount">
-            {{ new Intl.NumberFormat('en-GB').format(balance.amount) }}
+            {{ new Intl.NumberFormat('en-GB').format(Number(b.amount.amount)) }}
           </td>
         </tr>
       </tbody>
@@ -28,46 +27,22 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+
+import { useAssets } from '../../composables'
 
 export default defineComponent({
   name: 'SpAssets',
 
-  props: {
-    address: {
-      type: String as PropType<string>
-    }
-  },
-
-  setup(props) {
+  setup() {
     // store
-    const $s = useStore()
+    let $s = useStore()
 
-    // actions
-    let queryAllBalances = (opts: any) =>
-      $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
+    // composables
+    let { balances } = useAssets({ $s })
 
-    // computed
-    let balances = computed(() => {
-      return (
-        $s.getters['cosmos.bank.v1beta1/getAllBalances']({
-          params: { address: props.address }
-        })?.balances ?? []
-      )
-    })
-
-    // lh
-    onMounted(async () => {
-      await queryAllBalances({
-        params: { address: props.address },
-        options: { all: true, subscribe: true }
-      })
-    })
-
-    return {
-      balances
-    }
+    return { balances }
   }
 })
 </script>

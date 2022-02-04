@@ -57,7 +57,6 @@
       <div class="tx-feedback-title">Assets transferred</div>
 
       <div style="width: 100%; height: 8px" />
-      
 
       <div
         class="tx-feedback-subtitle amount"
@@ -205,7 +204,6 @@
           <div class="input-label">Fees</div>
 
           <div style="width: 100%; height: 8px" />
-
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
@@ -277,18 +275,9 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  computed,
-  PropType,
-  watch,
-  reactive,
-  onMounted
-} from 'vue'
+import { defineComponent, computed, PropType, watch, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { Bech32 } from '@cosmjs/encoding'
-
-import { Amount } from '../../utils/interfaces'
 
 import SpAmountSelect from '../SpAmountSelect'
 import SpCard from '../SpCard'
@@ -297,14 +286,16 @@ import SpButton from '../SpButton'
 import SpClipboard from '../SpClipboard'
 
 import long from 'long'
+import { useAssets } from '../../composables'
+import { AssetForUI } from '@/composables/useAssets'
 
 // types
 export interface TxData {
   toAddress: string
   ch: string
-  amount: Array<Amount>
+  amount: Array<AssetForUI>
   memo: string
-  fees: Array<Amount>
+  fees: Array<AssetForUI>
 }
 
 export enum UI_STATE {
@@ -366,13 +357,16 @@ export default defineComponent({
     // state
     let state: State = reactive(initialState)
 
+    // composables
+    let { balances } = useAssets({ $s })
+
+    console.log('balances sp tx', balances.value)
+
     // actions
     let sendMsgSend = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
     let sendMsgTransfer = (opts: any) =>
       $s.dispatch('ibc.applications.transfer.v1/sendMsgTransfer', opts)
-    let queryAllBalances = (opts: any) =>
-      $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
 
     // methods
     let switchToSend = (): void => {
@@ -400,7 +394,7 @@ export default defineComponent({
 
       let fee = state.tx.fees.map((x) => ({
         ...x,
-        amount: x.amount == '' ? '0' : x.amount
+        amount: x.amount.amount == '' ? '0' : x.amount
       }))
 
       let memo = state.tx.memo
@@ -467,32 +461,18 @@ export default defineComponent({
     }
     let bootstrapTxAmount = () => {
       if (hasAnyBalance.value) {
-        let firstBalance = balances.value[0]
+        let firstBalance: AssetForUI = balances.value[0]
 
-        state.tx.amount[0] = { ...firstBalance, amount: '' }
+        state.tx.amount[0] = {
+          ...firstBalance,
+          amount: {
+            amount: '',
+            denom: firstBalance.amount.denom
+          }
+        }
       }
     }
 
-    // lh
-    onMounted(async () => {
-      if (props.fromAddress) {
-        queryAllBalances({
-          params: { address: props.fromAddress },
-          options: { subscribe: true }
-        })
-
-        bootstrapTxAmount()
-      }
-    })
-
-    // computed
-    let balances = computed<any[]>(() => {
-      return (
-        $s.getters['cosmos.bank.v1beta1/getAllBalances']({
-          params: { address: props.fromAddress }
-        })?.balances ?? []
-      )
-    })
     let showSend = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.SEND
     })
@@ -505,7 +485,7 @@ export default defineComponent({
     let hasAnyBalance = computed<boolean>(
       () =>
         balances.value.length > 0 &&
-        balances.value.some((x) => parseAmount(x.amount) > 0)
+        balances.value.some((x) => parseAmount(x.amount.amount) > 0)
     )
     let isTxOngoing = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_SIGNING
@@ -518,7 +498,7 @@ export default defineComponent({
     })
     let validTxFees = computed<boolean>(() =>
       state.tx.fees.every((x) => {
-        let parsedAmount = parseAmount(x.amount)
+        let parsedAmount = parseAmount(x.amount.amount)
 
         return !isNaN(parsedAmount) && parsedAmount > 0
       })
@@ -527,7 +507,7 @@ export default defineComponent({
       () =>
         state.tx.amount.length > 0 &&
         state.tx.amount.every((x) => {
-          let parsedAmount = parseAmount(x.amount)
+          let parsedAmount = parseAmount(x.amount.amount)
 
           return !isNaN(parsedAmount) && parsedAmount > 0
         })
@@ -554,15 +534,8 @@ export default defineComponent({
     //watch
     watch(
       () => props.fromAddress,
-      async (newValue, oldValue) => {
-        if (newValue !== oldValue) {
-          queryAllBalances({
-            params: { address: newValue },
-            options: { subscribe: true }
-          })
-
-          bootstrapTxAmount()
-        }
+      async () => {
+        bootstrapTxAmount()
       }
     )
     watch(
