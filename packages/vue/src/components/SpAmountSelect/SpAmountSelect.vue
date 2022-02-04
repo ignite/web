@@ -7,7 +7,7 @@
       v-bind:key="'selected' + i"
     >
       <Suspense>
-        <SpDenom :denom="x?.denom" modifier="avatar" />
+        <SpDenom :denom="x.denom" modifier="avatar" />
       </Suspense>
 
       <div style="width: 12px; height: 100%" />
@@ -15,7 +15,7 @@
       <div class="token-info">
         <div class="token-denom">
           <Suspense>
-            <SpDenom :denom="x?.denom" />
+            <SpDenom :denom="x.denom" />
           </Suspense>
         </div>
 
@@ -118,7 +118,7 @@
               @click="() => handleTokenSelect(x)"
             >
               <Suspense>
-                <SpDenom :denom="x?.denom" modifier="avatar" />
+                <SpDenom :denom="x.denom" modifier="avatar" />
               </Suspense>
 
               <div style="width: 12px; height: 100%" />
@@ -126,7 +126,7 @@
               <div class="token-info">
                 <div class="token-denom">
                   <Suspense>
-                    <SpDenom :denom="x?.denom" />
+                    <SpDenom :denom="x.denom" />
                   </Suspense>
                 </div>
 
@@ -181,7 +181,7 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // computed
-    let ableToBeSelected = computed(() => {
+    let ableToBeSelected = computed<any[]>(() => {
       let notSelected = (x: Amount) =>
         props.selected.every((y: Amount) => x.denom !== y.denom)
       let searchFilter = (x: Amount) =>

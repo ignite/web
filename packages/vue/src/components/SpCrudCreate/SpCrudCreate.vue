@@ -11,13 +11,8 @@
   >
     <template v-slot:body>
       <SpSpacer size="sm" />
-      <div
-        v-for="field in itemFieldsFiltered"
-      >
-        <label
-          :for="`p${field.name}`"
-          class="sp-label capitalize-first-letter"
-        >
+      <div v-for="field in itemFieldsFiltered">
+        <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">
           {{ field.name }}
         </label>
         <input
@@ -27,7 +22,7 @@
           :id="`p${field.name}`"
           :name="`p${field.name}`"
           class="sp-input"
-        >
+        />
         <SpSpacer size="xs" />
       </div>
     </template>
@@ -36,7 +31,7 @@
 
 <script lang="ts">
 import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
-import { computed, defineComponent, ref, reactive } from 'vue'
+import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -64,7 +59,7 @@ export default defineComponent({
     commandName: {
       type: String,
       required: true
-    },
+    }
   },
 
   setup(props, { emit }) {
@@ -73,19 +68,25 @@ export default defineComponent({
     let formData = reactive({})
 
     // computed
-    let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
-    let itemFieldsFiltered = computed(() => itemFields.value.filter(f => f.name !== 'id' && f.name !== 'creator'))
+    let itemFields = computed(() =>
+      $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
+    )
+    let itemFieldsFiltered = computed(() =>
+      itemFields.value.filter((f) => f.name !== 'id' && f.name !== 'creator')
+    )
     let creator = $s.getters['common/wallet/address']
 
     let submitItem = async () => {
-      $s.dispatch(props.storeName + props.commandName, { value: { ...formData, creator } })
+      $s.dispatch(props.storeName + props.commandName, {
+        value: { ...formData, creator }
+      })
       emit('close')
     }
 
     return {
       itemFieldsFiltered,
       formData,
-      submitItem,
+      submitItem
     }
   }
 })

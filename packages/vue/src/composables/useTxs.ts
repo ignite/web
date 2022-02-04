@@ -10,6 +10,8 @@ import useAPIPagination, {
 import axios, { AxiosResponse } from 'axios'
 import { Amount } from '@/utils/interfaces'
 
+import { EventEmitter } from 'events'
+
 type Response = {
   normalize: (tx: object) => TxForUI
   pager: ComputedRef<Pager>
@@ -105,7 +107,7 @@ export default async function useTxs({
 
   // store
   let address = computed<string>(() => $s.getters['common/wallet/address'])
-  let client = computed<string>(() => $s.getters['common/env/client'])
+  let client = computed<EventEmitter>(() => $s.getters['common/env/client'])
   let API_COSMOS = computed<string>(() => $s.getters['common/env/apiCosmos'])
 
   // computed
