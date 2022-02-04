@@ -473,7 +473,6 @@ export default defineComponent({
       }
     }
 
-    // computed
     let showSend = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.SEND
     })
