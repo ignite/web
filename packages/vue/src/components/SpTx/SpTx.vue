@@ -360,6 +360,11 @@ export default defineComponent({
     // composables
     let { balances } = useAssets({ $s })
 
+<<<<<<< HEAD
+=======
+    console.log('balances sp tx', balances.value)
+
+>>>>>>> release/milestone-2
     // actions
     let sendMsgSend = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
