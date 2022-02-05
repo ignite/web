@@ -1,19 +1,14 @@
 <template>
   <span v-if="modifier === 'base'">
-    {{ normalizedDenom }}
-  </span>
-  <span v-else-if="modifier === 'path'">
-    {{ normalizedDenom }}
+    {{ denom }}
   </span>
   <div class="token-avatar" v-else-if="modifier === 'avatar'">
-    {{ normalizedDenom.slice(0, 1) }}
+    {{ denom.slice(0, 1) }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
-import useDenom from '../../composables/useDenom'
-import { useStore } from 'vuex'
+import { defineComponent, PropType } from 'vue'
 
 type Modifier = 'avatar' | 'path' | 'base'
 
@@ -29,22 +24,6 @@ export default defineComponent({
       type: String as PropType<Modifier>,
       default: 'base'
     }
-  },
-
-  async setup(props) {
-    // store
-    let $s = useStore()
-
-    // state
-    let normalizedDenom = ref<string>(props.denom)
-    let normalizedPath = ref<string>('')
-
-    // composables
-    let { normalizeDenom } = useDenom({ $s })
-
-    normalizedDenom.value = await normalizeDenom(props.denom)
-
-    return { normalizedDenom, normalizedPath }
   }
 })
 </script>

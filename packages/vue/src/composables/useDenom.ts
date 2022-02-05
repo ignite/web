@@ -11,7 +11,7 @@ type Params = {
   opts?: {}
 }
 
-export default function useDenom({ $s }: Params): Response {
+export default function ({ $s }: Params): Response {
   //actions
   let queryDenomTrace = (opts: any) =>
     $s.dispatch('ibc.applications.transfer.v1/QueryDenomTrace', opts)

@@ -4,7 +4,7 @@ type ClipboardOptions = {
   resetAfter?: number
 }
 
-export default function useClipboard(options?: ClipboardOptions) {
+export default function (options?: ClipboardOptions) {
   const isSupported = Boolean(navigator && 'clipboard' in navigator)
   const hasCopied = ref(false)
 

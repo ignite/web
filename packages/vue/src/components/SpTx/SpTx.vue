@@ -64,7 +64,7 @@
         :index="i"
         v-bind:key="'amount' + i"
       >
-        {{ parseAmount(x.amount) }} {{ x.denom }}
+        {{ parseAmount(x.amount.amount) }} {{ x.amount.denom }}
       </div>
 
       <div style="width: 100%; height: 8px" />
@@ -179,12 +179,11 @@
         </div>
 
         <div style="width: 100%; height: 24px" />
-
         <div v-if="hasAnyBalance">
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.amount"
-            :balances="balances"
+            :balances="balancesMergedPerDenom"
             v-on:update="handleTxAmountUpdate"
           />
         </div>
@@ -207,7 +206,7 @@
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
-            :balances="balances"
+            :balances="balancesMergedPerDenom"
             v-on:update="handleTxFeesUpdate"
           />
 
@@ -288,6 +287,7 @@ import SpClipboard from '../SpClipboard'
 import long from 'long'
 import { useAssets } from '../../composables'
 import { AssetForUI } from '@/composables/useAssets'
+import { Amount } from '@/utils/interfaces'
 
 // types
 export interface TxData {
@@ -360,8 +360,11 @@ export default defineComponent({
     // composables
     let { balances } = useAssets({ $s })
 
+<<<<<<< HEAD
+=======
     console.log('balances sp tx', balances.value)
 
+>>>>>>> release/milestone-2
     // actions
     let sendMsgSend = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
@@ -392,9 +395,14 @@ export default defineComponent({
     let sendTx = async (): Promise<void> => {
       state.currentUIState = UI_STATE.TX_SIGNING
 
-      let fee = state.tx.fees.map((x) => ({
-        ...x,
-        amount: x.amount.amount == '' ? '0' : x.amount
+      let fee: Array<Amount> = state.tx.fees.map((x: AssetForUI) => ({
+        denom: x.amount.denom,
+        amount: x.amount.amount == '' ? '0' : x.amount.amount
+      }))
+
+      let amount: Array<Amount> = state.tx.amount.map((x: AssetForUI) => ({
+        denom: x.amount.denom,
+        amount: x.amount.amount == '' ? '0' : x.amount.amount
       }))
 
       let memo = state.tx.memo
@@ -404,7 +412,7 @@ export default defineComponent({
       let send
 
       let payload: any = {
-        amount: state.tx.amount,
+        amount,
         toAddress: state.tx.toAddress,
         fromAddress: props.fromAddress
       }
@@ -473,6 +481,24 @@ export default defineComponent({
       }
     }
 
+    // computed
+    let balancesMergedPerDenom = computed<AssetForUI[]>(() => {
+      let arr: AssetForUI[] = []
+
+      balances.value.forEach((b) => {
+        let i = arr.findIndex((bb) => b.amount.denom === bb.amount.denom)
+
+        if (i > -1) {
+          arr[i].amount.amount = String(
+            Number(b.amount.amount) + Number(arr[i].amount.amount)
+          )
+        } else {
+          arr = [...arr, { ...b, path: '' }]
+        }
+      })
+
+      return arr
+    })
     let showSend = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.SEND
     })
@@ -554,7 +580,7 @@ export default defineComponent({
       showSend,
       showReceive,
       showWalletLocked,
-      balances,
+      balancesMergedPerDenom,
       hasAnyBalance,
       isTxOngoing,
       isTxSuccess,

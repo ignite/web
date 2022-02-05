@@ -30,14 +30,16 @@ type TxDirection = 'in' | 'out' | 'self'
 
 export type TxForUI = {
   dir: TxDirection
+  sender: string
+  receiver: string
   amount: Amount
-  addr: string
   hash: string
+  type: string
   timestamp: string
   height: number
 }
 
-export default async function useTxs({
+export default async function ({
   $s,
   opts: { order, realTime }
 }: Params): Promise<Response> {
@@ -55,44 +57,44 @@ export default async function useTxs({
     }
   }
   let normalize = (tx: any): TxForUI => {
-    let normalized: any = {}
-
-    let toAddr: string = tx.body.messages[0].to_address
-    let fromAddr: string = tx.body.messages[0].from_address
-    let amount: Amount[] = tx.body.messages[0].amount
-
-    let findOutDir = (): TxDirection => {
+    let findOutDir = (tx: TxForUI): TxDirection => {
       let dir: TxDirection = 'in'
 
-      if (toAddr === fromAddr && toAddr === address.value) {
+      if (tx.receiver === tx.sender && tx.receiver === address.value) {
         dir = 'self'
-      } else if (toAddr === address.value) {
+      } else if (tx.receiver === address.value) {
         dir = 'in'
-      } else if (fromAddr === address.value) {
+      } else if (tx.sender === address.value) {
         dir = 'out'
       }
       return dir
     }
 
-    let findOutAddr = (dir: TxDirection): string => {
-      let addr: string = ''
+    let normalized: any = {}
 
-      if (dir === 'self') {
-        addr = toAddr
-      } else if (dir === 'in') {
-        addr = fromAddr
-      } else if (dir === 'out') {
-        addr = toAddr
-      }
-      return addr
+    let isIBC = (tx.body.messages[0]['@type'] as string).includes('ibc')
+
+    if (isIBC) {
+      let decodeIBC = (dataAs64: string): object =>
+        JSON.parse(window.atob(dataAs64))
+
+      let decoded: any = decodeIBC(tx.body.messages[0]?.packet?.data)
+
+      normalized.sender = decoded.sender
+      normalized.receiver = decoded.receiver
+      normalized.amount = { amount: decoded.amount, denom: decoded.denom }
+      normalized.height = Number(tx.height)
+    } else {
+      normalized.sender = tx.body.messages[0].from_address
+      normalized.receiver = tx.body.messages[0].to_address
+      normalized.amount = tx.body.messages[0].amount[0]
+      normalized.height = Number(tx.height)
     }
 
-    normalized.dir = findOutDir()
-    normalized.addr = findOutAddr(normalized.dir)
-    normalized.timestamp = findOutAddr(normalized.dir)
-    normalized.amount = amount[0]
+    normalized.type = tx.body.messages[0]['@type']
+    normalized.timestamp = tx.timestamp
     normalized.hash = tx.txhash
-    normalized.height = Number(tx.height)
+    normalized.dir = findOutDir(normalized)
 
     return normalized as TxForUI
   }
