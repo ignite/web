@@ -464,7 +464,7 @@ export default defineComponent({
     }
     let bootstrapTxAmount = () => {
       if (hasAnyBalance.value) {
-        let firstBalance: AssetForUI = balances.value[1]
+        let firstBalance: AssetForUI = balances.value[0]
 
         state.tx.amount[0] = {
           ...firstBalance,
