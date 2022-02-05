@@ -4,7 +4,7 @@ import { Store } from 'vuex'
 
 import { Amount, AmountWithMeta } from '../utils/interfaces'
 
-export default function useKeplr($s: Store<any>): any {
+export default function ($s: Store<any>): any {
   let connectToKeplr = async (
     onSuccessCb: () => void,
     onErrorCb: () => void

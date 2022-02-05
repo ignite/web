@@ -110,7 +110,7 @@ export default defineComponent({
 
   setup() {
     // state
-    let state = reactive(initialState)
+    let state: State = reactive(initialState)
 
     return {
       ...toRefs(state)

@@ -17,7 +17,7 @@ export type Response = {
 }
 
 // TODO solve last page bug
-export default async function useAPIPagination({
+export default async function ({
   opts: { initialPage = 1 },
   getters: { fetchList }
 }): Promise<Response> {
