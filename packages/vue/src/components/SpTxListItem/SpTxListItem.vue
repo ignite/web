@@ -34,9 +34,7 @@
         {{ dirDescription }}
       </div>
       <div class="tx-meta">
-        {{
-          addrDesc + ' ' + tx.addr.substring(0, 10) + '...' + tx.addr.slice(-4)
-        }}
+        {{ addrDesc + ' ' + shortAddr }}
       </div>
     </div>
     <div class="tx-payload">
@@ -53,7 +51,7 @@
 <script lang="ts">
 import { TxForUI } from '../../composables/useTxs'
 import { computed, defineComponent, PropType } from 'vue'
-import SpDenom from '../SpDenom/SpDenom.vue'
+import SpDenom from '../SpDenom'
 
 enum DIR_DESC {
   self = 'Self',
@@ -89,11 +87,18 @@ export default defineComponent({
     // computed
     let dirDescription = computed<string>(() => DIR_DESC[props.tx.dir])
     let addrDesc = computed<string>(() => ADDR_DESC[props.tx.dir])
+    let addr = computed<string>(() =>
+      props.tx.dir === 'in' ? props.tx.sender : props.tx.receiver
+    )
+    let shortAddr = computed<string>(
+      () => addr.value.substring(0, 10) + '...' + addr.value.slice(-4)
+    )
     let amountSign = computed<string>(() => AMOUNT_SIGN[props.tx.dir])
 
     return {
       //computed
       addrDesc,
+      shortAddr,
       dirDescription,
       amountSign
     }

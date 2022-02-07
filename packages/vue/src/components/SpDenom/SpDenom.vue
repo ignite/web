@@ -12,9 +12,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue'
-import { useStore } from 'vuex'
-
-import useDenom from '../../composables/useDenom'
 
 type Modifier = 'avatar' | 'path' | 'base'
 type Size = 'small' | 'medium' | 'large'
@@ -38,8 +35,6 @@ export default defineComponent({
   },
 
   setup(props) {
-    // store
-
     // computed
     const sizeClassObject = computed(() => {
       return {

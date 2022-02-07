@@ -11,7 +11,7 @@ type Params = {
   opts?: {}
 }
 
-export default function useAssets({ $s }: Params): Response {
+export default function ({ $s }: Params): Response {
   // computed
   let address = computed<string>(() => $s.getters['common/wallet/address'])
   let shortAddress = computed<string>(
