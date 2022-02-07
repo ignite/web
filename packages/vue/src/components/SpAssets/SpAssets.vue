@@ -142,7 +142,6 @@ export default defineComponent({
 
     const isShowMore = computed(() => {
       if (state.value.searchQuery) {
-        console.log(filteredBalanceList.value.length, state.value.displayLimit)
         return filteredBalanceList.value.length > state.value.displayLimit
       }
 
@@ -158,7 +157,6 @@ export default defineComponent({
     }
 
     const resetSearch = () => {
-      console.log(state.value.searchInput)
       state.value.searchQuery = '';
       nextTick(() => state.value.searchInput?.focus());
     }
