@@ -125,7 +125,7 @@ export default async function ({
   let newTxs = ref(0)
 
   // composables
-  let { pager: recvPager }: APIPagination = await useAPIPagination({
+  let recvAPIPagination: APIPagination = await useAPIPagination({
     opts: {},
     getters: {
       fetchList: async ({ offset }) =>
@@ -134,7 +134,7 @@ export default async function ({
         )
     }
   })
-  let { pager: sentPager }: APIPagination = await useAPIPagination({
+  let sentAPIPagination: APIPagination = await useAPIPagination({
     opts: {},
     getters: {
       fetchList: async ({ offset }) =>
@@ -144,19 +144,19 @@ export default async function ({
     }
   })
 
-  await recvPager.load()
-  await sentPager.load()
+  await recvAPIPagination.pager.load()
+  await sentAPIPagination.pager.load()
 
   // computed
   let recvAndSentPager: ComputedRef<Pager> = computed(() =>
-    merge(recvPager, sentPager)
+    merge(recvAPIPagination.pager, sentAPIPagination.pager)
   )
 
   //watch
   watch(
     () => address.value,
     async () => {
-      recvAndSentPager.value.load()
+      await recvAndSentPager.value.load()
     }
   )
 
