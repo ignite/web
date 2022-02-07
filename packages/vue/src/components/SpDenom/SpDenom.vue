@@ -1,12 +1,12 @@
 <template>
   <span v-if="modifier === 'base'">
-    {{ normalizedDenom }}
+    {{ denom.toUpperCase() }}
   </span>
   <span v-else-if="modifier === 'path'">
-    {{ normalizedDenom }}
+    {{ denom }}
   </span>
   <div v-else-if="modifier === 'avatar'" :class="[sizeClassObject, 'token-avatar']">
-    {{ normalizedDenom.slice(0, 1) }}
+    {{ denom.slice(0, 1) }}
   </div>
 </template>
 
@@ -37,13 +37,8 @@ export default defineComponent({
     }
   },
 
-  async setup(props) {
+  setup(props) {
     // store
-    let $s = useStore()
-
-    // state
-    let normalizedDenom = ref<string>(props.denom)
-    let normalizedPath = ref<string>('')
 
     // computed
     const sizeClassObject = computed(() => {
@@ -54,12 +49,7 @@ export default defineComponent({
       }
     })
 
-    // composables
-    let { normalizeDenom } = useDenom({ $s })
-
-    normalizedDenom.value = await normalizeDenom(props.denom)
-
-    return { normalizedDenom, normalizedPath, sizeClassObject}
+    return {  sizeClassObject}
   }
 })
 </script>

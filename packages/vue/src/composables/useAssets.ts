@@ -1,36 +1,40 @@
-import { Amount, DenomTrace } from '@/utils/interfaces'
 import {
   computed,
   ComputedRef,
+  onBeforeMount,
   onMounted,
-  watch,
-  ref,
   Ref,
-  onBeforeMount
-} from 'vue'
-
+  ref,
+  watch} from 'vue'
 import { Store } from 'vuex'
+
+import { Amount, DenomTrace } from '@/utils/interfaces'
 
 import { useAddress, useDenom } from '.'
 
 type Response = {
-  balances: Ref<AssetForUI[]>
+  balances: Ref<{isLoading: boolean, assets: AssetForUI[]}>
   balancesRaw: ComputedRef<any[]>
   normalize: (balance: object) => Promise<AssetForUI>
 }
 export type AssetForUI = {
   amount: Amount
-  path?: string
+  path?: string | string[]
 }
 
 type Params = {
   $s: Store<any>
-  opts?: {}
+  opts?: {
+    extractChannels: boolean
+  }
 }
 
-export default function ({ $s }: Params): Response {
+export default function useAssets({ $s, opts }: Params): Response {
   // state
-  let balances = ref([])
+  let balances = ref({
+    isLoading: true,
+    assets: []
+  })
 
   // composables
   let { address } = useAddress({ $s })
@@ -73,7 +77,7 @@ export default function ({ $s }: Params): Response {
     if (isIBC) {
       let denomTrace: DenomTrace = await getDenomTrace(balance.denom)
 
-      normalized.path = denomTrace.denom_trace.path
+      normalized.path = opts?.extractChannels ? denomTrace.denom_trace.path.match(/\d+/g)?.reverse() : denomTrace.denom_trace.path
       normalized.amount.denom = denomTrace.denom_trace.base_denom
     } else {
       normalized.amount.denom = balance.denom
@@ -85,25 +89,21 @@ export default function ({ $s }: Params): Response {
   }
 
   //watch
-  watch(
-    () => address.value,
-    async (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-        queryAllBalances({
-          params: { address: newValue },
-          options: { subscribe: true }
-        })
-      }
-    }
-  )
-  watch(
-    () => balancesRaw.value,
-    async () => {
-      let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
-
-      Promise.all(arr).then((normalized) => {
-        balances.value = normalized as any
+  watch(() => [address.value, balancesRaw.value], async ([newAddress, newBalance], [oldAddress, oldBalance]) => {
+    if (newAddress !== oldAddress) {
+      queryAllBalances({
+        params: { address: newAddress },
+        options: { subscribe: true }
       })
+    }
+
+    let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
+
+    Promise.all(arr).then((normalized) => {
+      balances.value.assets = normalized as any
+    }).finally(() => {
+      balances.value.isLoading = false
+    })
     }
   )
 
