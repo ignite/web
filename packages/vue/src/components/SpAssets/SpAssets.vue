@@ -92,7 +92,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, nextTick, ref, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
 import { useAssets } from '../../composables'
@@ -119,7 +119,8 @@ export default defineComponent({
       isLoading: true,
       searchQuery: "",
       balanceList: [],
-      displayLimit: props.displayLimit
+      displayLimit: props.displayLimit,
+      searchInput: ref<null | { focus: () => null }>(null)
     });
 
     // composables
@@ -156,7 +157,13 @@ export default defineComponent({
       state.value.displayLimit = props.displayLimit
     }
 
-    return { balances, filteredBalanceList, noSearchResults, isShowMore, onShowMore, resetDisplayLimit, ...toRefs(state.value) }
+    const resetSearch = () => {
+      console.log(state.value.searchInput)
+      state.value.searchQuery = '';
+      nextTick(() => state.value.searchInput?.focus());
+    }
+
+    return { balances, filteredBalanceList, noSearchResults, isShowMore, onShowMore, resetDisplayLimit, resetSearch, ...toRefs(state.value) }
   }
 })
 </script>
