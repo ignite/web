@@ -1,13 +1,5 @@
 import { Amount, DenomTrace } from '@/utils/interfaces'
-import {
-  computed,
-  ComputedRef,
-  onMounted,
-  watch,
-  ref,
-  Ref,
-  onBeforeMount
-} from 'vue'
+import { computed, ComputedRef, watch, ref, Ref, onBeforeMount } from 'vue'
 
 import { Store } from 'vuex'
 

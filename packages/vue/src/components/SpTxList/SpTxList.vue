@@ -1,13 +1,14 @@
 <template>
   <div class="tx-list">
     <div class="title">Transactions</div>
-
     <div v-if="newTxs" @click="loadNewItems" class="load-more" role="button">
       {{ showMoreText }}
     </div>
 
     <div class="list" v-if="list.length > 0">
-      <SpTxListItem v-for="i in list" :key="i.hash" :tx="i" />
+      <div v-for="(tx, i) in list" :key="`${tx.hash}-${tx.timestamp}-${i}`">
+        <SpTxListItem :tx="tx" />
+      </div>
     </div>
     <div v-else class="empty">Transaction history is empty</div>
 
@@ -61,7 +62,10 @@ export default defineComponent({
 
     // computed
     let list = computed<TxForUI[]>(() =>
-      pager.value.page.value.map(normalize).slice(0, state.listSize)
+      pager.value.page.value
+        .map(normalize)
+        .slice(0, state.listSize)
+        .sort((a, b) => b.height - a.height)
     )
     let leftToShowMore = computed<boolean>(
       () =>

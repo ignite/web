@@ -1,10 +1,10 @@
 <template>
   <div class="row" v-if="address">
     <div class="col">
-      <SpAssets :address="address" />
+      <SpAssets />
     </div>
     <div class="col">
-      <SpTx :fromAddress="address" />
+      <SpTx />
     </div>
   </div>
   <div class="row" v-if="address">
