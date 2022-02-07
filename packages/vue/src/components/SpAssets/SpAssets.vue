@@ -429,7 +429,7 @@ $avatar-offset: 32 + 16;
 
 section {
   position: relative;
-  padding-bottom: 48px;
+  padding-bottom: 132px;
 }
 
 .loading {

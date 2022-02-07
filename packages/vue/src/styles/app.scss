@@ -1,11 +1,12 @@
-@import './_normalize';
-@import './_colors';
-@import './_icons';
-@import './_fonts';
-@import './_responsive';
-@import './_utility';
-@import './_components';
+@import './normalize';
+@import './colors';
+@import './icons';
+@import './fonts';
+@import './responsive';
+@import './utility';
+@import './components';
 @import './animations';
+@import './grid';
 
 #app {
   * {
