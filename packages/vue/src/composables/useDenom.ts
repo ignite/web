@@ -1,5 +1,6 @@
-import { DenomTrace } from '@/utils/interfaces'
 import { Store } from 'vuex'
+
+import { DenomTrace } from '@/utils/interfaces'
 
 type Response = {
   getDenomTrace: (denom: string) => Promise<DenomTrace>

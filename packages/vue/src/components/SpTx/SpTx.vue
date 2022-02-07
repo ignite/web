@@ -59,10 +59,10 @@
       <div style="width: 100%; height: 8px" />
 
       <div
-        class="tx-feedback-subtitle amount"
         v-for="(x, i) in state.tx.amount"
+        :key="'amount' + i"
+        class="tx-feedback-subtitle amount"
         :index="i"
-        v-bind:key="'amount' + i"
       >
         {{ parseAmount(x.amount.amount) }} {{ x.amount.denom }}
       </div>
@@ -128,7 +128,7 @@
 
         <div style="width: 100%; height: 8px" />
 
-        <SpButton style="width: 100%" @click="resetTx" type="secondary"
+        <SpButton style="width: 100%" type="secondary" @click="resetTx"
           >Cancel</SpButton
         >
       </div>
@@ -168,11 +168,11 @@
 
           <div class="input-wrapper">
             <input
+              v-model="state.tx.toAddress"
               class="input"
               :class="{
                 error: state.tx.toAddress.length > 0 && !validToAddress
               }"
-              v-model="state.tx.toAddress"
               placeholder="Enter recipient address"
             />
           </div>
@@ -183,7 +183,7 @@
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.amount"
-            :balances="balances"
+            :balances="balances.assets"
             v-on:update="handleTxAmountUpdate"
           />
         </div>
@@ -197,16 +197,16 @@
           Advanced
         </div>
 
-        <div style="width: 100%; height: 24px" v-if="state.advancedOpen" />
+        <div v-if="state.advancedOpen" style="width: 100%; height: 24px" />
 
-        <div class="advanced" v-if="state.advancedOpen">
+        <div v-if="state.advancedOpen" class="advanced">
           <div class="input-label">Fees</div>
 
           <div style="width: 100%; height: 8px" />
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
-            :balances="balances"
+            :balances="balances.assets"
             v-on:update="handleTxFeesUpdate"
           />
 
@@ -218,9 +218,9 @@
 
           <div class="input-wrapper">
             <input
+              v-model="state.tx.memo"
               class="input"
               placeholder="Enter a reference"
-              v-model="state.tx.memo"
             />
           </div>
 
@@ -232,9 +232,9 @@
 
           <div class="input-wrapper">
             <input
+              v-model="state.tx.ch"
               class="input"
               placeholder="Enter a channel"
-              v-model="state.tx.ch"
             />
           </div>
         </div>
@@ -242,7 +242,7 @@
         <div style="width: 100%; height: 24px" />
 
         <div>
-          <SpButton style="width: 100%" @click="sendTx" :disabled="!ableToTx"
+          <SpButton style="width: 100%" :disabled="!ableToTx" @click="sendTx"
             >Send</SpButton
           >
         </div>
@@ -252,18 +252,18 @@
       <div v-else-if="showReceive">
         <div class="receive-wrapper">
           <SpCard>
-            <template v-slot:top>
+            <template #top>
               <div class="qrcode-wrapper">
-                <SpQrCode :value="fromAddress" color="#fff" />
+                <SpQrCode :value="address" color="#fff" />
               </div>
             </template>
 
-            <template v-slot:bottom>
+            <template #bottom>
               <div class="address-wrapper">
                 <div class="address">
-                  {{ fromAddress }}
+                  {{ address }}
                 </div>
-                <div class="copy"><SpClipboard :text="fromAddress" /></div>
+                <div class="copy"><SpClipboard :text="address" /></div>
               </div>
             </template>
           </SpCard>
@@ -274,20 +274,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, watch, reactive } from 'vue'
-import { useStore } from 'vuex'
 import { Bech32 } from '@cosmjs/encoding'
-
-import SpAmountSelect from '../SpAmountSelect'
-import SpCard from '../SpCard'
-import SpQrCode from '../SpQrCode'
-import SpButton from '../SpButton'
-import SpClipboard from '../SpClipboard'
-
 import long from 'long'
-import { useAddress, useAssets } from '../../composables'
+import { computed, defineComponent, PropType, reactive, watch } from 'vue'
+import { useStore } from 'vuex'
+
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
+
+import { useAssets, useAddress } from '../../composables'
+import SpAmountSelect from '../SpAmountSelect'
+import SpButton from '../SpButton'
+import SpCard from '../SpCard'
+import SpClipboard from '../SpClipboard'
+import SpQrCode from '../SpQrCode'
 
 // types
 export interface TxData {
@@ -457,7 +457,7 @@ export default defineComponent({
     }
     let bootstrapTxAmount = () => {
       if (hasAnyBalance.value) {
-        let firstBalance: AssetForUI = balances.value[0]
+        let firstBalance: AssetForUI = balances.value.assets[0]
 
         state.tx.amount[0] = {
           ...firstBalance,
@@ -481,8 +481,8 @@ export default defineComponent({
     })
     let hasAnyBalance = computed<boolean>(
       () =>
-        balances.value.length > 0 &&
-        balances.value.some((x) => parseAmount(x.amount.amount) > 0)
+        balances.value.assets.length > 0 &&
+        balances.value.assets.some((x) => parseAmount(x.amount.amount) > 0)
     )
     let isTxOngoing = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_SIGNING
@@ -536,7 +536,7 @@ export default defineComponent({
       }
     )
     watch(
-      () => balances.value,
+      () => balances.value.assets,
       async (newValue, oldValue) => {
         if (newValue.length > 0 && oldValue.length === 0) {
           bootstrapTxAmount()
@@ -547,6 +547,8 @@ export default defineComponent({
     return {
       //state,
       state,
+      // composable
+      address,
       // computed
       showSend,
       showReceive,

@@ -1,8 +1,9 @@
 <template>
   <div class="amount-select">
     <div
-      class="selected-item"
       v-for="(x, i) in selected"
+      :key="'selected' + i"
+      class="selected-item"
       :index="i"
       v-bind:key="`${x.amount.denom}-${x.path}`"
     >
@@ -33,16 +34,16 @@
         <input
           class="input secondary"
           :value="x.amount.amount"
-          @input="(evt) => handleAmountInput(evt, x)"
           placeholder="0"
+          @input="(evt) => handleAmountInput(evt, x)"
         />
       </div>
     </div>
 
     <div
-      @click="state.modalOpen = true"
       v-if="ableToBeSelected.length > 0"
       class="add-token"
+      @click="state.modalOpen = true"
     >
       <div class="add-icon">
         <svg
@@ -96,12 +97,12 @@
     </div>
 
     <SpModal :visible="state.modalOpen" :title="'Select asset'">
-      <template v-slot:body>
+      <template #body>
         <div class="modal-body">
           <div class="search">
             <input
-              class="input primary"
               v-model="state.tokenSearch"
+              class="input primary"
               placeholder="Search assets"
             />
           </div>
@@ -110,10 +111,10 @@
 
           <div class="modal-list">
             <div
-              class="modal-list-item"
               v-for="(x, i) in ableToBeSelected"
+              :key="'balance' + i"
+              class="modal-list-item"
               :index="i"
-              v-bind:key="'balance' + i"
               @click="() => handleTokenSelect(x)"
             >
               <Suspense>
@@ -142,11 +143,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, reactive } from 'vue'
+import { computed, defineComponent, PropType, reactive } from 'vue'
 
-import SpModal from '../SpModal'
-import SpDenom from '../SpDenom'
 import { AssetForUI } from '@/composables/useAssets'
+
+import SpDenom from '../SpDenom'
+import SpModal from '../SpModal'
 
 export interface State {
   tokenSearch: string
@@ -161,9 +163,9 @@ export let initialState: State = {
 export default defineComponent({
   name: 'SpAmountSelect',
 
-  emits: ['update'],
-
   components: { SpModal, SpDenom },
+
+  emits: ['update'],
 
   props: {
     selected: {
@@ -268,7 +270,7 @@ export default defineComponent({
   width: 100%;
 }
 
-.input.primary:placeholder {
+.input.primary::placeholder {
   color: rgba(0, 0, 0, 0.33);
 }
 
@@ -338,7 +340,7 @@ export default defineComponent({
   color: #000000;
 }
 
-.input.secondary:placeholder {
+.input.secondary::placeholder {
   color: rgba(0, 0, 0, 0.33);
 }
 
