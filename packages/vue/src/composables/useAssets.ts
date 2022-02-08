@@ -1,7 +1,7 @@
-import { Amount, DenomTrace } from '@/utils/interfaces'
-import { computed, ComputedRef, watch, ref, Ref, onBeforeMount } from 'vue'
-
+import { computed, ComputedRef, onBeforeMount, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
+
+import { Amount, DenomTrace } from '@/utils/interfaces'
 
 import { useAddress, useDenom } from '.'
 
@@ -22,7 +22,7 @@ type Params = {
   }
 }
 
-export default function useAssets({ $s, opts }: Params): Response {
+export default function ({ $s, opts }: Params): Response {
   // state
   let balances = ref({
     isLoading: true,
@@ -86,7 +86,7 @@ export default function useAssets({ $s, opts }: Params): Response {
   //watch
   watch(
     () => [address.value, balancesRaw.value],
-    async ([newAddress, newBalance], [oldAddress, oldBalance]) => {
+    async ([newAddress], [oldAddress]) => {
       if (newAddress !== oldAddress) {
         queryAllBalances({
           params: { address: newAddress },

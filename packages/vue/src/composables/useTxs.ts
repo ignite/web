@@ -1,16 +1,15 @@
-import { computed, ComputedRef, ref, Ref, watch } from 'vue'
+import axios, { AxiosResponse } from 'axios'
+import { EventEmitter } from 'events'
+import { computed, ComputedRef, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
-import useAPIPagination, {
-  Response as APIPagination,
-  Pager,
-  merge
-} from './useAPIPagination'
-
-import axios, { AxiosResponse } from 'axios'
 import { Amount } from '@/utils/interfaces'
 
-import { EventEmitter } from 'events'
+import useAPIPagination, {
+  merge,
+  Pager,
+  Response as APIPagination
+} from './useAPIPagination'
 
 type Response = {
   normalize: (tx: object) => TxForUI

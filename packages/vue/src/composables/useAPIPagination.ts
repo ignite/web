@@ -1,4 +1,4 @@
-import { computed, ComputedRef, ref, Ref } from 'vue'
+import { computed, ComputedRef, Ref, ref } from 'vue'
 
 export type Pager = {
   hasNextPage: ComputedRef<boolean>

@@ -11,13 +11,8 @@
   >
     <template v-slot:body>
       <SpSpacer size="sm" />
-      <div
-        v-for="field in itemFieldsFiltered"
-      >
-        <label
-          :for="`p${field.name}`"
-          class="sp-label capitalize-first-letter"
-        >
+      <div v-for="field in itemFieldsFiltered">
+        <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">
           {{ field.name }}
         </label>
         <input
@@ -27,7 +22,7 @@
           :id="`p${field.name}`"
           :name="`p${field.name}`"
           class="sp-input"
-        >
+        />
         <SpSpacer size="xs" />
       </div>
     </template>
@@ -69,7 +64,7 @@ export default defineComponent({
     commandName: {
       type: String,
       required: true
-    },
+    }
   },
 
   setup(props, { emit }) {
@@ -78,19 +73,25 @@ export default defineComponent({
     let formData = reactive({ ...props.itemData })
 
     // computed
-    let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
-    let itemFieldsFiltered = computed(() => itemFields.value.filter(f => f.name !== 'id' && f.name !== 'creator'))
+    let itemFields = computed(() =>
+      $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
+    )
+    let itemFieldsFiltered = computed(() =>
+      itemFields.value.filter((f) => f.name !== 'id' && f.name !== 'creator')
+    )
     let creator = $s.getters['common/wallet/address']
 
     let editItem = async () => {
-      $s.dispatch(props.storeName + props.commandName, { value: { ...formData, creator, id: props.itemData.id } })
+      $s.dispatch(props.storeName + props.commandName, {
+        value: { ...formData, creator, id: props.itemData.id }
+      })
       emit('close')
     }
 
     return {
       itemFieldsFiltered,
       formData,
-      editItem,
+      editItem
     }
   }
 })

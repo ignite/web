@@ -8,7 +8,7 @@ type Response = {
 
 type Params = {
   $s: Store<any>
-  opts?: {}
+  opts?: any
 }
 
 export default function ({ $s }: Params): Response {
