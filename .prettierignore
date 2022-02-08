@@ -7,9 +7,7 @@ packages/**/dist
 packages/**/lib
 packages/**/package-lock.json
 
-packages/vuex/src/modules
 packages/template/src/store/
-
 
 .github
 .husky

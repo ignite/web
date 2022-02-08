@@ -18,7 +18,8 @@
     "types": [],
     "typeRoots": ["./node_modules/@types"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "#/types": ["src/utils/types"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

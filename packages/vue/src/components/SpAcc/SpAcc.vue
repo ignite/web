@@ -4,7 +4,7 @@
       v-if="wallet"
       class="sp-nav-link selected account-dropdown-button"
       style="display: flex; align-items: center"
-      @click="state.accountDropdown = true"
+      @click="state.accountDropdown = !state.accountDropdown"
     >
       <div class="hide-on-small" style="display: flex; align-items: center">
         <SpProfileIcon :address="state.keplrParams?.bech32Address" />
@@ -26,7 +26,6 @@
       v-if="state.accountDropdown"
       :wallet="wallet"
       :accName="getAccName()"
-      :address="state.keplrParams?.bech32Address"
       @disconnect="disconnect"
       @close="state.accountDropdown = false"
     />
@@ -125,14 +124,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  reactive,
-  computed,
-  watch,
-  ComputedRef,
-  onMounted
-} from 'vue'
+import { defineComponent, reactive, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 import SpModal from '../SpModal'
@@ -178,11 +170,11 @@ export default defineComponent({
   },
 
   setup() {
-    // state
-    let state = reactive(initialState)
-
     // $s
     let $s = useStore()
+
+    // state
+    let state = reactive(initialState)
 
     // composables
     let {
@@ -194,12 +186,8 @@ export default defineComponent({
     } = useKeplr($s)
 
     // computed
-    let wallet: ComputedRef<Wallet> = computed(
-      () => $s.getters['common/wallet/wallet']
-    )
-    let chainId: ComputedRef<string> = computed(
-      () => $s.getters['common/env/chainId']
-    )
+    let wallet = computed<Wallet>(() => $s.getters['common/wallet/wallet'])
+    let chainId = computed<string>(() => $s.getters['common/env/chainId'])
 
     // actions
     let signInWithKeplr = async (offlineSigner: any) =>
@@ -207,7 +195,7 @@ export default defineComponent({
     let signOut = async () => $s.dispatch('common/wallet/signOut')
 
     // methods
-    let tryToConnectToKeplr = () => {
+    let tryToConnectToKeplr = (): void => {
       state.modalPage = 'connecting'
 
       let onKeplrConnect = async () => {
@@ -224,7 +212,7 @@ export default defineComponent({
         state.modalPage = 'connect'
       }
 
-      let onKeplrError = () => {
+      let onKeplrError = (): void => {
         state.modalPage = 'error'
       }
 
@@ -237,7 +225,7 @@ export default defineComponent({
         return ''
       }
     }
-    let disconnect = () => {
+    let disconnect = (): void => {
       state.accountDropdown = false
 
       signOut()

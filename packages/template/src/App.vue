@@ -1,5 +1,5 @@
 <template>
-  <div v-if="state.initialized">
+  <div>
     <SpTheme>
       <SpNavbar
         :links="navbarLinks"
@@ -11,18 +11,10 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import { SpTheme, SpNavbar, SpTx } from '@starport/vue'
 import { useRouter } from 'vue-router'
-
-export interface State {
-  initialized: boolean
-}
-
-export let initialState = {
-  initialized: false
-}
 
 export default {
   components: { SpTheme, SpNavbar, SpTx },
@@ -35,25 +27,22 @@ export default {
     let router = useRouter()
 
     // state
-    let state: State = reactive(initialState)
     let navbarLinks = [
       { name: 'Portfolio', url: '/portfolio' },
       { name: 'Data', url: '/data' }
     ]
 
-    // lh
-    onMounted(async () => {
-      await $s.dispatch('common/env/init')
-      state.initialized = true
-      router.push('portfolio')
-    })
-
     // computed
     let address = computed(() => $s.getters['common/wallet/address'])
 
+    // lh
+    onBeforeMount(async () => {
+      await $s.dispatch('common/env/init')
+
+      router.push('portfolio')
+    })
+
     return {
-      //state,
-      state,
       navbarLinks,
       // router
       router,

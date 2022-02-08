@@ -1,47 +1,49 @@
 <template>
   <div class="amount-select">
     <div
-      class="selected-item"
       v-for="(x, i) in selected"
+      :key="'selected' + i"
+      class="selected-item"
       :index="i"
-      v-bind:key="'selected' + i"
+      v-bind:key="`${x.amount.denom}-${x.path}`"
     >
-      <div class="token-avatar">
-        {{ x.denom.slice(0, 1) }}
-      </div>
+      <Suspense>
+        <SpDenom :denom="x.amount.denom" modifier="avatar" />
+      </Suspense>
 
       <div style="width: 12px; height: 100%" />
 
       <div class="token-info">
         <div class="token-denom">
-          {{ x?.denom }}
+          <Suspense>
+            <SpDenom :denom="x.amount.denom" />
+          </Suspense>
         </div>
 
         <div
           class="token-amount"
           :class="{
-            error: !hasEnoughBalance(x, x.amount)
+            error: !hasEnoughBalance(x, x.amount.amount)
           }"
         >
-          {{ parseAmount(getBalanceAmount(x)) }}
-          available
+          {{ getBalanceAmount(x) }} available
         </div>
       </div>
 
       <div class="input-wrapper">
         <input
           class="input secondary"
-          :value="x.amount"
-          @input="(evt) => handleAmountInput(evt, x)"
+          :value="x.amount.amount"
           placeholder="0"
+          @input="(evt) => handleAmountInput(evt, x)"
         />
       </div>
     </div>
 
     <div
-      @click="state.modalOpen = true"
       v-if="ableToBeSelected.length > 0"
       class="add-token"
+      @click="state.modalOpen = true"
     >
       <div class="add-icon">
         <svg
@@ -95,12 +97,12 @@
     </div>
 
     <SpModal :visible="state.modalOpen" :title="'Select asset'">
-      <template v-slot:body>
+      <template #body>
         <div class="modal-body">
           <div class="search">
             <input
-              class="input primary"
               v-model="state.tokenSearch"
+              class="input primary"
               placeholder="Search assets"
             />
           </div>
@@ -109,25 +111,27 @@
 
           <div class="modal-list">
             <div
-              class="modal-list-item"
               v-for="(x, i) in ableToBeSelected"
+              :key="'balance' + i"
+              class="modal-list-item"
               :index="i"
-              v-bind:key="'balance' + i"
               @click="() => handleTokenSelect(x)"
             >
-              <div class="token-avatar">
-                {{ x.denom.slice(0, 1) }}
-              </div>
+              <Suspense>
+                <SpDenom :denom="x.amount.denom" modifier="avatar" />
+              </Suspense>
 
               <div style="width: 12px; height: 100%" />
 
               <div class="token-info">
                 <div class="token-denom">
-                  {{ x.denom }}
+                  <Suspense>
+                    <SpDenom :denom="x.amount.denom" />
+                  </Suspense>
                 </div>
 
                 <div class="token-amount">
-                  {{ parseAmount(x.amount) }} available
+                  {{ parseAmount(x.amount.amount) }} available
                 </div>
               </div>
             </div>
@@ -139,10 +143,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, reactive } from 'vue'
+import { computed, defineComponent, PropType, reactive } from 'vue'
 
-import { Amount } from '../../utils/interfaces'
+import { AssetForUI } from '@/composables/useAssets'
 
+import SpDenom from '../SpDenom'
 import SpModal from '../SpModal'
 
 export interface State {
@@ -158,16 +163,16 @@ export let initialState: State = {
 export default defineComponent({
   name: 'SpAmountSelect',
 
-  emits: ['update'],
+  components: { SpModal, SpDenom },
 
-  components: { SpModal },
+  emits: ['update'],
 
   props: {
     selected: {
-      type: Array as PropType<Array<Amount>>
+      type: Array as PropType<Array<AssetForUI>>
     },
     balances: {
-      type: Array as PropType<Array<Amount>>
+      type: Array as PropType<Array<AssetForUI>>
     }
   },
 
@@ -176,41 +181,59 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // computed
-    let ableToBeSelected = computed(() => {
-      let notSelected = (x: Amount) =>
-        props.selected.every((y: Amount) => x.denom !== y.denom)
-      let searchFilter = (x: Amount) =>
-        x.denom.toUpperCase().includes(state.tokenSearch.toUpperCase())
+    let ableToBeSelected = computed<AssetForUI[]>(() => {
+      let notSelected = (x: AssetForUI) =>
+        (props.selected as Array<AssetForUI>).every((y: AssetForUI) => {
+          let denomIsDifferent = x.amount.denom !== y.amount.denom
+
+          let pathIsDifferent = x.path !== y.path
+
+          return denomIsDifferent || pathIsDifferent
+        })
+
+      let searchFilter = (x: AssetForUI) =>
+        x.amount.denom.includes(state.tokenSearch.toLowerCase())
 
       return props.balances.filter(notSelected).filter(searchFilter)
     })
 
     // methods
+    let findAsset = (x: AssetForUI, y: AssetForUI): boolean =>
+      y.path === x.path && x.amount.denom === y.amount.denom
     let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
     }
-    let handleAmountInput = (evt: Event, x: Amount) => {
+    let handleAmountInput = (evt: Event, x: AssetForUI) => {
       let newAmount = (evt.target as HTMLInputElement).value
 
-      let newSelected: Array<Amount> = [...props.selected]
+      let newSelected: Array<AssetForUI> = [...props.selected]
 
-      newSelected[newSelected.findIndex((y) => x.denom === y.denom)].amount =
-        newAmount
+      newSelected[
+        newSelected.findIndex((y: AssetForUI) => findAsset(x, y))
+      ].amount.amount = newAmount
 
       emit('update', { selected: newSelected })
     }
-    let handleTokenSelect = (x: Amount) => {
-      let newSelected: Array<Amount> = [...props.selected, { ...x, amount: '' }]
+    let handleTokenSelect = (x: AssetForUI) => {
+      let newSelected: Array<AssetForUI> = [
+        ...props.selected,
+        {
+          ...x,
+          amount: {
+            amount: '',
+            denom: x.amount.denom
+          }
+        }
+      ]
 
       emit('update', { selected: newSelected })
 
       state.modalOpen = false
     }
-    let getBalanceAmount = (x: Amount) => {
-      return (props.balances.find((y) => y.denom === x.denom) as Amount).amount
-    }
-    let hasEnoughBalance = (x: Amount, desiredToTx) =>
-      parseAmount(getBalanceAmount(x)) >= parseAmount(desiredToTx)
+    let getBalanceAmount = (x: AssetForUI): string =>
+      props.balances.find((y: AssetForUI) => findAsset(x, y))?.amount?.amount
+    let hasEnoughBalance = (x: AssetForUI, amountDesired: string) =>
+      parseAmount(getBalanceAmount(x)) >= parseAmount(amountDesired)
 
     return {
       // state
@@ -247,7 +270,7 @@ export default defineComponent({
   width: 100%;
 }
 
-.input.primary:placeholder {
+.input.primary::placeholder {
   color: rgba(0, 0, 0, 0.33);
 }
 
@@ -275,37 +298,7 @@ export default defineComponent({
 
   color: rgba(0, 0, 0, 0.667);
 }
-.token-avatar {
-  background: radial-gradient(
-    83.33% 83.33% at 16.67% 16.67%,
-    #f5f5f5 0%,
-    #d7d7d7 42.19%,
-    #fdfdfd 100%
-  );
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.62);
-  border-radius: 24px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 32px;
-  height: 32px;
-
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 125%;
-  /* or 20px */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: -0.007em;
-
-  text-transform: uppercase;
-}
 .modal-list {
   display: flex;
   flex-direction: column;
@@ -347,7 +340,7 @@ export default defineComponent({
   color: #000000;
 }
 
-.input.secondary:placeholder {
+.input.secondary::placeholder {
   color: rgba(0, 0, 0, 0.33);
 }
 

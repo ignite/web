@@ -59,12 +59,12 @@
       <div style="width: 100%; height: 8px" />
 
       <div
-        class="tx-feedback-subtitle amount"
         v-for="(x, i) in state.tx.amount"
+        :key="'amount' + i"
+        class="tx-feedback-subtitle amount"
         :index="i"
-        v-bind:key="'amount' + i"
       >
-        {{ parseAmount(x.amount) }} {{ x.denom }}
+        {{ parseAmount(x.amount.amount) }} {{ x.amount.denom }}
       </div>
 
       <div style="width: 100%; height: 8px" />
@@ -128,7 +128,7 @@
 
         <div style="width: 100%; height: 8px" />
 
-        <SpButton style="width: 100%" @click="resetTx" type="secondary"
+        <SpButton style="width: 100%" type="secondary" @click="resetTx"
           >Cancel</SpButton
         >
       </div>
@@ -168,23 +168,22 @@
 
           <div class="input-wrapper">
             <input
+              v-model="state.tx.toAddress"
               class="input"
               :class="{
                 error: state.tx.toAddress.length > 0 && !validToAddress
               }"
-              v-model="state.tx.toAddress"
               placeholder="Enter recipient address"
             />
           </div>
         </div>
 
         <div style="width: 100%; height: 24px" />
-
         <div v-if="hasAnyBalance">
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.amount"
-            :balances="balances"
+            :balances="balances.assets"
             v-on:update="handleTxAmountUpdate"
           />
         </div>
@@ -198,17 +197,16 @@
           Advanced
         </div>
 
-        <div style="width: 100%; height: 24px" v-if="state.advancedOpen" />
+        <div v-if="state.advancedOpen" style="width: 100%; height: 24px" />
 
-        <div class="advanced" v-if="state.advancedOpen">
+        <div v-if="state.advancedOpen" class="advanced">
           <div class="input-label">Fees</div>
 
           <div style="width: 100%; height: 8px" />
-
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
-            :balances="balances"
+            :balances="balances.assets"
             v-on:update="handleTxFeesUpdate"
           />
 
@@ -220,9 +218,23 @@
 
           <div class="input-wrapper">
             <input
+              v-model="state.tx.memo"
               class="input"
               placeholder="Enter a reference"
-              v-model="state.tx.memo"
+            />
+          </div>
+
+          <div style="width: 100%; height: 8px" />
+
+          <div class="input-label">Channel</div>
+
+          <div style="width: 100%; height: 8px" />
+
+          <div class="input-wrapper">
+            <input
+              v-model="state.tx.ch"
+              class="input"
+              placeholder="Enter a channel"
             />
           </div>
         </div>
@@ -230,7 +242,7 @@
         <div style="width: 100%; height: 24px" />
 
         <div>
-          <SpButton style="width: 100%" @click="sendTx" :disabled="!ableToTx"
+          <SpButton style="width: 100%" :disabled="!ableToTx" @click="sendTx"
             >Send</SpButton
           >
         </div>
@@ -240,18 +252,18 @@
       <div v-else-if="showReceive">
         <div class="receive-wrapper">
           <SpCard>
-            <template v-slot:top>
+            <template #top>
               <div class="qrcode-wrapper">
-                <SpQrCode :value="fromAddress" color="#fff" />
+                <SpQrCode :value="address" color="#fff" />
               </div>
             </template>
 
-            <template v-slot:bottom>
+            <template #bottom>
               <div class="address-wrapper">
                 <div class="address">
-                  {{ fromAddress }}
+                  {{ address }}
                 </div>
-                <div class="copy"><SpClipboard :text="fromAddress" /></div>
+                <div class="copy"><SpClipboard :text="address" /></div>
               </div>
             </template>
           </SpCard>
@@ -262,32 +274,28 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  computed,
-  PropType,
-  watch,
-  reactive,
-  onMounted
-} from 'vue'
-import { useStore } from 'vuex'
 import { Bech32 } from '@cosmjs/encoding'
+import long from 'long'
+import { computed, defineComponent, PropType, reactive, watch } from 'vue'
+import { useStore } from 'vuex'
 
-import { Amount } from '../../utils/interfaces'
+import { AssetForUI } from '@/composables/useAssets'
+import { Amount } from '@/utils/interfaces'
 
+import { useAssets, useAddress } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
-import SpCard from '../SpCard'
-import SpQrCode from '../SpQrCode'
 import SpButton from '../SpButton'
+import SpCard from '../SpCard'
 import SpClipboard from '../SpClipboard'
+import SpQrCode from '../SpQrCode'
 
 // types
 export interface TxData {
   toAddress: string
   ch: string
-  amount: Array<Amount>
+  amount: Array<AssetForUI>
   memo: string
-  fees: Array<Amount>
+  fees: Array<AssetForUI>
 }
 
 export enum UI_STATE {
@@ -321,7 +329,7 @@ export let initialState: State = {
     memo: '',
     fees: []
   },
-  currentUIState: UI_STATE.SEND as UI_STATE,
+  currentUIState: UI_STATE.SEND,
   advancedOpen: false
 }
 
@@ -336,15 +344,6 @@ export default defineComponent({
     SpClipboard
   },
 
-  props: {
-    fromAddress: {
-      type: String as PropType<string>
-    },
-    refresh: {
-      type: Boolean as PropType<boolean>
-    }
-  },
-
   setup(props: any) {
     // store
     let $s = useStore()
@@ -352,11 +351,15 @@ export default defineComponent({
     // state
     let state: State = reactive(initialState)
 
+    // composables
+    let { address } = useAddress({ $s })
+    let { balances } = useAssets({ $s })
+
     // actions
     let sendMsgSend = (opts: any) =>
       $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
-    let queryAllBalances = (opts: any) =>
-      $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
+    let sendMsgTransfer = (opts: any) =>
+      $s.dispatch('ibc.applications.transfer.v1/sendMsgTransfer', opts)
 
     // methods
     let switchToSend = (): void => {
@@ -376,34 +379,67 @@ export default defineComponent({
       state.tx.fees = []
 
       state.currentUIState = UI_STATE.SEND
-
-      bootstrapTxAmount()
     }
     let sendTx = async (): Promise<void> => {
       state.currentUIState = UI_STATE.TX_SIGNING
 
-      let value = {
-        amount: state.tx.amount,
-        toAddress: state.tx.toAddress,
-        fromAddress: props.fromAddress
-      }
-
-      let fee = state.tx.fees.map((x) => ({
-        ...x,
-        amount: x.amount == '' ? '0' : x.amount
+      let fee: Array<Amount> = state.tx.fees.map((x: AssetForUI) => ({
+        denom: x.amount.denom,
+        amount: x.amount.amount == '' ? '0' : x.amount.amount
       }))
 
+      let amount: Array<Amount> = state.tx.amount.map((x: AssetForUI) => ({
+        denom: x.amount.denom,
+        amount: x.amount.amount == '' ? '0' : x.amount.amount
+      }))
+
+      let memo = state.tx.memo
+
+      let isIBC = state.tx.ch !== ''
+
+      let send
+
+      let payload: any = {
+        amount,
+        toAddress: state.tx.toAddress,
+        fromAddress: address.value
+      }
+
       try {
-        const txResult = await sendMsgSend({
-          value,
-          fee,
-          memo: state.tx.memo
-        })
+        if (isIBC) {
+          payload = {
+            ...payload,
+            sourcePort: 'transfer',
+            sourceChannel: state.tx.ch,
+            sender: address.value,
+            receiver: state.tx.toAddress,
+            timeoutHeight: 0,
+            timeoutTimestamp: long
+              .fromNumber(new Date().getTime() + 60000)
+              .multiply(1000000),
+            token: state.tx.amount[0]
+          }
+
+          send = () =>
+            sendMsgTransfer({
+              value: payload,
+              fee,
+              memo
+            })
+        } else {
+          send = () =>
+            sendMsgSend({
+              value: payload,
+              fee,
+              memo
+            })
+        }
+
+        const txResult = await send()
 
         if (txResult.code) {
           throw new Error()
         }
-
         state.currentUIState = UI_STATE.TX_SUCCESS
       } catch (e) {
         console.error(e)
@@ -421,72 +457,59 @@ export default defineComponent({
     }
     let bootstrapTxAmount = () => {
       if (hasAnyBalance.value) {
-        let firstBalance = balances.value[0]
+        let firstBalance: AssetForUI = balances.value.assets[0]
 
-        state.tx.amount[0] = { ...firstBalance, amount: '' }
+        state.tx.amount[0] = {
+          ...firstBalance,
+          amount: {
+            amount: '',
+            denom: firstBalance.amount.denom
+          }
+        }
       }
     }
 
-    // lh
-    onMounted(async () => {
-      if (props.fromAddress) {
-        queryAllBalances({
-          params: { address: props.fromAddress },
-          options: { subscribe: props.refresh }
-        })
-
-        bootstrapTxAmount()
-      }
-    })
-
     // computed
-    let balances = computed(() => {
-      return (
-        $s.getters['cosmos.bank.v1beta1/getAllBalances']({
-          params: { address: props.fromAddress }
-        })?.balances ?? []
-      )
-    })
-    let showSend = computed(() => {
+    let showSend = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.SEND
     })
-    let showReceive = computed(() => {
+    let showReceive = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.RECEIVE
     })
-    let showWalletLocked = computed(() => {
+    let showWalletLocked = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.WALLET_LOCKED
     })
-    let hasAnyBalance = computed(
+    let hasAnyBalance = computed<boolean>(
       () =>
-        balances.value.length > 0 &&
-        balances.value.some((x) => parseAmount(x.amount) > 0)
+        balances.value.assets.length > 0 &&
+        balances.value.assets.some((x) => parseAmount(x.amount.amount) > 0)
     )
-    let isTxOngoing = computed(() => {
+    let isTxOngoing = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_SIGNING
     })
-    let isTxSuccess = computed(() => {
+    let isTxSuccess = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_SUCCESS
     })
-    let isTxError = computed(() => {
+    let isTxError = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_ERROR
     })
-    let validTxFees = computed(() =>
+    let validTxFees = computed<boolean>(() =>
       state.tx.fees.every((x) => {
-        let parsedAmount = parseAmount(x.amount)
+        let parsedAmount = parseAmount(x.amount.amount)
 
         return !isNaN(parsedAmount) && parsedAmount > 0
       })
     )
-    let validTxAmount = computed(
+    let validTxAmount = computed<boolean>(
       () =>
         state.tx.amount.length > 0 &&
         state.tx.amount.every((x) => {
-          let parsedAmount = parseAmount(x.amount)
+          let parsedAmount = parseAmount(x.amount.amount)
 
           return !isNaN(parsedAmount) && parsedAmount > 0
         })
     )
-    let validToAddress = computed(() => {
+    let validToAddress = computed<boolean>(() => {
       let valid = false
 
       try {
@@ -497,30 +520,23 @@ export default defineComponent({
 
       return valid
     })
-    let ableToTx = computed(
+    let ableToTx = computed<boolean>(
       () =>
         validTxAmount.value &&
         validToAddress.value &&
         validTxFees.value &&
-        !!props.fromAddress
+        !!address.value
     )
 
     //watch
     watch(
-      () => props.fromAddress,
-      async (newValue, oldValue) => {
-        if (newValue !== oldValue) {
-          queryAllBalances({
-            params: { address: newValue },
-            options: { subscribe: props.refresh }
-          })
-
-          bootstrapTxAmount()
-        }
+      () => address.value,
+      async () => {
+        resetTx()
       }
     )
     watch(
-      () => balances.value,
+      () => balances.value.assets,
       async (newValue, oldValue) => {
         if (newValue.length > 0 && oldValue.length === 0) {
           bootstrapTxAmount()
@@ -531,6 +547,8 @@ export default defineComponent({
     return {
       //state,
       state,
+      // composable
+      address,
       // computed
       showSend,
       showReceive,
