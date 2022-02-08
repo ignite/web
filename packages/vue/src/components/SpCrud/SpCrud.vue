@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="moduleAvailable">
     <SpSpacer size="md" />
 
     <div style="display: flex; justify-content: space-between">
@@ -70,15 +70,18 @@ import {
   SpCrudDelete
 } from '../'
 import { toRefs, reactive, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export interface State {
   visibleModal: string
   activeItem: any
+  moduleAvailable: boolean
 }
 
 export let initialState: State = {
   visibleModal: '',
-  activeItem: {}
+  activeItem: {},
+  moduleAvailable: false
 }
 
 export default defineComponent({
@@ -108,9 +111,14 @@ export default defineComponent({
     }
   },
 
-  setup() {
+  setup(props) {
+    // store
+    let $s = useStore()
+
     // state
     let state: State = reactive(initialState)
+
+    state.moduleAvailable = $s.hasModule(props.storeName)
 
     return {
       ...toRefs(state)

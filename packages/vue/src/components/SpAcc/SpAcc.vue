@@ -26,7 +26,6 @@
       v-if="state.accountDropdown"
       :wallet="wallet"
       :accName="getAccName()"
-      :address="state.keplrParams?.bech32Address"
       @disconnect="disconnect"
       @close="state.accountDropdown = false"
     />
