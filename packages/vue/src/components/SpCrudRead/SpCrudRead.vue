@@ -124,11 +124,16 @@
 </template>
 
 <script lang="ts">
-import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
 import { useStore } from 'vuex'
 import { computed, defineComponent, onMounted } from 'vue'
 
 import { useAddress } from '../../composables'
+
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
+import SpButton from '../SpButton'
+import SpDropdown from '../SpDropdown'
+import SpModal from '../SpModal'
 
 export default defineComponent({
   name: 'SpCrudRead',

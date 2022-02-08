@@ -30,9 +30,14 @@
 </template>
 
 <script lang="ts">
-import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
 import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
+
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
+import SpButton from '../SpButton'
+import SpDropdown from '../SpDropdown'
+import SpModal from '../SpModal'
 
 export default defineComponent({
   name: 'SpCrudUpdate',
