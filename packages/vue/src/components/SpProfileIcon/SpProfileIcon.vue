@@ -5,7 +5,7 @@
 <script>
 import { defineComponent } from 'vue'
 
-import MD5 from 'crypto-js/md5'
+import { MD5 } from 'crypto-js'
 import avatar from 'gradient-avatar'
 
 export default defineComponent({
