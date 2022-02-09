@@ -4,8 +4,8 @@ name: Alpha release & deploy
 on:
   workflow_dispatch:
   push:
-    branches:
-    - release/*
+    branches: [ release/* ]
+    
 
 jobs:
   build:
