@@ -2,7 +2,7 @@
   <div v-if="address" class="container">
     <div class='row'>
       <div class="col-md-6">
-        <SpAssets :address="address" />
+        <SpAssets />
 
         <Suspense>
           <template #default>
@@ -12,16 +12,16 @@
         </Suspense>
       </div>
       <div class="col-md-5 col-lg-4 col-md-offset-1 col-lg-offset-2 d-none d-md-block">
-        <SpTx :from-address="address" />
+        <SpTx />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { SpAssets, SpTx, SpTxList } from '@starport/vue'
-import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { computed } from 'vue'
+import { SpTx, SpAssets, SpTxList } from '@starport/vue'
 
 export default {
   name: 'Portfolio',

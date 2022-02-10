@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <SpSpacer size="md" />
-
+  <div class="container" v-if="moduleAvailable">
     <div style="display: flex; justify-content: space-between">
       <SpTypography modifier="highlight" size="md" style="font-weight: 700">
         {{ itemName }} items
@@ -11,7 +9,6 @@
       </SpButton>
     </div>
 
-    <SpSpacer size="sm" />
     <SpCrudRead
       :storeName="storeName"
       :itemName="itemName"
@@ -58,27 +55,29 @@
 </template>
 
 <script lang="ts">
-import {
-  SpSpacer,
-  SpTypography,
-  SpButton,
-  SpDropdown,
-  SpModal,
-  SpCrudRead,
-  SpCrudUpdate,
-  SpCrudCreate,
-  SpCrudDelete
-} from '../'
 import { toRefs, reactive, defineComponent } from 'vue'
+import { useStore } from 'vuex'
+
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
+import SpButton from '../SpButton'
+import SpDropdown from '../SpDropdown'
+import SpModal from '../SpModal'
+import SpCrudRead from '../SpCrudRead'
+import SpCrudUpdate from '../SpCrudUpdate'
+import SpCrudCreate from '../SpCrudCreate'
+import SpCrudDelete from '../SpCrudDelete'
 
 export interface State {
   visibleModal: string
   activeItem: any
+  moduleAvailable: boolean
 }
 
 export let initialState: State = {
   visibleModal: '',
-  activeItem: {}
+  activeItem: {},
+  moduleAvailable: false
 }
 
 export default defineComponent({
@@ -108,9 +107,14 @@ export default defineComponent({
     }
   },
 
-  setup() {
+  setup(props) {
+    // store
+    let $s = useStore()
+
     // state
     let state: State = reactive(initialState)
+
+    state.moduleAvailable = $s.hasModule(props.storeName)
 
     return {
       ...toRefs(state)

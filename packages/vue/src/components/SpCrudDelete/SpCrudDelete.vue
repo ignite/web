@@ -9,11 +9,41 @@
     <template v-slot:header>
       <SpSpacer size="sm" />
       <div style="text-align: center">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 12H10H42" stroke="#D80228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M16 12V8C16 6.93913 16.4214 5.92172 17.1716 5.17157C17.9217 4.42143 18.9391 4 20 4H28C29.0609 4 30.0783 4.42143 30.8284 5.17157C31.5786 5.92172 32 6.93913 32 8V12M38 12V40C38 41.0609 37.5786 42.0783 36.8284 42.8284C36.0783 43.5786 35.0609 44 34 44H14C12.9391 44 11.9217 43.5786 11.1716 42.8284C10.4214 42.0783 10 41.0609 10 40V12H38Z" stroke="#D80228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M20 22V34" stroke="#D80228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M28 22V34" stroke="#D80228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 12H10H42"
+            stroke="#D80228"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16 12V8C16 6.93913 16.4214 5.92172 17.1716 5.17157C17.9217 4.42143 18.9391 4 20 4H28C29.0609 4 30.0783 4.42143 30.8284 5.17157C31.5786 5.92172 32 6.93913 32 8V12M38 12V40C38 41.0609 37.5786 42.0783 36.8284 42.8284C36.0783 43.5786 35.0609 44 34 44H14C12.9391 44 11.9217 43.5786 11.1716 42.8284C10.4214 42.0783 10 41.0609 10 40V12H38Z"
+            stroke="#D80228"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M20 22V34"
+            stroke="#D80228"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M28 22V34"
+            stroke="#D80228"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </div>
       <SpSpacer size="xs" />
@@ -23,26 +53,14 @@
     </template>
     <template v-slot:body>
       <SpSpacer size="sm" />
-      <SpTypography size="md">
-        This item will be deleted.
-      </SpTypography>
-      <SpTypography size="md">
-        You can’t undo this action.
-      </SpTypography>
+      <SpTypography size="md"> This item will be deleted. </SpTypography>
+      <SpTypography size="md"> You can’t undo this action. </SpTypography>
       <SpSpacer size="md" />
       <div style="display: flex; gap: 10px; justify-content: center">
-        <SpButton
-          type="secondary"
-          @click="$emit('close')"
-          style="width: 40%;"
-        >
+        <SpButton type="secondary" @click="$emit('close')" style="width: 40%">
           Cancel
         </SpButton>
-        <SpButton
-          type="primary"
-          @click="deleteItem"
-          style="width: 40%;"
-        >
+        <SpButton type="primary" @click="deleteItem" style="width: 40%">
           Delete
         </SpButton>
       </div>
@@ -51,9 +69,14 @@
 </template>
 
 <script lang="ts">
-import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
-import {computed, defineComponent, reactive} from 'vue'
-import {useStore} from "vuex";
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
+import SpButton from '../SpButton'
+import SpDropdown from '../SpDropdown'
+import SpModal from '../SpModal'
 
 export default defineComponent({
   name: 'SpCrudDelete',
@@ -85,7 +108,7 @@ export default defineComponent({
     commandName: {
       type: String,
       required: true
-    },
+    }
   },
 
   setup(props, { emit }) {
@@ -96,7 +119,9 @@ export default defineComponent({
     let creator = $s.getters['common/wallet/address']
 
     let deleteItem = async () => {
-      $s.dispatch(props.storeName + props.commandName, { value: { creator, id: props.itemData.id } })
+      $s.dispatch(props.storeName + props.commandName, {
+        value: { creator, id: props.itemData.id }
+      })
       emit('close')
     }
 

@@ -5,6 +5,7 @@
       :key="'selected' + i"
       class="selected-item"
       :index="i"
+      v-bind:key="`${x.amount.denom}-${x.path}`"
     >
       <Suspense>
         <SpDenom :denom="x.amount.denom" modifier="avatar" />
@@ -25,7 +26,7 @@
             error: !hasEnoughBalance(x, x.amount.amount)
           }"
         >
-          {{ parseAmount(getBalanceAmount(x)) }} available
+          {{ getBalanceAmount(x) }} available
         </div>
       </div>
 
@@ -182,17 +183,23 @@ export default defineComponent({
     // computed
     let ableToBeSelected = computed<AssetForUI[]>(() => {
       let notSelected = (x: AssetForUI) =>
-        props.selected.every(
-          (y: AssetForUI) => x.amount.denom !== y.amount.denom
-        )
+        (props.selected as Array<AssetForUI>).every((y: AssetForUI) => {
+          let denomIsDifferent = x.amount.denom !== y.amount.denom
+
+          let pathIsDifferent = x.path !== y.path
+
+          return denomIsDifferent || pathIsDifferent
+        })
 
       let searchFilter = (x: AssetForUI) =>
-        x.amount.denom.toUpperCase().includes(state.tokenSearch.toUpperCase())
+        x.amount.denom.includes(state.tokenSearch.toLowerCase())
 
       return props.balances.filter(notSelected).filter(searchFilter)
     })
 
     // methods
+    let findAsset = (x: AssetForUI, y: AssetForUI): boolean =>
+      y.path === x.path && x.amount.denom === y.amount.denom
     let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
     }
@@ -202,9 +209,7 @@ export default defineComponent({
       let newSelected: Array<AssetForUI> = [...props.selected]
 
       newSelected[
-        newSelected.findIndex(
-          (y: AssetForUI) => x.amount.denom === y.amount.denom
-        )
+        newSelected.findIndex((y: AssetForUI) => findAsset(x, y))
       ].amount.amount = newAmount
 
       emit('update', { selected: newSelected })
@@ -226,12 +231,7 @@ export default defineComponent({
       state.modalOpen = false
     }
     let getBalanceAmount = (x: AssetForUI): string =>
-      (
-        props.balances.find(
-          (y: AssetForUI) => y.amount.denom === x.amount.denom
-        ) as AssetForUI
-      ).amount.amount
-
+      props.balances.find((y: AssetForUI) => findAsset(x, y))?.amount?.amount
     let hasEnoughBalance = (x: AssetForUI, amountDesired: string) =>
       parseAmount(getBalanceAmount(x)) >= parseAmount(amountDesired)
 

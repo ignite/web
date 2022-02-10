@@ -183,8 +183,8 @@
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.amount"
-            :balances="balancesMergedPerDenom"
-            @update="handleTxAmountUpdate"
+            :balances="balances.assets"
+            v-on:update="handleTxAmountUpdate"
           />
         </div>
 
@@ -206,8 +206,8 @@
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
-            :balances="balancesMergedPerDenom"
-            @update="handleTxFeesUpdate"
+            :balances="balances.assets"
+            v-on:update="handleTxFeesUpdate"
           />
 
           <div style="width: 100%; height: 36px" />
@@ -254,16 +254,16 @@
           <SpCard>
             <template #top>
               <div class="qrcode-wrapper">
-                <SpQrCode :value="fromAddress" color="#fff" />
+                <SpQrCode :value="address" color="#fff" />
               </div>
             </template>
 
             <template #bottom>
               <div class="address-wrapper">
                 <div class="address">
-                  {{ fromAddress }}
+                  {{ address }}
                 </div>
-                <div class="copy"><SpClipboard :text="fromAddress" /></div>
+                <div class="copy"><SpClipboard :text="address" /></div>
               </div>
             </template>
           </SpCard>
@@ -276,13 +276,13 @@
 <script lang="ts">
 import { Bech32 } from '@cosmjs/encoding'
 import long from 'long'
-import { computed, defineComponent, PropType, reactive,watch } from 'vue'
+import { computed, defineComponent, PropType, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAssets } from '../../composables'
+import { useAssets, useAddress } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
@@ -344,12 +344,6 @@ export default defineComponent({
     SpClipboard
   },
 
-  props: {
-    fromAddress: {
-      type: String as PropType<string>
-    }
-  },
-
   setup(props: any) {
     // store
     let $s = useStore()
@@ -358,6 +352,7 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // composables
+    let { address } = useAddress({ $s })
     let { balances } = useAssets({ $s })
 
     // actions
@@ -384,8 +379,6 @@ export default defineComponent({
       state.tx.fees = []
 
       state.currentUIState = UI_STATE.SEND
-
-      bootstrapTxAmount()
     }
     let sendTx = async (): Promise<void> => {
       state.currentUIState = UI_STATE.TX_SIGNING
@@ -409,7 +402,7 @@ export default defineComponent({
       let payload: any = {
         amount,
         toAddress: state.tx.toAddress,
-        fromAddress: props.fromAddress
+        fromAddress: address.value
       }
 
       try {
@@ -418,7 +411,7 @@ export default defineComponent({
             ...payload,
             sourcePort: 'transfer',
             sourceChannel: state.tx.ch,
-            sender: props.fromAddress,
+            sender: address.value,
             receiver: state.tx.toAddress,
             timeoutHeight: 0,
             timeoutTimestamp: long
@@ -477,23 +470,6 @@ export default defineComponent({
     }
 
     // computed
-    let balancesMergedPerDenom = computed<AssetForUI[]>(() => {
-      let arr: AssetForUI[] = []
-
-      balances.value.assets.forEach((b) => {
-        let i = arr.findIndex((bb) => b.amount.denom === bb.amount.denom)
-
-        if (i > -1) {
-          arr[i].amount.amount = String(
-            Number(b.amount.amount) + Number(arr[i].amount.amount)
-          )
-        } else {
-          arr = [...arr, { ...b, path: '' }]
-        }
-      })
-
-      return arr
-    })
     let showSend = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.SEND
     })
@@ -549,14 +525,14 @@ export default defineComponent({
         validTxAmount.value &&
         validToAddress.value &&
         validTxFees.value &&
-        !!props.fromAddress
+        !!address.value
     )
 
     //watch
     watch(
-      () => props.fromAddress,
+      () => address.value,
       async () => {
-        bootstrapTxAmount()
+        resetTx()
       }
     )
     watch(
@@ -571,11 +547,13 @@ export default defineComponent({
     return {
       //state,
       state,
+      // composable
+      address,
       // computed
       showSend,
       showReceive,
       showWalletLocked,
-      balancesMergedPerDenom,
+      balances,
       hasAnyBalance,
       isTxOngoing,
       isTxSuccess,

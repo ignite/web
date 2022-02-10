@@ -1,21 +1,25 @@
 <template>
   <div class="tx-list">
     <div class="title">Transactions</div>
-
-    <div v-if="newTxs" @click="loadNewItems" class="load-more" role="button">
+    <div v-if="newTxs" class="load-more" role="button" @click="loadNewItems">
       {{ showMoreText }}
     </div>
 
-    <div class="list" v-if="list.length > 0">
-      <SpTxListItem v-for="i in list" :key="i.hash" :tx="i" />
+    <div v-if="list.length > 0" class="list">
+      <div v-for="(tx, i) in txByMonth" :key="`${tx.hash}-${tx.timestamp}-${i}`">
+        <template v-for='(tx2) in tx'>
+          <SpTxListItem :tx="tx2" />
+        </template>
+        <!--        <SpTxListItem :tx="tx" />-->
+      </div>
     </div>
     <div v-else class="empty">Transaction history is empty</div>
 
     <div
       v-if="leftToShowMore"
-      @click="showMoreItems"
       class="show-more"
       role="button"
+      @click="showMoreItems"
     >
       Show more
     </div>
@@ -28,7 +32,6 @@ import { useStore } from 'vuex'
 
 import { useTxs } from '../../composables'
 import { TxForUI } from '../../composables/useTxs'
-
 import SpTxListItem from '../SpTxListItem'
 
 export interface State {
@@ -61,8 +64,30 @@ export default defineComponent({
 
     // computed
     let list = computed<TxForUI[]>(() =>
-      pager.value.page.value.map(normalize).slice(0, state.listSize)
+      pager.value.page.value
+        .map(normalize)
+        .slice(0, state.listSize)
+        .sort((a, b) => b.height - a.height)
     )
+
+    let txByMonth = computed(() => {
+      // groupBy(list, tx => new Date(tx.timestamp).getMonth() + 1)
+      // list.reduce()
+      list.value.forEach((element) => {
+        element.timestamp = "February"
+      })
+      return Object.values(list.value).reduce((tx, value) => {
+        // let month = new Date(tx[value.timestamp]).getMonth() + 1);
+
+        if (!tx[value.timestamp]) {
+          tx[value.timestamp] = [];
+        }
+        console.log(tx[value.timestamp])
+        tx[value.timestamp].push(value);
+
+        return tx;
+      }, {})
+    })
     let leftToShowMore = computed<boolean>(
       () =>
         state.listSize < state.listMaxSize &&
@@ -79,6 +104,11 @@ export default defineComponent({
     let showMoreItems = () => {
       state.listSize = state.listMaxSize
     }
+    let getTxMonth = (timestamp):string => {
+      return new Date(timestamp).toLocaleString('en-US', {
+        month: 'long',
+      });
+    }
 
     return {
       //state
@@ -89,7 +119,9 @@ export default defineComponent({
       showMoreText,
       /// methods
       loadNewItems,
-      showMoreItems
+      showMoreItems,
+      txByMonth,
+      getTxMonth
     }
   }
 })

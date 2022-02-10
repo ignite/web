@@ -160,11 +160,6 @@ export default defineComponent({
     accName: {
       type: String,
       required: true
-    },
-
-    address: {
-      type: String,
-      required: true
     }
   },
 
@@ -173,7 +168,7 @@ export default defineComponent({
     let $s = useStore()
 
     // composables
-    let { shortAddress } = useAddress({ $s })
+    let { address, shortAddress } = useAddress({ $s })
     let { copy } = useClipboard()
 
     // computed
@@ -241,8 +236,10 @@ export default defineComponent({
     return {
       //state
       state,
-      // methods
+      // compoasbles
+      address,
       shortAddress,
+      // methods
       copy,
       switchToSettings,
       // computed

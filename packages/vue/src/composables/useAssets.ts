@@ -1,11 +1,4 @@
-import {
-  computed,
-  ComputedRef,
-  onBeforeMount,
-  onMounted,
-  Ref,
-  ref,
-  watch} from 'vue'
+import { computed, ComputedRef, onBeforeMount, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
@@ -13,7 +6,7 @@ import { Amount, DenomTrace } from '@/utils/interfaces'
 import { useAddress, useDenom } from '.'
 
 type Response = {
-  balances: Ref<{isLoading: boolean, assets: AssetForUI[]}>
+  balances: Ref<{ isLoading: boolean; assets: AssetForUI[] }>
   balancesRaw: ComputedRef<any[]>
   normalize: (balance: object) => Promise<AssetForUI>
 }
@@ -29,7 +22,7 @@ type Params = {
   }
 }
 
-export default function useAssets({ $s, opts }: Params): Response {
+export default function ({ $s, opts }: Params): Response {
   // state
   let balances = ref({
     isLoading: true,
@@ -77,7 +70,9 @@ export default function useAssets({ $s, opts }: Params): Response {
     if (isIBC) {
       let denomTrace: DenomTrace = await getDenomTrace(balance.denom)
 
-      normalized.path = opts?.extractChannels ? denomTrace.denom_trace.path.match(/\d+/g)?.reverse() : denomTrace.denom_trace.path
+      normalized.path = opts?.extractChannels
+        ? denomTrace.denom_trace.path.match(/\d+/g)?.reverse()
+        : denomTrace.denom_trace.path
       normalized.amount.denom = denomTrace.denom_trace.base_denom
     } else {
       normalized.amount.denom = balance.denom
@@ -89,21 +84,25 @@ export default function useAssets({ $s, opts }: Params): Response {
   }
 
   //watch
-  watch(() => [address.value, balancesRaw.value], async ([newAddress, newBalance], [oldAddress, oldBalance]) => {
-    if (newAddress !== oldAddress) {
-      queryAllBalances({
-        params: { address: newAddress },
-        options: { subscribe: true }
-      })
-    }
+  watch(
+    () => [address.value, balancesRaw.value],
+    async ([newAddress], [oldAddress]) => {
+      if (newAddress !== oldAddress) {
+        queryAllBalances({
+          params: { address: newAddress },
+          options: { subscribe: true }
+        })
+      }
 
-    let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
+      let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
 
-    Promise.all(arr).then((normalized) => {
-      balances.value.assets = normalized as any
-    }).finally(() => {
-      balances.value.isLoading = false
-    })
+      Promise.all(arr)
+        .then((normalized) => {
+          balances.value.assets = normalized as any
+        })
+        .finally(() => {
+          balances.value.isLoading = false
+        })
     }
   )
 

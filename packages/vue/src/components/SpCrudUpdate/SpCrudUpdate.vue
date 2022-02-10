@@ -11,13 +11,8 @@
   >
     <template v-slot:body>
       <SpSpacer size="sm" />
-      <div
-        v-for="field in itemFieldsFiltered"
-      >
-        <label
-          :for="`p${field.name}`"
-          class="sp-label capitalize-first-letter"
-        >
+      <div v-for="field in itemFieldsFiltered">
+        <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">
           {{ field.name }}
         </label>
         <input
@@ -27,7 +22,7 @@
           :id="`p${field.name}`"
           :name="`p${field.name}`"
           class="sp-input"
-        >
+        />
         <SpSpacer size="xs" />
       </div>
     </template>
@@ -35,9 +30,14 @@
 </template>
 
 <script lang="ts">
-import { SpSpacer, SpTypography, SpButton, SpDropdown, SpModal } from '../'
 import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
+
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
+import SpButton from '../SpButton'
+import SpDropdown from '../SpDropdown'
+import SpModal from '../SpModal'
 
 export default defineComponent({
   name: 'SpCrudUpdate',
@@ -69,7 +69,7 @@ export default defineComponent({
     commandName: {
       type: String,
       required: true
-    },
+    }
   },
 
   setup(props, { emit }) {
@@ -78,19 +78,25 @@ export default defineComponent({
     let formData = reactive({ ...props.itemData })
 
     // computed
-    let itemFields = computed(() => $s.getters[props.storeName + '/getTypeStructure'](props.itemName))
-    let itemFieldsFiltered = computed(() => itemFields.value.filter(f => f.name !== 'id' && f.name !== 'creator'))
+    let itemFields = computed(() =>
+      $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
+    )
+    let itemFieldsFiltered = computed(() =>
+      itemFields.value.filter((f) => f.name !== 'id' && f.name !== 'creator')
+    )
     let creator = $s.getters['common/wallet/address']
 
     let editItem = async () => {
-      $s.dispatch(props.storeName + props.commandName, { value: { ...formData, creator, id: props.itemData.id } })
+      $s.dispatch(props.storeName + props.commandName, {
+        value: { ...formData, creator, id: props.itemData.id }
+      })
       emit('close')
     }
 
     return {
       itemFieldsFiltered,
       formData,
-      editItem,
+      editItem
     }
   }
 })

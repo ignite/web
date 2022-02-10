@@ -1,4 +1,4 @@
-import { computed, ComputedRef, ref, Ref } from 'vue'
+import { computed, ComputedRef, Ref, ref } from 'vue'
 
 export type Pager = {
   hasNextPage: ComputedRef<boolean>
@@ -115,9 +115,9 @@ export function merge(a: Pager, b: Pager): Pager {
     return Promise.all(promises)
   }
 
-  let load = (): any => {
-    b.load()
-    a.load()
+  let load = async () => {
+    await b.load()
+    await a.load()
   }
 
   return {
