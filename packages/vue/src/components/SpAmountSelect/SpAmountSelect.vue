@@ -2,10 +2,8 @@
   <div class="amount-select">
     <div
       v-for="(x, i) in selected"
-      :key="'selected' + i"
+      :key="`${x.amount.denom}-${x.path}-${i}`"
       class="selected-item"
-      :index="i"
-      v-bind:key="`${x.amount.denom}-${x.path}`"
     >
       <Suspense>
         <SpDenom :denom="x.amount.denom" modifier="avatar" />
@@ -251,7 +249,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 .selected-item {
   display: flex;
   align-items: center;
@@ -323,7 +321,6 @@ export default defineComponent({
   width: 100%;
 
   background: none;
-  border: 0;
 
   font-family: Inter;
   font-style: normal;
@@ -334,10 +331,22 @@ export default defineComponent({
 
   text-align: right;
   letter-spacing: -0.007em;
+  margin-left: 40px;
 
   /* light/inactive */
 
   color: #000000;
+  padding: 0;
+  height: 52px;
+  border: 2px solid transparent;
+  outline: 0;
+  transition: border-color, padding-right 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    &:focus {
+      border-color: #094EFD;
+      color: #000;
+      padding-right: 8px;
+    }
 }
 
 .input.secondary::placeholder {

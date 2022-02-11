@@ -163,7 +163,7 @@ export default defineComponent({
 }
 .tx-list {
   position: relative;
-  margin-bottom: 40px;
+  padding-bottom: 40px;
 
   &__subheading {
     font-family: Inter;
