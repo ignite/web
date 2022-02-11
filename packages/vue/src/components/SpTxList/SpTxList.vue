@@ -1,16 +1,19 @@
 <template>
   <div class="tx-list">
     <div class="title">Transactions</div>
-    <div v-if="newTxs" class="load-more" role="button" @click="loadNewItems">
-      {{ showMoreText }}
-    </div>
 
-    <div v-if="list.length > 0" class="list">
-      <div v-for="(tx, i) in txByMonth" :key="`${tx.hash}-${tx.timestamp}-${i}`">
-        <template v-for='(tx2) in tx'>
-          <SpTxListItem :tx="tx2" />
-        </template>
-        <!--        <SpTxListItem :tx="tx" />-->
+    <div v-if='newTxs' class="load-more" role="button" @click="loadNewItems">
+      <template v-if='state.isNewTxLoading'>
+        <SpSpinner size='16'></SpSpinner>
+      </template>
+      <template v-else>
+        {{ showMoreText }}
+      </template>
+    </div>
+    <div v-if="Object.keys(txByMonth).length > 0" class="list">
+      <div v-for="(txs, month, index) in txByMonth" :key="`${index}`">
+        <h3 class='tx-list__subheading'>{{month.replace(/[0-9]/g, '')}}</h3>
+        <SpTxListItem v-for='(tx, i) in txs' :key='`${tx.hash}-${tx.timestamp}-${i}`' :tx="tx" />
       </div>
     </div>
     <div v-else class="empty">Transaction history is empty</div>
@@ -32,24 +35,29 @@ import { useStore } from 'vuex'
 
 import { useTxs } from '../../composables'
 import { TxForUI } from '../../composables/useTxs'
+import SpSpinner from '../SpSpinner'
 import SpTxListItem from '../SpTxListItem'
 
 export interface State {
   listSize: number
   listMaxSize: number
+  isNewTxLoading: boolean
 }
 
 export let initialState: State = {
   listSize: 10,
-  listMaxSize: 15
+  listMaxSize: 15,
+  isNewTxLoading: false
 }
 
 export default defineComponent({
   name: 'SpTxList',
 
-  components: { SpTxListItem },
+  components: { SpSpinner, SpTxListItem },
 
   async setup() {
+
+
     // store
     let $s = useStore()
 
@@ -63,30 +71,15 @@ export default defineComponent({
     })
 
     // computed
-    let list = computed<TxForUI[]>(() =>
-      pager.value.page.value
-        .map(normalize)
-        .slice(0, state.listSize)
-        .sort((a, b) => b.height - a.height)
-    )
-
+    let list = computed<TxForUI[]>(() => {
+        return pager.value.page.value
+          .map(normalize)
+          .slice(0, state.listSize)
+          .sort((a, b) => b.height - a.height)
+    })
     let txByMonth = computed(() => {
-      // groupBy(list, tx => new Date(tx.timestamp).getMonth() + 1)
-      // list.reduce()
-      list.value.forEach((element) => {
-        element.timestamp = "February"
-      })
-      return Object.values(list.value).reduce((tx, value) => {
-        // let month = new Date(tx[value.timestamp]).getMonth() + 1);
-
-        if (!tx[value.timestamp]) {
-          tx[value.timestamp] = [];
-        }
-        console.log(tx[value.timestamp])
-        tx[value.timestamp].push(value);
-
-        return tx;
-      }, {})
+      const groupByYear = groupBy("timestamp");
+      return groupByYear(list.value);
     })
     let leftToShowMore = computed<boolean>(
       () =>
@@ -98,20 +91,28 @@ export default defineComponent({
     )
 
     // methods
-    let loadNewItems = () => {
-      pager.value.load()
+    let loadNewItems = async () => {
+      state.isNewTxLoading = true
+      await pager.value.load()
+      state.isNewTxLoading = !!newTxs.value
     }
     let showMoreItems = () => {
       state.listSize = state.listMaxSize
     }
-    let getTxMonth = (timestamp):string => {
-      return new Date(timestamp).toLocaleString('en-US', {
-        month: 'long',
+    let getTxMonth = (timestamp):string =>
+      new Date(timestamp).toLocaleString('en-US', {
+        year: "numeric",
+        month: 'long'
       });
-    }
+    let groupBy = (key) => (array) =>
+      array.reduce((acc, obj) => {
+        const property = getTxMonth(obj[key]);
+        acc[property] = (acc[property] || []).concat(obj);
+        return acc;
+      }, {});
 
     return {
-      //state
+      // state
       newTxs,
       // computed
       list,
@@ -121,7 +122,8 @@ export default defineComponent({
       loadNewItems,
       showMoreItems,
       txByMonth,
-      getTxMonth
+      getTxMonth,
+      state,
     }
   }
 })
@@ -152,9 +154,22 @@ export default defineComponent({
   letter-spacing: -0.02em;
   font-feature-settings: 'zero';
   color: #000000;
+  margin-bottom: 32px;
 }
 .tx-list {
   position: relative;
+  margin-bottom: 40px;
+
+  &__subheading {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.007em;
+    color: #000000;
+    margin-bottom: 18px;
+  }
 }
 .list {
   display: flex;
@@ -170,7 +185,7 @@ export default defineComponent({
   height: 36px;
   left: 0;
   right: 0;
-  top: 0;
+  top: 68px;
   background: #ffffff;
   box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
   border-radius: 56px;
@@ -180,6 +195,7 @@ export default defineComponent({
   position: absolute;
   cursor: pointer;
   margin: 0 auto;
+  z-index: 8;
 }
 .show-more {
   display: flex;
