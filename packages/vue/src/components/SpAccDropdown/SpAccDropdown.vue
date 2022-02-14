@@ -14,9 +14,25 @@
             @click="copy(address)"
           >
             {{ shortAddress }}
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.625 0.375H0.375V8.625H8.625V0.375Z" stroke="#094EFD" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M10.125 3.375H11.625V11.625H3.375V10.125" stroke="#094EFD" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.625 0.375H0.375V8.625H8.625V0.375Z"
+                stroke="#094EFD"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10.125 3.375H11.625V11.625H3.375V10.125"
+                stroke="#094EFD"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </span>
         </div>
@@ -75,27 +91,18 @@
       <hr class="divider" />
 
       <div class="dropdown-option mb-3">
-        <input
-          v-model="state.envConfig.apiNode"
-          class="input"
-          placeholder="Enter API hostname"
-        />
+        <span> API </span>
+        <span> {{ apiCosmos }} </span>
       </div>
 
       <div class="dropdown-option mb-3">
-        <input
-          v-model="state.envConfig.rpcNode"
-          class="input"
-          placeholder="Enter RPC hostname"
-        />
+        <span> RPC </span>
+        <span> {{ apiTendermint }} </span>
       </div>
 
       <div class="dropdown-option mb-3">
-        <input
-          v-model="state.envConfig.wsNode"
-          class="input"
-          placeholder="Enter WebSocket hostname"
-        />
+        <span> WS </span>
+        <span> {{ apiWS }} </span>
       </div>
     </div>
   </transition>
@@ -121,27 +128,16 @@ export enum UI_STATE {
 
   'SETTINGS' = 2
 }
-export interface EnvConfigData {
-  apiNode: string
-  rpcNode: string
-  wsNode: string
-}
 
 export interface State {
   currentUIState: UI_STATE
-  envConfig: EnvConfigData
 }
 
 export let initialState: State = {
-  currentUIState: UI_STATE.DEFAULT,
-  envConfig: {
-    apiNode: 'http://localhost:1317',
-    rpcNode: 'http://localhost:26657',
-    wsNode: 'ws://localhost:26657/websocket'
-  }
+  currentUIState: UI_STATE.DEFAULT
 }
 
-import { useAddress,useClipboard } from '../../composables'
+import { useAddress, useClipboard } from '../../composables'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -199,17 +195,7 @@ export default defineComponent({
     )
 
     // state
-    let state: State = reactive({
-      ...initialState,
-      envConfig: {
-        apiNode: apiCosmos.value,
-        rpcNode: apiTendermint.value,
-        wsNode: apiWS.value
-      }
-    })
-
-    // actions
-    let setEnvConfig = (opts) => $s.dispatch('common/env/config', opts)
+    let state: State = reactive(initialState)
 
     // methods
     let clickOutsideHandler = (evt) => {
@@ -220,9 +206,6 @@ export default defineComponent({
         !dropdownButtonEl?.contains(evt.target)
       ) {
         emit('close')
-        setEnvConfig({
-          ...state.envConfig
-        })
       }
     }
     let switchToSettings = () => {
@@ -250,6 +233,9 @@ export default defineComponent({
       showDefault,
       showSettings,
       chainId,
+      apiTendermint,
+      apiCosmos,
+      apiWS,
       apiConnected,
       rpcConnected,
       wsConnected
@@ -258,7 +244,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .input {
   padding: 16px 13.5px;
   background: rgba(0, 0, 0, 0.03);

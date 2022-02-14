@@ -52,13 +52,9 @@ export default class SPClient extends EventEmitter {
     const poll: () => Promise<void> = this.connectivityTest.bind(this)
     this.timer = setInterval(poll, this.refresh)
     this.connectivityTest()
+ 
     if (this.wsAddr) {
-      this.socket = new ReconnectingWebSocket(this.wsAddr)
-
-      this.socket.onopen = this.onOpenWS.bind(this)
-      this.socket.onmessage = this.onMessageWS.bind(this)
-      this.socket.onerror = this.onErrorWS.bind(this)
-      this.socket.onclose = this.onCloseWS.bind(this)
+      this.connectWS()
     }
   }
   public async useSigner(signer: OfflineDirectSigner): Promise<void> {
@@ -74,8 +70,19 @@ export default class SPClient extends EventEmitter {
   public switchWS(wsAddr: string): void {
     this.emit('ws-status', false)
     this.wsAddr = wsAddr
-    this.socket = new ReconnectingWebSocket(this.wsAddr)
+    this.socket.close()
+    this.connectWS()
   }
+
+  public connectWS() {
+    this.socket = new ReconnectingWebSocket(this.wsAddr)
+
+    this.socket.onopen = this.onOpenWS.bind(this)
+    this.socket.onmessage = this.onMessageWS.bind(this)
+    this.socket.onerror = this.onErrorWS.bind(this)
+    this.socket.onclose = this.onCloseWS.bind(this)
+  }
+
   public async switchRPC(rpcAddr: string): Promise<void> {
     this.rpcAddr = rpcAddr
     if (this.signingClient) {
