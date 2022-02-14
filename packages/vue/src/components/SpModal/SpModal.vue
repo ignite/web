@@ -4,16 +4,16 @@
       <div
         class="modal sp-box sp-shadow"
         role="dialog"
-        @click.stop
         tabindex="0"
+        @click.stop
       >
-        <header class="modal-header" id="modalTitle">
+        <header id="modalTitle" class="modal-header">
           <slot name="header">
             <h3>{{ title || 'Default title' }}</h3>
           </slot>
         </header>
 
-        <section class="modal-body" id="modalDescription">
+        <section id="modalDescription" class="modal-body">
           <slot name="body"> Default body </slot>
         </section>
 
@@ -108,8 +108,7 @@ export default defineComponent({
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.33);
   display: flex;
   justify-content: center;
   align-items: center;
