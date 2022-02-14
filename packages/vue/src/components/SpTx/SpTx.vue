@@ -176,7 +176,7 @@
           </div>
         </div>
 
-        <div style="width: 100%; height: 17px" />
+        <div style="width: 100%; height: 21px" />
         <div v-if="hasAnyBalance">
           <SpAmountSelect
             class='token-selector--main'
@@ -186,13 +186,20 @@
           />
         </div>
 
-        <div style="width: 100%; height: 24px" />
+        <div style="width: 100%; height: 34px" />
 
         <div
           class="advanced-label"
           @click="state.advancedOpen = !state.advancedOpen"
         >
           Advanced
+          <svg v-if='!state.advancedOpen' width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
+            <path d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z" fill="black"/>
+          </svg>
+          <svg v-else width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
+            <path d="M10.0001 7.4001L6.0001 3.4001L2.0001 7.4001L0.600098 6.0001L6.0001 0.600098L11.4001 6.0001L10.0001 7.4001Z" fill="black"/>
+          </svg>
+
         </div>
 
         <div v-if="state.advancedOpen" style="width: 100%; height: 24px" />
@@ -200,7 +207,7 @@
         <div v-if="state.advancedOpen" class="advanced">
           <div class="input-label">Fees</div>
 
-          <div style="width: 100%; height: 8px" />
+          <div style="width: 100%; height: 14px" />
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
@@ -208,11 +215,9 @@
             @update="handleTxFeesUpdate"
           />
 
-          <div style="width: 100%; height: 36px" />
+          <div style="width: 100%; height: 35px" />
 
           <div class="input-label">Reference (memo)</div>
-
-          <div style="width: 100%; height: 8px" />
 
           <div class="input-wrapper">
             <input
@@ -222,11 +227,9 @@
             />
           </div>
 
-          <div style="width: 100%; height: 8px" />
+          <div style="width: 100%; height: 16px" />
 
           <div class="input-label">Channel</div>
-
-          <div style="width: 100%; height: 8px" />
 
           <div class="input-wrapper">
             <input
@@ -581,7 +584,7 @@ export default defineComponent({
   line-height: 153.8%;
   /* identical to box height, or 20px */
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   /* base/black 0 */
@@ -605,10 +608,17 @@ export default defineComponent({
 .token-selector {
   &--main {
     &::v-deep(.add-token) {
-      margin-top: 14px;
+      margin-top: 18px;
     }
    }
 }
+
+.advanced {
+  &::v-deep(.add-token) {
+    margin-top: 17px;
+  }
+}
+
 .qrcode-wrapper {
   background: #000;
   padding: 16px;

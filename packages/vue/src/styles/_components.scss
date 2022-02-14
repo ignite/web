@@ -565,16 +565,15 @@
 }
 
 .sp-button {
-  appearance: button;
   cursor: pointer;
   display: inline-flex;
-  height: 4rem;
+  height: 48px;
   padding: 0rem 2rem;
   background: $black;
   border: 0.2rem solid $black;
   color: white;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   border-radius: 0.8rem;
   outline: none;
   white-space: nowrap;
