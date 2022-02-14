@@ -1,17 +1,12 @@
 <template>
   <div v-if="address" class="container">
-    <div class='row'>
+    <div class='row row-sm-revers'>
       <div class="col-md-6">
         <SpAssets />
 
-        <Suspense>
-          <template #default>
-            <SpTxList />
-          </template>
-          <template #fallback> loading </template>
-        </Suspense>
+        <SpTxList />
       </div>
-      <div class="col-md-5 col-lg-4 col-md-offset-1 col-lg-offset-2 d-none d-md-block">
+      <div class="col-md-5 col-lg-4 col-md-offset-1 col-lg-offset-2">
         <SpTx />
       </div>
     </div>
@@ -19,9 +14,9 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
+import { SpAssets, SpTx, SpTxList } from '@starport/vue'
 import { computed } from 'vue'
-import { SpTx, SpAssets, SpTxList } from '@starport/vue'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Portfolio',

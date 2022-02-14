@@ -255,7 +255,7 @@
           <SpCard>
             <template #top>
               <div class="qrcode-wrapper">
-                <SpQrCode :value="address" color="#fff" />
+                <SpQrCode :value="address" color="#000" width='112'/>
               </div>
             </template>
 
@@ -604,6 +604,7 @@ export default defineComponent({
   align-items: center;
 }
 .tx {
+  padding-bottom: 40px;
 }
 .token-selector {
   &--main {
@@ -620,8 +621,8 @@ export default defineComponent({
 }
 
 .qrcode-wrapper {
-  background: #000;
-  padding: 16px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 36px;
   text-align: center;
 }
 

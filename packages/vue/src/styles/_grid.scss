@@ -113,7 +113,14 @@
       }
     }
   }
+}
 
+@media screen and (max-width: 899px) {
+  .row {
+    &-sm-revers {
+      flex-direction: column-reverse;
+    }
+  }
 
 }
 @include grid;
