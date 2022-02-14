@@ -1,10 +1,24 @@
 import { OfflineDirectSigner } from '@cosmjs/proto-signing'
-import { computed } from 'vue'
+import { Key } from '@keplr-wallet/types'
+import { computed, ComputedRef } from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, AmountWithMeta } from '../utils/interfaces'
 
-export default function ($s: Store<any>): any {
+type Response = {
+  connectToKeplr: (onSuccessCb: () => void, onErrorCb: () => void) => void
+  isKeplrAvailable: ComputedRef<boolean>
+  getOfflineSigner: (chainId: string) => OfflineDirectSigner
+  getKeplrAccParams: (chainId: string) => Promise<Key>
+  listenToAccChange: (cb: EventListener) => void
+}
+
+type Params = {
+  $s: Store<any>
+  opts?: any
+}
+
+export default function ({ $s }: Params): Response {
   let connectToKeplr = async (
     onSuccessCb: () => void,
     onErrorCb: () => void
@@ -110,11 +124,11 @@ export default function ($s: Store<any>): any {
     }
   }
 
-  let isKeplrAvailbe = computed(() => {
+  let isKeplrAvailable = computed<boolean>(() => {
     return !!window.keplr
   })
 
-  let getOfflineSigner: (string) => OfflineDirectSigner = (chainId: string) =>
+  let getOfflineSigner = (chainId: string) =>
     window.keplr.getOfflineSigner(chainId)
 
   let getKeplrAccParams = async (chainId: string) =>
@@ -126,7 +140,7 @@ export default function ($s: Store<any>): any {
 
   return {
     connectToKeplr,
-    isKeplrAvailbe,
+    isKeplrAvailable,
     getOfflineSigner,
     getKeplrAccParams,
     listenToAccChange
