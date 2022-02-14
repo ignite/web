@@ -41,7 +41,7 @@
       <template v-slot:header>
         <div v-if="state.modalPage === 'connect'">
           <SpKeplrIcon />
-          <h3 v-if="isKeplrAvailbe">Connect your wallet</h3>
+          <h3 v-if="isKeplrAvailable">Connect your wallet</h3>
           <h3 v-else>Install Keplr</h3>
         </div>
         <div v-else-if="state.modalPage === 'connecting'">
@@ -56,7 +56,7 @@
       <template v-slot:body>
         <div style="max-width: 320px; text-align: center; margin: auto">
           <div v-if="state.modalPage === 'connect'">
-            <p v-if="isKeplrAvailbe">
+            <p v-if="isKeplrAvailable">
               Connect your Keplr wallet via the Keplr browser extension to use
               this app.
             </p>
@@ -89,7 +89,7 @@
           </div>
         </div>
       </template>
-      <template v-if="isKeplrAvailbe" v-slot:footer>
+      <template v-if="isKeplrAvailable" v-slot:footer>
         <div v-if="state.modalPage === 'connect'">
           <SpButton
             aria-label="Connect Keplr"
@@ -179,11 +179,11 @@ export default defineComponent({
     // composables
     let {
       connectToKeplr,
-      isKeplrAvailbe,
+      isKeplrAvailable,
       getOfflineSigner,
       getKeplrAccParams,
       listenToAccChange
-    } = useKeplr($s)
+    } = useKeplr({ $s })
 
     // computed
     let wallet = computed<Wallet>(() => $s.getters['common/wallet/wallet'])
@@ -243,7 +243,7 @@ export default defineComponent({
     })
 
     return {
-      isKeplrAvailbe,
+      isKeplrAvailable,
       tryToConnectToKeplr,
       disconnect,
       state,

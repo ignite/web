@@ -344,7 +344,7 @@ export default defineComponent({
     SpClipboard
   },
 
-  setup(props: any) {
+  setup() {
     // store
     let $s = useStore()
 
