@@ -3,20 +3,7 @@
     <!-- feedbacks -->
     <div v-if="isTxOngoing" class="feedback">
       <div class="loading-spinner">
-        <svg
-          width="46"
-          height="46"
-          viewBox="0 0 46 46"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M44 23C44 11.402 34.598 2 23 2C11.402 2 2 11.402 2 23C2 34.598 11.402 44 23 44"
-            stroke="black"
-            stroke-width="4"
-            stroke-linecap="round"
-          />
-        </svg>
+        <SpSpinner size='46'></SpSpinner>
       </div>
       <div style="width: 100%; height: 24px" />
 
@@ -289,6 +276,7 @@ import SpButton from '../SpButton'
 import SpCard from '../SpCard'
 import SpClipboard from '../SpClipboard'
 import SpQrCode from '../SpQrCode'
+import SpSpinner from '../SpSpinner'
 
 // types
 export interface TxData {
@@ -342,7 +330,8 @@ export default defineComponent({
     SpAmountSelect,
     SpQrCode,
     SpButton,
-    SpClipboard
+    SpClipboard,
+    SpSpinner
   },
 
   setup(props: any) {

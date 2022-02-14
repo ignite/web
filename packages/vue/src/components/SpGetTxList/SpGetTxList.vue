@@ -3,7 +3,7 @@
     <div class="title">Transactions</div>
       <div v-if='newTxs' class="load-more" role="button" @click="loadNewItems">
         <template v-if='state.isNewTxLoading'>
-          <SpSpinner size='16'></SpSpinner>
+          <SpSpinner :size='16'></SpSpinner>
         </template>
         <template v-else>
           {{ showMoreText }}
