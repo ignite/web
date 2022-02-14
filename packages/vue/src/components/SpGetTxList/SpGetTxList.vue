@@ -11,7 +11,7 @@
       </div>
       <div v-if="Object.keys(txByMonth).length > 0" class="list">
         <div v-for="(txs, month, index) in txByMonth" :key="`${index}`">
-          <h3 class='tx-list__subheading'>{{month.replace(/[0-9]/g, '')}}</h3>
+          <h3 class='tx-list__subheading' v-text='getMonthGroup(month)'></h3>
           <SpTxListItem v-for='(tx, i) in txs' :key='`${tx.hash}-${tx.timestamp}-${i}`' :tx="tx" />
         </div>
       </div>
@@ -112,6 +112,13 @@ export default defineComponent({
         return acc;
       }, {});
 
+    let getMonthGroup = (month) => {
+      const currentYear = new Date().getFullYear();
+      const monthYear = Number(month.replace(/\D/g, ''));
+
+      return monthYear < currentYear ? month : month.replace(/[0-9]/g, '')
+    }
+
     return {
       // state
       newTxs,
@@ -124,6 +131,7 @@ export default defineComponent({
       showMoreItems,
       txByMonth,
       getTxMonth,
+      getMonthGroup,
       state,
     }
   }
