@@ -35,6 +35,8 @@
           placeholder="0"
           @input="(evt) => handleAmountInput(evt, x)"
         />
+
+        <div class='focus-background'></div>
       </div>
     </div>
 
@@ -253,6 +255,8 @@ export default defineComponent({
 .selected-item {
   display: flex;
   align-items: center;
+  position: relative;
+  height: 44px;
 }
 .input.primary {
   padding: 16px 13.5px;
@@ -273,7 +277,8 @@ export default defineComponent({
 }
 
 .add-token {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
 }
 .add-token:hover {
   cursor: pointer;
@@ -337,15 +342,22 @@ export default defineComponent({
 
   color: #000000;
   padding: 0;
-  height: 52px;
-  border: 2px solid transparent;
+  height: 28px;
+  border: 0;
   outline: 0;
-  transition: border-color, padding-right 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     &:focus {
-      border-color: #094EFD;
       color: #000;
-      padding-right: 8px;
+
+      ~ .focus-background {
+        background: rgba(0, 0, 0, 0.03);
+        position: absolute;
+        width: calc(100% + 16px);
+        height: 56px;
+        left: -8px;
+        border-radius: 8px;
+        top: -6px;
+      }
     }
 }
 

@@ -164,8 +164,6 @@
         <div class="enter-address-wrapper">
           <div class="input-label">Send to</div>
 
-          <div style="width: 100%; height: 8px" />
-
           <div class="input-wrapper">
             <input
               v-model="state.tx.toAddress"
@@ -173,18 +171,18 @@
               :class="{
                 error: state.tx.toAddress.length > 0 && !validToAddress
               }"
-              placeholder="Enter recipient address"
+              placeholder="Recipient address"
             />
           </div>
         </div>
 
-        <div style="width: 100%; height: 24px" />
+        <div style="width: 100%; height: 17px" />
         <div v-if="hasAnyBalance">
           <SpAmountSelect
-            class="token-selector"
+            class='token-selector--main'
             :selected="state.tx.amount"
             :balances="balances.assets"
-            v-on:update="handleTxAmountUpdate"
+            @update="handleTxAmountUpdate"
           />
         </div>
 
@@ -207,7 +205,7 @@
             class="token-selector"
             :selected="state.tx.fees"
             :balances="balances.assets"
-            v-on:update="handleTxFeesUpdate"
+            @update="handleTxFeesUpdate"
           />
 
           <div style="width: 100%; height: 36px" />
@@ -282,7 +280,7 @@ import { useStore } from 'vuex'
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAssets, useAddress } from '../../composables'
+import { useAddress,useAssets } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
@@ -574,7 +572,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .advanced-label {
   font-family: Inter;
   font-style: normal;
@@ -605,6 +603,11 @@ export default defineComponent({
 .tx {
 }
 .token-selector {
+  &--main {
+    &::v-deep(.add-token) {
+      margin-top: 14px;
+    }
+   }
 }
 .qrcode-wrapper {
   background: #000;
@@ -702,7 +705,7 @@ export default defineComponent({
 .input-label {
   font-family: Inter;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 13px;
   line-height: 153.8%;
   /* identical to box height, or 20px */
@@ -745,7 +748,9 @@ export default defineComponent({
 }
 
 .input {
-  padding: 16px 13.5px;
+  margin-top: 4px;
+  padding: 12px 16px;
+  height: 48px;
   background: rgba(0, 0, 0, 0.03);
   border: 0;
   border-radius: 10px;
@@ -758,7 +763,7 @@ export default defineComponent({
   width: 100%;
 }
 
-.input:placeholder {
+.input::placeholder {
   color: rgba(0, 0, 0, 0.33);
 }
 
