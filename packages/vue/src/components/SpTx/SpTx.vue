@@ -137,7 +137,7 @@
 
         <div
           class="title"
-          :class="{ active: showReceive }"
+          :class="{ active: showReceive, disabled: !hasAnyBalance }"
           @click="switchToReceive"
         >
           Receive
@@ -159,6 +159,7 @@
                 error: state.tx.toAddress.length > 0 && !validToAddress
               }"
               placeholder="Recipient address"
+              :disabled='!hasAnyBalance'
             />
           </div>
         </div>
@@ -171,27 +172,28 @@
             :balances="balances.assets"
             @update="handleTxAmountUpdate"
           />
+          <div style="width: 100%; height: 34px" />
         </div>
-
-        <div style="width: 100%; height: 34px" />
 
         <div
-          class="advanced-label"
-          @click="state.advancedOpen = !state.advancedOpen"
+          :class="['advanced-label', {'advanced-label--disabled': !hasAnyBalance}]"
+          @click="hasAnyBalance && (state.advancedOpen = !state.advancedOpen)"
         >
           Advanced
-          <svg v-if='!state.advancedOpen' width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
-            <path d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z" fill="black"/>
-          </svg>
-          <svg v-else width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
-            <path d="M10.0001 7.4001L6.0001 3.4001L2.0001 7.4001L0.600098 6.0001L6.0001 0.600098L11.4001 6.0001L10.0001 7.4001Z" fill="black"/>
-          </svg>
+          <template v-if='hasAnyBalance'>
+            <svg v-if='!state.advancedOpen' width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
+              <path d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z" fill="black"/>
+            </svg>
+            <svg v-else width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
+              <path d="M10.0001 7.4001L6.0001 3.4001L2.0001 7.4001L0.600098 6.0001L6.0001 0.600098L11.4001 6.0001L10.0001 7.4001Z" fill="black"/>
+            </svg>
+          </template>
 
         </div>
 
-        <div v-if="state.advancedOpen" style="width: 100%; height: 24px" />
+        <div v-if="state.advancedOpen && hasAnyBalance" style="width: 100%; height: 24px" />
 
-        <div v-if="state.advancedOpen" class="advanced">
+        <div v-if="state.advancedOpen && hasAnyBalance" class="advanced">
           <div class="input-label">Fees</div>
 
           <div style="width: 100%; height: 14px" />
@@ -356,7 +358,9 @@ export default defineComponent({
       state.currentUIState = UI_STATE.SEND
     }
     let switchToReceive = (): void => {
-      state.currentUIState = UI_STATE.RECEIVE
+      if (hasAnyBalance.value) {
+        state.currentUIState = UI_STATE.RECEIVE
+      }
     }
     let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
@@ -579,6 +583,13 @@ export default defineComponent({
   /* base/black 0 */
 
   color: #000000;
+
+  &--disabled {
+    color: rgba(0, 0, 0, 0.33);
+    &:hover {
+      cursor: default !important;
+    }
+  }
 }
 
 .advanced-label:hover {
@@ -727,6 +738,12 @@ export default defineComponent({
   font-feature-settings: 'zero';
 
   color: rgba(0, 0, 0, 0.33);
+
+  &.disabled {
+    &:hover {
+      cursor: text;
+    }
+  }
 }
 
 .title.active {

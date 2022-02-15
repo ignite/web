@@ -1,5 +1,5 @@
 <template>
-  <Suspense>
+  <Suspense v-if='address'>
     <template #default>
       <SpGetTxList />
     </template>
@@ -19,16 +19,34 @@
       </div>
     </template>
   </Suspense>
+  <div v-else class="tx-list">
+    <div class="title">Transactions</div>
+    <div class="empty">Transaction history is empty</div>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+
+import { useAddress } from '../../composables'
 import SpGetTxList from '../SpGetTxList'
 
-export default {
+
+export default defineComponent({
   name: 'SpTxList',
 
   components: { SpGetTxList },
-}
+
+  setup() {
+    let $s = useStore()
+
+    // composables
+    let { address } = useAddress({ $s })
+
+    return { address }
+  }
+})
 </script>
 
 <style lang='scss' scoped>
@@ -129,6 +147,21 @@ $avatar-offset: 32 + 16;
     background-size: 600px;
     animation: shine-lines $animation-duration infinite linear
   }
+}
+
+.empty {
+  /* Body/M */
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+  /* identical to box height, or 24px */
+
+  /* light/muted */
+
+  color: rgba(0, 0, 0, 0.667);
 }
 
 @keyframes shine-avatar {
