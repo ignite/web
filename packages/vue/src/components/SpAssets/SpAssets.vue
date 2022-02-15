@@ -65,7 +65,7 @@
         </tr>
       </tbody>
     </table>
-    <template v-if='balances.isLoading'>
+    <template v-if='address && balances.isLoading'>
       <div v-for='n in 2' :key='n' class='loading__row'>
         <div class='loading__col'>
           <span class='loading__avatar'></span>
@@ -79,7 +79,9 @@
         </div>
       </div>
     </template>
-    <div v-if='!balances.isLoading && !balances.assets.length' class='no-result-label'>You have no assets</div>
+    <div v-if='!address || (!balances.isLoading && !balances.assets.length)' class='no-result-label'>
+      You have no assets
+    </div>
     <div v-if='!balances.isLoading && isShowMore' class='show-more' @click='onShowMore'>
       Show more
       <span class='arrow-icon'>
@@ -95,7 +97,7 @@
 import { computed, defineComponent, nextTick, ref, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
-import { useAssets } from '../../composables'
+import { useAddress, useAssets } from '../../composables'
 import SpDenom from '../SpDenom'
 
 export default defineComponent({
@@ -124,6 +126,7 @@ export default defineComponent({
     });
 
     // composables
+    let { address } = useAddress({ $s })
     let { balances } = useAssets({ $s, opts: {extractChannels: true} })
 
     const filteredBalanceList = computed(() => {
@@ -161,7 +164,7 @@ export default defineComponent({
       nextTick(() => state.value.searchInput?.focus());
     }
 
-    return { balances, filteredBalanceList, noSearchResults, isShowMore, onShowMore, resetDisplayLimit, resetSearch, ...toRefs(state.value) }
+    return { address, balances, filteredBalanceList, noSearchResults, isShowMore, onShowMore, resetDisplayLimit, resetSearch, ...toRefs(state.value) }
   }
 })
 </script>

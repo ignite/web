@@ -9,13 +9,15 @@
           {{ showMoreText }}
         </template>
       </div>
-      <div v-if="Object.keys(txByMonth).length > 0" class="list">
+      <div v-if='!address || Object.keys(txByMonth).length <= 0' class='empty'>
+        Transaction history is empty
+      </div>
+      <div v-else-if="Object.keys(txByMonth).length > 0" class="list">
         <div v-for="(txs, month, index) in txByMonth" :key="`${index}`">
           <h3 class='tx-list__subheading' v-text='getMonthGroup(month)'></h3>
           <SpTxListItem v-for='(tx, i) in txs' :key='`${tx.hash}-${tx.timestamp}-${i}`' :tx="tx" />
         </div>
       </div>
-      <div v-else class="empty">Transaction history is empty</div>
       <div
         v-if="leftToShowMore"
         class="show-more"
@@ -36,7 +38,7 @@
 import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
-import { useTxs } from '../../composables'
+import { useAddress, useTxs } from '../../composables'
 import { TxForUI } from '../../composables/useTxs'
 import SpSpinner from '../SpSpinner'
 import SpTxListItem from '../SpTxListItem'
@@ -66,6 +68,7 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // composables
+    let { address } = useAddress({ $s })
     let { pager, normalize, newTxs } = await useTxs({
       $s,
       opts: { order: 'desc', realTime: true }
@@ -123,6 +126,7 @@ export default defineComponent({
       // state
       newTxs,
       // computed
+      address,
       list,
       leftToShowMore,
       showMoreText,

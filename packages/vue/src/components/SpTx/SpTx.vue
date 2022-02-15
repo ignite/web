@@ -500,7 +500,7 @@ export default defineComponent({
         })
     )
     let validToAddress = computed<boolean>(() => {
-      let valid = false
+      let valid: boolean
 
       try {
         valid = !!Bech32.decode(state.tx.toAddress)

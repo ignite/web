@@ -2,8 +2,8 @@
   <div>
     <div v-if="items" style="max-width: 600px">
       <div
-        :key="item.id"
         v-for="item in items"
+        :key="item.id"
         style="
           display: flex;
           justify-content: space-between;
@@ -77,7 +77,7 @@
         </div>
         <div style="width: 20px">
           <SpDropdown>
-            <template v-slot:button>
+            <template #button>
               <svg
                 width="40"
                 height="40"
@@ -90,7 +90,7 @@
                 <circle cx="25" cy="20" r="1.5" fill="black" />
               </svg>
             </template>
-            <template v-slot:dropdown>
+            <template #dropdown>
               <div style="width: 160px">
                 <div class="dropdown-option" @click="$emit('editItem', item)">
                   Edit
@@ -107,7 +107,7 @@
           </SpDropdown>
         </div>
       </div>
-      <div v-if="(items || []).length === 0" style="text-align: center">
+      <div v-if="(items || []).length === 0">
         <SpSpacer size="md" />
         <SpTypography size="md"> No items </SpTypography>
         <SpTypography
@@ -124,16 +124,15 @@
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex'
 import { computed, defineComponent, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 import { useAddress } from '../../composables'
-
-import SpSpacer from '../SpSpacer'
-import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
 
 export default defineComponent({
   name: 'SpCrudRead',

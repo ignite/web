@@ -100,7 +100,7 @@
       <div class="action-text">Add asset</div>
     </div>
 
-    <SpModal :visible="state.modalOpen" :title="'Select asset'">
+    <SpModal :visible="state.modalOpen" :close-icon="true" :title="'Select asset'" @close="state.modalOpen = false">
       <template #body>
         <div class="modal-body">
           <div class="search">

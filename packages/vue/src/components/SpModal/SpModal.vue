@@ -25,7 +25,7 @@
               type="primary"
               @click="$emit('submit')"
             >
-              Submit
+              Save changes
             </SpButton>
             <SpButton
               v-if="cancelButton"
@@ -100,7 +100,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang='scss' scoped>
 .modal-backdrop {
   position: fixed;
   z-index: 999;
@@ -123,12 +123,31 @@ export default defineComponent({
   justify-content: space-between;
   min-width: 400px;
   min-height: 300px;
+  padding: 32px;
 }
 
 .modal-header,
 .modal-footer {
   display: flex;
   flex-direction: column;
+}
+
+.modal-header {
+  h3 {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 133%;
+    /* identical to box height, or 28px */
+
+    text-align: center;
+    letter-spacing: -0.007em;
+
+    /* light/text */
+
+    color: #000000;
+  }
 }
 .modal-body {
   position: relative;
@@ -157,4 +176,12 @@ export default defineComponent({
 
 .modal-fade-enter-active {
 }
+
+.sp-button {
+  &.sp-button-secondary {
+    border: 0;
+    color: rgba(0, 0, 0, 0.33);
+  }
+}
+
 </style>
