@@ -388,6 +388,7 @@ $avatar-offset: 32 + 16;
   font-feature-settings: 'zero';
 
   color: #000000;
+  margin-top: 0;
 }
 
 .input {

@@ -109,8 +109,8 @@
         </div>
       </router-link>
       <router-link
-        :key="`link-${lid}`"
         v-for="(link, lid) in links"
+        :key="`link-${lid}`"
         :to="link.url"
         class="sp-nav-link"
         :alt="link.name"
@@ -130,9 +130,9 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import SpModal from '../SpModal'
-import SpButton from '../SpButton'
 import SpAcc from '../SpAcc'
+import SpButton from '../SpButton'
+import SpModal from '../SpModal'
 
 export interface NavbarLink {
   name: string
@@ -170,6 +170,7 @@ export default defineComponent({
   right: 0;
   top: 0;
   background: #ffffff;
+  margin-bottom: 54px;
 }
 
 .navbar-section {
