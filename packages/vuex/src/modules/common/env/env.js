@@ -114,7 +114,7 @@ export default {
     ) {
       try {
         await dispatch('config', config)
-        console.log('Vuex nodule: common.env initialized!')
+        console.log('Vuex module: common.env initialized!')
       } catch (e) {
         throw new SpVuexError('Env:Config', 'Could not configure environment')
       }

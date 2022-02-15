@@ -334,7 +334,7 @@ export default defineComponent({
     SpSpinner
   },
 
-  setup(props: any) {
+  setup() {
     // store
     let $s = useStore()
 
