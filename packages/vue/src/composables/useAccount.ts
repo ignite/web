@@ -2,6 +2,7 @@ import { Account, SigningStargateClient } from '@cosmjs/stargate'
 import { EventEmitter } from 'events'
 import { computed, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
+
 import { useAddress } from '.'
 
 type Response = {
@@ -23,7 +24,7 @@ export default async function ({ $s }: Params): Promise<Response> {
   // computed
   let spClient = computed<EventEmitter>(() => $s.getters['common/env/client'])
   let stargateClient = computed<SigningStargateClient>(
-    () => (spClient.value as any).signingClient as SigningStargateClient
+    () => (spClient.value as any)?.signingClient as SigningStargateClient
   )
 
   //watch

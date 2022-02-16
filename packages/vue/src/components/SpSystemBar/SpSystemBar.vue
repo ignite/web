@@ -21,16 +21,22 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import { useStore } from 'vuex'
+
+import { useAccount } from '../../composables'
 
 export default defineComponent({
   name: 'SpSystemBar',
 
-  setup() {
+  async setup() {
+    let $s = useStore()
+    let { acc } = await useAccount({$s})
+
     const classObject = reactive({
       'sp-system-bar--warning': true
     })
 
-    return { classObject }
+    return { acc, classObject }
   }
 })
 </script>
