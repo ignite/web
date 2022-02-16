@@ -86,7 +86,7 @@ export default async function ({
     } else {
       normalized.sender = tx.body.messages[0].from_address
       normalized.receiver = tx.body.messages[0].to_address
-      normalized.amount = tx.body.messages[0].amount[0]
+      normalized.amount = tx.body.messages[0].amount
       normalized.height = Number(tx.height)
     }
 

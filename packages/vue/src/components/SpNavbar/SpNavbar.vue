@@ -1,4 +1,5 @@
 <template>
+  <Suspense><SpSystemBar /></Suspense>
   <div class="navbar-wrapper">
     <div class="navbar-section">
       <router-link
@@ -133,6 +134,7 @@ import { defineComponent, PropType } from 'vue'
 import SpAcc from '../SpAcc'
 import SpButton from '../SpButton'
 import SpModal from '../SpModal'
+import SpSystemBar from '../SpSystemBar'
 
 export interface NavbarLink {
   name: string
@@ -145,7 +147,8 @@ export default defineComponent({
   components: {
     SpAcc,
     SpModal,
-    SpButton
+    SpButton,
+    SpSystemBar
   },
 
   props: {
