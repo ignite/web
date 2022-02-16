@@ -81,10 +81,26 @@ export default defineComponent({
         .slice(0, state.listSize)
         .sort((a, b) => b.height - a.height)
     })
+
+    let filteredList = computed(() => {
+      return list.value.reduce((acc:TxForUI[], current) => {
+        const x = acc.find(item => {
+          console.log(item.sender)
+          return item.sender === current.sender && item.receiver === current.receiver
+        })
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+    })
+
     let txByMonth = computed(() => {
       const groupByYear = groupBy("timestamp");
-      return groupByYear(list.value);
+      return groupByYear(filteredList.value);
     })
+
     let leftToShowMore = computed<boolean>(
       () =>
         state.listSize < state.listMaxSize &&
@@ -127,6 +143,7 @@ export default defineComponent({
       newTxs,
       // computed
       address,
+      filteredList,
       list,
       leftToShowMore,
       showMoreText,

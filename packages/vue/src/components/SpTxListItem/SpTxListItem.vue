@@ -3,6 +3,7 @@
     <div class='tx-container'>
       <div class="tx-icon" :class="tx?.dir">
         <svg
+          v-if="tx?.dir !== 'self'"
           width="16"
           height="16"
           viewBox="0 0 16 16"
@@ -26,6 +27,11 @@
             stroke-linejoin="round"
           />
         </svg>
+        <svg v-else width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.16666 1.66663V5.66663H5.16666" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2.83999 9.00001C3.27225 10.2269 4.09155 11.2801 5.17443 12.0009C6.25731 12.7217 7.54511 13.0711 8.8438 12.9963C10.1425 12.9216 11.3817 12.4268 12.3747 11.5865C13.3678 10.7462 14.0608 9.60599 14.3495 8.33758C14.6381 7.06917 14.5067 5.74131 13.9751 4.55407C13.4434 3.36684 12.5403 2.38454 11.4019 1.75518C10.2634 1.12583 8.95126 0.883515 7.66311 1.06475C6.37496 1.24599 5.1806 1.84095 4.25999 2.76001L1.16666 5.66667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
       </div>
 
       <div style="width: 16px; height: 100%" />
