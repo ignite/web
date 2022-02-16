@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount, ref } from 'vue'
+import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 
 export default defineComponent({
   name: 'SpDropdown',
@@ -50,17 +50,20 @@ export default defineComponent({
 .dropdown-dropdown {
   position: absolute;
   box-sizing: border-box;
-  top: 2rem;
-  right: 0;
+  top: 48px;
+  left: 8px;
   z-index: 90;
   overflow: hidden;
   background-color: #fff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px;
+  box-shadow: 40px 64px 128px -8px rgba(0, 0, 0, 0.14);
   border-radius: 10px;
+  padding: 16px 24px;
 }
 
 .dropdown-button {
   cursor: pointer;
+  width: 40px;
+  height: 40px;
 }
 
 .dropdown-fade-enter,

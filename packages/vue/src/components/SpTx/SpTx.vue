@@ -161,6 +161,7 @@
               placeholder="Recipient address"
               :disabled='!hasAnyBalance'
             />
+            <div v-if='state.tx.toAddress.length > 0 && !validToAddress' class='error-message'>Invalid address</div>
           </div>
         </div>
 
@@ -768,8 +769,7 @@ export default defineComponent({
   margin-top: 4px;
   padding: 12px 16px;
   height: 48px;
-  background: rgba(0, 0, 0, 0.03);
-  border: 0;
+  background-color: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   font-family: Inter;
   font-style: normal;
@@ -778,6 +778,35 @@ export default defineComponent({
   line-height: 130%;
   color: #000000;
   width: 100%;
+  outline: 0;
+  transition: background-color .2s cubic-bezier(.645,.045,.355,1);
+  display: block;
+
+  &:not([disabled]) {
+    &:hover {
+      background: rgba(0, 0, 0, 0.07);
+    }
+
+  }
+
+  &:focus {
+    background: rgba(0, 0, 0, 0.07);
+    color: #000;
+  }
+
+  &.error {
+    box-shadow: 0 0 0 1px rgba(254, 71, 95, 1);
+  }
+}
+
+.error-message {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 153.8%;
+  color: #D80228;
+  margin-top: 5px;
 }
 
 .input::placeholder {
@@ -785,7 +814,6 @@ export default defineComponent({
 }
 
 .input-wrapper {
-  display: flex;
-  flex: 1;
+  display: block;
 }
 </style>

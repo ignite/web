@@ -72,7 +72,7 @@
               {{ field.name }}
             </div>
             <div class="item-value">{{ item[field.name] }}</div>
-            <SpSpacer size="xs" />
+            <SpSpacer size="xsm" />
           </div>
         </div>
         <div style="width: 20px">
@@ -109,15 +109,7 @@
       </div>
       <div v-if="(items || []).length === 0">
         <SpSpacer size="md" />
-        <SpTypography size="md"> No items </SpTypography>
-        <SpTypography
-          size="sm"
-          feedback="link"
-          style="display: inline-block"
-          @click="$emit('createItem')"
-        >
-          Create your first item
-        </SpTypography>
+        <SpTypography size="md" class='empty'>No items</SpTypography>
       </div>
     </div>
   </div>
@@ -170,18 +162,39 @@ export default defineComponent({
     let { address, shortAddress } = useAddress({ $s })
 
     // computed
+    // let itemFields = computed(() =>
+    //   $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
+    // )
     let itemFields = computed(() =>
-      $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
+      [
+        {
+          name: 'title',
+        },
+        {
+          name: 'description'
+        },
+        {
+          name: 'by'
+        }
+      ]
     )
     let items = computed(() => {
-      const itemData = $s.state[props.storeName][props.itemName + 'All']
-      const queryKey = Object.keys(itemData)[0]
-      if (queryKey && itemData[queryKey]) {
-        return itemData[queryKey][props.itemName].sort((a, b) => {
-          return b.id - a.id
-        })
-      }
-      return []
+      // const itemData = $s.state[props.storeName][props.itemName + 'All']
+      // const queryKey = Object.keys(itemData)[0]
+      // if (queryKey && itemData[queryKey]) {
+      //   return itemData[queryKey][props.itemName].sort((a, b) => {
+      //     return b.id - a.id
+      //   })
+      // }
+      // return []
+      return [
+        {
+          id: 0,
+          'title': 'Relay nodes',
+          'description': 'Therefore, relay nodes require significantly more power and are only',
+          'by': 'cosmos1p05...94029y'
+        }
+        ]
     })
 
     // lh
@@ -220,8 +233,8 @@ export default defineComponent({
   color: #000000;
 }
 
-.dropdown-option {
-  padding: 1rem 1.4rem;
+.dropdown-option:not(:last-child) {
+  padding: 0 0 16px 0;
 }
 
 .sp-label {
@@ -244,5 +257,10 @@ export default defineComponent({
 
 .capitalize-first-letter:first-letter {
   text-transform: uppercase;
+}
+
+.empty {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.667);
 }
 </style>

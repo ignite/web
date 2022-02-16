@@ -121,7 +121,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 400px;
+  min-width: 416px;
   min-height: 300px;
   padding: 32px;
 }
