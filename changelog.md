@@ -1,19 +1,5 @@
 # Changelog
 
-## `v0.1.57`
-
-### Changed:
-
-- chore: regenerated vuex
-
-# Changelog
-
-## `v0.1.56`
-
-### Fixed:
-
-- adjusted `transpileDependencies` property
-
 ## `v0.1.55`
 
 ### Features:
@@ -34,6 +20,7 @@
 ## `v0.1.53`
 
 ### Features:
+
 - new storybook package
 
 ### Changed:
@@ -56,4 +43,5 @@
 ## `v0.1.50`
 
 ### Changed:
+
 - updated cosmjs wallet method signatures

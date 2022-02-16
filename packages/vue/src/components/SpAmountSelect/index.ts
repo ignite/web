@@ -1,12 +1,13 @@
 import { App as Application } from 'vue'
-import SpAmountSelect from './SpAmountSelect.vue'
 
-import { registerComponent } from './../../utils/plugins/index'
+import { registerComponent } from '../../utils/plugins/index'
+// @ts-ignore
+import C from './SpAmountSelect.vue'
 
 export const Plugin = {
   install(vue: Application): void {
-    registerComponent(vue, SpAmountSelect)
-  },
+    registerComponent(vue, C)
+  }
 }
 
-export default SpAmountSelect
+export default C

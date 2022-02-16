@@ -1,21 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Index from '@/views/Index.vue'
-import Types from '@/views/Types.vue'
-import Relayers from '@/views/Relayers.vue'
+
+import Data from '../views/Data.vue'
+import Portfolio from '../views/Portfolio.vue'
 
 const routerHistory = createWebHistory()
 const routes = [
-  {
-    path: '/',
-    component: Index,
-  },
-  { path: '/types', component: Types },
-  { path: '/relayers', component: Relayers },
+  { path: '/', component: Portfolio },
+  { path: '/portfolio', component: Portfolio },
+  { path: '/data', component: Data }
 ]
 
 const router = createRouter({
   history: routerHistory,
-  routes,
+  routes
 })
 
 export default router

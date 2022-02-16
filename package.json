@@ -4,16 +4,6 @@
   "description": "A monorepo of Vue and JS packages for Cosmos SDK apps",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "homepage": "https://github.com/tendermint/vue",
-  "scripts": {
-    "netlify:prepare": "lerna bootstrap  && lerna run build --scope='{@starport/client-js,@starport/vue,@starport/vuex}'",
-    "netlify:linkvue": "cd ./packages/vue && npm link",
-    "netlify:linkvuex": "cd ./packages/vuex && npm link",
-    "netlify:build": "npm run netlify:prepare && npm run netlify:linkvue && npm run netlify:linkvuex && cd ./packages/template && npm install && npm link @starport/vue @starport/vuex && npm run build -- --mode spn"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tendermint/vue.git"
-  },
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -21,7 +11,33 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
+  "scripts": {
+    "purge": "lerna exec -- rm -rf node_modules",
+    "dev": "lerna bootstrap --force-local && lerna exec --scope='@starport/template' -- npm run dev",
+    "build": "lerna exec --scope='@starport/template' -- npm run build",
+    "lint:check": "eslint .",
+    "lint:format": "eslint --fix .",
+    "prettify:check": "prettier --check .",
+    "prettify:format": "prettier --write .",
+    "code:check": "npm run lint:check && npm run prettify:check",
+    "code:format": "npm run lint:format && npm run prettify:format"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tendermint/vue.git"
+  },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "eslint": "^8.6.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "husky": "^7.0.4",
+    "lerna": "^4.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4"
   }
 }

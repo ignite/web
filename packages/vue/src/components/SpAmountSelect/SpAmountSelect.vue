@@ -1,224 +1,415 @@
 <template>
-  <div class="sp-amount-select">
-    <div class="sp-amount-select__overlay" v-if="modalOpen" v-on:click="modalOpen = false"></div>
-    <div class="sp-form-group" :class="{ 'sp-amount-select__overlay__open': modalOpen }">
-      <div class="sp-amount-select__denom" :class="{ 'sp-focused': focused }">
-        <div class="sp-amount-select__denom__selected" v-on:click="toggleModal">
-          <div class="sp-amount-select__denom__name">
-            <div
-              class="sp-amount-select__denom__balance"
-              :class="{
-                'sp-amount-select__denom__balance__fail': parseAmount(fulldenom.amount) - parseAmount(amount) < 0,
-              }"
-            >
-              <strong>Avail.</strong>
-              {{ parseAmount(fulldenom.amount) - parseAmount(amount) }}/{{ fulldenom.amount }}
-            </div>
-            <div class="sp-denom-marker" :style="'background: #' + fulldenom.color" />
-            <template v-if="fulldenom.denom.indexOf('ibc/') == 0">
-              IBC/{{ denomTraces[fulldenom.denom.split('/')[1]]?.denom_trace.path.toUpperCase() ?? '' }}/{{
-                denomTraces[fulldenom.denom.split('/')[1]]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
-              }}
-            </template>
-            <template v-else>
-              {{ fulldenom.denom.toUpperCase() }}
-            </template>
-          </div>
-          <div class="sp-amount-select__denom__controls">
-            <div class="sp-amount-select__denom__remove" v-if="modalOpen && !last" v-on:click="selfRemove">Remove</div>
-            <span
-              :class="{
-                'sp-icon sp-icon-DownCaret': !modalOpen,
-                'sp-icon sp-icon-UpCaret': modalOpen,
-              }"
-            />
-          </div>
-        </div>
-        <div class="sp-amount-select__denom__modal" v-if="modalOpen">
-          <div class="sp-amount-select__denom__modal__search">
-            <div class="sp-icon sp-icon-Search" />
-            <input
-              type="text"
-              v-model="searchTerm"
-              placeholder="Search..."
-              class="sp-amount-select__denom__modal__search__input"
-            />
-          </div>
-          <div class="sp-line"></div>
-          <div class="sp-amount-select__denom__modal__header">
-            <div class="sp-amount-select__denom__modal__header__token">TOKEN</div>
-            <div class="sp-amount-select__denom__modal__header__amount">AMOUNT</div>
-          </div>
-          <div
-            class="sp-amount-select__denom__modal__item"
-            :class="{
-              'sp-amount-select__denom__modal__item__selected': avail.denom == fulldenom.denom,
-              'sp-amount-select__denom__modal__item__disabled': enabledDenoms.findIndex((x) => x == avail) == -1,
-            }"
-            v-on:click="setDenom(avail)"
-            v-for="avail in filteredDenoms"
-            v-bind:key="'denom_' + avail.denom"
-          >
-            <div class="sp-amount-select__denom__name">
-              <div class="sp-denom-marker" :style="'background: #' + avail.color" />
+  <div class="amount-select">
+    <div
+      v-for="(x, i) in selected"
+      :key="`${x.amount.denom}-${x.path}-${i}`"
+      class="selected-item"
+    >
+      <Suspense>
+        <SpDenom :denom="x.amount.denom" modifier="avatar" />
+      </Suspense>
 
-              <template v-if="avail.denom.indexOf('ibc/') == 0">
-                IBC/{{ denomTraces[avail.denom.split('/')[1]]?.denom_trace.path.toUpperCase() ?? '' }}/{{
-                  denomTraces[avail.denom.split('/')[1]]?.denom_trace.base_denom.toUpperCase() ?? 'UNKNOWN'
-                }}
-              </template>
-              <template v-else>
-                {{ avail.denom.toUpperCase() }}
-              </template>
-            </div>
-            <div class="sp-amount-select__denom__balance">
-              {{ avail.amount }}
-            </div>
-          </div>
+      <div style="width: 12px; height: 100%" />
+
+      <div class="token-info">
+        <div class="token-denom">
+          <Suspense>
+            <SpDenom :denom="x.amount.denom" />
+          </Suspense>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 6px;'>
+            <path d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z" fill="black"/>
+          </svg>
+
+        </div>
+
+        <div
+          class="token-amount"
+          :class="{
+            error: !hasEnoughBalance(x, x.amount.amount)
+          }"
+        >
+          {{ getBalanceAmount(x) }} available
         </div>
       </div>
-      <input
-        class="sp-input sp-input-large"
-        :class="{
-          'sp-error': fulldenom.amount != '' && parseAmount(fulldenom.amount) - parseAmount(amount) < 0,
-        }"
-        name="rcpt"
-        v-model="amount"
-        placeholder="0"
-        v-on:focus="focused = true"
-        v-on:blur="focused = false"
-      />
+
+      <div class="input-wrapper">
+        <input
+          class="input secondary"
+          :value="x.amount.amount"
+          placeholder="0"
+          @input="(evt) => handleAmountInput(evt, x)"
+        />
+
+        <div class='focus-background'></div>
+      </div>
     </div>
+
+    <div
+      v-if="ableToBeSelected.length > 0"
+      class="add-token"
+      @click="state.modalOpen = true"
+    >
+      <div class="add-icon">
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="16"
+            cy="16"
+            r="15.5"
+            stroke="black"
+            stroke-opacity="0.07"
+          />
+          <g clip-path="url(#clip0_721_8528)">
+            <path
+              d="M16 8.5L16 24.5"
+              stroke="black"
+              stroke-opacity="0.33"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M24 16.5L8 16.5"
+              stroke="black"
+              stroke-opacity="0.33"
+              stroke-miterlimit="10"
+              stroke-linecap="square"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_721_8528">
+              <rect
+                width="16"
+                height="16"
+                fill="white"
+                transform="translate(8 8.5)"
+              />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+
+      <div style="width: 12px; height: 100%" />
+
+      <div class="action-text">Add asset</div>
+    </div>
+
+    <SpModal :visible="state.modalOpen" :close-icon="true" :title="'Select asset'" @close="state.modalOpen = false">
+      <template #body>
+        <div class="modal-body">
+          <div class="search">
+            <input
+              v-model="state.tokenSearch"
+              class="input primary"
+              placeholder="Search assets"
+            />
+          </div>
+
+          <div style="width: 100%; height: 16px" />
+
+          <div class="modal-list">
+            <div
+              v-for="(x, i) in ableToBeSelected"
+              :key="'balance' + i"
+              class="modal-list-item"
+              :index="i"
+              @click="() => handleTokenSelect(x)"
+            >
+              <Suspense>
+                <SpDenom :denom="x.amount.denom" modifier="avatar" />
+              </Suspense>
+
+              <div style="width: 12px; height: 100%" />
+
+              <div class="token-info">
+                <div class="token-denom">
+                  <Suspense>
+                    <SpDenom :denom="x.amount.denom" />
+                  </Suspense>
+                </div>
+
+                <div class="token-amount">
+                  {{ parseAmount(x.amount.amount) }} available
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </SpModal>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { Amount, ColoredAmount, DenomTraces } from '../../utils/interfaces'
-import { str2rgba } from '../../utils/helpers'
 
-export interface SpAmountSelectState {
-  amount: string
-  denom: string | null
-  focused: boolean
+<script lang="ts">
+import { computed, defineComponent, PropType, reactive } from 'vue'
+
+import { AssetForUI } from '@/composables/useAssets'
+
+import SpDenom from '../SpDenom'
+import SpModal from '../SpModal'
+
+export interface State {
+  tokenSearch: string
   modalOpen: boolean
-  searchTerm: string
-  denomTraces: DenomTraces
+}
+
+export let initialState: State = {
+  tokenSearch: '',
+  modalOpen: false
 }
 
 export default defineComponent({
   name: 'SpAmountSelect',
-  data: function (): SpAmountSelectState {
-    return {
-      amount: '',
-      denom: null,
-      focused: false,
-      modalOpen: false,
-      searchTerm: '',
-      denomTraces: {} as DenomTraces,
+
+  components: { SpModal, SpDenom },
+
+  emits: ['update'],
+
+  props: {
+    selected: {
+      type: Array as PropType<Array<AssetForUI>>
+    },
+    balances: {
+      type: Array as PropType<Array<AssetForUI>>
     }
   },
-  props: {
-    modelValue: {
-      type: Object as PropType<Amount>,
-    },
-    available: {
-      type: Array as PropType<Array<Amount>>,
-    },
-    index: { type: Number as PropType<number> },
-    selected: {
-      type: Array as PropType<Array<string>>,
-    },
-    last: {
-      type: Boolean as PropType<boolean>,
-    },
-  },
-  emits: ['update:modelValue', 'self-remove'],
-  mounted: function () {
-    this.amount = this.modelValue?.amount + '' ?? ''
-    this.denom = this.modelValue?.denom ?? null
-  },
-  computed: {
-    currentVal: function (): Amount {
-      return { amount: this.amount, denom: this.denom ?? '' }
-    },
-    fulldenom: function (): ColoredAmount {
-      return (
-        this.denoms.find((x: ColoredAmount) => x.denom == this.denom) ?? {
-          amount: '',
-          denom: '',
-          color: '',
-        }
-      )
-    },
-    enabledDenoms: function (): Array<Amount> {
-      return (
-        this.available?.filter(
-          (x) =>
-            this.selected?.findIndex((y) => y == x.denom) == -1 ||
-            this.selected?.findIndex((y) => y == x.denom) == this.index,
-        ) ?? []
-      )
-    },
-    denoms: function (): Array<ColoredAmount> {
-      return (
-        this.available?.map((x: Amount) => {
-          this.addMapping(x)
-          const y: ColoredAmount = { amount: '0', denom: '', color: '' }
-          y.amount = x.amount
-          y.denom = x.denom
-          y.color = str2rgba(x.denom.toUpperCase())
-          return x as ColoredAmount
-        }) ?? []
-      )
-    },
-    filteredDenoms: function (): Array<ColoredAmount> {
-      return this.searchTerm == ''
-        ? this.denoms
-        : this.denoms.filter((x) => x.denom.toUpperCase().indexOf(this.searchTerm.toUpperCase()) !== -1)
-    },
-  },
-  methods: {
-    toggleModal: function (): void {
-      this.modalOpen = !this.modalOpen
-    },
-    selfRemove: function (): void {
-      this.$emit('self-remove')
-    },
-    addMapping: async function (balance: Amount): Promise<void> {
-      if (balance.denom.indexOf('ibc/') == 0) {
-        const denom = balance.denom.split('/')
-        const hash = denom[1]
-        this.denomTraces[hash] = await this.$store.dispatch('ibc.applications.transfer.v1/QueryDenomTrace', {
-          options: { subscribe: false, all: false },
-          params: { hash },
+
+  setup(props: any, { emit }) {
+    // state
+    let state: State = reactive(initialState)
+
+    // computed
+    let ableToBeSelected = computed<AssetForUI[]>(() => {
+      let notSelected = (x: AssetForUI) =>
+        (props.selected as Array<AssetForUI>).every((y: AssetForUI) => {
+          let denomIsDifferent = x.amount.denom !== y.amount.denom
+
+          let pathIsDifferent = x.path !== y.path
+
+          return denomIsDifferent || pathIsDifferent
         })
-      }
-    },
-    setDenom: function (avail: Amount): void {
-      if (this.enabledDenoms.findIndex((x) => x == avail) != -1) {
-        this.denom = avail.denom
-        this.modalOpen = false
-      }
-    },
-    parseAmount: function (amount: string): number {
+
+      let searchFilter = (x: AssetForUI) =>
+        x.amount.denom.includes(state.tokenSearch.toLowerCase())
+
+      return props.balances.filter(notSelected).filter(searchFilter)
+    })
+
+    // methods
+    let findAsset = (x: AssetForUI, y: AssetForUI): boolean =>
+      y.path === x.path && x.amount.denom === y.amount.denom
+    let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
-    },
-  },
-  watch: {
-    modelValue: function (newVal: Amount): void {
-      this.amount = newVal.amount
-      this.denom = newVal.denom
-    },
-    amount: function (newVal: string, oldVal: string): void {
-      if (newVal != oldVal) {
-        this.$emit('update:modelValue', this.currentVal)
-      }
-    },
-    denom: function (newVal: string, oldVal: string): void {
-      if (newVal != oldVal) {
-        this.$emit('update:modelValue', this.currentVal)
-      }
-    },
-  },
+    }
+    let handleAmountInput = (evt: Event, x: AssetForUI) => {
+      let newAmount = (evt.target as HTMLInputElement).value
+
+      let newSelected: Array<AssetForUI> = [...props.selected]
+
+      newSelected[
+        newSelected.findIndex((y: AssetForUI) => findAsset(x, y))
+      ].amount.amount = newAmount
+
+      emit('update', { selected: newSelected })
+    }
+    let handleTokenSelect = (x: AssetForUI) => {
+      let newSelected: Array<AssetForUI> = [
+        ...props.selected,
+        {
+          ...x,
+          amount: {
+            amount: '',
+            denom: x.amount.denom
+          }
+        }
+      ]
+
+      emit('update', { selected: newSelected })
+
+      state.modalOpen = false
+    }
+    let getBalanceAmount = (x: AssetForUI): string =>
+      props.balances.find((y: AssetForUI) => findAsset(x, y))?.amount?.amount
+    let hasEnoughBalance = (x: AssetForUI, amountDesired: string) =>
+      parseAmount(getBalanceAmount(x)) >= parseAmount(amountDesired)
+
+    return {
+      // state
+      state,
+      // computed
+      ableToBeSelected,
+      // methods
+      parseAmount,
+      hasEnoughBalance,
+      handleAmountInput,
+      handleTokenSelect,
+      getBalanceAmount
+    }
+  }
 })
 </script>
+
+<style lang='scss' scoped>
+.selected-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 44px;
+}
+.input.primary {
+  padding: 16px 13.5px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 0;
+  border-radius: 10px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 130%;
+  color: #000000;
+  width: 100%;
+}
+
+.input.primary::placeholder {
+  color: rgba(0, 0, 0, 0.33);
+}
+
+.add-token {
+  display: inline-flex;
+  align-items: center;
+}
+.add-token:hover {
+  cursor: pointer;
+}
+.add-icon {
+}
+.action-text {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 153.8%;
+  /* identical to box height, or 20px */
+
+  display: flex;
+  align-items: center;
+  text-align: right;
+
+  /* light/muted */
+
+  color: rgba(0, 0, 0, 0.667);
+}
+
+.modal-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.modal-list-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.modal-list-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+}
+
+.amount-select {
+}
+
+.input.secondary {
+  width: 100%;
+
+  background: none;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 100%;
+  /* identical to box height, or 21px */
+
+  text-align: right;
+  letter-spacing: -0.007em;
+  margin-left: 40px;
+
+  /* light/inactive */
+
+  color: #000000;
+  padding: 0;
+  height: 28px;
+  border: 0;
+  outline: 0;
+
+    &:focus {
+      color: #000;
+
+      ~ .focus-background {
+        background: rgba(0, 0, 0, 0.03);
+        position: absolute;
+        width: calc(100% + 16px);
+        height: 56px;
+        left: -8px;
+        border-radius: 8px;
+        top: -6px;
+      }
+    }
+}
+
+.input.secondary::placeholder {
+  color: rgba(0, 0, 0, 0.33);
+}
+
+.token-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.token-denom {
+  text-transform: uppercase;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 130%;
+  /* identical to box height, or 21px */
+
+  display: flex;
+  align-items: center;
+  text-align: right;
+  letter-spacing: -0.007em;
+
+  /* light/text */
+
+  color: #000000;
+}
+
+.token-amount {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 130.7%;
+  margin-bottom: -2px;
+  margin-top: 3px;
+}
+
+.token-amount.error {
+  color: #d80228;
+}
+
+.input-wrapper {
+  display: flex;
+  flex: 1;
+}
+</style>
