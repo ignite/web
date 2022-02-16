@@ -85,8 +85,7 @@ export default defineComponent({
     let filteredList = computed(() => {
       return list.value.reduce((acc:TxForUI[], current) => {
         const x = acc.find(item => {
-          console.log(item.sender)
-          return item.sender === current.sender && item.receiver === current.receiver
+          return item.sender === current.sender && item.receiver === current.receiver && item.timestamp === current.timestamp
         })
         if (!x) {
           return acc.concat([current]);
@@ -100,7 +99,6 @@ export default defineComponent({
       const groupByYear = groupBy("timestamp");
       return groupByYear(filteredList.value);
     })
-
     let leftToShowMore = computed<boolean>(
       () =>
         state.listSize < state.listMaxSize &&
