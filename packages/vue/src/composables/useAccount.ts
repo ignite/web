@@ -29,9 +29,9 @@ export default async function ({ $s }: Params): Promise<Response> {
 
   //watch
   watch(
-    () => stargateClient.value,
+    () => address.value,
     async () => {
-      if (stargateClient.value) {
+      if (stargateClient.value && address.value) {
         acc.value = (await stargateClient.value.getAccount(
           address.value
         )) as Account

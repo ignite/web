@@ -1,5 +1,5 @@
 <template>
-  <SpSystemBar></SpSystemBar>
+  <Suspense><SpSystemBar /></Suspense>
   <div class="navbar-wrapper">
     <div class="navbar-section">
       <router-link
