@@ -157,12 +157,6 @@
   }
 }
 
-.container {
-  max-width: 137.6rem;
-  padding: 0 clamp(1rem, 5vw, 5rem);
-  margin: auto;
-}
-
 .sp-container {
   width: 900px;
   margin: auto;
@@ -170,4 +164,18 @@
 
 .sp-shadow {
   box-shadow: 0 0.8rem 1.6rem -0.3rem rgba(140, 148, 159, 0.15);
+}
+
+$text-aligns: (
+  center: center,
+  right: right,
+  lelft: left,
+) !default;
+
+/* Cell dimensions
+  ========================================================================== */
+@each $text-align in map-keys($text-aligns) {
+  .text-align--#{$text-align} {
+    text-align: $text-align;
+  }
 }

@@ -1,7 +1,5 @@
 <template>
-  <div class="page-background">
-    <SpCrud storeName="cosmonaut.blog.blog" itemName="Post" />
-  </div>
+    <SpCrud store-name="foo.bar.bar" item-name="Product" />
 </template>
 
 <script>
@@ -13,9 +11,3 @@ export default {
   components: { SpCrud }
 }
 </script>
-
-<style scoped lang="scss">
-.page-background {
-  background: white;
-}
-</style>

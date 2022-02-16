@@ -3,20 +3,7 @@
     <!-- feedbacks -->
     <div v-if="isTxOngoing" class="feedback">
       <div class="loading-spinner">
-        <svg
-          width="46"
-          height="46"
-          viewBox="0 0 46 46"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M44 23C44 11.402 34.598 2 23 2C11.402 2 2 11.402 2 23C2 34.598 11.402 44 23 44"
-            stroke="black"
-            stroke-width="4"
-            stroke-linecap="round"
-          />
-        </svg>
+        <SpSpinner size='46'></SpSpinner>
       </div>
       <div style="width: 100%; height: 24px" />
 
@@ -150,7 +137,7 @@
 
         <div
           class="title"
-          :class="{ active: showReceive }"
+          :class="{ active: showReceive, disabled: !hasAnyBalance }"
           @click="switchToReceive"
         >
           Receive
@@ -164,8 +151,6 @@
         <div class="enter-address-wrapper">
           <div class="input-label">Send to</div>
 
-          <div style="width: 100%; height: 8px" />
-
           <div class="input-wrapper">
             <input
               v-model="state.tx.toAddress"
@@ -173,48 +158,56 @@
               :class="{
                 error: state.tx.toAddress.length > 0 && !validToAddress
               }"
-              placeholder="Enter recipient address"
+              placeholder="Recipient address"
+              :disabled='!hasAnyBalance'
             />
+            <div v-if='state.tx.toAddress.length > 0 && !validToAddress' class='error-message'>Invalid address</div>
           </div>
         </div>
 
-        <div style="width: 100%; height: 24px" />
+        <div style="width: 100%; height: 21px" />
         <div v-if="hasAnyBalance">
           <SpAmountSelect
-            class="token-selector"
+            class='token-selector--main'
             :selected="state.tx.amount"
             :balances="balances.assets"
-            v-on:update="handleTxAmountUpdate"
+            @update="handleTxAmountUpdate"
           />
+          <div style="width: 100%; height: 34px" />
         </div>
-
-        <div style="width: 100%; height: 24px" />
 
         <div
-          class="advanced-label"
-          @click="state.advancedOpen = !state.advancedOpen"
+          :class="['advanced-label', {'advanced-label--disabled': !hasAnyBalance}]"
+          @click="hasAnyBalance && (state.advancedOpen = !state.advancedOpen)"
         >
           Advanced
+          <template v-if='hasAnyBalance'>
+            <svg v-if='!state.advancedOpen' width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
+              <path d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z" fill="black"/>
+            </svg>
+            <svg v-else width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
+              <path d="M10.0001 7.4001L6.0001 3.4001L2.0001 7.4001L0.600098 6.0001L6.0001 0.600098L11.4001 6.0001L10.0001 7.4001Z" fill="black"/>
+            </svg>
+          </template>
+
         </div>
 
-        <div v-if="state.advancedOpen" style="width: 100%; height: 24px" />
+        <div v-if="state.advancedOpen && hasAnyBalance" style="width: 100%; height: 24px" />
 
-        <div v-if="state.advancedOpen" class="advanced">
+        <div v-if="state.advancedOpen && hasAnyBalance" class="advanced">
           <div class="input-label">Fees</div>
 
-          <div style="width: 100%; height: 8px" />
+          <div style="width: 100%; height: 14px" />
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
             :balances="balances.assets"
-            v-on:update="handleTxFeesUpdate"
+            @update="handleTxFeesUpdate"
           />
 
-          <div style="width: 100%; height: 36px" />
+          <div style="width: 100%; height: 35px" />
 
           <div class="input-label">Reference (memo)</div>
-
-          <div style="width: 100%; height: 8px" />
 
           <div class="input-wrapper">
             <input
@@ -224,11 +217,9 @@
             />
           </div>
 
-          <div style="width: 100%; height: 8px" />
+          <div style="width: 100%; height: 16px" />
 
           <div class="input-label">Channel</div>
-
-          <div style="width: 100%; height: 8px" />
 
           <div class="input-wrapper">
             <input
@@ -254,7 +245,7 @@
           <SpCard>
             <template #top>
               <div class="qrcode-wrapper">
-                <SpQrCode :value="address" color="#fff" />
+                <SpQrCode :value="address" color="#000" width='112'/>
               </div>
             </template>
 
@@ -282,12 +273,13 @@ import { useStore } from 'vuex'
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAssets, useAddress } from '../../composables'
+import { useAddress,useAssets } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
 import SpClipboard from '../SpClipboard'
 import SpQrCode from '../SpQrCode'
+import SpSpinner from '../SpSpinner'
 
 // types
 export interface TxData {
@@ -341,7 +333,8 @@ export default defineComponent({
     SpAmountSelect,
     SpQrCode,
     SpButton,
-    SpClipboard
+    SpClipboard,
+    SpSpinner
   },
 
   setup() {
@@ -366,7 +359,9 @@ export default defineComponent({
       state.currentUIState = UI_STATE.SEND
     }
     let switchToReceive = (): void => {
-      state.currentUIState = UI_STATE.RECEIVE
+      if (address.value) {
+        state.currentUIState = UI_STATE.RECEIVE
+      }
     }
     let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
@@ -510,7 +505,7 @@ export default defineComponent({
         })
     )
     let validToAddress = computed<boolean>(() => {
-      let valid = false
+      let valid: boolean
 
       try {
         valid = !!Bech32.decode(state.tx.toAddress)
@@ -574,7 +569,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .advanced-label {
   font-family: Inter;
   font-style: normal;
@@ -583,12 +578,19 @@ export default defineComponent({
   line-height: 153.8%;
   /* identical to box height, or 20px */
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   /* base/black 0 */
 
   color: #000000;
+
+  &--disabled {
+    color: rgba(0, 0, 0, 0.33);
+    &:hover {
+      cursor: default !important;
+    }
+  }
 }
 
 .advanced-label:hover {
@@ -603,12 +605,25 @@ export default defineComponent({
   align-items: center;
 }
 .tx {
+  padding-bottom: 40px;
 }
 .token-selector {
+  &--main {
+    &::v-deep(.add-token) {
+      margin-top: 18px;
+    }
+   }
 }
+
+.advanced {
+  &::v-deep(.add-token) {
+    margin-top: 17px;
+  }
+}
+
 .qrcode-wrapper {
-  background: #000;
-  padding: 16px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 36px;
   text-align: center;
 }
 
@@ -702,7 +717,7 @@ export default defineComponent({
 .input-label {
   font-family: Inter;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 13px;
   line-height: 153.8%;
   /* identical to box height, or 20px */
@@ -724,6 +739,12 @@ export default defineComponent({
   font-feature-settings: 'zero';
 
   color: rgba(0, 0, 0, 0.33);
+
+  &.disabled {
+    &:hover {
+      cursor: text;
+    }
+  }
 }
 
 .title.active {
@@ -745,9 +766,10 @@ export default defineComponent({
 }
 
 .input {
-  padding: 16px 13.5px;
-  background: rgba(0, 0, 0, 0.03);
-  border: 0;
+  margin-top: 4px;
+  padding: 12px 16px;
+  height: 48px;
+  background-color: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   font-family: Inter;
   font-style: normal;
@@ -756,14 +778,42 @@ export default defineComponent({
   line-height: 130%;
   color: #000000;
   width: 100%;
+  outline: 0;
+  transition: background-color .2s cubic-bezier(.645,.045,.355,1);
+  display: block;
+
+  &:not([disabled]) {
+    &:hover {
+      background: rgba(0, 0, 0, 0.07);
+    }
+
+  }
+
+  &:focus {
+    background: rgba(0, 0, 0, 0.07);
+    color: #000;
+  }
+
+  &.error {
+    box-shadow: 0 0 0 1px rgba(254, 71, 95, 1);
+  }
 }
 
-.input:placeholder {
+.error-message {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 153.8%;
+  color: #D80228;
+  margin-top: 5px;
+}
+
+.input::placeholder {
   color: rgba(0, 0, 0, 0.33);
 }
 
 .input-wrapper {
-  display: flex;
-  flex: 1;
+  display: block;
 }
 </style>

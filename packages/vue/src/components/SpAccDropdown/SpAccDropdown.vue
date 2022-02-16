@@ -1,6 +1,6 @@
 <template>
   <transition name="dropdown-fade">
-    <div class="account-dropdown" v-if="showDefault">
+    <div v-if="showDefault" class="account-dropdown">
       <span class="description-grey mb-3 d-block">Connected wallet</span>
       <div class="mb-3" style="display: flex; align-items: center">
         <SpProfileIcon :address="address" />
@@ -14,6 +14,10 @@
             @click="copy(address)"
           >
             {{ shortAddress }}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.625 0.375H0.375V8.625H8.625V0.375Z" stroke="#094EFD" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10.125 3.375H11.625V11.625H3.375V10.125" stroke="#094EFD" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </span>
         </div>
       </div>
@@ -44,7 +48,7 @@
         <span class="description-grey terms-link ml-1">Cookies</span>
       </div>
     </div>
-    <div class="account-dropdown" v-else-if="showSettings">
+    <div v-else-if="showSettings" class="account-dropdown">
       <div class="dropdown-option mb-3">
         <span> Chain </span>
         <span> {{ chainId }} </span>
@@ -72,25 +76,25 @@
 
       <div class="dropdown-option mb-3">
         <input
+          v-model="state.envConfig.apiNode"
           class="input"
           placeholder="Enter API hostname"
-          v-model="state.envConfig.apiNode"
         />
       </div>
 
       <div class="dropdown-option mb-3">
         <input
+          v-model="state.envConfig.rpcNode"
           class="input"
           placeholder="Enter RPC hostname"
-          v-model="state.envConfig.rpcNode"
         />
       </div>
 
       <div class="dropdown-option mb-3">
         <input
+          v-model="state.envConfig.wsNode"
           class="input"
           placeholder="Enter WebSocket hostname"
-          v-model="state.envConfig.wsNode"
         />
       </div>
     </div>
@@ -99,18 +103,18 @@
 
 <script lang="ts">
 import {
-  defineComponent,
-  onMounted,
-  onBeforeUnmount,
   computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
   reactive
 } from 'vue'
 import { useStore } from 'vuex'
 
-import SpProfileIcon from '../SpProfileIcon'
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpLinkIcon from '../SpLinkIcon'
+import SpProfileIcon from '../SpProfileIcon'
 
 export enum UI_STATE {
   'DEFAULT' = 1,
@@ -137,7 +141,7 @@ export let initialState: State = {
   }
 }
 
-import { useClipboard, useAddress } from '../../composables'
+import { useAddress,useClipboard } from '../../composables'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -148,8 +152,6 @@ export default defineComponent({
     SpExternalArrowIcon,
     SpLinkIcon
   },
-
-  emits: ['disconnect', 'close'],
 
   props: {
     wallet: {
@@ -162,6 +164,8 @@ export default defineComponent({
       required: true
     }
   },
+
+  emits: ['disconnect', 'close'],
 
   setup(_, { emit }) {
     // store
@@ -254,7 +258,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang='scss'>
 .input {
   padding: 16px 13.5px;
   background: rgba(0, 0, 0, 0.03);
@@ -307,7 +311,7 @@ export default defineComponent({
   background: #fff;
   height: auto;
   padding: 2.8rem;
-  max-width: 288px;
+  max-width: 320px;
   width: 100%;
   box-shadow: 40px 64px 128px -8px rgba(0, 0, 0, 0.14);
   border-radius: 10px;
@@ -365,6 +369,10 @@ export default defineComponent({
 .copy-address {
   cursor: pointer;
   user-select: none;
+
+  > svg {
+    margin: 0 0 -1px 3px;
+  }
 }
 .copy-address:hover {
   opacity: 0.8;

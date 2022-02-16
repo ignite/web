@@ -2,8 +2,8 @@
   <div>
     <div v-if="items" style="max-width: 600px">
       <div
-        :key="item.id"
         v-for="item in items"
+        :key="item.id"
         style="
           display: flex;
           justify-content: space-between;
@@ -72,12 +72,12 @@
               {{ field.name }}
             </div>
             <div class="item-value">{{ item[field.name] }}</div>
-            <SpSpacer size="xs" />
+            <SpSpacer size="xsm" />
           </div>
         </div>
         <div style="width: 20px">
           <SpDropdown>
-            <template v-slot:button>
+            <template #button>
               <svg
                 width="40"
                 height="40"
@@ -90,7 +90,7 @@
                 <circle cx="25" cy="20" r="1.5" fill="black" />
               </svg>
             </template>
-            <template v-slot:dropdown>
+            <template #dropdown>
               <div style="width: 160px">
                 <div class="dropdown-option" @click="$emit('editItem', item)">
                   Edit
@@ -107,33 +107,24 @@
           </SpDropdown>
         </div>
       </div>
-      <div v-if="(items || []).length === 0" style="text-align: center">
+      <div v-if="(items || []).length === 0">
         <SpSpacer size="md" />
-        <SpTypography size="md"> No items </SpTypography>
-        <SpTypography
-          size="sm"
-          feedback="link"
-          style="display: inline-block"
-          @click="$emit('createItem')"
-        >
-          Create your first item
-        </SpTypography>
+        <SpTypography size="md" class='empty'>No items</SpTypography>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex'
 import { computed, defineComponent, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 import { useAddress } from '../../composables'
-
-import SpSpacer from '../SpSpacer'
-import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
 
 export default defineComponent({
   name: 'SpCrudRead',
@@ -174,6 +165,19 @@ export default defineComponent({
     let itemFields = computed(() =>
       $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
     )
+    // let itemFields = computed(() =>
+    //   [
+    //     {
+    //       name: 'title',
+    //     },
+    //     {
+    //       name: 'description'
+    //     },
+    //     {
+    //       name: 'by'
+    //     }
+    //   ]
+    // )
     let items = computed(() => {
       const itemData = $s.state[props.storeName][props.itemName + 'All']
       const queryKey = Object.keys(itemData)[0]
@@ -183,6 +187,7 @@ export default defineComponent({
         })
       }
       return []
+
     })
 
     // lh
@@ -221,8 +226,8 @@ export default defineComponent({
   color: #000000;
 }
 
-.dropdown-option {
-  padding: 1rem 1.4rem;
+.dropdown-option:not(:last-child) {
+  padding: 0 0 16px 0;
 }
 
 .sp-label {
@@ -245,5 +250,10 @@ export default defineComponent({
 
 .capitalize-first-letter:first-letter {
   text-transform: uppercase;
+}
+
+.empty {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.667);
 }
 </style>

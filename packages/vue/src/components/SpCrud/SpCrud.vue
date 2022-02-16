@@ -1,18 +1,23 @@
 <template>
-  <div class="container" v-if="moduleAvailable">
-    <div style="display: flex; justify-content: space-between">
-      <SpTypography modifier="highlight" size="md" style="font-weight: 700">
-        {{ itemName }} items
-      </SpTypography>
-      <SpButton type="primary" @click="visibleModal = 'create-item'">
-        Create {{ itemName }}
-      </SpButton>
+  <div v-if="moduleAvailable" class="container crud--position">
+    <div class='row'>
+      <div class='col-6'>
+        <SpTypography modifier="highlight" size="md" style="font-weight: 700">
+          {{ itemName }} items
+        </SpTypography>
+      </div>
+      <div class='col-6 text-align--right'>
+        <SpButton type="primary" @click="visibleModal = 'create-item'">
+          Create post
+        </SpButton>
+      </div>
+
     </div>
 
     <SpCrudRead
-      :storeName="storeName"
-      :itemName="itemName"
-      :commandName="`/Query${itemName}All`"
+      :store-name="storeName"
+      :item-name="itemName"
+      :command-name="`/Query${itemName}All`"
       @createItem="visibleModal = 'create-item'"
       @editItem="
         (item) => {
@@ -30,43 +35,43 @@
 
     <SpCrudCreate
       v-if="visibleModal === 'create-item'"
-      :storeName="storeName"
-      :itemName="itemName"
-      :commandName="`/sendMsgCreate${itemName}`"
+      :store-name="storeName"
+      :item-name="itemName"
+      :command-name="`/sendMsgCreate${itemName}`"
       @close="visibleModal = ''"
     />
     <SpCrudUpdate
       v-if="visibleModal === 'edit-item'"
-      :storeName="storeName"
-      :itemName="itemName"
-      :itemData="activeItem"
-      :commandName="`/sendMsgUpdate${itemName}`"
+      :store-name="storeName"
+      :item-name="itemName"
+      :item-data="activeItem"
+      :command-name="`/sendMsgUpdate${itemName}`"
       @close="visibleModal = ''"
     />
     <SpCrudDelete
       v-if="visibleModal === 'delete-item'"
-      :storeName="storeName"
-      :itemName="itemName"
-      :itemData="activeItem"
-      :commandName="`/sendMsgDelete${itemName}`"
+      :store-name="storeName"
+      :item-name="itemName"
+      :item-data="activeItem"
+      :command-name="`/sendMsgDelete${itemName}`"
       @close="visibleModal = ''"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { toRefs, reactive, defineComponent } from 'vue'
+import { defineComponent,reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
-import SpSpacer from '../SpSpacer'
-import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
-import SpDropdown from '../SpDropdown'
-import SpModal from '../SpModal'
-import SpCrudRead from '../SpCrudRead'
-import SpCrudUpdate from '../SpCrudUpdate'
 import SpCrudCreate from '../SpCrudCreate'
 import SpCrudDelete from '../SpCrudDelete'
+import SpCrudRead from '../SpCrudRead'
+import SpCrudUpdate from '../SpCrudUpdate'
+import SpDropdown from '../SpDropdown'
+import SpModal from '../SpModal'
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
 
 export interface State {
   visibleModal: string
@@ -77,7 +82,7 @@ export interface State {
 export let initialState: State = {
   visibleModal: '',
   activeItem: {},
-  moduleAvailable: false
+  moduleAvailable: true
 }
 
 export default defineComponent({
@@ -124,6 +129,14 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.crud {
+  &--position {
+    margin-top: 48px;
+  }
+}
+
+
+
 .item-title {
   font-size: 13px;
   line-height: 153.8%;
@@ -145,6 +158,17 @@ export default defineComponent({
   text-align: left;
   width: 100%;
   margin: 0 4px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 153.8%;
+  /* identical to box height, or 20px */
+
+
+  /* light/muted */
+
+  color: rgba(0, 0, 0, 0.667);
 }
 .sp-input {
   display: flex;

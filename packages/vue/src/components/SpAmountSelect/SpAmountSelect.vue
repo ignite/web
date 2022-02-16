@@ -2,10 +2,8 @@
   <div class="amount-select">
     <div
       v-for="(x, i) in selected"
-      :key="'selected' + i"
+      :key="`${x.amount.denom}-${x.path}-${i}`"
       class="selected-item"
-      :index="i"
-      v-bind:key="`${x.amount.denom}-${x.path}`"
     >
       <Suspense>
         <SpDenom :denom="x.amount.denom" modifier="avatar" />
@@ -18,6 +16,10 @@
           <Suspense>
             <SpDenom :denom="x.amount.denom" />
           </Suspense>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 6px;'>
+            <path d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z" fill="black"/>
+          </svg>
+
         </div>
 
         <div
@@ -37,6 +39,8 @@
           placeholder="0"
           @input="(evt) => handleAmountInput(evt, x)"
         />
+
+        <div class='focus-background'></div>
       </div>
     </div>
 
@@ -96,7 +100,7 @@
       <div class="action-text">Add asset</div>
     </div>
 
-    <SpModal :visible="state.modalOpen" :title="'Select asset'">
+    <SpModal :visible="state.modalOpen" :close-icon="true" :title="'Select asset'" @close="state.modalOpen = false">
       <template #body>
         <div class="modal-body">
           <div class="search">
@@ -251,10 +255,12 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 .selected-item {
   display: flex;
   align-items: center;
+  position: relative;
+  height: 44px;
 }
 .input.primary {
   padding: 16px 13.5px;
@@ -275,7 +281,8 @@ export default defineComponent({
 }
 
 .add-token {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
 }
 .add-token:hover {
   cursor: pointer;
@@ -323,7 +330,6 @@ export default defineComponent({
   width: 100%;
 
   background: none;
-  border: 0;
 
   font-family: Inter;
   font-style: normal;
@@ -334,10 +340,29 @@ export default defineComponent({
 
   text-align: right;
   letter-spacing: -0.007em;
+  margin-left: 40px;
 
   /* light/inactive */
 
   color: #000000;
+  padding: 0;
+  height: 28px;
+  border: 0;
+  outline: 0;
+
+    &:focus {
+      color: #000;
+
+      ~ .focus-background {
+        background: rgba(0, 0, 0, 0.03);
+        position: absolute;
+        width: calc(100% + 16px);
+        height: 56px;
+        left: -8px;
+        border-radius: 8px;
+        top: -6px;
+      }
+    }
 }
 
 .input.secondary::placeholder {
@@ -375,9 +400,8 @@ export default defineComponent({
   font-weight: normal;
   font-size: 13px;
   line-height: 130.7%;
-  /* identical to box height, or 17px */
-
-  /* light/muted */
+  margin-bottom: -2px;
+  margin-top: 3px;
 }
 
 .token-amount.error {

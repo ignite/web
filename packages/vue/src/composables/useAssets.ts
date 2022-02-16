@@ -92,6 +92,9 @@ export default function ({ $s, opts }: Params): Response {
           params: { address: newAddress },
           options: { subscribe: true }
         })
+        .finally(() => {
+          balances.value.isLoading = false
+        })
       }
 
       let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
@@ -99,9 +102,6 @@ export default function ({ $s, opts }: Params): Response {
       Promise.all(arr)
         .then((normalized) => {
           balances.value.assets = normalized as any
-        })
-        .finally(() => {
-          balances.value.isLoading = false
         })
     }
   )

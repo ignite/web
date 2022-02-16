@@ -1,105 +1,154 @@
 <template>
-  <div class="tx-list">
-    <div class="title">Transactions</div>
-    <div v-if="newTxs" @click="loadNewItems" class="load-more" role="button">
-      {{ showMoreText }}
-    </div>
+  <Suspense v-if='address'>
+    <template #default>
+      <SpGetTxList />
+    </template>
+    <template #fallback>
+      <div class="tx-list">
+        <div class="title">Transactions</div>
+        <div v-for='n in 4' :key='n' class='loading__row'>
+          <div class='loading__col'>
+            <span class='loading__avatar'></span>
+            <span class='loading__denom'></span>
+          </div>
 
-    <div class="list" v-if="list.length > 0">
-      <div v-for="(tx, i) in list" :key="`${tx.hash}-${tx.timestamp}-${i}`">
-        <SpTxListItem :tx="tx" />
+          <div class='loading__col loading__col--justify-end'>
+            <span class='loading__amount'></span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div v-else class="empty">Transaction history is empty</div>
-
-    <div
-      v-if="leftToShowMore"
-      @click="showMoreItems"
-      class="show-more"
-      role="button"
-    >
-      Show more
-    </div>
+    </template>
+  </Suspense>
+  <div v-else class="tx-list">
+    <div class="title">Transactions</div>
+    <div class="empty">Transaction history is empty</div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
-import { useTxs } from '../../composables'
-import { TxForUI } from '../../composables/useTxs'
+import { useAddress } from '../../composables'
+import SpGetTxList from '../SpGetTxList'
 
-import SpTxListItem from '../SpTxListItem'
-
-export interface State {
-  listSize: number
-  listMaxSize: number
-}
-
-export let initialState: State = {
-  listSize: 10,
-  listMaxSize: 15
-}
 
 export default defineComponent({
   name: 'SpTxList',
 
-  components: { SpTxListItem },
+  components: { SpGetTxList },
 
-  async setup() {
-    // store
+  setup() {
     let $s = useStore()
 
-    // state
-    let state: State = reactive(initialState)
-
     // composables
-    let { pager, normalize, newTxs } = await useTxs({
-      $s,
-      opts: { order: 'desc', realTime: true }
-    })
+    let { address } = useAddress({ $s })
 
-    // computed
-    let list = computed<TxForUI[]>(() =>
-      pager.value.page.value
-        .map(normalize)
-        .slice(0, state.listSize)
-        .sort((a, b) => b.height - a.height)
-    )
-    let leftToShowMore = computed<boolean>(
-      () =>
-        state.listSize < state.listMaxSize &&
-        pager.value.page.value.length > state.listSize
-    )
-    let showMoreText = computed<string>(
-      () => `${newTxs.value} new ${newTxs.value > 1 ? 'items' : 'item'}`
-    )
-
-    // methods
-    let loadNewItems = () => {
-      pager.value.load()
-    }
-    let showMoreItems = () => {
-      state.listSize = state.listMaxSize
-    }
-
-    return {
-      //state
-      newTxs,
-      // computed
-      list,
-      leftToShowMore,
-      showMoreText,
-      /// methods
-      loadNewItems,
-      showMoreItems
-    }
+    return { address }
   }
 })
 </script>
 
-<style scoped lang="scss">
+<style lang='scss' scoped>
+$base-color: rgba(0, 0, 0, 0.03);
+$animation-duration: 1.6s;
+$shine-color: rgba(0, 0, 0, 0.06);
+$avatar-offset: 32 + 16;
+
+.title {
+  font-family: Inter, serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 127%;
+  /* identical to box height, or 36px */
+  letter-spacing: -0.02em;
+  font-feature-settings: 'zero';
+  color: #000000;
+  margin-bottom: 32px;
+}
+
+.loading {
+  &__row {
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 29px;
+  }
+
+  &__col {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+
+    &--justify-center {
+      justify-content: center;
+    }
+
+    &--justify-end {
+      justify-content: end;
+    }
+  }
+
+  &__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 24px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-avatar $animation-duration infinite linear
+  }
+
+  &__denom {
+    width: 96px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    margin-left: 16px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-lines $animation-duration infinite linear
+  }
+
+  &__amount {
+    width: 96px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    margin-left: 16px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-lines $animation-duration infinite linear
+  }
+
+  &__ibc {
+    width: 64px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    margin-left: 16px;
+    display: inline-flex;
+
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background-size: 600px;
+    animation: shine-lines $animation-duration infinite linear
+  }
+}
+
 .empty {
   /* Body/M */
 
@@ -114,64 +163,22 @@ export default defineComponent({
 
   color: rgba(0, 0, 0, 0.667);
 }
-.title {
-  font-family: Inter, serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 127%;
-  /* identical to box height, or 36px */
-  letter-spacing: -0.02em;
-  font-feature-settings: 'zero';
-  color: #000000;
+
+@keyframes shine-avatar {
+  0% {
+    background-position: -100px + $avatar-offset
+  }
+  40%, 100% {
+    background-position: 140px + $avatar-offset
+  }
 }
-.tx-list {
-  position: relative;
-}
-.list {
-  display: flex;
-  flex-direction: column;
-}
-.load-more {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 16px;
-  width: 124px;
-  height: 36px;
-  left: 0;
-  right: 0;
-  top: 0;
-  background: #ffffff;
-  box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
-  border-radius: 56px;
-  color: #000000;
-  font-weight: 500;
-  font-size: 13px;
-  position: absolute;
-  cursor: pointer;
-  margin: 0 auto;
-}
-.show-more {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 16px;
-  width: 124px;
-  height: 36px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #ffffff;
-  box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
-  border-radius: 56px;
-  color: #000000;
-  font-weight: 500;
-  font-size: 13px;
-  position: absolute;
-  cursor: pointer;
-  margin: 0 auto;
+
+@keyframes shine-lines {
+  0% {
+    background-position: -100px
+  }
+  40%, 100% {
+    background-position: 140px
+  }
 }
 </style>

@@ -1,28 +1,21 @@
 <template>
-  <div class="row" v-if="address">
-    <div class="col">
-      <SpAssets />
-    </div>
-    <div class="col">
-      <SpTx />
-    </div>
-  </div>
-  <div class="row" v-if="address">
-    <div class="col">
-      <Suspense>
-        <template #default>
-          <SpTxList />
-        </template>
-        <template #fallback> loading </template>
-      </Suspense>
+  <div class="container">
+    <div class='row row-sm-revers'>
+      <div class="col-md-6">
+        <SpAssets />
+        <SpTxList />
+      </div>
+      <div class="col-md-5 col-lg-4 col-md-offset-1 col-lg-offset-2">
+        <SpTx />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { useStore } from 'vuex'
+import { SpAssets, SpTx, SpTxList } from '@starport/vue'
 import { computed } from 'vue'
-import { SpTx, SpAssets, SpTxList } from '@starport/vue'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Portfolio',

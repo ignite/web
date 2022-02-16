@@ -1,56 +1,64 @@
 <template>
   <div class="tx-row">
-    <div class="tx-icon" :class="tx?.dir">
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M8 13V3"
-          stroke="black"
-          stroke-width="1.6"
-          stroke-miterlimit="10"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M4 6L8 2L12 6"
-          stroke="black"
-          stroke-width="1.6"
-          stroke-miterlimit="10"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </div>
+    <div class='tx-container'>
+      <div class="tx-icon" :class="tx?.dir">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 13V3"
+            stroke="black"
+            stroke-width="1.6"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4 6L8 2L12 6"
+            stroke="black"
+            stroke-width="1.6"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
 
-    <div style="width: 16px; height: 100%" />
+      <div style="width: 16px; height: 100%" />
 
-    <div class="tx-info">
-      <div class="tx-direction">
-        {{ dirDescription }}
+      <div class="tx-info">
+        <div class="tx-direction">
+          {{ dirDescription }}
+        </div>
+        <div class="tx-meta">
+          {{txDate}}
+        </div>
       </div>
-      <div class="tx-meta">
-        {{ addrDesc + ' ' + shortAddr }}
-      </div>
-    </div>
-    <div class="tx-payload">
-      <div class="tx-amount" :class="tx?.dir">
-        {{ amountSign + ' ' + tx?.amount?.amount }}
-      </div>
-      <div class="tx-denom">
-        <SpDenom :denom="tx.amount.denom" />
+      <div class="tx-payload">
+        <template v-if='tx.amount.length'>
+          <span v-for='(amount, index) in tx.amount' :key='`${amount.amount}-${amount.denom}-${index}`' class="tx-amount" :class="tx?.dir">
+            {{ amountSign + ' ' + amount.amount }} <SpDenom :denom="amount.denom" />
+          </span>
+        </template>
+        <span v-else class="tx-amount" :class="tx?.dir">
+          {{ amountSign + ' ' + tx?.amount?.amount }} <SpDenom :denom="tx.amount.denom" />
+        </span>
+        <div class="tx-denom">
+          {{ addrDesc + ' ' + shortAddr }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { TxForUI } from '../../composables/useTxs'
 import { computed, defineComponent, PropType } from 'vue'
+
+import { TxForUI } from '../../composables/useTxs'
 import SpDenom from '../SpDenom'
 
 enum DIR_DESC {
@@ -93,6 +101,15 @@ export default defineComponent({
     let shortAddr = computed<string>(
       () => addr.value.substring(0, 10) + '...' + addr.value.slice(-4)
     )
+    let txDate = computed<string>(() => {
+      let date = new Date(props.tx.timestamp)
+      return date.toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+      });
+    })
     let amountSign = computed<string>(() => AMOUNT_SIGN[props.tx.dir])
 
     return {
@@ -100,7 +117,8 @@ export default defineComponent({
       addrDesc,
       shortAddr,
       dirDescription,
-      amountSign
+      amountSign,
+      txDate
     }
   }
 })
@@ -109,17 +127,33 @@ export default defineComponent({
 <style scoped lang="scss">
 .tx-row {
   background: #fff;
+  margin-bottom: 28px;
+  position: relative;
 
-  padding: 12px;
-  display: flex;
+  &:after {
+    content: '';
+    display: none;
+    width: calc(100% + 32px);
+    height: 60px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    position: absolute;
+    top: -10px;
+    left: -16px;
+  }
 
-  border-radius: 8px;
-
-  margin: 4px 0;
+  &:hover {
+    &:after {
+      display: block;
+    }
+  }
 }
 
-.tx-row:hover {
-  background: rgba(0, 0, 0, 0.03);
+.tx-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+
 }
 
 .tx-meta {
@@ -157,8 +191,12 @@ export default defineComponent({
 }
 
 .tx-payload {
-  display: flex;
-  flex-direction: column;
+  text-align: right;
+  .tx-amount {
+    &:not(:first-child) {
+      margin-left: 16px;
+    }
+  }
 }
 
 .tx-amount {

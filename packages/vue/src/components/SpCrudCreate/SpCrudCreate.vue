@@ -2,24 +2,24 @@
   <SpModal
     :visible="true"
     :title="`Create ${itemName}`"
-    :closeIcon="true"
-    :submitButton="true"
-    :cancelButton="true"
+    :close-icon="true"
+    :submit-button="true"
+    :cancel-button="true"
+    style="text-align: center"
     @close="$emit('close')"
     @submit="submitItem"
-    style="text-align: center"
   >
-    <template v-slot:body>
+    <template #body>
       <SpSpacer size="sm" />
       <div v-for="field in itemFieldsFiltered">
         <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">
           {{ field.name }}
         </label>
         <input
+          :id="`p${field.name}`"
           v-model="formData[field.name]"
           :placeholder="`Enter ${field.name}`"
           type="text"
-          :id="`p${field.name}`"
           :name="`p${field.name}`"
           class="sp-input"
         />
@@ -33,11 +33,11 @@
 import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
-import SpSpacer from '../SpSpacer'
-import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
 
 export default defineComponent({
   name: 'SpCrudCreate',
@@ -123,6 +123,18 @@ export default defineComponent({
   text-align: left;
   width: 100%;
   margin: 0 4px;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 153.8%;
+  /* identical to box height, or 20px */
+
+
+  /* light/muted */
+
+  color: rgba(0, 0, 0, 0.667);
 }
 .sp-input {
   display: flex;
@@ -134,6 +146,7 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin: 4px 0px;
+  border: 0;
 }
 
 .capitalize-first-letter:first-letter {

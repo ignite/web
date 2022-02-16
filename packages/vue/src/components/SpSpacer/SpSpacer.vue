@@ -31,6 +31,10 @@ export default defineComponent({
   height: 16px;
 }
 
+.xsm {
+  height: 20px;
+}
+
 .sm {
   height: 24px;
 }

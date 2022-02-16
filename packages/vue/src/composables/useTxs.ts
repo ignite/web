@@ -31,7 +31,7 @@ export type TxForUI = {
   dir: TxDirection
   sender: string
   receiver: string
-  amount: Amount
+  amount: Amount | Amount[]
   hash: string
   type: string
   timestamp: string

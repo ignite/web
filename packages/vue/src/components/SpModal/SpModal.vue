@@ -4,16 +4,16 @@
       <div
         class="modal sp-box sp-shadow"
         role="dialog"
-        @click.stop
         tabindex="0"
+        @click.stop
       >
-        <header class="modal-header" id="modalTitle">
+        <header id="modalTitle" class="modal-header">
           <slot name="header">
             <h3>{{ title || 'Default title' }}</h3>
           </slot>
         </header>
 
-        <section class="modal-body" id="modalDescription">
+        <section id="modalDescription" class="modal-body">
           <slot name="body"> Default body </slot>
         </section>
 
@@ -25,7 +25,7 @@
               type="primary"
               @click="$emit('submit')"
             >
-              Submit
+              Save changes
             </SpButton>
             <SpButton
               v-if="cancelButton"
@@ -100,7 +100,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang='scss' scoped>
 .modal-backdrop {
   position: fixed;
   z-index: 999;
@@ -108,8 +108,7 @@ export default defineComponent({
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.33);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,14 +121,33 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 400px;
+  min-width: 416px;
   min-height: 300px;
+  padding: 32px;
 }
 
 .modal-header,
 .modal-footer {
   display: flex;
   flex-direction: column;
+}
+
+.modal-header {
+  h3 {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 133%;
+    /* identical to box height, or 28px */
+
+    text-align: center;
+    letter-spacing: -0.007em;
+
+    /* light/text */
+
+    color: #000000;
+  }
 }
 .modal-body {
   position: relative;
@@ -158,4 +176,12 @@ export default defineComponent({
 
 .modal-fade-enter-active {
 }
+
+.sp-button {
+  &.sp-button-secondary {
+    border: 0;
+    color: rgba(0, 0, 0, 0.33);
+  }
+}
+
 </style>

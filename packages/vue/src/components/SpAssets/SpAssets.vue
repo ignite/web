@@ -2,61 +2,19 @@
   <section>
     <header class="assets-header">
       <h2 class="title">Assets</h2>
-      <div v-if="balances.assets.length" class="assets-header__search">
-        <div class="assets-header__search-content">
-          <div class="search-container">
-            <span class="search-icon">
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.5 12.5C9.81371 12.5 12.5 9.81371 12.5 6.5C12.5 3.18629 9.81371 0.5 6.5 0.5C3.18629 0.5 0.5 3.18629 0.5 6.5C0.5 9.81371 3.18629 12.5 6.5 12.5Z"
-                  stroke="black"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M14.5002 14.5002L10.7422 10.7422"
-                  stroke="black"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+      <div v-if='balances.assets.length' class='assets-header__search'>
+        <div class='assets-header__search-content'>
+          <div class='search-container'>
+            <span class='search-icon'>
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.5 12.5C9.81371 12.5 12.5 9.81371 12.5 6.5C12.5 3.18629 9.81371 0.5 6.5 0.5C3.18629 0.5 0.5 3.18629 0.5 6.5C0.5 9.81371 3.18629 12.5 6.5 12.5Z" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14.5002 14.5002L10.7422 10.7422" stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
-            <input
-              ref="searchInput"
-              v-model="searchQuery"
-              type="search"
-              autocomplete="off"
-              placeholder="Search assets"
-              class="input--search"
-              @input="resetDisplayLimit"
-            />
-            <span
-              v-if="searchQuery"
-              class="clear-icon"
-              @click.prevent="resetSearch"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8 16C12.4183 16 16 12.4182 16 8C16 3.5818 12.4183 0 8 0C3.58172 0 0 3.5818 0 8C0 12.4182 3.58172 16 8 16ZM11.5442 4.45588C11.8382 4.74977 11.8382 5.22656 11.5442 5.52068L9.06483 8L11.5442 10.4793C11.8382 10.7734 11.8382 11.2502 11.5442 11.5441C11.2501 11.8382 10.7734 11.8382 10.4793 11.5441L8 9.0648L5.52065 11.5441C5.22662 11.8382 4.74989 11.8382 4.45582 11.5441C4.16179 11.2502 4.16179 10.7734 4.45582 10.4793L6.93517 8L4.45582 5.52068C4.16179 5.22656 4.16179 4.74977 4.45582 4.45588C4.74986 4.16176 5.22659 4.16176 5.52065 4.45588L8 6.9352L10.4793 4.45588C10.7734 4.16176 11.2501 4.16176 11.5442 4.45588Z"
-                  fill="black"
-                  fill-opacity="0.20"
-                />
+            <input ref='searchInput' v-model="searchQuery" type="search" autocomplete="off" placeholder="Search assets" class="input--search" @input='resetDisplayLimit'>
+            <span v-if='searchQuery' class='clear-icon' @click.prevent='resetSearch'>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4182 16 8C16 3.5818 12.4183 0 8 0C3.58172 0 0 3.5818 0 8C0 12.4182 3.58172 16 8 16ZM11.5442 4.45588C11.8382 4.74977 11.8382 5.22656 11.5442 5.52068L9.06483 8L11.5442 10.4793C11.8382 10.7734 11.8382 11.2502 11.5442 11.5441C11.2501 11.8382 10.7734 11.8382 10.4793 11.5441L8 9.0648L5.52065 11.5441C5.22662 11.8382 4.74989 11.8382 4.45582 11.5441C4.16179 11.2502 4.16179 10.7734 4.45582 10.4793L6.93517 8L4.45582 5.52068C4.16179 5.22656 4.16179 4.74977 4.45582 4.45588C4.74986 4.16176 5.22659 4.16176 5.52065 4.45588L8 6.9352L10.4793 4.45588C10.7734 4.16176 11.2501 4.16176 11.5442 4.45588Z" fill="black" fill-opacity="0.20"/>
               </svg>
             </span>
           </div>
@@ -64,11 +22,11 @@
       </div>
     </header>
     <table class="assets-table">
-      <thead v-if="balances.assets.length" class="assets-table__thead">
+      <thead v-if='balances.assets.length' class='assets-table__thead'>
         <tr>
           <td>Asset</td>
           <td></td>
-          <td class="assets-table__align-right">Available balance</td>
+          <td class='assets-table__align-right'>Available balance</td>
         </tr>
       </thead>
       <tbody>
@@ -85,19 +43,12 @@
               <SpDenom :denom="balance.amount.denom" />
             </div>
           </td>
-          <td
-            :class="[
-              typeof balance.path === 'object'
-                ? 'assets-table__channels--object'
-                : null,
-              'assets-table__channels'
-            ]"
-          >
-            <ul v-if="balance.path">
+          <td :class="[typeof balance.path === 'object' ? 'assets-table__channels--object' : null, 'assets-table__channels']">
+            <ul v-if='balance.path'>
               <li>Channels</li>
-              <li v-for="(channel, $index) in balance.path" :key="$index">
+              <li v-for='(channel, $index) in balance.path' :key='$index'>
                 <div>
-                  {{ channel }}
+                  {{channel}}
                 </div>
               </li>
             </ul>
@@ -106,52 +57,36 @@
             {{ new Intl.NumberFormat('en-GB').format(balance.amount.amount) }}
           </td>
         </tr>
-        <tr v-if="noSearchResults" class="assets-table__row">
-          <td class="assets-table__row--no-results" colspan="3">
-            <h4>No results for '{{ searchQuery }}'</h4>
+        <tr v-if='noSearchResults' class='assets-table__row'>
+          <td class='assets-table__row--no-results' colspan='3'>
+            <h4>No results for '{{ searchQuery }}' </h4>
             <p>Try again with another search</p>
           </td>
         </tr>
       </tbody>
     </table>
-    <template v-if="balances.isLoading">
-      <div v-for="n in 2" :key="n" class="loading__row">
-        <div class="loading__col">
-          <span class="loading__avatar"></span>
-          <span class="loading__denom"></span>
+    <template v-if='address && balances.isLoading'>
+      <div v-for='n in 2' :key='n' class='loading__row'>
+        <div class='loading__col'>
+          <span class='loading__avatar'></span>
+          <span class='loading__denom'></span>
         </div>
-        <div class="loading__col loading__col--justify-end">
-          <span class="loading__ibc"></span>
+        <div class='loading__col loading__col--justify-end'>
+          <span class='loading__ibc'></span>
         </div>
-        <div class="loading__col loading__col--justify-end">
-          <span class="loading__amount"></span>
+        <div class='loading__col loading__col--justify-end'>
+          <span class='loading__amount'></span>
         </div>
       </div>
     </template>
-    <div
-      v-if="!balances.isLoading && !balances.assets.length"
-      class="no-result-label"
-    >
+    <div v-if='!address || (!balances.isLoading && !balances.assets.length)' class='no-result-label'>
       You have no assets
     </div>
-    <div
-      v-if="!balances.isLoading && isShowMore"
-      class="show-more"
-      @click="onShowMore"
-    >
+    <div v-if='!balances.isLoading && isShowMore' class='show-more' @click='onShowMore'>
       Show more
-      <span class="arrow-icon">
-        <svg
-          width="12"
-          height="8"
-          viewBox="0 0 12 8"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M6.0001 7.4001L0.600098 2.0001L2.0001 0.600098L6.0001 4.6001L10.0001 0.600098L11.4001 2.0001L6.0001 7.4001Z"
-            fill="black"
-          />
+      <span class='arrow-icon'>
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.0001 7.4001L0.600098 2.0001L2.0001 0.600098L6.0001 4.6001L10.0001 0.600098L11.4001 2.0001L6.0001 7.4001Z" fill="black"/>
         </svg>
       </span>
     </div>
@@ -162,7 +97,7 @@
 import { computed, defineComponent, nextTick, ref, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
-import { useAssets } from '../../composables'
+import { useAddress, useAssets } from '../../composables'
 import SpDenom from '../SpDenom'
 
 export default defineComponent({
@@ -184,31 +119,28 @@ export default defineComponent({
     // state
     const state = ref({
       isLoading: true,
-      searchQuery: '',
+      searchQuery: "",
       balanceList: [],
       displayLimit: props.displayLimit,
       searchInput: ref<null | { focus: () => null }>(null)
-    })
+    });
 
     // composables
-    let { balances } = useAssets({ $s, opts: { extractChannels: true } })
+    let { address } = useAddress({ $s })
+    let { balances } = useAssets({ $s, opts: {extractChannels: true} })
 
     const filteredBalanceList = computed(() => {
       if (!state.value.searchQuery) {
         return balances.value.assets.slice(0, state.value.displayLimit)
       }
 
-      return balances.value.assets.filter((item) =>
+      return balances.value.assets.filter(item =>
         item.amount.denom.toLowerCase().includes(state.value.searchQuery)
       )
     })
 
     const noSearchResults = computed(() => {
-      return (
-        !filteredBalanceList.value.length &&
-        state.value.searchQuery.length &&
-        !balances.value.isLoading
-      )
+      return !filteredBalanceList.value.length && state.value.searchQuery.length && !balances.value.isLoading
     })
 
     const isShowMore = computed(() => {
@@ -216,10 +148,7 @@ export default defineComponent({
         return filteredBalanceList.value.length > state.value.displayLimit
       }
 
-      return (
-        filteredBalanceList.value.length < balances.value.assets.length &&
-        !noSearchResults.value
-      )
+      return (filteredBalanceList.value.length < balances.value.assets.length) && !noSearchResults.value
     })
 
     const onShowMore = () => {
@@ -231,20 +160,11 @@ export default defineComponent({
     }
 
     const resetSearch = () => {
-      state.value.searchQuery = ''
-      nextTick(() => state.value.searchInput?.focus())
+      state.value.searchQuery = '';
+      nextTick(() => state.value.searchInput?.focus());
     }
 
-    return {
-      balances,
-      filteredBalanceList,
-      noSearchResults,
-      isShowMore,
-      onShowMore,
-      resetDisplayLimit,
-      resetSearch,
-      ...toRefs(state.value)
-    }
+    return { address, balances, filteredBalanceList, noSearchResults, isShowMore, onShowMore, resetDisplayLimit, resetSearch, ...toRefs(state.value) }
   }
 })
 </script>
@@ -281,16 +201,16 @@ $avatar-offset: 32 + 16;
 
     .search-container {
       position: relative;
-      > input[type='search'] {
+      > input[type=search] {
         padding: 0 40px 0 36px;
         width: 200px;
         height: 52px;
-        background: #ffffff;
+        background: #FFFFFF;
         border: 2px solid transparent;
         border-radius: 12px;
 
         &:focus {
-          border-color: #094efd;
+          border-color: #094EFD;
           color: #000;
         }
 
@@ -303,7 +223,7 @@ $avatar-offset: 32 + 16;
         &::-webkit-search-results-button,
         &::-webkit-search-results-decoration {
           display: none;
-          -webkit-appearance: none;
+          -webkit-appearance:none;
         }
       }
 
@@ -373,9 +293,9 @@ $avatar-offset: 32 + 16;
             margin-right: 4px;
           }
 
-          &:nth-child(n + 3) {
+          &:nth-child(n+3) {
             &:before {
-              font-family: sys, serif;
+              font-family: sys,serif;
               content: '→';
               display: inline-block;
               margin: 0 5px 0 4px;
@@ -468,6 +388,7 @@ $avatar-offset: 32 + 16;
   font-feature-settings: 'zero';
 
   color: #000000;
+  margin-top: 0;
 }
 
 .input {
@@ -483,7 +404,7 @@ $avatar-offset: 32 + 16;
     line-height: 40px;
     outline: none;
     padding: 0 15px;
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     width: 100%;
   }
 }
@@ -498,7 +419,7 @@ $avatar-offset: 32 + 16;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #ffffff;
+  background: #FFFFFF;
   box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
   border-radius: 56px;
   color: #000000;
@@ -517,7 +438,7 @@ $avatar-offset: 32 + 16;
 
 section {
   position: relative;
-  padding-bottom: 48px;
+  padding-bottom: 132px;
 }
 
 .loading {
@@ -556,14 +477,9 @@ section {
     border-radius: 24px;
     display: inline-flex;
 
-    background: linear-gradient(
-      90deg,
-      $base-color 0px,
-      $shine-color 40px,
-      $base-color 80px
-    );
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
     background-size: 600px;
-    animation: shine-avatar $animation-duration infinite linear;
+    animation: shine-avatar $animation-duration infinite linear
   }
 
   &__denom {
@@ -574,14 +490,9 @@ section {
     margin-left: 16px;
     display: inline-flex;
 
-    background: linear-gradient(
-      90deg,
-      $base-color 0px,
-      $shine-color 40px,
-      $base-color 80px
-    );
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
     background-size: 600px;
-    animation: shine-lines $animation-duration infinite linear;
+    animation: shine-lines $animation-duration infinite linear
   }
 
   &__amount {
@@ -592,14 +503,9 @@ section {
     margin-left: 16px;
     display: inline-flex;
 
-    background: linear-gradient(
-      90deg,
-      $base-color 0px,
-      $shine-color 40px,
-      $base-color 80px
-    );
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
     background-size: 600px;
-    animation: shine-lines $animation-duration infinite linear;
+    animation: shine-lines $animation-duration infinite linear
   }
 
   &__ibc {
@@ -610,34 +516,27 @@ section {
     margin-left: 16px;
     display: inline-flex;
 
-    background: linear-gradient(
-      90deg,
-      $base-color 0px,
-      $shine-color 40px,
-      $base-color 80px
-    );
+    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
     background-size: 600px;
-    animation: shine-lines $animation-duration infinite linear;
+    animation: shine-lines $animation-duration infinite linear
   }
 }
 
 @keyframes shine-avatar {
   0% {
-    background-position: -100px + $avatar-offset;
+    background-position: -100px + $avatar-offset
   }
-  40%,
-  100% {
-    background-position: 140px + $avatar-offset;
+  40%, 100% {
+    background-position: 140px + $avatar-offset
   }
 }
 
 @keyframes shine-lines {
   0% {
-    background-position: -100px;
+    background-position: -100px
   }
-  40%,
-  100% {
-    background-position: 140px;
+  40%, 100% {
+    background-position: 140px
   }
 }
 
