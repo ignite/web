@@ -100,7 +100,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .modal-backdrop {
   position: fixed;
   z-index: 999;
@@ -183,5 +183,4 @@ export default defineComponent({
     color: rgba(0, 0, 0, 0.33);
   }
 }
-
 </style>

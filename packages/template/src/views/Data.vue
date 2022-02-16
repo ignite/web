@@ -1,5 +1,5 @@
 <template>
-    <SpCrud store-name="foo.bar.bar" item-name="Product" />
+  <SpCrud store-name="foo.bar.bar" item-name="Product" />
 </template>
 
 <script>

@@ -109,7 +109,7 @@
       </div>
       <div v-if="(items || []).length === 0">
         <SpSpacer size="md" />
-        <SpTypography size="md" class='empty'>No items</SpTypography>
+        <SpTypography size="md" class="empty">No items</SpTypography>
       </div>
     </div>
   </div>
@@ -187,7 +187,6 @@ export default defineComponent({
         })
       }
       return []
-
     })
 
     // lh

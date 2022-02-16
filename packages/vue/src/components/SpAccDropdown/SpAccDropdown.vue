@@ -117,7 +117,7 @@ export interface State {
 }
 
 export let initialState: State = {
-  currentUIState: UI_STATE.DEFAULT,
+  currentUIState: UI_STATE.DEFAULT
 }
 
 import { useAddress, useClipboard } from '../../composables'

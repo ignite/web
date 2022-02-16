@@ -1,5 +1,5 @@
-import { SigningStargateClient } from '@cosmjs/stargate'
 import { OfflineDirectSigner, Registry } from '@cosmjs/proto-signing'
+import { SigningStargateClient } from '@cosmjs/stargate'
 import axios, { AxiosPromise, AxiosResponse } from 'axios'
 import { EventEmitter } from 'events'
 import ReconnectingWebSocket from 'reconnecting-websocket'
@@ -52,7 +52,7 @@ export default class SPClient extends EventEmitter {
     const poll: () => Promise<void> = this.connectivityTest.bind(this)
     this.timer = setInterval(poll, this.refresh)
     this.connectivityTest()
- 
+
     if (this.wsAddr) {
       this.connectWS()
     }

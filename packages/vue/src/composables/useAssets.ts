@@ -91,18 +91,16 @@ export default function ({ $s, opts }: Params): Response {
         queryAllBalances({
           params: { address: newAddress },
           options: { subscribe: true }
-        })
-        .finally(() => {
+        }).finally(() => {
           balances.value.isLoading = false
         })
       }
 
       let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
 
-      Promise.all(arr)
-        .then((normalized) => {
-          balances.value.assets = normalized as any
-        })
+      Promise.all(arr).then((normalized) => {
+        balances.value.assets = normalized as any
+      })
     }
   )
 

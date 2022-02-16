@@ -17,7 +17,7 @@
   </svg>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
@@ -31,9 +31,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    let getStrokeWidth = computed(() =>
-      props.size > 32 ? 3 : 4
-    )
+    let getStrokeWidth = computed(() => (props.size > 32 ? 3 : 4))
 
     return {
       getStrokeWidth

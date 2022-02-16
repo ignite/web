@@ -62,8 +62,8 @@
   /**
    * Grid columns
    */
-  [class^="col-"],
-  [class*=" col-"] {
+  [class^='col-'],
+  [class*=' col-'] {
     display: inline-block;
     vertical-align: top;
     width: 100%;
@@ -92,7 +92,6 @@
     $breakpoint-width: map-get($grid-breakpoints, $breakpoint-name);
 
     @media (min-width: $breakpoint-width) {
-
       .col-#{$breakpoint-name}-offset-0 {
         margin-left: 0;
       }
@@ -121,6 +120,5 @@
       flex-direction: column-reverse;
     }
   }
-
 }
 @include grid;

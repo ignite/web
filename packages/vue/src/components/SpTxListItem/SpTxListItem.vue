@@ -1,6 +1,6 @@
 <template>
   <div class="tx-row">
-    <div class='tx-container'>
+    <div class="tx-container">
       <div class="tx-icon" :class="tx?.dir">
         <svg
           width="16"
@@ -35,17 +35,24 @@
           {{ dirDescription }}
         </div>
         <div class="tx-meta">
-          {{txDate}}
+          {{ txDate }}
         </div>
       </div>
       <div class="tx-payload">
-        <template v-if='tx.amount.length'>
-          <span v-for='(amount, index) in tx.amount' :key='`${amount.amount}-${amount.denom}-${index}`' class="tx-amount" :class="tx?.dir">
-            {{ amountSign + ' ' + amount.amount }} <SpDenom :denom="amount.denom" />
+        <template v-if="tx.amount.length">
+          <span
+            v-for="(amount, index) in tx.amount"
+            :key="`${amount.amount}-${amount.denom}-${index}`"
+            class="tx-amount"
+            :class="tx?.dir"
+          >
+            {{ amountSign + ' ' + amount.amount }}
+            <SpDenom :denom="amount.denom" />
           </span>
         </template>
         <span v-else class="tx-amount" :class="tx?.dir">
-          {{ amountSign + ' ' + tx?.amount?.amount }} <SpDenom :denom="tx.amount.denom" />
+          {{ amountSign + ' ' + tx?.amount?.amount }}
+          <SpDenom :denom="tx.amount.denom" />
         </span>
         <div class="tx-denom">
           {{ addrDesc + ' ' + shortAddr }}
@@ -108,7 +115,7 @@ export default defineComponent({
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric'
-      });
+      })
     })
     let amountSign = computed<string>(() => AMOUNT_SIGN[props.tx.dir])
 
@@ -153,7 +160,6 @@ export default defineComponent({
   position: relative;
   display: flex;
   align-items: center;
-
 }
 
 .tx-meta {

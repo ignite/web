@@ -1,24 +1,7 @@
-import { stringToPath } from '@cosmjs/crypto'
-import { assertIsBroadcastTxSuccess } from '@cosmjs/launchpad'
-import {
-  DirectSecp256k1HdWallet,
-  DirectSecp256k1Wallet
-} from '@cosmjs/proto-signing'
 import CryptoJS from 'crypto-js'
 
-import { keyFromWif, keyToWif } from '../../../helpers/keys'
+import { keyToWif } from '../../../helpers/keys'
 
-/* START TODO: Integrate closure below for additional security 
-function getDecryptor(password) {
-	let secret = password
-	return async function (encryptedMnemonic, HDpath) {
-		const mnemonic = CryptoJS.AES.decrypt(encryptedMnemonic, secret).toString(
-			CryptoJS.enc.Utf8
-		)
-		return await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, HDpath)
-	}
-}
-END TODO */
 export default {
   namespaced: true,
   state() {
@@ -167,6 +150,6 @@ export default {
     storeWallets({ commit, state }) {
       window.localStorage.setItem('wallets', JSON.stringify(state.wallets))
       commit('SET_BACKUP_STATE', false)
-    },
+    }
   }
 }

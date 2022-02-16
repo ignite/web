@@ -131,7 +131,6 @@ export default defineComponent({
   line-height: 153.8%;
   /* identical to box height, or 20px */
 
-
   /* light/muted */
 
   color: rgba(0, 0, 0, 0.667);

@@ -1,17 +1,16 @@
 <template>
   <div v-if="moduleAvailable" class="container crud--position">
-    <div class='row'>
-      <div class='col-6'>
+    <div class="row">
+      <div class="col-6">
         <SpTypography modifier="highlight" size="md" style="font-weight: 700">
           {{ itemName }} items
         </SpTypography>
       </div>
-      <div class='col-6 text-align--right'>
+      <div class="col-6 text-align--right">
         <SpButton type="primary" @click="visibleModal = 'create-item'">
           Create post
         </SpButton>
       </div>
-
     </div>
 
     <SpCrudRead
@@ -60,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
 import SpButton from '../SpButton'
@@ -135,8 +134,6 @@ export default defineComponent({
   }
 }
 
-
-
 .item-title {
   font-size: 13px;
   line-height: 153.8%;
@@ -164,7 +161,6 @@ export default defineComponent({
   font-size: 13px;
   line-height: 153.8%;
   /* identical to box height, or 20px */
-
 
   /* light/muted */
 

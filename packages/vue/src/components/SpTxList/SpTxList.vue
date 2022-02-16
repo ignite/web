@@ -1,19 +1,19 @@
 <template>
-  <Suspense v-if='address'>
+  <Suspense v-if="address">
     <template #default>
       <SpGetTxList />
     </template>
     <template #fallback>
       <div class="tx-list">
         <div class="title">Transactions</div>
-        <div v-for='n in 4' :key='n' class='loading__row'>
-          <div class='loading__col'>
-            <span class='loading__avatar'></span>
-            <span class='loading__denom'></span>
+        <div v-for="n in 4" :key="n" class="loading__row">
+          <div class="loading__col">
+            <span class="loading__avatar"></span>
+            <span class="loading__denom"></span>
           </div>
 
-          <div class='loading__col loading__col--justify-end'>
-            <span class='loading__amount'></span>
+          <div class="loading__col loading__col--justify-end">
+            <span class="loading__amount"></span>
           </div>
         </div>
       </div>
@@ -32,7 +32,6 @@ import { useStore } from 'vuex'
 import { useAddress } from '../../composables'
 import SpGetTxList from '../SpGetTxList'
 
-
 export default defineComponent({
   name: 'SpTxList',
 
@@ -49,7 +48,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 $base-color: rgba(0, 0, 0, 0.03);
 $animation-duration: 1.6s;
 $shine-color: rgba(0, 0, 0, 0.06);
@@ -104,9 +103,14 @@ $avatar-offset: 32 + 16;
     border-radius: 24px;
     display: inline-flex;
 
-    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background: linear-gradient(
+      90deg,
+      $base-color 0px,
+      $shine-color 40px,
+      $base-color 80px
+    );
     background-size: 600px;
-    animation: shine-avatar $animation-duration infinite linear
+    animation: shine-avatar $animation-duration infinite linear;
   }
 
   &__denom {
@@ -117,9 +121,14 @@ $avatar-offset: 32 + 16;
     margin-left: 16px;
     display: inline-flex;
 
-    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background: linear-gradient(
+      90deg,
+      $base-color 0px,
+      $shine-color 40px,
+      $base-color 80px
+    );
     background-size: 600px;
-    animation: shine-lines $animation-duration infinite linear
+    animation: shine-lines $animation-duration infinite linear;
   }
 
   &__amount {
@@ -130,9 +139,14 @@ $avatar-offset: 32 + 16;
     margin-left: 16px;
     display: inline-flex;
 
-    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background: linear-gradient(
+      90deg,
+      $base-color 0px,
+      $shine-color 40px,
+      $base-color 80px
+    );
     background-size: 600px;
-    animation: shine-lines $animation-duration infinite linear
+    animation: shine-lines $animation-duration infinite linear;
   }
 
   &__ibc {
@@ -143,9 +157,14 @@ $avatar-offset: 32 + 16;
     margin-left: 16px;
     display: inline-flex;
 
-    background: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+    background: linear-gradient(
+      90deg,
+      $base-color 0px,
+      $shine-color 40px,
+      $base-color 80px
+    );
     background-size: 600px;
-    animation: shine-lines $animation-duration infinite linear
+    animation: shine-lines $animation-duration infinite linear;
   }
 }
 
@@ -166,19 +185,21 @@ $avatar-offset: 32 + 16;
 
 @keyframes shine-avatar {
   0% {
-    background-position: -100px + $avatar-offset
+    background-position: -100px + $avatar-offset;
   }
-  40%, 100% {
-    background-position: 140px + $avatar-offset
+  40%,
+  100% {
+    background-position: 140px + $avatar-offset;
   }
 }
 
 @keyframes shine-lines {
   0% {
-    background-position: -100px
+    background-position: -100px;
   }
-  40%, 100% {
-    background-position: 140px
+  40%,
+  100% {
+    background-position: 140px;
   }
 }
 </style>

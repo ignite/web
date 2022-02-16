@@ -3,7 +3,7 @@
     <!-- feedbacks -->
     <div v-if="isTxOngoing" class="feedback">
       <div class="loading-spinner">
-        <SpSpinner size='46'></SpSpinner>
+        <SpSpinner size="46"></SpSpinner>
       </div>
       <div style="width: 100%; height: 24px" />
 
@@ -159,16 +159,21 @@
                 error: state.tx.toAddress.length > 0 && !validToAddress
               }"
               placeholder="Recipient address"
-              :disabled='!hasAnyBalance'
+              :disabled="!hasAnyBalance"
             />
-            <div v-if='state.tx.toAddress.length > 0 && !validToAddress' class='error-message'>Invalid address</div>
+            <div
+              v-if="state.tx.toAddress.length > 0 && !validToAddress"
+              class="error-message"
+            >
+              Invalid address
+            </div>
           </div>
         </div>
 
         <div style="width: 100%; height: 21px" />
         <div v-if="hasAnyBalance">
           <SpAmountSelect
-            class='token-selector--main'
+            class="token-selector--main"
             :selected="state.tx.amount"
             :balances="balances.assets"
             @update="handleTxAmountUpdate"
@@ -177,22 +182,49 @@
         </div>
 
         <div
-          :class="['advanced-label', {'advanced-label--disabled': !hasAnyBalance}]"
+          :class="[
+            'advanced-label',
+            { 'advanced-label--disabled': !hasAnyBalance }
+          ]"
           @click="hasAnyBalance && (state.advancedOpen = !state.advancedOpen)"
         >
           Advanced
-          <template v-if='hasAnyBalance'>
-            <svg v-if='!state.advancedOpen' width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
-              <path d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z" fill="black"/>
+          <template v-if="hasAnyBalance">
+            <svg
+              v-if="!state.advancedOpen"
+              width="12"
+              height="8"
+              viewBox="0 0 12 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="margin-left: 7px"
+            >
+              <path
+                d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z"
+                fill="black"
+              />
             </svg>
-            <svg v-else width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style='margin-left: 7px;'>
-              <path d="M10.0001 7.4001L6.0001 3.4001L2.0001 7.4001L0.600098 6.0001L6.0001 0.600098L11.4001 6.0001L10.0001 7.4001Z" fill="black"/>
+            <svg
+              v-else
+              width="12"
+              height="8"
+              viewBox="0 0 12 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="margin-left: 7px"
+            >
+              <path
+                d="M10.0001 7.4001L6.0001 3.4001L2.0001 7.4001L0.600098 6.0001L6.0001 0.600098L11.4001 6.0001L10.0001 7.4001Z"
+                fill="black"
+              />
             </svg>
           </template>
-
         </div>
 
-        <div v-if="state.advancedOpen && hasAnyBalance" style="width: 100%; height: 24px" />
+        <div
+          v-if="state.advancedOpen && hasAnyBalance"
+          style="width: 100%; height: 24px"
+        />
 
         <div v-if="state.advancedOpen && hasAnyBalance" class="advanced">
           <div class="input-label">Fees</div>
@@ -245,7 +277,7 @@
           <SpCard>
             <template #top>
               <div class="qrcode-wrapper">
-                <SpQrCode :value="address" color="#000" width='112'/>
+                <SpQrCode :value="address" color="#000" width="112" />
               </div>
             </template>
 
@@ -273,7 +305,7 @@ import { useStore } from 'vuex'
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAddress,useAssets } from '../../composables'
+import { useAddress, useAssets } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
@@ -569,7 +601,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .advanced-label {
   font-family: Inter;
   font-style: normal;
@@ -612,7 +644,7 @@ export default defineComponent({
     &::v-deep(.add-token) {
       margin-top: 18px;
     }
-   }
+  }
 }
 
 .advanced {
@@ -779,14 +811,13 @@ export default defineComponent({
   color: #000000;
   width: 100%;
   outline: 0;
-  transition: background-color .2s cubic-bezier(.645,.045,.355,1);
+  transition: background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   display: block;
 
   &:not([disabled]) {
     &:hover {
       background: rgba(0, 0, 0, 0.07);
     }
-
   }
 
   &:focus {
@@ -805,7 +836,7 @@ export default defineComponent({
   font-weight: normal;
   font-size: 13px;
   line-height: 153.8%;
-  color: #D80228;
+  color: #d80228;
   margin-top: 5px;
 }
 

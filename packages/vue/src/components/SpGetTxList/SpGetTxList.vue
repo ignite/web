@@ -1,36 +1,49 @@
 <template>
   <div class="tx-list">
     <div class="title">Transactions</div>
-      <div v-if='newTxs' class="load-more" role="button" @click="loadNewItems">
-        <template v-if='state.isNewTxLoading'>
-          <SpSpinner :size='16'></SpSpinner>
-        </template>
-        <template v-else>
-          {{ showMoreText }}
-        </template>
+    <div v-if="newTxs" class="load-more" role="button" @click="loadNewItems">
+      <template v-if="state.isNewTxLoading">
+        <SpSpinner :size="16"></SpSpinner>
+      </template>
+      <template v-else>
+        {{ showMoreText }}
+      </template>
+    </div>
+    <div v-if="!address || Object.keys(txByMonth).length <= 0" class="empty">
+      Transaction history is empty
+    </div>
+    <div v-else-if="Object.keys(txByMonth).length > 0" class="list">
+      <div v-for="(txs, month, index) in txByMonth" :key="`${index}`">
+        <h3 class="tx-list__subheading" v-text="getMonthGroup(month)"></h3>
+        <SpTxListItem
+          v-for="(tx, i) in txs"
+          :key="`${tx.hash}-${tx.timestamp}-${i}`"
+          :tx="tx"
+        />
       </div>
-      <div v-if='!address || Object.keys(txByMonth).length <= 0' class='empty'>
-        Transaction history is empty
-      </div>
-      <div v-else-if="Object.keys(txByMonth).length > 0" class="list">
-        <div v-for="(txs, month, index) in txByMonth" :key="`${index}`">
-          <h3 class='tx-list__subheading' v-text='getMonthGroup(month)'></h3>
-          <SpTxListItem v-for='(tx, i) in txs' :key='`${tx.hash}-${tx.timestamp}-${i}`' :tx="tx" />
-        </div>
-      </div>
-      <div
-        v-if="leftToShowMore"
-        class="show-more"
-        role="button"
-        @click="showMoreItems"
-      >
-        Show more
-        <span class='arrow-icon'>
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.0001 7.4001L0.600098 2.0001L2.0001 0.600098L6.0001 4.6001L10.0001 0.600098L11.4001 2.0001L6.0001 7.4001Z" fill="black"/>
-          </svg>
-        </span>
-      </div>
+    </div>
+    <div
+      v-if="leftToShowMore"
+      class="show-more"
+      role="button"
+      @click="showMoreItems"
+    >
+      Show more
+      <span class="arrow-icon">
+        <svg
+          width="12"
+          height="8"
+          viewBox="0 0 12 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.0001 7.4001L0.600098 2.0001L2.0001 0.600098L6.0001 4.6001L10.0001 0.600098L11.4001 2.0001L6.0001 7.4001Z"
+            fill="black"
+          />
+        </svg>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -82,8 +95,8 @@ export default defineComponent({
         .sort((a, b) => b.height - a.height)
     })
     let txByMonth = computed(() => {
-      const groupByYear = groupBy("timestamp");
-      return groupByYear(list.value);
+      const groupByYear = groupBy('timestamp')
+      return groupByYear(list.value)
     })
     let leftToShowMore = computed<boolean>(
       () =>
@@ -103,21 +116,21 @@ export default defineComponent({
     let showMoreItems = () => {
       state.listSize = state.listMaxSize
     }
-    let getTxMonth = (timestamp):string =>
+    let getTxMonth = (timestamp): string =>
       new Date(timestamp).toLocaleString('en-US', {
-        year: "numeric",
+        year: 'numeric',
         month: 'long'
-      });
+      })
     let groupBy = (key) => (array) =>
       array.reduce((acc, obj) => {
-        const property = getTxMonth(obj[key]);
-        acc[property] = (acc[property] || []).concat(obj);
-        return acc;
-      }, {});
+        const property = getTxMonth(obj[key])
+        acc[property] = (acc[property] || []).concat(obj)
+        return acc
+      }, {})
 
     let getMonthGroup = (month) => {
-      const currentYear = new Date().getFullYear();
-      const monthYear = Number(month.replace(/\D/g, ''));
+      const currentYear = new Date().getFullYear()
+      const monthYear = Number(month.replace(/\D/g, ''))
 
       return monthYear < currentYear ? month : month.replace(/[0-9]/g, '')
     }
@@ -136,7 +149,7 @@ export default defineComponent({
       txByMonth,
       getTxMonth,
       getMonthGroup,
-      state,
+      state
     }
   }
 })
@@ -225,7 +238,7 @@ $avatar-offset: 32 + 16;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 3px 9px 32px -4px rgba(0, 0, 0, 0.07);
   border-radius: 56px;
   color: #000000;
