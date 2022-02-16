@@ -162,39 +162,32 @@ export default defineComponent({
     let { address, shortAddress } = useAddress({ $s })
 
     // computed
-    // let itemFields = computed(() =>
-    //   $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
-    // )
     let itemFields = computed(() =>
-      [
-        {
-          name: 'title',
-        },
-        {
-          name: 'description'
-        },
-        {
-          name: 'by'
-        }
-      ]
+      $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
     )
+    // let itemFields = computed(() =>
+    //   [
+    //     {
+    //       name: 'title',
+    //     },
+    //     {
+    //       name: 'description'
+    //     },
+    //     {
+    //       name: 'by'
+    //     }
+    //   ]
+    // )
     let items = computed(() => {
-      // const itemData = $s.state[props.storeName][props.itemName + 'All']
-      // const queryKey = Object.keys(itemData)[0]
-      // if (queryKey && itemData[queryKey]) {
-      //   return itemData[queryKey][props.itemName].sort((a, b) => {
-      //     return b.id - a.id
-      //   })
-      // }
-      // return []
-      return [
-        {
-          id: 0,
-          'title': 'Relay nodes',
-          'description': 'Therefore, relay nodes require significantly more power and are only',
-          'by': 'cosmos1p05...94029y'
-        }
-        ]
+      const itemData = $s.state[props.storeName][props.itemName + 'All']
+      const queryKey = Object.keys(itemData)[0]
+      if (queryKey && itemData[queryKey]) {
+        return itemData[queryKey][props.itemName].sort((a, b) => {
+          return b.id - a.id
+        })
+      }
+      return []
+
     })
 
     // lh

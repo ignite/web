@@ -359,7 +359,7 @@ export default defineComponent({
       state.currentUIState = UI_STATE.SEND
     }
     let switchToReceive = (): void => {
-      if (hasAnyBalance.value) {
+      if (address.value) {
         state.currentUIState = UI_STATE.RECEIVE
       }
     }
