@@ -18,7 +18,6 @@ export default function ({ $s }: Params): Response {
     () => address.value.substring(0, 10) + '...' + address.value.slice(-4)
   )
 
-  console.log("add", address.value)
   return {
     address,
     shortAddress
