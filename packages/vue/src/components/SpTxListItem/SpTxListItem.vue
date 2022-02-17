@@ -41,19 +41,15 @@
       <div class="tx-payload">
         <template v-if="tx.amount.length">
           <span
-            v-for="(amount, index) in tx.amount"
-            :key="`${amount.amount}-${amount.denom}-${index}`"
+            v-for="(a, index) in tx.amount"
+            :key="`${a.amount}-${a.denom}-${index}`"
             class="tx-amount"
             :class="tx?.dir"
           >
-            {{ amountSign + ' ' + amount.amount }}
-            <SpDenom :denom="amount.denom" />
+            {{ amountSign + ' ' + a.amount }}
+            <SpDenom :denom="a.denom" />
           </span>
         </template>
-        <span v-else class="tx-amount" :class="tx?.dir">
-          {{ amountSign + ' ' + tx?.amount?.amount }}
-          <SpDenom :denom="tx.amount.denom" />
-        </span>
         <div class="tx-denom">
           {{ addrDesc + ' ' + shortAddr }}
         </div>
