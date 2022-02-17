@@ -3,9 +3,6 @@ name: Alpha release & deploy
 # Controls when the action will run. 
 on:
   workflow_dispatch:
-  push:
-    branches: [ release/* ]
-    
 
 jobs:
   build:

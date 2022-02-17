@@ -5,17 +5,13 @@
       :key="`${x.amount.denom}-${x.path}-${i}`"
       class="selected-item"
     >
-      <Suspense>
-        <SpDenom :denom="x.amount.denom" modifier="avatar" />
-      </Suspense>
+      <SpDenom :denom="x.amount.denom" modifier="avatar" />
 
       <div style="width: 12px; height: 100%" />
 
       <div class="token-info">
         <div class="token-denom">
-          <Suspense>
-            <SpDenom :denom="x.amount.denom" />
-          </Suspense>
+          <SpDenom :denom="x.amount.denom" />
           <svg
             width="12"
             height="8"
@@ -133,17 +129,13 @@
               :index="i"
               @click="() => handleTokenSelect(x)"
             >
-              <Suspense>
-                <SpDenom :denom="x.amount.denom" modifier="avatar" />
-              </Suspense>
+              <SpDenom :denom="x.amount.denom" modifier="avatar" />
 
               <div style="width: 12px; height: 100%" />
 
               <div class="token-info">
                 <div class="token-denom">
-                  <Suspense>
-                    <SpDenom :denom="x.amount.denom" />
-                  </Suspense>
+                  <SpDenom :denom="x.amount.denom" />
                 </div>
 
                 <div class="token-amount">
