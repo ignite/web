@@ -127,7 +127,6 @@ export default defineComponent({
         acc[property] = (acc[property] || []).concat(obj)
         return acc
       }, {})
-
     let getMonthGroup = (month) => {
       const currentYear = new Date().getFullYear()
       const monthYear = Number(month.replace(/\D/g, ''))

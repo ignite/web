@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 
 type Modifier = 'avatar' | 'path' | 'base'
 type Size = 'small' | 'medium' | 'large'

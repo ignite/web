@@ -38,6 +38,7 @@ export default defineComponent({
   components: { SpGetTxList },
 
   setup() {
+    // store
     let $s = useStore()
 
     // composables
