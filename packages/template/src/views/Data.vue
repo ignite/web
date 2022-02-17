@@ -1,13 +1,10 @@
 <template>
-  <SpCrud store-name="foo.bar.bar" item-name="Product" />
+  <!-- Uncomment the following component to add a form for a `modelName` -->
+  <!-- <SpCrud store-name="org.repo.module" item-name="modelName" /> -->
 </template>
 
 <script>
-import { SpCrud } from '@starport/vue'
-
 export default {
-  name: 'Data',
-
-  components: { SpCrud }
+  name: 'Data'
 }
 </script>
