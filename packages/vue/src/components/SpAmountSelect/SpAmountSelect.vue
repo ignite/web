@@ -42,11 +42,9 @@
       </div>
 
       <div class="input-wrapper">
-        <input
+        <SpAmountInput
           class="input secondary"
-          :value="x.amount.amount"
-          placeholder="0"
-          @input="(evt) => handleAmountInput(evt, x)"
+          @update="(amount: string) => handleAmountInput(amount, x)"
         />
 
         <div class="focus-background"></div>
@@ -163,10 +161,13 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, reactive } from 'vue'
 
+import BigNumber from 'bignumber.js'
+
 import { AssetForUI } from '@/composables/useAssets'
 
 import SpDenom from '../SpDenom'
 import SpModal from '../SpModal'
+import SpAmountInput from '../SpAmountInput'
 
 export interface State {
   tokenSearch: string
@@ -181,7 +182,7 @@ export let initialState: State = {
 export default defineComponent({
   name: 'SpAmountSelect',
 
-  components: { SpModal, SpDenom },
+  components: { SpModal, SpDenom, SpAmountInput },
 
   emits: ['update'],
 
@@ -221,14 +222,14 @@ export default defineComponent({
     let parseAmount = (amount: string): number => {
       return amount == '' ? 0 : parseInt(amount)
     }
-    let handleAmountInput = (evt: Event, x: AssetForUI) => {
-      let newAmount = (evt.target as HTMLInputElement).value
+    let handleAmountInput = (amount: string, x: AssetForUI) => {
+      let amountAsBigNumber = new BigNumber(amount)
 
       let newSelected: Array<AssetForUI> = [...props.selected]
 
-      newSelected[
-        newSelected.findIndex((y: AssetForUI) => findAsset(x, y))
-      ].amount.amount = newAmount
+      let index = newSelected.findIndex((y: AssetForUI) => findAsset(x, y))
+
+      newSelected[index].amount.amount = amountAsBigNumber.toString()
 
       emit('update', { selected: newSelected })
     }
