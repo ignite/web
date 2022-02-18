@@ -21,6 +21,7 @@ A library that contains components used by the template.
 Inside your `PROJECT_DIRECTORY/vue` directory, run the following command to start your frontend local environment:
 
 ```bash
+npm install
 npm run dev
 ```
 
