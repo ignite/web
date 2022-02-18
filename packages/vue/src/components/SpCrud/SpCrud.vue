@@ -122,8 +122,6 @@ export default defineComponent({
       props.itemName.replace(/^\w/, (c) => c.toUpperCase())
     )
 
-    console.log(moduleName.value)
-
     state.moduleAvailable = $s.hasModule(props.storeName)
 
     return {
