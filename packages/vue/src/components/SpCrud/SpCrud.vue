@@ -8,7 +8,7 @@
       </div>
       <div class="col-6 text-align--right">
         <SpButton type="primary" @click="visibleModal = 'create-item'">
-          Create post
+          Create {{ itemName.toLowerCase() }}
         </SpButton>
       </div>
     </div>
