@@ -7,7 +7,7 @@
         </SpTypography>
       </div>
       <div class="col-6 text-align--right">
-        <SpButton type="primary" @click="visibleModal = 'create-item'">
+        <SpButton type="primary" :disabled='!address' @click="visibleModal = 'create-item'">
           Create post
         </SpButton>
       </div>
@@ -62,6 +62,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
+import { useAddress } from '../../composables'
 import SpButton from '../SpButton'
 import SpCrudCreate from '../SpCrudCreate'
 import SpCrudDelete from '../SpCrudDelete'
@@ -114,6 +115,7 @@ export default defineComponent({
   setup(props) {
     // store
     let $s = useStore()
+    let { address } = useAddress({ $s })
 
     // state
     let state: State = reactive(initialState)
@@ -121,7 +123,8 @@ export default defineComponent({
     state.moduleAvailable = $s.hasModule(props.storeName)
 
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      address
     }
   }
 })
