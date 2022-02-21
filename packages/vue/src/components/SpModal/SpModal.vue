@@ -33,7 +33,7 @@
               type="secondary"
               @click="$emit('close')"
             >
-              Close
+              Cancel
             </SpButton>
           </slot>
         </footer>
@@ -180,7 +180,7 @@ export default defineComponent({
 .sp-button {
   &.sp-button-secondary {
     border: 0;
-    color: rgba(0, 0, 0, 0.33);
+    color: #000;
   }
 }
 </style>
