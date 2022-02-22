@@ -3,20 +3,20 @@
     <div class="row">
       <div class="col-6">
         <SpTypography modifier="highlight" size="md" style="font-weight: 700">
-          {{ itemName }} items
+          {{ moduleNameNormalized }} items
         </SpTypography>
       </div>
       <div class="col-6 text-align--right">
         <SpButton type="primary" :disabled='!address' @click="visibleModal = 'create-item'">
-          Create {{ itemName.toLowerCase() }}
+          Create {{ moduleNameNormalized }}
         </SpButton>
       </div>
     </div>
 
     <SpCrudRead
       :store-name="storeName"
-      :item-name="itemName"
-      :command-name="`/Query${itemName}All`"
+      :item-name="moduleNameNormalized"
+      :command-name="`/Query${moduleNameNormalized}All`"
       @createItem="visibleModal = 'create-item'"
       @editItem="
         (item) => {
@@ -35,31 +35,31 @@
     <SpCrudCreate
       v-if="visibleModal === 'create-item'"
       :store-name="storeName"
-      :item-name="itemName"
-      :command-name="`/sendMsgCreate${itemName}`"
+      :item-name="moduleNameNormalized"
+      :command-name="`/sendMsgCreate${moduleNameNormalized}`"
       @close="visibleModal = ''"
     />
     <SpCrudUpdate
       v-if="visibleModal === 'edit-item'"
       :store-name="storeName"
-      :item-name="itemName"
+      :item-name="moduleNameNormalized"
       :item-data="activeItem"
-      :command-name="`/sendMsgUpdate${itemName}`"
+      :command-name="`/sendMsgUpdate${moduleNameNormalized}`"
       @close="visibleModal = ''"
     />
     <SpCrudDelete
       v-if="visibleModal === 'delete-item'"
       :store-name="storeName"
-      :item-name="itemName"
+      :item-name="moduleNameNormalized"
       :item-data="activeItem"
-      :command-name="`/sendMsgDelete${itemName}`"
+      :command-name="`/sendMsgDelete${moduleNameNormalized}`"
       @close="visibleModal = ''"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { computed, defineComponent, reactive, ref, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
 import { useAddress } from '../../composables'
@@ -79,7 +79,7 @@ export interface State {
 export let initialState: State = {
   visibleModal: '',
   activeItem: {},
-  moduleAvailable: true
+  moduleAvailable: false
 }
 
 export default defineComponent({
@@ -116,11 +116,17 @@ export default defineComponent({
     // state
     let state: State = reactive(initialState)
 
+    // computed
+    let moduleNameNormalized = computed (() =>
+      props.itemName.replace(/^\w/, (c) => c.toUpperCase())
+    )
+
     state.moduleAvailable = $s.hasModule(props.storeName)
 
     return {
       ...toRefs(state),
-      address
+      address,
+      moduleNameNormalized
     }
   }
 })
