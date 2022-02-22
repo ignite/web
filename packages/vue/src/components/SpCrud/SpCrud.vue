@@ -8,7 +8,7 @@
       </div>
       <div class="col-6 text-align--right">
         <SpButton type="primary" :disabled='!address' @click="visibleModal = 'create-item'">
-          Create post
+          Create {{ itemName.toLowerCase() }}
         </SpButton>
       </div>
     </div>
@@ -68,9 +68,6 @@ import SpCrudCreate from '../SpCrudCreate'
 import SpCrudDelete from '../SpCrudDelete'
 import SpCrudRead from '../SpCrudRead'
 import SpCrudUpdate from '../SpCrudUpdate'
-import SpDropdown from '../SpDropdown'
-import SpModal from '../SpModal'
-import SpSpacer from '../SpSpacer'
 import SpTypography from '../SpTypography'
 
 export interface State {
@@ -89,11 +86,8 @@ export default defineComponent({
   name: 'SpCrud',
 
   components: {
-    SpSpacer,
     SpTypography,
     SpButton,
-    SpDropdown,
-    SpModal,
     SpCrudRead,
     SpCrudUpdate,
     SpCrudCreate,
