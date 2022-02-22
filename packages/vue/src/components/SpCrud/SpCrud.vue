@@ -115,6 +115,8 @@ export default defineComponent({
   setup(props) {
     // store
     let $s = useStore()
+
+    // composables
     let { address } = useAddress({ $s })
 
     // state
