@@ -65,6 +65,17 @@
       </div>
     </div>
     <div v-else-if="showSettings" class="account-dropdown">
+      <header class='account-dropdown__header'>
+        <div class='account-dropdown__back' @click='switchToDefault'>
+          <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.5 10L1 10M1 10L9.53125 19M1 10L9.53125 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class='account-dropdown__title'>
+          Settings
+        </div>
+      </header>
+
       <div class="dropdown-option mb-3">
         <span> Chain </span>
         <span> {{ chainId }} </span>
@@ -184,10 +195,14 @@ export default defineComponent({
         !dropdownButtonEl?.contains(evt.target)
       ) {
         emit('close')
+        state.currentUIState = UI_STATE.DEFAULT
       }
     }
     let switchToSettings = () => {
       state.currentUIState = UI_STATE.SETTINGS
+    }
+    let switchToDefault = () => {
+      state.currentUIState = UI_STATE.DEFAULT
     }
 
     // lh
@@ -206,6 +221,7 @@ export default defineComponent({
       shortAddress,
       // methods
       copy,
+      switchToDefault,
       switchToSettings,
       // computed
       showDefault,
@@ -276,6 +292,30 @@ export default defineComponent({
   width: 100%;
   box-shadow: 40px 64px 128px -8px rgba(0, 0, 0, 0.14);
   border-radius: 10px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    margin: -28px -28px 26px;
+    padding: 8px 48px 8px 24px;
+  }
+
+  &__back {
+    cursor: pointer;
+  }
+
+  &__title {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 133%;
+    text-align: center;
+    letter-spacing: -0.007em;
+    color: #000000;
+    flex-grow: 1;
+  }
 }
 
 .divider {
