@@ -27,7 +27,7 @@ export default async function ({ $s }: Params): Promise<Response> {
     () => (spClient.value as any)?.signingClient as SigningStargateClient
   )
 
-  //watch
+  // watch
   watch(
     () => address.value,
     async () => {
@@ -35,6 +35,8 @@ export default async function ({ $s }: Params): Promise<Response> {
         acc.value = (await stargateClient.value.getAccount(
           address.value
         )) as Account
+      } else {
+        acc.value = undefined
       }
     },
     { immediate: true }
