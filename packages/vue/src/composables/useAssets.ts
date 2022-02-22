@@ -1,4 +1,4 @@
-import { computed, ComputedRef, onBeforeMount, Ref, ref, watch } from 'vue'
+import { computed, ComputedRef, onBeforeMount, onUnmounted, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
@@ -23,6 +23,7 @@ type Params = {
 }
 
 export default function ({ $s, opts }: Params): Response {
+
   // state
   let balances = ref({
     isLoading: true,
@@ -36,6 +37,8 @@ export default function ({ $s, opts }: Params): Response {
   // actions
   let queryAllBalances = (opts: any) =>
     $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
+  let unsubscribeBalances = (subscription: any) =>
+    $s.dispatch('cosmos.bank.v1beta1/unsubscribe', subscription)
 
   // lh
   onBeforeMount(async () => {
@@ -45,6 +48,16 @@ export default function ({ $s, opts }: Params): Response {
         options: { subscribe: true }
       })
     }
+  })
+
+  onUnmounted(async () => {
+    unsubscribeBalances( {
+      action: 'QueryBalance',
+      payload: {
+        params: { address: address.value },
+        options: { subscribe: true }
+      }
+    })
   })
 
   // computed
