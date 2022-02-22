@@ -1,25 +1,25 @@
 <template>
   <SpModal
     :visible="true"
-    title="Edit item"
-    :closeIcon="true"
-    :submitButton="true"
-    :cancelButton="true"
+    :title="`Edit ${itemName.toLowerCase()}`"
+    :close-icon="true"
+    :submit-button="true"
+    :cancel-button="true"
+    style="text-align: center"
     @close="$emit('close')"
     @submit="editItem"
-    style="text-align: center"
   >
-    <template v-slot:body>
+    <template #body>
       <SpSpacer size="sm" />
       <div v-for="field in itemFieldsFiltered">
         <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">
           {{ field.name }}
         </label>
         <input
+          :id="`p${field.name}`"
           v-model="formData[field.name]"
           :placeholder="`Enter ${field.name}`"
           type="text"
-          :id="`p${field.name}`"
           :name="`p${field.name}`"
           class="sp-input"
         />
@@ -33,11 +33,11 @@
 import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
-import SpSpacer from '../SpSpacer'
-import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
+import SpSpacer from '../SpSpacer'
+import SpTypography from '../SpTypography'
 
 export default defineComponent({
   name: 'SpCrudUpdate',
@@ -139,6 +139,7 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin: 4px 0px;
+  border: 0;
 }
 
 .capitalize-first-letter:first-letter {

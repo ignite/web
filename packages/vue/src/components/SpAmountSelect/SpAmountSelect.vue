@@ -151,15 +151,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, reactive } from 'vue'
-
 import BigNumber from 'bignumber.js'
+import { computed, defineComponent, PropType, reactive } from 'vue'
 
 import { AssetForUI } from '@/composables/useAssets'
 
+import SpAmountInput from '../SpAmountInput'
 import SpDenom from '../SpDenom'
 import SpModal from '../SpModal'
-import SpAmountInput from '../SpAmountInput'
 
 export interface State {
   tokenSearch: string
@@ -268,6 +267,10 @@ export default defineComponent({
   align-items: center;
   position: relative;
   height: 44px;
+
+  &:not(:first-child) {
+    margin-top: 12px;
+  }
 }
 .input.primary {
   padding: 16px 13.5px;
