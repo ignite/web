@@ -143,13 +143,6 @@ export interface NavbarLink {
   url: string
 }
 
-export interface NavbarLogo {
-  src: string
-  alt: string
-  height: number
-  width: number
-}
-
 export default defineComponent({
   name: 'SpNavbar',
 
@@ -167,10 +160,6 @@ export default defineComponent({
     },
     activeRoute: {
       type: String,
-      required: false
-    },
-    logo: {
-      type: Object as PropType<NavbarLogo>,
       required: false
     }
   }
