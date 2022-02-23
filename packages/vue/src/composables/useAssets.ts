@@ -1,4 +1,4 @@
-import { computed, ComputedRef, onBeforeMount, Ref, ref, watch } from 'vue'
+import { computed, ComputedRef, onBeforeMount, onUnmounted, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
@@ -23,6 +23,7 @@ type Params = {
 }
 
 export default function ({ $s, opts }: Params): Response {
+
   // state
   let balances = ref({
     isLoading: true,
@@ -43,6 +44,8 @@ export default function ({ $s, opts }: Params): Response {
       queryAllBalances({
         params: { address: address.value },
         options: { subscribe: true }
+      }).finally(() => {
+        balances.value.isLoading = false
       })
     }
   })
