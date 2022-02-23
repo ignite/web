@@ -285,14 +285,14 @@ $avatar-offset: 32 + 16;
       position: relative;
       > input[type='search'] {
         padding: 0 40px 0 36px;
-        width: 200px;
-        height: 52px;
+        width: 166px;
+        height: 50px;
         background: #ffffff;
-        border: 2px solid transparent;
-        border-radius: 12px;
+        border: 1px solid transparent;
+        border-radius: 10px;
 
         &:focus {
-          border-color: #094efd;
+          border-color: #094EFD;
           color: #000;
         }
 
@@ -396,7 +396,7 @@ $avatar-offset: 32 + 16;
     color: rgba(0, 0, 0, 0.667);
 
     td {
-      padding-top: 32px;
+      padding-top: 22px;
       padding-bottom: 7px;
     }
   }
