@@ -12,19 +12,6 @@
       <div class="token-info">
         <div class="token-denom">
           <SpDenom :denom="x.amount.denom" />
-          <svg
-            width="12"
-            height="8"
-            viewBox="0 0 12 8"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style="margin-left: 6px"
-          >
-            <path
-              d="M5.99998 7.4L0.599976 2L1.99998 0.599998L5.99998 4.6L9.99998 0.599998L11.4 2L5.99998 7.4Z"
-              fill="black"
-            />
-          </svg>
         </div>
 
         <div
