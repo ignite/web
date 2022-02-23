@@ -37,8 +37,6 @@ export default function ({ $s, opts }: Params): Response {
   // actions
   let queryAllBalances = (opts: any) =>
     $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
-  let unsubscribeBalances = (subscription: any) =>
-    $s.dispatch('cosmos.bank.v1beta1/unsubscribe', subscription)
 
   // lh
   onBeforeMount(async () => {
@@ -46,18 +44,10 @@ export default function ({ $s, opts }: Params): Response {
       queryAllBalances({
         params: { address: address.value },
         options: { subscribe: true }
+      }).finally(() => {
+        balances.value.isLoading = false
       })
     }
-  })
-
-  onUnmounted(async () => {
-    unsubscribeBalances( {
-      action: 'QueryBalance',
-      payload: {
-        params: { address: address.value },
-        options: { subscribe: true }
-      }
-    })
   })
 
   // computed
