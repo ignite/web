@@ -1,13 +1,13 @@
-import { computed, ComputedRef, onBeforeMount, onUnmounted, Ref, ref, watch } from 'vue'
+import {  Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
 
-import { useAddress, useDenom } from '.'
+import { useAddress, useDenom, useIgnite } from '.'
 
 type Response = {
   balances: Ref<{ isLoading: boolean; assets: AssetForUI[] }>
-  balancesRaw: ComputedRef<any[]>
+  balancesRaw: Ref<any[] | undefined>
   normalize: (balance: object) => Promise<AssetForUI>
 }
 export type AssetForUI = {
@@ -22,42 +22,19 @@ type Params = {
   }
 }
 
-export default function ({ $s, opts }: Params): Response {
-
+export default async function ({ $s, opts }: Params): Promise<Response> {
   // state
   let balances = ref({
     isLoading: true,
     assets: []
   })
+  let balancesRaw = ref<any[]>([])
+
 
   // composables
+  let { $ignt } = await useIgnite()
   let { address } = useAddress({ $s })
   let { getDenomTrace } = useDenom({ $s })
-
-  // actions
-  let queryAllBalances = (opts: any) =>
-    $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
-
-  // lh
-  onBeforeMount(async () => {
-    if (address.value) {
-      queryAllBalances({
-        params: { address: address.value },
-        options: { subscribe: true }
-      }).finally(() => {
-        balances.value.isLoading = false
-      })
-    }
-  })
-
-  // computed
-  let balancesRaw = computed<any[]>(() => {
-    return (
-      $s.getters['cosmos.bank.v1beta1/getAllBalances']({
-        params: { address: address.value }
-      })?.balances ?? []
-    )
-  })
 
   // methods
   let normalize = async (balance: any): Promise<AssetForUI> => {
@@ -88,22 +65,33 @@ export default function ({ $s, opts }: Params): Response {
 
   //watch
   watch(
-    () => [address.value, balancesRaw.value],
-    async ([newAddress], [oldAddress]) => {
-      if (newAddress !== oldAddress) {
-        queryAllBalances({
-          params: { address: newAddress },
-          options: { subscribe: true }
-        }).finally(() => {
-          balances.value.isLoading = false
-        })
+    () => $ignt.value,
+    async () => {
+      if ($ignt.value) {
+        balancesRaw.value =
+          (
+            await $ignt.value?.CosmosBankV1Beta1?.queryAllBalances(
+              address.value
+            )
+          )?.data.balances || []
       }
+    },
+    { immediate: true }
+  )
+  watch(
+    () => [address.value, balancesRaw.value],
+    async () => {
+      if (balancesRaw.value) {
+        let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
 
-      let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
-
-      Promise.all(arr).then((normalized) => {
-        balances.value.assets = normalized as any
-      })
+        Promise.all(arr)
+          .then((normalized) => {
+            balances.value.assets = normalized as any
+          })
+          .finally(() => {
+            balances.value.isLoading = false
+          })
+      }
     }
   )
 

@@ -177,7 +177,7 @@ export default defineComponent({
     }
   },
 
-  setup(props) {
+  async setup(props) {
     // store
     let $s = useStore()
 
@@ -192,7 +192,7 @@ export default defineComponent({
 
     // composables
     let { address } = useAddress({ $s })
-    let { balances } = useAssets({ $s, opts: { extractChannels: true } })
+    let { balances } = await useAssets({ $s, opts: { extractChannels: true } })
 
     const filteredBalanceList = computed(() => {
       if (!state.value.searchQuery) {

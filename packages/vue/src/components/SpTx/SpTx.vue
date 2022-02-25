@@ -299,13 +299,13 @@
 <script lang="ts">
 import { Bech32 } from '@cosmjs/encoding'
 import long from 'long'
-import { computed, defineComponent, PropType, reactive, watch } from 'vue'
+import { computed, defineComponent, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAddress, useAssets } from '../../composables'
+import { useAddress, useAssets, useIgnite } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
@@ -369,7 +369,7 @@ export default defineComponent({
     SpSpinner
   },
 
-  setup() {
+  async setup() {
     // store
     let $s = useStore()
 
@@ -377,12 +377,11 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // composables
+    let { $ignt } = useIgnite()
     let { address } = useAddress({ $s })
-    let { balances } = useAssets({ $s })
+    let { balances } = await useAssets({ $s })
 
     // actions
-    let sendMsgSend = (opts: any) =>
-      $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
     let sendMsgTransfer = (opts: any) =>
       $s.dispatch('ibc.applications.transfer.v1/sendMsgTransfer', opts)
 
@@ -455,9 +454,8 @@ export default defineComponent({
             })
         } else {
           send = () =>
-            sendMsgSend({
+            $ignt.value?.CosmosBankV1Beta1?.sendMsgSend({
               value: payload,
-              fee,
               memo
             })
         }
