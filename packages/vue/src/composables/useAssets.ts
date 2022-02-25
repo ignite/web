@@ -1,4 +1,4 @@
-import {  Ref, ref, watch } from 'vue'
+import { Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
@@ -29,7 +29,6 @@ export default async function ({ $s, opts }: Params): Promise<Response> {
     assets: []
   })
   let balancesRaw = ref<any[]>([])
-
 
   // composables
   let { $ignt } = await useIgnite()

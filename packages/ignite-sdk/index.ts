@@ -1,23 +1,20 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
 import { OfflineSigner } from '@cosmjs/proto-signing'
-import { OfflineSigner } from '@cosmjs/proto-signing'
 import { SigningStargateClient } from '@cosmjs/stargate'
-import { SigningStargateClient } from '@cosmjs/stargate'
-import { io, Socket } from 'socket.io-client'
 
-import { M as CosmosCosmosSdkCosmosAuthzV1Beta1 } from './cosmos/cosmos-sdk/cosmos.authz.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosBankV1Beta1 } from './cosmos/cosmos-sdk/cosmos.bank.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosCrisisV1Beta1 } from './cosmos/cosmos-sdk/cosmos.crisis.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosDistributionV1Beta1 } from './cosmos/cosmos-sdk/cosmos.distribution.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosEvidenceV1Beta1 } from './cosmos/cosmos-sdk/cosmos.evidence.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosFeegrantV1Beta1 } from './cosmos/cosmos-sdk/cosmos.feegrant.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosGovV1Beta1 } from './cosmos/cosmos-sdk/cosmos.gov.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosSlashingV1Beta1 } from './cosmos/cosmos-sdk/cosmos.slashing.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosStakingV1Beta1 } from './cosmos/cosmos-sdk/cosmos.staking.v1beta1/module/'
-import { M as CosmosCosmosSdkCosmosVestingV1Beta1 } from './cosmos/cosmos-sdk/cosmos.vesting.v1beta1/module/'
-import { M as CosmosIbcGoIbcApplicationsTransferV1 } from './cosmos/ibc-go/ibc.applications.transfer.v1/module/'
-import { M as CosmosIbcGoIbcApplicationsTransferV2 } from './cosmos/ibc-go/ibc.applications.transfer.v2/module/'
+import { Module as CosmosCosmosSdkCosmosAuthzV1Beta1 } from './cosmos/cosmos-sdk/cosmos.authz.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosBankV1Beta1 } from './cosmos/cosmos-sdk/cosmos.bank.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosCrisisV1Beta1 } from './cosmos/cosmos-sdk/cosmos.crisis.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosDistributionV1Beta1 } from './cosmos/cosmos-sdk/cosmos.distribution.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosEvidenceV1Beta1 } from './cosmos/cosmos-sdk/cosmos.evidence.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosFeegrantV1Beta1 } from './cosmos/cosmos-sdk/cosmos.feegrant.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosGovV1Beta1 } from './cosmos/cosmos-sdk/cosmos.gov.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosSlashingV1Beta1 } from './cosmos/cosmos-sdk/cosmos.slashing.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosStakingV1Beta1 } from './cosmos/cosmos-sdk/cosmos.staking.v1beta1/module/'
+import { Module as CosmosCosmosSdkCosmosVestingV1Beta1 } from './cosmos/cosmos-sdk/cosmos.vesting.v1beta1/module/'
+import { Module as CosmosIbcGoIbcApplicationsTransferV1 } from './cosmos/ibc-go/ibc.applications.transfer.v1/module/'
+import { Module as CosmosIbcGoIbcApplicationsTransferV2 } from './cosmos/ibc-go/ibc.applications.transfer.v2/module/'
 
 class Signer {
   private _offlineSigner: OfflineSigner
@@ -41,27 +38,6 @@ class Signer {
   }
 }
 
-interface WSClientParams {
-  env: Environment
-}
-
-class WSClient {
-  private _env: Environment
-  private _socket: Socket
-
-  constructor({ env }: WSClientParams) {
-    this._env = env
-
-    try {
-      this._socket = io(this._env.wsURL)
-
-      this._socket.close()
-    } catch (e) {
-      throw e
-    }
-  }
-}
-
 interface Environment {
   chainID: string
   chainName: string
@@ -77,27 +53,25 @@ interface IgniteParams {
 }
 
 class Ignite {
-  private _ws: WSClient
   private _env: Environment
   private _signer: Signer
   private _address: string
 
-  public CosmosAuthzV1Beta1?: CosmosCosmosSdkCosmosAuthzV1Beta1
-  public CosmosBankV1Beta1?: CosmosCosmosSdkCosmosBankV1Beta1
-  public CosmosCrisisV1Beta1?: CosmosCosmosSdkCosmosCrisisV1Beta1
-  public CosmosDistributionV1Beta1?: CosmosCosmosSdkCosmosDistributionV1Beta1
-  public CosmosEvidenceV1Beta1?: CosmosCosmosSdkCosmosEvidenceV1Beta1
-  public CosmosFeegrantV1Beta1?: CosmosCosmosSdkCosmosFeegrantV1Beta1
-  public CosmosGovV1Beta1?: CosmosCosmosSdkCosmosGovV1Beta1
-  public CosmosSlashingV1Beta1?: CosmosCosmosSdkCosmosSlashingV1Beta1
-  public CosmosStakingV1Beta1?: CosmosCosmosSdkCosmosStakingV1Beta1
-  public CosmosVestingV1Beta1?: CosmosCosmosSdkCosmosVestingV1Beta1
-  public IbcApplicationsTransferV1?: CosmosIbcGoIbcApplicationsTransferV1
-  public IbcApplicationsTransferV2?: CosmosIbcGoIbcApplicationsTransferV2
+  public CosmosAuthzV1Beta1: CosmosCosmosSdkCosmosAuthzV1Beta1
+  public CosmosBankV1Beta1: CosmosCosmosSdkCosmosBankV1Beta1
+  public CosmosCrisisV1Beta1: CosmosCosmosSdkCosmosCrisisV1Beta1
+  public CosmosDistributionV1Beta1: CosmosCosmosSdkCosmosDistributionV1Beta1
+  public CosmosEvidenceV1Beta1: CosmosCosmosSdkCosmosEvidenceV1Beta1
+  public CosmosFeegrantV1Beta1: CosmosCosmosSdkCosmosFeegrantV1Beta1
+  public CosmosGovV1Beta1: CosmosCosmosSdkCosmosGovV1Beta1
+  public CosmosSlashingV1Beta1: CosmosCosmosSdkCosmosSlashingV1Beta1
+  public CosmosStakingV1Beta1: CosmosCosmosSdkCosmosStakingV1Beta1
+  public CosmosVestingV1Beta1: CosmosCosmosSdkCosmosVestingV1Beta1
+  public IbcApplicationsTransferV1: CosmosIbcGoIbcApplicationsTransferV1
+  public IbcApplicationsTransferV2: CosmosIbcGoIbcApplicationsTransferV2
 
   constructor({ env, signer, address }: IgniteParams) {
     this._env = env
-    this._ws = new WSClient({ env: this._env })
     this._address = address
     this._signer = new Signer(env.rpcURL, signer)
   }
@@ -171,27 +145,9 @@ class Ignite {
     )
   }
 
-  get ws(): WSClient {
-    return this._ws
-  }
-
   get env(): Environment {
     return this._env
   }
 }
 
-export {
-  CosmosCosmosSdkCosmosAuthzV1Beta1,
-  CosmosCosmosSdkCosmosBankV1Beta1,
-  CosmosCosmosSdkCosmosCrisisV1Beta1,
-  CosmosCosmosSdkCosmosDistributionV1Beta1,
-  CosmosCosmosSdkCosmosEvidenceV1Beta1,
-  CosmosCosmosSdkCosmosFeegrantV1Beta1,
-  CosmosCosmosSdkCosmosGovV1Beta1,
-  CosmosCosmosSdkCosmosSlashingV1Beta1,
-  CosmosCosmosSdkCosmosStakingV1Beta1,
-  CosmosCosmosSdkCosmosVestingV1Beta1,
-  CosmosIbcGoIbcApplicationsTransferV1,
-  CosmosIbcGoIbcApplicationsTransferV2,
-  Ignite
-}
+export { Ignite }

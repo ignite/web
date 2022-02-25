@@ -5,16 +5,7 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { SigningInfo } from './types/cosmos/slashing/v1beta1/genesis'
-import { ValidatorMissedBlocks } from './types/cosmos/slashing/v1beta1/genesis'
-import { MissedBlock } from './types/cosmos/slashing/v1beta1/genesis'
-import { ValidatorSigningInfo } from './types/cosmos/slashing/v1beta1/slashing'
-import { Params } from './types/cosmos/slashing/v1beta1/slashing'
 import { MsgUnjail } from './types/cosmos/slashing/v1beta1/tx'
-
-const types = [['/cosmos.slashing.v1beta1.MsgUnjail', MsgUnjail]]
-
-const registry = new Registry(<any>types)
 
 type sendMsgUnjailParams = {
   value: MsgUnjail
@@ -26,14 +17,12 @@ type msgUnjailParams = {
   value: MsgUnjail
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
-}
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+  types = [['/cosmos.slashing.v1beta1.MsgUnjail', MsgUnjail]]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -81,13 +70,4 @@ class M extends Api<any> implements I {
   }
 }
 
-export {
-  M,
-  MissedBlock,
-  MsgUnjail,
-  Params,
-  registry,
-  SigningInfo,
-  ValidatorMissedBlocks,
-  ValidatorSigningInfo
-}
+export { Module }

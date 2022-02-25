@@ -5,13 +5,7 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { DenomTrace } from './types/ibc/applications/transfer/v1/transfer'
-import { Params } from './types/ibc/applications/transfer/v1/transfer'
 import { MsgTransfer } from './types/ibc/applications/transfer/v1/tx'
-
-const types = [['/ibc.applications.transfer.v1.MsgTransfer', MsgTransfer]]
-
-const registry = new Registry(<any>types)
 
 type sendMsgTransferParams = {
   value: MsgTransfer
@@ -23,14 +17,12 @@ type msgTransferParams = {
   value: MsgTransfer
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
-}
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+  types = [['/ibc.applications.transfer.v1.MsgTransfer', MsgTransfer]]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -81,4 +73,4 @@ class M extends Api<any> implements I {
   }
 }
 
-export { DenomTrace, M, MsgTransfer, Params, registry }
+export { Module }

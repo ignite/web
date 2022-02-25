@@ -5,43 +5,13 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { WeightedVoteOption } from './types/cosmos/gov/v1beta1/gov'
-import { TextProposal } from './types/cosmos/gov/v1beta1/gov'
-import { Deposit } from './types/cosmos/gov/v1beta1/gov'
-import { Proposal } from './types/cosmos/gov/v1beta1/gov'
-import { TallyResult } from './types/cosmos/gov/v1beta1/gov'
-import { Vote } from './types/cosmos/gov/v1beta1/gov'
-import { DepositParams } from './types/cosmos/gov/v1beta1/gov'
-import { VotingParams } from './types/cosmos/gov/v1beta1/gov'
-import { TallyParams } from './types/cosmos/gov/v1beta1/gov'
 import { MsgVoteWeighted } from './types/cosmos/gov/v1beta1/tx'
-import { MsgDeposit } from './types/cosmos/gov/v1beta1/tx'
-import { MsgVote } from './types/cosmos/gov/v1beta1/tx'
 import { MsgSubmitProposal } from './types/cosmos/gov/v1beta1/tx'
-
-const types = [
-  ['/cosmos.gov.v1beta1.MsgVoteWeighted', MsgVoteWeighted],
-  ['/cosmos.gov.v1beta1.MsgDeposit', MsgDeposit],
-  ['/cosmos.gov.v1beta1.MsgVote', MsgVote],
-  ['/cosmos.gov.v1beta1.MsgSubmitProposal', MsgSubmitProposal]
-]
-
-const registry = new Registry(<any>types)
+import { MsgVote } from './types/cosmos/gov/v1beta1/tx'
+import { MsgDeposit } from './types/cosmos/gov/v1beta1/tx'
 
 type sendMsgVoteWeightedParams = {
   value: MsgVoteWeighted
-  fee?: StdFee
-  memo?: string
-}
-
-type sendMsgDepositParams = {
-  value: MsgDeposit
-  fee?: StdFee
-  memo?: string
-}
-
-type sendMsgVoteParams = {
-  value: MsgVote
   fee?: StdFee
   memo?: string
 }
@@ -52,30 +22,45 @@ type sendMsgSubmitProposalParams = {
   memo?: string
 }
 
+type sendMsgVoteParams = {
+  value: MsgVote
+  fee?: StdFee
+  memo?: string
+}
+
+type sendMsgDepositParams = {
+  value: MsgDeposit
+  fee?: StdFee
+  memo?: string
+}
+
 type msgVoteWeightedParams = {
   value: MsgVoteWeighted
-}
-
-type msgDepositParams = {
-  value: MsgDeposit
-}
-
-type msgVoteParams = {
-  value: MsgVote
 }
 
 type msgSubmitProposalParams = {
   value: MsgSubmitProposal
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
+type msgVoteParams = {
+  value: MsgVote
 }
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+type msgDepositParams = {
+  value: MsgDeposit
+}
+
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
+
+  types = [
+    ['/cosmos.gov.v1beta1.MsgVoteWeighted', MsgVoteWeighted],
+    ['/cosmos.gov.v1beta1.MsgSubmitProposal', MsgSubmitProposal],
+    ['/cosmos.gov.v1beta1.MsgVote', MsgVote],
+    ['/cosmos.gov.v1beta1.MsgDeposit', MsgDeposit]
+  ]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -109,15 +94,15 @@ class M extends Api<any> implements I {
     }
   }
 
-  async sendMsgDeposit({
+  async sendMsgSubmitProposal({
     value,
     fee,
     memo
-  }: sendMsgDepositParams): Promise<DeliverTxResponse> {
+  }: sendMsgSubmitProposalParams): Promise<DeliverTxResponse> {
     try {
       let msg = {
-        typeUrl: '/cosmos.gov.v1beta1.MsgDeposit',
-        value: MsgDeposit.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgSubmitProposal',
+        value: MsgSubmitProposal.fromPartial(value)
       }
       return await this._client.signAndBroadcast(
         this._address,
@@ -127,7 +112,7 @@ class M extends Api<any> implements I {
       )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgDeposit:Send Could not broadcast Tx: ' + e.message
+        'TxClient:MsgSubmitProposal:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -155,15 +140,15 @@ class M extends Api<any> implements I {
     }
   }
 
-  async sendMsgSubmitProposal({
+  async sendMsgDeposit({
     value,
     fee,
     memo
-  }: sendMsgSubmitProposalParams): Promise<DeliverTxResponse> {
+  }: sendMsgDepositParams): Promise<DeliverTxResponse> {
     try {
       let msg = {
-        typeUrl: '/cosmos.gov.v1beta1.MsgSubmitProposal',
-        value: MsgSubmitProposal.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgDeposit',
+        value: MsgDeposit.fromPartial(value)
       }
       return await this._client.signAndBroadcast(
         this._address,
@@ -173,7 +158,7 @@ class M extends Api<any> implements I {
       )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgSubmitProposal:Send Could not broadcast Tx: ' + e.message
+        'TxClient:MsgDeposit:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -194,18 +179,19 @@ class M extends Api<any> implements I {
     }
   }
 
-  msgDeposit({ value }: msgDepositParams): {
+  msgSubmitProposal({ value }: msgSubmitProposalParams): {
     typeUrl: string
-    value: MsgDeposit
+    value: MsgSubmitProposal
   } {
     try {
       return {
-        typeUrl: '/cosmos.gov.v1beta1.MsgDeposit',
-        value: MsgDeposit.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgSubmitProposal',
+        value: MsgSubmitProposal.fromPartial(value)
       }
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgDeposit:Create Could not create message: ' + e.message
+        'TxClient:MsgSubmitProposal:Create Could not create message: ' +
+          e.message
       )
     }
   }
@@ -223,38 +209,21 @@ class M extends Api<any> implements I {
     }
   }
 
-  msgSubmitProposal({ value }: msgSubmitProposalParams): {
+  msgDeposit({ value }: msgDepositParams): {
     typeUrl: string
-    value: MsgSubmitProposal
+    value: MsgDeposit
   } {
     try {
       return {
-        typeUrl: '/cosmos.gov.v1beta1.MsgSubmitProposal',
-        value: MsgSubmitProposal.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgDeposit',
+        value: MsgDeposit.fromPartial(value)
       }
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgSubmitProposal:Create Could not create message: ' +
-          e.message
+        'TxClient:MsgDeposit:Create Could not create message: ' + e.message
       )
     }
   }
 }
 
-export {
-  Deposit,
-  DepositParams,
-  M,
-  MsgDeposit,
-  MsgSubmitProposal,
-  MsgVote,
-  MsgVoteWeighted,
-  Proposal,
-  registry,
-  TallyParams,
-  TallyResult,
-  TextProposal,
-  Vote,
-  VotingParams,
-  WeightedVoteOption
-}
+export { Module }

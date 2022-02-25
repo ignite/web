@@ -6,18 +6,6 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
 import { MsgCreateVestingAccount } from './types/cosmos/vesting/v1beta1/tx'
-import { BaseVestingAccount } from './types/cosmos/vesting/v1beta1/vesting'
-import { ContinuousVestingAccount } from './types/cosmos/vesting/v1beta1/vesting'
-import { DelayedVestingAccount } from './types/cosmos/vesting/v1beta1/vesting'
-import { Period } from './types/cosmos/vesting/v1beta1/vesting'
-import { PeriodicVestingAccount } from './types/cosmos/vesting/v1beta1/vesting'
-import { PermanentLockedAccount } from './types/cosmos/vesting/v1beta1/vesting'
-
-const types = [
-  ['/cosmos.vesting.v1beta1.MsgCreateVestingAccount', MsgCreateVestingAccount]
-]
-
-const registry = new Registry(<any>types)
 
 type sendMsgCreateVestingAccountParams = {
   value: MsgCreateVestingAccount
@@ -29,14 +17,14 @@ type msgCreateVestingAccountParams = {
   value: MsgCreateVestingAccount
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
-}
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+  types = [
+    ['/cosmos.vesting.v1beta1.MsgCreateVestingAccount', MsgCreateVestingAccount]
+  ]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -89,14 +77,4 @@ class M extends Api<any> implements I {
   }
 }
 
-export {
-  BaseVestingAccount,
-  ContinuousVestingAccount,
-  DelayedVestingAccount,
-  M,
-  MsgCreateVestingAccount,
-  Period,
-  PeriodicVestingAccount,
-  PermanentLockedAccount,
-  registry
-}
+export { Module }

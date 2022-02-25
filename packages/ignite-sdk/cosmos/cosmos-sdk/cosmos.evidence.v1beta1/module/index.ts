@@ -5,14 +5,7 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { Equivocation } from './types/cosmos/evidence/v1beta1/evidence'
 import { MsgSubmitEvidence } from './types/cosmos/evidence/v1beta1/tx'
-
-const types = [
-  ['/cosmos.evidence.v1beta1.MsgSubmitEvidence', MsgSubmitEvidence]
-]
-
-const registry = new Registry(<any>types)
 
 type sendMsgSubmitEvidenceParams = {
   value: MsgSubmitEvidence
@@ -24,14 +17,12 @@ type msgSubmitEvidenceParams = {
   value: MsgSubmitEvidence
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
-}
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+  types = [['/cosmos.evidence.v1beta1.MsgSubmitEvidence', MsgSubmitEvidence]]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -83,4 +74,4 @@ class M extends Api<any> implements I {
   }
 }
 
-export { Equivocation, M, MsgSubmitEvidence, registry }
+export { Module }

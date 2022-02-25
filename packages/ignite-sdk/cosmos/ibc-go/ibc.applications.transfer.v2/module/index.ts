@@ -5,20 +5,13 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { FungibleTokenPacketData } from './types/ibc/applications/transfer/v2/packet'
 
-const types = []
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
 
-const registry = new Registry(<any>types)
-
-interface I {
-  _client: SigningStargateClient
-  _address: string
-}
-
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+  types = []
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -30,4 +23,4 @@ class M extends Api<any> implements I {
   }
 }
 
-export { FungibleTokenPacketData, M, registry }
+export { Module }

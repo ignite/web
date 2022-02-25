@@ -5,28 +5,9 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { GenericAuthorization } from './types/cosmos/authz/v1beta1/authz'
-import { Grant } from './types/cosmos/authz/v1beta1/authz'
-import { EventGrant } from './types/cosmos/authz/v1beta1/event'
-import { EventRevoke } from './types/cosmos/authz/v1beta1/event'
-import { GrantAuthorization } from './types/cosmos/authz/v1beta1/genesis'
-import { MsgRevoke } from './types/cosmos/authz/v1beta1/tx'
 import { MsgGrant } from './types/cosmos/authz/v1beta1/tx'
 import { MsgExec } from './types/cosmos/authz/v1beta1/tx'
-
-const types = [
-  ['/cosmos.authz.v1beta1.MsgRevoke', MsgRevoke],
-  ['/cosmos.authz.v1beta1.MsgGrant', MsgGrant],
-  ['/cosmos.authz.v1beta1.MsgExec', MsgExec]
-]
-
-const registry = new Registry(<any>types)
-
-type sendMsgRevokeParams = {
-  value: MsgRevoke
-  fee?: StdFee
-  memo?: string
-}
+import { MsgRevoke } from './types/cosmos/authz/v1beta1/tx'
 
 type sendMsgGrantParams = {
   value: MsgGrant
@@ -40,8 +21,10 @@ type sendMsgExecParams = {
   memo?: string
 }
 
-type msgRevokeParams = {
+type sendMsgRevokeParams = {
   value: MsgRevoke
+  fee?: StdFee
+  memo?: string
 }
 
 type msgGrantParams = {
@@ -52,14 +35,20 @@ type msgExecParams = {
   value: MsgExec
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
+type msgRevokeParams = {
+  value: MsgRevoke
 }
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
+
+  types = [
+    ['/cosmos.authz.v1beta1.MsgGrant', MsgGrant],
+    ['/cosmos.authz.v1beta1.MsgExec', MsgExec],
+    ['/cosmos.authz.v1beta1.MsgRevoke', MsgRevoke]
+  ]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -68,29 +57,6 @@ class M extends Api<any> implements I {
 
     this._client = client
     this._address = address
-  }
-
-  async sendMsgRevoke({
-    value,
-    fee,
-    memo
-  }: sendMsgRevokeParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = {
-        typeUrl: '/cosmos.authz.v1beta1.MsgRevoke',
-        value: MsgRevoke.fromPartial(value)
-      }
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgRevoke:Send Could not broadcast Tx: ' + e.message
-      )
-    }
   }
 
   async sendMsgGrant({
@@ -139,15 +105,25 @@ class M extends Api<any> implements I {
     }
   }
 
-  msgRevoke({ value }: msgRevokeParams): { typeUrl: string; value: MsgRevoke } {
+  async sendMsgRevoke({
+    value,
+    fee,
+    memo
+  }: sendMsgRevokeParams): Promise<DeliverTxResponse> {
     try {
-      return {
+      let msg = {
         typeUrl: '/cosmos.authz.v1beta1.MsgRevoke',
         value: MsgRevoke.fromPartial(value)
       }
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgRevoke:Create Could not create message: ' + e.message
+        'TxClient:MsgRevoke:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -177,17 +153,19 @@ class M extends Api<any> implements I {
       )
     }
   }
+
+  msgRevoke({ value }: msgRevokeParams): { typeUrl: string; value: MsgRevoke } {
+    try {
+      return {
+        typeUrl: '/cosmos.authz.v1beta1.MsgRevoke',
+        value: MsgRevoke.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgRevoke:Create Could not create message: ' + e.message
+      )
+    }
+  }
 }
 
-export {
-  EventGrant,
-  EventRevoke,
-  GenericAuthorization,
-  Grant,
-  GrantAuthorization,
-  M,
-  MsgExec,
-  MsgGrant,
-  MsgRevoke,
-  registry
-}
+export { Module }

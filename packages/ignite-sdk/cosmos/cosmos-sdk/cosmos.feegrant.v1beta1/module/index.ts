@@ -5,25 +5,8 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { BasicAllowance } from './types/cosmos/feegrant/v1beta1/feegrant'
-import { PeriodicAllowance } from './types/cosmos/feegrant/v1beta1/feegrant'
-import { AllowedMsgAllowance } from './types/cosmos/feegrant/v1beta1/feegrant'
-import { Grant } from './types/cosmos/feegrant/v1beta1/feegrant'
-import { MsgGrantAllowance } from './types/cosmos/feegrant/v1beta1/tx'
 import { MsgRevokeAllowance } from './types/cosmos/feegrant/v1beta1/tx'
-
-const types = [
-  ['/cosmos.feegrant.v1beta1.MsgGrantAllowance', MsgGrantAllowance],
-  ['/cosmos.feegrant.v1beta1.MsgRevokeAllowance', MsgRevokeAllowance]
-]
-
-const registry = new Registry(<any>types)
-
-type sendMsgGrantAllowanceParams = {
-  value: MsgGrantAllowance
-  fee?: StdFee
-  memo?: string
-}
+import { MsgGrantAllowance } from './types/cosmos/feegrant/v1beta1/tx'
 
 type sendMsgRevokeAllowanceParams = {
   value: MsgRevokeAllowance
@@ -31,22 +14,29 @@ type sendMsgRevokeAllowanceParams = {
   memo?: string
 }
 
-type msgGrantAllowanceParams = {
+type sendMsgGrantAllowanceParams = {
   value: MsgGrantAllowance
+  fee?: StdFee
+  memo?: string
 }
 
 type msgRevokeAllowanceParams = {
   value: MsgRevokeAllowance
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
+type msgGrantAllowanceParams = {
+  value: MsgGrantAllowance
 }
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
+
+  types = [
+    ['/cosmos.feegrant.v1beta1.MsgRevokeAllowance', MsgRevokeAllowance],
+    ['/cosmos.feegrant.v1beta1.MsgGrantAllowance', MsgGrantAllowance]
+  ]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -55,29 +45,6 @@ class M extends Api<any> implements I {
 
     this._client = client
     this._address = address
-  }
-
-  async sendMsgGrantAllowance({
-    value,
-    fee,
-    memo
-  }: sendMsgGrantAllowanceParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = {
-        typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowance',
-        value: MsgGrantAllowance.fromPartial(value)
-      }
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgGrantAllowance:Send Could not broadcast Tx: ' + e.message
-      )
-    }
   }
 
   async sendMsgRevokeAllowance({
@@ -103,19 +70,25 @@ class M extends Api<any> implements I {
     }
   }
 
-  msgGrantAllowance({ value }: msgGrantAllowanceParams): {
-    typeUrl: string
-    value: MsgGrantAllowance
-  } {
+  async sendMsgGrantAllowance({
+    value,
+    fee,
+    memo
+  }: sendMsgGrantAllowanceParams): Promise<DeliverTxResponse> {
     try {
-      return {
+      let msg = {
         typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowance',
         value: MsgGrantAllowance.fromPartial(value)
       }
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgGrantAllowance:Create Could not create message: ' +
-          e.message
+        'TxClient:MsgGrantAllowance:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -136,15 +109,23 @@ class M extends Api<any> implements I {
       )
     }
   }
+
+  msgGrantAllowance({ value }: msgGrantAllowanceParams): {
+    typeUrl: string
+    value: MsgGrantAllowance
+  } {
+    try {
+      return {
+        typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowance',
+        value: MsgGrantAllowance.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgGrantAllowance:Create Could not create message: ' +
+          e.message
+      )
+    }
+  }
 }
 
-export {
-  AllowedMsgAllowance,
-  BasicAllowance,
-  Grant,
-  M,
-  MsgGrantAllowance,
-  MsgRevokeAllowance,
-  PeriodicAllowance,
-  registry
-}
+export { Module }

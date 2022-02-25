@@ -7,12 +7,6 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 import { Api } from './rest'
 import { MsgVerifyInvariant } from './types/cosmos/crisis/v1beta1/tx'
 
-const types = [
-  ['/cosmos.crisis.v1beta1.MsgVerifyInvariant', MsgVerifyInvariant]
-]
-
-const registry = new Registry(<any>types)
-
 type sendMsgVerifyInvariantParams = {
   value: MsgVerifyInvariant
   fee?: StdFee
@@ -23,14 +17,12 @@ type msgVerifyInvariantParams = {
   value: MsgVerifyInvariant
 }
 
-interface I {
-  _client: SigningStargateClient
-  _address: string
-}
+class Module extends Api<any> {
+  private _client: SigningStargateClient
+  private _address: string
 
-class M extends Api<any> implements I {
-  _client: SigningStargateClient
-  _address: string
+  types = [['/cosmos.crisis.v1beta1.MsgVerifyInvariant', MsgVerifyInvariant]]
+  registry = new Registry(<any>this.types)
 
   constructor(client: SigningStargateClient, address: string, baseUrl: string) {
     super({
@@ -82,4 +74,4 @@ class M extends Api<any> implements I {
   }
 }
 
-export { M, MsgVerifyInvariant, registry }
+export { Module }
