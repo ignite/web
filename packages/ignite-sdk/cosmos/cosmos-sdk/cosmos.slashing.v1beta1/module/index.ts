@@ -7,6 +7,10 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 import { Api } from './rest'
 import { MsgUnjail } from './types/cosmos/slashing/v1beta1/tx'
 
+/*********************
+ *       MODULE      *
+ *********************/
+
 type sendMsgUnjailParams = {
   value: MsgUnjail
   fee?: StdFee
@@ -69,5 +73,9 @@ class Module extends Api<any> {
     }
   }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

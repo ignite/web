@@ -5,14 +5,12 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { MsgRevokeAllowance } from './types/cosmos/feegrant/v1beta1/tx'
 import { MsgGrantAllowance } from './types/cosmos/feegrant/v1beta1/tx'
+import { MsgRevokeAllowance } from './types/cosmos/feegrant/v1beta1/tx'
 
-type sendMsgRevokeAllowanceParams = {
-  value: MsgRevokeAllowance
-  fee?: StdFee
-  memo?: string
-}
+/*********************
+ *       MODULE      *
+ *********************/
 
 type sendMsgGrantAllowanceParams = {
   value: MsgGrantAllowance
@@ -20,12 +18,18 @@ type sendMsgGrantAllowanceParams = {
   memo?: string
 }
 
-type msgRevokeAllowanceParams = {
+type sendMsgRevokeAllowanceParams = {
   value: MsgRevokeAllowance
+  fee?: StdFee
+  memo?: string
 }
 
 type msgGrantAllowanceParams = {
   value: MsgGrantAllowance
+}
+
+type msgRevokeAllowanceParams = {
+  value: MsgRevokeAllowance
 }
 
 class Module extends Api<any> {
@@ -33,8 +37,8 @@ class Module extends Api<any> {
   private _address: string
 
   types = [
-    ['/cosmos.feegrant.v1beta1.MsgRevokeAllowance', MsgRevokeAllowance],
-    ['/cosmos.feegrant.v1beta1.MsgGrantAllowance', MsgGrantAllowance]
+    ['/cosmos.feegrant.v1beta1.MsgGrantAllowance', MsgGrantAllowance],
+    ['/cosmos.feegrant.v1beta1.MsgRevokeAllowance', MsgRevokeAllowance]
   ]
   registry = new Registry(<any>this.types)
 
@@ -45,29 +49,6 @@ class Module extends Api<any> {
 
     this._client = client
     this._address = address
-  }
-
-  async sendMsgRevokeAllowance({
-    value,
-    fee,
-    memo
-  }: sendMsgRevokeAllowanceParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = {
-        typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowance',
-        value: MsgRevokeAllowance.fromPartial(value)
-      }
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgRevokeAllowance:Send Could not broadcast Tx: ' + e.message
-      )
-    }
   }
 
   async sendMsgGrantAllowance({
@@ -93,19 +74,25 @@ class Module extends Api<any> {
     }
   }
 
-  msgRevokeAllowance({ value }: msgRevokeAllowanceParams): {
-    typeUrl: string
-    value: MsgRevokeAllowance
-  } {
+  async sendMsgRevokeAllowance({
+    value,
+    fee,
+    memo
+  }: sendMsgRevokeAllowanceParams): Promise<DeliverTxResponse> {
     try {
-      return {
+      let msg = {
         typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowance',
         value: MsgRevokeAllowance.fromPartial(value)
       }
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgRevokeAllowance:Create Could not create message: ' +
-          e.message
+        'TxClient:MsgRevokeAllowance:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -126,6 +113,27 @@ class Module extends Api<any> {
       )
     }
   }
+
+  msgRevokeAllowance({ value }: msgRevokeAllowanceParams): {
+    typeUrl: string
+    value: MsgRevokeAllowance
+  } {
+    try {
+      return {
+        typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowance',
+        value: MsgRevokeAllowance.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgRevokeAllowance:Create Could not create message: ' +
+          e.message
+      )
+    }
+  }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

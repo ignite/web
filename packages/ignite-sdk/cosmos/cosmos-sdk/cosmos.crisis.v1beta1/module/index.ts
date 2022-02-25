@@ -7,6 +7,10 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 import { Api } from './rest'
 import { MsgVerifyInvariant } from './types/cosmos/crisis/v1beta1/tx'
 
+/*********************
+ *       MODULE      *
+ *********************/
+
 type sendMsgVerifyInvariantParams = {
   value: MsgVerifyInvariant
   fee?: StdFee
@@ -73,5 +77,9 @@ class Module extends Api<any> {
     }
   }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

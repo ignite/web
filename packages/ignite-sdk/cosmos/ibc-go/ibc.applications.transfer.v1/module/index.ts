@@ -7,6 +7,10 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 import { Api } from './rest'
 import { MsgTransfer } from './types/ibc/applications/transfer/v1/tx'
 
+/*********************
+ *       MODULE      *
+ *********************/
+
 type sendMsgTransferParams = {
   value: MsgTransfer
   fee?: StdFee
@@ -72,5 +76,9 @@ class Module extends Api<any> {
     }
   }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

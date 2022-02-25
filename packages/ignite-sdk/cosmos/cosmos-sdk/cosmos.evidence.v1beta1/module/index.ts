@@ -7,6 +7,10 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 import { Api } from './rest'
 import { MsgSubmitEvidence } from './types/cosmos/evidence/v1beta1/tx'
 
+/*********************
+ *       MODULE      *
+ *********************/
+
 type sendMsgSubmitEvidenceParams = {
   value: MsgSubmitEvidence
   fee?: StdFee
@@ -73,5 +77,9 @@ class Module extends Api<any> {
     }
   }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

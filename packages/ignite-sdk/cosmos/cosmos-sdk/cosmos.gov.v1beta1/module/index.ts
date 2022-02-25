@@ -5,13 +5,17 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { MsgVoteWeighted } from './types/cosmos/gov/v1beta1/tx'
-import { MsgSubmitProposal } from './types/cosmos/gov/v1beta1/tx'
 import { MsgVote } from './types/cosmos/gov/v1beta1/tx'
+import { MsgSubmitProposal } from './types/cosmos/gov/v1beta1/tx'
+import { MsgVoteWeighted } from './types/cosmos/gov/v1beta1/tx'
 import { MsgDeposit } from './types/cosmos/gov/v1beta1/tx'
 
-type sendMsgVoteWeightedParams = {
-  value: MsgVoteWeighted
+/*********************
+ *       MODULE      *
+ *********************/
+
+type sendMsgVoteParams = {
+  value: MsgVote
   fee?: StdFee
   memo?: string
 }
@@ -22,8 +26,8 @@ type sendMsgSubmitProposalParams = {
   memo?: string
 }
 
-type sendMsgVoteParams = {
-  value: MsgVote
+type sendMsgVoteWeightedParams = {
+  value: MsgVoteWeighted
   fee?: StdFee
   memo?: string
 }
@@ -34,16 +38,16 @@ type sendMsgDepositParams = {
   memo?: string
 }
 
-type msgVoteWeightedParams = {
-  value: MsgVoteWeighted
+type msgVoteParams = {
+  value: MsgVote
 }
 
 type msgSubmitProposalParams = {
   value: MsgSubmitProposal
 }
 
-type msgVoteParams = {
-  value: MsgVote
+type msgVoteWeightedParams = {
+  value: MsgVoteWeighted
 }
 
 type msgDepositParams = {
@@ -55,9 +59,9 @@ class Module extends Api<any> {
   private _address: string
 
   types = [
-    ['/cosmos.gov.v1beta1.MsgVoteWeighted', MsgVoteWeighted],
-    ['/cosmos.gov.v1beta1.MsgSubmitProposal', MsgSubmitProposal],
     ['/cosmos.gov.v1beta1.MsgVote', MsgVote],
+    ['/cosmos.gov.v1beta1.MsgSubmitProposal', MsgSubmitProposal],
+    ['/cosmos.gov.v1beta1.MsgVoteWeighted', MsgVoteWeighted],
     ['/cosmos.gov.v1beta1.MsgDeposit', MsgDeposit]
   ]
   registry = new Registry(<any>this.types)
@@ -71,15 +75,15 @@ class Module extends Api<any> {
     this._address = address
   }
 
-  async sendMsgVoteWeighted({
+  async sendMsgVote({
     value,
     fee,
     memo
-  }: sendMsgVoteWeightedParams): Promise<DeliverTxResponse> {
+  }: sendMsgVoteParams): Promise<DeliverTxResponse> {
     try {
       let msg = {
-        typeUrl: '/cosmos.gov.v1beta1.MsgVoteWeighted',
-        value: MsgVoteWeighted.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
+        value: MsgVote.fromPartial(value)
       }
       return await this._client.signAndBroadcast(
         this._address,
@@ -89,7 +93,7 @@ class Module extends Api<any> {
       )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgVoteWeighted:Send Could not broadcast Tx: ' + e.message
+        'TxClient:MsgVote:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -117,15 +121,15 @@ class Module extends Api<any> {
     }
   }
 
-  async sendMsgVote({
+  async sendMsgVoteWeighted({
     value,
     fee,
     memo
-  }: sendMsgVoteParams): Promise<DeliverTxResponse> {
+  }: sendMsgVoteWeightedParams): Promise<DeliverTxResponse> {
     try {
       let msg = {
-        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
-        value: MsgVote.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgVoteWeighted',
+        value: MsgVoteWeighted.fromPartial(value)
       }
       return await this._client.signAndBroadcast(
         this._address,
@@ -135,7 +139,7 @@ class Module extends Api<any> {
       )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgVote:Send Could not broadcast Tx: ' + e.message
+        'TxClient:MsgVoteWeighted:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -163,18 +167,15 @@ class Module extends Api<any> {
     }
   }
 
-  msgVoteWeighted({ value }: msgVoteWeightedParams): {
-    typeUrl: string
-    value: MsgVoteWeighted
-  } {
+  msgVote({ value }: msgVoteParams): { typeUrl: string; value: MsgVote } {
     try {
       return {
-        typeUrl: '/cosmos.gov.v1beta1.MsgVoteWeighted',
-        value: MsgVoteWeighted.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
+        value: MsgVote.fromPartial(value)
       }
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgVoteWeighted:Create Could not create message: ' + e.message
+        'TxClient:MsgVote:Create Could not create message: ' + e.message
       )
     }
   }
@@ -196,15 +197,18 @@ class Module extends Api<any> {
     }
   }
 
-  msgVote({ value }: msgVoteParams): { typeUrl: string; value: MsgVote } {
+  msgVoteWeighted({ value }: msgVoteWeightedParams): {
+    typeUrl: string
+    value: MsgVoteWeighted
+  } {
     try {
       return {
-        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
-        value: MsgVote.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgVoteWeighted',
+        value: MsgVoteWeighted.fromPartial(value)
       }
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgVote:Create Could not create message: ' + e.message
+        'TxClient:MsgVoteWeighted:Create Could not create message: ' + e.message
       )
     }
   }
@@ -225,5 +229,9 @@ class Module extends Api<any> {
     }
   }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

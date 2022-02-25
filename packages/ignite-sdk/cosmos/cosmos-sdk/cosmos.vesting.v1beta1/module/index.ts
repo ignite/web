@@ -7,6 +7,10 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 import { Api } from './rest'
 import { MsgCreateVestingAccount } from './types/cosmos/vesting/v1beta1/tx'
 
+/*********************
+ *       MODULE      *
+ *********************/
+
 type sendMsgCreateVestingAccountParams = {
   value: MsgCreateVestingAccount
   fee?: StdFee
@@ -76,5 +80,9 @@ class Module extends Api<any> {
     }
   }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

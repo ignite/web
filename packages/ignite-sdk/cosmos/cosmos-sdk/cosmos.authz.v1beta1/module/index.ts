@@ -6,17 +6,15 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
 import { MsgGrant } from './types/cosmos/authz/v1beta1/tx'
-import { MsgExec } from './types/cosmos/authz/v1beta1/tx'
 import { MsgRevoke } from './types/cosmos/authz/v1beta1/tx'
+import { MsgExec } from './types/cosmos/authz/v1beta1/tx'
+
+/*********************
+ *       MODULE      *
+ *********************/
 
 type sendMsgGrantParams = {
   value: MsgGrant
-  fee?: StdFee
-  memo?: string
-}
-
-type sendMsgExecParams = {
-  value: MsgExec
   fee?: StdFee
   memo?: string
 }
@@ -27,16 +25,22 @@ type sendMsgRevokeParams = {
   memo?: string
 }
 
+type sendMsgExecParams = {
+  value: MsgExec
+  fee?: StdFee
+  memo?: string
+}
+
 type msgGrantParams = {
   value: MsgGrant
 }
 
-type msgExecParams = {
-  value: MsgExec
-}
-
 type msgRevokeParams = {
   value: MsgRevoke
+}
+
+type msgExecParams = {
+  value: MsgExec
 }
 
 class Module extends Api<any> {
@@ -45,8 +49,8 @@ class Module extends Api<any> {
 
   types = [
     ['/cosmos.authz.v1beta1.MsgGrant', MsgGrant],
-    ['/cosmos.authz.v1beta1.MsgExec', MsgExec],
-    ['/cosmos.authz.v1beta1.MsgRevoke', MsgRevoke]
+    ['/cosmos.authz.v1beta1.MsgRevoke', MsgRevoke],
+    ['/cosmos.authz.v1beta1.MsgExec', MsgExec]
   ]
   registry = new Registry(<any>this.types)
 
@@ -82,29 +86,6 @@ class Module extends Api<any> {
     }
   }
 
-  async sendMsgExec({
-    value,
-    fee,
-    memo
-  }: sendMsgExecParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = {
-        typeUrl: '/cosmos.authz.v1beta1.MsgExec',
-        value: MsgExec.fromPartial(value)
-      }
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgExec:Send Could not broadcast Tx: ' + e.message
-      )
-    }
-  }
-
   async sendMsgRevoke({
     value,
     fee,
@@ -128,6 +109,29 @@ class Module extends Api<any> {
     }
   }
 
+  async sendMsgExec({
+    value,
+    fee,
+    memo
+  }: sendMsgExecParams): Promise<DeliverTxResponse> {
+    try {
+      let msg = {
+        typeUrl: '/cosmos.authz.v1beta1.MsgExec',
+        value: MsgExec.fromPartial(value)
+      }
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgExec:Send Could not broadcast Tx: ' + e.message
+      )
+    }
+  }
+
   msgGrant({ value }: msgGrantParams): { typeUrl: string; value: MsgGrant } {
     try {
       return {
@@ -137,19 +141,6 @@ class Module extends Api<any> {
     } catch (e: any) {
       throw new Error(
         'TxClient:MsgGrant:Create Could not create message: ' + e.message
-      )
-    }
-  }
-
-  msgExec({ value }: msgExecParams): { typeUrl: string; value: MsgExec } {
-    try {
-      return {
-        typeUrl: '/cosmos.authz.v1beta1.MsgExec',
-        value: MsgExec.fromPartial(value)
-      }
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgExec:Create Could not create message: ' + e.message
       )
     }
   }
@@ -166,6 +157,23 @@ class Module extends Api<any> {
       )
     }
   }
+
+  msgExec({ value }: msgExecParams): { typeUrl: string; value: MsgExec } {
+    try {
+      return {
+        typeUrl: '/cosmos.authz.v1beta1.MsgExec',
+        value: MsgExec.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgExec:Create Could not create message: ' + e.message
+      )
+    }
+  }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

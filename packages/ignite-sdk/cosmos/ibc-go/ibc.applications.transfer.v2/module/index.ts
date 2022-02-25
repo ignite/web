@@ -6,6 +6,10 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
 
+/*********************
+ *       MODULE      *
+ *********************/
+
 class Module extends Api<any> {
   private _client: SigningStargateClient
   private _address: string
@@ -22,5 +26,9 @@ class Module extends Api<any> {
     this._address = address
   }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }

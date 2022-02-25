@@ -5,22 +5,14 @@ import { Registry } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { MsgFundCommunityPool } from './types/cosmos/distribution/v1beta1/tx'
-import { MsgWithdrawDelegatorReward } from './types/cosmos/distribution/v1beta1/tx'
 import { MsgWithdrawValidatorCommission } from './types/cosmos/distribution/v1beta1/tx'
 import { MsgSetWithdrawAddress } from './types/cosmos/distribution/v1beta1/tx'
+import { MsgWithdrawDelegatorReward } from './types/cosmos/distribution/v1beta1/tx'
+import { MsgFundCommunityPool } from './types/cosmos/distribution/v1beta1/tx'
 
-type sendMsgFundCommunityPoolParams = {
-  value: MsgFundCommunityPool
-  fee?: StdFee
-  memo?: string
-}
-
-type sendMsgWithdrawDelegatorRewardParams = {
-  value: MsgWithdrawDelegatorReward
-  fee?: StdFee
-  memo?: string
-}
+/*********************
+ *       MODULE      *
+ *********************/
 
 type sendMsgWithdrawValidatorCommissionParams = {
   value: MsgWithdrawValidatorCommission
@@ -34,12 +26,16 @@ type sendMsgSetWithdrawAddressParams = {
   memo?: string
 }
 
-type msgFundCommunityPoolParams = {
-  value: MsgFundCommunityPool
+type sendMsgWithdrawDelegatorRewardParams = {
+  value: MsgWithdrawDelegatorReward
+  fee?: StdFee
+  memo?: string
 }
 
-type msgWithdrawDelegatorRewardParams = {
-  value: MsgWithdrawDelegatorReward
+type sendMsgFundCommunityPoolParams = {
+  value: MsgFundCommunityPool
+  fee?: StdFee
+  memo?: string
 }
 
 type msgWithdrawValidatorCommissionParams = {
@@ -50,16 +46,19 @@ type msgSetWithdrawAddressParams = {
   value: MsgSetWithdrawAddress
 }
 
+type msgWithdrawDelegatorRewardParams = {
+  value: MsgWithdrawDelegatorReward
+}
+
+type msgFundCommunityPoolParams = {
+  value: MsgFundCommunityPool
+}
+
 class Module extends Api<any> {
   private _client: SigningStargateClient
   private _address: string
 
   types = [
-    ['/cosmos.distribution.v1beta1.MsgFundCommunityPool', MsgFundCommunityPool],
-    [
-      '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-      MsgWithdrawDelegatorReward
-    ],
     [
       '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
       MsgWithdrawValidatorCommission
@@ -67,7 +66,12 @@ class Module extends Api<any> {
     [
       '/cosmos.distribution.v1beta1.MsgSetWithdrawAddress',
       MsgSetWithdrawAddress
-    ]
+    ],
+    [
+      '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+      MsgWithdrawDelegatorReward
+    ],
+    ['/cosmos.distribution.v1beta1.MsgFundCommunityPool', MsgFundCommunityPool]
   ]
   registry = new Registry(<any>this.types)
 
@@ -78,54 +82,6 @@ class Module extends Api<any> {
 
     this._client = client
     this._address = address
-  }
-
-  async sendMsgFundCommunityPool({
-    value,
-    fee,
-    memo
-  }: sendMsgFundCommunityPoolParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = {
-        typeUrl: '/cosmos.distribution.v1beta1.MsgFundCommunityPool',
-        value: MsgFundCommunityPool.fromPartial(value)
-      }
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgFundCommunityPool:Send Could not broadcast Tx: ' +
-          e.message
-      )
-    }
-  }
-
-  async sendMsgWithdrawDelegatorReward({
-    value,
-    fee,
-    memo
-  }: sendMsgWithdrawDelegatorRewardParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = {
-        typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-        value: MsgWithdrawDelegatorReward.fromPartial(value)
-      }
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgWithdrawDelegatorReward:Send Could not broadcast Tx: ' +
-          e.message
-      )
-    }
   }
 
   async sendMsgWithdrawValidatorCommission({
@@ -176,35 +132,49 @@ class Module extends Api<any> {
     }
   }
 
-  msgFundCommunityPool({ value }: msgFundCommunityPoolParams): {
-    typeUrl: string
-    value: MsgFundCommunityPool
-  } {
+  async sendMsgWithdrawDelegatorReward({
+    value,
+    fee,
+    memo
+  }: sendMsgWithdrawDelegatorRewardParams): Promise<DeliverTxResponse> {
     try {
-      return {
-        typeUrl: '/cosmos.distribution.v1beta1.MsgFundCommunityPool',
-        value: MsgFundCommunityPool.fromPartial(value)
+      let msg = {
+        typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+        value: MsgWithdrawDelegatorReward.fromPartial(value)
       }
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgFundCommunityPool:Create Could not create message: ' +
+        'TxClient:MsgWithdrawDelegatorReward:Send Could not broadcast Tx: ' +
           e.message
       )
     }
   }
 
-  msgWithdrawDelegatorReward({ value }: msgWithdrawDelegatorRewardParams): {
-    typeUrl: string
-    value: MsgWithdrawDelegatorReward
-  } {
+  async sendMsgFundCommunityPool({
+    value,
+    fee,
+    memo
+  }: sendMsgFundCommunityPoolParams): Promise<DeliverTxResponse> {
     try {
-      return {
-        typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-        value: MsgWithdrawDelegatorReward.fromPartial(value)
+      let msg = {
+        typeUrl: '/cosmos.distribution.v1beta1.MsgFundCommunityPool',
+        value: MsgFundCommunityPool.fromPartial(value)
       }
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgWithdrawDelegatorReward:Create Could not create message: ' +
+        'TxClient:MsgFundCommunityPool:Send Could not broadcast Tx: ' +
           e.message
       )
     }
@@ -245,6 +215,44 @@ class Module extends Api<any> {
       )
     }
   }
+
+  msgWithdrawDelegatorReward({ value }: msgWithdrawDelegatorRewardParams): {
+    typeUrl: string
+    value: MsgWithdrawDelegatorReward
+  } {
+    try {
+      return {
+        typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+        value: MsgWithdrawDelegatorReward.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgWithdrawDelegatorReward:Create Could not create message: ' +
+          e.message
+      )
+    }
+  }
+
+  msgFundCommunityPool({ value }: msgFundCommunityPoolParams): {
+    typeUrl: string
+    value: MsgFundCommunityPool
+  } {
+    try {
+      return {
+        typeUrl: '/cosmos.distribution.v1beta1.MsgFundCommunityPool',
+        value: MsgFundCommunityPool.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgFundCommunityPool:Create Could not create message: ' +
+          e.message
+      )
+    }
+  }
 }
+
+/*********************
+ *        VUE        *
+ *********************/
 
 export { Module }
