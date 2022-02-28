@@ -298,7 +298,7 @@ $avatar-offset: 32 + 16;
         &:focus {
           box-shadow: inset 0 0 0 1px rgba(9,78,253,1);
           color: #000;
-          padding: 0 20px 0 36px;
+          padding: 0 20px 0 37px;
 
         }
 
@@ -317,7 +317,7 @@ $avatar-offset: 32 + 16;
 
       .search-icon {
         position: absolute;
-        left: 13px;
+        left: 14px;
         top: 18px;
       }
 
