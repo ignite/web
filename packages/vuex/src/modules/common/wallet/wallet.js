@@ -1,7 +1,5 @@
 import CryptoJS from 'crypto-js'
 
-import { keyToWif } from '../../../helpers/keys'
-
 export default {
   namespaced: true,
   state() {
@@ -19,7 +17,6 @@ export default {
     gasPrice: (state) => state.gasPrice,
     wallet: (state) => state.activeWallet,
     address: (state) => state.selectedAddress,
-    getMnemonic: (state) => state.activeWallet.mnemonic,
     getPath: (state) =>
       state.activeWallet?.HDpath +
       state.activeWallet?.accounts.find(
@@ -39,15 +36,6 @@ export default {
     signer: (state) => {
       if (state.activeClient) {
         return state.activeClient.signer
-      } else {
-        return null
-      }
-    },
-    walletName: (state) =>
-      state.activeWallet ? state.activeWallet.name : null,
-    privKey: (state) => {
-      if (state.activeClient) {
-        return keyToWif(state.activeClient.signer.privkey)
       } else {
         return null
       }

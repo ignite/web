@@ -1,5 +1,4 @@
 import Client from '../../../client/SPClient'
-import SpVuexError from '../../../errors/SpVuexError'
 
 const apiNode =
   (process.env.VUE_APP_API_COSMOS &&
@@ -116,7 +115,7 @@ export default {
         await dispatch('config', config)
         console.log('Vuex module: common.env initialized!')
       } catch (e) {
-        throw new SpVuexError('Env:Config', 'Could not configure environment')
+        throw new Error('Env:Config Could not configure environment')
       }
     },
     setTxAPI({ commit }, payload) {
@@ -139,9 +138,8 @@ export default {
       try {
         await state.client.useSigner(signer)
       } catch (e) {
-        throw new SpVuexError(
-          'Env:Client:Wallet',
-          'Could not create signing client with signer: ' + signer
+        throw new Error(
+          'Env:Client:Wallet Could not create signing client with signer: ' + signer
         )
       }
     },
@@ -231,9 +229,8 @@ export default {
             try {
               await client.switchWS(config.wsNode)
             } catch (e) {
-              throw new SpVuexError(
-                'Env:Client:Websocket',
-                'Could not switch to websocket node:' + config.wsNode
+              throw new Error(
+                'Env:Client:Websocket Could not switch to websocket node:' + config.wsNode
               )
             }
           }
@@ -244,9 +241,8 @@ export default {
             try {
               await client.switchRPC(config.rpcNode)
             } catch (e) {
-              throw new SpVuexError(
-                'Env:Client:TendermintRPC',
-                'Could not switch to Tendermint RPC node:' + config.rpcNode
+              throw new Error(
+                'Env:Client:TendermintRPC Could not switch to Tendermint RPC node:' + config.rpcNode
               )
             }
           }
