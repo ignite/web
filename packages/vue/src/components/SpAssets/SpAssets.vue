@@ -284,7 +284,7 @@ $avatar-offset: 32 + 16;
 
     .search-container {
       position: relative;
-      margin: 1px -20px -1px 0;
+      margin: 0px -10px -1px 0;
 
       > input[type='search'] {
         padding: 0 0 0 36px;
