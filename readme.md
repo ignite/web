@@ -10,7 +10,7 @@ A Vue 3 web application template is bundled with the [Starport CLI](https://gith
 
 ### [@starport/vuex](https://github.com/tendermint/vue/tree/develop/packages/vuex)
 
-A set of Vuex modules  implement functionality common to most Cosmos SDK chains.
+A set of Vuex modules implement functionality common to most Cosmos SDK chains.
 
 ### [@starport/vue](https://github.com/tendermint/vue/tree/develop/packages/vue)
 
@@ -31,6 +31,6 @@ For questions and support, join the official [Starport Discord](https://discord.
 
 ## Contributing
 
-We welcome contributions from everyone. The `develop` branch contains the development version of the code. You can create a branch from `develop` and create a pull request, or maintain your own fork and submit a cross-repository pull request. 
+We welcome contributions from everyone. The `develop` branch contains the development version of the code. You can create a branch from `develop` and create a pull request, or maintain your own fork and submit a cross-repository pull request.
 
 **Important** Before you start implementing a new feature, the first step is to create an issue on Github that describes the proposed changes.

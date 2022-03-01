@@ -139,7 +139,8 @@ export default {
         await state.client.useSigner(signer)
       } catch (e) {
         throw new Error(
-          'Env:Client:Wallet Could not create signing client with signer: ' + signer
+          'Env:Client:Wallet Could not create signing client with signer: ' +
+            signer
         )
       }
     },
@@ -230,7 +231,8 @@ export default {
               await client.switchWS(config.wsNode)
             } catch (e) {
               throw new Error(
-                'Env:Client:Websocket Could not switch to websocket node:' + config.wsNode
+                'Env:Client:Websocket Could not switch to websocket node:' +
+                  config.wsNode
               )
             }
           }
@@ -242,7 +244,8 @@ export default {
               await client.switchRPC(config.rpcNode)
             } catch (e) {
               throw new Error(
-                'Env:Client:TendermintRPC Could not switch to Tendermint RPC node:' + config.rpcNode
+                'Env:Client:TendermintRPC Could not switch to Tendermint RPC node:' +
+                  config.rpcNode
               )
             }
           }

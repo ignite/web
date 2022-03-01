@@ -7,7 +7,11 @@
         </SpTypography>
       </div>
       <div class="col-6 text-align--right">
-        <SpButton type="primary" :disabled='!address' @click="visibleModal = 'create-item'">
+        <SpButton
+          type="primary"
+          :disabled="!address"
+          @click="visibleModal = 'create-item'"
+        >
           Create {{ moduleNameNormalized }}
         </SpButton>
       </div>
@@ -117,7 +121,7 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // computed
-    let moduleNameNormalized = computed (() =>
+    let moduleNameNormalized = computed(() =>
       props.itemName.replace(/^\w/, (c) => c.toUpperCase())
     )
 

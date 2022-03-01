@@ -7,7 +7,5 @@ packages/**/dist
 packages/**/lib
 packages/**/package-lock.json
 
-packages/template/src/store/
-
 .github
 .husky
