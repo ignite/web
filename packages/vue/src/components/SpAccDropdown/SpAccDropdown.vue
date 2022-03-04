@@ -65,15 +65,25 @@
       </div>
     </div>
     <div v-else-if="showSettings" class="account-dropdown">
-      <header class='account-dropdown__header'>
-        <div class='account-dropdown__back' @click='switchToDefault'>
-          <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.5 10L1 10M1 10L9.53125 19M1 10L9.53125 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <header class="account-dropdown__header">
+        <div class="account-dropdown__back" @click="switchToDefault">
+          <svg
+            width="22"
+            height="20"
+            viewBox="0 0 22 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.5 10L1 10M1 10L9.53125 19M1 10L9.53125 1"
+              stroke="black"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </div>
-        <div class='account-dropdown__title'>
-          Settings
-        </div>
+        <div class="account-dropdown__title">Settings</div>
       </header>
 
       <div class="dropdown-option mb-3">

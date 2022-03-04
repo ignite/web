@@ -2,8 +2,6 @@ import { sha256 } from '@cosmjs/crypto'
 import { fromBase64, toHex } from '@cosmjs/encoding'
 import axios from 'axios'
 
-import SpVuexError from '../../../errors/SpVuexError'
-
 function formatTx({
   txHash = '',
   messages = [],
@@ -152,10 +150,8 @@ export default {
 
         return block
       } catch (e) {
-        console.log(e)
-        throw new SpVuexError(
-          'Blocks:AddBlock',
-          'Could not retrieve block. RPC node unavailable'
+        throw new Error(
+          'Blocks:AddBlock Could not retrieve block. RPC node unavailable'
         )
       }
     },
@@ -188,9 +184,8 @@ export default {
 
         commit('ADD_BLOCK', block)
       } catch (e) {
-        throw new SpVuexError(
-          'Blocks:AddBlock',
-          'Could not add block. RPC node unavailable'
+        throw new Error(
+          'Blocks:AddBlock Could not add block. RPC node unavailable'
         )
       }
     },

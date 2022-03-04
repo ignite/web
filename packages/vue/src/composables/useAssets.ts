@@ -1,4 +1,12 @@
-import { computed, ComputedRef, onBeforeMount, onUnmounted, Ref, ref, watch } from 'vue'
+import {
+  computed,
+  ComputedRef,
+  onBeforeMount,
+  onUnmounted,
+  Ref,
+  ref,
+  watch
+} from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
@@ -23,7 +31,6 @@ type Params = {
 }
 
 export default function ({ $s, opts }: Params): Response {
-
   // state
   let balances = ref({
     isLoading: true,

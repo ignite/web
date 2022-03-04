@@ -69,7 +69,11 @@
                   gradientUnits="userSpaceOnUse"
                 >
                   <stop stop-color="#4151FA" />
-                  <stop offset="0.80232" stop-color="#4151FA" stop-opacity="0" />
+                  <stop
+                    offset="0.80232"
+                    stop-color="#4151FA"
+                    stop-opacity="0"
+                  />
                 </linearGradient>
                 <linearGradient
                   id="paint3_linear_918_10381"
@@ -90,7 +94,11 @@
                   y2="21.0231"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset="0.527646" stop-color="#4151FA" stop-opacity="0" />
+                  <stop
+                    offset="0.527646"
+                    stop-color="#4151FA"
+                    stop-opacity="0"
+                  />
                   <stop offset="0.800615" stop-color="#4151FA" />
                   <stop offset="1" stop-color="#4151FA" stop-opacity="0" />
                 </linearGradient>
