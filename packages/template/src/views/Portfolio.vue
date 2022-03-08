@@ -6,21 +6,21 @@
         <SpTxList />
       </div>
       <div class="col-md-5 col-lg-4 col-md-offset-1 col-lg-offset-2">
-        <SpTx />
+        <SpTokenTransfer />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { SpAssets, SpTx, SpTxList } from '@starport/vue'
+import { SpAssets, SpTokenTransfer, SpTxList } from '@starport/vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
   name: 'Portfolio',
 
-  components: { SpTx, SpAssets, SpTxList },
+  components: { SpTokenTransfer, SpAssets, SpTxList },
 
   setup() {
     // store

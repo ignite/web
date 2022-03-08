@@ -2,12 +2,12 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from '../../utils/plugins/index'
 // @ts-ignore
-import SpTokenSend from './SpTx.vue'
+import SpTokenTransfer from './SpTokenTransfer.vue'
 
 export const Plugin = {
   install(vue: Application): void {
-    registerComponent(vue, SpTokenSend)
+    registerComponent(vue, SpTokenTransfer)
   }
 }
 
-export default SpTokenSend
+export default SpTokenTransfer
