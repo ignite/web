@@ -3,12 +3,10 @@
 import { defineStore } from 'pinia'
 import {
   DenomTrace,
-  FungibleTokenPacketData,
   Params
 } from 'ts-client/ibc.applications.transfer.v1/types'
 
 type PiniaState = {
-  FungibleTokenPacketDataAll: FungibleTokenPacketData[]
   DenomTraceAll: DenomTrace[]
   ParamsAll: Params[]
 }
@@ -16,7 +14,6 @@ type PiniaState = {
 const piniaStore = {
   state: (): PiniaState => {
     return {
-      FungibleTokenPacketDataAll: [],
       DenomTraceAll: [],
       ParamsAll: []
     }

@@ -47,6 +47,10 @@ import {
   Module as IbcApplicationsTransferV1,
   msgTypes as IbcApplicationsTransferV1MsgTypes
 } from './ibc.applications.transfer.v1'
+import {
+  Module as IbcApplicationsTransferV2,
+  msgTypes as IbcApplicationsTransferV2MsgTypes
+} from './ibc.applications.transfer.v2'
 
 const registry = new Registry(<any>[
   ...CosmosAuthzV1Beta1MsgTypes,
@@ -59,7 +63,8 @@ const registry = new Registry(<any>[
   ...CosmosSlashingV1Beta1MsgTypes,
   ...CosmosStakingV1Beta1MsgTypes,
   ...CosmosVestingV1Beta1MsgTypes,
-  ...IbcApplicationsTransferV1MsgTypes
+  ...IbcApplicationsTransferV1MsgTypes,
+  ...IbcApplicationsTransferV2MsgTypes
 ])
 
 class Signer {
@@ -115,6 +120,7 @@ class Ignite {
   public CosmosStakingV1Beta1: CosmosStakingV1Beta1
   public CosmosVestingV1Beta1: CosmosVestingV1Beta1
   public IbcApplicationsTransferV1: IbcApplicationsTransferV1
+  public IbcApplicationsTransferV2: IbcApplicationsTransferV2
 
   constructor({ env, signer, address }: IgniteParams) {
     this._env = env
@@ -179,6 +185,11 @@ class Ignite {
       this._env.apiURL
     )
     this.IbcApplicationsTransferV1 = new IbcApplicationsTransferV1(
+      client,
+      this._address,
+      this._env.apiURL
+    )
+    this.IbcApplicationsTransferV2 = new IbcApplicationsTransferV2(
       client,
       this._address,
       this._env.apiURL

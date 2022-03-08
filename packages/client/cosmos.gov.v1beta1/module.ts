@@ -5,25 +5,13 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { MsgVote } from './types/cosmos/gov/v1beta1/tx'
 import { MsgDeposit } from './types/cosmos/gov/v1beta1/tx'
-import { MsgVoteWeighted } from './types/cosmos/gov/v1beta1/tx'
 import { MsgSubmitProposal } from './types/cosmos/gov/v1beta1/tx'
-
-type sendMsgVoteParams = {
-  value: MsgVote
-  fee?: StdFee
-  memo?: string
-}
+import { MsgVoteWeighted } from './types/cosmos/gov/v1beta1/tx'
+import { MsgVote } from './types/cosmos/gov/v1beta1/tx'
 
 type sendMsgDepositParams = {
   value: MsgDeposit
-  fee?: StdFee
-  memo?: string
-}
-
-type sendMsgVoteWeightedParams = {
-  value: MsgVoteWeighted
   fee?: StdFee
   memo?: string
 }
@@ -34,20 +22,32 @@ type sendMsgSubmitProposalParams = {
   memo?: string
 }
 
-type msgVoteParams = {
+type sendMsgVoteWeightedParams = {
+  value: MsgVoteWeighted
+  fee?: StdFee
+  memo?: string
+}
+
+type sendMsgVoteParams = {
   value: MsgVote
+  fee?: StdFee
+  memo?: string
 }
 
 type msgDepositParams = {
   value: MsgDeposit
 }
 
+type msgSubmitProposalParams = {
+  value: MsgSubmitProposal
+}
+
 type msgVoteWeightedParams = {
   value: MsgVoteWeighted
 }
 
-type msgSubmitProposalParams = {
-  value: MsgSubmitProposal
+type msgVoteParams = {
+  value: MsgVote
 }
 
 class Module extends Api<any> {
@@ -61,26 +61,6 @@ class Module extends Api<any> {
 
     this._client = client
     this._address = address
-  }
-
-  async sendMsgVote({
-    value,
-    fee,
-    memo
-  }: sendMsgVoteParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = this.msgVote({ value: MsgVote.fromPartial(value) })
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgVote:Send Could not broadcast Tx: ' + e.message
-      )
-    }
   }
 
   async sendMsgDeposit({
@@ -99,28 +79,6 @@ class Module extends Api<any> {
     } catch (e: any) {
       throw new Error(
         'TxClient:MsgDeposit:Send Could not broadcast Tx: ' + e.message
-      )
-    }
-  }
-
-  async sendMsgVoteWeighted({
-    value,
-    fee,
-    memo
-  }: sendMsgVoteWeightedParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = this.msgVoteWeighted({
-        value: MsgVoteWeighted.fromPartial(value)
-      })
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgVoteWeighted:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -147,15 +105,44 @@ class Module extends Api<any> {
     }
   }
 
-  msgVote({ value }: msgVoteParams): EncodeObject {
+  async sendMsgVoteWeighted({
+    value,
+    fee,
+    memo
+  }: sendMsgVoteWeightedParams): Promise<DeliverTxResponse> {
     try {
-      return {
-        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
-        value: MsgVote.fromPartial(value)
-      }
+      let msg = this.msgVoteWeighted({
+        value: MsgVoteWeighted.fromPartial(value)
+      })
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgVote:Create Could not create message: ' + e.message
+        'TxClient:MsgVoteWeighted:Send Could not broadcast Tx: ' + e.message
+      )
+    }
+  }
+
+  async sendMsgVote({
+    value,
+    fee,
+    memo
+  }: sendMsgVoteParams): Promise<DeliverTxResponse> {
+    try {
+      let msg = this.msgVote({ value: MsgVote.fromPartial(value) })
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgVote:Send Could not broadcast Tx: ' + e.message
       )
     }
   }
@@ -173,6 +160,20 @@ class Module extends Api<any> {
     }
   }
 
+  msgSubmitProposal({ value }: msgSubmitProposalParams): EncodeObject {
+    try {
+      return {
+        typeUrl: '/cosmos.gov.v1beta1.MsgSubmitProposal',
+        value: MsgSubmitProposal.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgSubmitProposal:Create Could not create message: ' +
+          e.message
+      )
+    }
+  }
+
   msgVoteWeighted({ value }: msgVoteWeightedParams): EncodeObject {
     try {
       return {
@@ -186,16 +187,15 @@ class Module extends Api<any> {
     }
   }
 
-  msgSubmitProposal({ value }: msgSubmitProposalParams): EncodeObject {
+  msgVote({ value }: msgVoteParams): EncodeObject {
     try {
       return {
-        typeUrl: '/cosmos.gov.v1beta1.MsgSubmitProposal',
-        value: MsgSubmitProposal.fromPartial(value)
+        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
+        value: MsgVote.fromPartial(value)
       }
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgSubmitProposal:Create Could not create message: ' +
-          e.message
+        'TxClient:MsgVote:Create Could not create message: ' + e.message
       )
     }
   }

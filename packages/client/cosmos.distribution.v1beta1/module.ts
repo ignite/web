@@ -5,13 +5,13 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
-import { MsgWithdrawValidatorCommission } from './types/cosmos/distribution/v1beta1/tx'
-import { MsgWithdrawDelegatorReward } from './types/cosmos/distribution/v1beta1/tx'
-import { MsgFundCommunityPool } from './types/cosmos/distribution/v1beta1/tx'
 import { MsgSetWithdrawAddress } from './types/cosmos/distribution/v1beta1/tx'
+import { MsgWithdrawDelegatorReward } from './types/cosmos/distribution/v1beta1/tx'
+import { MsgWithdrawValidatorCommission } from './types/cosmos/distribution/v1beta1/tx'
+import { MsgFundCommunityPool } from './types/cosmos/distribution/v1beta1/tx'
 
-type sendMsgWithdrawValidatorCommissionParams = {
-  value: MsgWithdrawValidatorCommission
+type sendMsgSetWithdrawAddressParams = {
+  value: MsgSetWithdrawAddress
   fee?: StdFee
   memo?: string
 }
@@ -22,32 +22,32 @@ type sendMsgWithdrawDelegatorRewardParams = {
   memo?: string
 }
 
+type sendMsgWithdrawValidatorCommissionParams = {
+  value: MsgWithdrawValidatorCommission
+  fee?: StdFee
+  memo?: string
+}
+
 type sendMsgFundCommunityPoolParams = {
   value: MsgFundCommunityPool
   fee?: StdFee
   memo?: string
 }
 
-type sendMsgSetWithdrawAddressParams = {
+type msgSetWithdrawAddressParams = {
   value: MsgSetWithdrawAddress
-  fee?: StdFee
-  memo?: string
-}
-
-type msgWithdrawValidatorCommissionParams = {
-  value: MsgWithdrawValidatorCommission
 }
 
 type msgWithdrawDelegatorRewardParams = {
   value: MsgWithdrawDelegatorReward
 }
 
-type msgFundCommunityPoolParams = {
-  value: MsgFundCommunityPool
+type msgWithdrawValidatorCommissionParams = {
+  value: MsgWithdrawValidatorCommission
 }
 
-type msgSetWithdrawAddressParams = {
-  value: MsgSetWithdrawAddress
+type msgFundCommunityPoolParams = {
+  value: MsgFundCommunityPool
 }
 
 class Module extends Api<any> {
@@ -63,14 +63,14 @@ class Module extends Api<any> {
     this._address = address
   }
 
-  async sendMsgWithdrawValidatorCommission({
+  async sendMsgSetWithdrawAddress({
     value,
     fee,
     memo
-  }: sendMsgWithdrawValidatorCommissionParams): Promise<DeliverTxResponse> {
+  }: sendMsgSetWithdrawAddressParams): Promise<DeliverTxResponse> {
     try {
-      let msg = this.msgWithdrawValidatorCommission({
-        value: MsgWithdrawValidatorCommission.fromPartial(value)
+      let msg = this.msgSetWithdrawAddress({
+        value: MsgSetWithdrawAddress.fromPartial(value)
       })
       return await this._client.signAndBroadcast(
         this._address,
@@ -80,7 +80,7 @@ class Module extends Api<any> {
       )
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgWithdrawValidatorCommission:Send Could not broadcast Tx: ' +
+        'TxClient:MsgSetWithdrawAddress:Send Could not broadcast Tx: ' +
           e.message
       )
     }
@@ -109,6 +109,29 @@ class Module extends Api<any> {
     }
   }
 
+  async sendMsgWithdrawValidatorCommission({
+    value,
+    fee,
+    memo
+  }: sendMsgWithdrawValidatorCommissionParams): Promise<DeliverTxResponse> {
+    try {
+      let msg = this.msgWithdrawValidatorCommission({
+        value: MsgWithdrawValidatorCommission.fromPartial(value)
+      })
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgWithdrawValidatorCommission:Send Could not broadcast Tx: ' +
+          e.message
+      )
+    }
+  }
+
   async sendMsgFundCommunityPool({
     value,
     fee,
@@ -132,40 +155,15 @@ class Module extends Api<any> {
     }
   }
 
-  async sendMsgSetWithdrawAddress({
-    value,
-    fee,
-    memo
-  }: sendMsgSetWithdrawAddressParams): Promise<DeliverTxResponse> {
-    try {
-      let msg = this.msgSetWithdrawAddress({
-        value: MsgSetWithdrawAddress.fromPartial(value)
-      })
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgSetWithdrawAddress:Send Could not broadcast Tx: ' +
-          e.message
-      )
-    }
-  }
-
-  msgWithdrawValidatorCommission({
-    value
-  }: msgWithdrawValidatorCommissionParams): EncodeObject {
+  msgSetWithdrawAddress({ value }: msgSetWithdrawAddressParams): EncodeObject {
     try {
       return {
-        typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
-        value: MsgWithdrawValidatorCommission.fromPartial(value)
+        typeUrl: '/cosmos.distribution.v1beta1.MsgSetWithdrawAddress',
+        value: MsgSetWithdrawAddress.fromPartial(value)
       }
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgWithdrawValidatorCommission:Create Could not create message: ' +
+        'TxClient:MsgSetWithdrawAddress:Create Could not create message: ' +
           e.message
       )
     }
@@ -187,6 +185,22 @@ class Module extends Api<any> {
     }
   }
 
+  msgWithdrawValidatorCommission({
+    value
+  }: msgWithdrawValidatorCommissionParams): EncodeObject {
+    try {
+      return {
+        typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
+        value: MsgWithdrawValidatorCommission.fromPartial(value)
+      }
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgWithdrawValidatorCommission:Create Could not create message: ' +
+          e.message
+      )
+    }
+  }
+
   msgFundCommunityPool({ value }: msgFundCommunityPoolParams): EncodeObject {
     try {
       return {
@@ -196,20 +210,6 @@ class Module extends Api<any> {
     } catch (e: any) {
       throw new Error(
         'TxClient:MsgFundCommunityPool:Create Could not create message: ' +
-          e.message
-      )
-    }
-  }
-
-  msgSetWithdrawAddress({ value }: msgSetWithdrawAddressParams): EncodeObject {
-    try {
-      return {
-        typeUrl: '/cosmos.distribution.v1beta1.MsgSetWithdrawAddress',
-        value: MsgSetWithdrawAddress.fromPartial(value)
-      }
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgSetWithdrawAddress:Create Could not create message: ' +
           e.message
       )
     }

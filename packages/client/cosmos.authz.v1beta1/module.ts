@@ -5,9 +5,15 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 import { Api } from './rest'
+import { MsgRevoke } from './types/cosmos/authz/v1beta1/tx'
 import { MsgExec } from './types/cosmos/authz/v1beta1/tx'
 import { MsgGrant } from './types/cosmos/authz/v1beta1/tx'
-import { MsgRevoke } from './types/cosmos/authz/v1beta1/tx'
+
+type sendMsgRevokeParams = {
+  value: MsgRevoke
+  fee?: StdFee
+  memo?: string
+}
 
 type sendMsgExecParams = {
   value: MsgExec
@@ -21,10 +27,8 @@ type sendMsgGrantParams = {
   memo?: string
 }
 
-type sendMsgRevokeParams = {
+type msgRevokeParams = {
   value: MsgRevoke
-  fee?: StdFee
-  memo?: string
 }
 
 type msgExecParams = {
@@ -33,10 +37,6 @@ type msgExecParams = {
 
 type msgGrantParams = {
   value: MsgGrant
-}
-
-type msgRevokeParams = {
-  value: MsgRevoke
 }
 
 class Module extends Api<any> {
@@ -50,6 +50,26 @@ class Module extends Api<any> {
 
     this._client = client
     this._address = address
+  }
+
+  async sendMsgRevoke({
+    value,
+    fee,
+    memo
+  }: sendMsgRevokeParams): Promise<DeliverTxResponse> {
+    try {
+      let msg = this.msgRevoke({ value: MsgRevoke.fromPartial(value) })
+      return await this._client.signAndBroadcast(
+        this._address,
+        [msg],
+        fee ? fee : { amount: [], gas: '200000' },
+        memo
+      )
+    } catch (e: any) {
+      throw new Error(
+        'TxClient:MsgRevoke:Send Could not broadcast Tx: ' + e.message
+      )
+    }
   }
 
   async sendMsgExec({
@@ -92,22 +112,15 @@ class Module extends Api<any> {
     }
   }
 
-  async sendMsgRevoke({
-    value,
-    fee,
-    memo
-  }: sendMsgRevokeParams): Promise<DeliverTxResponse> {
+  msgRevoke({ value }: msgRevokeParams): EncodeObject {
     try {
-      let msg = this.msgRevoke({ value: MsgRevoke.fromPartial(value) })
-      return await this._client.signAndBroadcast(
-        this._address,
-        [msg],
-        fee ? fee : { amount: [], gas: '200000' },
-        memo
-      )
+      return {
+        typeUrl: '/cosmos.authz.v1beta1.MsgRevoke',
+        value: MsgRevoke.fromPartial(value)
+      }
     } catch (e: any) {
       throw new Error(
-        'TxClient:MsgRevoke:Send Could not broadcast Tx: ' + e.message
+        'TxClient:MsgRevoke:Create Could not create message: ' + e.message
       )
     }
   }
@@ -134,19 +147,6 @@ class Module extends Api<any> {
     } catch (e: any) {
       throw new Error(
         'TxClient:MsgGrant:Create Could not create message: ' + e.message
-      )
-    }
-  }
-
-  msgRevoke({ value }: msgRevokeParams): EncodeObject {
-    try {
-      return {
-        typeUrl: '/cosmos.authz.v1beta1.MsgRevoke',
-        value: MsgRevoke.fromPartial(value)
-      }
-    } catch (e: any) {
-      throw new Error(
-        'TxClient:MsgRevoke:Create Could not create message: ' + e.message
       )
     }
   }
