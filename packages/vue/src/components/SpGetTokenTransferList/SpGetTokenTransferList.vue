@@ -15,7 +15,7 @@
     <div v-else-if="Object.keys(txByMonth).length > 0" class="list">
       <div v-for="(txs, month, index) in txByMonth" :key="`${index}`">
         <h3 class="tx-list__subheading" v-text="getMonthGroup(month)"></h3>
-        <SpTxListItem
+        <SpTokenTransferListItem
           v-for="(tx, i) in txs"
           :key="`${tx.hash}-${tx.timestamp}-${i}`"
           :tx="tx"
@@ -54,7 +54,7 @@ import { useStore } from 'vuex'
 import { useAddress, useTxs } from '../../composables'
 import { TxForUI } from '../../composables/useTxs'
 import SpSpinner from '../SpSpinner'
-import SpTxListItem from '../SpTxListItem'
+import SpTokenTransferListItem from '../SpTokenTransferListItem'
 
 export interface State {
   listSize: number
@@ -69,9 +69,9 @@ export let initialState: State = {
 }
 
 export default defineComponent({
-  name: 'SpGetTxList',
+  name: 'SpGetTokenTransferList',
 
-  components: { SpSpinner, SpTxListItem },
+  components: { SpSpinner, SpTokenTransferListItem },
 
   async setup() {
     // store
