@@ -1,5 +1,4 @@
 import { Ref, ref, watch } from 'vue'
-import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
 

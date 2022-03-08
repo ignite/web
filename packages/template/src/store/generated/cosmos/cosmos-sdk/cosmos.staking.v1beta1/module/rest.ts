@@ -123,14 +123,14 @@ export interface ProtobufAny {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  "@type"?: string;
+  '@type'?: string
 }
 
 export interface RpcStatus {
   /** @format int32 */
-  code?: number;
-  message?: string;
-  details?: ProtobufAny[];
+  code?: number
+  message?: string
+  details?: ProtobufAny[]
 }
 
 /**
@@ -145,49 +145,49 @@ multiplied by exchange rate.
 */
 export interface Stakingv1Beta1Validator {
   /** operator_address defines the address of the validator's operator; bech encoded in JSON. */
-  operatorAddress?: string;
+  operatorAddress?: string
 
   /** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */
-  consensusPubkey?: ProtobufAny;
+  consensusPubkey?: ProtobufAny
 
   /** jailed defined whether the validator has been jailed from bonded status or not. */
-  jailed?: boolean;
+  jailed?: boolean
 
   /** status is the validator status (bonded/unbonding/unbonded). */
-  status?: V1Beta1BondStatus;
+  status?: V1Beta1BondStatus
 
   /** tokens define the delegated tokens (incl. self-delegation). */
-  tokens?: string;
+  tokens?: string
 
   /** delegator_shares defines total shares issued to a validator's delegators. */
-  delegatorShares?: string;
+  delegatorShares?: string
 
   /** description defines the description terms for the validator. */
-  description?: V1Beta1Description;
+  description?: V1Beta1Description
 
   /**
    * unbonding_height defines, if unbonding, the height at which this validator has begun unbonding.
    * @format int64
    */
-  unbondingHeight?: string;
+  unbondingHeight?: string
 
   /**
    * unbonding_time defines, if unbonding, the min time for the validator to complete unbonding.
    * @format date-time
    */
-  unbondingTime?: string;
+  unbondingTime?: string
 
   /** commission defines the commission parameters. */
-  commission?: V1Beta1Commission;
+  commission?: V1Beta1Commission
 
   /** min_self_delegation is the validator's self declared minimum self delegation. */
-  minSelfDelegation?: string;
+  minSelfDelegation?: string
 }
 
 export interface TypesBlockID {
   /** @format byte */
-  hash?: string;
-  partSetHeader?: TypesPartSetHeader;
+  hash?: string
+  partSetHeader?: TypesPartSetHeader
 }
 
 /**
@@ -199,50 +199,50 @@ export interface TypesHeader {
    * including all blockchain data structures and the rules of the application's
    * state transition machine.
    */
-  version?: VersionConsensus;
-  chainId?: string;
+  version?: VersionConsensus
+  chainId?: string
 
   /** @format int64 */
-  height?: string;
+  height?: string
 
   /** @format date-time */
-  time?: string;
-  lastBlockId?: TypesBlockID;
+  time?: string
+  lastBlockId?: TypesBlockID
 
   /** @format byte */
-  lastCommitHash?: string;
+  lastCommitHash?: string
 
   /** @format byte */
-  dataHash?: string;
+  dataHash?: string
 
   /** @format byte */
-  validatorsHash?: string;
+  validatorsHash?: string
 
   /** @format byte */
-  nextValidatorsHash?: string;
+  nextValidatorsHash?: string
 
   /** @format byte */
-  consensusHash?: string;
+  consensusHash?: string
 
   /** @format byte */
-  appHash?: string;
+  appHash?: string
 
   /** @format byte */
-  lastResultsHash?: string;
+  lastResultsHash?: string
 
   /** @format byte */
-  evidenceHash?: string;
+  evidenceHash?: string
 
   /** @format byte */
-  proposerAddress?: string;
+  proposerAddress?: string
 }
 
 export interface TypesPartSetHeader {
   /** @format int64 */
-  total?: number;
+  total?: number
 
   /** @format byte */
-  hash?: string;
+  hash?: string
 }
 
 /**
@@ -254,10 +254,10 @@ export interface TypesPartSetHeader {
  - BOND_STATUS_BONDED: BONDED defines a validator that is bonded.
 */
 export enum V1Beta1BondStatus {
-  BOND_STATUS_UNSPECIFIED = "BOND_STATUS_UNSPECIFIED",
-  BOND_STATUS_UNBONDED = "BOND_STATUS_UNBONDED",
-  BOND_STATUS_UNBONDING = "BOND_STATUS_UNBONDING",
-  BOND_STATUS_BONDED = "BOND_STATUS_BONDED",
+  BOND_STATUS_UNSPECIFIED = 'BOND_STATUS_UNSPECIFIED',
+  BOND_STATUS_UNBONDED = 'BOND_STATUS_UNBONDED',
+  BOND_STATUS_UNBONDING = 'BOND_STATUS_UNBONDING',
+  BOND_STATUS_BONDED = 'BOND_STATUS_BONDED'
 }
 
 /**
@@ -267,8 +267,8 @@ NOTE: The amount field is an Int which implements the custom method
 signatures required by gogoproto.
 */
 export interface V1Beta1Coin {
-  denom?: string;
-  amount?: string;
+  denom?: string
+  amount?: string
 }
 
 /**
@@ -276,13 +276,13 @@ export interface V1Beta1Coin {
  */
 export interface V1Beta1Commission {
   /** commission_rates defines the initial commission rates to be used for creating a validator. */
-  commissionRates?: V1Beta1CommissionRates;
+  commissionRates?: V1Beta1CommissionRates
 
   /**
    * update_time is the last time the commission rate was changed.
    * @format date-time
    */
-  updateTime?: string;
+  updateTime?: string
 }
 
 /**
@@ -291,13 +291,13 @@ a validator.
 */
 export interface V1Beta1CommissionRates {
   /** rate is the commission rate charged to delegators, as a fraction. */
-  rate?: string;
+  rate?: string
 
   /** max_rate defines the maximum commission rate which validator can ever charge, as a fraction. */
-  maxRate?: string;
+  maxRate?: string
 
   /** max_change_rate defines the maximum daily increase of the validator commission, as a fraction. */
-  maxChangeRate?: string;
+  maxChangeRate?: string
 }
 
 /**
@@ -307,13 +307,13 @@ validator.
 */
 export interface V1Beta1Delegation {
   /** delegator_address is the bech32-encoded address of the delegator. */
-  delegatorAddress?: string;
+  delegatorAddress?: string
 
   /** validator_address is the bech32-encoded address of the validator. */
-  validatorAddress?: string;
+  validatorAddress?: string
 
   /** shares define the delegation shares received. */
-  shares?: string;
+  shares?: string
 }
 
 /**
@@ -326,7 +326,7 @@ export interface V1Beta1DelegationResponse {
    * owned by one delegator, and is associated with the voting power of one
    * validator.
    */
-  delegation?: V1Beta1Delegation;
+  delegation?: V1Beta1Delegation
 
   /**
    * Coin defines a token with a denomination and an amount.
@@ -334,7 +334,7 @@ export interface V1Beta1DelegationResponse {
    * NOTE: The amount field is an Int which implements the custom method
    * signatures required by gogoproto.
    */
-  balance?: V1Beta1Coin;
+  balance?: V1Beta1Coin
 }
 
 /**
@@ -342,19 +342,19 @@ export interface V1Beta1DelegationResponse {
  */
 export interface V1Beta1Description {
   /** moniker defines a human-readable name for the validator. */
-  moniker?: string;
+  moniker?: string
 
   /** identity defines an optional identity signature (ex. UPort or Keybase). */
-  identity?: string;
+  identity?: string
 
   /** website defines an optional website link. */
-  website?: string;
+  website?: string
 
   /** security_contact defines an optional email for security contact. */
-  securityContact?: string;
+  securityContact?: string
 
   /** details define other optional details. */
-  details?: string;
+  details?: string
 }
 
 /**
@@ -365,8 +365,8 @@ recent HistoricalInfo
 */
 export interface V1Beta1HistoricalInfo {
   /** Header defines the structure of a Tendermint block header. */
-  header?: TypesHeader;
-  valset?: Stakingv1Beta1Validator[];
+  header?: TypesHeader
+  valset?: Stakingv1Beta1Validator[]
 }
 
 /**
@@ -374,30 +374,30 @@ export interface V1Beta1HistoricalInfo {
  */
 export interface V1Beta1MsgBeginRedelegateResponse {
   /** @format date-time */
-  completionTime?: string;
+  completionTime?: string
 }
 
 /**
  * MsgCreateValidatorResponse defines the Msg/CreateValidator response type.
  */
-export type V1Beta1MsgCreateValidatorResponse = object;
+export type V1Beta1MsgCreateValidatorResponse = object
 
 /**
  * MsgDelegateResponse defines the Msg/Delegate response type.
  */
-export type V1Beta1MsgDelegateResponse = object;
+export type V1Beta1MsgDelegateResponse = object
 
 /**
  * MsgEditValidatorResponse defines the Msg/EditValidator response type.
  */
-export type V1Beta1MsgEditValidatorResponse = object;
+export type V1Beta1MsgEditValidatorResponse = object
 
 /**
  * MsgUndelegateResponse defines the Msg/Undelegate response type.
  */
 export interface V1Beta1MsgUndelegateResponse {
   /** @format date-time */
-  completionTime?: string;
+  completionTime?: string
 }
 
 /**
@@ -413,7 +413,7 @@ export interface V1Beta1PageRequest {
    * should be set.
    * @format byte
    */
-  key?: string;
+  key?: string
 
   /**
    * offset is a numeric offset that can be used when key is unavailable.
@@ -421,14 +421,14 @@ export interface V1Beta1PageRequest {
    * be set.
    * @format uint64
    */
-  offset?: string;
+  offset?: string
 
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    * @format uint64
    */
-  limit?: string;
+  limit?: string
 
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -436,14 +436,14 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  countTotal?: boolean;
+  countTotal?: boolean
 
   /**
    * reverse is set to true if results are to be returned in the descending order.
    *
    * Since: cosmos-sdk 0.43
    */
-  reverse?: boolean;
+  reverse?: boolean
 }
 
 /**
@@ -457,10 +457,10 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  nextKey?: string;
+  nextKey?: string
 
   /** @format uint64 */
-  total?: string;
+  total?: string
 }
 
 /**
@@ -468,28 +468,28 @@ export interface V1Beta1PageResponse {
  */
 export interface V1Beta1Params {
   /** unbonding_time is the time duration of unbonding. */
-  unbondingTime?: string;
+  unbondingTime?: string
 
   /**
    * max_validators is the maximum number of validators.
    * @format int64
    */
-  maxValidators?: number;
+  maxValidators?: number
 
   /**
    * max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio).
    * @format int64
    */
-  maxEntries?: number;
+  maxEntries?: number
 
   /**
    * historical_entries is the number of historical entries to persist.
    * @format int64
    */
-  historicalEntries?: number;
+  historicalEntries?: number
 
   /** bond_denom defines the bondable coin denomination. */
-  bondDenom?: string;
+  bondDenom?: string
 }
 
 /**
@@ -497,8 +497,8 @@ export interface V1Beta1Params {
 denomination.
 */
 export interface V1Beta1Pool {
-  notBondedTokens?: string;
-  bondedTokens?: string;
+  notBondedTokens?: string
+  bondedTokens?: string
 }
 
 /**
@@ -506,7 +506,7 @@ export interface V1Beta1Pool {
  */
 export interface V1Beta1QueryDelegationResponse {
   /** delegation_responses defines the delegation info of a delegation. */
-  delegationResponse?: V1Beta1DelegationResponse;
+  delegationResponse?: V1Beta1DelegationResponse
 }
 
 /**
@@ -515,10 +515,10 @@ Query/DelegatorDelegations RPC method.
 */
 export interface V1Beta1QueryDelegatorDelegationsResponse {
   /** delegation_responses defines all the delegations' info of a delegator. */
-  delegationResponses?: V1Beta1DelegationResponse[];
+  delegationResponses?: V1Beta1DelegationResponse[]
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse;
+  pagination?: V1Beta1PageResponse
 }
 
 /**
@@ -526,10 +526,10 @@ export interface V1Beta1QueryDelegatorDelegationsResponse {
 Query/UnbondingDelegatorDelegations RPC method.
 */
 export interface V1Beta1QueryDelegatorUnbondingDelegationsResponse {
-  unbondingResponses?: V1Beta1UnbondingDelegation[];
+  unbondingResponses?: V1Beta1UnbondingDelegation[]
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse;
+  pagination?: V1Beta1PageResponse
 }
 
 /**
@@ -538,7 +538,7 @@ Query/DelegatorValidator RPC method.
 */
 export interface V1Beta1QueryDelegatorValidatorResponse {
   /** validator defines the the validator info. */
-  validator?: Stakingv1Beta1Validator;
+  validator?: Stakingv1Beta1Validator
 }
 
 /**
@@ -547,10 +547,10 @@ Query/DelegatorValidators RPC method.
 */
 export interface V1Beta1QueryDelegatorValidatorsResponse {
   /** validators defines the the validators' info of a delegator. */
-  validators?: Stakingv1Beta1Validator[];
+  validators?: Stakingv1Beta1Validator[]
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse;
+  pagination?: V1Beta1PageResponse
 }
 
 /**
@@ -559,7 +559,7 @@ method.
 */
 export interface V1Beta1QueryHistoricalInfoResponse {
   /** hist defines the historical info at the given height. */
-  hist?: V1Beta1HistoricalInfo;
+  hist?: V1Beta1HistoricalInfo
 }
 
 /**
@@ -567,7 +567,7 @@ export interface V1Beta1QueryHistoricalInfoResponse {
  */
 export interface V1Beta1QueryParamsResponse {
   /** params holds all the parameters of this module. */
-  params?: V1Beta1Params;
+  params?: V1Beta1Params
 }
 
 /**
@@ -575,7 +575,7 @@ export interface V1Beta1QueryParamsResponse {
  */
 export interface V1Beta1QueryPoolResponse {
   /** pool defines the pool info. */
-  pool?: V1Beta1Pool;
+  pool?: V1Beta1Pool
 }
 
 /**
@@ -583,10 +583,10 @@ export interface V1Beta1QueryPoolResponse {
 method.
 */
 export interface V1Beta1QueryRedelegationsResponse {
-  redelegationResponses?: V1Beta1RedelegationResponse[];
+  redelegationResponses?: V1Beta1RedelegationResponse[]
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse;
+  pagination?: V1Beta1PageResponse
 }
 
 /**
@@ -595,19 +595,19 @@ RPC method.
 */
 export interface V1Beta1QueryUnbondingDelegationResponse {
   /** unbond defines the unbonding information of a delegation. */
-  unbond?: V1Beta1UnbondingDelegation;
+  unbond?: V1Beta1UnbondingDelegation
 }
 
 export interface V1Beta1QueryValidatorDelegationsResponse {
-  delegationResponses?: V1Beta1DelegationResponse[];
+  delegationResponses?: V1Beta1DelegationResponse[]
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse;
+  pagination?: V1Beta1PageResponse
 }
 
 export interface V1Beta1QueryValidatorResponse {
   /** validator defines the the validator info. */
-  validator?: Stakingv1Beta1Validator;
+  validator?: Stakingv1Beta1Validator
 }
 
 /**
@@ -615,18 +615,18 @@ export interface V1Beta1QueryValidatorResponse {
 Query/ValidatorUnbondingDelegations RPC method.
 */
 export interface V1Beta1QueryValidatorUnbondingDelegationsResponse {
-  unbondingResponses?: V1Beta1UnbondingDelegation[];
+  unbondingResponses?: V1Beta1UnbondingDelegation[]
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse;
+  pagination?: V1Beta1PageResponse
 }
 
 export interface V1Beta1QueryValidatorsResponse {
   /** validators contains all the queried validators. */
-  validators?: Stakingv1Beta1Validator[];
+  validators?: Stakingv1Beta1Validator[]
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse;
+  pagination?: V1Beta1PageResponse
 }
 
 /**
@@ -635,16 +635,16 @@ from a particular source validator to a particular destination validator.
 */
 export interface V1Beta1Redelegation {
   /** delegator_address is the bech32-encoded address of the delegator. */
-  delegatorAddress?: string;
+  delegatorAddress?: string
 
   /** validator_src_address is the validator redelegation source operator address. */
-  validatorSrcAddress?: string;
+  validatorSrcAddress?: string
 
   /** validator_dst_address is the validator redelegation destination operator address. */
-  validatorDstAddress?: string;
+  validatorDstAddress?: string
 
   /** entries are the redelegation entries. */
-  entries?: V1Beta1RedelegationEntry[];
+  entries?: V1Beta1RedelegationEntry[]
 }
 
 /**
@@ -655,19 +655,19 @@ export interface V1Beta1RedelegationEntry {
    * creation_height  defines the height which the redelegation took place.
    * @format int64
    */
-  creationHeight?: string;
+  creationHeight?: string
 
   /**
    * completion_time defines the unix time for redelegation completion.
    * @format date-time
    */
-  completionTime?: string;
+  completionTime?: string
 
   /** initial_balance defines the initial balance when redelegation started. */
-  initialBalance?: string;
+  initialBalance?: string
 
   /** shares_dst is the amount of destination-validator shares created by redelegation. */
-  sharesDst?: string;
+  sharesDst?: string
 }
 
 /**
@@ -677,8 +677,8 @@ responses.
 */
 export interface V1Beta1RedelegationEntryResponse {
   /** RedelegationEntry defines a redelegation object with relevant metadata. */
-  redelegationEntry?: V1Beta1RedelegationEntry;
-  balance?: string;
+  redelegationEntry?: V1Beta1RedelegationEntry
+  balance?: string
 }
 
 /**
@@ -691,8 +691,8 @@ export interface V1Beta1RedelegationResponse {
    * Redelegation contains the list of a particular delegator's redelegating bonds
    * from a particular source validator to a particular destination validator.
    */
-  redelegation?: V1Beta1Redelegation;
-  entries?: V1Beta1RedelegationEntryResponse[];
+  redelegation?: V1Beta1Redelegation
+  entries?: V1Beta1RedelegationEntryResponse[]
 }
 
 /**
@@ -701,13 +701,13 @@ for a single validator in an time-ordered list.
 */
 export interface V1Beta1UnbondingDelegation {
   /** delegator_address is the bech32-encoded address of the delegator. */
-  delegatorAddress?: string;
+  delegatorAddress?: string
 
   /** validator_address is the bech32-encoded address of the validator. */
-  validatorAddress?: string;
+  validatorAddress?: string
 
   /** entries are the unbonding delegation entries. */
-  entries?: V1Beta1UnbondingDelegationEntry[];
+  entries?: V1Beta1UnbondingDelegationEntry[]
 }
 
 /**
@@ -718,19 +718,19 @@ export interface V1Beta1UnbondingDelegationEntry {
    * creation_height is the height which the unbonding took place.
    * @format int64
    */
-  creationHeight?: string;
+  creationHeight?: string
 
   /**
    * completion_time is the unix time for unbonding completion.
    * @format date-time
    */
-  completionTime?: string;
+  completionTime?: string
 
   /** initial_balance defines the tokens initially scheduled to receive at completion. */
-  initialBalance?: string;
+  initialBalance?: string
 
   /** balance defines the tokens to receive at completion. */
-  balance?: string;
+  balance?: string
 }
 
 /**
@@ -740,115 +740,133 @@ state transition machine.
 */
 export interface VersionConsensus {
   /** @format uint64 */
-  block?: string;
+  block?: string
 
   /** @format uint64 */
-  app?: string;
+  app?: string
 }
 
-export type QueryParamsType = Record<string | number, any>;
-export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
+export type QueryParamsType = Record<string | number, any>
+export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
 
-export interface FullRequestParams extends Omit<RequestInit, "body"> {
+export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean;
+  secure?: boolean
   /** request path */
-  path: string;
+  path: string
   /** content type of request body */
-  type?: ContentType;
+  type?: ContentType
   /** query params */
-  query?: QueryParamsType;
+  query?: QueryParamsType
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: keyof Omit<Body, "body" | "bodyUsed">;
+  format?: keyof Omit<Body, 'body' | 'bodyUsed'>
   /** request body */
-  body?: unknown;
+  body?: unknown
   /** base url */
-  baseUrl?: string;
+  baseUrl?: string
   /** request cancellation token */
-  cancelToken?: CancelToken;
+  cancelToken?: CancelToken
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<
+  FullRequestParams,
+  'body' | 'method' | 'query' | 'path'
+>
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string;
-  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
-  securityWorker?: (securityData: SecurityDataType) => RequestParams | void;
+  baseUrl?: string
+  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
+  securityWorker?: (securityData: SecurityDataType) => RequestParams | void
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
-  data: D;
-  error: E;
+export interface HttpResponse<D extends unknown, E extends unknown = unknown>
+  extends Response {
+  data: D
+  error: E
 }
 
-type CancelToken = Symbol | string | number;
+type CancelToken = Symbol | string | number
 
 export enum ContentType {
-  Json = "application/json",
-  FormData = "multipart/form-data",
-  UrlEncoded = "application/x-www-form-urlencoded",
+  Json = 'application/json',
+  FormData = 'multipart/form-data',
+  UrlEncoded = 'application/x-www-form-urlencoded'
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "";
-  private securityData: SecurityDataType = null as any;
-  private securityWorker: null | ApiConfig<SecurityDataType>["securityWorker"] = null;
-  private abortControllers = new Map<CancelToken, AbortController>();
+  public baseUrl: string = ''
+  private securityData: SecurityDataType = null as any
+  private securityWorker: null | ApiConfig<SecurityDataType>['securityWorker'] =
+    null
+  private abortControllers = new Map<CancelToken, AbortController>()
 
   private baseApiParams: RequestParams = {
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {},
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-  };
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer'
+  }
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig);
+    Object.assign(this, apiConfig)
   }
 
   public setSecurityData = (data: SecurityDataType) => {
-    this.securityData = data;
-  };
+    this.securityData = data
+  }
 
   private addQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key];
+    const value = query[key]
 
     return (
       encodeURIComponent(key) +
-      "=" +
-      encodeURIComponent(Array.isArray(value) ? value.join(",") : typeof value === "number" ? value : `${value}`)
-    );
+      '=' +
+      encodeURIComponent(
+        Array.isArray(value)
+          ? value.join(',')
+          : typeof value === 'number'
+          ? value
+          : `${value}`
+      )
+    )
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {};
-    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
+    const query = rawQuery || {}
+    const keys = Object.keys(query).filter(
+      (key) => 'undefined' !== typeof query[key]
+    )
     return keys
       .map((key) =>
-        typeof query[key] === "object" && !Array.isArray(query[key])
+        typeof query[key] === 'object' && !Array.isArray(query[key])
           ? this.toQueryString(query[key] as QueryParamsType)
-          : this.addQueryParam(query, key),
+          : this.addQueryParam(query, key)
       )
-      .join("&");
+      .join('&')
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery);
-    return queryString ? `?${queryString}` : "";
+    const queryString = this.toQueryString(rawQuery)
+    return queryString ? `?${queryString}` : ''
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
+      input !== null && (typeof input === 'object' || typeof input === 'string')
+        ? JSON.stringify(input)
+        : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((data, key) => {
-        data.append(key, input[key]);
-        return data;
+        data.append(key, input[key])
+        return data
       }, new FormData()),
-    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
-  };
+    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input)
+  }
 
-  private mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
+  private mergeRequestParams(
+    params1: RequestParams,
+    params2?: RequestParams
+  ): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -856,33 +874,35 @@ export class HttpClient<SecurityDataType = unknown> {
       headers: {
         ...(this.baseApiParams.headers || {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {}),
-      },
-    };
+        ...((params2 && params2.headers) || {})
+      }
+    }
   }
 
-  private createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
+  private createAbortSignal = (
+    cancelToken: CancelToken
+  ): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken);
+      const abortController = this.abortControllers.get(cancelToken)
       if (abortController) {
-        return abortController.signal;
+        return abortController.signal
       }
-      return void 0;
+      return void 0
     }
 
-    const abortController = new AbortController();
-    this.abortControllers.set(cancelToken, abortController);
-    return abortController.signal;
-  };
+    const abortController = new AbortController()
+    this.abortControllers.set(cancelToken, abortController)
+    return abortController.signal
+  }
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken);
+    const abortController = this.abortControllers.get(cancelToken)
 
     if (abortController) {
-      abortController.abort();
-      this.abortControllers.delete(cancelToken);
+      abortController.abort()
+      this.abortControllers.delete(cancelToken)
     }
-  };
+  }
 
   public request = <T = any, E = any>({
     body,
@@ -890,58 +910,74 @@ export class HttpClient<SecurityDataType = unknown> {
     path,
     type,
     query,
-    format = "json",
+    format = 'json',
     baseUrl,
     cancelToken,
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
-    const secureParams = (secure && this.securityWorker && this.securityWorker(this.securityData)) || {};
-    const requestParams = this.mergeRequestParams(params, secureParams);
-    const queryString = query && this.toQueryString(query);
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
+    const secureParams =
+      (secure &&
+        this.securityWorker &&
+        this.securityWorker(this.securityData)) ||
+      {}
+    const requestParams = this.mergeRequestParams(params, secureParams)
+    const queryString = query && this.toQueryString(query)
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
 
-    return fetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
-      ...requestParams,
-      headers: {
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
-        ...(requestParams.headers || {}),
-      },
-      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
-    }).then(async (response) => {
-      const r = response as HttpResponse<T, E>;
-      r.data = (null as unknown) as T;
-      r.error = (null as unknown) as E;
+    return fetch(
+      `${baseUrl || this.baseUrl || ''}${path}${
+        queryString ? `?${queryString}` : ''
+      }`,
+      {
+        ...requestParams,
+        headers: {
+          ...(type && type !== ContentType.FormData
+            ? { 'Content-Type': type }
+            : {}),
+          ...(requestParams.headers || {})
+        },
+        signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+        body:
+          typeof body === 'undefined' || body === null
+            ? null
+            : payloadFormatter(body)
+      }
+    ).then(async (response) => {
+      const r = response as HttpResponse<T, E>
+      r.data = null as unknown as T
+      r.error = null as unknown as E
 
       const data = await response[format]()
         .then((data) => {
           if (r.ok) {
-            r.data = data;
+            r.data = data
           } else {
-            r.error = data;
+            r.error = data
           }
-          return r;
+          return r
         })
         .catch((e) => {
-          r.error = e;
-          return r;
-        });
+          r.error = e
+          return r
+        })
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken);
+        this.abortControllers.delete(cancelToken)
       }
 
-      if (!response.ok) throw data;
-      return data;
-    });
-  };
+      if (!response.ok) throw data
+      return data
+    })
+  }
 }
 
 /**
  * @title cosmos/staking/v1beta1/authz.proto
  * @version version not set
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -953,21 +989,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryDelegatorDelegations = (
     delegatorAddr: string,
     query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
-      "pagination.reverse"?: boolean;
+      'pagination.key'?: string
+      'pagination.offset'?: string
+      'pagination.limit'?: string
+      'pagination.countTotal'?: boolean
+      'pagination.reverse'?: boolean
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<V1Beta1QueryDelegatorDelegationsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/delegations/${delegatorAddr}`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
-      ...params,
-    });
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -980,23 +1016,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryRedelegations = (
     delegatorAddr: string,
     query?: {
-      srcValidatorAddr?: string;
-      dstValidatorAddr?: string;
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
-      "pagination.reverse"?: boolean;
+      srcValidatorAddr?: string
+      dstValidatorAddr?: string
+      'pagination.key'?: string
+      'pagination.offset'?: string
+      'pagination.limit'?: string
+      'pagination.countTotal'?: boolean
+      'pagination.reverse'?: boolean
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<V1Beta1QueryRedelegationsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/delegators/${delegatorAddr}/redelegations`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
-      ...params,
-    });
+      format: 'json',
+      ...params
+    })
 
   /**
  * No description
@@ -1010,21 +1046,21 @@ delegator address.
   queryDelegatorUnbondingDelegations = (
     delegatorAddr: string,
     query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
-      "pagination.reverse"?: boolean;
+      'pagination.key'?: string
+      'pagination.offset'?: string
+      'pagination.limit'?: string
+      'pagination.countTotal'?: boolean
+      'pagination.reverse'?: boolean
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<V1Beta1QueryDelegatorUnbondingDelegationsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/delegators/${delegatorAddr}/unbonding_delegations`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
-      ...params,
-    });
+      format: 'json',
+      ...params
+    })
 
   /**
  * No description
@@ -1038,21 +1074,21 @@ address.
   queryDelegatorValidators = (
     delegatorAddr: string,
     query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
-      "pagination.reverse"?: boolean;
+      'pagination.key'?: string
+      'pagination.offset'?: string
+      'pagination.limit'?: string
+      'pagination.countTotal'?: boolean
+      'pagination.reverse'?: boolean
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<V1Beta1QueryDelegatorValidatorsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/delegators/${delegatorAddr}/validators`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
-      ...params,
-    });
+      format: 'json',
+      ...params
+    })
 
   /**
  * No description
@@ -1063,13 +1099,17 @@ address.
 pair.
  * @request GET:/cosmos/staking/v1beta1/delegators/{delegatorAddr}/validators/{validatorAddr}
  */
-  queryDelegatorValidator = (delegatorAddr: string, validatorAddr: string, params: RequestParams = {}) =>
+  queryDelegatorValidator = (
+    delegatorAddr: string,
+    validatorAddr: string,
+    params: RequestParams = {}
+  ) =>
     this.request<V1Beta1QueryDelegatorValidatorResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/delegators/${delegatorAddr}/validators/${validatorAddr}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
+      method: 'GET',
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1082,10 +1122,10 @@ pair.
   queryHistoricalInfo = (height: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryHistoricalInfoResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/historical_info/${height}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
+      method: 'GET',
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1098,10 +1138,10 @@ pair.
   queryParams = (params: RequestParams = {}) =>
     this.request<V1Beta1QueryParamsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/params`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
+      method: 'GET',
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1114,10 +1154,10 @@ pair.
   queryPool = (params: RequestParams = {}) =>
     this.request<V1Beta1QueryPoolResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/pool`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
+      method: 'GET',
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1129,22 +1169,22 @@ pair.
    */
   queryValidators = (
     query?: {
-      status?: string;
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
-      "pagination.reverse"?: boolean;
+      status?: string
+      'pagination.key'?: string
+      'pagination.offset'?: string
+      'pagination.limit'?: string
+      'pagination.countTotal'?: boolean
+      'pagination.reverse'?: boolean
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<V1Beta1QueryValidatorsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/validators`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
-      ...params,
-    });
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1157,10 +1197,10 @@ pair.
   queryValidator = (validatorAddr: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryValidatorResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/validators/${validatorAddr}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
+      method: 'GET',
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1173,21 +1213,21 @@ pair.
   queryValidatorDelegations = (
     validatorAddr: string,
     query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
-      "pagination.reverse"?: boolean;
+      'pagination.key'?: string
+      'pagination.offset'?: string
+      'pagination.limit'?: string
+      'pagination.countTotal'?: boolean
+      'pagination.reverse'?: boolean
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<V1Beta1QueryValidatorDelegationsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/validators/${validatorAddr}/delegations`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
-      ...params,
-    });
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1197,13 +1237,17 @@ pair.
    * @summary Delegation queries delegate info for given validator delegator pair.
    * @request GET:/cosmos/staking/v1beta1/validators/{validatorAddr}/delegations/{delegatorAddr}
    */
-  queryDelegation = (validatorAddr: string, delegatorAddr: string, params: RequestParams = {}) =>
+  queryDelegation = (
+    validatorAddr: string,
+    delegatorAddr: string,
+    params: RequestParams = {}
+  ) =>
     this.request<V1Beta1QueryDelegationResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/validators/${validatorAddr}/delegations/${delegatorAddr}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
+      method: 'GET',
+      format: 'json',
+      ...params
+    })
 
   /**
  * No description
@@ -1214,13 +1258,17 @@ pair.
 pair.
  * @request GET:/cosmos/staking/v1beta1/validators/{validatorAddr}/delegations/{delegatorAddr}/unbonding_delegation
  */
-  queryUnbondingDelegation = (validatorAddr: string, delegatorAddr: string, params: RequestParams = {}) =>
+  queryUnbondingDelegation = (
+    validatorAddr: string,
+    delegatorAddr: string,
+    params: RequestParams = {}
+  ) =>
     this.request<V1Beta1QueryUnbondingDelegationResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/validators/${validatorAddr}/delegations/${delegatorAddr}/unbonding_delegation`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
+      method: 'GET',
+      format: 'json',
+      ...params
+    })
 
   /**
    * No description
@@ -1233,19 +1281,19 @@ pair.
   queryValidatorUnbondingDelegations = (
     validatorAddr: string,
     query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
-      "pagination.reverse"?: boolean;
+      'pagination.key'?: string
+      'pagination.offset'?: string
+      'pagination.limit'?: string
+      'pagination.countTotal'?: boolean
+      'pagination.reverse'?: boolean
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<V1Beta1QueryValidatorUnbondingDelegationsResponse, RpcStatus>({
       path: `/cosmos/staking/v1beta1/validators/${validatorAddr}/unbonding_delegations`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
-      ...params,
-    });
+      format: 'json',
+      ...params
+    })
 }
