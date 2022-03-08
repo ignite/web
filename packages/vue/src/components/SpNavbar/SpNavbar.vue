@@ -229,7 +229,8 @@ export default defineComponent({
 }
 
 .link-active {
-  font-weight: 600;
+  font-weight: 500;
+  color: #000;
 }
 
 @media (max-width: 600px) {
