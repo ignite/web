@@ -124,6 +124,7 @@ export default defineComponent({
   min-width: 416px;
   min-height: 300px;
   padding: 32px;
+  border-radius: 16px;
 }
 
 .modal-header,

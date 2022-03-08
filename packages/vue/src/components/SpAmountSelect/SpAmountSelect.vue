@@ -94,6 +94,7 @@
       :visible="state.modalOpen"
       :close-icon="true"
       :title="'Select asset'"
+      class='modal--assets-select'
       @close="state.modalOpen = false"
     >
       <template #body>
@@ -408,5 +409,9 @@ export default defineComponent({
 .input-wrapper {
   display: flex;
   flex: 1;
+}
+
+.modal {
+  &--assets-select {}
 }
 </style>
