@@ -12,6 +12,7 @@ import useAPIPagination, {
 } from './useAPIPagination'
 
 type Response = {
+  filterSupportedTypes: (tx: object) => boolean
   normalize: (tx: object) => TxForUI
   pager: ComputedRef<Pager>
   newTxs: Ref<number>
@@ -55,6 +56,12 @@ export default async function ({
       total: Number(pagination.total)
     }
   }
+  let filterSupportedTypes = (tx: any) => {
+    let isIBC = (tx.body.messages[0]['@type'] as string).includes('ibc.applications.transfer.v1.MsgTransfer')
+    let isBankTransfer = (tx.body.messages[0]['@type'] as string).includes('cosmos.bank.v1beta1.MsgSend')
+
+    return isBankTransfer || isIBC
+  }
   let normalize = (tx: any): TxForUI => {
     let findOutDir = (tx: TxForUI): TxDirection => {
       let dir: TxDirection = 'in'
@@ -71,7 +78,8 @@ export default async function ({
 
     let normalized: any = {}
 
-    let isIBC = (tx.body.messages[0]['@type'] as string).includes('ibc')
+    let isIBC = (tx.body.messages[0]['@type'] as string).includes('ibc.applications.transfer.v1.MsgTransfer')
+    let isBankTransfer = (tx.body.messages[0]['@type'] as string).includes('cosmos.bank.v1beta1.MsgSend')
 
     if (isIBC) {
       let decodeIBC = (dataAs64: string): object =>
@@ -83,7 +91,7 @@ export default async function ({
       normalized.receiver = decoded.receiver
       normalized.amount = { amount: decoded.amount, denom: decoded.denom }
       normalized.height = Number(tx.height)
-    } else {
+    } else if (isBankTransfer) {
       normalized.sender = tx.body.messages[0].from_address
       normalized.receiver = tx.body.messages[0].to_address
       normalized.amount = tx.body.messages[0].amount
@@ -177,6 +185,7 @@ export default async function ({
   return {
     newTxs,
     pager: recvAndSentPager,
-    normalize
+    normalize,
+    filterSupportedTypes
   }
 }
