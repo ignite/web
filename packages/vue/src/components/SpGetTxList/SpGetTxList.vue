@@ -82,7 +82,7 @@ export default defineComponent({
 
     // composables
     let { address } = useAddress({ $s })
-    let { pager, normalize, newTxs } = await useTxs({
+    let { pager, normalize, newTxs, filterSupportedTypes } = await useTxs({
       $s,
       opts: { order: 'desc', realTime: true }
     })
@@ -90,6 +90,7 @@ export default defineComponent({
     // computed
     let list = computed<TxForUI[]>(() => {
       return pager.value.page.value
+        .filter(filterSupportedTypes)
         .map(normalize)
         .slice(0, state.listSize)
         .sort((a, b) => b.height - a.height)
