@@ -1,7 +1,7 @@
 <template>
   <Suspense v-if="address">
     <template #default>
-      <SpGetTxList />
+      <SpGetTokenTransferList />
     </template>
     <template #fallback>
       <div class="tx-list">
@@ -30,12 +30,12 @@ import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
 import { useAddress } from '../../composables'
-import SpGetTxList from '../SpGetTxList'
+import SpGetTokenTransferList from '../SpGetTokenTransferList'
 
 export default defineComponent({
-  name: 'SpTxList',
+  name: 'SpTokenTransferList',
 
-  components: { SpGetTxList },
+  components: { SpGetTokenTransferList },
 
   setup() {
     let $s = useStore()
