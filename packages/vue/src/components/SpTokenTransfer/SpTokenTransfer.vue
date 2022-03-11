@@ -173,8 +173,6 @@
         <div style="width: 100%; height: 21px" />
 
         <div v-if="hasAnyBalance">
-          {{state.tx.amount}}
-          {{balances.assets}}
           <SpAmountSelect
             class="token-selector--main"
             :selected="state.tx.amount"
