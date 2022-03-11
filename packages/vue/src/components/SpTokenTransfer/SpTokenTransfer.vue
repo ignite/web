@@ -171,7 +171,10 @@
         </div>
 
         <div style="width: 100%; height: 21px" />
+
         <div v-if="hasAnyBalance">
+          {{state.tx.amount}}
+          {{balances.assets}}
           <SpAmountSelect
             class="token-selector--main"
             :selected="state.tx.amount"
@@ -399,7 +402,6 @@ export default defineComponent({
       return amount == '' ? 0 : parseInt(amount)
     }
     let resetTx = (): void => {
-      state.tx.amount = []
       state.tx.receiver = ''
       state.tx.memo = ''
       state.tx.ch = ''
