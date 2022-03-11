@@ -133,7 +133,11 @@
       </router-link>
     </div>
     <div class="navbar-section">
-      <SpAcc />
+      <SpAcc>
+        <template #externals>
+          <slot name="externals"></slot>
+        </template>
+      </SpAcc>
     </div>
   </div>
 </template>

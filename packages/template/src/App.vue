@@ -4,20 +4,27 @@
       <SpNavbar
         :links="navbarLinks"
         :active-route="router.currentRoute.value.path"
-      />
+      >
+        <template #externals>
+          <div class="dropdown-option mb-3">
+            <span> Support </span>
+            <SpExternalArrowIcon />
+          </div>
+        </template>
+      </SpNavbar>
       <router-view />
     </SpTheme>
   </div>
 </template>
 
 <script lang="ts">
-import { SpNavbar,SpTheme } from '@starport/vue'
+import { SpExternalArrowIcon, SpNavbar, SpTheme } from '@starport/vue'
 import { computed, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
-  components: { SpTheme, SpNavbar },
+  components: { SpTheme, SpNavbar, SpExternalArrowIcon },
 
   setup() {
     // store

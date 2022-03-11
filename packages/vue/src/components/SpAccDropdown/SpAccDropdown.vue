@@ -46,18 +46,20 @@
         <SpChevronRightIcon />
       </div>
       <hr class="divider" />
-      <div class="dropdown-option mb-3">
-        <span> Support </span>
-        <SpExternalArrowIcon />
-      </div>
-      <div class="dropdown-option mb-3">
-        <span> Twitter </span>
-        <SpExternalArrowIcon />
-      </div>
-      <div class="dropdown-option mb-3">
-        <span> Telegram </span>
-        <SpExternalArrowIcon />
-      </div>
+      <slot name='externals'>
+        <div class="dropdown-option mb-3">
+          <span> Support </span>
+          <SpExternalArrowIcon />
+        </div>
+        <div class="dropdown-option mb-3">
+          <span> Twitter </span>
+          <SpExternalArrowIcon />
+        </div>
+        <div class="dropdown-option mb-3">
+          <span> Telegram </span>
+          <SpExternalArrowIcon />
+        </div>
+      </slot>
       <div style="text-align: center; margin-top: 2rem">
         <span class="description-grey terms-link mr-2">Privacy</span>•
         <span class="description-grey terms-link mr-2 ml-1">Terms of use</span>•
