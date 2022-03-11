@@ -100,6 +100,30 @@
       <template #body>
         <div class="modal-body">
           <div class="search">
+            <span class="search-icon">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.5 12.5C9.81371 12.5 12.5 9.81371 12.5 6.5C12.5 3.18629 9.81371 0.5 6.5 0.5C3.18629 0.5 0.5 3.18629 0.5 6.5C0.5 9.81371 3.18629 12.5 6.5 12.5Z"
+                  stroke="black"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M14.5002 14.5002L10.7422 10.7422"
+                  stroke="black"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
             <input
               v-model="state.tokenSearch"
               class="input primary"
@@ -307,18 +331,33 @@ export default defineComponent({
 .modal-list {
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
 }
 
 .modal-list-item {
   display: flex;
   align-items: center;
-  padding: 16px 24px;
+  padding: 16px 0;
+  position: relative;
+
+  &:after {
+    content: "";
+    display: none;
+    width: calc(100% + 24px);
+    height: 75px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    position: absolute;
+    top: -3px;
+    left: -12px;
+  }
 }
 
 .modal-list-item:hover {
-  background: rgba(0, 0, 0, 0.03);
   cursor: pointer;
+
+  &:after {
+    display: block;
+  }
 }
 
 .amount-select {
@@ -412,6 +451,47 @@ export default defineComponent({
 }
 
 .modal {
-  &--assets-select {}
+  &--assets-select {
+    ::v-deep .modal {
+      min-width: 384px;
+      padding: 32px 24px;
+      justify-content: unset;
+
+      .modal-header {
+        margin-top: 2px;
+        height: 28px;
+        margin-bottom: 28px;
+      }
+
+      .modal-body {
+        margin-top: -2px;
+
+        .search {
+          position: relative;
+          .search-icon {
+            position: absolute;
+            left: 13px;
+            top: 18px;
+          }
+          input {
+            height: 48px;
+            padding-left: 36px;
+
+            &:focus {
+              box-shadow: 0 0 0 2px rgba(9,78,253,1);
+            }
+          }
+        }
+      }
+
+      .modal__close-icon {
+        top: 39px !important;
+        right: 27px !important;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+  }
 }
 </style>

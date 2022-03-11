@@ -40,6 +40,7 @@
 
         <SpTimesIcon
           v-if="closeIcon"
+          class='modal__close-icon'
           style="position: absolute; top: 26px; right: 20px; cursor: pointer"
           @click="$emit('close')"
         >
