@@ -83,7 +83,7 @@ enum AMOUNT_SIGN {
 }
 
 export default defineComponent({
-  name: 'SpTxList',
+  name: 'SpTokenTransferListItem',
 
   props: {
     tx: {

@@ -2,7 +2,7 @@ import { App as Application } from 'vue'
 
 import { registerComponent } from '../../utils/plugins/index'
 // @ts-ignore
-import C from './SpTxList.vue'
+import C from './SpTokenTransferList.vue'
 
 export const Plugin = {
   install(vue: Application): void {

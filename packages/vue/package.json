@@ -1,6 +1,6 @@
 {
   "name": "@starport/vue",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A library of Vue 3 components for building frontends for cosmos-sdk chains",
   "author": "Tendermint, Inc <hello@tendermint.com>",
   "license": "Apache-2.0",

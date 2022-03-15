@@ -32,10 +32,10 @@ You can also import only specific components in your `main.js` file:
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store' // See @starport/vuex documentation
-import { SpTokenSend } from '@starport/vue'
+import { SpTokenTransfer } from '@starport/vue'
 
 const app = createApp(App)
-app.use(store).use(SpTokenSend).mount('#app')
+app.use(store).use(SpTokenTransfer).mount('#app')
 ```
 
 ## Components

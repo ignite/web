@@ -153,16 +153,16 @@
 
           <div class="input-wrapper">
             <input
-              v-model="state.tx.toAddress"
+              v-model="state.tx.receiver"
               class="input"
               :class="{
-                error: state.tx.toAddress.length > 0 && !validToAddress
+                error: state.tx.receiver.length > 0 && !validReceiver
               }"
               placeholder="Recipient address"
               :disabled="!hasAnyBalance"
             />
             <div
-              v-if="state.tx.toAddress.length > 0 && !validToAddress"
+              v-if="state.tx.receiver.length > 0 && !validReceiver"
               class="error-message"
             >
               Invalid address
@@ -315,7 +315,7 @@ import SpSpinner from '../SpSpinner'
 
 // types
 export interface TxData {
-  toAddress: string
+  receiver: string
   ch: string
   amount: Array<AssetForUI>
   memo: string
@@ -347,7 +347,7 @@ export interface State {
 
 export let initialState: State = {
   tx: {
-    toAddress: '',
+    receiver: '',
     ch: '',
     amount: [],
     memo: '',
@@ -358,7 +358,7 @@ export let initialState: State = {
 }
 
 export default defineComponent({
-  name: 'SpTx',
+  name: 'SpTokenTransfer',
 
   components: {
     SpCard,
@@ -400,7 +400,7 @@ export default defineComponent({
     }
     let resetTx = (): void => {
       state.tx.amount = []
-      state.tx.toAddress = ''
+      state.tx.receiver = ''
       state.tx.memo = ''
       state.tx.ch = ''
       state.tx.fees = []
@@ -428,7 +428,7 @@ export default defineComponent({
 
       let payload: any = {
         amount,
-        toAddress: state.tx.toAddress,
+        toAddress: state.tx.receiver,
         fromAddress: address.value
       }
 
@@ -439,7 +439,7 @@ export default defineComponent({
             sourcePort: 'transfer',
             sourceChannel: state.tx.ch,
             sender: address.value,
-            receiver: state.tx.toAddress,
+            receiver: state.tx.receiver,
             timeoutHeight: 0,
             timeoutTimestamp: long
               .fromNumber(new Date().getTime() + 60000)
@@ -536,11 +536,11 @@ export default defineComponent({
           return !isNaN(parsedAmount) && parsedAmount > 0
         })
     )
-    let validToAddress = computed<boolean>(() => {
+    let validReceiver = computed<boolean>(() => {
       let valid: boolean
 
       try {
-        valid = !!Bech32.decode(state.tx.toAddress)
+        valid = !!Bech32.decode(state.tx.receiver)
       } catch {
         valid = false
       }
@@ -550,7 +550,7 @@ export default defineComponent({
     let ableToTx = computed<boolean>(
       () =>
         validTxAmount.value &&
-        validToAddress.value &&
+        validReceiver.value &&
         validTxFees.value &&
         !!address.value
     )
@@ -586,7 +586,7 @@ export default defineComponent({
       isTxSuccess,
       isTxError,
       ableToTx,
-      validToAddress,
+      validReceiver,
       // methods
       switchToSend,
       switchToReceive,
