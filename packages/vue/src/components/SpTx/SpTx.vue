@@ -641,14 +641,14 @@ export default defineComponent({
 }
 .token-selector {
   &--main {
-    &::v-deep(.add-token) {
+    &:deep(.add-token) {
       margin-top: 18px;
     }
   }
 }
 
 .advanced {
-  &::v-deep(.add-token) {
+  &:deep(.add-token) {
     margin-top: 17px;
   }
 }

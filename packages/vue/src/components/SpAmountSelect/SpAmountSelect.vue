@@ -452,7 +452,7 @@ export default defineComponent({
 
 .modal {
   &--assets-select {
-    ::v-deep .modal {
+    :deep(.modal) {
       min-width: 384px;
       padding: 32px 24px;
       justify-content: unset;
