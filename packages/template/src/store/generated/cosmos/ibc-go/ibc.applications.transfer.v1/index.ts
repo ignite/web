@@ -275,11 +275,12 @@ export default {
       } catch (e) {
         if (e == MissingWalletError) {
           throw new Error(
-            'TxClient:MsgTransfer:Init Could not initialize signing client. Wallet is required.'
+            'TxClient:MsgTransfer:Init  Could not initialize signing client. Wallet is required.'
           )
         } else {
           throw new Error(
-            'TxClient:MsgTransfer:Create Could not create message: ' + e.message
+            'TxClient:MsgTransfer:Create  Could not create message: ' +
+              e.message
           )
         }
       }

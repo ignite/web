@@ -20,13 +20,13 @@ export interface Applicationstransferv1Params {
    * send_enabled enables or disables all cross-chain token transfers from this
    * chain.
    */
-  sendEnabled?: boolean
+  send_enabled?: boolean
 
   /**
    * receive_enabled enables or disables all cross-chain token transfers to this
    * chain.
    */
-  receiveEnabled?: boolean
+  receive_enabled?: boolean
 }
 
 /**
@@ -165,7 +165,7 @@ export interface V1DenomTrace {
   path?: string
 
   /** base denomination of the relayed fungible token. */
-  baseDenom?: string
+  base_denom?: string
 }
 
 /**
@@ -178,10 +178,10 @@ gets reset
 */
 export interface V1Height {
   /** @format uint64 */
-  revisionNumber?: string
+  revision_number?: string
 
   /** @format uint64 */
-  revisionHeight?: string
+  revision_height?: string
 }
 
 /**
@@ -195,7 +195,7 @@ method.
 */
 export interface V1QueryDenomTraceResponse {
   /** denom_trace returns the requested denomination trace information. */
-  denomTrace?: V1DenomTrace
+  denom_trace?: V1DenomTrace
 }
 
 /**
@@ -204,7 +204,7 @@ method.
 */
 export interface V1QueryDenomTracesResponse {
   /** denom_traces returns all denominations trace information. */
-  denomTraces?: V1DenomTrace[]
+  denom_traces?: V1DenomTrace[]
 
   /** pagination defines the pagination in the response. */
   pagination?: V1Beta1PageResponse
@@ -265,7 +265,7 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  countTotal?: boolean
+  count_total?: boolean
 }
 
 /**
@@ -279,7 +279,7 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  nextKey?: string
+  next_key?: string
 
   /** @format uint64 */
   total?: string
@@ -530,7 +530,7 @@ export class Api<
       'pagination.key'?: string
       'pagination.offset'?: string
       'pagination.limit'?: string
-      'pagination.countTotal'?: boolean
+      'pagination.count_total'?: boolean
     },
     params: RequestParams = {}
   ) =>
