@@ -520,11 +520,11 @@ export default {
       } catch (e) {
         if (e == MissingWalletError) {
           throw new Error(
-            'TxClient:MsgSend:Init Could not initialize signing client. Wallet is required.'
+            'TxClient:MsgSend:Init  Could not initialize signing client. Wallet is required.'
           )
         } else {
           throw new Error(
-            'TxClient:MsgSend:Create Could not create message: ' + e.message
+            'TxClient:MsgSend:Create  Could not create message: ' + e.message
           )
         }
       }
@@ -537,11 +537,11 @@ export default {
       } catch (e) {
         if (e == MissingWalletError) {
           throw new Error(
-            'TxClient:MsgMultiSend:Init Could not initialize signing client. Wallet is required.'
+            'TxClient:MsgMultiSend:Init  Could not initialize signing client. Wallet is required.'
           )
         } else {
           throw new Error(
-            'TxClient:MsgMultiSend:Create Could not create message: ' +
+            'TxClient:MsgMultiSend:Create  Could not create message: ' +
               e.message
           )
         }
