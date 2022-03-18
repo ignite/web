@@ -400,6 +400,7 @@ export default defineComponent({
       return amount == '' ? 0 : parseInt(amount)
     }
     let resetTx = (): void => {
+      state.tx.amount = []
       state.tx.receiver = ''
       state.tx.memo = ''
       state.tx.ch = ''
@@ -468,6 +469,7 @@ export default defineComponent({
           throw new Error()
         }
         state.currentUIState = UI_STATE.TX_SUCCESS
+        bootstrapTxAmount()
       } catch (e) {
         console.error(e)
         state.currentUIState = UI_STATE.TX_ERROR
