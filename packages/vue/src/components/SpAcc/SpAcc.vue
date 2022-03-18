@@ -14,31 +14,39 @@
       </div>
       <SpChevronDownIcon />
     </div>
-    <div
+<!--    <div-->
+<!--      v-else-->
+<!--      class="sp-nav-link"-->
+<!--      style="display: flex; align-items: center"-->
+<!--      @click="state.connectWalletModal = true"-->
+<!--    >-->
+<!--      Connect wallet-->
+<!--    </div>-->
+    <SpButton
       v-else
-      class="sp-nav-link"
-      style="display: flex; align-items: center"
+      aria-label="Connect wallet"
+      type="primary"
       @click="state.connectWalletModal = true"
     >
       Connect wallet
-    </div>
+    </SpButton>
     <SpAccDropdown
       v-if="state.accountDropdown"
       :wallet="wallet"
-      :accName="getAccName()"
+      :acc-name="getAccName()"
       @disconnect="disconnect"
       @close="state.accountDropdown = false"
     />
     <SpModal
       :visible="state.connectWalletModal"
-      :closeIcon="false"
-      :cancelButton="false"
-      :submitButton="false"
+      :close-icon="false"
+      :cancel-button="false"
+      :submit-button="false"
+      style="text-align: center"
       @close="state.connectWalletModal = false"
       @submit="state.connectWalletModal = false"
-      style="text-align: center"
     >
-      <template v-slot:header>
+      <template #header>
         <div v-if="state.modalPage === 'connect'">
           <SpKeplrIcon />
           <h3 v-if="isKeplrAvailable">Connect your wallet</h3>
@@ -53,7 +61,7 @@
           <h3>Keplr cannot launch</h3>
         </div>
       </template>
-      <template v-slot:body>
+      <template #body>
         <div style="max-width: 320px; text-align: center; margin: auto">
           <div v-if="state.modalPage === 'connect'">
             <p v-if="isKeplrAvailable">
@@ -72,8 +80,8 @@
             <SpButton
               aria-label="Cancel"
               type="secondary"
-              @click="state.modalPage = 'connect'"
               style="margin-top: 3rem"
+              @click="state.modalPage = 'connect'"
             >
               Cancel
             </SpButton>
@@ -89,7 +97,7 @@
           </div>
         </div>
       </template>
-      <template v-if="isKeplrAvailable" v-slot:footer>
+      <template v-if="isKeplrAvailable" #footer>
         <div v-if="state.modalPage === 'connect'">
           <SpButton
             aria-label="Connect Keplr"
@@ -124,27 +132,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, onMounted } from 'vue'
+import { computed, defineComponent, onMounted,reactive } from 'vue'
 import { useStore } from 'vuex'
-
-import SpModal from '../SpModal'
-import SpButton from '../SpButton'
-import SpAccDropdown from '../SpAccDropdown'
-import SpSpinner from '../SpSpinner'
-import SpProfileIcon from '../SpProfileIcon'
-import SpKeplrIcon from '../SpKeplrIcon'
-import SpWarningIcon from '../SpWarningIcon'
-import SpExternalArrowIcon from '../SpExternalArrow'
-import SpChevronDownIcon from '../SpChevronDown'
 
 import useKeplr from '../../composables/useKeplr'
 import { Wallet } from '../../utils/interfaces'
+import SpAccDropdown from '../SpAccDropdown'
+import SpButton from '../SpButton'
+import SpChevronDownIcon from '../SpChevronDown'
+import SpExternalArrowIcon from '../SpExternalArrow'
+import SpKeplrIcon from '../SpKeplrIcon'
+import SpModal from '../SpModal'
+import SpProfileIcon from '../SpProfileIcon'
+import SpSpinner from '../SpSpinner'
+import SpWarningIcon from '../SpWarningIcon'
 
 export interface State {
   modalPage: string
   connectWalletModal: boolean
   accountDropdown: boolean
-  keplrParams: { name: String; bech32Address: String }
+  keplrParams: { name: string; bech32Address: string }
 }
 
 export let initialState: State = {
