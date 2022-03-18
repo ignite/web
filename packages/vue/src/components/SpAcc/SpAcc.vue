@@ -3,6 +3,7 @@
     <div
       v-if="wallet"
       class="sp-nav-link selected account-dropdown-button"
+      :class="[state.accountDropdown ? 'active' : '']"
       style="display: flex; align-items: center"
       @click="state.accountDropdown = !state.accountDropdown"
     >
@@ -12,16 +13,7 @@
           {{ getAccName() }}
         </span>
       </div>
-      <SpChevronDownIcon />
     </div>
-<!--    <div-->
-<!--      v-else-->
-<!--      class="sp-nav-link"-->
-<!--      style="display: flex; align-items: center"-->
-<!--      @click="state.connectWalletModal = true"-->
-<!--    >-->
-<!--      Connect wallet-->
-<!--    </div>-->
     <SpButton
       v-else
       aria-label="Connect wallet"
@@ -262,6 +254,32 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.account-dropdown-button {
+  position: relative;
+
+  > * {
+    position: relative;
+    z-index: 24;
+  }
+
+  &:after {
+    content: '';
+    display: none;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    width: calc(100% + 5px);
+    height: 56px;
+    position: absolute;
+    z-index: 23;
+    left: -7px;
+  }
+
+  &:hover, &.active {
+    &:after {
+      display: block;
+    }
+  }
+}
 .navbar-wrapper {
   display: flex;
   justify-content: space-between;
