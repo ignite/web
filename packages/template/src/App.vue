@@ -6,10 +6,9 @@
         :active-route="router.currentRoute.value.path"
       >
         <template #externals>
-          <div class="dropdown-option mb-3">
-            <span> Support </span>
-            <SpExternalArrowIcon />
-          </div>
+          <SpAccDropdownExternalLink title='Support' link=''/>
+          <SpAccDropdownExternalLink title='Twitter' link=''/>
+          <SpAccDropdownExternalLink title='Telegram' link=''/>
         </template>
       </SpNavbar>
       <router-view />
@@ -18,13 +17,13 @@
 </template>
 
 <script lang="ts">
-import { SpExternalArrowIcon, SpNavbar, SpTheme } from '@starport/vue'
+import { SpAccDropdownExternalLink, SpNavbar, SpTheme } from '@starport/vue'
 import { computed, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
-  components: { SpTheme, SpNavbar, SpExternalArrowIcon },
+  components: { SpTheme, SpNavbar, SpAccDropdownExternalLink },
 
   setup() {
     // store

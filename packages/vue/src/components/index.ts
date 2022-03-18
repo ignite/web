@@ -1,4 +1,5 @@
 export { default as SpAcc } from './SpAcc'
+export { default as SpAccDropdownExternalLink } from './SpAccDropdownExternalLink'
 export { default as SpAmountSelect } from './SpAmountSelect'
 export { default as SpAssets } from './SpAssets'
 export { default as SpButton } from './SpButton'
