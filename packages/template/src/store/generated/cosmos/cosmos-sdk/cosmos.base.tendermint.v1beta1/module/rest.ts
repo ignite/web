@@ -11,39 +11,39 @@
 
 export interface CryptoPublicKey {
   /** @format byte */
-  ed25519?: string
+  ed25519?: string;
 
   /** @format byte */
-  secp256k1?: string
+  secp256k1?: string;
 }
 
 export interface P2PDefaultNodeInfo {
-  protocol_version?: P2PProtocolVersion
-  default_node_id?: string
-  listen_addr?: string
-  network?: string
-  version?: string
+  protocol_version?: P2PProtocolVersion;
+  default_node_id?: string;
+  listen_addr?: string;
+  network?: string;
+  version?: string;
 
   /** @format byte */
-  channels?: string
-  moniker?: string
-  other?: P2PDefaultNodeInfoOther
+  channels?: string;
+  moniker?: string;
+  other?: P2PDefaultNodeInfoOther;
 }
 
 export interface P2PDefaultNodeInfoOther {
-  tx_index?: string
-  rpc_address?: string
+  tx_index?: string;
+  rpc_address?: string;
 }
 
 export interface P2PProtocolVersion {
   /** @format uint64 */
-  p2p?: string
+  p2p?: string;
 
   /** @format uint64 */
-  block?: string
+  block?: string;
 
   /** @format uint64 */
-  app?: string
+  app?: string;
 }
 
 /**
@@ -160,33 +160,33 @@ export interface ProtobufAny {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  '@type'?: string
+  "@type"?: string;
 }
 
 export interface RpcStatus {
   /** @format int32 */
-  code?: number
-  message?: string
-  details?: ProtobufAny[]
+  code?: number;
+  message?: string;
+  details?: ProtobufAny[];
 }
 
 export interface TenderminttypesValidator {
   /** @format byte */
-  address?: string
-  pub_key?: CryptoPublicKey
+  address?: string;
+  pub_key?: CryptoPublicKey;
 
   /** @format int64 */
-  voting_power?: string
+  voting_power?: string;
 
   /** @format int64 */
-  proposer_priority?: string
+  proposer_priority?: string;
 }
 
 /**
  * Validator is the type for the validator-set.
  */
 export interface Tendermintv1Beta1Validator {
-  address?: string
+  address?: string;
 
   /**
    * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -272,36 +272,36 @@ export interface Tendermintv1Beta1Validator {
    *       "value": "1.212s"
    *     }
    */
-  pub_key?: ProtobufAny
+  pub_key?: ProtobufAny;
 
   /** @format int64 */
-  voting_power?: string
+  voting_power?: string;
 
   /** @format int64 */
-  proposer_priority?: string
+  proposer_priority?: string;
 }
 
 export interface TypesBlock {
   /** Header defines the structure of a Tendermint block header. */
-  header?: TypesHeader
-  data?: TypesData
-  evidence?: TypesEvidenceList
+  header?: TypesHeader;
+  data?: TypesData;
+  evidence?: TypesEvidenceList;
 
   /** Commit contains the evidence that a block was committed by a set of validators. */
-  last_commit?: TypesCommit
+  last_commit?: TypesCommit;
 }
 
 export interface TypesBlockID {
   /** @format byte */
-  hash?: string
-  part_set_header?: TypesPartSetHeader
+  hash?: string;
+  part_set_header?: TypesPartSetHeader;
 }
 
 export enum TypesBlockIDFlag {
-  BLOCK_ID_FLAG_UNKNOWN = 'BLOCK_ID_FLAG_UNKNOWN',
-  BLOCK_ID_FLAG_ABSENT = 'BLOCK_ID_FLAG_ABSENT',
-  BLOCK_ID_FLAG_COMMIT = 'BLOCK_ID_FLAG_COMMIT',
-  BLOCK_ID_FLAG_NIL = 'BLOCK_ID_FLAG_NIL'
+  BLOCK_ID_FLAG_UNKNOWN = "BLOCK_ID_FLAG_UNKNOWN",
+  BLOCK_ID_FLAG_ABSENT = "BLOCK_ID_FLAG_ABSENT",
+  BLOCK_ID_FLAG_COMMIT = "BLOCK_ID_FLAG_COMMIT",
+  BLOCK_ID_FLAG_NIL = "BLOCK_ID_FLAG_NIL",
 }
 
 /**
@@ -309,28 +309,28 @@ export enum TypesBlockIDFlag {
  */
 export interface TypesCommit {
   /** @format int64 */
-  height?: string
+  height?: string;
 
   /** @format int32 */
-  round?: number
-  block_id?: TypesBlockID
-  signatures?: TypesCommitSig[]
+  round?: number;
+  block_id?: TypesBlockID;
+  signatures?: TypesCommitSig[];
 }
 
 /**
  * CommitSig is a part of the Vote included in a Commit.
  */
 export interface TypesCommitSig {
-  block_id_flag?: TypesBlockIDFlag
+  block_id_flag?: TypesBlockIDFlag;
 
   /** @format byte */
-  validator_address?: string
+  validator_address?: string;
 
   /** @format date-time */
-  timestamp?: string
+  timestamp?: string;
 
   /** @format byte */
-  signature?: string
+  signature?: string;
 }
 
 export interface TypesData {
@@ -339,7 +339,7 @@ export interface TypesData {
    * NOTE: not all txs here are valid.  We're just agreeing on the order first.
    * This means that block.AppHash does not include these txs.
    */
-  txs?: string[]
+  txs?: string[];
 }
 
 /**
@@ -350,34 +350,34 @@ export interface TypesDuplicateVoteEvidence {
    * Vote represents a prevote, precommit, or commit vote from validators for
    * consensus.
    */
-  vote_a?: TypesVote
+  vote_a?: TypesVote;
 
   /**
    * Vote represents a prevote, precommit, or commit vote from validators for
    * consensus.
    */
-  vote_b?: TypesVote
+  vote_b?: TypesVote;
 
   /** @format int64 */
-  total_voting_power?: string
+  total_voting_power?: string;
 
   /** @format int64 */
-  validator_power?: string
+  validator_power?: string;
 
   /** @format date-time */
-  timestamp?: string
+  timestamp?: string;
 }
 
 export interface TypesEvidence {
   /** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
-  duplicate_vote_evidence?: TypesDuplicateVoteEvidence
+  duplicate_vote_evidence?: TypesDuplicateVoteEvidence;
 
   /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
-  light_client_attack_evidence?: TypesLightClientAttackEvidence
+  light_client_attack_evidence?: TypesLightClientAttackEvidence;
 }
 
 export interface TypesEvidenceList {
-  evidence?: TypesEvidence[]
+  evidence?: TypesEvidence[];
 }
 
 /**
@@ -389,80 +389,80 @@ export interface TypesHeader {
    * including all blockchain data structures and the rules of the application's
    * state transition machine.
    */
-  version?: VersionConsensus
-  chain_id?: string
+  version?: VersionConsensus;
+  chain_id?: string;
 
   /** @format int64 */
-  height?: string
+  height?: string;
 
   /** @format date-time */
-  time?: string
-  last_block_id?: TypesBlockID
+  time?: string;
+  last_block_id?: TypesBlockID;
 
   /** @format byte */
-  last_commit_hash?: string
+  last_commit_hash?: string;
 
   /** @format byte */
-  data_hash?: string
+  data_hash?: string;
 
   /** @format byte */
-  validators_hash?: string
+  validators_hash?: string;
 
   /** @format byte */
-  next_validators_hash?: string
+  next_validators_hash?: string;
 
   /** @format byte */
-  consensus_hash?: string
+  consensus_hash?: string;
 
   /** @format byte */
-  app_hash?: string
+  app_hash?: string;
 
   /** @format byte */
-  last_results_hash?: string
+  last_results_hash?: string;
 
   /** @format byte */
-  evidence_hash?: string
+  evidence_hash?: string;
 
   /** @format byte */
-  proposer_address?: string
+  proposer_address?: string;
 }
 
 export interface TypesLightBlock {
-  signed_header?: TypesSignedHeader
-  validator_set?: TypesValidatorSet
+  signed_header?: TypesSignedHeader;
+  validator_set?: TypesValidatorSet;
 }
 
 /**
  * LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client.
  */
 export interface TypesLightClientAttackEvidence {
-  conflicting_block?: TypesLightBlock
+  conflicting_block?: TypesLightBlock;
 
   /** @format int64 */
-  common_height?: string
-  byzantine_validators?: TenderminttypesValidator[]
+  common_height?: string;
+  byzantine_validators?: TenderminttypesValidator[];
 
   /** @format int64 */
-  total_voting_power?: string
+  total_voting_power?: string;
 
   /** @format date-time */
-  timestamp?: string
+  timestamp?: string;
 }
 
 export interface TypesPartSetHeader {
   /** @format int64 */
-  total?: number
+  total?: number;
 
   /** @format byte */
-  hash?: string
+  hash?: string;
 }
 
 export interface TypesSignedHeader {
   /** Header defines the structure of a Tendermint block header. */
-  header?: TypesHeader
+  header?: TypesHeader;
 
   /** Commit contains the evidence that a block was committed by a set of validators. */
-  commit?: TypesCommit
+  commit?: TypesCommit;
 }
 
 /**
@@ -472,18 +472,18 @@ export interface TypesSignedHeader {
  - SIGNED_MSG_TYPE_PROPOSAL: Proposals
 */
 export enum TypesSignedMsgType {
-  SIGNED_MSG_TYPE_UNKNOWN = 'SIGNED_MSG_TYPE_UNKNOWN',
-  SIGNED_MSG_TYPE_PREVOTE = 'SIGNED_MSG_TYPE_PREVOTE',
-  SIGNED_MSG_TYPE_PRECOMMIT = 'SIGNED_MSG_TYPE_PRECOMMIT',
-  SIGNED_MSG_TYPE_PROPOSAL = 'SIGNED_MSG_TYPE_PROPOSAL'
+  SIGNED_MSG_TYPE_UNKNOWN = "SIGNED_MSG_TYPE_UNKNOWN",
+  SIGNED_MSG_TYPE_PREVOTE = "SIGNED_MSG_TYPE_PREVOTE",
+  SIGNED_MSG_TYPE_PRECOMMIT = "SIGNED_MSG_TYPE_PRECOMMIT",
+  SIGNED_MSG_TYPE_PROPOSAL = "SIGNED_MSG_TYPE_PROPOSAL",
 }
 
 export interface TypesValidatorSet {
-  validators?: TenderminttypesValidator[]
-  proposer?: TenderminttypesValidator
+  validators?: TenderminttypesValidator[];
+  proposer?: TenderminttypesValidator;
 
   /** @format int64 */
-  total_voting_power?: string
+  total_voting_power?: string;
 }
 
 /**
@@ -497,42 +497,42 @@ export interface TypesVote {
    *  - SIGNED_MSG_TYPE_PREVOTE: Votes
    *  - SIGNED_MSG_TYPE_PROPOSAL: Proposals
    */
-  type?: TypesSignedMsgType
+  type?: TypesSignedMsgType;
 
   /** @format int64 */
-  height?: string
+  height?: string;
 
   /** @format int32 */
-  round?: number
-  block_id?: TypesBlockID
+  round?: number;
+  block_id?: TypesBlockID;
 
   /** @format date-time */
-  timestamp?: string
+  timestamp?: string;
 
   /** @format byte */
-  validator_address?: string
+  validator_address?: string;
 
   /** @format int32 */
-  validator_index?: number
+  validator_index?: number;
 
   /** @format byte */
-  signature?: string
+  signature?: string;
 }
 
 /**
  * GetBlockByHeightResponse is the response type for the Query/GetBlockByHeight RPC method.
  */
 export interface V1Beta1GetBlockByHeightResponse {
-  block_id?: TypesBlockID
-  block?: TypesBlock
+  block_id?: TypesBlockID;
+  block?: TypesBlock;
 }
 
 /**
  * GetLatestBlockResponse is the response type for the Query/GetLatestBlock RPC method.
  */
 export interface V1Beta1GetLatestBlockResponse {
-  block_id?: TypesBlockID
-  block?: TypesBlock
+  block_id?: TypesBlockID;
+  block?: TypesBlock;
 }
 
 /**
@@ -540,28 +540,28 @@ export interface V1Beta1GetLatestBlockResponse {
  */
 export interface V1Beta1GetLatestValidatorSetResponse {
   /** @format int64 */
-  block_height?: string
-  validators?: Tendermintv1Beta1Validator[]
+  block_height?: string;
+  validators?: Tendermintv1Beta1Validator[];
 
   /** pagination defines an pagination for the response. */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 }
 
 /**
  * GetNodeInfoResponse is the request type for the Query/GetNodeInfo RPC method.
  */
 export interface V1Beta1GetNodeInfoResponse {
-  default_node_info?: P2PDefaultNodeInfo
+  default_node_info?: P2PDefaultNodeInfo;
 
   /** VersionInfo is the type for the GetNodeInfoResponse message. */
-  application_version?: V1Beta1VersionInfo
+  application_version?: V1Beta1VersionInfo;
 }
 
 /**
  * GetSyncingResponse is the response type for the Query/GetSyncing RPC method.
  */
 export interface V1Beta1GetSyncingResponse {
-  syncing?: boolean
+  syncing?: boolean;
 }
 
 /**
@@ -569,17 +569,17 @@ export interface V1Beta1GetSyncingResponse {
  */
 export interface V1Beta1GetValidatorSetByHeightResponse {
   /** @format int64 */
-  block_height?: string
-  validators?: Tendermintv1Beta1Validator[]
+  block_height?: string;
+  validators?: Tendermintv1Beta1Validator[];
 
   /** pagination defines an pagination for the response. */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface V1Beta1Module {
-  path?: string
-  version?: string
-  sum?: string
+  path?: string;
+  version?: string;
+  sum?: string;
 }
 
 /**
@@ -595,7 +595,7 @@ export interface V1Beta1PageRequest {
    * should be set.
    * @format byte
    */
-  key?: string
+  key?: string;
 
   /**
    * offset is a numeric offset that can be used when key is unavailable.
@@ -603,14 +603,14 @@ export interface V1Beta1PageRequest {
    * be set.
    * @format uint64
    */
-  offset?: string
+  offset?: string;
 
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    * @format uint64
    */
-  limit?: string
+  limit?: string;
 
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -618,14 +618,14 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  count_total?: boolean
+  count_total?: boolean;
 
   /**
    * reverse is set to true if results are to be returned in the descending order.
    *
    * Since: cosmos-sdk 0.43
    */
-  reverse?: boolean
+  reverse?: boolean;
 }
 
 /**
@@ -639,24 +639,24 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  next_key?: string
+  next_key?: string;
 
   /** @format uint64 */
-  total?: string
+  total?: string;
 }
 
 /**
  * VersionInfo is the type for the GetNodeInfoResponse message.
  */
 export interface V1Beta1VersionInfo {
-  name?: string
-  app_name?: string
-  version?: string
-  git_commit?: string
-  build_tags?: string
-  go_version?: string
-  build_deps?: V1Beta1Module[]
-  cosmos_sdk_version?: string
+  name?: string;
+  app_name?: string;
+  version?: string;
+  git_commit?: string;
+  build_tags?: string;
+  go_version?: string;
+  build_deps?: V1Beta1Module[];
+  cosmos_sdk_version?: string;
 }
 
 /**
@@ -666,133 +666,115 @@ state transition machine.
 */
 export interface VersionConsensus {
   /** @format uint64 */
-  block?: string
+  block?: string;
 
   /** @format uint64 */
-  app?: string
+  app?: string;
 }
 
-export type QueryParamsType = Record<string | number, any>
-export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
+export type QueryParamsType = Record<string | number, any>;
+export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean
+  secure?: boolean;
   /** request path */
-  path: string
+  path: string;
   /** content type of request body */
-  type?: ContentType
+  type?: ContentType;
   /** query params */
-  query?: QueryParamsType
+  query?: QueryParamsType;
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: keyof Omit<Body, 'body' | 'bodyUsed'>
+  format?: keyof Omit<Body, "body" | "bodyUsed">;
   /** request body */
-  body?: unknown
+  body?: unknown;
   /** base url */
-  baseUrl?: string
+  baseUrl?: string;
   /** request cancellation token */
-  cancelToken?: CancelToken
+  cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  'body' | 'method' | 'query' | 'path'
->
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string
-  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
-  securityWorker?: (securityData: SecurityDataType) => RequestParams | void
+  baseUrl?: string;
+  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
+  securityWorker?: (securityData: SecurityDataType) => RequestParams | void;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
-  data: D
-  error: E
+export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+  data: D;
+  error: E;
 }
 
-type CancelToken = Symbol | string | number
+type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded'
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = ''
-  private securityData: SecurityDataType = null as any
-  private securityWorker: null | ApiConfig<SecurityDataType>['securityWorker'] =
-    null
-  private abortControllers = new Map<CancelToken, AbortController>()
+  public baseUrl: string = "";
+  private securityData: SecurityDataType = null as any;
+  private securityWorker: null | ApiConfig<SecurityDataType>["securityWorker"] = null;
+  private abortControllers = new Map<CancelToken, AbortController>();
 
   private baseApiParams: RequestParams = {
-    credentials: 'same-origin',
+    credentials: "same-origin",
     headers: {},
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  }
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig)
+    Object.assign(this, apiConfig);
   }
 
   public setSecurityData = (data: SecurityDataType) => {
-    this.securityData = data
-  }
+    this.securityData = data;
+  };
 
   private addQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key]
+    const value = query[key];
 
     return (
       encodeURIComponent(key) +
-      '=' +
-      encodeURIComponent(
-        Array.isArray(value)
-          ? value.join(',')
-          : typeof value === 'number'
-          ? value
-          : `${value}`
-      )
-    )
+      "=" +
+      encodeURIComponent(Array.isArray(value) ? value.join(",") : typeof value === "number" ? value : `${value}`)
+    );
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {}
-    const keys = Object.keys(query).filter(
-      (key) => 'undefined' !== typeof query[key]
-    )
+    const query = rawQuery || {};
+    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
     return keys
       .map((key) =>
-        typeof query[key] === 'object' && !Array.isArray(query[key])
+        typeof query[key] === "object" && !Array.isArray(query[key])
           ? this.toQueryString(query[key] as QueryParamsType)
-          : this.addQueryParam(query, key)
+          : this.addQueryParam(query, key),
       )
-      .join('&')
+      .join("&");
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery)
-    return queryString ? `?${queryString}` : ''
+    const queryString = this.toQueryString(rawQuery);
+    return queryString ? `?${queryString}` : "";
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string')
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((data, key) => {
-        data.append(key, input[key])
-        return data
+        data.append(key, input[key]);
+        return data;
       }, new FormData()),
-    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input)
-  }
+    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
+  };
 
-  private mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams
-  ): RequestParams {
+  private mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -800,35 +782,33 @@ export class HttpClient<SecurityDataType = unknown> {
       headers: {
         ...(this.baseApiParams.headers || {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {})
-      }
-    }
+        ...((params2 && params2.headers) || {}),
+      },
+    };
   }
 
-  private createAbortSignal = (
-    cancelToken: CancelToken
-  ): AbortSignal | undefined => {
+  private createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken)
+      const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
-        return abortController.signal
+        return abortController.signal;
       }
-      return void 0
+      return void 0;
     }
 
-    const abortController = new AbortController()
-    this.abortControllers.set(cancelToken, abortController)
-    return abortController.signal
-  }
+    const abortController = new AbortController();
+    this.abortControllers.set(cancelToken, abortController);
+    return abortController.signal;
+  };
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken)
+    const abortController = this.abortControllers.get(cancelToken);
 
     if (abortController) {
-      abortController.abort()
-      this.abortControllers.delete(cancelToken)
+      abortController.abort();
+      this.abortControllers.delete(cancelToken);
     }
-  }
+  };
 
   public request = <T = any, E = any>({
     body,
@@ -836,74 +816,58 @@ export class HttpClient<SecurityDataType = unknown> {
     path,
     type,
     query,
-    format = 'json',
+    format = "json",
     baseUrl,
     cancelToken,
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
-    const secureParams =
-      (secure &&
-        this.securityWorker &&
-        this.securityWorker(this.securityData)) ||
-      {}
-    const requestParams = this.mergeRequestParams(params, secureParams)
-    const queryString = query && this.toQueryString(query)
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
+    const secureParams = (secure && this.securityWorker && this.securityWorker(this.securityData)) || {};
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const queryString = query && this.toQueryString(query);
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
 
-    return fetch(
-      `${baseUrl || this.baseUrl || ''}${path}${
-        queryString ? `?${queryString}` : ''
-      }`,
-      {
-        ...requestParams,
-        headers: {
-          ...(type && type !== ContentType.FormData
-            ? { 'Content-Type': type }
-            : {}),
-          ...(requestParams.headers || {})
-        },
-        signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-        body:
-          typeof body === 'undefined' || body === null
-            ? null
-            : payloadFormatter(body)
-      }
-    ).then(async (response) => {
-      const r = response as HttpResponse<T, E>
-      r.data = null as unknown as T
-      r.error = null as unknown as E
+    return fetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
+      ...requestParams,
+      headers: {
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(requestParams.headers || {}),
+      },
+      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
+      const r = response as HttpResponse<T, E>;
+      r.data = (null as unknown) as T;
+      r.error = (null as unknown) as E;
 
       const data = await response[format]()
         .then((data) => {
           if (r.ok) {
-            r.data = data
+            r.data = data;
           } else {
-            r.error = data
+            r.error = data;
           }
-          return r
+          return r;
         })
         .catch((e) => {
-          r.error = e
-          return r
-        })
+          r.error = e;
+          return r;
+        });
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken)
+        this.abortControllers.delete(cancelToken);
       }
 
-      if (!response.ok) throw data
-      return data
-    })
-  }
+      if (!response.ok) throw data;
+      return data;
+    });
+  };
 }
 
 /**
  * @title cosmos/base/tendermint/v1beta1/query.proto
  * @version version not set
  */
-export class Api<
-  SecurityDataType extends unknown
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -915,10 +879,10 @@ export class Api<
   serviceGetLatestBlock = (params: RequestParams = {}) =>
     this.request<V1Beta1GetLatestBlockResponse, RpcStatus>({
       path: `/cosmos/base/tendermint/v1beta1/blocks/latest`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -931,10 +895,10 @@ export class Api<
   serviceGetBlockByHeight = (height: string, params: RequestParams = {}) =>
     this.request<V1Beta1GetBlockByHeightResponse, RpcStatus>({
       path: `/cosmos/base/tendermint/v1beta1/blocks/${height}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -947,10 +911,10 @@ export class Api<
   serviceGetNodeInfo = (params: RequestParams = {}) =>
     this.request<V1Beta1GetNodeInfoResponse, RpcStatus>({
       path: `/cosmos/base/tendermint/v1beta1/node_info`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -963,10 +927,10 @@ export class Api<
   serviceGetSyncing = (params: RequestParams = {}) =>
     this.request<V1Beta1GetSyncingResponse, RpcStatus>({
       path: `/cosmos/base/tendermint/v1beta1/syncing`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -978,21 +942,21 @@ export class Api<
    */
   serviceGetLatestValidatorSet = (
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
-      'pagination.reverse'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1Beta1GetLatestValidatorSetResponse, RpcStatus>({
       path: `/cosmos/base/tendermint/v1beta1/validatorsets/latest`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1005,19 +969,19 @@ export class Api<
   serviceGetValidatorSetByHeight = (
     height: string,
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
-      'pagination.reverse'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1Beta1GetValidatorSetByHeightResponse, RpcStatus>({
       path: `/cosmos/base/tendermint/v1beta1/validatorsets/${height}`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 }

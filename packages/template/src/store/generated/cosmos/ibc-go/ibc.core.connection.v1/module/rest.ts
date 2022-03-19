@@ -123,14 +123,14 @@ export interface ProtobufAny {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  '@type'?: string
+  "@type"?: string;
 }
 
 export interface RpcStatus {
   /** @format int32 */
-  code?: number
-  message?: string
-  details?: ProtobufAny[]
+  code?: number;
+  message?: string;
+  details?: ProtobufAny[];
 }
 
 /**
@@ -141,19 +141,19 @@ a connection between two chains.
 */
 export interface V1ConnectionEnd {
   /** client associated with this connection. */
-  client_id?: string
+  client_id?: string;
 
   /**
    * IBC version which can be utilised to determine encodings or protocols for
    * channels or packets utilising this connection.
    */
-  versions?: V1Version[]
+  versions?: V1Version[];
 
   /** current state of the connection end. */
-  state?: V1State
+  state?: V1State;
 
   /** counterparty chain associated with this connection. */
-  counterparty?: V1Counterparty
+  counterparty?: V1Counterparty;
 
   /**
    * delay period that must pass before a consensus state can be used for
@@ -161,7 +161,7 @@ export interface V1ConnectionEnd {
    * clients.
    * @format uint64
    */
-  delay_period?: string
+  delay_period?: string;
 }
 
 /**
@@ -172,16 +172,16 @@ export interface V1Counterparty {
    * identifies the client on the counterparty chain associated with a given
    * connection.
    */
-  client_id?: string
+  client_id?: string;
 
   /**
    * identifies the connection end on the counterparty chain associated with a
    * given connection.
    */
-  connection_id?: string
+  connection_id?: string;
 
   /** commitment merkle prefix of the counterparty chain. */
-  prefix?: V1MerklePrefix
+  prefix?: V1MerklePrefix;
 }
 
 /**
@@ -194,10 +194,10 @@ gets reset
 */
 export interface V1Height {
   /** @format uint64 */
-  revision_number?: string
+  revision_number?: string;
 
   /** @format uint64 */
-  revision_height?: string
+  revision_height?: string;
 }
 
 /**
@@ -205,7 +205,7 @@ export interface V1Height {
 identifier field.
 */
 export interface V1IdentifiedClientState {
-  client_id?: string
+  client_id?: string;
 
   /**
    * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -291,7 +291,7 @@ export interface V1IdentifiedClientState {
    *       "value": "1.212s"
    *     }
    */
-  client_state?: ProtobufAny
+  client_state?: ProtobufAny;
 }
 
 /**
@@ -300,58 +300,58 @@ identifier field.
 */
 export interface V1IdentifiedConnection {
   /** connection identifier. */
-  id?: string
+  id?: string;
 
   /** client associated with this connection. */
-  client_id?: string
-  versions?: V1Version[]
+  client_id?: string;
+  versions?: V1Version[];
 
   /** current state of the connection end. */
-  state?: V1State
+  state?: V1State;
 
   /** counterparty chain associated with this connection. */
-  counterparty?: V1Counterparty
+  counterparty?: V1Counterparty;
 
   /**
    * delay period associated with this connection.
    * @format uint64
    */
-  delay_period?: string
+  delay_period?: string;
 }
 
 export interface V1MerklePrefix {
   /** @format byte */
-  key_prefix?: string
+  key_prefix?: string;
 }
 
 /**
  * MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type.
  */
-export type V1MsgConnectionOpenAckResponse = object
+export type V1MsgConnectionOpenAckResponse = object;
 
 /**
 * MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
 response type.
 */
-export type V1MsgConnectionOpenConfirmResponse = object
+export type V1MsgConnectionOpenConfirmResponse = object;
 
 /**
 * MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
 type.
 */
-export type V1MsgConnectionOpenInitResponse = object
+export type V1MsgConnectionOpenInitResponse = object;
 
 /**
  * MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type.
  */
-export type V1MsgConnectionOpenTryResponse = object
+export type V1MsgConnectionOpenTryResponse = object;
 
 export interface V1QueryClientConnectionsResponse {
   /** slice of all the connection paths associated with a client. */
-  connection_paths?: string[]
+  connection_paths?: string[];
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -361,7 +361,7 @@ export interface V1QueryClientConnectionsResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryConnectionClientStateResponse {
@@ -369,10 +369,10 @@ export interface V1QueryConnectionClientStateResponse {
    * IdentifiedClientState defines a client state with an additional client
    * identifier field.
    */
-  identified_client_state?: V1IdentifiedClientState
+  identified_client_state?: V1IdentifiedClientState;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -382,7 +382,7 @@ export interface V1QueryConnectionClientStateResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryConnectionConsensusStateResponse {
@@ -470,11 +470,11 @@ export interface V1QueryConnectionConsensusStateResponse {
    *       "value": "1.212s"
    *     }
    */
-  consensus_state?: ProtobufAny
-  client_id?: string
+  consensus_state?: ProtobufAny;
+  client_id?: string;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -484,7 +484,7 @@ export interface V1QueryConnectionConsensusStateResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 /**
@@ -499,10 +499,10 @@ export interface V1QueryConnectionResponse {
    * NOTE: there must only be 2 defined ConnectionEnds to establish
    * a connection between two chains.
    */
-  connection?: V1ConnectionEnd
+  connection?: V1ConnectionEnd;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -512,7 +512,7 @@ export interface V1QueryConnectionResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 /**
@@ -521,7 +521,7 @@ method.
 */
 export interface V1QueryConnectionsResponse {
   /** list of stored connections of the chain. */
-  connections?: V1IdentifiedConnection[]
+  connections?: V1IdentifiedConnection[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -532,7 +532,7 @@ export interface V1QueryConnectionsResponse {
    *          PageResponse page = 2;
    *  }
    */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -542,7 +542,7 @@ export interface V1QueryConnectionsResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 }
 
 /**
@@ -556,10 +556,10 @@ chain.
  - STATE_OPEN: A connection end has completed the handshake.
 */
 export enum V1State {
-  STATE_UNINITIALIZED_UNSPECIFIED = 'STATE_UNINITIALIZED_UNSPECIFIED',
-  STATE_INIT = 'STATE_INIT',
-  STATE_TRYOPEN = 'STATE_TRYOPEN',
-  STATE_OPEN = 'STATE_OPEN'
+  STATE_UNINITIALIZED_UNSPECIFIED = "STATE_UNINITIALIZED_UNSPECIFIED",
+  STATE_INIT = "STATE_INIT",
+  STATE_TRYOPEN = "STATE_TRYOPEN",
+  STATE_OPEN = "STATE_OPEN",
 }
 
 /**
@@ -567,8 +567,8 @@ export enum V1State {
 the connection handshake.
 */
 export interface V1Version {
-  identifier?: string
-  features?: string[]
+  identifier?: string;
+  features?: string[];
 }
 
 /**
@@ -584,7 +584,7 @@ export interface V1Beta1PageRequest {
    * should be set.
    * @format byte
    */
-  key?: string
+  key?: string;
 
   /**
    * offset is a numeric offset that can be used when key is unavailable.
@@ -592,14 +592,14 @@ export interface V1Beta1PageRequest {
    * be set.
    * @format uint64
    */
-  offset?: string
+  offset?: string;
 
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    * @format uint64
    */
-  limit?: string
+  limit?: string;
 
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -607,7 +607,7 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  count_total?: boolean
+  count_total?: boolean;
 }
 
 /**
@@ -621,133 +621,115 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  next_key?: string
+  next_key?: string;
 
   /** @format uint64 */
-  total?: string
+  total?: string;
 }
 
-export type QueryParamsType = Record<string | number, any>
-export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
+export type QueryParamsType = Record<string | number, any>;
+export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean
+  secure?: boolean;
   /** request path */
-  path: string
+  path: string;
   /** content type of request body */
-  type?: ContentType
+  type?: ContentType;
   /** query params */
-  query?: QueryParamsType
+  query?: QueryParamsType;
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: keyof Omit<Body, 'body' | 'bodyUsed'>
+  format?: keyof Omit<Body, "body" | "bodyUsed">;
   /** request body */
-  body?: unknown
+  body?: unknown;
   /** base url */
-  baseUrl?: string
+  baseUrl?: string;
   /** request cancellation token */
-  cancelToken?: CancelToken
+  cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  'body' | 'method' | 'query' | 'path'
->
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string
-  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
-  securityWorker?: (securityData: SecurityDataType) => RequestParams | void
+  baseUrl?: string;
+  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
+  securityWorker?: (securityData: SecurityDataType) => RequestParams | void;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
-  data: D
-  error: E
+export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+  data: D;
+  error: E;
 }
 
-type CancelToken = Symbol | string | number
+type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded'
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = ''
-  private securityData: SecurityDataType = null as any
-  private securityWorker: null | ApiConfig<SecurityDataType>['securityWorker'] =
-    null
-  private abortControllers = new Map<CancelToken, AbortController>()
+  public baseUrl: string = "";
+  private securityData: SecurityDataType = null as any;
+  private securityWorker: null | ApiConfig<SecurityDataType>["securityWorker"] = null;
+  private abortControllers = new Map<CancelToken, AbortController>();
 
   private baseApiParams: RequestParams = {
-    credentials: 'same-origin',
+    credentials: "same-origin",
     headers: {},
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  }
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig)
+    Object.assign(this, apiConfig);
   }
 
   public setSecurityData = (data: SecurityDataType) => {
-    this.securityData = data
-  }
+    this.securityData = data;
+  };
 
   private addQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key]
+    const value = query[key];
 
     return (
       encodeURIComponent(key) +
-      '=' +
-      encodeURIComponent(
-        Array.isArray(value)
-          ? value.join(',')
-          : typeof value === 'number'
-          ? value
-          : `${value}`
-      )
-    )
+      "=" +
+      encodeURIComponent(Array.isArray(value) ? value.join(",") : typeof value === "number" ? value : `${value}`)
+    );
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {}
-    const keys = Object.keys(query).filter(
-      (key) => 'undefined' !== typeof query[key]
-    )
+    const query = rawQuery || {};
+    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
     return keys
       .map((key) =>
-        typeof query[key] === 'object' && !Array.isArray(query[key])
+        typeof query[key] === "object" && !Array.isArray(query[key])
           ? this.toQueryString(query[key] as QueryParamsType)
-          : this.addQueryParam(query, key)
+          : this.addQueryParam(query, key),
       )
-      .join('&')
+      .join("&");
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery)
-    return queryString ? `?${queryString}` : ''
+    const queryString = this.toQueryString(rawQuery);
+    return queryString ? `?${queryString}` : "";
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string')
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((data, key) => {
-        data.append(key, input[key])
-        return data
+        data.append(key, input[key]);
+        return data;
       }, new FormData()),
-    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input)
-  }
+    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
+  };
 
-  private mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams
-  ): RequestParams {
+  private mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -755,35 +737,33 @@ export class HttpClient<SecurityDataType = unknown> {
       headers: {
         ...(this.baseApiParams.headers || {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {})
-      }
-    }
+        ...((params2 && params2.headers) || {}),
+      },
+    };
   }
 
-  private createAbortSignal = (
-    cancelToken: CancelToken
-  ): AbortSignal | undefined => {
+  private createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken)
+      const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
-        return abortController.signal
+        return abortController.signal;
       }
-      return void 0
+      return void 0;
     }
 
-    const abortController = new AbortController()
-    this.abortControllers.set(cancelToken, abortController)
-    return abortController.signal
-  }
+    const abortController = new AbortController();
+    this.abortControllers.set(cancelToken, abortController);
+    return abortController.signal;
+  };
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken)
+    const abortController = this.abortControllers.get(cancelToken);
 
     if (abortController) {
-      abortController.abort()
-      this.abortControllers.delete(cancelToken)
+      abortController.abort();
+      this.abortControllers.delete(cancelToken);
     }
-  }
+  };
 
   public request = <T = any, E = any>({
     body,
@@ -791,74 +771,58 @@ export class HttpClient<SecurityDataType = unknown> {
     path,
     type,
     query,
-    format = 'json',
+    format = "json",
     baseUrl,
     cancelToken,
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
-    const secureParams =
-      (secure &&
-        this.securityWorker &&
-        this.securityWorker(this.securityData)) ||
-      {}
-    const requestParams = this.mergeRequestParams(params, secureParams)
-    const queryString = query && this.toQueryString(query)
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
+    const secureParams = (secure && this.securityWorker && this.securityWorker(this.securityData)) || {};
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const queryString = query && this.toQueryString(query);
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
 
-    return fetch(
-      `${baseUrl || this.baseUrl || ''}${path}${
-        queryString ? `?${queryString}` : ''
-      }`,
-      {
-        ...requestParams,
-        headers: {
-          ...(type && type !== ContentType.FormData
-            ? { 'Content-Type': type }
-            : {}),
-          ...(requestParams.headers || {})
-        },
-        signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-        body:
-          typeof body === 'undefined' || body === null
-            ? null
-            : payloadFormatter(body)
-      }
-    ).then(async (response) => {
-      const r = response as HttpResponse<T, E>
-      r.data = null as unknown as T
-      r.error = null as unknown as E
+    return fetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
+      ...requestParams,
+      headers: {
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(requestParams.headers || {}),
+      },
+      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
+      const r = response as HttpResponse<T, E>;
+      r.data = (null as unknown) as T;
+      r.error = (null as unknown) as E;
 
       const data = await response[format]()
         .then((data) => {
           if (r.ok) {
-            r.data = data
+            r.data = data;
           } else {
-            r.error = data
+            r.error = data;
           }
-          return r
+          return r;
         })
         .catch((e) => {
-          r.error = e
-          return r
-        })
+          r.error = e;
+          return r;
+        });
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken)
+        this.abortControllers.delete(cancelToken);
       }
 
-      if (!response.ok) throw data
-      return data
-    })
-  }
+      if (!response.ok) throw data;
+      return data;
+    });
+  };
 }
 
 /**
  * @title ibc/core/connection/v1/connection.proto
  * @version version not set
  */
-export class Api<
-  SecurityDataType extends unknown
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   /**
  * No description
  * 
@@ -871,10 +835,10 @@ state.
   queryClientConnections = (client_id: string, params: RequestParams = {}) =>
     this.request<V1QueryClientConnectionsResponse, RpcStatus>({
       path: `/ibc/core/connection/v1/client_connections/${client_id}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -886,20 +850,20 @@ state.
    */
   queryConnections = (
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryConnectionsResponse, RpcStatus>({
       path: `/ibc/core/connection/v1/connections`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -912,10 +876,10 @@ state.
   queryConnection = (connection_id: string, params: RequestParams = {}) =>
     this.request<V1QueryConnectionResponse, RpcStatus>({
       path: `/ibc/core/connection/v1/connections/${connection_id}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -926,16 +890,13 @@ state.
 connection.
  * @request GET:/ibc/core/connection/v1/connections/{connection_id}/client_state
  */
-  queryConnectionClientState = (
-    connection_id: string,
-    params: RequestParams = {}
-  ) =>
+  queryConnectionClientState = (connection_id: string, params: RequestParams = {}) =>
     this.request<V1QueryConnectionClientStateResponse, RpcStatus>({
       path: `/ibc/core/connection/v1/connections/${connection_id}/client_state`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -950,12 +911,12 @@ connection.
     connection_id: string,
     revision_number: string,
     revision_height: string,
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryConnectionConsensusStateResponse, RpcStatus>({
       path: `/ibc/core/connection/v1/connections/${connection_id}/consensus_state/revision/${revision_number}/height/${revision_height}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 }

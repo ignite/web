@@ -1,132 +1,132 @@
 /* eslint-disable */
-import { Header, Data, Commit } from '../../tendermint/types/types'
-import { EvidenceList } from '../../tendermint/types/evidence'
-import { Writer, Reader } from 'protobufjs/minimal'
+import { Header, Data, Commit } from "../../tendermint/types/types";
+import { EvidenceList } from "../../tendermint/types/evidence";
+import { Writer, Reader } from "protobufjs/minimal";
 
-export const protobufPackage = 'tendermint.types'
+export const protobufPackage = "tendermint.types";
 
 export interface Block {
-  header: Header | undefined
-  data: Data | undefined
-  evidence: EvidenceList | undefined
-  last_commit: Commit | undefined
+  header: Header | undefined;
+  data: Data | undefined;
+  evidence: EvidenceList | undefined;
+  last_commit: Commit | undefined;
 }
 
-const baseBlock: object = {}
+const baseBlock: object = {};
 
 export const Block = {
   encode(message: Block, writer: Writer = Writer.create()): Writer {
     if (message.header !== undefined) {
-      Header.encode(message.header, writer.uint32(10).fork()).ldelim()
+      Header.encode(message.header, writer.uint32(10).fork()).ldelim();
     }
     if (message.data !== undefined) {
-      Data.encode(message.data, writer.uint32(18).fork()).ldelim()
+      Data.encode(message.data, writer.uint32(18).fork()).ldelim();
     }
     if (message.evidence !== undefined) {
-      EvidenceList.encode(message.evidence, writer.uint32(26).fork()).ldelim()
+      EvidenceList.encode(message.evidence, writer.uint32(26).fork()).ldelim();
     }
     if (message.last_commit !== undefined) {
-      Commit.encode(message.last_commit, writer.uint32(34).fork()).ldelim()
+      Commit.encode(message.last_commit, writer.uint32(34).fork()).ldelim();
     }
-    return writer
+    return writer;
   },
 
   decode(input: Reader | Uint8Array, length?: number): Block {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseBlock } as Block
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseBlock } as Block;
     while (reader.pos < end) {
-      const tag = reader.uint32()
+      const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.header = Header.decode(reader, reader.uint32())
-          break
+          message.header = Header.decode(reader, reader.uint32());
+          break;
         case 2:
-          message.data = Data.decode(reader, reader.uint32())
-          break
+          message.data = Data.decode(reader, reader.uint32());
+          break;
         case 3:
-          message.evidence = EvidenceList.decode(reader, reader.uint32())
-          break
+          message.evidence = EvidenceList.decode(reader, reader.uint32());
+          break;
         case 4:
-          message.last_commit = Commit.decode(reader, reader.uint32())
-          break
+          message.last_commit = Commit.decode(reader, reader.uint32());
+          break;
         default:
-          reader.skipType(tag & 7)
-          break
+          reader.skipType(tag & 7);
+          break;
       }
     }
-    return message
+    return message;
   },
 
   fromJSON(object: any): Block {
-    const message = { ...baseBlock } as Block
+    const message = { ...baseBlock } as Block;
     if (object.header !== undefined && object.header !== null) {
-      message.header = Header.fromJSON(object.header)
+      message.header = Header.fromJSON(object.header);
     } else {
-      message.header = undefined
+      message.header = undefined;
     }
     if (object.data !== undefined && object.data !== null) {
-      message.data = Data.fromJSON(object.data)
+      message.data = Data.fromJSON(object.data);
     } else {
-      message.data = undefined
+      message.data = undefined;
     }
     if (object.evidence !== undefined && object.evidence !== null) {
-      message.evidence = EvidenceList.fromJSON(object.evidence)
+      message.evidence = EvidenceList.fromJSON(object.evidence);
     } else {
-      message.evidence = undefined
+      message.evidence = undefined;
     }
     if (object.last_commit !== undefined && object.last_commit !== null) {
-      message.last_commit = Commit.fromJSON(object.last_commit)
+      message.last_commit = Commit.fromJSON(object.last_commit);
     } else {
-      message.last_commit = undefined
+      message.last_commit = undefined;
     }
-    return message
+    return message;
   },
 
   toJSON(message: Block): unknown {
-    const obj: any = {}
+    const obj: any = {};
     message.header !== undefined &&
-      (obj.header = message.header ? Header.toJSON(message.header) : undefined)
+      (obj.header = message.header ? Header.toJSON(message.header) : undefined);
     message.data !== undefined &&
-      (obj.data = message.data ? Data.toJSON(message.data) : undefined)
+      (obj.data = message.data ? Data.toJSON(message.data) : undefined);
     message.evidence !== undefined &&
       (obj.evidence = message.evidence
         ? EvidenceList.toJSON(message.evidence)
-        : undefined)
+        : undefined);
     message.last_commit !== undefined &&
       (obj.last_commit = message.last_commit
         ? Commit.toJSON(message.last_commit)
-        : undefined)
-    return obj
+        : undefined);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Block>): Block {
-    const message = { ...baseBlock } as Block
+    const message = { ...baseBlock } as Block;
     if (object.header !== undefined && object.header !== null) {
-      message.header = Header.fromPartial(object.header)
+      message.header = Header.fromPartial(object.header);
     } else {
-      message.header = undefined
+      message.header = undefined;
     }
     if (object.data !== undefined && object.data !== null) {
-      message.data = Data.fromPartial(object.data)
+      message.data = Data.fromPartial(object.data);
     } else {
-      message.data = undefined
+      message.data = undefined;
     }
     if (object.evidence !== undefined && object.evidence !== null) {
-      message.evidence = EvidenceList.fromPartial(object.evidence)
+      message.evidence = EvidenceList.fromPartial(object.evidence);
     } else {
-      message.evidence = undefined
+      message.evidence = undefined;
     }
     if (object.last_commit !== undefined && object.last_commit !== null) {
-      message.last_commit = Commit.fromPartial(object.last_commit)
+      message.last_commit = Commit.fromPartial(object.last_commit);
     } else {
-      message.last_commit = undefined
+      message.last_commit = undefined;
     }
-    return message
-  }
-}
+    return message;
+  },
+};
 
-type Builtin = Date | Function | Uint8Array | string | number | undefined
+type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Array<infer U>
@@ -135,4 +135,4 @@ export type DeepPartial<T> = T extends Builtin
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>
+  : Partial<T>;
