@@ -123,14 +123,14 @@ export interface ProtobufAny {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  '@type'?: string
+  "@type"?: string;
 }
 
 export interface RpcStatus {
   /** @format int32 */
-  code?: number
-  message?: string
-  details?: ProtobufAny[]
+  code?: number;
+  message?: string;
+  details?: ProtobufAny[];
 }
 
 /**
@@ -146,7 +146,7 @@ export interface V1ConsensusStateWithHeight {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 
   /**
    * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -232,7 +232,7 @@ export interface V1ConsensusStateWithHeight {
    *       "value": "1.212s"
    *     }
    */
-  consensus_state?: ProtobufAny
+  consensus_state?: ProtobufAny;
 }
 
 /**
@@ -245,10 +245,10 @@ gets reset
 */
 export interface V1Height {
   /** @format uint64 */
-  revision_number?: string
+  revision_number?: string;
 
   /** @format uint64 */
-  revision_height?: string
+  revision_height?: string;
 }
 
 /**
@@ -256,7 +256,7 @@ export interface V1Height {
 identifier field.
 */
 export interface V1IdentifiedClientState {
-  client_id?: string
+  client_id?: string;
 
   /**
    * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -342,36 +342,36 @@ export interface V1IdentifiedClientState {
    *       "value": "1.212s"
    *     }
    */
-  client_state?: ProtobufAny
+  client_state?: ProtobufAny;
 }
 
 /**
  * MsgCreateClientResponse defines the Msg/CreateClient response type.
  */
-export type V1MsgCreateClientResponse = object
+export type V1MsgCreateClientResponse = object;
 
 /**
 * MsgSubmitMisbehaviourResponse defines the Msg/SubmitMisbehaviour response
 type.
 */
-export type V1MsgSubmitMisbehaviourResponse = object
+export type V1MsgSubmitMisbehaviourResponse = object;
 
 /**
  * MsgUpdateClientResponse defines the Msg/UpdateClient response type.
  */
-export type V1MsgUpdateClientResponse = object
+export type V1MsgUpdateClientResponse = object;
 
 /**
  * MsgUpgradeClientResponse defines the Msg/UpgradeClient response type.
  */
-export type V1MsgUpgradeClientResponse = object
+export type V1MsgUpgradeClientResponse = object;
 
 /**
  * Params defines the set of IBC light client parameters.
  */
 export interface V1Params {
   /** allowed_clients defines the list of allowed client state types. */
-  allowed_clients?: string[]
+  allowed_clients?: string[];
 }
 
 /**
@@ -380,7 +380,7 @@ method.
 */
 export interface V1QueryClientParamsResponse {
   /** params defines the parameters of the module. */
-  params?: V1Params
+  params?: V1Params;
 }
 
 /**
@@ -473,10 +473,10 @@ export interface V1QueryClientStateResponse {
    *       "value": "1.212s"
    *     }
    */
-  client_state?: ProtobufAny
+  client_state?: ProtobufAny;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -486,7 +486,7 @@ export interface V1QueryClientStateResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 /**
@@ -495,7 +495,7 @@ method.
 */
 export interface V1QueryClientStatesResponse {
   /** list of stored ClientStates of the chain. */
-  client_states?: V1IdentifiedClientState[]
+  client_states?: V1IdentifiedClientState[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -506,7 +506,7 @@ export interface V1QueryClientStatesResponse {
    *          PageResponse page = 2;
    *  }
    */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 }
 
 /**
@@ -514,7 +514,7 @@ export interface V1QueryClientStatesResponse {
 method. It returns the current status of the IBC client.
 */
 export interface V1QueryClientStatusResponse {
-  status?: string
+  status?: string;
 }
 
 export interface V1QueryConsensusStateResponse {
@@ -602,10 +602,10 @@ export interface V1QueryConsensusStateResponse {
    *       "value": "1.212s"
    *     }
    */
-  consensus_state?: ProtobufAny
+  consensus_state?: ProtobufAny;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -615,11 +615,11 @@ export interface V1QueryConsensusStateResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryConsensusStatesResponse {
-  consensus_states?: V1ConsensusStateWithHeight[]
+  consensus_states?: V1ConsensusStateWithHeight[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -630,7 +630,7 @@ export interface V1QueryConsensusStatesResponse {
    *          PageResponse page = 2;
    *  }
    */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 }
 
 /**
@@ -722,7 +722,7 @@ export interface V1QueryUpgradedClientStateResponse {
    *       "value": "1.212s"
    *     }
    */
-  upgraded_client_state?: ProtobufAny
+  upgraded_client_state?: ProtobufAny;
 }
 
 /**
@@ -814,7 +814,7 @@ export interface V1QueryUpgradedConsensusStateResponse {
    *       "value": "1.212s"
    *     }
    */
-  upgraded_consensus_state?: ProtobufAny
+  upgraded_consensus_state?: ProtobufAny;
 }
 
 /**
@@ -830,7 +830,7 @@ export interface V1Beta1PageRequest {
    * should be set.
    * @format byte
    */
-  key?: string
+  key?: string;
 
   /**
    * offset is a numeric offset that can be used when key is unavailable.
@@ -838,14 +838,14 @@ export interface V1Beta1PageRequest {
    * be set.
    * @format uint64
    */
-  offset?: string
+  offset?: string;
 
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    * @format uint64
    */
-  limit?: string
+  limit?: string;
 
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -853,7 +853,7 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  count_total?: boolean
+  count_total?: boolean;
 }
 
 /**
@@ -867,133 +867,115 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  next_key?: string
+  next_key?: string;
 
   /** @format uint64 */
-  total?: string
+  total?: string;
 }
 
-export type QueryParamsType = Record<string | number, any>
-export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
+export type QueryParamsType = Record<string | number, any>;
+export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean
+  secure?: boolean;
   /** request path */
-  path: string
+  path: string;
   /** content type of request body */
-  type?: ContentType
+  type?: ContentType;
   /** query params */
-  query?: QueryParamsType
+  query?: QueryParamsType;
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: keyof Omit<Body, 'body' | 'bodyUsed'>
+  format?: keyof Omit<Body, "body" | "bodyUsed">;
   /** request body */
-  body?: unknown
+  body?: unknown;
   /** base url */
-  baseUrl?: string
+  baseUrl?: string;
   /** request cancellation token */
-  cancelToken?: CancelToken
+  cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  'body' | 'method' | 'query' | 'path'
->
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string
-  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
-  securityWorker?: (securityData: SecurityDataType) => RequestParams | void
+  baseUrl?: string;
+  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
+  securityWorker?: (securityData: SecurityDataType) => RequestParams | void;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
-  data: D
-  error: E
+export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+  data: D;
+  error: E;
 }
 
-type CancelToken = Symbol | string | number
+type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded'
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = ''
-  private securityData: SecurityDataType = null as any
-  private securityWorker: null | ApiConfig<SecurityDataType>['securityWorker'] =
-    null
-  private abortControllers = new Map<CancelToken, AbortController>()
+  public baseUrl: string = "";
+  private securityData: SecurityDataType = null as any;
+  private securityWorker: null | ApiConfig<SecurityDataType>["securityWorker"] = null;
+  private abortControllers = new Map<CancelToken, AbortController>();
 
   private baseApiParams: RequestParams = {
-    credentials: 'same-origin',
+    credentials: "same-origin",
     headers: {},
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  }
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig)
+    Object.assign(this, apiConfig);
   }
 
   public setSecurityData = (data: SecurityDataType) => {
-    this.securityData = data
-  }
+    this.securityData = data;
+  };
 
   private addQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key]
+    const value = query[key];
 
     return (
       encodeURIComponent(key) +
-      '=' +
-      encodeURIComponent(
-        Array.isArray(value)
-          ? value.join(',')
-          : typeof value === 'number'
-          ? value
-          : `${value}`
-      )
-    )
+      "=" +
+      encodeURIComponent(Array.isArray(value) ? value.join(",") : typeof value === "number" ? value : `${value}`)
+    );
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {}
-    const keys = Object.keys(query).filter(
-      (key) => 'undefined' !== typeof query[key]
-    )
+    const query = rawQuery || {};
+    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
     return keys
       .map((key) =>
-        typeof query[key] === 'object' && !Array.isArray(query[key])
+        typeof query[key] === "object" && !Array.isArray(query[key])
           ? this.toQueryString(query[key] as QueryParamsType)
-          : this.addQueryParam(query, key)
+          : this.addQueryParam(query, key),
       )
-      .join('&')
+      .join("&");
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery)
-    return queryString ? `?${queryString}` : ''
+    const queryString = this.toQueryString(rawQuery);
+    return queryString ? `?${queryString}` : "";
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string')
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((data, key) => {
-        data.append(key, input[key])
-        return data
+        data.append(key, input[key]);
+        return data;
       }, new FormData()),
-    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input)
-  }
+    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
+  };
 
-  private mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams
-  ): RequestParams {
+  private mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -1001,35 +983,33 @@ export class HttpClient<SecurityDataType = unknown> {
       headers: {
         ...(this.baseApiParams.headers || {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {})
-      }
-    }
+        ...((params2 && params2.headers) || {}),
+      },
+    };
   }
 
-  private createAbortSignal = (
-    cancelToken: CancelToken
-  ): AbortSignal | undefined => {
+  private createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken)
+      const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
-        return abortController.signal
+        return abortController.signal;
       }
-      return void 0
+      return void 0;
     }
 
-    const abortController = new AbortController()
-    this.abortControllers.set(cancelToken, abortController)
-    return abortController.signal
-  }
+    const abortController = new AbortController();
+    this.abortControllers.set(cancelToken, abortController);
+    return abortController.signal;
+  };
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken)
+    const abortController = this.abortControllers.get(cancelToken);
 
     if (abortController) {
-      abortController.abort()
-      this.abortControllers.delete(cancelToken)
+      abortController.abort();
+      this.abortControllers.delete(cancelToken);
     }
-  }
+  };
 
   public request = <T = any, E = any>({
     body,
@@ -1037,74 +1017,58 @@ export class HttpClient<SecurityDataType = unknown> {
     path,
     type,
     query,
-    format = 'json',
+    format = "json",
     baseUrl,
     cancelToken,
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
-    const secureParams =
-      (secure &&
-        this.securityWorker &&
-        this.securityWorker(this.securityData)) ||
-      {}
-    const requestParams = this.mergeRequestParams(params, secureParams)
-    const queryString = query && this.toQueryString(query)
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
+    const secureParams = (secure && this.securityWorker && this.securityWorker(this.securityData)) || {};
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const queryString = query && this.toQueryString(query);
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
 
-    return fetch(
-      `${baseUrl || this.baseUrl || ''}${path}${
-        queryString ? `?${queryString}` : ''
-      }`,
-      {
-        ...requestParams,
-        headers: {
-          ...(type && type !== ContentType.FormData
-            ? { 'Content-Type': type }
-            : {}),
-          ...(requestParams.headers || {})
-        },
-        signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-        body:
-          typeof body === 'undefined' || body === null
-            ? null
-            : payloadFormatter(body)
-      }
-    ).then(async (response) => {
-      const r = response as HttpResponse<T, E>
-      r.data = null as unknown as T
-      r.error = null as unknown as E
+    return fetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
+      ...requestParams,
+      headers: {
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(requestParams.headers || {}),
+      },
+      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
+      const r = response as HttpResponse<T, E>;
+      r.data = (null as unknown) as T;
+      r.error = (null as unknown) as E;
 
       const data = await response[format]()
         .then((data) => {
           if (r.ok) {
-            r.data = data
+            r.data = data;
           } else {
-            r.error = data
+            r.error = data;
           }
-          return r
+          return r;
         })
         .catch((e) => {
-          r.error = e
-          return r
-        })
+          r.error = e;
+          return r;
+        });
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken)
+        this.abortControllers.delete(cancelToken);
       }
 
-      if (!response.ok) throw data
-      return data
-    })
-  }
+      if (!response.ok) throw data;
+      return data;
+    });
+  };
 }
 
 /**
  * @title ibc/core/client/v1/client.proto
  * @version version not set
  */
-export class Api<
-  SecurityDataType extends unknown
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -1116,10 +1080,10 @@ export class Api<
   queryClientParams = (params: RequestParams = {}) =>
     this.request<V1QueryClientParamsResponse, RpcStatus>({
       path: `/ibc/client/v1/params`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1131,20 +1095,20 @@ export class Api<
    */
   queryClientStates = (
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryClientStatesResponse, RpcStatus>({
       path: `/ibc/core/client/v1/client_states`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1157,10 +1121,10 @@ export class Api<
   queryClientState = (client_id: string, params: RequestParams = {}) =>
     this.request<V1QueryClientStateResponse, RpcStatus>({
       path: `/ibc/core/client/v1/client_states/${client_id}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1173,10 +1137,10 @@ export class Api<
   queryClientStatus = (client_id: string, params: RequestParams = {}) =>
     this.request<V1QueryClientStatusResponse, RpcStatus>({
       path: `/ibc/core/client/v1/client_status/${client_id}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1190,20 +1154,20 @@ client.
   queryConsensusStates = (
     client_id: string,
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryConsensusStatesResponse, RpcStatus>({
       path: `/ibc/core/client/v1/consensus_states/${client_id}`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1219,15 +1183,15 @@ a given height.
     revision_number: string,
     revision_height: string,
     query?: { latest_height?: boolean },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryConsensusStateResponse, RpcStatus>({
       path: `/ibc/core/client/v1/consensus_states/${client_id}/revision/${revision_number}/height/${revision_height}`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1240,10 +1204,10 @@ a given height.
   queryUpgradedClientState = (params: RequestParams = {}) =>
     this.request<V1QueryUpgradedClientStateResponse, RpcStatus>({
       path: `/ibc/core/client/v1/upgraded_client_states`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1256,8 +1220,8 @@ a given height.
   queryUpgradedConsensusState = (params: RequestParams = {}) =>
     this.request<V1QueryUpgradedConsensusStateResponse, RpcStatus>({
       path: `/ibc/core/client/v1/upgraded_consensus_states`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 }

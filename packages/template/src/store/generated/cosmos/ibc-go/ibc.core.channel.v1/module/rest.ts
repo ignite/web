@@ -123,14 +123,14 @@ export interface ProtobufAny {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  '@type'?: string
+  "@type"?: string;
 }
 
 export interface RpcStatus {
   /** @format int32 */
-  code?: number
-  message?: string
-  details?: ProtobufAny[]
+  code?: number;
+  message?: string;
+  details?: ProtobufAny[];
 }
 
 /**
@@ -151,7 +151,7 @@ export interface V1Channel {
    *  - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
    * packets.
    */
-  state?: V1State
+  state?: V1State;
 
   /**
    * - ORDER_NONE_UNSPECIFIED: zero-value for channel ordering
@@ -159,16 +159,16 @@ export interface V1Channel {
    * which they were sent.
    *  - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
    */
-  ordering?: V1Order
-  counterparty?: V1Counterparty
-  connection_hops?: string[]
-  version?: string
+  ordering?: V1Order;
+  counterparty?: V1Counterparty;
+  connection_hops?: string[];
+  version?: string;
 }
 
 export interface V1Counterparty {
   /** port on the counterparty chain which owns the other end of the channel. */
-  port_id?: string
-  channel_id?: string
+  port_id?: string;
+  channel_id?: string;
 }
 
 /**
@@ -181,10 +181,10 @@ gets reset
 */
 export interface V1Height {
   /** @format uint64 */
-  revision_number?: string
+  revision_number?: string;
 
   /** @format uint64 */
-  revision_height?: string
+  revision_height?: string;
 }
 
 /**
@@ -204,7 +204,7 @@ export interface V1IdentifiedChannel {
    *  - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
    * packets.
    */
-  state?: V1State
+  state?: V1State;
 
   /**
    * - ORDER_NONE_UNSPECIFIED: zero-value for channel ordering
@@ -212,12 +212,12 @@ export interface V1IdentifiedChannel {
    * which they were sent.
    *  - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
    */
-  ordering?: V1Order
-  counterparty?: V1Counterparty
-  connection_hops?: string[]
-  version?: string
-  port_id?: string
-  channel_id?: string
+  ordering?: V1Order;
+  counterparty?: V1Counterparty;
+  connection_hops?: string[];
+  version?: string;
+  port_id?: string;
+  channel_id?: string;
 }
 
 /**
@@ -225,7 +225,7 @@ export interface V1IdentifiedChannel {
 identifier field.
 */
 export interface V1IdentifiedClientState {
-  client_id?: string
+  client_id?: string;
 
   /**
    * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -311,60 +311,60 @@ export interface V1IdentifiedClientState {
    *       "value": "1.212s"
    *     }
    */
-  client_state?: ProtobufAny
+  client_state?: ProtobufAny;
 }
 
 /**
  * MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
  */
-export type V1MsgAcknowledgementResponse = object
+export type V1MsgAcknowledgementResponse = object;
 
 /**
 * MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
 type.
 */
-export type V1MsgChannelCloseConfirmResponse = object
+export type V1MsgChannelCloseConfirmResponse = object;
 
 /**
  * MsgChannelCloseInitResponse defines the Msg/ChannelCloseInit response type.
  */
-export type V1MsgChannelCloseInitResponse = object
+export type V1MsgChannelCloseInitResponse = object;
 
 /**
  * MsgChannelOpenAckResponse defines the Msg/ChannelOpenAck response type.
  */
-export type V1MsgChannelOpenAckResponse = object
+export type V1MsgChannelOpenAckResponse = object;
 
 /**
 * MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
 type.
 */
-export type V1MsgChannelOpenConfirmResponse = object
+export type V1MsgChannelOpenConfirmResponse = object;
 
 /**
  * MsgChannelOpenInitResponse defines the Msg/ChannelOpenInit response type.
  */
-export type V1MsgChannelOpenInitResponse = object
+export type V1MsgChannelOpenInitResponse = object;
 
 /**
  * MsgChannelOpenTryResponse defines the Msg/ChannelOpenTry response type.
  */
-export type V1MsgChannelOpenTryResponse = object
+export type V1MsgChannelOpenTryResponse = object;
 
 /**
  * MsgRecvPacketResponse defines the Msg/RecvPacket response type.
  */
-export type V1MsgRecvPacketResponse = object
+export type V1MsgRecvPacketResponse = object;
 
 /**
  * MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type.
  */
-export type V1MsgTimeoutOnCloseResponse = object
+export type V1MsgTimeoutOnCloseResponse = object;
 
 /**
  * MsgTimeoutResponse defines the Msg/Timeout response type.
  */
-export type V1MsgTimeoutResponse = object
+export type V1MsgTimeoutResponse = object;
 
 /**
 * - ORDER_NONE_UNSPECIFIED: zero-value for channel ordering
@@ -373,9 +373,9 @@ which they were sent.
  - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
 */
 export enum V1Order {
-  ORDER_NONE_UNSPECIFIED = 'ORDER_NONE_UNSPECIFIED',
-  ORDER_UNORDERED = 'ORDER_UNORDERED',
-  ORDER_ORDERED = 'ORDER_ORDERED'
+  ORDER_NONE_UNSPECIFIED = "ORDER_NONE_UNSPECIFIED",
+  ORDER_UNORDERED = "ORDER_UNORDERED",
+  ORDER_ORDERED = "ORDER_ORDERED",
 }
 
 export interface V1Packet {
@@ -385,22 +385,22 @@ export interface V1Packet {
    * with a later sequence number.
    * @format uint64
    */
-  sequence?: string
+  sequence?: string;
 
   /** identifies the port on the sending chain. */
-  source_port?: string
+  source_port?: string;
 
   /** identifies the channel end on the sending chain. */
-  source_channel?: string
+  source_channel?: string;
 
   /** identifies the port on the receiving chain. */
-  destination_port?: string
+  destination_port?: string;
 
   /** identifies the channel end on the receiving chain. */
-  destination_channel?: string
+  destination_channel?: string;
 
   /** @format byte */
-  data?: string
+  data?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -410,10 +410,10 @@ export interface V1Packet {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  timeout_height?: V1Height
+  timeout_height?: V1Height;
 
   /** @format uint64 */
-  timeout_timestamp?: string
+  timeout_timestamp?: string;
 }
 
 /**
@@ -424,22 +424,22 @@ state as a commitment, acknowledgement, or a receipt.
 */
 export interface V1PacketState {
   /** channel port identifier. */
-  port_id?: string
+  port_id?: string;
 
   /** channel unique identifier. */
-  channel_id?: string
+  channel_id?: string;
 
   /**
    * packet sequence.
    * @format uint64
    */
-  sequence?: string
+  sequence?: string;
 
   /**
    * embedded data that represents packet state.
    * @format byte
    */
-  data?: string
+  data?: string;
 }
 
 export interface V1QueryChannelClientStateResponse {
@@ -447,10 +447,10 @@ export interface V1QueryChannelClientStateResponse {
    * IdentifiedClientState defines a client state with an additional client
    * identifier field.
    */
-  identified_client_state?: V1IdentifiedClientState
+  identified_client_state?: V1IdentifiedClientState;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -460,7 +460,7 @@ export interface V1QueryChannelClientStateResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryChannelConsensusStateResponse {
@@ -548,11 +548,11 @@ export interface V1QueryChannelConsensusStateResponse {
    *       "value": "1.212s"
    *     }
    */
-  consensus_state?: ProtobufAny
-  client_id?: string
+  consensus_state?: ProtobufAny;
+  client_id?: string;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -562,7 +562,7 @@ export interface V1QueryChannelConsensusStateResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 /**
@@ -576,10 +576,10 @@ export interface V1QueryChannelResponse {
    * modules on separate blockchains, which has at least one end capable of
    * sending packets and one end capable of receiving packets.
    */
-  channel?: V1Channel
+  channel?: V1Channel;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -589,7 +589,7 @@ export interface V1QueryChannelResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 /**
@@ -597,7 +597,7 @@ export interface V1QueryChannelResponse {
  */
 export interface V1QueryChannelsResponse {
   /** list of stored channels of the chain. */
-  channels?: V1IdentifiedChannel[]
+  channels?: V1IdentifiedChannel[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -608,7 +608,7 @@ export interface V1QueryChannelsResponse {
    *          PageResponse page = 2;
    *  }
    */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -618,12 +618,12 @@ export interface V1QueryChannelsResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 }
 
 export interface V1QueryConnectionChannelsResponse {
   /** list of channels associated with a connection. */
-  channels?: V1IdentifiedChannel[]
+  channels?: V1IdentifiedChannel[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -634,7 +634,7 @@ export interface V1QueryConnectionChannelsResponse {
    *          PageResponse page = 2;
    *  }
    */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -644,15 +644,15 @@ export interface V1QueryConnectionChannelsResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 }
 
 export interface V1QueryNextSequenceReceiveResponse {
   /** @format uint64 */
-  next_sequence_receive?: string
+  next_sequence_receive?: string;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -662,15 +662,15 @@ export interface V1QueryNextSequenceReceiveResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryPacketAcknowledgementResponse {
   /** @format byte */
-  acknowledgement?: string
+  acknowledgement?: string;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -680,11 +680,11 @@ export interface V1QueryPacketAcknowledgementResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryPacketAcknowledgementsResponse {
-  acknowledgements?: V1PacketState[]
+  acknowledgements?: V1PacketState[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -695,7 +695,7 @@ export interface V1QueryPacketAcknowledgementsResponse {
    *          PageResponse page = 2;
    *  }
    */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -705,15 +705,15 @@ export interface V1QueryPacketAcknowledgementsResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 }
 
 export interface V1QueryPacketCommitmentResponse {
   /** @format byte */
-  commitment?: string
+  commitment?: string;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -723,11 +723,11 @@ export interface V1QueryPacketCommitmentResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryPacketCommitmentsResponse {
-  commitments?: V1PacketState[]
+  commitments?: V1PacketState[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -738,7 +738,7 @@ export interface V1QueryPacketCommitmentsResponse {
    *          PageResponse page = 2;
    *  }
    */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -748,14 +748,14 @@ export interface V1QueryPacketCommitmentsResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 }
 
 export interface V1QueryPacketReceiptResponse {
-  received?: boolean
+  received?: boolean;
 
   /** @format byte */
-  proof?: string
+  proof?: string;
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -765,11 +765,11 @@ export interface V1QueryPacketReceiptResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  proof_height?: V1Height
+  proof_height?: V1Height;
 }
 
 export interface V1QueryUnreceivedAcksResponse {
-  sequences?: string[]
+  sequences?: string[];
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -779,11 +779,11 @@ export interface V1QueryUnreceivedAcksResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 }
 
 export interface V1QueryUnreceivedPacketsResponse {
-  sequences?: string[]
+  sequences?: string[];
 
   /**
    * Normally the RevisionHeight is incremented at each height while keeping
@@ -793,7 +793,7 @@ export interface V1QueryUnreceivedPacketsResponse {
    * height continues to be monitonically increasing even as the RevisionHeight
    * gets reset
    */
-  height?: V1Height
+  height?: V1Height;
 }
 
 /**
@@ -809,11 +809,11 @@ ready to send and receive packets.
 packets.
 */
 export enum V1State {
-  STATE_UNINITIALIZED_UNSPECIFIED = 'STATE_UNINITIALIZED_UNSPECIFIED',
-  STATE_INIT = 'STATE_INIT',
-  STATE_TRYOPEN = 'STATE_TRYOPEN',
-  STATE_OPEN = 'STATE_OPEN',
-  STATE_CLOSED = 'STATE_CLOSED'
+  STATE_UNINITIALIZED_UNSPECIFIED = "STATE_UNINITIALIZED_UNSPECIFIED",
+  STATE_INIT = "STATE_INIT",
+  STATE_TRYOPEN = "STATE_TRYOPEN",
+  STATE_OPEN = "STATE_OPEN",
+  STATE_CLOSED = "STATE_CLOSED",
 }
 
 /**
@@ -829,7 +829,7 @@ export interface V1Beta1PageRequest {
    * should be set.
    * @format byte
    */
-  key?: string
+  key?: string;
 
   /**
    * offset is a numeric offset that can be used when key is unavailable.
@@ -837,14 +837,14 @@ export interface V1Beta1PageRequest {
    * be set.
    * @format uint64
    */
-  offset?: string
+  offset?: string;
 
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    * @format uint64
    */
-  limit?: string
+  limit?: string;
 
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -852,7 +852,7 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  count_total?: boolean
+  count_total?: boolean;
 }
 
 /**
@@ -866,133 +866,115 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  next_key?: string
+  next_key?: string;
 
   /** @format uint64 */
-  total?: string
+  total?: string;
 }
 
-export type QueryParamsType = Record<string | number, any>
-export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
+export type QueryParamsType = Record<string | number, any>;
+export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean
+  secure?: boolean;
   /** request path */
-  path: string
+  path: string;
   /** content type of request body */
-  type?: ContentType
+  type?: ContentType;
   /** query params */
-  query?: QueryParamsType
+  query?: QueryParamsType;
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: keyof Omit<Body, 'body' | 'bodyUsed'>
+  format?: keyof Omit<Body, "body" | "bodyUsed">;
   /** request body */
-  body?: unknown
+  body?: unknown;
   /** base url */
-  baseUrl?: string
+  baseUrl?: string;
   /** request cancellation token */
-  cancelToken?: CancelToken
+  cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  'body' | 'method' | 'query' | 'path'
->
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string
-  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
-  securityWorker?: (securityData: SecurityDataType) => RequestParams | void
+  baseUrl?: string;
+  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
+  securityWorker?: (securityData: SecurityDataType) => RequestParams | void;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
-  data: D
-  error: E
+export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+  data: D;
+  error: E;
 }
 
-type CancelToken = Symbol | string | number
+type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded'
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = ''
-  private securityData: SecurityDataType = null as any
-  private securityWorker: null | ApiConfig<SecurityDataType>['securityWorker'] =
-    null
-  private abortControllers = new Map<CancelToken, AbortController>()
+  public baseUrl: string = "";
+  private securityData: SecurityDataType = null as any;
+  private securityWorker: null | ApiConfig<SecurityDataType>["securityWorker"] = null;
+  private abortControllers = new Map<CancelToken, AbortController>();
 
   private baseApiParams: RequestParams = {
-    credentials: 'same-origin',
+    credentials: "same-origin",
     headers: {},
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  }
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig)
+    Object.assign(this, apiConfig);
   }
 
   public setSecurityData = (data: SecurityDataType) => {
-    this.securityData = data
-  }
+    this.securityData = data;
+  };
 
   private addQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key]
+    const value = query[key];
 
     return (
       encodeURIComponent(key) +
-      '=' +
-      encodeURIComponent(
-        Array.isArray(value)
-          ? value.join(',')
-          : typeof value === 'number'
-          ? value
-          : `${value}`
-      )
-    )
+      "=" +
+      encodeURIComponent(Array.isArray(value) ? value.join(",") : typeof value === "number" ? value : `${value}`)
+    );
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {}
-    const keys = Object.keys(query).filter(
-      (key) => 'undefined' !== typeof query[key]
-    )
+    const query = rawQuery || {};
+    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
     return keys
       .map((key) =>
-        typeof query[key] === 'object' && !Array.isArray(query[key])
+        typeof query[key] === "object" && !Array.isArray(query[key])
           ? this.toQueryString(query[key] as QueryParamsType)
-          : this.addQueryParam(query, key)
+          : this.addQueryParam(query, key),
       )
-      .join('&')
+      .join("&");
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery)
-    return queryString ? `?${queryString}` : ''
+    const queryString = this.toQueryString(rawQuery);
+    return queryString ? `?${queryString}` : "";
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string')
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((data, key) => {
-        data.append(key, input[key])
-        return data
+        data.append(key, input[key]);
+        return data;
       }, new FormData()),
-    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input)
-  }
+    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
+  };
 
-  private mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams
-  ): RequestParams {
+  private mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -1000,35 +982,33 @@ export class HttpClient<SecurityDataType = unknown> {
       headers: {
         ...(this.baseApiParams.headers || {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {})
-      }
-    }
+        ...((params2 && params2.headers) || {}),
+      },
+    };
   }
 
-  private createAbortSignal = (
-    cancelToken: CancelToken
-  ): AbortSignal | undefined => {
+  private createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken)
+      const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
-        return abortController.signal
+        return abortController.signal;
       }
-      return void 0
+      return void 0;
     }
 
-    const abortController = new AbortController()
-    this.abortControllers.set(cancelToken, abortController)
-    return abortController.signal
-  }
+    const abortController = new AbortController();
+    this.abortControllers.set(cancelToken, abortController);
+    return abortController.signal;
+  };
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken)
+    const abortController = this.abortControllers.get(cancelToken);
 
     if (abortController) {
-      abortController.abort()
-      this.abortControllers.delete(cancelToken)
+      abortController.abort();
+      this.abortControllers.delete(cancelToken);
     }
-  }
+  };
 
   public request = <T = any, E = any>({
     body,
@@ -1036,74 +1016,58 @@ export class HttpClient<SecurityDataType = unknown> {
     path,
     type,
     query,
-    format = 'json',
+    format = "json",
     baseUrl,
     cancelToken,
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
-    const secureParams =
-      (secure &&
-        this.securityWorker &&
-        this.securityWorker(this.securityData)) ||
-      {}
-    const requestParams = this.mergeRequestParams(params, secureParams)
-    const queryString = query && this.toQueryString(query)
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
+    const secureParams = (secure && this.securityWorker && this.securityWorker(this.securityData)) || {};
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const queryString = query && this.toQueryString(query);
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
 
-    return fetch(
-      `${baseUrl || this.baseUrl || ''}${path}${
-        queryString ? `?${queryString}` : ''
-      }`,
-      {
-        ...requestParams,
-        headers: {
-          ...(type && type !== ContentType.FormData
-            ? { 'Content-Type': type }
-            : {}),
-          ...(requestParams.headers || {})
-        },
-        signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-        body:
-          typeof body === 'undefined' || body === null
-            ? null
-            : payloadFormatter(body)
-      }
-    ).then(async (response) => {
-      const r = response as HttpResponse<T, E>
-      r.data = null as unknown as T
-      r.error = null as unknown as E
+    return fetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
+      ...requestParams,
+      headers: {
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(requestParams.headers || {}),
+      },
+      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
+      const r = response as HttpResponse<T, E>;
+      r.data = (null as unknown) as T;
+      r.error = (null as unknown) as E;
 
       const data = await response[format]()
         .then((data) => {
           if (r.ok) {
-            r.data = data
+            r.data = data;
           } else {
-            r.error = data
+            r.error = data;
           }
-          return r
+          return r;
         })
         .catch((e) => {
-          r.error = e
-          return r
-        })
+          r.error = e;
+          return r;
+        });
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken)
+        this.abortControllers.delete(cancelToken);
       }
 
-      if (!response.ok) throw data
-      return data
-    })
-  }
+      if (!response.ok) throw data;
+      return data;
+    });
+  };
 }
 
 /**
  * @title ibc/core/channel/v1/channel.proto
  * @version version not set
  */
-export class Api<
-  SecurityDataType extends unknown
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -1114,20 +1078,20 @@ export class Api<
    */
   queryChannels = (
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryChannelsResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1137,17 +1101,13 @@ export class Api<
    * @summary Channel queries an IBC Channel.
    * @request GET:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}
    */
-  queryChannel = (
-    channel_id: string,
-    port_id: string,
-    params: RequestParams = {}
-  ) =>
+  queryChannel = (channel_id: string, port_id: string, params: RequestParams = {}) =>
     this.request<V1QueryChannelResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1158,17 +1118,13 @@ export class Api<
 with the provided channel identifiers.
  * @request GET:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/client_state
  */
-  queryChannelClientState = (
-    channel_id: string,
-    port_id: string,
-    params: RequestParams = {}
-  ) =>
+  queryChannelClientState = (channel_id: string, port_id: string, params: RequestParams = {}) =>
     this.request<V1QueryChannelClientStateResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/client_state`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1184,14 +1140,14 @@ associated with the provided channel identifiers.
     port_id: string,
     revision_number: string,
     revision_height: string,
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryChannelConsensusStateResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/consensus_state/revision/${revision_number}/height/${revision_height}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1201,17 +1157,13 @@ associated with the provided channel identifiers.
    * @summary NextSequenceReceive returns the next receive sequence for a given channel.
    * @request GET:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/next_sequence
    */
-  queryNextSequenceReceive = (
-    channel_id: string,
-    port_id: string,
-    params: RequestParams = {}
-  ) =>
+  queryNextSequenceReceive = (channel_id: string, port_id: string, params: RequestParams = {}) =>
     this.request<V1QueryNextSequenceReceiveResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/next_sequence`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1226,21 +1178,21 @@ with a channel.
     channel_id: string,
     port_id: string,
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
-      packet_commitment_sequences?: string[]
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      packet_commitment_sequences?: string[];
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryPacketAcknowledgementsResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/packet_acknowledgements`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1250,18 +1202,13 @@ with a channel.
    * @summary PacketAcknowledgement queries a stored packet acknowledgement hash.
    * @request GET:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acks/{sequence}
    */
-  queryPacketAcknowledgement = (
-    channel_id: string,
-    port_id: string,
-    sequence: string,
-    params: RequestParams = {}
-  ) =>
+  queryPacketAcknowledgement = (channel_id: string, port_id: string, sequence: string, params: RequestParams = {}) =>
     this.request<V1QueryPacketAcknowledgementResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/packet_acks/${sequence}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1276,20 +1223,20 @@ with a channel.
     channel_id: string,
     port_id: string,
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryPacketCommitmentsResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/packet_commitments`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1304,14 +1251,14 @@ with a channel and sequences.
     channel_id: string,
     port_id: string,
     packet_ack_sequences: string[],
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryUnreceivedAcksResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/packet_commitments/${packet_ack_sequences}/unreceived_acks`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1326,14 +1273,14 @@ channel and sequences.
     channel_id: string,
     port_id: string,
     packet_commitment_sequences: string[],
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryUnreceivedPacketsResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/packet_commitments/${packet_commitment_sequences}/unreceived_packets`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -1343,18 +1290,13 @@ channel and sequences.
    * @summary PacketCommitment queries a stored packet commitment hash.
    * @request GET:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{sequence}
    */
-  queryPacketCommitment = (
-    channel_id: string,
-    port_id: string,
-    sequence: string,
-    params: RequestParams = {}
-  ) =>
+  queryPacketCommitment = (channel_id: string, port_id: string, sequence: string, params: RequestParams = {}) =>
     this.request<V1QueryPacketCommitmentResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/packet_commitments/${sequence}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1365,18 +1307,13 @@ channel and sequences.
 queried chain
  * @request GET:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_receipts/{sequence}
  */
-  queryPacketReceipt = (
-    channel_id: string,
-    port_id: string,
-    sequence: string,
-    params: RequestParams = {}
-  ) =>
+  queryPacketReceipt = (channel_id: string, port_id: string, sequence: string, params: RequestParams = {}) =>
     this.request<V1QueryPacketReceiptResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/channels/${channel_id}/ports/${port_id}/packet_receipts/${sequence}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
  * No description
@@ -1390,18 +1327,18 @@ end.
   queryConnectionChannels = (
     connection: string,
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.count_total'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1QueryConnectionChannelsResponse, RpcStatus>({
       path: `/ibc/core/channel/v1/connections/${connection}/channels`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 }
