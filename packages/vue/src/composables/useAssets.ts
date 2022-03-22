@@ -1,12 +1,4 @@
-import {
-  computed,
-  ComputedRef,
-  onBeforeMount,
-  onUnmounted,
-  Ref,
-  ref,
-  watch
-} from 'vue'
+import { computed, ComputedRef, onBeforeMount, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import { Amount, DenomTrace } from '@/utils/interfaces'
@@ -38,7 +30,7 @@ export default function ({ $s, opts }: Params): Response {
   })
 
   // composables
-  let { address } = useAddress({ $s })
+  let { address } = useAddress()
   let { getDenomTrace } = useDenom({ $s })
 
   // actions

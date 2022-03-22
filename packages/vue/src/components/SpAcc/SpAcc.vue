@@ -1,7 +1,7 @@
 <template>
   <div class="sp-acc">
     <div
-      v-if="wallet"
+      v-if="ignite?.signer"
       class="sp-nav-link selected account-dropdown-button"
       style="display: flex; align-items: center"
       @click="state.accountDropdown = !state.accountDropdown"
@@ -24,7 +24,6 @@
     </div>
     <SpAccDropdown
       v-if="state.accountDropdown"
-      :wallet="wallet"
       :accName="getAccName()"
       @disconnect="disconnect"
       @close="state.accountDropdown = false"
@@ -124,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, onMounted } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 import SpModal from '../SpModal'
@@ -137,8 +136,7 @@ import SpWarningIcon from '../SpWarningIcon'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpChevronDownIcon from '../SpChevronDown'
 
-import useKeplr from '../../composables/useKeplr'
-import { Wallet } from '../../utils/interfaces'
+import { useKeplr, useIgnite } from '../../composables/'
 
 export interface State {
   modalPage: string
@@ -183,27 +181,28 @@ export default defineComponent({
       getOfflineSigner,
       getKeplrAccParams,
       listenToAccChange
-    } = useKeplr({ $s })
+    } = useKeplr()
 
-    // computed
-    let wallet = computed<Wallet>(() => $s.getters['common/wallet/wallet'])
-    let chainId = computed<string>(() => $s.getters['common/env/chainId'])
+    // ignite
+    let { ignite, signIn, signOut } = useIgnite()
 
     // actions
-    let signInWithKeplr = async (offlineSigner: any) =>
-      $s.dispatch('common/wallet/connectWithKeplr', offlineSigner)
-    let signOut = async () => $s.dispatch('common/wallet/signOut')
+    let signInWithKeplr = async (offlineSigner: any) => {
+      signIn(offlineSigner)
+    }
 
     // methods
     let tryToConnectToKeplr = (): void => {
       state.modalPage = 'connecting'
 
       let onKeplrConnect = async () => {
-        let { name, bech32Address } = await getKeplrAccParams(chainId.value)
+        let { name, bech32Address } = await getKeplrAccParams(
+          ignite.value?.env.chainID
+        )
         state.keplrParams.name = name
         state.keplrParams.bech32Address = bech32Address
 
-        let offlineSigner = getOfflineSigner(chainId.value)
+        let offlineSigner = getOfflineSigner(ignite.value?.env.chainID)
         signInWithKeplr(offlineSigner)
 
         listenToAccChange(onKeplrConnect)
@@ -218,37 +217,21 @@ export default defineComponent({
 
       connectToKeplr(onKeplrConnect, onKeplrError)
     }
-    let getAccName = (): string => {
-      if (wallet.value?.name === 'Keplr Integration') {
-        return state.keplrParams?.name + ''
-      } else {
-        return ''
-      }
-    }
+    let getAccName = (): string => state.keplrParams?.name + ''
+
     let disconnect = (): void => {
       state.accountDropdown = false
 
       signOut()
     }
 
-    // check if already connected
-    onMounted(async () => {
-      if (chainId.value) {
-        try {
-          await tryToConnectToKeplr()
-        } catch (e) {
-          console.warn('Keplr not connected')
-        }
-      }
-    })
-
     return {
       isKeplrAvailable,
       tryToConnectToKeplr,
       disconnect,
       state,
-      wallet,
-      getAccName
+      getAccName,
+      ignite
     }
   }
 })

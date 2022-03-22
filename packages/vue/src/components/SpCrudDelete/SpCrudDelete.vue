@@ -77,6 +77,7 @@ import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
+import { useIgnite } from '../../composables'
 
 export default defineComponent({
   name: 'SpCrudDelete',
@@ -115,8 +116,9 @@ export default defineComponent({
     // store
     let $s = useStore()
 
-    // computed
-    let creator = $s.getters['common/wallet/address']
+    // ignite
+    let { ignite } = useIgnite()
+    let creator = ignite.value?.addr
 
     let deleteItem = async () => {
       $s.dispatch(props.storeName + props.commandName, {

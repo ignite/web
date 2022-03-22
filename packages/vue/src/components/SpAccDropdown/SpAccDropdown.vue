@@ -141,7 +141,7 @@ export let initialState: State = {
   currentUIState: UI_STATE.DEFAULT
 }
 
-import { useAddress, useClipboard } from '../../composables'
+import { useAddress, useClipboard, useIgnite } from '../../composables'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -154,11 +154,6 @@ export default defineComponent({
   },
 
   props: {
-    wallet: {
-      type: Object,
-      required: true
-    },
-
     accName: {
       type: String,
       required: true
@@ -168,24 +163,16 @@ export default defineComponent({
   emits: ['disconnect', 'close'],
 
   setup(_, { emit }) {
-    // store
-    let $s = useStore()
-
     // composables
-    let { address, shortAddress } = useAddress({ $s })
     let { copy } = useClipboard()
 
+    // ignite
+    let { ignite } = useIgnite()
+
     // computed
-    let chainId = computed<string>(() => $s.getters['common/env/chainId'])
-    let apiConnected = computed<boolean>(
-      () => $s.getters['common/env/apiConnected']
-    )
-    let rpcConnected = computed<boolean>(
-      () => $s.getters['common/env/rpcConnected']
-    )
-    let wsConnected = computed<boolean>(
-      () => $s.getters['common/env/wsConnected']
-    )
+    let apiConnected = false
+    let rpcConnected = false
+    let wsConnected = false
     let showDefault = computed<boolean>(
       () => state.currentUIState === UI_STATE.DEFAULT
     )
@@ -227,8 +214,8 @@ export default defineComponent({
       //state
       state,
       // compoasbles
-      address,
-      shortAddress,
+      address: ignite.value?.addr,
+      shortAddress: ignite.value?.addr,
       // methods
       copy,
       switchToDefault,
@@ -236,7 +223,7 @@ export default defineComponent({
       // computed
       showDefault,
       showSettings,
-      chainId,
+      chainId: ignite.value?.env.chainID,
       apiConnected,
       rpcConnected,
       wsConnected

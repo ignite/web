@@ -4,6 +4,7 @@ import { computed, Ref, ref, watch } from 'vue'
 import { Store } from 'vuex'
 
 import { useAddress } from '.'
+import useIgnite from './useIgnite'
 
 type Response = {
   acc: Ref<Account | undefined>
@@ -21,18 +22,15 @@ export default async function ({ $s }: Params): Promise<Response> {
   // composables
   let { address } = useAddress({ $s })
 
-  // computed
-  let spClient = computed<EventEmitter>(() => $s.getters['common/env/client'])
-  let stargateClient = computed<SigningStargateClient>(
-    () => (spClient.value as any)?.signingClient as SigningStargateClient
-  )
+  // ignite
+  let { ignite } = useIgnite()
 
   // watch
   watch(
     () => address.value,
     async () => {
-      if (stargateClient.value && address.value) {
-        acc.value = (await stargateClient.value.getAccount(
+      if (ignite.value?.signer && address.value) {
+        acc.value = (await ignite.value?.signer.getAccount(
           address.value
         )) as Account
       } else {

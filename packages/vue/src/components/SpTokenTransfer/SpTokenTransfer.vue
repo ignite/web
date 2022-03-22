@@ -299,19 +299,20 @@
 <script lang="ts">
 import { Bech32 } from '@cosmjs/encoding'
 import long from 'long'
-import { computed, defineComponent, PropType, reactive, watch } from 'vue'
+import { computed, defineComponent, inject, reactive, Ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAddress, useAssets } from '../../composables'
+import { useAddress, useAssets, useIgnite, useKeplr } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
 import SpClipboard from '../SpClipboard'
 import SpQrCode from '../SpQrCode'
 import SpSpinner from '../SpSpinner'
+import { Ignite } from '@ignt/client'
 
 // types
 export interface TxData {
@@ -377,14 +378,11 @@ export default defineComponent({
     let state: State = reactive(initialState)
 
     // composables
-    let { address } = useAddress({ $s })
+    let { address } = useAddress()
     let { balances } = useAssets({ $s })
 
-    // actions
-    let sendMsgSend = (opts: any) =>
-      $s.dispatch('cosmos.bank.v1beta1/sendMsgSend', opts)
-    let sendMsgTransfer = (opts: any) =>
-      $s.dispatch('ibc.applications.transfer.v1/sendMsgTransfer', opts)
+    // ignite
+    let { ignite } = useIgnite()
 
     // methods
     let switchToSend = (): void => {
@@ -447,17 +445,15 @@ export default defineComponent({
             token: state.tx.amount[0]
           }
 
-          send = () =>
-            sendMsgTransfer({
+          send = async () =>
+            ignite.value?.IbcApplicationsTransferV1.sendMsgTransfer({
               value: payload,
-              fee,
               memo
             })
         } else {
-          send = () =>
-            sendMsgSend({
+          send = async () =>
+            ignite.value?.CosmosBankV1Beta1.sendMsgSend({
               value: payload,
-              fee,
               memo
             })
         }

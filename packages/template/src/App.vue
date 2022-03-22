@@ -20,9 +20,6 @@ export default {
   components: { SpTheme, SpNavbar },
 
   setup() {
-    // store
-    let $s = useStore()
-
     // router
     let router = useRouter()
 
@@ -32,12 +29,9 @@ export default {
       { name: 'Data', url: '/data' }
     ]
 
-    // computed
-    let address = computed(() => $s.getters['common/wallet/address'])
-
     // lh
     onBeforeMount(async () => {
-      await $s.dispatch('common/env/init')
+      // await $s.dispatch('common/env/init')
 
       router.push('portfolio')
     })
@@ -45,9 +39,7 @@ export default {
     return {
       navbarLinks,
       // router
-      router,
-      // computed
-      address
+      router
     }
   }
 }

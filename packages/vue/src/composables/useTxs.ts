@@ -1,3 +1,4 @@
+import { WebSocketClient } from '@ignt/client'
 import axios, { AxiosResponse } from 'axios'
 import { EventEmitter } from 'events'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
@@ -10,6 +11,7 @@ import useAPIPagination, {
   Pager,
   Response as APIPagination
 } from './useAPIPagination'
+import useIgnite from './useIgnite'
 
 type Response = {
   filterSupportedTypes: (tx: object) => boolean
@@ -115,17 +117,20 @@ export default async function ({
   }
   let fetchTxs = async (offset: number, event: string, orderParam: number) =>
     axios.get(
-      `${API_COSMOS.value}` +
+      `${API_COSMOS}` +
         `/cosmos/tx/v1beta1/txs` +
         `?events=${event}` +
         `&pagination.offset=${offset}` +
         `&order_by=${orderParam}`
     )
 
+  // ignite
+  let { ignite } = useIgnite()
+
   // store
-  let address = computed<string>(() => $s.getters['common/wallet/address'])
-  let client = computed<EventEmitter>(() => $s.getters['common/env/client'])
-  let API_COSMOS = computed<string>(() => $s.getters['common/env/apiCosmos'])
+  let address = computed<string | undefined>(() => ignite.value?.addr)
+  let client = computed<WebSocketClient | undefined>(() => ignite.value?.ws)
+  let API_COSMOS = ignite.value?.env.apiURL
 
   // computed
   let SENT_EVENT = computed<string>(
@@ -176,6 +181,7 @@ export default async function ({
   )
 
   if (realTime) {
+    // @ts-ignore
     client.value.on('newblock', async () => {
       // there's got bet a better way to diff latest vs. current while sparing this wasted round-trip
       let recv = await fetchTxs(0, RECEIVED_EVENT.value, orderParam)

@@ -1,7 +1,5 @@
-import blocks from './modules/common/blocks'
 import env from './modules/common/env'
-import wallet from './modules/common/wallet'
-export { blocks, env, wallet }
+export { env }
 
 import { Buffer } from 'buffer'
 

@@ -30,6 +30,7 @@
 </template>
 
 <script lang="ts">
+import { useIgnite } from '../../composables'
 import { computed, defineComponent, reactive } from 'vue'
 import { useStore } from 'vuex'
 
@@ -79,7 +80,10 @@ export default defineComponent({
     let itemFieldsFiltered = computed(() =>
       itemFields.value.filter((f) => f.name !== 'id' && f.name !== 'creator')
     )
-    let creator = $s.getters['common/wallet/address']
+
+    // ignite
+    let { ignite } = useIgnite()
+    let creator = ignite.value?.addr
 
     let submitItem = async () => {
       $s.dispatch(props.storeName + props.commandName, {

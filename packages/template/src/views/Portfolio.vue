@@ -14,25 +14,11 @@
 
 <script>
 import { SpAssets, SpTokenTransfer, SpTokenTransferList } from '@starport/vue'
-import { computed } from 'vue'
-import { useStore } from 'vuex'
 
 export default {
   name: 'Portfolio',
 
-  components: { SpTokenTransfer, SpAssets, SpTokenTransferList },
-
-  setup() {
-    // store
-    let $s = useStore()
-
-    // computed
-    let address = computed(() => $s.getters['common/wallet/address'])
-
-    return {
-      address
-    }
-  }
+  components: { SpTokenTransfer, SpAssets, SpTokenTransferList }
 }
 </script>
 

@@ -1,9 +1,16 @@
 import { OfflineDirectSigner } from '@cosmjs/proto-signing'
-import { Key } from '@keplr-wallet/types'
+import {
+  AppCurrency,
+  Bech32Config,
+  BIP44,
+  Currency,
+  Key
+} from '@keplr-wallet/types'
 import { computed, ComputedRef } from 'vue'
 import { Store } from 'vuex'
 
-import { Amount, AmountWithMeta } from '../utils/interfaces'
+import { AmountWithMeta } from '../utils/interfaces'
+import useIgnite from './useIgnite'
 
 type Response = {
   connectToKeplr: (onSuccessCb: () => void, onErrorCb: () => void) => void
@@ -13,12 +20,9 @@ type Response = {
   listenToAccChange: (cb: EventListener) => void
 }
 
-type Params = {
-  $s: Store<any>
-  opts?: any
-}
+export default function (): Response {
+  let { ignite } = useIgnite()
 
-export default function ({ $s }: Params): Response {
   let connectToKeplr = async (
     onSuccessCb: () => void,
     onErrorCb: () => void
@@ -26,25 +30,26 @@ export default function ({ $s }: Params): Response {
     try {
       let features = ['no-legacy-stdTx']
 
-      let staking = $s.getters['cosmos.staking.v1beta1/getParams']()
-      let tokens = $s.getters['cosmos.bank.v1beta1/getTotalSupply']()
-      let chainId = $s.getters['common/env/chainId']
-      let chainName = $s.getters['common/env/chainName']
-      let rpc = $s.getters['common/env/apiTendermint']
-      let rest = $s.getters['common/env/apiCosmos']
-      let addrPrefix = $s.getters['common/env/addrPrefix']
+      let staking = await ignite.value?.CosmosStakingV1Beta1.queryParams()
+      let tokens = await ignite.value?.CosmosBankV1Beta1.queryTotalSupply()
 
-      let stakeCurrency = {
-        coinDenom: staking.params.bond_denom.toUpperCase(),
-        coinMinimalDenom: staking.params.bond_denom,
+      let chainId: string = ignite.value?.env.chainID || ''
+      let chainName: string = ignite.value?.env.chainName || ''
+      let rpc: string = ignite.value?.env.rpcURL || ''
+      let rest: string = ignite.value?.env.apiURL || ''
+      let addrPrefix: string = ignite.value?.env.prefix || ''
+
+      let stakeCurrency: Currency = {
+        coinDenom: staking?.data.params?.bond_denom?.toUpperCase() || '',
+        coinMinimalDenom: staking?.data.params?.bond_denom || '',
         coinDecimals: 0
       }
 
-      let bip44 = {
+      let bip44: BIP44 = {
         coinType: 118
       }
 
-      let bech32Config = {
+      let bech32Config: Bech32Config = {
         bech32PrefixAccAddr: addrPrefix,
         bech32PrefixAccPub: addrPrefix + 'pub',
         bech32PrefixValAddr: addrPrefix + 'valoper',
@@ -53,7 +58,7 @@ export default function ({ $s }: Params): Response {
         bech32PrefixConsPub: addrPrefix + 'valconspub'
       }
 
-      let currencies = tokens.supply.map((x: Amount) => {
+      let currencies: AppCurrency[] = tokens?.data.supply?.map((c) => {
         const y: AmountWithMeta = {
           amount: '0',
           denom: '',
@@ -61,13 +66,14 @@ export default function ({ $s }: Params): Response {
           coinMinimalDenom: '',
           coinDecimals: 0
         }
-        y.coinDenom = x.denom.toUpperCase()
-        y.coinMinimalDenom = x.denom
+        y.coinDenom = c.denom?.toUpperCase() || ''
+        y.coinMinimalDenom = c.denom || ''
         y.coinDecimals = 0
-        return y
-      })
 
-      let feeCurrencies = tokens.supply.map((x: Amount) => {
+        return y
+      }) as AppCurrency[]
+
+      let feeCurrencies: AppCurrency[] = tokens?.data.supply?.map((c) => {
         const y: AmountWithMeta = {
           amount: '0',
           denom: '',
@@ -75,11 +81,12 @@ export default function ({ $s }: Params): Response {
           coinMinimalDenom: '',
           coinDecimals: 0
         }
-        y.coinDenom = x.denom.toUpperCase()
-        y.coinMinimalDenom = x.denom
+        y.coinDenom = c.denom?.toUpperCase() || ''
+        y.coinMinimalDenom = c.denom || ''
         y.coinDecimals = 0
+
         return y
-      })
+      }) as AppCurrency[]
 
       let coinType = 118
 
@@ -115,7 +122,7 @@ export default function ({ $s }: Params): Response {
         await window.keplr.enable(chainId)
         onSuccessCb()
       } else {
-        console.error('Cannot access chain data from vuex store')
+        console.error('Cannot access chain data')
         onErrorCb()
       }
     } catch (e) {
