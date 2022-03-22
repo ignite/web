@@ -84,6 +84,7 @@ import {
 } from './ibc.core.port.v1'
 
 const registry = new Registry([
+  ...AEeEeMsgTypes,
   ...CosmosAuthV1Beta1MsgTypes,
   ...CosmosBankV1Beta1MsgTypes,
   ...CosmosBaseTendermintV1Beta1MsgTypes,
@@ -180,6 +181,7 @@ class Ignite {
     this._ws.on('chain-id', (id) => {
       this._env.chainID = id
     })
+    // @ts-ignore
     this._ws.on('chain-name', (name) => {
       this._env.chainName = name
     })
@@ -193,6 +195,7 @@ class Ignite {
     this._signer = client
     this._addr = addr
 
+    this.AEeEe.withSigner(client, addr)
     this.CosmosAuthV1Beta1.withSigner(client, addr)
     this.CosmosBankV1Beta1.withSigner(client, addr)
     this.CosmosBaseTendermintV1Beta1.withSigner(client, addr)
@@ -238,25 +241,11 @@ class Ignite {
   }
 }
 
-function createIgnite({ env }: IgniteParams): Ignite {
-  return new Ignite({
-    env
-  })
-}
-
-interface IClientConfig {
+interface WebSocketParams {
   refresh?: number
   env: Environment
 }
-interface IResponse {
-  data: string
-}
-interface ITypedResponse {
-  type: string
-}
-interface IParsedResponse {
-  data: ITypedResponse
-}
+
 class WebSocketClient extends EventEmitter {
   private refresh: number
   private _env: Environment
@@ -264,7 +253,7 @@ class WebSocketClient extends EventEmitter {
 
   private timer: ReturnType<typeof setInterval>
 
-  constructor({ env, refresh = 5000 }: IClientConfig) {
+  constructor({ env, refresh = 5000 }: WebSocketParams) {
     super()
     this._env = env
     this.refresh = refresh
@@ -333,12 +322,18 @@ class WebSocketClient extends EventEmitter {
       })
     )
   }
-  private onMessage(msg: IResponse): void {
-    const result: IParsedResponse = JSON.parse(msg.data).result
+  private onMessage(msg): void {
+    const result = JSON.parse(msg.data).result
     if (result.data && result.data.type === 'tendermint/event/NewBlock') {
       this.emit('newblock', JSON.parse(msg.data).result)
     }
   }
+}
+
+function createIgnite({ env }: IgniteParams): Ignite {
+  return new Ignite({
+    env
+  })
 }
 
 export { createIgnite, Environment, Ignite, registry, WebSocketClient }

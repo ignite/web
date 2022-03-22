@@ -14,10 +14,7 @@ export default defineConfig({
   },
   server: {
     watch: {
-      ignored: [
-        '!**/node_modules/@starport/vue/src/**',
-        '!**/node_modules/@starport/vuex/src/**'
-      ]
+      ignored: ['!**/node_modules/@starport/vue/src/**']
     }
   },
   plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()],

@@ -140,7 +140,7 @@ export let initialState: State = {
   currentUIState: UI_STATE.DEFAULT
 }
 
-import { useAddress, useClipboard, useIgnite } from '../../composables'
+import { useClipboard, useIgnite } from '../../composables'
 
 export default defineComponent({
   name: 'SpAccountDropdown',

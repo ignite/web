@@ -11,16 +11,16 @@
   >
     <template #body>
       <SpSpacer size="sm" />
-      <div v-for="field in itemFieldsFiltered">
-        <label :for="`p${field.name}`" class="sp-label capitalize-first-letter">
-          {{ field.name }}
+      <div v-for="f in itemFieldsFiltered">
+        <label :for="`p${f}`" class="sp-label capitalize-first-letter">
+          {{ f }}
         </label>
         <input
-          :id="`p${field.name}`"
-          v-model="formData[field.name]"
-          :placeholder="`Enter ${field.name}`"
+          :id="`p${f}`"
+          v-model="formData[f as string]"
+          :placeholder="`Enter ${f}`"
           type="text"
-          :name="`p${field.name}`"
+          :name="`p${f}`"
           class="sp-input"
         />
         <SpSpacer size="xs" />
@@ -32,7 +32,6 @@
 <script lang="ts">
 import { useIgnite } from '../../composables'
 import { computed, defineComponent, reactive } from 'vue'
-import { useStore } from 'vuex'
 
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
@@ -70,29 +69,40 @@ export default defineComponent({
     commandName: {
       type: String,
       required: true
+    },
+
+    fields: {
+      type: Array,
+      required: true
     }
   },
 
   setup(props, { emit }) {
-    // store
-    let $s = useStore()
-    let formData = reactive({ ...props.itemData })
-
-    // computed
-    let itemFields = computed(() =>
-      $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
-    )
-    let itemFieldsFiltered = computed(() =>
-      itemFields.value.filter((f) => f.name !== 'id' && f.name !== 'creator')
-    )
     // ignite
     let { ignite } = useIgnite()
-    let creator = ignite.value?.addr
 
+    // state
+    let formData = reactive({ ...props.itemData })
+    let creator = ignite.value?.addr
+    let storeNameCamelCased = props.storeName
+      .charAt(0)
+      .toUpperCase()
+      .concat(props.storeName.slice(1))
+      .split('.')
+      .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
+    let m = ignite.value?.[storeNameCamelCased]
+
+    // computed
+    let itemFieldsFiltered = computed(() =>
+      props.fields.filter((f) => f !== 'id' && f !== 'creator')
+    )
+
+    // methods
     let editItem = async () => {
-      $s.dispatch(props.storeName + props.commandName, {
+      m[props.commandName]({
         value: { ...formData, creator, id: props.itemData.id }
       })
+
       emit('close')
     }
 

@@ -14,12 +14,10 @@
     "@cosmjs/proto-signing": "0.27.0",
     "@cosmjs/stargate": "0.27.0",
     "@starport/vue": "^0.3.3",
-    "@starport/vuex": "^0.3.3",
     "buffer": "^6.0.3",
     "core-js": "^3.18.2",
     "vue": "^3.2.6",
-    "vue-router": "^4.0.3",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",

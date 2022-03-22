@@ -70,7 +70,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
 
 import SpSpacer from '../SpSpacer'
 import SpTypography from '../SpTypography'
@@ -113,15 +112,22 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    // store
-    let $s = useStore()
-
     // ignite
     let { ignite } = useIgnite()
-    let creator = ignite.value?.addr
 
+    // state
+    let creator = ignite.value?.addr
+    let storeNameCamelCased = props.storeName
+      .charAt(0)
+      .toUpperCase()
+      .concat(props.storeName.slice(1))
+      .split('.')
+      .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
+    let m = ignite.value?.[storeNameCamelCased]
+
+    // methods
     let deleteItem = async () => {
-      $s.dispatch(props.storeName + props.commandName, {
+      m[props.commandName]({
         value: { creator, id: props.itemData.id }
       })
       emit('close')

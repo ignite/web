@@ -20,7 +20,8 @@
     <SpCrudRead
       :store-name="storeName"
       :item-name="moduleNameNormalized"
-      :command-name="`/Query${moduleNameNormalized}All`"
+      :command-name="`query${moduleNameNormalized}All`"
+      :fields="fields"
       @createItem="visibleModal = 'create-item'"
       @editItem="
         (item) => {
@@ -40,7 +41,8 @@
       v-if="visibleModal === 'create-item'"
       :store-name="storeName"
       :item-name="moduleNameNormalized"
-      :command-name="`/sendMsgCreate${moduleNameNormalized}`"
+      :command-name="`sendMsgCreate${moduleNameNormalized}`"
+      :fields="fields"
       @close="visibleModal = ''"
     />
     <SpCrudUpdate
@@ -48,7 +50,8 @@
       :store-name="storeName"
       :item-name="moduleNameNormalized"
       :item-data="activeItem"
-      :command-name="`/sendMsgUpdate${moduleNameNormalized}`"
+      :command-name="`sendMsgUpdate${moduleNameNormalized}`"
+      :fields="fields"
       @close="visibleModal = ''"
     />
     <SpCrudDelete
@@ -56,17 +59,23 @@
       :store-name="storeName"
       :item-name="moduleNameNormalized"
       :item-data="activeItem"
-      :command-name="`/sendMsgDelete${moduleNameNormalized}`"
+      :command-name="`sendMsgDelete${moduleNameNormalized}`"
       @close="visibleModal = ''"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from 'vue'
-import { useStore } from 'vuex'
+import {
+  computed,
+  defineComponent,
+  onBeforeMount,
+  reactive,
+  ref,
+  toRefs
+} from 'vue'
 
-import { useAddress } from '../../composables'
+import { useAddress, useIgnite } from '../../composables'
 import SpButton from '../SpButton'
 import SpCrudCreate from '../SpCrudCreate'
 import SpCrudDelete from '../SpCrudDelete'
@@ -85,7 +94,6 @@ export let initialState: State = {
   activeItem: {},
   moduleAvailable: false
 }
-
 export default defineComponent({
   name: 'SpCrud',
 
@@ -111,24 +119,42 @@ export default defineComponent({
   },
 
   setup(props) {
-    // store
-    let $s = useStore()
+    // ignite
+    let { ignite } = useIgnite()
 
     // composables
     let { address } = useAddress()
-
-    // state
-    let state: State = reactive(initialState)
 
     // computed
     let moduleNameNormalized = computed(() =>
       props.itemName.replace(/^\w/, (c) => c.toUpperCase())
     )
 
-    state.moduleAvailable = $s.hasModule(props.storeName)
+    // state
+    let state: State = reactive(initialState)
+    let storeNameCamelCased = props.storeName
+      .charAt(0)
+      .toUpperCase()
+      .concat(props.storeName.slice(1))
+      .split('.')
+      .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
+    let m = ignite.value?.[storeNameCamelCased]
+    let items = ref([])
+    let fields = ref<Array<string>>([])
+
+    // lh
+    onBeforeMount(async () => {
+      items.value = (await m[`query${moduleNameNormalized.value}All`]())?.data[
+        props.itemName
+      ]
+      fields.value = Object.keys(items.value[0])
+    })
+
+    state.moduleAvailable = !!m
 
     return {
       ...toRefs(state),
+      fields,
       address,
       moduleNameNormalized
     }

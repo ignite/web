@@ -67,11 +67,11 @@
           </svg>
         </div>
         <div style="width: 100%">
-          <div v-for="field in itemFields">
+          <div v-for="f in fields">
             <div class="item-title capitalize-first-letter">
-              {{ field.name }}
+              {{ f }}
             </div>
-            <div class="item-value">{{ item[field.name] }}</div>
+            <div class="item-value">{{ item[f as string] }}</div>
             <SpSpacer size="xsm" />
           </div>
         </div>
@@ -116,10 +116,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 
-import { useAddress } from '../../composables'
+import { useAddress, useIgnite } from '../../composables'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
@@ -151,56 +150,38 @@ export default defineComponent({
     commandName: {
       type: String,
       required: true
+    },
+
+    fields: {
+      type: Array,
+      required: true
     }
   },
 
   setup(props) {
-    // store
-    let $s = useStore()
+    // ignite
+    let { ignite } = useIgnite()
 
     // composables
-    let { address, shortAddress } = useAddress({ $s })
+    let { address, shortAddress } = useAddress()
 
-    // computed
-    let itemFields = computed(() =>
-      $s.getters[props.storeName + '/getTypeStructure'](props.itemName)
-    )
-    // let itemFields = computed(() =>
-    //   [
-    //     {
-    //       name: 'title',
-    //     },
-    //     {
-    //       name: 'description'
-    //     },
-    //     {
-    //       name: 'by'
-    //     }
-    //   ]
-    // )
-    let items = computed(() => {
-      const itemData = $s.state[props.storeName][props.itemName + 'All']
-      const queryKey = Object.keys(itemData)[0]
-      if (queryKey && itemData[queryKey]) {
-        return itemData[queryKey][props.itemName].sort((a, b) => {
-          return b.id - a.id
-        })
-      }
-      return []
-    })
+    // state
+    let storeNameCamelCased = props.storeName
+      .charAt(0)
+      .toUpperCase()
+      .concat(props.storeName.slice(1))
+      .split('.')
+      .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
+    let m = ignite.value?.[storeNameCamelCased]
+    let items = ref([])
 
     // lh
-    onMounted(() => {
-      $s.dispatch(`${props.storeName}${props.commandName}`, {
-        options: { subscribe: true },
-        params: {},
-        query: {}
-      })
+    onBeforeMount(async () => {
+      items.value = (await m[props.commandName]())?.data[props.itemName]
     })
 
     return {
       address,
-      itemFields,
       shortAddress,
       items
     }
