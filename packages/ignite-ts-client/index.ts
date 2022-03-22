@@ -84,7 +84,6 @@ import {
 } from './ibc.core.port.v1'
 
 const registry = new Registry([
-  ...AEeEeMsgTypes,
   ...CosmosAuthV1Beta1MsgTypes,
   ...CosmosBankV1Beta1MsgTypes,
   ...CosmosBaseTendermintV1Beta1MsgTypes,
@@ -195,7 +194,6 @@ class Ignite {
     this._signer = client
     this._addr = addr
 
-    this.AEeEe.withSigner(client, addr)
     this.CosmosAuthV1Beta1.withSigner(client, addr)
     this.CosmosBankV1Beta1.withSigner(client, addr)
     this.CosmosBaseTendermintV1Beta1.withSigner(client, addr)
