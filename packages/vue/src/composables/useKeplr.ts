@@ -7,7 +7,6 @@ import {
   Key
 } from '@keplr-wallet/types'
 import { computed, ComputedRef } from 'vue'
-import { Store } from 'vuex'
 
 import { AmountWithMeta } from '../utils/interfaces'
 import useIgnite from './useIgnite'

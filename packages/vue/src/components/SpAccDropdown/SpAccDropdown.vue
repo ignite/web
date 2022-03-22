@@ -120,7 +120,6 @@ import {
   onMounted,
   reactive
 } from 'vue'
-import { useStore } from 'vuex'
 
 import SpChevronRightIcon from '../SpChevronRight'
 import SpExternalArrowIcon from '../SpExternalArrow'
