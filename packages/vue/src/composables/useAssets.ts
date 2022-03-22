@@ -1,14 +1,16 @@
-import { computed, ComputedRef, onBeforeMount, Ref, ref, watch } from 'vue'
-import { Store } from 'vuex'
-
-import { Amount, DenomTrace } from '@/utils/interfaces'
+import { computed, ComputedRef, reactive, watch } from 'vue'
+import { Amount } from '@/utils/interfaces'
 
 import { useAddress, useDenom } from '.'
+import useIgnite from './useIgnite'
+import { Balance } from '@ignt/client/cosmos.bank.v1beta1'
+import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
 
 type Response = {
-  balances: Ref<{ isLoading: boolean; assets: AssetForUI[] }>
-  balancesRaw: ComputedRef<any[]>
+  balances: ComputedRef<AssetForUI[]>
+  balancesRaw: ComputedRef<Balance[]>
   normalize: (balance: object) => Promise<AssetForUI>
+  loadingAssets: ComputedRef<boolean>
 }
 export type AssetForUI = {
   amount: Amount
@@ -16,47 +18,32 @@ export type AssetForUI = {
 }
 
 type Params = {
-  $s: Store<any>
   opts?: {
     extractChannels: boolean
   }
 }
 
-export default function ({ $s, opts }: Params): Response {
+export interface State {
+  balancesRaw: Balance[]
+  balances: AssetForUI[]
+  loading: boolean
+}
+export let initialState: State = {
+  balancesRaw: [],
+  balances: [],
+  loading: true
+}
+
+export default function (params?: Params): Response {
   // state
-  let balances = ref({
-    isLoading: true,
-    assets: []
-  })
+  let state = reactive(initialState)
 
   // composables
   let { address } = useAddress()
-  let { getDenomTrace } = useDenom({ $s })
+  let { getDenomTrace } = useDenom()
 
-  // actions
-  let queryAllBalances = (opts: any) =>
-    $s.dispatch('cosmos.bank.v1beta1/QueryAllBalances', opts)
-
-  // lh
-  onBeforeMount(async () => {
-    if (address.value) {
-      queryAllBalances({
-        params: { address: address.value },
-        options: { subscribe: true }
-      }).finally(() => {
-        balances.value.isLoading = false
-      })
-    }
-  })
-
-  // computed
-  let balancesRaw = computed<any[]>(() => {
-    return (
-      $s.getters['cosmos.bank.v1beta1/getAllBalances']({
-        params: { address: address.value }
-      })?.balances ?? []
-    )
-  })
+  // ignite
+  let { ignite } = useIgnite()
 
   // methods
   let normalize = async (balance: any): Promise<AssetForUI> => {
@@ -70,12 +57,13 @@ export default function ({ $s, opts }: Params): Response {
     }
 
     if (isIBC) {
-      let denomTrace: DenomTrace = await getDenomTrace(balance.denom)
+      let denomTrace: V1DenomTrace = await getDenomTrace(balance.denom)
 
-      normalized.path = opts?.extractChannels
-        ? denomTrace.denom_trace.path.match(/\d+/g)?.reverse()
-        : denomTrace.denom_trace.path
-      normalized.amount.denom = denomTrace.denom_trace.base_denom
+      normalized.path = params?.opts?.extractChannels
+        ? denomTrace.path?.match(/\d+/g)?.reverse()
+        : denomTrace.path
+
+      normalized.amount.denom = denomTrace.base_denom || ''
     } else {
       normalized.amount.denom = balance.denom
     }
@@ -87,24 +75,35 @@ export default function ({ $s, opts }: Params): Response {
 
   //watch
   watch(
-    () => [address.value, balancesRaw.value],
-    async ([newAddress], [oldAddress]) => {
-      if (newAddress !== oldAddress) {
-        queryAllBalances({
-          params: { address: newAddress },
-          options: { subscribe: true }
-        }).finally(() => {
-          balances.value.isLoading = false
+    () => address.value,
+    async () => {
+      if (address.value) {
+        state.loading = true
+
+        let balancesRaw = (
+          await ignite.value?.CosmosBankV1Beta1.queryAllBalances(address.value)
+        )?.data.balances
+
+        state.loading = false
+
+        state.balancesRaw = balancesRaw as Balance[]
+
+        let arr: Promise<AssetForUI>[] = state.balancesRaw.map(normalize)
+
+        Promise.all(arr).then((normalized) => {
+          state.balances = normalized as any
         })
       }
-
-      let arr: Promise<AssetForUI>[] = balancesRaw.value.map(normalize)
-
-      Promise.all(arr).then((normalized) => {
-        balances.value.assets = normalized as any
-      })
+    },
+    {
+      immediate: true
     }
   )
 
-  return { balancesRaw, normalize, balances }
+  return {
+    normalize,
+    balances: computed<AssetForUI[]>(() => state.balances),
+    balancesRaw: computed<Balance[]>(() => state.balancesRaw),
+    loadingAssets: computed<boolean>(() => state.loading)
+  }
 }

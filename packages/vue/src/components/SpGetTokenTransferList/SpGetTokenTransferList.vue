@@ -49,7 +49,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
-import { useStore } from 'vuex'
 
 import { useAddress, useTxs } from '../../composables'
 import { TxForUI } from '../../composables/useTxs'
@@ -74,16 +73,12 @@ export default defineComponent({
   components: { SpSpinner, SpTokenTransferListItem },
 
   async setup() {
-    // store
-    let $s = useStore()
-
     // state
     let state: State = reactive(initialState)
 
     // composables
-    let { address } = useAddress({ $s })
+    let { address } = useAddress()
     let { pager, normalize, newTxs, filterSupportedTypes } = await useTxs({
-      $s,
       opts: { order: 'desc', realTime: true }
     })
 

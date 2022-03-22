@@ -2,7 +2,7 @@
   <section>
     <header class="assets-header">
       <h2 class="title">Assets</h2>
-      <div v-if="balances.assets.length" class="assets-header__search">
+      <div v-if="balances.length" class="assets-header__search">
         <div class="assets-header__search-content">
           <div class="search-container">
             <span class="search-icon">
@@ -64,7 +64,7 @@
       </div>
     </header>
     <table class="assets-table">
-      <thead v-if="balances.assets.length" class="assets-table__thead">
+      <thead v-if="balances.length" class="assets-table__thead">
         <tr>
           <td>Asset</td>
           <td></td>
@@ -114,7 +114,7 @@
         </tr>
       </tbody>
     </table>
-    <template v-if="address && balances.isLoading">
+    <template v-if="address && loadingAssets">
       <div v-for="n in 2" :key="n" class="loading__row">
         <div class="loading__col">
           <span class="loading__avatar"></span>
@@ -129,13 +129,13 @@
       </div>
     </template>
     <div
-      v-if="!address || (!balances.isLoading && !balances.assets.length)"
+      v-if="!address || (!loadingAssets && !balances.length)"
       class="no-result-label"
     >
       You have no assets
     </div>
     <div
-      v-if="!balances.isLoading && isShowMore"
+      v-if="!loadingAssets && isShowMore"
       class="show-more"
       @click="onShowMore"
     >
@@ -160,7 +160,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, nextTick, ref, toRefs } from 'vue'
-import { useStore } from 'vuex'
 
 import { useAddress, useAssets } from '../../composables'
 import SpDenom from '../SpDenom'
@@ -178,9 +177,6 @@ export default defineComponent({
   },
 
   setup(props) {
-    // store
-    let $s = useStore()
-
     // state
     const state = ref({
       isLoading: true,
@@ -191,15 +187,17 @@ export default defineComponent({
     })
 
     // composables
-    let { address } = useAddress({ $s })
-    let { balances } = useAssets({ $s, opts: { extractChannels: true } })
+    let { address } = useAddress()
+    let { balances, loadingAssets } = useAssets({
+      opts: { extractChannels: true }
+    })
 
     const filteredBalanceList = computed(() => {
       if (!state.value.searchQuery) {
-        return balances.value.assets.slice(0, state.value.displayLimit)
+        return balances.value.slice(0, state.value.displayLimit)
       }
 
-      return balances.value.assets.filter((item) =>
+      return balances.value.filter((item) =>
         item.amount.denom.toLowerCase().includes(state.value.searchQuery)
       )
     })
@@ -208,7 +206,7 @@ export default defineComponent({
       return (
         !filteredBalanceList.value.length &&
         state.value.searchQuery.length &&
-        !balances.value.isLoading
+        !loadingAssets
       )
     })
 
@@ -218,7 +216,7 @@ export default defineComponent({
       }
 
       return (
-        filteredBalanceList.value.length < balances.value.assets.length &&
+        filteredBalanceList.value.length < balances.value.length &&
         !noSearchResults.value
       )
     })
@@ -239,6 +237,7 @@ export default defineComponent({
     return {
       address,
       balances,
+      loadingAssets,
       filteredBalanceList,
       noSearchResults,
       isShowMore,

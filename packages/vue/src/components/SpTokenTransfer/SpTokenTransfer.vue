@@ -175,7 +175,7 @@
           <SpAmountSelect
             class="token-selector--main"
             :selected="state.tx.amount"
-            :balances="balances.assets"
+            :balances="balances"
             @update="handleTxAmountUpdate"
           />
           <div style="width: 100%; height: 34px" />
@@ -233,7 +233,7 @@
           <SpAmountSelect
             class="token-selector"
             :selected="state.tx.fees"
-            :balances="balances.assets"
+            :balances="balances"
             @update="handleTxFeesUpdate"
           />
 
@@ -299,20 +299,18 @@
 <script lang="ts">
 import { Bech32 } from '@cosmjs/encoding'
 import long from 'long'
-import { computed, defineComponent, inject, reactive, Ref, watch } from 'vue'
-import { useStore } from 'vuex'
+import { computed, defineComponent, reactive, watch } from 'vue'
 
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAddress, useAssets, useIgnite, useKeplr } from '../../composables'
+import { useAddress, useAssets, useIgnite } from '../../composables'
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
 import SpClipboard from '../SpClipboard'
 import SpQrCode from '../SpQrCode'
 import SpSpinner from '../SpSpinner'
-import { Ignite } from '@ignt/client'
 
 // types
 export interface TxData {
@@ -371,15 +369,12 @@ export default defineComponent({
   },
 
   setup() {
-    // store
-    let $s = useStore()
-
     // state
     let state: State = reactive(initialState)
 
     // composables
     let { address } = useAddress()
-    let { balances } = useAssets({ $s })
+    let { balances } = useAssets()
 
     // ignite
     let { ignite } = useIgnite()
@@ -480,7 +475,7 @@ export default defineComponent({
     }
     let bootstrapTxAmount = () => {
       if (hasAnyBalance.value) {
-        let firstBalance: AssetForUI = balances.value.assets[0]
+        let firstBalance: AssetForUI = balances.value[0]
 
         state.tx.amount[0] = {
           ...firstBalance,
@@ -504,8 +499,8 @@ export default defineComponent({
     })
     let hasAnyBalance = computed<boolean>(
       () =>
-        balances.value.assets.length > 0 &&
-        balances.value.assets.some((x) => parseAmount(x.amount.amount) > 0)
+        balances.value.length > 0 &&
+        balances.value.some((x) => parseAmount(x.amount.amount) > 0)
     )
     let isTxOngoing = computed<boolean>(() => {
       return state.currentUIState === UI_STATE.TX_SIGNING
@@ -559,7 +554,7 @@ export default defineComponent({
       }
     )
     watch(
-      () => balances.value.assets,
+      () => balances.value,
       async (newValue, oldValue) => {
         if (newValue.length > 0 && oldValue.length === 0) {
           bootstrapTxAmount()

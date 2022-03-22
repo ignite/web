@@ -1,8 +1,6 @@
 import { WebSocketClient } from '@ignt/client'
 import axios, { AxiosResponse } from 'axios'
-import { EventEmitter } from 'events'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
-import { Store } from 'vuex'
 
 import { Amount } from '@/utils/interfaces'
 
@@ -21,7 +19,6 @@ type Response = {
 }
 
 type Params = {
-  $s: Store<any>
   opts: {
     order: 'asc' | 'desc'
     realTime: boolean
@@ -42,7 +39,6 @@ export type TxForUI = {
 }
 
 export default async function ({
-  $s,
   opts: { order, realTime }
 }: Params): Promise<Response> {
   // methods

@@ -124,7 +124,6 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import { useStore } from 'vuex'
 
 import SpModal from '../SpModal'
 import SpButton from '../SpButton'
@@ -168,9 +167,6 @@ export default defineComponent({
   },
 
   setup() {
-    // $s
-    let $s = useStore()
-
     // state
     let state = reactive(initialState)
 
@@ -186,11 +182,6 @@ export default defineComponent({
     // ignite
     let { ignite, signIn, signOut } = useIgnite()
 
-    // actions
-    let signInWithKeplr = async (offlineSigner: any) => {
-      signIn(offlineSigner)
-    }
-
     // methods
     let tryToConnectToKeplr = (): void => {
       state.modalPage = 'connecting'
@@ -203,7 +194,7 @@ export default defineComponent({
         state.keplrParams.bech32Address = bech32Address
 
         let offlineSigner = getOfflineSigner(ignite.value?.env.chainID)
-        signInWithKeplr(offlineSigner)
+        signIn(offlineSigner)
 
         listenToAccChange(onKeplrConnect)
 

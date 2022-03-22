@@ -82,10 +82,6 @@ import {
   Module as IbcCorePortV1,
   msgTypes as IbcCorePortV1MsgTypes
 } from './ibc.core.port.v1'
-import {
-  Module as MarinhoCamilaCamila,
-  msgTypes as MarinhoCamilaCamilaMsgTypes
-} from './marinho.camila.camila'
 
 const registry = new Registry([
   ...CosmosAuthV1Beta1MsgTypes,
@@ -106,8 +102,7 @@ const registry = new Registry([
   ...IbcCoreChannelV1MsgTypes,
   ...IbcCoreClientV1MsgTypes,
   ...IbcCoreConnectionV1MsgTypes,
-  ...IbcCorePortV1MsgTypes,
-  ...MarinhoCamilaCamilaMsgTypes
+  ...IbcCorePortV1MsgTypes
 ])
 
 interface Environment {
@@ -148,7 +143,6 @@ class Ignite {
   public IbcCoreClientV1: IbcCoreClientV1
   public IbcCoreConnectionV1: IbcCoreConnectionV1
   public IbcCorePortV1: IbcCorePortV1
-  public MarinhoCamilaCamila: MarinhoCamilaCamila
 
   constructor({ env }: IgniteParams) {
     this._env = env
@@ -177,7 +171,6 @@ class Ignite {
     this.IbcCoreClientV1 = new IbcCoreClientV1(this._env.apiURL)
     this.IbcCoreConnectionV1 = new IbcCoreConnectionV1(this._env.apiURL)
     this.IbcCorePortV1 = new IbcCorePortV1(this._env.apiURL)
-    this.MarinhoCamilaCamila = new MarinhoCamilaCamila(this._env.apiURL)
   }
 
   public useWebSocket(): Ignite {
@@ -219,7 +212,6 @@ class Ignite {
     this.IbcCoreClientV1.withSigner(client, addr)
     this.IbcCoreConnectionV1.withSigner(client, addr)
     this.IbcCorePortV1.withSigner(client, addr)
-    this.MarinhoCamilaCamila.withSigner(client, addr)
 
     return this
   }

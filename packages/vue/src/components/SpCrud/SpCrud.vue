@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 
 import { useAddress } from '../../composables'
@@ -115,7 +115,7 @@ export default defineComponent({
     let $s = useStore()
 
     // composables
-    let { address } = useAddress({ $s })
+    let { address } = useAddress()
 
     // state
     let state: State = reactive(initialState)

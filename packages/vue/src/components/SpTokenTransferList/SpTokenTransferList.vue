@@ -27,7 +27,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
 
 import { useAddress } from '../../composables'
 import SpGetTokenTransferList from '../SpGetTokenTransferList'
@@ -38,10 +37,8 @@ export default defineComponent({
   components: { SpGetTokenTransferList },
 
   setup() {
-    let $s = useStore()
-
     // composables
-    let { address } = useAddress({ $s })
+    let { address } = useAddress()
 
     return { address }
   }

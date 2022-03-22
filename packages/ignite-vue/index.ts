@@ -76,7 +76,3 @@ export {
   useModule as useIbcCorePortV1Module,
   usePiniaStore as useIbcCorePortV1PiniaStore
 } from './ibc.core.port.v1'
-export {
-  useModule as useMarinhoCamilaCamilaModule,
-  usePiniaStore as useMarinhoCamilaCamilaPiniaStore
-} from './marinho.camila.camila'

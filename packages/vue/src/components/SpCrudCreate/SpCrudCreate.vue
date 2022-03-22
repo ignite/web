@@ -89,6 +89,7 @@ export default defineComponent({
       $s.dispatch(props.storeName + props.commandName, {
         value: { ...formData, creator }
       })
+
       emit('close')
     }
 

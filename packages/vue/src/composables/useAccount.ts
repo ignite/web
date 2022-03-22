@@ -1,7 +1,5 @@
-import { Account, SigningStargateClient } from '@cosmjs/stargate'
-import { EventEmitter } from 'events'
-import { computed, Ref, ref, watch } from 'vue'
-import { Store } from 'vuex'
+import { Account } from '@cosmjs/stargate'
+import { Ref, ref, watch } from 'vue'
 
 import { useAddress } from '.'
 import useIgnite from './useIgnite'
@@ -10,17 +8,12 @@ type Response = {
   acc: Ref<Account | undefined>
 }
 
-type Params = {
-  $s: Store<any>
-  opts?: any
-}
-
-export default async function ({ $s }: Params): Promise<Response> {
+export default async function (): Promise<Response> {
   // state
   let acc = ref<Account | undefined>()
 
   // composables
-  let { address } = useAddress({ $s })
+  let { address } = useAddress()
 
   // ignite
   let { ignite } = useIgnite()

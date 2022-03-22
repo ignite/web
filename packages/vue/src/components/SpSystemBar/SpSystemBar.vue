@@ -55,7 +55,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
 
 import { useAccount } from '../../composables'
 
@@ -63,11 +62,8 @@ export default defineComponent({
   name: 'SpSystemBar',
 
   async setup() {
-    // store
-    let $s = useStore()
-
     // composable
-    let { acc } = await useAccount({ $s })
+    let { acc } = await useAccount()
 
     return { acc }
   }
