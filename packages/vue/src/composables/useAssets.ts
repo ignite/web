@@ -2,9 +2,11 @@ import { computed, ComputedRef, reactive, watch } from 'vue'
 import { Amount } from '@/utils/interfaces'
 
 import { useAddress, useDenom } from '.'
-import useIgnite from './useIgnite'
+
+import { useCosmosBankV1Beta1Module, useIgnite } from '@ignt/vue'
 import { Balance } from '@ignt/client/cosmos.bank.v1beta1'
 import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
+import { Ignite } from '@ignt/client'
 
 type Response = {
   balances: ComputedRef<AssetForUI[]>
@@ -35,15 +37,18 @@ export let initialState: State = {
 }
 
 export default function (params?: Params): Response {
+  // ignite
+  let { ignite } = useIgnite()
+
   // state
   let state = reactive(initialState)
 
   // composables
   let { address } = useAddress()
   let { getDenomTrace } = useDenom()
-
-  // ignite
-  let { ignite } = useIgnite()
+  let { queryAllBalances } = useCosmosBankV1Beta1Module({
+    ignite: ignite.value as Ignite
+  })
 
   // methods
   let normalize = async (balance: any): Promise<AssetForUI> => {
@@ -80,9 +85,7 @@ export default function (params?: Params): Response {
       if (address.value) {
         state.loading = true
 
-        let balancesRaw = (
-          await ignite.value?.CosmosBankV1Beta1.queryAllBalances(address.value)
-        )?.data.balances
+        let balancesRaw = (await queryAllBalances(address.value))?.data.balances
 
         state.loading = false
 

@@ -1,6 +1,6 @@
 import { computed, ComputedRef } from 'vue'
 
-import useIgnite from './useIgnite'
+import { useIgnite } from '@ignt/vue'
 
 type Response = {
   address: ComputedRef<string>

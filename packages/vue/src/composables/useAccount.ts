@@ -1,7 +1,8 @@
 import { Account } from '@cosmjs/stargate'
 import { Ref, ref, watch } from 'vue'
 
-import { useAddress, useIgnite } from '.'
+import { useAddress } from '.'
+import { useIgnite } from '@ignt/vue'
 
 type Response = {
   acc: Ref<Account | undefined>

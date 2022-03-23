@@ -76,7 +76,7 @@ import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
-import { useIgnite } from '../../composables'
+import { useIgnite } from '@ignt/vue'
 
 export default defineComponent({
   name: 'SpCrudDelete',

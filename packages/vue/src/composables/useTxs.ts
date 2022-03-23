@@ -9,7 +9,7 @@ import useAPIPagination, {
   Pager,
   Response as APIPagination
 } from './useAPIPagination'
-import useIgnite from './useIgnite'
+import { useIgnite } from '@ignt/vue'
 
 type Response = {
   filterSupportedTypes: (tx: object) => boolean

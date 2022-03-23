@@ -135,7 +135,8 @@ import SpWarningIcon from '../SpWarningIcon'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpChevronDownIcon from '../SpChevronDown'
 
-import { useKeplr, useIgnite } from '../../composables/'
+import { useKeplr } from '../../composables/'
+import { useIgnite } from '@ignt/vue'
 
 export interface State {
   modalPage: string
@@ -194,6 +195,7 @@ export default defineComponent({
         state.keplrParams.bech32Address = bech32Address
 
         let offlineSigner = getOfflineSigner(ignite.value?.env.chainID)
+
         signIn(offlineSigner)
 
         listenToAccChange(onKeplrConnect)

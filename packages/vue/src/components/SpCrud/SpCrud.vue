@@ -75,13 +75,14 @@ import {
   toRefs
 } from 'vue'
 
-import { useAddress, useIgnite } from '../../composables'
+import { useAddress } from '../../composables'
 import SpButton from '../SpButton'
 import SpCrudCreate from '../SpCrudCreate'
 import SpCrudDelete from '../SpCrudDelete'
 import SpCrudRead from '../SpCrudRead'
 import SpCrudUpdate from '../SpCrudUpdate'
 import SpTypography from '../SpTypography'
+import { useIgnite } from '@ignt/vue'
 
 export interface State {
   visibleModal: string
@@ -131,7 +132,6 @@ export default defineComponent({
     )
 
     // state
-    let state: State = reactive(initialState)
     let storeNameCamelCased = props.storeName
       .charAt(0)
       .toUpperCase()
@@ -141,16 +141,17 @@ export default defineComponent({
     let m = ignite.value?.[storeNameCamelCased]
     let items = ref([])
     let fields = ref<Array<string>>([])
+    let state: State = reactive({ ...initialState, moduleAvailable: !!m })
 
     // lh
     onBeforeMount(async () => {
-      items.value = (await m[`query${moduleNameNormalized.value}All`]())?.data[
-        props.itemName
-      ]
-      fields.value = Object.keys(items.value[0])
+      if (state.moduleAvailable) {
+        items.value = (
+          await m[`query${moduleNameNormalized.value}All`]()
+        )?.data[props.itemName]
+        fields.value = Object.keys(items.value[0])
+      }
     })
-
-    state.moduleAvailable = !!m
 
     return {
       ...toRefs(state),

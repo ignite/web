@@ -30,8 +30,8 @@
 </template>
 
 <script lang="ts">
-import { useIgnite } from '../../composables'
 import { computed, defineComponent, reactive } from 'vue'
+import { useIgnite } from '@ignt/vue'
 
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'

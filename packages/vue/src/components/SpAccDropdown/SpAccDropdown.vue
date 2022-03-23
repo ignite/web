@@ -140,7 +140,9 @@ export let initialState: State = {
   currentUIState: UI_STATE.DEFAULT
 }
 
-import { useClipboard, useIgnite } from '../../composables'
+import { useAddress, useClipboard } from '../../composables'
+
+import { useIgnite } from '@ignt/vue'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -164,14 +166,21 @@ export default defineComponent({
   setup(_, { emit }) {
     // composables
     let { copy } = useClipboard()
+    let { address, shortAddress } = useAddress()
 
     // ignite
     let { ignite } = useIgnite()
 
     // computed
-    let apiConnected = false
-    let rpcConnected = false
-    let wsConnected = false
+    let apiConnected = computed<boolean | undefined>(
+      () => ignite.value?.envStatus.apiConnected
+    )
+    let rpcConnected = computed<boolean | undefined>(
+      () => ignite.value?.envStatus.rpcConnected
+    )
+    let wsConnected = computed<boolean | undefined>(
+      () => ignite.value?.envStatus.wsConnected
+    )
     let showDefault = computed<boolean>(
       () => state.currentUIState === UI_STATE.DEFAULT
     )
@@ -213,8 +222,8 @@ export default defineComponent({
       //state
       state,
       // compoasbles
-      address: ignite.value?.addr,
-      shortAddress: ignite.value?.addr,
+      address,
+      shortAddress,
       // methods
       copy,
       switchToDefault,

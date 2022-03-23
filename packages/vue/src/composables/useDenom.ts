@@ -1,4 +1,4 @@
-import useIgnite from './useIgnite'
+import { useIgnite } from '@ignt/vue'
 import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
 
 type Response = {

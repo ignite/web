@@ -118,7 +118,8 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue'
 
-import { useAddress, useIgnite } from '../../composables'
+import { useAddress } from '../../composables'
+import { useIgnite } from '@ignt/vue'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'

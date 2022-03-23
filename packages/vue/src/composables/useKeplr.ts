@@ -9,7 +9,7 @@ import {
 import { computed, ComputedRef } from 'vue'
 
 import { AmountWithMeta } from '../utils/interfaces'
-import useIgnite from './useIgnite'
+import { useIgnite } from '@ignt/vue'
 
 type Response = {
   connectToKeplr: (onSuccessCb: () => void, onErrorCb: () => void) => void

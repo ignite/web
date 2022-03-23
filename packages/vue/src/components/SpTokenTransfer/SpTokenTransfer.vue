@@ -304,7 +304,9 @@ import { computed, defineComponent, reactive, watch } from 'vue'
 import { AssetForUI } from '@/composables/useAssets'
 import { Amount } from '@/utils/interfaces'
 
-import { useAddress, useAssets, useIgnite } from '../../composables'
+import { useAddress, useAssets } from '../../composables'
+import { useIgnite } from '@ignt/vue'
+
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
 import SpCard from '../SpCard'
