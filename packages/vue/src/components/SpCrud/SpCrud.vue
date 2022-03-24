@@ -121,7 +121,9 @@ export default defineComponent({
 
   setup(props) {
     // ignite
-    let { ignite } = useIgnite()
+    let {
+      state: { ignite }
+    } = useIgnite()
 
     // composables
     let { address } = useAddress()
@@ -138,7 +140,7 @@ export default defineComponent({
       .concat(props.storeName.slice(1))
       .split('.')
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
-    let m = ignite.value?.[storeNameCamelCased]
+    let m = ignite.value[storeNameCamelCased]
     let items = ref([])
     let fields = ref<Array<string>>([])
     let state: State = reactive({ ...initialState, moduleAvailable: !!m })

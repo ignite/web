@@ -1,8 +1,8 @@
 {
   "name": "@starport/template",
-  "version": "0.3.3",
+  "version": "0.4.0-alpha",
   "description": "A Vue 3 boilerplate project utilizing @starport/vue and @starport/vuex",
-  "author": "Tendermint, Inc <hello@tendermint.com>",
+  "author": "Ignite, Inc <hello@ignt.com>",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -13,13 +13,15 @@
     "@cosmjs/launchpad": "0.27.0",
     "@cosmjs/proto-signing": "0.27.0",
     "@cosmjs/stargate": "0.27.0",
-    "@starport/vue": "^0.3.3",
+    "@starport/vue": "0.4.0-alpha",
+    "@ignt/vue": "0.0.8-alpha",
     "buffer": "^6.0.3",
     "core-js": "^3.18.2",
-    "vue": "^3.2.6",
+    "vue": "3.2.31",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
+    "@keplr-wallet/types": "^0.9.10",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-dynamic-import-vars": "^1.4.1",
     "@rollup/plugin-node-resolve": "^13.1.1",

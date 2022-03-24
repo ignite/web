@@ -1,8 +1,8 @@
 {
   "name": "@starport/vue",
-  "version": "0.3.3",
+  "version": "0.4.0-alpha",
   "description": "A library of Vue 3 components for building frontends for cosmos-sdk chains",
-  "author": "Tendermint, Inc <hello@tendermint.com>",
+  "author": "Ignite, Inc <hello@ignt.com>",
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -15,7 +15,6 @@
     "@cosmjs/encoding": "0.27.0",
     "@cosmjs/proto-signing": "0.27.0",
     "@cosmjs/stargate": "0.27.0",
-    "@ignt/vue": "0.0.2-alpha",
     "bignumber.js": "^9.0.2",
     "bip39": "^3.0.4",
     "buffer": "^6.0.3",
@@ -26,11 +25,15 @@
     "js-base64": "^3.7.2",
     "long": "^4.0.0",
     "qrcode": "^1.5.0",
-    "safe-buffer": "^5.2.1",
-    "vue": "^3.2.6"
+    "safe-buffer": "^5.2.1"
+  },
+  "peerDependencies": {
+    "@ignt/vue": "0.0.8-alpha",
+    "vue": "3.2.31"
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.9.10",
+    "@ignt/vue": "0.0.8-alpha",
     "@types/crypto-js": "^4.0.2",
     "@types/events": "^3.0.0",
     "@types/file-saver": "^2.0.3",

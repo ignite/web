@@ -1,6 +1,6 @@
 import starportLibrary from '@starport/vue'
-import { createApp } from 'vue'
 import { Buffer } from 'buffer'
+import { createApp } from 'vue'
 
 import App from './App.vue'
 import router from './router'

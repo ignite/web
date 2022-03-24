@@ -14,7 +14,12 @@ export default defineConfig({
   },
   server: {
     watch: {
-      ignored: ['!**/node_modules/@starport/vue/src/**']
+      ignored: [
+        '!**/node_modules/@starport/vue/src/**',
+        '!**/node_modules/@starport/vue/node_modules/**',
+        '!**/node_modules/@ignt/client/**',
+        '!**/node_modules/@ignt/vue/**'
+      ]
     }
   },
   plugins: [vue(), nodeResolve(), dynamicImport(), envCompatible()],

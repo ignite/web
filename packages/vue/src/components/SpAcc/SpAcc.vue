@@ -1,7 +1,7 @@
 <template>
   <div class="sp-acc">
     <div
-      v-if="ignite?.signer"
+      v-if="ignite.signer"
       class="sp-nav-link selected account-dropdown-button"
       style="display: flex; align-items: center"
       @click="state.accountDropdown = !state.accountDropdown"
@@ -123,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
 
 import SpModal from '../SpModal'
 import SpButton from '../SpButton'
@@ -137,6 +137,7 @@ import SpChevronDownIcon from '../SpChevronDown'
 
 import { useKeplr } from '../../composables/'
 import { useIgnite } from '@ignt/vue'
+import { SigningStargateClient, StargateClient } from '@cosmjs/stargate'
 
 export interface State {
   modalPage: string
@@ -181,7 +182,11 @@ export default defineComponent({
     } = useKeplr()
 
     // ignite
-    let { ignite, signIn, signOut } = useIgnite()
+    let {
+      state: { ignite },
+      signIn,
+      signOut
+    } = useIgnite()
 
     // methods
     let tryToConnectToKeplr = (): void => {
@@ -189,12 +194,12 @@ export default defineComponent({
 
       let onKeplrConnect = async () => {
         let { name, bech32Address } = await getKeplrAccParams(
-          ignite.value?.env.chainID
+          ignite.value.env.chainID
         )
         state.keplrParams.name = name
         state.keplrParams.bech32Address = bech32Address
 
-        let offlineSigner = getOfflineSigner(ignite.value?.env.chainID)
+        let offlineSigner = getOfflineSigner(ignite.value.env.chainID)
 
         signIn(offlineSigner)
 

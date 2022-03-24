@@ -1,15 +1,16 @@
 import { WebSocketClient } from '@ignt/client'
+import { useIgnite } from '@ignt/vue'
 import axios, { AxiosResponse } from 'axios'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
 
 import { Amount } from '@/utils/interfaces'
 
+import useAddress from './useAddress'
 import useAPIPagination, {
   merge,
   Pager,
   Response as APIPagination
 } from './useAPIPagination'
-import { useIgnite } from '@ignt/vue'
 
 type Response = {
   filterSupportedTypes: (tx: object) => boolean
@@ -41,6 +42,11 @@ export type TxForUI = {
 export default async function ({
   opts: { order, realTime }
 }: Params): Promise<Response> {
+  // ignite
+  let {
+    state: { ignite }
+  } = useIgnite()
+
   // methods
   let normalizeAPIResponse = (resp: AxiosResponse) => {
     let { txs, tx_responses, pagination } = resp.data
@@ -120,13 +126,12 @@ export default async function ({
         `&order_by=${orderParam}`
     )
 
-  // ignite
-  let { ignite } = useIgnite()
+  // composables
+  let { address } = useAddress()
 
   // store
-  let address = computed<string | undefined>(() => ignite.value?.addr)
-  let client = computed<WebSocketClient | undefined>(() => ignite.value?.ws)
-  let API_COSMOS = ignite.value?.env.apiURL
+  let client = computed<WebSocketClient | undefined>(() => ignite.value.ws)
+  let API_COSMOS = ignite.value.env.apiURL
 
   // computed
   let SENT_EVENT = computed<string>(

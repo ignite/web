@@ -1,4 +1,5 @@
 import { OfflineDirectSigner } from '@cosmjs/proto-signing'
+import { useIgnite } from '@ignt/vue'
 import {
   AppCurrency,
   Bech32Config,
@@ -9,7 +10,6 @@ import {
 import { computed, ComputedRef } from 'vue'
 
 import { AmountWithMeta } from '../utils/interfaces'
-import { useIgnite } from '@ignt/vue'
 
 type Response = {
   connectToKeplr: (onSuccessCb: () => void, onErrorCb: () => void) => void
@@ -20,7 +20,9 @@ type Response = {
 }
 
 export default function (): Response {
-  let { ignite } = useIgnite()
+  let {
+    state: { ignite }
+  } = useIgnite()
 
   let connectToKeplr = async (
     onSuccessCb: () => void,
@@ -29,14 +31,14 @@ export default function (): Response {
     try {
       let features = ['no-legacy-stdTx']
 
-      let staking = await ignite.value?.CosmosStakingV1Beta1.queryParams()
-      let tokens = await ignite.value?.CosmosBankV1Beta1.queryTotalSupply()
+      let staking = await ignite.value.CosmosStakingV1Beta1.queryParams()
+      let tokens = await ignite.value.CosmosBankV1Beta1.queryTotalSupply()
 
-      let chainId: string = ignite.value?.env.chainID || ''
-      let chainName: string = ignite.value?.env.chainName || ''
-      let rpc: string = ignite.value?.env.rpcURL || ''
-      let rest: string = ignite.value?.env.apiURL || ''
-      let addrPrefix: string = ignite.value?.env.prefix || ''
+      let chainId: string = ignite.value.env.chainID || ''
+      let chainName: string = ignite.value.env.chainName || ''
+      let rpc: string = ignite.value.env.rpcURL || ''
+      let rest: string = ignite.value.env.apiURL || ''
+      let addrPrefix: string = ignite.value.env.prefix || ''
 
       let stakeCurrency: Currency = {
         coinDenom: staking?.data.params?.bond_denom?.toUpperCase() || '',

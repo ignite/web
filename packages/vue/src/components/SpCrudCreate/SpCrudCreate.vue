@@ -74,18 +74,20 @@ export default defineComponent({
 
   setup(props, { emit }) {
     // ignite
-    let { ignite } = useIgnite()
+    let {
+      state: { ignite }
+    } = useIgnite()
 
     // state
     let formData = reactive({})
-    let creator = ignite.value?.addr
+    let creator = ignite.value.addr
     let storeNameCamelCased = props.storeName
       .charAt(0)
       .toUpperCase()
       .concat(props.storeName.slice(1))
       .split('.')
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
-    let m = ignite.value?.[storeNameCamelCased]
+    let m = ignite.value[storeNameCamelCased]
 
     // computed
     let itemFieldsFiltered = computed(() =>

@@ -379,7 +379,9 @@ export default defineComponent({
     let { balances } = useAssets()
 
     // ignite
-    let { ignite } = useIgnite()
+    let {
+      state: { ignite }
+    } = useIgnite()
 
     // methods
     let switchToSend = (): void => {
@@ -443,13 +445,13 @@ export default defineComponent({
           }
 
           send = async () =>
-            ignite.value?.IbcApplicationsTransferV1.sendMsgTransfer({
+            ignite.value.IbcApplicationsTransferV1.sendMsgTransfer({
               value: payload,
               memo
             })
         } else {
           send = async () =>
-            ignite.value?.CosmosBankV1Beta1.sendMsgSend({
+            ignite.value.CosmosBankV1Beta1.sendMsgSend({
               value: payload,
               memo
             })

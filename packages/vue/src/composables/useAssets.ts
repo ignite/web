@@ -1,12 +1,11 @@
+import { Balance } from '@ignt/client/cosmos.bank.v1beta1'
+import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
+import { useCosmosBankV1Beta1Module, useIgnite } from '@ignt/vue'
 import { computed, ComputedRef, reactive, watch } from 'vue'
+
 import { Amount } from '@/utils/interfaces'
 
 import { useAddress, useDenom } from '.'
-
-import { useCosmosBankV1Beta1Module, useIgnite } from '@ignt/vue'
-import { Balance } from '@ignt/client/cosmos.bank.v1beta1'
-import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
-import { Ignite } from '@ignt/client'
 
 type Response = {
   balances: ComputedRef<AssetForUI[]>
@@ -38,7 +37,9 @@ export let initialState: State = {
 
 export default function (params?: Params): Response {
   // ignite
-  let { ignite } = useIgnite()
+  let {
+    state: { ignite }
+  } = useIgnite()
 
   // state
   let state = reactive(initialState)
@@ -47,7 +48,7 @@ export default function (params?: Params): Response {
   let { address } = useAddress()
   let { getDenomTrace } = useDenom()
   let { queryAllBalances } = useCosmosBankV1Beta1Module({
-    ignite: ignite.value as Ignite
+    ignite: ignite.value
   })
 
   // methods

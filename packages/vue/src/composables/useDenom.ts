@@ -1,5 +1,5 @@
-import { useIgnite } from '@ignt/vue'
 import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
+import { useIgnite } from '@ignt/vue'
 
 type Response = {
   getDenomTrace: (denom: string) => Promise<V1DenomTrace | undefined>
@@ -7,7 +7,10 @@ type Response = {
 }
 
 export default function (): Response {
-  let { ignite } = useIgnite()
+  // ignite
+  let {
+    state: { ignite }
+  } = useIgnite()
 
   // methods
   let getDenomTrace = async (
@@ -16,7 +19,7 @@ export default function (): Response {
     let hash = denom.split('/')[1]
 
     let denomTrace = (
-      await ignite.value?.IbcApplicationsTransferV1.queryDenomTrace(hash)
+      await ignite.value.IbcApplicationsTransferV1.queryDenomTrace(hash)
     )?.data.denom_trace
 
     return denomTrace

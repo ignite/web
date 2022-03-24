@@ -169,17 +169,19 @@ export default defineComponent({
     let { address, shortAddress } = useAddress()
 
     // ignite
-    let { ignite } = useIgnite()
+    let {
+      state: { ignite }
+    } = useIgnite()
 
     // computed
     let apiConnected = computed<boolean | undefined>(
-      () => ignite.value?.envStatus.apiConnected
+      () => ignite.value.envStatus.apiConnected
     )
     let rpcConnected = computed<boolean | undefined>(
-      () => ignite.value?.envStatus.rpcConnected
+      () => ignite.value.envStatus.rpcConnected
     )
     let wsConnected = computed<boolean | undefined>(
-      () => ignite.value?.envStatus.wsConnected
+      () => ignite.value.envStatus.wsConnected
     )
     let showDefault = computed<boolean>(
       () => state.currentUIState === UI_STATE.DEFAULT
@@ -231,7 +233,7 @@ export default defineComponent({
       // computed
       showDefault,
       showSettings,
-      chainId: ignite.value?.env.chainID,
+      chainId: ignite.value.env.chainID,
       apiConnected,
       rpcConnected,
       wsConnected
