@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { SpNavbar,SpTheme } from '@starport/vue'
+import { SpNavbar, SpTheme } from '@starport/vue'
 import { computed, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'

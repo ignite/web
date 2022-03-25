@@ -1,119 +1,119 @@
 /* eslint-disable */
 import {
   DenomTrace,
-  Params
-} from '../../../../ibc/applications/transfer/v1/transfer'
-import { Writer, Reader } from 'protobufjs/minimal'
+  Params,
+} from "../../../../ibc/applications/transfer/v1/transfer";
+import { Writer, Reader } from "protobufjs/minimal";
 
-export const protobufPackage = 'ibc.applications.transfer.v1'
+export const protobufPackage = "ibc.applications.transfer.v1";
 
 /** GenesisState defines the ibc-transfer genesis state */
 export interface GenesisState {
-  portId: string
-  denomTraces: DenomTrace[]
-  params: Params | undefined
+  port_id: string;
+  denom_traces: DenomTrace[];
+  params: Params | undefined;
 }
 
-const baseGenesisState: object = { portId: '' }
+const baseGenesisState: object = { port_id: "" };
 
 export const GenesisState = {
   encode(message: GenesisState, writer: Writer = Writer.create()): Writer {
-    if (message.portId !== '') {
-      writer.uint32(10).string(message.portId)
+    if (message.port_id !== "") {
+      writer.uint32(10).string(message.port_id);
     }
-    for (const v of message.denomTraces) {
-      DenomTrace.encode(v!, writer.uint32(18).fork()).ldelim()
+    for (const v of message.denom_traces) {
+      DenomTrace.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(26).fork()).ldelim()
+      Params.encode(message.params, writer.uint32(26).fork()).ldelim();
     }
-    return writer
+    return writer;
   },
 
   decode(input: Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseGenesisState } as GenesisState
-    message.denomTraces = []
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseGenesisState } as GenesisState;
+    message.denom_traces = [];
     while (reader.pos < end) {
-      const tag = reader.uint32()
+      const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.portId = reader.string()
-          break
+          message.port_id = reader.string();
+          break;
         case 2:
-          message.denomTraces.push(DenomTrace.decode(reader, reader.uint32()))
-          break
+          message.denom_traces.push(DenomTrace.decode(reader, reader.uint32()));
+          break;
         case 3:
-          message.params = Params.decode(reader, reader.uint32())
-          break
+          message.params = Params.decode(reader, reader.uint32());
+          break;
         default:
-          reader.skipType(tag & 7)
-          break
+          reader.skipType(tag & 7);
+          break;
       }
     }
-    return message
+    return message;
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState
-    message.denomTraces = []
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId)
+    const message = { ...baseGenesisState } as GenesisState;
+    message.denom_traces = [];
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.port_id = String(object.port_id);
     } else {
-      message.portId = ''
+      message.port_id = "";
     }
-    if (object.denomTraces !== undefined && object.denomTraces !== null) {
-      for (const e of object.denomTraces) {
-        message.denomTraces.push(DenomTrace.fromJSON(e))
+    if (object.denom_traces !== undefined && object.denom_traces !== null) {
+      for (const e of object.denom_traces) {
+        message.denom_traces.push(DenomTrace.fromJSON(e));
       }
     }
     if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromJSON(object.params)
+      message.params = Params.fromJSON(object.params);
     } else {
-      message.params = undefined
+      message.params = undefined;
     }
-    return message
+    return message;
   },
 
   toJSON(message: GenesisState): unknown {
-    const obj: any = {}
-    message.portId !== undefined && (obj.portId = message.portId)
-    if (message.denomTraces) {
-      obj.denomTraces = message.denomTraces.map((e) =>
+    const obj: any = {};
+    message.port_id !== undefined && (obj.port_id = message.port_id);
+    if (message.denom_traces) {
+      obj.denom_traces = message.denom_traces.map((e) =>
         e ? DenomTrace.toJSON(e) : undefined
-      )
+      );
     } else {
-      obj.denomTraces = []
+      obj.denom_traces = [];
     }
     message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined)
-    return obj
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState
-    message.denomTraces = []
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = object.portId
+    const message = { ...baseGenesisState } as GenesisState;
+    message.denom_traces = [];
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.port_id = object.port_id;
     } else {
-      message.portId = ''
+      message.port_id = "";
     }
-    if (object.denomTraces !== undefined && object.denomTraces !== null) {
-      for (const e of object.denomTraces) {
-        message.denomTraces.push(DenomTrace.fromPartial(e))
+    if (object.denom_traces !== undefined && object.denom_traces !== null) {
+      for (const e of object.denom_traces) {
+        message.denom_traces.push(DenomTrace.fromPartial(e));
       }
     }
     if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromPartial(object.params)
+      message.params = Params.fromPartial(object.params);
     } else {
-      message.params = undefined
+      message.params = undefined;
     }
-    return message
-  }
-}
+    return message;
+  },
+};
 
-type Builtin = Date | Function | Uint8Array | string | number | undefined
+type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Array<infer U>
@@ -122,4 +122,4 @@ export type DeepPartial<T> = T extends Builtin
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>
+  : Partial<T>;

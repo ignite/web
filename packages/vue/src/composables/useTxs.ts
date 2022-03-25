@@ -57,8 +57,12 @@ export default async function ({
     }
   }
   let filterSupportedTypes = (tx: any) => {
-    let isIBC = (tx.body.messages[0]['@type'] as string).includes('ibc.applications.transfer.v1.MsgTransfer')
-    let isBankTransfer = (tx.body.messages[0]['@type'] as string).includes('cosmos.bank.v1beta1.MsgSend')
+    let isIBC = (tx.body.messages[0]['@type'] as string).includes(
+      'ibc.applications.transfer.v1.MsgTransfer'
+    )
+    let isBankTransfer = (tx.body.messages[0]['@type'] as string).includes(
+      'cosmos.bank.v1beta1.MsgSend'
+    )
 
     return isBankTransfer || isIBC
   }
@@ -78,8 +82,12 @@ export default async function ({
 
     let normalized: any = {}
 
-    let isIBC = (tx.body.messages[0]['@type'] as string).includes('ibc.applications.transfer.v1.MsgTransfer')
-    let isBankTransfer = (tx.body.messages[0]['@type'] as string).includes('cosmos.bank.v1beta1.MsgSend')
+    let isIBC = (tx.body.messages[0]['@type'] as string).includes(
+      'ibc.applications.transfer.v1.MsgTransfer'
+    )
+    let isBankTransfer = (tx.body.messages[0]['@type'] as string).includes(
+      'cosmos.bank.v1beta1.MsgSend'
+    )
 
     if (isIBC) {
       let decodeIBC = (dataAs64: string): object =>

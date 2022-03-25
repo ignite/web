@@ -123,14 +123,14 @@ export interface ProtobufAny {
    * Schemes other than `http`, `https` (or the empty scheme) might be
    * used with implementation specific semantics.
    */
-  '@type'?: string
+  "@type"?: string;
 }
 
 export interface RpcStatus {
   /** @format int32 */
-  code?: number
-  message?: string
-  details?: ProtobufAny[]
+  code?: number;
+  message?: string;
+  details?: ProtobufAny[];
 }
 
 /**
@@ -140,8 +140,8 @@ NOTE: The amount field is an Int which implements the custom method
 signatures required by gogoproto.
 */
 export interface V1Beta1Coin {
-  denom?: string
-  amount?: string
+  denom?: string;
+  amount?: string;
 }
 
 /**
@@ -150,9 +150,9 @@ proposal.
 */
 export interface V1Beta1Deposit {
   /** @format uint64 */
-  proposalId?: string
-  depositor?: string
-  amount?: V1Beta1Coin[]
+  proposal_id?: string;
+  depositor?: string;
+  amount?: V1Beta1Coin[];
 }
 
 /**
@@ -160,39 +160,39 @@ export interface V1Beta1Deposit {
  */
 export interface V1Beta1DepositParams {
   /** Minimum deposit for a proposal to enter voting period. */
-  minDeposit?: V1Beta1Coin[]
+  min_deposit?: V1Beta1Coin[];
 
   /**
    * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
    *  months.
    */
-  maxDepositPeriod?: string
+  max_deposit_period?: string;
 }
 
 /**
  * MsgDepositResponse defines the Msg/Deposit response type.
  */
-export type V1Beta1MsgDepositResponse = object
+export type V1Beta1MsgDepositResponse = object;
 
 /**
  * MsgSubmitProposalResponse defines the Msg/SubmitProposal response type.
  */
 export interface V1Beta1MsgSubmitProposalResponse {
   /** @format uint64 */
-  proposalId?: string
+  proposal_id?: string;
 }
 
 /**
  * MsgVoteResponse defines the Msg/Vote response type.
  */
-export type V1Beta1MsgVoteResponse = object
+export type V1Beta1MsgVoteResponse = object;
 
 /**
 * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
 
 Since: cosmos-sdk 0.43
 */
-export type V1Beta1MsgVoteWeightedResponse = object
+export type V1Beta1MsgVoteWeightedResponse = object;
 
 /**
 * message SomeRequest {
@@ -207,7 +207,7 @@ export interface V1Beta1PageRequest {
    * should be set.
    * @format byte
    */
-  key?: string
+  key?: string;
 
   /**
    * offset is a numeric offset that can be used when key is unavailable.
@@ -215,14 +215,14 @@ export interface V1Beta1PageRequest {
    * be set.
    * @format uint64
    */
-  offset?: string
+  offset?: string;
 
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    * @format uint64
    */
-  limit?: string
+  limit?: string;
 
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -230,14 +230,14 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  countTotal?: boolean
+  count_total?: boolean;
 
   /**
    * reverse is set to true if results are to be returned in the descending order.
    *
    * Since: cosmos-sdk 0.43
    */
-  reverse?: boolean
+  reverse?: boolean;
 }
 
 /**
@@ -251,10 +251,10 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  nextKey?: string
+  next_key?: string;
 
   /** @format uint64 */
-  total?: string
+  total?: string;
 }
 
 /**
@@ -262,7 +262,7 @@ export interface V1Beta1PageResponse {
  */
 export interface V1Beta1Proposal {
   /** @format uint64 */
-  proposalId?: string
+  proposal_id?: string;
 
   /**
    * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -348,7 +348,7 @@ export interface V1Beta1Proposal {
    *       "value": "1.212s"
    *     }
    */
-  content?: ProtobufAny
+  content?: ProtobufAny;
 
   /**
    * ProposalStatus enumerates the valid statuses of a proposal.
@@ -365,23 +365,23 @@ export interface V1Beta1Proposal {
    *  - PROPOSAL_STATUS_FAILED: PROPOSAL_STATUS_FAILED defines a proposal status of a proposal that has
    * failed.
    */
-  status?: V1Beta1ProposalStatus
+  status?: V1Beta1ProposalStatus;
 
   /** TallyResult defines a standard tally for a governance proposal. */
-  finalTallyResult?: V1Beta1TallyResult
+  final_tally_result?: V1Beta1TallyResult;
 
   /** @format date-time */
-  submitTime?: string
+  submit_time?: string;
 
   /** @format date-time */
-  depositEndTime?: string
-  totalDeposit?: V1Beta1Coin[]
+  deposit_end_time?: string;
+  total_deposit?: V1Beta1Coin[];
 
   /** @format date-time */
-  votingStartTime?: string
+  voting_start_time?: string;
 
   /** @format date-time */
-  votingEndTime?: string
+  voting_end_time?: string;
 }
 
 /**
@@ -400,12 +400,12 @@ been rejected.
 failed.
 */
 export enum V1Beta1ProposalStatus {
-  PROPOSAL_STATUS_UNSPECIFIED = 'PROPOSAL_STATUS_UNSPECIFIED',
-  PROPOSAL_STATUS_DEPOSIT_PERIOD = 'PROPOSAL_STATUS_DEPOSIT_PERIOD',
-  PROPOSAL_STATUS_VOTING_PERIOD = 'PROPOSAL_STATUS_VOTING_PERIOD',
-  PROPOSAL_STATUS_PASSED = 'PROPOSAL_STATUS_PASSED',
-  PROPOSAL_STATUS_REJECTED = 'PROPOSAL_STATUS_REJECTED',
-  PROPOSAL_STATUS_FAILED = 'PROPOSAL_STATUS_FAILED'
+  PROPOSAL_STATUS_UNSPECIFIED = "PROPOSAL_STATUS_UNSPECIFIED",
+  PROPOSAL_STATUS_DEPOSIT_PERIOD = "PROPOSAL_STATUS_DEPOSIT_PERIOD",
+  PROPOSAL_STATUS_VOTING_PERIOD = "PROPOSAL_STATUS_VOTING_PERIOD",
+  PROPOSAL_STATUS_PASSED = "PROPOSAL_STATUS_PASSED",
+  PROPOSAL_STATUS_REJECTED = "PROPOSAL_STATUS_REJECTED",
+  PROPOSAL_STATUS_FAILED = "PROPOSAL_STATUS_FAILED",
 }
 
 /**
@@ -413,17 +413,17 @@ export enum V1Beta1ProposalStatus {
  */
 export interface V1Beta1QueryDepositResponse {
   /** deposit defines the requested deposit. */
-  deposit?: V1Beta1Deposit
+  deposit?: V1Beta1Deposit;
 }
 
 /**
  * QueryDepositsResponse is the response type for the Query/Deposits RPC method.
  */
 export interface V1Beta1QueryDepositsResponse {
-  deposits?: V1Beta1Deposit[]
+  deposits?: V1Beta1Deposit[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 }
 
 /**
@@ -431,13 +431,13 @@ export interface V1Beta1QueryDepositsResponse {
  */
 export interface V1Beta1QueryParamsResponse {
   /** voting_params defines the parameters related to voting. */
-  votingParams?: V1Beta1VotingParams
+  voting_params?: V1Beta1VotingParams;
 
   /** deposit_params defines the parameters related to deposit. */
-  depositParams?: V1Beta1DepositParams
+  deposit_params?: V1Beta1DepositParams;
 
   /** tally_params defines the parameters related to tally. */
-  tallyParams?: V1Beta1TallyParams
+  tally_params?: V1Beta1TallyParams;
 }
 
 /**
@@ -445,7 +445,7 @@ export interface V1Beta1QueryParamsResponse {
  */
 export interface V1Beta1QueryProposalResponse {
   /** Proposal defines the core field members of a governance proposal. */
-  proposal?: V1Beta1Proposal
+  proposal?: V1Beta1Proposal;
 }
 
 /**
@@ -453,10 +453,10 @@ export interface V1Beta1QueryProposalResponse {
 method.
 */
 export interface V1Beta1QueryProposalsResponse {
-  proposals?: V1Beta1Proposal[]
+  proposals?: V1Beta1Proposal[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 }
 
 /**
@@ -464,7 +464,7 @@ export interface V1Beta1QueryProposalsResponse {
  */
 export interface V1Beta1QueryTallyResultResponse {
   /** tally defines the requested tally. */
-  tally?: V1Beta1TallyResult
+  tally?: V1Beta1TallyResult;
 }
 
 /**
@@ -472,7 +472,7 @@ export interface V1Beta1QueryTallyResultResponse {
  */
 export interface V1Beta1QueryVoteResponse {
   /** vote defined the queried vote. */
-  vote?: V1Beta1Vote
+  vote?: V1Beta1Vote;
 }
 
 /**
@@ -480,10 +480,10 @@ export interface V1Beta1QueryVoteResponse {
  */
 export interface V1Beta1QueryVotesResponse {
   /** votes defined the queried votes. */
-  votes?: V1Beta1Vote[]
+  votes?: V1Beta1Vote[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: V1Beta1PageResponse
+  pagination?: V1Beta1PageResponse;
 }
 
 /**
@@ -495,30 +495,30 @@ export interface V1Beta1TallyParams {
    *  considered valid.
    * @format byte
    */
-  quorum?: string
+  quorum?: string;
 
   /**
    * Minimum proportion of Yes votes for proposal to pass. Default value: 0.5.
    * @format byte
    */
-  threshold?: string
+  threshold?: string;
 
   /**
    * Minimum value of Veto votes to Total votes ratio for proposal to be
    *  vetoed. Default value: 1/3.
    * @format byte
    */
-  vetoThreshold?: string
+  veto_threshold?: string;
 }
 
 /**
  * TallyResult defines a standard tally for a governance proposal.
  */
 export interface V1Beta1TallyResult {
-  yes?: string
-  abstain?: string
-  no?: string
-  noWithVeto?: string
+  yes?: string;
+  abstain?: string;
+  no?: string;
+  no_with_veto?: string;
 }
 
 /**
@@ -527,16 +527,16 @@ A Vote consists of a proposal ID, the voter, and the vote option.
 */
 export interface V1Beta1Vote {
   /** @format uint64 */
-  proposalId?: string
-  voter?: string
+  proposal_id?: string;
+  voter?: string;
 
   /**
    * Deprecated: Prefer to use `options` instead. This field is set in queries
    * if and only if `len(options) == 1` and that option has weight 1. In all
    * other cases, this field will default to VOTE_OPTION_UNSPECIFIED.
    */
-  option?: V1Beta1VoteOption
-  options?: V1Beta1WeightedVoteOption[]
+  option?: V1Beta1VoteOption;
+  options?: V1Beta1WeightedVoteOption[];
 }
 
 /**
@@ -549,11 +549,11 @@ export interface V1Beta1Vote {
  - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
 */
 export enum V1Beta1VoteOption {
-  VOTE_OPTION_UNSPECIFIED = 'VOTE_OPTION_UNSPECIFIED',
-  VOTE_OPTION_YES = 'VOTE_OPTION_YES',
-  VOTE_OPTION_ABSTAIN = 'VOTE_OPTION_ABSTAIN',
-  VOTE_OPTION_NO = 'VOTE_OPTION_NO',
-  VOTE_OPTION_NO_WITH_VETO = 'VOTE_OPTION_NO_WITH_VETO'
+  VOTE_OPTION_UNSPECIFIED = "VOTE_OPTION_UNSPECIFIED",
+  VOTE_OPTION_YES = "VOTE_OPTION_YES",
+  VOTE_OPTION_ABSTAIN = "VOTE_OPTION_ABSTAIN",
+  VOTE_OPTION_NO = "VOTE_OPTION_NO",
+  VOTE_OPTION_NO_WITH_VETO = "VOTE_OPTION_NO_WITH_VETO",
 }
 
 /**
@@ -561,7 +561,7 @@ export enum V1Beta1VoteOption {
  */
 export interface V1Beta1VotingParams {
   /** Length of the voting period. */
-  votingPeriod?: string
+  voting_period?: string;
 }
 
 /**
@@ -579,131 +579,113 @@ export interface V1Beta1WeightedVoteOption {
    *  - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
    *  - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
    */
-  option?: V1Beta1VoteOption
-  weight?: string
+  option?: V1Beta1VoteOption;
+  weight?: string;
 }
 
-export type QueryParamsType = Record<string | number, any>
-export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
+export type QueryParamsType = Record<string | number, any>;
+export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean
+  secure?: boolean;
   /** request path */
-  path: string
+  path: string;
   /** content type of request body */
-  type?: ContentType
+  type?: ContentType;
   /** query params */
-  query?: QueryParamsType
+  query?: QueryParamsType;
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: keyof Omit<Body, 'body' | 'bodyUsed'>
+  format?: keyof Omit<Body, "body" | "bodyUsed">;
   /** request body */
-  body?: unknown
+  body?: unknown;
   /** base url */
-  baseUrl?: string
+  baseUrl?: string;
   /** request cancellation token */
-  cancelToken?: CancelToken
+  cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  'body' | 'method' | 'query' | 'path'
->
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string
-  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
-  securityWorker?: (securityData: SecurityDataType) => RequestParams | void
+  baseUrl?: string;
+  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
+  securityWorker?: (securityData: SecurityDataType) => RequestParams | void;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
-  data: D
-  error: E
+export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+  data: D;
+  error: E;
 }
 
-type CancelToken = Symbol | string | number
+type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded'
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = ''
-  private securityData: SecurityDataType = null as any
-  private securityWorker: null | ApiConfig<SecurityDataType>['securityWorker'] =
-    null
-  private abortControllers = new Map<CancelToken, AbortController>()
+  public baseUrl: string = "";
+  private securityData: SecurityDataType = null as any;
+  private securityWorker: null | ApiConfig<SecurityDataType>["securityWorker"] = null;
+  private abortControllers = new Map<CancelToken, AbortController>();
 
   private baseApiParams: RequestParams = {
-    credentials: 'same-origin',
+    credentials: "same-origin",
     headers: {},
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  }
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig)
+    Object.assign(this, apiConfig);
   }
 
   public setSecurityData = (data: SecurityDataType) => {
-    this.securityData = data
-  }
+    this.securityData = data;
+  };
 
   private addQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key]
+    const value = query[key];
 
     return (
       encodeURIComponent(key) +
-      '=' +
-      encodeURIComponent(
-        Array.isArray(value)
-          ? value.join(',')
-          : typeof value === 'number'
-          ? value
-          : `${value}`
-      )
-    )
+      "=" +
+      encodeURIComponent(Array.isArray(value) ? value.join(",") : typeof value === "number" ? value : `${value}`)
+    );
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {}
-    const keys = Object.keys(query).filter(
-      (key) => 'undefined' !== typeof query[key]
-    )
+    const query = rawQuery || {};
+    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
     return keys
       .map((key) =>
-        typeof query[key] === 'object' && !Array.isArray(query[key])
+        typeof query[key] === "object" && !Array.isArray(query[key])
           ? this.toQueryString(query[key] as QueryParamsType)
-          : this.addQueryParam(query, key)
+          : this.addQueryParam(query, key),
       )
-      .join('&')
+      .join("&");
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery)
-    return queryString ? `?${queryString}` : ''
+    const queryString = this.toQueryString(rawQuery);
+    return queryString ? `?${queryString}` : "";
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string')
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((data, key) => {
-        data.append(key, input[key])
-        return data
+        data.append(key, input[key]);
+        return data;
       }, new FormData()),
-    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input)
-  }
+    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
+  };
 
-  private mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams
-  ): RequestParams {
+  private mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -711,35 +693,33 @@ export class HttpClient<SecurityDataType = unknown> {
       headers: {
         ...(this.baseApiParams.headers || {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {})
-      }
-    }
+        ...((params2 && params2.headers) || {}),
+      },
+    };
   }
 
-  private createAbortSignal = (
-    cancelToken: CancelToken
-  ): AbortSignal | undefined => {
+  private createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken)
+      const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
-        return abortController.signal
+        return abortController.signal;
       }
-      return void 0
+      return void 0;
     }
 
-    const abortController = new AbortController()
-    this.abortControllers.set(cancelToken, abortController)
-    return abortController.signal
-  }
+    const abortController = new AbortController();
+    this.abortControllers.set(cancelToken, abortController);
+    return abortController.signal;
+  };
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken)
+    const abortController = this.abortControllers.get(cancelToken);
 
     if (abortController) {
-      abortController.abort()
-      this.abortControllers.delete(cancelToken)
+      abortController.abort();
+      this.abortControllers.delete(cancelToken);
     }
-  }
+  };
 
   public request = <T = any, E = any>({
     body,
@@ -747,89 +727,73 @@ export class HttpClient<SecurityDataType = unknown> {
     path,
     type,
     query,
-    format = 'json',
+    format = "json",
     baseUrl,
     cancelToken,
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
-    const secureParams =
-      (secure &&
-        this.securityWorker &&
-        this.securityWorker(this.securityData)) ||
-      {}
-    const requestParams = this.mergeRequestParams(params, secureParams)
-    const queryString = query && this.toQueryString(query)
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
+    const secureParams = (secure && this.securityWorker && this.securityWorker(this.securityData)) || {};
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const queryString = query && this.toQueryString(query);
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
 
-    return fetch(
-      `${baseUrl || this.baseUrl || ''}${path}${
-        queryString ? `?${queryString}` : ''
-      }`,
-      {
-        ...requestParams,
-        headers: {
-          ...(type && type !== ContentType.FormData
-            ? { 'Content-Type': type }
-            : {}),
-          ...(requestParams.headers || {})
-        },
-        signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-        body:
-          typeof body === 'undefined' || body === null
-            ? null
-            : payloadFormatter(body)
-      }
-    ).then(async (response) => {
-      const r = response as HttpResponse<T, E>
-      r.data = null as unknown as T
-      r.error = null as unknown as E
+    return fetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
+      ...requestParams,
+      headers: {
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(requestParams.headers || {}),
+      },
+      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
+      const r = response as HttpResponse<T, E>;
+      r.data = (null as unknown) as T;
+      r.error = (null as unknown) as E;
 
       const data = await response[format]()
         .then((data) => {
           if (r.ok) {
-            r.data = data
+            r.data = data;
           } else {
-            r.error = data
+            r.error = data;
           }
-          return r
+          return r;
         })
         .catch((e) => {
-          r.error = e
-          return r
-        })
+          r.error = e;
+          return r;
+        });
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken)
+        this.abortControllers.delete(cancelToken);
       }
 
-      if (!response.ok) throw data
-      return data
-    })
-  }
+      if (!response.ok) throw data;
+      return data;
+    });
+  };
 }
 
 /**
  * @title cosmos/gov/v1beta1/genesis.proto
  * @version version not set
  */
-export class Api<
-  SecurityDataType extends unknown
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
    * @tags Query
    * @name QueryParams
    * @summary Params queries all parameters of the gov module.
-   * @request GET:/cosmos/gov/v1beta1/params/{paramsType}
+   * @request GET:/cosmos/gov/v1beta1/params/{params_type}
    */
-  queryParams = (paramsType: string, params: RequestParams = {}) =>
+  queryParams = (params_type: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryParamsResponse, RpcStatus>({
-      path: `/cosmos/gov/v1beta1/params/${paramsType}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      path: `/cosmos/gov/v1beta1/params/${params_type}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -841,30 +805,30 @@ export class Api<
    */
   queryProposals = (
     query?: {
-      proposalStatus?:
-        | 'PROPOSAL_STATUS_UNSPECIFIED'
-        | 'PROPOSAL_STATUS_DEPOSIT_PERIOD'
-        | 'PROPOSAL_STATUS_VOTING_PERIOD'
-        | 'PROPOSAL_STATUS_PASSED'
-        | 'PROPOSAL_STATUS_REJECTED'
-        | 'PROPOSAL_STATUS_FAILED'
-      voter?: string
-      depositor?: string
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.countTotal'?: boolean
-      'pagination.reverse'?: boolean
+      proposal_status?:
+        | "PROPOSAL_STATUS_UNSPECIFIED"
+        | "PROPOSAL_STATUS_DEPOSIT_PERIOD"
+        | "PROPOSAL_STATUS_VOTING_PERIOD"
+        | "PROPOSAL_STATUS_PASSED"
+        | "PROPOSAL_STATUS_REJECTED"
+        | "PROPOSAL_STATUS_FAILED";
+      voter?: string;
+      depositor?: string;
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1Beta1QueryProposalsResponse, RpcStatus>({
       path: `/cosmos/gov/v1beta1/proposals`,
-      method: 'GET',
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -872,15 +836,15 @@ export class Api<
    * @tags Query
    * @name QueryProposal
    * @summary Proposal queries proposal details based on ProposalID.
-   * @request GET:/cosmos/gov/v1beta1/proposals/{proposalId}
+   * @request GET:/cosmos/gov/v1beta1/proposals/{proposal_id}
    */
-  queryProposal = (proposalId: string, params: RequestParams = {}) =>
+  queryProposal = (proposal_id: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryProposalResponse, RpcStatus>({
-      path: `/cosmos/gov/v1beta1/proposals/${proposalId}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      path: `/cosmos/gov/v1beta1/proposals/${proposal_id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -888,26 +852,26 @@ export class Api<
    * @tags Query
    * @name QueryDeposits
    * @summary Deposits queries all deposits of a single proposal.
-   * @request GET:/cosmos/gov/v1beta1/proposals/{proposalId}/deposits
+   * @request GET:/cosmos/gov/v1beta1/proposals/{proposal_id}/deposits
    */
   queryDeposits = (
-    proposalId: string,
+    proposal_id: string,
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.countTotal'?: boolean
-      'pagination.reverse'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1Beta1QueryDepositsResponse, RpcStatus>({
-      path: `/cosmos/gov/v1beta1/proposals/${proposalId}/deposits`,
-      method: 'GET',
+      path: `/cosmos/gov/v1beta1/proposals/${proposal_id}/deposits`,
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -915,19 +879,15 @@ export class Api<
    * @tags Query
    * @name QueryDeposit
    * @summary Deposit queries single deposit information based proposalID, depositAddr.
-   * @request GET:/cosmos/gov/v1beta1/proposals/{proposalId}/deposits/{depositor}
+   * @request GET:/cosmos/gov/v1beta1/proposals/{proposal_id}/deposits/{depositor}
    */
-  queryDeposit = (
-    proposalId: string,
-    depositor: string,
-    params: RequestParams = {}
-  ) =>
+  queryDeposit = (proposal_id: string, depositor: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryDepositResponse, RpcStatus>({
-      path: `/cosmos/gov/v1beta1/proposals/${proposalId}/deposits/${depositor}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      path: `/cosmos/gov/v1beta1/proposals/${proposal_id}/deposits/${depositor}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -935,15 +895,15 @@ export class Api<
    * @tags Query
    * @name QueryTallyResult
    * @summary TallyResult queries the tally of a proposal vote.
-   * @request GET:/cosmos/gov/v1beta1/proposals/{proposalId}/tally
+   * @request GET:/cosmos/gov/v1beta1/proposals/{proposal_id}/tally
    */
-  queryTallyResult = (proposalId: string, params: RequestParams = {}) =>
+  queryTallyResult = (proposal_id: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryTallyResultResponse, RpcStatus>({
-      path: `/cosmos/gov/v1beta1/proposals/${proposalId}/tally`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      path: `/cosmos/gov/v1beta1/proposals/${proposal_id}/tally`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -951,26 +911,26 @@ export class Api<
    * @tags Query
    * @name QueryVotes
    * @summary Votes queries votes of a given proposal.
-   * @request GET:/cosmos/gov/v1beta1/proposals/{proposalId}/votes
+   * @request GET:/cosmos/gov/v1beta1/proposals/{proposal_id}/votes
    */
   queryVotes = (
-    proposalId: string,
+    proposal_id: string,
     query?: {
-      'pagination.key'?: string
-      'pagination.offset'?: string
-      'pagination.limit'?: string
-      'pagination.countTotal'?: boolean
-      'pagination.reverse'?: boolean
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
-    params: RequestParams = {}
+    params: RequestParams = {},
   ) =>
     this.request<V1Beta1QueryVotesResponse, RpcStatus>({
-      path: `/cosmos/gov/v1beta1/proposals/${proposalId}/votes`,
-      method: 'GET',
+      path: `/cosmos/gov/v1beta1/proposals/${proposal_id}/votes`,
+      method: "GET",
       query: query,
-      format: 'json',
-      ...params
-    })
+      format: "json",
+      ...params,
+    });
 
   /**
    * No description
@@ -978,13 +938,13 @@ export class Api<
    * @tags Query
    * @name QueryVote
    * @summary Vote queries voted information based on proposalID, voterAddr.
-   * @request GET:/cosmos/gov/v1beta1/proposals/{proposalId}/votes/{voter}
+   * @request GET:/cosmos/gov/v1beta1/proposals/{proposal_id}/votes/{voter}
    */
-  queryVote = (proposalId: string, voter: string, params: RequestParams = {}) =>
+  queryVote = (proposal_id: string, voter: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryVoteResponse, RpcStatus>({
-      path: `/cosmos/gov/v1beta1/proposals/${proposalId}/votes/${voter}`,
-      method: 'GET',
-      format: 'json',
-      ...params
-    })
+      path: `/cosmos/gov/v1beta1/proposals/${proposal_id}/votes/${voter}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 }

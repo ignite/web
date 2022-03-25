@@ -1,250 +1,256 @@
 /* eslint-disable */
-import * as Long from 'long'
-import { util, configure, Writer, Reader } from 'protobufjs/minimal'
+import * as Long from "long";
+import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import {
   Deposit,
   Vote,
   Proposal,
   DepositParams,
   VotingParams,
-  TallyParams
-} from '../../../cosmos/gov/v1beta1/gov'
+  TallyParams,
+} from "../../../cosmos/gov/v1beta1/gov";
 
-export const protobufPackage = 'cosmos.gov.v1beta1'
+export const protobufPackage = "cosmos.gov.v1beta1";
 
 /** GenesisState defines the gov module's genesis state. */
 export interface GenesisState {
   /** starting_proposal_id is the ID of the starting proposal. */
-  startingProposalId: number
+  starting_proposal_id: number;
   /** deposits defines all the deposits present at genesis. */
-  deposits: Deposit[]
+  deposits: Deposit[];
   /** votes defines all the votes present at genesis. */
-  votes: Vote[]
+  votes: Vote[];
   /** proposals defines all the proposals present at genesis. */
-  proposals: Proposal[]
+  proposals: Proposal[];
   /** params defines all the paramaters of related to deposit. */
-  depositParams: DepositParams | undefined
+  deposit_params: DepositParams | undefined;
   /** params defines all the paramaters of related to voting. */
-  votingParams: VotingParams | undefined
+  voting_params: VotingParams | undefined;
   /** params defines all the paramaters of related to tally. */
-  tallyParams: TallyParams | undefined
+  tally_params: TallyParams | undefined;
 }
 
-const baseGenesisState: object = { startingProposalId: 0 }
+const baseGenesisState: object = { starting_proposal_id: 0 };
 
 export const GenesisState = {
   encode(message: GenesisState, writer: Writer = Writer.create()): Writer {
-    if (message.startingProposalId !== 0) {
-      writer.uint32(8).uint64(message.startingProposalId)
+    if (message.starting_proposal_id !== 0) {
+      writer.uint32(8).uint64(message.starting_proposal_id);
     }
     for (const v of message.deposits) {
-      Deposit.encode(v!, writer.uint32(18).fork()).ldelim()
+      Deposit.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.votes) {
-      Vote.encode(v!, writer.uint32(26).fork()).ldelim()
+      Vote.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     for (const v of message.proposals) {
-      Proposal.encode(v!, writer.uint32(34).fork()).ldelim()
+      Proposal.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.depositParams !== undefined) {
+    if (message.deposit_params !== undefined) {
       DepositParams.encode(
-        message.depositParams,
+        message.deposit_params,
         writer.uint32(42).fork()
-      ).ldelim()
+      ).ldelim();
     }
-    if (message.votingParams !== undefined) {
+    if (message.voting_params !== undefined) {
       VotingParams.encode(
-        message.votingParams,
+        message.voting_params,
         writer.uint32(50).fork()
-      ).ldelim()
+      ).ldelim();
     }
-    if (message.tallyParams !== undefined) {
-      TallyParams.encode(message.tallyParams, writer.uint32(58).fork()).ldelim()
+    if (message.tally_params !== undefined) {
+      TallyParams.encode(
+        message.tally_params,
+        writer.uint32(58).fork()
+      ).ldelim();
     }
-    return writer
+    return writer;
   },
 
   decode(input: Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseGenesisState } as GenesisState
-    message.deposits = []
-    message.votes = []
-    message.proposals = []
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseGenesisState } as GenesisState;
+    message.deposits = [];
+    message.votes = [];
+    message.proposals = [];
     while (reader.pos < end) {
-      const tag = reader.uint32()
+      const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.startingProposalId = longToNumber(reader.uint64() as Long)
-          break
+          message.starting_proposal_id = longToNumber(reader.uint64() as Long);
+          break;
         case 2:
-          message.deposits.push(Deposit.decode(reader, reader.uint32()))
-          break
+          message.deposits.push(Deposit.decode(reader, reader.uint32()));
+          break;
         case 3:
-          message.votes.push(Vote.decode(reader, reader.uint32()))
-          break
+          message.votes.push(Vote.decode(reader, reader.uint32()));
+          break;
         case 4:
-          message.proposals.push(Proposal.decode(reader, reader.uint32()))
-          break
+          message.proposals.push(Proposal.decode(reader, reader.uint32()));
+          break;
         case 5:
-          message.depositParams = DepositParams.decode(reader, reader.uint32())
-          break
+          message.deposit_params = DepositParams.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
         case 6:
-          message.votingParams = VotingParams.decode(reader, reader.uint32())
-          break
+          message.voting_params = VotingParams.decode(reader, reader.uint32());
+          break;
         case 7:
-          message.tallyParams = TallyParams.decode(reader, reader.uint32())
-          break
+          message.tally_params = TallyParams.decode(reader, reader.uint32());
+          break;
         default:
-          reader.skipType(tag & 7)
-          break
+          reader.skipType(tag & 7);
+          break;
       }
     }
-    return message
+    return message;
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState
-    message.deposits = []
-    message.votes = []
-    message.proposals = []
+    const message = { ...baseGenesisState } as GenesisState;
+    message.deposits = [];
+    message.votes = [];
+    message.proposals = [];
     if (
-      object.startingProposalId !== undefined &&
-      object.startingProposalId !== null
+      object.starting_proposal_id !== undefined &&
+      object.starting_proposal_id !== null
     ) {
-      message.startingProposalId = Number(object.startingProposalId)
+      message.starting_proposal_id = Number(object.starting_proposal_id);
     } else {
-      message.startingProposalId = 0
+      message.starting_proposal_id = 0;
     }
     if (object.deposits !== undefined && object.deposits !== null) {
       for (const e of object.deposits) {
-        message.deposits.push(Deposit.fromJSON(e))
+        message.deposits.push(Deposit.fromJSON(e));
       }
     }
     if (object.votes !== undefined && object.votes !== null) {
       for (const e of object.votes) {
-        message.votes.push(Vote.fromJSON(e))
+        message.votes.push(Vote.fromJSON(e));
       }
     }
     if (object.proposals !== undefined && object.proposals !== null) {
       for (const e of object.proposals) {
-        message.proposals.push(Proposal.fromJSON(e))
+        message.proposals.push(Proposal.fromJSON(e));
       }
     }
-    if (object.depositParams !== undefined && object.depositParams !== null) {
-      message.depositParams = DepositParams.fromJSON(object.depositParams)
+    if (object.deposit_params !== undefined && object.deposit_params !== null) {
+      message.deposit_params = DepositParams.fromJSON(object.deposit_params);
     } else {
-      message.depositParams = undefined
+      message.deposit_params = undefined;
     }
-    if (object.votingParams !== undefined && object.votingParams !== null) {
-      message.votingParams = VotingParams.fromJSON(object.votingParams)
+    if (object.voting_params !== undefined && object.voting_params !== null) {
+      message.voting_params = VotingParams.fromJSON(object.voting_params);
     } else {
-      message.votingParams = undefined
+      message.voting_params = undefined;
     }
-    if (object.tallyParams !== undefined && object.tallyParams !== null) {
-      message.tallyParams = TallyParams.fromJSON(object.tallyParams)
+    if (object.tally_params !== undefined && object.tally_params !== null) {
+      message.tally_params = TallyParams.fromJSON(object.tally_params);
     } else {
-      message.tallyParams = undefined
+      message.tally_params = undefined;
     }
-    return message
+    return message;
   },
 
   toJSON(message: GenesisState): unknown {
-    const obj: any = {}
-    message.startingProposalId !== undefined &&
-      (obj.startingProposalId = message.startingProposalId)
+    const obj: any = {};
+    message.starting_proposal_id !== undefined &&
+      (obj.starting_proposal_id = message.starting_proposal_id);
     if (message.deposits) {
       obj.deposits = message.deposits.map((e) =>
         e ? Deposit.toJSON(e) : undefined
-      )
+      );
     } else {
-      obj.deposits = []
+      obj.deposits = [];
     }
     if (message.votes) {
-      obj.votes = message.votes.map((e) => (e ? Vote.toJSON(e) : undefined))
+      obj.votes = message.votes.map((e) => (e ? Vote.toJSON(e) : undefined));
     } else {
-      obj.votes = []
+      obj.votes = [];
     }
     if (message.proposals) {
       obj.proposals = message.proposals.map((e) =>
         e ? Proposal.toJSON(e) : undefined
-      )
+      );
     } else {
-      obj.proposals = []
+      obj.proposals = [];
     }
-    message.depositParams !== undefined &&
-      (obj.depositParams = message.depositParams
-        ? DepositParams.toJSON(message.depositParams)
-        : undefined)
-    message.votingParams !== undefined &&
-      (obj.votingParams = message.votingParams
-        ? VotingParams.toJSON(message.votingParams)
-        : undefined)
-    message.tallyParams !== undefined &&
-      (obj.tallyParams = message.tallyParams
-        ? TallyParams.toJSON(message.tallyParams)
-        : undefined)
-    return obj
+    message.deposit_params !== undefined &&
+      (obj.deposit_params = message.deposit_params
+        ? DepositParams.toJSON(message.deposit_params)
+        : undefined);
+    message.voting_params !== undefined &&
+      (obj.voting_params = message.voting_params
+        ? VotingParams.toJSON(message.voting_params)
+        : undefined);
+    message.tally_params !== undefined &&
+      (obj.tally_params = message.tally_params
+        ? TallyParams.toJSON(message.tally_params)
+        : undefined);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState
-    message.deposits = []
-    message.votes = []
-    message.proposals = []
+    const message = { ...baseGenesisState } as GenesisState;
+    message.deposits = [];
+    message.votes = [];
+    message.proposals = [];
     if (
-      object.startingProposalId !== undefined &&
-      object.startingProposalId !== null
+      object.starting_proposal_id !== undefined &&
+      object.starting_proposal_id !== null
     ) {
-      message.startingProposalId = object.startingProposalId
+      message.starting_proposal_id = object.starting_proposal_id;
     } else {
-      message.startingProposalId = 0
+      message.starting_proposal_id = 0;
     }
     if (object.deposits !== undefined && object.deposits !== null) {
       for (const e of object.deposits) {
-        message.deposits.push(Deposit.fromPartial(e))
+        message.deposits.push(Deposit.fromPartial(e));
       }
     }
     if (object.votes !== undefined && object.votes !== null) {
       for (const e of object.votes) {
-        message.votes.push(Vote.fromPartial(e))
+        message.votes.push(Vote.fromPartial(e));
       }
     }
     if (object.proposals !== undefined && object.proposals !== null) {
       for (const e of object.proposals) {
-        message.proposals.push(Proposal.fromPartial(e))
+        message.proposals.push(Proposal.fromPartial(e));
       }
     }
-    if (object.depositParams !== undefined && object.depositParams !== null) {
-      message.depositParams = DepositParams.fromPartial(object.depositParams)
+    if (object.deposit_params !== undefined && object.deposit_params !== null) {
+      message.deposit_params = DepositParams.fromPartial(object.deposit_params);
     } else {
-      message.depositParams = undefined
+      message.deposit_params = undefined;
     }
-    if (object.votingParams !== undefined && object.votingParams !== null) {
-      message.votingParams = VotingParams.fromPartial(object.votingParams)
+    if (object.voting_params !== undefined && object.voting_params !== null) {
+      message.voting_params = VotingParams.fromPartial(object.voting_params);
     } else {
-      message.votingParams = undefined
+      message.voting_params = undefined;
     }
-    if (object.tallyParams !== undefined && object.tallyParams !== null) {
-      message.tallyParams = TallyParams.fromPartial(object.tallyParams)
+    if (object.tally_params !== undefined && object.tally_params !== null) {
+      message.tally_params = TallyParams.fromPartial(object.tally_params);
     } else {
-      message.tallyParams = undefined
+      message.tally_params = undefined;
     }
-    return message
-  }
-}
+    return message;
+  },
+};
 
-declare var self: any | undefined
-declare var window: any | undefined
+declare var self: any | undefined;
+declare var window: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== 'undefined') return globalThis
-  if (typeof self !== 'undefined') return self
-  if (typeof window !== 'undefined') return window
-  if (typeof global !== 'undefined') return global
-  throw 'Unable to locate global object'
-})()
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
+  throw "Unable to locate global object";
+})();
 
-type Builtin = Date | Function | Uint8Array | string | number | undefined
+type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Array<infer U>
@@ -253,16 +259,16 @@ export type DeepPartial<T> = T extends Builtin
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>
+  : Partial<T>;
 
 function longToNumber(long: Long): number {
   if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER')
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
   }
-  return long.toNumber()
+  return long.toNumber();
 }
 
 if (util.Long !== Long) {
-  util.Long = Long as any
-  configure()
+  util.Long = Long as any;
+  configure();
 }
