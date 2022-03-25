@@ -74,7 +74,7 @@ export default defineComponent({
     border-radius: 8px;
     border: 0;
   }
-  &::v-deep(.sp-button__text) {
+  &:deep(.sp-button__text) {
     display: flex;
   }
 }

@@ -40,6 +40,7 @@
 
         <SpTimesIcon
           v-if="closeIcon"
+          class='modal__close-icon'
           style="position: absolute; top: 26px; right: 20px; cursor: pointer"
           @click="$emit('close')"
         >
@@ -124,6 +125,7 @@ export default defineComponent({
   min-width: 416px;
   min-height: 300px;
   padding: 32px;
+  border-radius: 16px;
 }
 
 .modal-header,
