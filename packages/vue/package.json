@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.9.10",
-    "@ignt/vue": "0.0.9-alpha",
     "@types/crypto-js": "^4.0.2",
     "@types/events": "^3.0.0",
     "@types/file-saver": "^2.0.3",
