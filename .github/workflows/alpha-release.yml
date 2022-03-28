@@ -25,7 +25,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
 
       - name: Install alpha
-        run: lerna exec --scope='@starport/template' -- npm i @starport/vue@alpha @starport/vuex@alpha
+        run: lerna exec --scope='@starport/template' -- npm i @starport/vue@alpha
 
       - name: Build
         run: npm run build
