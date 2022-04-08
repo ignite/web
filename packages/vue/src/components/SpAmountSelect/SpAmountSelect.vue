@@ -141,7 +141,7 @@
 import BigNumber from 'bignumber.js'
 import { computed, defineComponent, PropType, reactive } from 'vue'
 
-import { AssetForUI } from '@/composables/useAssets'
+import { AssetForUI } from '../../composables/useAssets'
 
 import SpAmountInput from '../SpAmountInput'
 import SpDenom from '../SpDenom'

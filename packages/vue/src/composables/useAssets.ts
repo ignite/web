@@ -37,9 +37,7 @@ export let initialState: State = {
 
 export default function (params?: Params): Response {
   // ignite
-  let {
-    state: { ignite }
-  } = useIgnite()
+  let { ignite } = useIgnite()
 
   // state
   let state = reactive(initialState)
@@ -48,7 +46,7 @@ export default function (params?: Params): Response {
   let { address } = useAddress()
   let { getDenomTrace } = useDenom()
   let { queryAllBalances } = useCosmosBankV1Beta1Module({
-    ignite: ignite.value
+    ignite
   })
 
   // methods

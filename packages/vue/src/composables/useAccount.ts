@@ -16,16 +16,14 @@ export default async function (): Promise<Response> {
   let { address } = useAddress()
 
   // ignite
-  let {
-    state: { ignite }
-  } = useIgnite()
+  let { ignite } = useIgnite()
 
   // watch
   watch(
     () => address.value,
     async () => {
-      if (ignite.value.signer && address.value) {
-        acc.value = (await ignite.value.signer.getAccount(
+      if (ignite.signer && address.value) {
+        acc.value = (await ignite.signer.value.client?.getAccount(
           address.value
         )) as Account
       } else {

@@ -16,7 +16,7 @@
     "@cosmjs/proto-signing": "0.27.0",
     "@cosmjs/stargate": "0.27.0",
     "bignumber.js": "^9.0.2",
-    "@ignt/vue": "0.0.9-alpha",
+    "@ignt/vue": "0.0.11-alpha",
     "bip39": "^3.0.4",
     "buffer": "^6.0.3",
     "crypto-js": "^4.1.1",
@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.9.10",
-    "@ignt/vue": "0.0.9-alpha",
     "@types/crypto-js": "^4.0.2",
     "@types/events": "^3.0.0",
     "@types/file-saver": "^2.0.3",

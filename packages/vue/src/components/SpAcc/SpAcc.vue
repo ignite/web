@@ -1,7 +1,7 @@
 <template>
   <div class="sp-acc">
     <div
-      v-if="ignite.signer"
+      v-if="address"
       class="sp-nav-link selected account-dropdown-button"
       style="display: flex; align-items: center"
       @click="state.accountDropdown = !state.accountDropdown"
@@ -123,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, watch } from 'vue'
+import { defineComponent, reactive } from 'vue'
 
 import SpModal from '../SpModal'
 import SpButton from '../SpButton'
@@ -134,10 +134,9 @@ import SpKeplrIcon from '../SpKeplrIcon'
 import SpWarningIcon from '../SpWarningIcon'
 import SpExternalArrowIcon from '../SpExternalArrow'
 import SpChevronDownIcon from '../SpChevronDown'
+import { useAddress } from '../../composables'
 
-import { useKeplr } from '../../composables/'
 import { useIgnite } from '@ignt/vue'
-import { SigningStargateClient, StargateClient } from '@cosmjs/stargate'
 
 export interface State {
   modalPage: string
@@ -172,34 +171,30 @@ export default defineComponent({
     // state
     let state = reactive(initialState)
 
-    // composables
-    let {
-      connectToKeplr,
-      isKeplrAvailable,
-      getOfflineSigner,
-      getKeplrAccParams,
-      listenToAccChange
-    } = useKeplr()
-
     // ignite
+    let { ignite, signIn, signOut } = useIgnite()
+
+    // composables
+    let { address } = useAddress()
+
     let {
-      state: { ignite },
-      signIn,
-      signOut
-    } = useIgnite()
+      connect,
+      isAvailable,
+      getOfflineSigner,
+      getAccParams,
+      listenToAccChange
+    } = ignite.keplr.value
 
     // methods
-    let tryToConnectToKeplr = (): void => {
+    let tryToConnectToKeplr = async () => {
       state.modalPage = 'connecting'
 
       let onKeplrConnect = async () => {
-        let { name, bech32Address } = await getKeplrAccParams(
-          ignite.value.env.chainID
-        )
+        let { name, bech32Address } = await getAccParams('ee')
         state.keplrParams.name = name
         state.keplrParams.bech32Address = bech32Address
 
-        let offlineSigner = getOfflineSigner(ignite.value.env.chainID)
+        let offlineSigner = getOfflineSigner('ee')
 
         signIn(offlineSigner)
 
@@ -213,7 +208,18 @@ export default defineComponent({
         state.modalPage = 'error'
       }
 
-      connectToKeplr(onKeplrConnect, onKeplrError)
+      let stakinParams = await (
+        await ignite.cosmosStakingV1Beta1.value.queryParams()
+      ).data
+      let tokens = await (
+        await ignite.cosmosBankV1Beta1.value.queryTotalSupply()
+      ).data
+
+      connect(onKeplrConnect, onKeplrError, {
+        stakinParams,
+        tokens,
+        env: ignite.env.value
+      })
     }
     let getAccName = (): string => state.keplrParams?.name + ''
 
@@ -224,12 +230,12 @@ export default defineComponent({
     }
 
     return {
-      isKeplrAvailable,
+      isKeplrAvailable: isAvailable(),
       tryToConnectToKeplr,
       disconnect,
       state,
       getAccName,
-      ignite
+      address
     }
   }
 })

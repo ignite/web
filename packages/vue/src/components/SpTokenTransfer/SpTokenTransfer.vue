@@ -301,8 +301,8 @@ import { Bech32 } from '@cosmjs/encoding'
 import long from 'long'
 import { computed, defineComponent, reactive, watch } from 'vue'
 
-import { AssetForUI } from '@/composables/useAssets'
-import { Amount } from '@/utils/interfaces'
+import { AssetForUI } from '../../composables/useAssets'
+import { Amount } from '../../utils/interfaces'
 
 import { useAddress, useAssets } from '../../composables'
 import { useIgnite } from '@ignt/vue'
@@ -379,9 +379,7 @@ export default defineComponent({
     let { balances } = useAssets()
 
     // ignite
-    let {
-      state: { ignite }
-    } = useIgnite()
+    let { ignite } = useIgnite()
 
     // methods
     let switchToSend = (): void => {
@@ -445,13 +443,13 @@ export default defineComponent({
           }
 
           send = async () =>
-            ignite.value.IbcApplicationsTransferV1.sendMsgTransfer({
+            ignite.ibcApplicationsTransferV1.value.sendMsgTransfer({
               value: payload,
               memo
             })
         } else {
           send = async () =>
-            ignite.value.CosmosBankV1Beta1.sendMsgSend({
+            ignite.cosmosBankV1Beta1.value.sendMsgSend({
               value: payload,
               memo
             })

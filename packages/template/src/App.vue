@@ -14,15 +14,11 @@
 import { SpNavbar, SpTheme } from '@starport/vue'
 import { onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
-import { useIgnite } from '@ignt/vue'
 
 export default {
   components: { SpTheme, SpNavbar },
 
   setup() {
-    // ignite
-    useIgnite()
-
     // router
     let router = useRouter()
 

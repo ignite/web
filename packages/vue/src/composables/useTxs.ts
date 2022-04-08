@@ -1,4 +1,3 @@
-import { WebSocketClient } from '@ignt/client'
 import { useIgnite } from '@ignt/vue'
 import axios, { AxiosResponse } from 'axios'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
@@ -43,9 +42,7 @@ export default async function ({
   opts: { order, realTime }
 }: Params): Promise<Response> {
   // ignite
-  let {
-    state: { ignite }
-  } = useIgnite()
+  let { ignite } = useIgnite()
 
   // methods
   let normalizeAPIResponse = (resp: AxiosResponse) => {
@@ -130,8 +127,7 @@ export default async function ({
   let { address } = useAddress()
 
   // store
-  let client = computed<WebSocketClient | undefined>(() => ignite.value.ws)
-  let API_COSMOS = ignite.value.env.apiURL
+  let API_COSMOS = ignite.env.value.apiURL
 
   // computed
   let SENT_EVENT = computed<string>(
@@ -182,8 +178,7 @@ export default async function ({
   )
 
   if (realTime) {
-    // @ts-ignore
-    client.value.on('newblock', async () => {
+    ignite.ws.value.ee().on('ws-newblock', async () => {
       // there's got bet a better way to diff latest vs. current while sparing this wasted round-trip
       let recv = await fetchTxs(0, RECEIVED_EVENT.value, orderParam)
       let sent = await fetchTxs(0, SENT_EVENT.value, orderParam)

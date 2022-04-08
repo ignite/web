@@ -8,12 +8,10 @@ type Response = {
 
 export default function (): Response {
   // ignite
-  let {
-    state: { ignite }
-  } = useIgnite()
+  let { ignite } = useIgnite()
 
   // computed
-  let address = computed<string | undefined>(() => ignite.value.addr)
+  let address = computed<string | undefined>(() => ignite.signer.value.addr)
   let shortAddress = computed<string>(
     () => address.value?.substring(0, 10) + '...' + address.value?.slice(-4)
   )

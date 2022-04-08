@@ -8,9 +8,7 @@ type Response = {
 
 export default function (): Response {
   // ignite
-  let {
-    state: { ignite }
-  } = useIgnite()
+  let { ignite } = useIgnite()
 
   // methods
   let getDenomTrace = async (
@@ -19,7 +17,7 @@ export default function (): Response {
     let hash = denom.split('/')[1]
 
     let denomTrace = (
-      await ignite.value.IbcApplicationsTransferV1.queryDenomTrace(hash)
+      await ignite.ibcApplicationsTransferV1.value?.queryDenomTrace(hash)
     )?.data.denom_trace
 
     return denomTrace
