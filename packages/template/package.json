@@ -1,6 +1,6 @@
 {
   "name": "@starport/template",
-  "version": "0.4.2-alpha",
+  "version": "0.4.3-alpha",
   "description": "A Vue 3 boilerplate project utilizing @starport/vue and @starport/vuex",
   "author": "Ignite, Inc <hello@ignt.com>",
   "private": true,
@@ -13,7 +13,7 @@
     "@cosmjs/launchpad": "0.27.0",
     "@cosmjs/proto-signing": "0.27.0",
     "@cosmjs/stargate": "0.27.0",
-    "@starport/vue": "0.4.2-alpha",
+    "@starport/vue": "0.4.3-alpha",
     "@ignt/client": "0.0.11-alpha",
     "@ignt/vue": "0.0.11-alpha",
     "buffer": "^6.0.3",

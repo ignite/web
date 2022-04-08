@@ -1,6 +1,6 @@
 {
   "name": "@starport/vue",
-  "version": "0.4.2-alpha",
+  "version": "0.4.3-alpha",
   "description": "A library of Vue 3 components for building frontends for cosmos-sdk chains",
   "author": "Ignite, Inc <hello@ignt.com>",
   "license": "Apache-2.0",
