@@ -13,7 +13,11 @@
 </template>
 
 <script>
-import { SpAssets, SpTokenTransfer, SpTokenTransferList } from '@starport/vue'
+import {
+  SpAssets,
+  SpTokenTransfer,
+  SpTokenTransferList
+} from '@starport/vue'
 
 export default {
   name: 'Portfolio',

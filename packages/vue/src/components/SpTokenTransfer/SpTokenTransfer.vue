@@ -313,6 +313,7 @@ import SpCard from '../SpCard'
 import SpClipboard from '../SpClipboard'
 import SpQrCode from '../SpQrCode'
 import SpSpinner from '../SpSpinner'
+import { Coin, StdFee } from '@cosmjs/amino'
 
 // types
 export interface TxData {
@@ -405,10 +406,17 @@ export default defineComponent({
     let sendTx = async (): Promise<void> => {
       state.currentUIState = UI_STATE.TX_SIGNING
 
-      let fee: Array<Amount> = state.tx.fees.map((x: AssetForUI) => ({
-        denom: x.amount.denom,
-        amount: x.amount.amount == '' ? '0' : x.amount.amount
-      }))
+      let coin: Coin[] = state.tx.fees.map(
+        (x: AssetForUI): Coin => ({
+          denom: x.amount.denom,
+          amount: x.amount.amount == '' ? '0' : x.amount.amount
+        })
+      )
+
+      let fee: StdFee = {
+        amount: coin,
+        gas: '200000'
+      }
 
       let amount: Array<Amount> = state.tx.amount.map((x: AssetForUI) => ({
         denom: x.amount.denom,
@@ -445,12 +453,14 @@ export default defineComponent({
           send = async () =>
             ignite.ibcApplicationsTransferV1.value.sendMsgTransfer({
               value: payload,
+              fee,
               memo
             })
         } else {
           send = async () =>
             ignite.cosmosBankV1Beta1.value.sendMsgSend({
               value: payload,
+              fee,
               memo
             })
         }

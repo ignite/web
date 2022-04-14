@@ -1,6 +1,6 @@
 import { Balance } from '@ignt/client/cosmos.bank.v1beta1'
 import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
-import { useCosmosBankV1Beta1Module, useIgnite } from '@ignt/vue'
+import { useCosmosBankV1Beta1 } from '@ignt/vue'
 import { computed, ComputedRef, reactive, watch } from 'vue'
 
 import { Amount } from '@/utils/interfaces'
@@ -36,18 +36,13 @@ export let initialState: State = {
 }
 
 export default function (params?: Params): Response {
-  // ignite
-  let { ignite } = useIgnite()
-
   // state
   let state = reactive(initialState)
 
   // composables
   let { address } = useAddress()
   let { getDenomTrace } = useDenom()
-  let { queryAllBalances } = useCosmosBankV1Beta1Module({
-    ignite
-  })
+  let { queryAllBalances } = useCosmosBankV1Beta1()
 
   // methods
   let normalize = async (balance: any): Promise<AssetForUI> => {

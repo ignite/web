@@ -190,11 +190,13 @@ export default defineComponent({
       state.modalPage = 'connecting'
 
       let onKeplrConnect = async () => {
-        let { name, bech32Address } = await getAccParams('ee')
+        let chainID = ignite.env.value.chainID ?? ''
+
+        let { name, bech32Address } = await getAccParams(chainID)
         state.keplrParams.name = name
         state.keplrParams.bech32Address = bech32Address
 
-        let offlineSigner = getOfflineSigner('ee')
+        let offlineSigner = getOfflineSigner(chainID)
 
         signIn(offlineSigner)
 

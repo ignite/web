@@ -17,8 +17,6 @@ export default defineConfig({
       ignored: [
         '!**/node_modules/@starport/vue/src/**',
         '!**/node_modules/@starport/vue/node_modules/**',
-        '!**/node_modules/@ignt/client/**',
-        '!**/node_modules/@ignt/vue/**'
       ]
     }
   },

@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "description": "A monorepo of Vue and JS packages for Cosmos SDK apps",
-  "author": "Tendermint, Inc <hello@tendermint.com>",
+  "author": "Ignite, Inc <hello@ignt.com>",
   "homepage": "https://github.com/tendermint/vue",
   "license": "Apache-2.0",
   "licenses": [
