@@ -1,6 +1,6 @@
 # Starport Frontend
 
-![Screenshot](./assets/cover.png)
+![Screenshot](./assets/cover.jpg)
 
 ## Contents
 
