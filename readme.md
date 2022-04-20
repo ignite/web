@@ -1,4 +1,4 @@
-# Starport Frontend
+# Ignite Frontend
 
 ![Screenshot](./assets/cover.jpg)
 
@@ -6,7 +6,7 @@
 
 ### [App template](https://github.com/tendermint/vue/tree/develop/packages/template)
 
-A Vue 3 web application template is bundled with the [Starport CLI](https://github.com/tendermint/starport). The template features an asset list, transaction list, token transfer component, and a form component for custom models created with Starport. The template is connected to the [Keplr](https://github.com/chainapsis/keplr-wallet/) wallet by default.
+A Vue 3 web application template is bundled with the [Ignite CLI](https://github.com/ignite-hq/cli). The template features an asset list, transaction list, token transfer component, and a form component for custom models created with Ignite. The template is connected to the [Keplr](https://github.com/chainapsis/keplr-wallet/) wallet by default.
 
 ### [@starport/vuex](https://github.com/tendermint/vue/tree/develop/packages/vuex)
 
@@ -27,7 +27,7 @@ npm run dev
 
 ## Questions
 
-For questions and support, join the official [Starport Discord](https://discord.gg/ignt) server. The issue list in this repo is exclusively for bug reports and feature requests.
+For questions and support, join the official [Ignite Discord](https://discord.gg/ignite) server. The issue list in this repo is exclusively for bug reports and feature requests.
 
 ## Contributing
 
