@@ -16,9 +16,9 @@ let { inject } = useIgnite()
 
 let ignite = createIgnite({
   env: {
-    apiURL: 'http://localhost:1317',
-    rpcURL: 'http://localhost:26657',
-    wsURL: 'ws://localhost:26657/websocket',
+    apiURL: 'https://api.testnet.cosmos.network:443',
+    rpcURL: 'https://rpc.testnet.cosmos.network:443',
+    wsURL: 'wss://rpc.testnet.cosmos.network:443/websocket',
     prefix: 'cosmos'
   }
 })
