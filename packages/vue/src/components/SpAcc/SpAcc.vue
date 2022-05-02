@@ -136,7 +136,7 @@ import SpExternalArrowIcon from '../SpExternalArrow'
 import SpChevronDownIcon from '../SpChevronDown'
 import { useAddress } from '../../composables'
 
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 
 export interface State {
   modalPage: string
@@ -171,8 +171,8 @@ export default defineComponent({
     // state
     let state = reactive(initialState)
 
-    // ignite
-    let { ignite, signIn, signOut } = useIgnite()
+    // gaia
+    let { gaia, signIn, signOut } = useGaia()
 
     // composables
     let { address } = useAddress()
@@ -183,14 +183,14 @@ export default defineComponent({
       getOfflineSigner,
       getAccParams,
       listenToAccChange
-    } = ignite.keplr.value
+    } = gaia.keplr.value
 
     // methods
     let tryToConnectToKeplr = async () => {
       state.modalPage = 'connecting'
 
       let onKeplrConnect = async () => {
-        let chainID = ignite.env.value.chainID ?? ''
+        let chainID = gaia.env.value.chainID ?? ''
 
         let { name, bech32Address } = await getAccParams(chainID)
         state.keplrParams.name = name
@@ -211,16 +211,16 @@ export default defineComponent({
       }
 
       let stakinParams = await (
-        await ignite.cosmosStakingV1Beta1.value.queryParams()
+        await gaia.cosmosStakingV1Beta1.value.queryParams()
       ).data
       let tokens = await (
-        await ignite.cosmosBankV1Beta1.value.queryTotalSupply()
+        await gaia.cosmosBankV1Beta1.value.queryTotalSupply()
       ).data
 
       connect(onKeplrConnect, onKeplrError, {
         stakinParams,
         tokens,
-        env: ignite.env.value
+        env: gaia.env.value
       })
     }
     let getAccName = (): string => state.keplrParams?.name + ''

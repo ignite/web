@@ -142,7 +142,7 @@ export let initialState: State = {
 
 import { useAddress, useClipboard } from '../../composables'
 
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 
 export default defineComponent({
   name: 'SpAccountDropdown',
@@ -168,18 +168,18 @@ export default defineComponent({
     let { copy } = useClipboard()
     let { address, shortAddress } = useAddress()
 
-    // ignite
-    let { ignite } = useIgnite()
+    // gaia
+    let { gaia } = useGaia()
 
     // computed
     let apiConnected = computed<boolean | undefined>(
-      () => ignite.env.value.status?.apiConnected
+      () => gaia.env.value.status?.apiConnected
     )
     let rpcConnected = computed<boolean | undefined>(
-      () => ignite.env.value.status?.rpcConnected
+      () => gaia.env.value.status?.rpcConnected
     )
     let wsConnected = computed<boolean | undefined>(
-      () => ignite.env.value.status?.wsConnected
+      () => gaia.env.value.status?.wsConnected
     )
     let showDefault = computed<boolean>(
       () => state.currentUIState === UI_STATE.DEFAULT
@@ -231,7 +231,7 @@ export default defineComponent({
       // computed
       showDefault,
       showSettings,
-      chainId: ignite.env.value.chainID,
+      chainId: gaia.env.value.chainID,
       apiConnected,
       rpcConnected,
       wsConnected

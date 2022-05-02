@@ -76,7 +76,7 @@ import SpTypography from '../SpTypography'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 
 export default defineComponent({
   name: 'SpCrudDelete',
@@ -112,18 +112,18 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    // ignite
-    let { ignite } = useIgnite()
+    // gaia
+    let { gaia } = useGaia()
 
     // state
-    let creator = ignite.signer.value.addr
+    let creator = gaia.signer.value.addr
     let storeNameCamelCased = props.storeName
       .charAt(0)
       .toUpperCase()
       .concat(props.storeName.slice(1))
       .split('.')
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
-    let m = ignite[storeNameCamelCased].value
+    let m = gaia[storeNameCamelCased].value
 
     // methods
     let deleteItem = async () => {

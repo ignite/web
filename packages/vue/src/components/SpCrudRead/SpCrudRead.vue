@@ -119,7 +119,7 @@
 import { defineComponent, onBeforeMount, ref } from 'vue'
 
 import { useAddress } from '../../composables'
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'
@@ -160,8 +160,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    // ignite
-    let { ignite } = useIgnite()
+    // gaia
+    let { gaia } = useGaia()
 
     // composables
     let { address, shortAddress } = useAddress()
@@ -173,7 +173,7 @@ export default defineComponent({
       .concat(props.storeName.slice(1))
       .split('.')
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
-    let m = ignite[storeNameCamelCased].value
+    let m = gaia[storeNameCamelCased].value
     let items = ref([])
 
     // lh

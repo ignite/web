@@ -16,7 +16,7 @@ export default defineConfig({
     watch: {
       ignored: [
         '!**/node_modules/@starport/vue/src/**',
-        '!**/node_modules/@starport/vue/node_modules/**',
+        '!**/node_modules/@starport/vue/node_modules/**'
       ]
     }
   },

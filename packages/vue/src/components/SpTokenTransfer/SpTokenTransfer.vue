@@ -305,7 +305,7 @@ import { AssetForUI } from '../../composables/useAssets'
 import { Amount } from '../../utils/interfaces'
 
 import { useAddress, useAssets } from '../../composables'
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'
@@ -379,8 +379,8 @@ export default defineComponent({
     let { address } = useAddress()
     let { balances } = useAssets()
 
-    // ignite
-    let { ignite } = useIgnite()
+    // gaia
+    let { gaia } = useGaia()
 
     // methods
     let switchToSend = (): void => {
@@ -451,14 +451,14 @@ export default defineComponent({
           }
 
           send = async () =>
-            ignite.ibcApplicationsTransferV1.value.sendMsgTransfer({
+            gaia.ibcApplicationsTransferV1.value.sendMsgTransfer({
               value: payload,
               fee,
               memo
             })
         } else {
           send = async () =>
-            ignite.cosmosBankV1Beta1.value.sendMsgSend({
+            gaia.cosmosBankV1Beta1.value.sendMsgSend({
               value: payload,
               fee,
               memo

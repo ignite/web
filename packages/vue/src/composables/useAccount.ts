@@ -1,5 +1,5 @@
 import { Account } from '@cosmjs/stargate'
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 import { Ref, ref, watch } from 'vue'
 
 import { useAddress } from '.'
@@ -15,15 +15,15 @@ export default async function (): Promise<Response> {
   // composables
   let { address } = useAddress()
 
-  // ignite
-  let { ignite } = useIgnite()
+  // gaia
+  let { gaia } = useGaia()
 
   // watch
   watch(
     () => address.value,
     async () => {
-      if (ignite.signer && address.value) {
-        acc.value = (await ignite.signer.value.client?.getAccount(
+      if (gaia.signer && address.value) {
+        acc.value = (await gaia.signer.value.client?.getAccount(
           address.value
         )) as Account
       } else {

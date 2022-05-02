@@ -5,6 +5,7 @@
   "author": "Ignite, Inc <hello@ignt.com>",
   "private": true,
   "scripts": {
+    "purge": "rm -rf node_modules package-lock.json",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
@@ -14,8 +15,8 @@
     "@cosmjs/proto-signing": "0.27.0",
     "@cosmjs/stargate": "0.27.0",
     "@starport/vue": "0.4.3-alpha",
-    "@ignt/client": "0.0.13-alpha",
-    "@ignt/vue": "0.0.13-alpha",
+    "cosmos-gaia-ts-client": "0.0.1",
+    "cosmos-gaia-vue-client": "0.0.1",
     "buffer": "^6.0.3",
     "core-js": "^3.18.2",
     "vue": "3.2.31",

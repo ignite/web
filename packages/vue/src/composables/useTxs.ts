@@ -1,4 +1,4 @@
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 import axios, { AxiosResponse } from 'axios'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
 
@@ -41,8 +41,8 @@ export type TxForUI = {
 export default async function ({
   opts: { order, realTime }
 }: Params): Promise<Response> {
-  // ignite
-  let { ignite } = useIgnite()
+  // gaia
+  let { gaia } = useGaia()
 
   // methods
   let normalizeAPIResponse = (resp: AxiosResponse) => {
@@ -127,7 +127,7 @@ export default async function ({
   let { address } = useAddress()
 
   // store
-  let API_COSMOS = ignite.env.value.apiURL
+  let API_COSMOS = gaia.env.value.apiURL
 
   // computed
   let SENT_EVENT = computed<string>(
@@ -178,7 +178,7 @@ export default async function ({
   )
 
   if (realTime) {
-    ignite.ws.value.ee().on('ws-newblock', async () => {
+    gaia.ws.value.ee().on('ws-newblock', async () => {
       // there's got bet a better way to diff latest vs. current while sparing this wasted round-trip
       let recv = await fetchTxs(0, RECEIVED_EVENT.value, orderParam)
       let sent = await fetchTxs(0, SENT_EVENT.value, orderParam)

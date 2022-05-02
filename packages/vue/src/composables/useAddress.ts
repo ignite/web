@@ -1,4 +1,4 @@
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 import { computed, ComputedRef } from 'vue'
 
 type Response = {
@@ -7,11 +7,11 @@ type Response = {
 }
 
 export default function (): Response {
-  // ignite
-  let { ignite } = useIgnite()
+  // gaia
+  let { gaia } = useGaia()
 
   // computed
-  let address = computed<string | undefined>(() => ignite.signer.value.addr)
+  let address = computed<string | undefined>(() => gaia.signer.value.addr)
   let shortAddress = computed<string>(
     () => address.value?.substring(0, 10) + '...' + address.value?.slice(-4)
   )

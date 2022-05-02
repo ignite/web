@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
@@ -78,19 +78,19 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    // ignite
-    let { ignite } = useIgnite()
+    // gaia
+    let { gaia } = useGaia()
 
     // state
     let formData = reactive({ ...props.itemData })
-    let creator = ignite.signer.value.addr
+    let creator = gaia.signer.value.addr
     let storeNameCamelCased = props.storeName
       .charAt(0)
       .toUpperCase()
       .concat(props.storeName.slice(1))
       .split('.')
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
-    let m = ignite[storeNameCamelCased].value
+    let m = gaia[storeNameCamelCased].value
 
     // computed
     let itemFieldsFiltered = computed(() =>

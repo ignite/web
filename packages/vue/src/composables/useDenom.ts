@@ -1,5 +1,5 @@
-import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
-import { useIgnite } from '@ignt/vue'
+import { V1DenomTrace } from 'cosmos-gaia-ts-client/ibc.applications.transfer.v1/rest'
+import { useGaia } from 'cosmos-gaia-vue-client'
 
 type Response = {
   getDenomTrace: (denom: string) => Promise<V1DenomTrace | undefined>
@@ -7,8 +7,8 @@ type Response = {
 }
 
 export default function (): Response {
-  // ignite
-  let { ignite } = useIgnite()
+  // ts-client
+  let { gaia } = useGaia()
 
   // methods
   let getDenomTrace = async (
@@ -17,7 +17,7 @@ export default function (): Response {
     let hash = denom.split('/')[1]
 
     let denomTrace = (
-      await ignite.ibcApplicationsTransferV1.value?.queryDenomTrace(hash)
+      await gaia.ibcApplicationsTransferV1.value?.queryDenomTrace(hash)
     )?.data.denom_trace
 
     return denomTrace

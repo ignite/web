@@ -1,6 +1,6 @@
-import { Balance } from '@ignt/client/cosmos.bank.v1beta1'
-import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
-import { useCosmosBankV1Beta1 } from '@ignt/vue'
+import { Balance } from 'cosmos-gaia-ts-client/cosmos.bank.v1beta1'
+import { V1DenomTrace } from 'cosmos-gaia-ts-client/ibc.applications.transfer.v1/rest'
+import { useCosmosBankV1Beta1 } from 'cosmos-gaia-vue-client'
 import { computed, ComputedRef, reactive, watch } from 'vue'
 
 import { Amount } from '@/utils/interfaces'

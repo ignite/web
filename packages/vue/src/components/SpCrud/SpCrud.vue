@@ -82,7 +82,7 @@ import SpCrudDelete from '../SpCrudDelete'
 import SpCrudRead from '../SpCrudRead'
 import SpCrudUpdate from '../SpCrudUpdate'
 import SpTypography from '../SpTypography'
-import { useIgnite } from '@ignt/vue'
+import { useGaia } from 'cosmos-gaia-vue-client'
 
 export interface State {
   visibleModal: string
@@ -120,8 +120,8 @@ export default defineComponent({
   },
 
   setup(props) {
-    // ignite
-    let { ignite } = useIgnite()
+    // gaia
+    let { gaia } = useGaia()
 
     // composables
     let { address } = useAddress()
@@ -138,7 +138,7 @@ export default defineComponent({
       .concat(props.storeName.slice(1))
       .split('.')
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
-    let m = ignite[storeNameCamelCased].value
+    let m = gaia[storeNameCamelCased].value
     let items = ref([])
     let fields = ref<Array<string>>([])
     let state: State = reactive({ ...initialState, moduleAvailable: !!m })
