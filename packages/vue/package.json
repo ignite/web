@@ -36,15 +36,15 @@
     "vue": "3.2.31"
   },
   "devDependencies": {
-    "ignite-ts-client": "0.0.1",
-    "ignite-vue-client": "0.0.1",
-    "@keplr-wallet/types": "^0.9.10",
+    "@keplr-wallet/types": "^0.8.8",
     "@types/crypto-js": "^4.0.2",
     "@types/events": "^3.0.0",
     "@types/file-saver": "^2.0.3",
     "@types/jest": "^27.0.2",
     "@types/long": "^4.0.1",
     "@types/qrcode": "^1.4.1",
+    "ignite-ts-client": "0.0.1",
+    "ignite-vue-client": "0.0.1",
     "sass": "^1.47.0",
     "vue-tsc": "^0.30.0"
   }
