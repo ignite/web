@@ -142,7 +142,7 @@ export let initialState: State = {
 
 import { useAddress, useClipboard } from '../../composables'
 
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 
 export default defineComponent({
   name: 'SpAccountDropdown',

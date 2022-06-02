@@ -119,7 +119,7 @@
 import { defineComponent, onBeforeMount, ref } from 'vue'
 
 import { useAddress } from '../../composables'
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'
 import SpModal from '../SpModal'

@@ -82,7 +82,7 @@ import SpCrudDelete from '../SpCrudDelete'
 import SpCrudRead from '../SpCrudRead'
 import SpCrudUpdate from '../SpCrudUpdate'
 import SpTypography from '../SpTypography'
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 
 export interface State {
   visibleModal: string

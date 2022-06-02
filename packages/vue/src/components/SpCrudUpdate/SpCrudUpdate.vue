@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 
 import SpButton from '../SpButton'
 import SpDropdown from '../SpDropdown'

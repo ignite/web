@@ -1,5 +1,5 @@
-import { useIgnite } from '@ignt/vue'
 import axios, { AxiosResponse } from 'axios'
+import { useIgnite } from 'ignite-vue-client'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
 
 import { Amount } from '@/utils/interfaces'

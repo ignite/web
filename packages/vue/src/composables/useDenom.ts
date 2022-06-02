@@ -1,5 +1,5 @@
-import { V1DenomTrace } from '@ignt/client/ibc.applications.transfer.v1/rest'
-import { useIgnite } from '@ignt/vue'
+import { V1DenomTrace } from 'ignite-ts-client/ibc.applications.transfer.v1/rest'
+import { useIgnite } from 'ignite-vue-client'
 
 type Response = {
   getDenomTrace: (denom: string) => Promise<V1DenomTrace | undefined>

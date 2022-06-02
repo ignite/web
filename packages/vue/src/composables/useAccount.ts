@@ -1,5 +1,5 @@
 import { Account } from '@cosmjs/stargate'
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 import { Ref, ref, watch } from 'vue'
 
 import { useAddress } from '.'

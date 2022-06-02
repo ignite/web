@@ -12,9 +12,9 @@
     }
   ],
   "scripts": {
-    "purge": "lerna exec -- rm -rf node_modules package-lock.json",
-    "dev": "lerna bootstrap --force-local && lerna exec --scope='@starport/template' -- npm run dev",
-    "build": "lerna exec --scope='@starport/template' -- npm run build",
+    "purge": "npm run purge --workspaces",
+    "dev": "npm i; npm run dev --workspace=packages/template",
+    "build": "npm run build --workspace=packages/template",
     "lint:check": "eslint .",
     "lint:format": "eslint --fix .",
     "prettify:check": "prettier --check .",
@@ -26,6 +26,13 @@
     "type": "git",
     "url": "git+https://github.com/tendermint/vue.git"
   },
+  "workspaces": [
+    "packages/ignite-ts-client",
+    "packages/ignite-vue-client",
+    "packages/ignite-ts-plugins",
+    "packages/vue",
+    "packages/template"
+  ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",

@@ -1,7 +1,7 @@
-import { createIgnite } from '@ignt/client'
-import { useIgnite } from '@ignt/vue'
 import sp from '@starport/vue'
 import { Buffer } from 'buffer'
+import { createIgnite } from 'ignite-ts-client'
+import { useIgnite } from 'ignite-vue-client'
 import { createApp } from 'vue'
 
 // @ts-ignore

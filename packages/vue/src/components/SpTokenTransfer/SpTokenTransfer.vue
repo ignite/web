@@ -305,7 +305,7 @@ import { AssetForUI } from '../../composables/useAssets'
 import { Amount } from '../../utils/interfaces'
 
 import { useAddress, useAssets } from '../../composables'
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 
 import SpAmountSelect from '../SpAmountSelect'
 import SpButton from '../SpButton'

@@ -1,4 +1,4 @@
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 import { computed, ComputedRef } from 'vue'
 
 type Response = {

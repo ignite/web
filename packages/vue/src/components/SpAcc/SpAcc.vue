@@ -136,7 +136,7 @@ import SpExternalArrowIcon from '../SpExternalArrow'
 import SpChevronDownIcon from '../SpChevronDown'
 import { useAddress } from '../../composables'
 
-import { useIgnite } from '@ignt/vue'
+import { useIgnite } from 'ignite-vue-client'
 
 export interface State {
   modalPage: string
