@@ -10,11 +10,11 @@ A Vue 3 web application template is bundled with the [Ignite CLI](https://github
 
 ### Vuex modules 
 
-[@ignite/vuex](https://github.com/ignite-hq/web/tree/develop/packages/vuex)
+[@starport/vuex](https://github.com/ignite-hq/web/tree/develop/packages/vuex)
 
 A set of Vuex modules implement functionality common to most Cosmos SDK chains.
 
-### [@ignite/vue](https://github.com/tendermint/vue/tree/develop/packages/vue)
+### [@starport/vue](https://github.com/tendermint/vue/tree/develop/packages/vue)
 
 A library that contains components used by the template.
 
