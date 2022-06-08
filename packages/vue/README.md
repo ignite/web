@@ -1,6 +1,6 @@
 # `@starport/vue`
 
-A collection of Vue 3 components to help build [Starport](http://github.com/tendermint/starport) front-end applications.
+A collection of Vue 3 components to help build [Ignite CLI](https://github.com/ignite-hq/cli) front-end applications.
 
 ## Install
 
@@ -10,7 +10,7 @@ Assuming you have a Vue 3 project, just run:
 npm install --save @starport/vue
 ```
 
-The components also require `@starport/vuex` to be installed which is set as a peer dependency. More information [here](https://github.com/tendermint/vue/tree/develop/packages/vuex)
+The components also require `@starport/vuex` to be installed that is set as a peer dependency. For more information, see [packages/vuex](https://github.com/ignite-hq/web/tree/develop/packages/vuex).
 
 ## Usage
 
