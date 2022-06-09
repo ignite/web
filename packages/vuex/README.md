@@ -1,6 +1,6 @@
 # `@starport/vuex`
 
-A collection of Vuex store modules to help build [Starport](http://github.com/tendermint/starport) front-end applications in combination with the [Starport Vue components library](https://github.com/tendermint/vue/tree/develop/packages/vue) `@starport/vue`.
+A collection of Vuex store modules to help build [Ignite CLI](http://github.com/tendermint/starport) front-end applications in combination with the [Vue components library](https://github.com/ignite-hq/web/tree/develop/packages/vue) `@starport/vue`.
 
 ## Install
 
@@ -94,11 +94,11 @@ Registered as `common/env`, this module provides basic environment setup, connec
 
 ### Starport
 
-Registered as `common/starport`, use this module if you are doing local development on a [Starport](http://github.com/tendermint/starport)-launched chain. This module configures the `env` module using the Starport `:12345/status` endpoint.
+Registered as `common/starport`, use this module if you are doing local development on a chain scaffolded with [Ignite CLI](https://github.com/ignite-hq/cli). This module configures the `env` module using the Ignite CLI `:12345/status` endpoint.
 
 ### Blocks
 
-Registered as `common/blocks`, this module will receive, store and decode the latest 20 blocks (configurable) as they appear in the websocket API.
+Registered as `common/blocks`, this module receives, stores, and decodes the latest 20 blocks (configurable) as they appear in the websocket API.
 
 Get the latest 10 blocks:
 
@@ -114,7 +114,7 @@ await this.$store.getters['common/blocks/getBlocks'](15)
 
 ### Transfers
 
-Registered as `common/transfers`, this module is a temporary handcoded version until an auto-generated (by Starport) vuex store is available for the Cosmos SDK TX module (https://github.com/cosmos/cosmos-sdk/tree/master/proto/cosmos/tx/v1beta1).
+Registered as `common/transfers`, this module is a temporary handcoded version until an auto-generated (by Ignite CLI) vuex store is available for the Cosmos SDK TX module (https://github.com/cosmos/cosmos-sdk/tree/master/proto/cosmos/tx/v1beta1).
 
 The querying action is:
 
@@ -155,7 +155,7 @@ The `subscribe` flag in the action dispatch configures auto-updates for the stor
 
 Registered as `common/wallet`, this module provides wallet-handling, sign in and sign out fuctionalities, and encrypted persistence in the browser's local storage.
 
-Creating a new wallet
+Creating a new wallet:
 
 ```js
 await this.$store.dispatch('common/wallet/createWalletWithMnemonic', {
@@ -173,7 +173,7 @@ Listing wallets in local storage
 const walletList = this.$store.common.wallet.wallets
 ```
 
-Unlocking a specific wallet from the wallet list and logging in
+Unlocking a specific wallet from the wallet list and logging in:
 
 ```js
 await this.$store.dispatch('common/wallet/unlockWallet', {
@@ -182,7 +182,7 @@ await this.$store.dispatch('common/wallet/unlockWallet', {
 })
 ```
 
-Accessing logged-in/out status:
+Accessing logged in and logged out status:
 
 ```js
 const loggedInStatus = this.$store.getters['common/wallet/loggedIn']
@@ -206,9 +206,9 @@ Adding an account with a specific HD Path increment to the current wallet:
 await this.$store.dispatch('common/wallet/addAccount', 3)
 ```
 
-In the example above we are assuming wallet's HD Path is `m/44'/118'/0'/0/`, will add account corresponding to `m/44'/118'/0'/0/3`.
+In this example, the wallet's HD path is assumed to be `m/44'/118'/0'/0/` and adds the account corresponding to `m/44'/118'/0'/0/3`.
 
-Switch to using a different account in the current wallet (account with this address must exist in the current wallet):
+Switch to using a different account in the current wallet, the account with this address must exist in the current wallet:
 
 ```js
 await this.$store.dispatch(

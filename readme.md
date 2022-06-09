@@ -8,7 +8,9 @@
 
 A Vue 3 web application template is bundled with the [Ignite CLI](https://github.com/ignite-hq/cli). The template features an asset list, transaction list, token transfer component, and a form component for custom models created with Ignite. The template is connected to the [Keplr](https://github.com/chainapsis/keplr-wallet/) wallet by default.
 
-### [@starport/vuex](https://github.com/tendermint/vue/tree/develop/packages/vuex)
+### Vuex modules 
+
+[@starport/vuex](https://github.com/ignite-hq/web/tree/develop/packages/vuex)
 
 A set of Vuex modules implement functionality common to most Cosmos SDK chains.
 
