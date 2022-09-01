@@ -1,24 +1,24 @@
 import Client from '../../../client/SPClient'
 
 const apiNode =
-  (import.meta.env.VITE_API_COSMOS &&
+  (import.meta.env && import.meta.env.VITE_API_COSMOS &&
     import.meta.env.VITE_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
   (process.env.VUE_APP_API_COSMOS &&
     process.env.VUE_APP_API_COSMOS.replace('0.0.0.0', 'localhost')) ||
   'http://localhost:1317'
 const rpcNode =
-  (import.meta.env.VITE_API_TENDERMINT &&
+  (import.meta.env && import.meta.env.VITE_API_TENDERMINT &&
     import.meta.env.VITE_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
   (process.env.VUE_APP_API_TENDERMINT &&
     process.env.VUE_APP_API_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
   'http://localhost:26657'
 const wsNode =
-  (import.meta.env.VITE_WS_TENDERMINT &&
+  (import.meta.env && import.meta.env.VITE_WS_TENDERMINT &&
     import.meta.env.VITE_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
   (process.env.VUE_APP_WS_TENDERMINT &&
     process.env.VUE_APP_WS_TENDERMINT.replace('0.0.0.0', 'localhost')) ||
   'ws://localhost:26657/websocket'
-const addrPrefix =  import.meta.env.VITE_ADDRESS_PREFIX || process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
+const addrPrefix = import.meta.env ? import.meta.env.VITE_ADDRESS_PREFIX || 'cosmos' : process.env.VUE_APP_ADDRESS_PREFIX || 'cosmos'
 
 export default {
   namespaced: true,
