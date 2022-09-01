@@ -45,7 +45,20 @@ export default {
     sdkVersion: (state) => state.sdkVersion,
     apiConnected: (state) => state.apiConnected,
     rpcConnected: (state) => state.rpcConnected,
-    wsConnected: (state) => state.wsConnected
+    wsConnected: (state) => state.wsConnected,
+    getEnv: (state) => ({
+      chainID: state.chainId,      
+      chainName: state.chainName,
+      apiURL: state.apiCosmos,
+      rpcURL: state.apiTendermint,
+      wsURL: state.apiWS,
+      prefix: state.addrPrefix,
+      status: {
+        apiConnected: state.apiConnected,
+        rpcConnected: state.rpcConnected,
+        wsConnected: state.wsConnected
+      }
+    })
   },
   mutations: {
     SET_CONFIG(state, config) {
