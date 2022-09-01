@@ -55,9 +55,9 @@ export default {
     getEnv: (state) => ({
       chainID: state.chainId,      
       chainName: state.chainName,
-      apiURL: state.apiCosmos,
-      rpcURL: state.apiTendermint,
-      wsURL: state.apiWS,
+      apiURL: state.apiNode,
+      rpcURL: state.rpcNode,
+      wsURL: state.wsNode,
       prefix: state.addrPrefix,
       status: {
         apiConnected: state.apiConnected,
