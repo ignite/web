@@ -100,11 +100,11 @@ export default class SPClient extends EventEmitter {
     }
     if (this.apiAddr) {
       try {
-        const status: any = await axios.get(this.apiAddr + '/node_info')
-        this.emit('chain-id', status.data.node_info.network)
+        const status: any = await axios.get(this.apiAddr + '/cosmos/base/tendermint/v1beta1/node_info')
+        this.emit('chain-id', status.data.default_node_info.network)
         status.data.application_version.name
           ? this.emit('chain-name', status.data.application_version.name)
-          : this.emit('chain-name', status.data.node_info.network)
+          : this.emit('chain-name', status.data.default_node_info.network)
         this.emit('api-status', true)
       } catch (error) {
         if (!error.response) {
