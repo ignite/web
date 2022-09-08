@@ -428,8 +428,8 @@ export default defineComponent({
 
       let payload: any = {
         amount,
-        to_address: state.tx.receiver,
-        from_address: address.value
+        toAddress: state.tx.receiver,
+        fromAddress: address.value
       }
 
       try {
