@@ -1,0 +1,70 @@
+{
+  "name": "@ignt/vue-library",
+  "version": "0.3.10",
+  "description": "A library of Vue 3 components for building frontends for cosmos-sdk chains",
+  "repository": "https://github.com/ignite/web.git",
+  "author": "Ignite, Inc <hello@ignite.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/vue-library.umd.js",
+  "module": "./dist/vue-library.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-library.mjs",
+      "require": "./dist/vue-library.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "scripts": {
+    "build": "run-p type-check build-only",
+    "preview": "vite preview --port 4173",
+    "test:unit": "vitest --environment jsdom",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "gradient-avatar": "^1.0.2",
+    "qrcode": "^1.5.1"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.38",
+    "vue-router": "^4.1.5"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.1.4",
+    "@types/crypto-js": "^4.1.1",
+    "@types/jsdom": "^20.0.0",
+    "@types/node": "^16.11.56",
+    "@types/qrcode": "^1.5.0",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/test-utils": "^2.0.2",
+    "@vue/tsconfig": "^0.1.3",
+    "eslint": "^8.22.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "jsdom": "^20.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "typescript": "~4.7.4",
+    "vite": "^3.0.9",
+    "vite-plugin-dts": "^1.6.6",
+    "vitest": "^0.23.0",
+    "vue": "^3.2.41",
+    "vue-router": "^4.1.5",
+    "vue-tsc": "^0.40.7"
+  }
+}

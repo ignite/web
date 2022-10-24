@@ -1,0 +1,10 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.node.json",
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "moduleResolution": "Node",
+    "types": ["node", "qrcode", "crypto-js"]
+  }
+}
