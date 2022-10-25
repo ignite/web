@@ -1,50 +1,48 @@
 import { useState } from "react";
-import { useClient } from "../hooks/useClient"
+import { useClient } from "../hooks/useClient";
 
 export const useAddress = () => {
   const client = useClient();
-	const [address, setAddress] = useState({
-		address: '',
-		shortAddress: ''
-	})
-	const getAddress = async () => {		
-		console.log("called");
-		console.log(client.signer);
-		if (client.signer) {
-			const [{ address: rawAddress }] = await client.signer.getAccounts();
-			return {
+  const [address, setAddress] = useState({
+    address: "",
+    shortAddress: "",
+  });
+  const getAddress = async () => {
+    if (client.signer) {
+      const [{ address: rawAddress }] = await client.signer.getAccounts();
+      return {
         address: rawAddress,
-        shortAddress:
-          rawAddress.substring(0, 10) + "..." + rawAddress.slice(-4),
+        shortAddress: rawAddress.substring(0, 10) + "..." + rawAddress.slice(-4),
       };
-		} else {
-			return {
+    } else {
+      return {
         address: "",
         shortAddress: "",
-      };		
-		}
+      };
+    }
   };
-	client.on("signer-changed", async () => {		
-		
-		const newAddress = await getAddress();
-    	setAddress((oldAddress) => {
-			return oldAddress.address!=newAddress.address? newAddress: oldAddress;
-	 	});
+  client.on("signer-changed", async () => {
+    const newAddress = await getAddress();
+    setAddress((oldAddress) => {
+      return oldAddress.address != newAddress.address ? newAddress : oldAddress;
+    });
   });
-	window.addEventListener("keplr_keystorechange", async () => {
-		console.log("kc");
-		const newAddress = await getAddress();
-		setAddress((oldAddress) => {
-			return oldAddress.address!=newAddress.address? newAddress: oldAddress;
-	 	});
+  window.addEventListener("keplr_keystorechange", async () => {
+    console.log("kc");
+    const newAddress = await getAddress();
+    setAddress((oldAddress) => {
+      return oldAddress.address != newAddress.address ? newAddress : oldAddress;
+    });
   });
 
-	(async () => { 
-		const newAddress = await getAddress();
-		setAddress((oldAddress) => {
-			return oldAddress.address!=newAddress.address? newAddress: oldAddress;
-	 	});
-	})();
-  
+  (async () => {
+    const newAddress = await getAddress();
+    if (address.address != newAddress.address) {
+      setAddress((oldAddress) => {
+        return oldAddress.address != newAddress.address ? newAddress : oldAddress;
+      });
+    }
+  })();
+
   return address;
 };

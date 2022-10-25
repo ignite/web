@@ -1,8 +1,7 @@
-
-
 import IgntLink from "./for_react_lib/IgntLink";
 //import IgntAcc from "@/components/IgntAcc.vue";
 import IgntLogo from "./for_react_lib/IgntLogo";
+import IgntAcc from "./IgntAcc";
 
 type MenuItem = {
   label: string;
@@ -10,24 +9,27 @@ type MenuItem = {
   href?: string;
 };
 interface IgntHeaderProps {
-  navItems: Array<MenuItem>
+  navItems: Array<MenuItem>;
 }
 export default function IgntHeader(props: IgntHeaderProps) {
   const { navItems } = props;
-  
-    return (
-      <header className="flex p-5">
-        <IgntLogo className="mx-2.5" />
-        <nav className="flex flex-1 justify-between">
-          <ul className="flex items-center">
-                {navItems.map(item => (<li
-                  className="text-3 px-4 font-normal"
-                  key={item.label}
-                >
-                  <IgntLink item={item}></IgntLink>
-                </li>))}
-          </ul>
-          
-        </nav>
-      </header>)
+
+  return (
+    <header className="flex p-5">
+      <IgntLogo className="mx-2.5" />
+      <nav className="flex flex-1 justify-between">
+        <ul className="flex items-center">
+          {navItems.map((item) => (
+            <li className="text-3 px-4 font-normal" key={item.label}>
+              <IgntLink item={item}></IgntLink>
+            </li>
+          ))}
+        </ul>
+
+        <div>
+          <IgntAcc />
+        </div>
+      </nav>
+    </header>
+  );
 }

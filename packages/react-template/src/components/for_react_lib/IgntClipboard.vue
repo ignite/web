@@ -7,7 +7,7 @@
 import { useClipboard } from "@/def-composables/useClipboard";
 import type { PropType } from "vue";
 import IgntButton from "./IgntButton.vue";
-import IgntCopyIcon from "./icons/IgntCopyIcon.vue";
+import IgntCopyIcon from "./icons/IgntCopyIcon.tsx";
 
 defineProps({
   text: {

@@ -1,22 +1,18 @@
 import { createContext, ReactNode, useContext } from "react";
-import { useAddress } from './useAddress';
+import { useAddress } from "./useAddress";
 
 interface Props {
-  children?: ReactNode
+  children?: ReactNode;
 }
 const AddressContext = createContext({
-    address: '',
-    shortAddress: ''
+  address: "",
+  shortAddress: "",
 });
 
-export const useAddressContext= () => useContext(AddressContext);
+export const useAddressContext = () => useContext(AddressContext);
 
-export default function  AddressProvider({ children }: Props) {
-    const { address, shortAddress} =  useAddress();
+export default function AddressProvider({ children }: Props) {
+  const { address, shortAddress } = useAddress();
 
-    return (
-      <AddressContext.Provider value={{ address, shortAddress}}>
-        {children}
-      </AddressContext.Provider>
-    );
-  };
+  return <AddressContext.Provider value={{ address, shortAddress }}>{children}</AddressContext.Provider>;
+}
