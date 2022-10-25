@@ -7,7 +7,7 @@ export const useAddress = () => {
 		address: '',
 		shortAddress: ''
 	})
-	const getAddress = async () => {
+	const getAddress = async () => {		
 		console.log("called");
 		console.log(client.signer);
 		if (client.signer) {
@@ -25,20 +25,26 @@ export const useAddress = () => {
 		}
   };
 	client.on("signer-changed", async () => {		
-		console.log('sc')
+		
 		const newAddress = await getAddress();
-    setAddress({...newAddress});
+    	setAddress((oldAddress) => {
+			return oldAddress.address!=newAddress.address? newAddress: oldAddress;
+	 	});
   });
 	window.addEventListener("keplr_keystorechange", async () => {
 		console.log("kc");
 		const newAddress = await getAddress();
-    setAddress({ ...newAddress });
+		setAddress((oldAddress) => {
+			return oldAddress.address!=newAddress.address? newAddress: oldAddress;
+	 	});
   });
 
 	(async () => { 
 		const newAddress = await getAddress();
-		setAddress({ ...newAddress });
+		setAddress((oldAddress) => {
+			return oldAddress.address!=newAddress.address? newAddress: oldAddress;
+	 	});
 	})();
-
+  
   return address;
 };

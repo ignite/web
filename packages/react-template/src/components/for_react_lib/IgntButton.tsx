@@ -1,8 +1,18 @@
-<template>
-  <router-link
-    :to="link"
-    v-if="link"
-    class="font-normal text-md rounded-lg"
+import { Link } from "react-router-dom";
+interface IgntButtonProps {
+  link: string;
+  href: string;
+  target: string;
+  type: string;
+  disabled:boolean;
+  busy: boolean;
+}
+export default function IgntButton(props: IgntButtonProps) {
+
+  return (
+    link?
+  <Link to={link} disabled={disabled} className={"font-normal text-md rounded-lg" +}
+    
     :class="{
       'bg-black border-black hover:scale-105 text-white-1000 hover:scale-105 px-5 h-12 border-2':
         type == 'primary',
@@ -56,31 +66,4 @@
     <div class="sp-button__loading">
       <div class="sp-icon sp-icon-Reload"></div>
     </div>
-  </button>
-</template>
-<script setup lang="ts">
-import type { PropType } from "vue";
-
-defineProps({
-  busy: {
-    type: Boolean as PropType<boolean>,
-  },
-  link: {
-    type: String as PropType<string>,
-  },
-  href: {
-    type: String as PropType<string>,
-  },
-  target: {
-    type: String as PropType<string>,
-  },
-  type: {
-    type: String as PropType<string>,
-    default: () => "primary",
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    default: false,
-  },
-});
-</script>
+  </button>)

@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 
 type MenuItem = {
   label: string;
@@ -8,7 +7,7 @@ type MenuItem = {
   href?: string;
 };
 interface IgntLinkProps {
-  item: MenuItem
+  item: MenuItem;
 }
 export default function IgntLink(props: IgntLinkProps) {
   const location = useLocation();
@@ -16,12 +15,20 @@ export default function IgntLink(props: IgntLinkProps) {
   const [isActive, setActive] = useState(item.to == location.pathname);
 
   useEffect(() => {
-    setActive(item.to == location.pathname)
+    setActive(item.to == location.pathname);
   }, [location.pathname]);
 
   if (item.to) {
-    return (<Link to={item.to} className={isActive ? "opacity-100 font-medium" : "opacity-50"}>{item.label}</Link>)
+    return (
+      <Link to={item.to} className={isActive ? "opacity-100 font-medium" : "opacity-50"}>
+        {item.label}
+      </Link>
+    );
   } else {
-    return (<a href="{item.href}" className={isActive ? "opacity-100 font-medium" : "opacity-50"}>{item.label}</a>)
+    return (
+      <a href="{item.href}" className={isActive ? "opacity-100 font-medium" : "opacity-50"}>
+        {item.label}
+      </a>
+    );
   }
 }

@@ -1,27 +1,104 @@
-<template>
-  <div class="sp-acc">
-    <div
-      v-if="wallet"
-      class="shadow-std acc-dd-btn flex items-center p-3 rounded-lg mr-3 hover:bg-gray-100 text-sm font-bold"
-      :class="[state.accountDropdown ? 'active' : '']"
-      style="display: flex; align-items: center"
-      @click="state.accountDropdown = !state.accountDropdown"
+import { useEffect, useState } from "react";
+import useKeplr from "../def-hooks/useKeplr";
+import { useDispatchWalletContext, useWalletContext } from "../def-hooks/walletContext";
+import { useClient } from "../hooks/useClient";
+
+import useCosmosBaseTendermintV1Beta1 from "../hooks/useCosmosBaseTendermintV1Beta1";
+import IgntProfileIcon from "./for_react_lib/icons/IgntProfileIcon";
+
+export interface State {
+  modalPage: string;
+  connectWalletModal: boolean;
+  accountDropdown: boolean;
+  keplrParams: { name: string; bech32Address: string };
+}
+
+export default function IgntAcc() {
+
+  const { connectToKeplr, isKeplrAvailable, getKeplrAccParams } = useKeplr();
+
+  const client = useClient()
+  const walletStore = useWalletContext()
+  const walletActions = useDispatchWalletContext();
+  // methods
+  const wallet = walletStore.activeWallet;
+  const query = useCosmosBaseTendermintV1Beta1();
+  const nodeInfo = query.ServiceGetNodeInfo({});
+  const chainId = nodeInfo.data?.default_node_info?.network ?? ""
+  
+  const initialState: State = {
+    modalPage: "connect",
+    connectWalletModal: false,
+    accountDropdown: false,
+    keplrParams: { name: "", bech32Address: "" },
+  };
+
+  const [state, setState] = useState(initialState);
+  useEffect(()=> {
+    const  getKeplrData = async () => {
+        const { name, bech32Address } = await getKeplrAccParams(chainId);
+        const keplrParams = { name, bech32Address };
+        
+        setState((oldState) => ({...oldState, keplrParams }));
+    };
+    if (chainId!="") {
+      getKeplrData().catch(console.error);
+    }
+  
+  }, [chainId])
+  const tryToConnectToKeplr = (): void => {
+    setState((oldState) => ({...oldState, modalPage: 'connecting' }));
+  
+    const onKeplrConnect = (): void => {
+      setState((oldState) => ({...oldState, connectWalletModal:false, modalPage: 'connect' }));
+    };
+  
+    const onKeplrError = (): void => {
+      setState((oldState) => ({...oldState, modalPage: 'error' }));
+    };
+  
+    connectToKeplr(onKeplrConnect, onKeplrError);
+  }
+
+  const getAccName = (): string => {
+    if (client.signer) {
+      return state.keplrParams.name;
+    } else {
+      return "";
+    }
+  };
+  const disconnect = (): void => {
+    setState((oldState) => ({...oldState, accountDropdown: false }));
+    walletActions.signOut();
+  };
+  if (client.signer) {
+    try {
+      tryToConnectToKeplr();
+    } catch (e) {
+      console.warn("Keplr not connected");
+    }
+  }
+  return (
+  <div className="sp-acc">
+    {wallet 
+    ?  (<div
+      
+      className={"shadow-std acc-dd-btn flex items-center p-3 rounded-lg mr-3 hover:bg-gray-100 text-sm font-bold " + (state.accountDropdown ? 'active' : '' )}      
+      onClick={() => {state.accountDropdown = !state.accountDropdown}}
     >
-      <div class="flex items-center">
-        <IgntProfileIcon :address="state.keplrParams?.bech32Address" />
-        <span class="mx-2">
-          {{ getAccName() }}
-        </span>
+      <div className="flex items-center">
+        <IgntProfileIcon address={state.keplrParams?.bech32Address} />
+        <span className="mx-2">{ getAccName() }</span>
       </div>
-    </div>
-    <IgntButton
+    </div>)
+    : (<IgntButton
       v-else
       aria-label="Connect wallet"
       type="primary"
       @click="state.connectWalletModal = true"
     >
       Connect wallet
-    </IgntButton>
+    </IgntButton>)
     <IgntAccDropdown
       v-if="state.accountDropdown && wallet"
       :wallet="wallet"
@@ -124,97 +201,5 @@
       </template>
     </IgntModal>
   </div>
-</template>
-
-<script setup lang="ts">
-import { computed, onMounted, reactive, watch } from "vue";
-import useKeplr from "@/def-composables/useKeplr";
-import IgntAccDropdown from "./IgntAccDropdown.vue";
-import { IgntButton } from "@ignt/vue-library";
-import { IgntExternalArrowIcon } from "@ignt/vue-library";
-import { IgntKeplrIcon } from "@ignt/vue-library";
-import { IgntModal } from "@ignt/vue-library";
-import { IgntProfileIcon } from "@ignt/vue-library";
-import { IgntSpinner } from "@ignt/vue-library";
-import { IgntWarningIcon } from "@ignt/vue-library";
-import { useClient } from "@/composables/useClient";
-import { useWalletStore } from "@/stores/useWalletStore";
-import useCosmosBaseTendermintV1Beta1 from "@/composables/useCosmosBaseTendermintV1Beta1";
-
-export interface State {
-  modalPage: string;
-  connectWalletModal: boolean;
-  accountDropdown: boolean;
-  keplrParams: { name: string; bech32Address: string };
-}
-
-const initialState: State = {
-  modalPage: "connect",
-  connectWalletModal: false,
-  accountDropdown: false,
-  keplrParams: { name: "", bech32Address: "" },
-};
-
-// state
-const state = reactive(initialState);
-
-// composables
-const { connectToKeplr, isKeplrAvailable, getKeplrAccParams } = useKeplr();
-
-const client = useClient();
-const walletStore = useWalletStore();
-// methods
-const wallet = computed(() => walletStore.getWallet);
-const query = useCosmosBaseTendermintV1Beta1();
-const nodeInfo = query.ServiceGetNodeInfo({});
-const chainId = computed(
-  () => nodeInfo.data?.value?.default_node_info?.network ?? ""
-);
-watch(
-  () => chainId.value,
-  async (newVal) => {
-    if (newVal != "") {
-      let { name, bech32Address } = await getKeplrAccParams(newVal);
-      state.keplrParams.name = name;
-      state.keplrParams.bech32Address = bech32Address;
-    }
+)
   }
-);
-
-let tryToConnectToKeplr = (): void => {
-  state.modalPage = "connecting";
-
-  let onKeplrConnect = async () => {
-    state.connectWalletModal = false;
-    state.modalPage = "connect";
-  };
-
-  let onKeplrError = (): void => {
-    state.modalPage = "error";
-  };
-
-  connectToKeplr(onKeplrConnect, onKeplrError);
-};
-let getAccName = (): string => {
-  if (client.signer) {
-    return state.keplrParams.name;
-  } else {
-    return "";
-  }
-};
-let disconnect = (): void => {
-  state.accountDropdown = false;
-  walletStore.signOut();
-};
-
-// check if already connected
-onMounted(async () => {
-  if (client.signer) {
-    try {
-      await tryToConnectToKeplr();
-    } catch (e) {
-      console.warn("Keplr not connected");
-    }
-  }
-});
-</script>

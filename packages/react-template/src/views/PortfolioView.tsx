@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useClient } from "../hooks/useClient"
-import { useAddress } from "../def-hooks/useAddress";
-import { useEffect } from "react";
+import { useClient } from "../hooks/useClient";
+import { useAddressContext } from "../def-hooks/addressContext";
+
 export default function PortfolioView() {
   const client = useClient();
-  const address = useAddress();
+  const address = useAddressContext();
   const login = () => {
     client.useKeplr();    
   }
