@@ -1,5 +1,5 @@
 export const env = {
-  apiURL: "http://localhost:1317",
-  rpcURL: "http://localhost:26657",
+  apiURL: "https://api.cosmos.network",
+  rpcURL: "https://rpc.cosmos.network",
   prefix: "cosmos",
 };

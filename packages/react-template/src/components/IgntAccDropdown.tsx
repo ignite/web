@@ -37,11 +37,11 @@ export default function IgntAccDropdown(props: IgntAccDropdownProps) {
   const query = useCosmosBaseTendermintV1Beta1();
   const nodeInfo = query.ServiceGetNodeInfo({});
   const { address, shortAddress } = useAddressContext();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { copy } = useClipboard();
   const { apiConnected, rpcConnected, wsConnected } = useConnectionStatus();
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target)) {
         props.close();
         setState((oldState) => ({ ...oldState, currentUIState: UI_STATE.DEFAULT }));

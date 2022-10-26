@@ -80,6 +80,7 @@ export default function IgntAcc() {
     setState((oldState) => ({ ...oldState, accountDropdown: false }));
     walletActions.signOut();
   };
+  /*
   if (client.signer) {
     try {
       connectToKeplr(
@@ -90,6 +91,7 @@ export default function IgntAcc() {
       console.warn("Keplr not connected");
     }
   }
+  */
   return (
     <div className="sp-acc">
       {wallet ? (
@@ -99,7 +101,7 @@ export default function IgntAcc() {
             (state.accountDropdown ? "active" : "")
           }
           onClick={() => {
-            state.accountDropdown = !state.accountDropdown;
+            setState((oldState) => ({ ...oldState, accountDropdown: !oldState.accountDropdown }));
           }}
         >
           <div className="flex items-center">
