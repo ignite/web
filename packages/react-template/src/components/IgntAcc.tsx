@@ -135,6 +135,7 @@ export default function IgntAcc() {
         closeIcon={false}
         cancelButton={false}
         submitButton={false}
+        className="text-center"
         close={() => {
           setState((oldState) => ({ ...oldState, connectWalletModal: false }));
         }}

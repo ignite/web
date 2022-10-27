@@ -41,7 +41,7 @@ export default function IgntAccDropdown(props: IgntAccDropdownProps) {
   const { apiConnected, rpcConnected, wsConnected } = useConnectionStatus();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         props.close();
         setState((oldState) => ({ ...oldState, currentUIState: UI_STATE.DEFAULT }));
       }

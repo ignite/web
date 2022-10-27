@@ -18,6 +18,7 @@ interface IgntModalProps {
   footer?: ReactNode;
   submit?: () => void;
   close?: () => void;
+  className?: string;
 }
 export default function IgntModal(props: IgntModalProps) {
   const escapeHandler = (evt: { key: string }) => {
@@ -35,7 +36,7 @@ export default function IgntModal(props: IgntModalProps) {
           onClick={() => props.close && props.close()}
         >
           <div
-            className="shadow-std relative max-h-screen text-center"
+            className={`shadow-std relative max-h-screen ${props.className ?? ""}`}
             role="dialog"
             tabIndex={0}
             onClick={(e) => {
