@@ -1,13 +1,11 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import useCosmosBankV1Beta1 from "../hooks/useCosmosBankV1Beta1";
 import { useAddressContext } from "./addressContext";
 import { useDenomContext } from "./denomContext";
-import { useDenom } from "./useDenom";
 
 export const useAssets = (perPage: number) => {
   // composables
   const { address } = useAddressContext();
-  const { setDenom } = useDenomContext();
   const { QueryAllBalances } = useCosmosBankV1Beta1();
   const enabled = useMemo(() => {
     return address != "";

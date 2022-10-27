@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Children, cloneElement, ReactElement, ReactFragment, ReactNode, useEffect, useRef, useState } from "react";
+import { Children, cloneElement, ReactElement, ReactNode, useRef, useState } from "react";
 import "./IgntTabs.css";
 
 interface IgntTabsProps {
