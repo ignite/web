@@ -67,48 +67,50 @@ export default function IgntTransactions(props: IgntTransactionsProps) {
       </header>
       {txs.length > 0 ? (
         <table className="table-auto w-full">
-          {txs.map((tx, i) => (
-            <tr key={tx.txhash + "_" + i}>
-              <td className="flex text-xs py-2">
-                <div
-                  className={cx({
-                    "text-2xl w-10 h-10 rounded-sm bg-gray-200 flex items-center justify-center mr-2": true,
-                    "rotate-180 text-green-500": tx.type == "received",
-                    "text-error": tx.type == "sent",
-                  })}
-                >
-                  <IgntTxArrowIcon />
-                </div>
-                <div className="flex flex-col justify-between flex-1">
-                  <div className="font-medium">
-                    {shortenHash(tx.txhash ?? "")}
-                    <span className="font-bold text-warning">{tx.ibc ? "IBC" : ""}</span>
+          <tbody>
+            {txs.map((tx, i) => (
+              <tr key={tx.txhash + "_" + i}>
+                <td className="flex text-xs py-2">
+                  <div
+                    className={cx({
+                      "text-2xl w-10 h-10 rounded-sm bg-gray-200 flex items-center justify-center mr-2": true,
+                      "rotate-180 text-green-500": tx.type == "received",
+                      "text-error": tx.type == "sent",
+                    })}
+                  >
+                    <IgntTxArrowIcon />
                   </div>
-                  <div className="opacity-60">{dayjs(tx.timestamp).format("MMMM D YYYY, h:mma")}</div>
-                </div>
-                <div className="flex flex-col justify-between items-end">
-                  <div className="font-medium text-right text-xs text-gray-600 inline">
-                    {tx.amount.map((amount, index) => (
-                      <span
-                        key={tx.txhash + "_" + i + "_" + index}
-                        className={cx({
-                          "p-1 rounded-md": true,
-                          "bg-green-200": tx.type == "received",
-                          "bg-red-200": tx.type == "sent",
-                        })}
-                      >
-                        {tx.type == "received" ? "+" + amount.amount : -amount.amount}
-                        <IgntDenom denom={amount.denom ?? ""} />
-                      </span>
-                    ))}
+                  <div className="flex flex-col justify-between flex-1">
+                    <div className="font-medium">
+                      {shortenHash(tx.txhash ?? "")}
+                      <span className="font-bold text-warning">{tx.ibc ? "IBC" : ""}</span>
+                    </div>
+                    <div className="opacity-60">{dayjs(tx.timestamp).format("MMMM D YYYY, h:mma")}</div>
                   </div>
-                  <div className="opacity-60">
-                    {tx.type == "received" ? "from: " + tx.sender : "to: " + tx.receiver}
+                  <div className="flex flex-col justify-between items-end">
+                    <div className="font-medium text-right text-xs text-gray-600 inline">
+                      {tx.amount.map((amount, index) => (
+                        <span
+                          key={tx.txhash + "_" + i + "_" + index}
+                          className={cx({
+                            "p-1 rounded-md": true,
+                            "bg-green-200": tx.type == "received",
+                            "bg-red-200": tx.type == "sent",
+                          })}
+                        >
+                          {tx.type == "received" ? "+" + amount.amount : -amount.amount}
+                          <IgntDenom denom={amount.denom ?? ""} />
+                        </span>
+                      ))}
+                    </div>
+                    <div className="opacity-60">
+                      {tx.type == "received" ? "from: " + tx.sender : "to: " + tx.receiver}
+                    </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-          ))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       ) : (
         <div className="text-left text-black opacity-75 text-md font-normal py-8">Transaction history is empty</div>

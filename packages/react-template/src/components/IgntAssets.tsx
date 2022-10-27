@@ -8,7 +8,7 @@ import { useAddressContext } from "../def-hooks/addressContext";
 import IgntSearchIcon from "../components/for_react_lib/icons/IgntSearchIcon";
 import IgntClearIcon from "../components/for_react_lib/icons/IgntClearIcon";
 import IgntArrowIcon from "../components/for_react_lib/icons/IgntArrowIcon";
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 interface IgntAssetsProps {
   className?: string;
@@ -54,8 +54,8 @@ export default function IgntAssets(props: IgntAssetsProps) {
     }));
   };
 
-  const resetDisplayLimit = () => {
-    setState((oldState) => ({ ...oldState, displayLimit: displayLimit }));
+  const resetDisplayLimit = (evt: ChangeEvent<HTMLInputElement>) => {
+    setState((oldState) => ({ ...oldState, displayLimit: displayLimit, searchQuery: evt.target.value }));
   };
 
   const resetSearch = () => {
@@ -76,18 +76,18 @@ export default function IgntAssets(props: IgntAssetsProps) {
               type="search"
               autoComplete="off"
               placeholder="Search assets"
+              value={state.searchQuery}
               className="w-48 -ml-8 pl-10 pr-10 leading-12 h-12 appearance-none outline-none border-none rounded-xl focus:shadow-outline"
               onChange={(evt) => {
-                resetDisplayLimit();
+                resetDisplayLimit(evt);
                 return evt;
               }}
             />
             {state.searchQuery && (
               <div
                 className="z-50 absolute mr-4"
-                onClick={(e) => {
+                onClick={() => {
                   resetSearch();
-                  e.preventDefault();
                 }}
               >
                 <IgntClearIcon />
@@ -124,7 +124,7 @@ export default function IgntAssets(props: IgntAssetsProps) {
           {noSearchResults ? (
             <tr>
               <td className="text-center text-black text-md font-bold py-10" colSpan={3}>
-                <h4>No results for &lsquo;{state.searchQuery}&wsquo;</h4>
+                <h4>No results for &lsquo;{state.searchQuery}&rsquo;</h4>
                 <p className="text-sm font-normal">Try again with another search</p>
               </td>
             </tr>

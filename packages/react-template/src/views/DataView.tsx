@@ -1,3 +1,3 @@
 export default function PortfolioView() {
-	return (<div>Data</div>)
+  return <div>Data</div>;
 }

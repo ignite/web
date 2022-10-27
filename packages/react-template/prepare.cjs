@@ -8,8 +8,8 @@ for (let pkg in pkgjson.dependencies) {
       "\x1b[31m%s\x1b[0m",
       `Package '${pkg}' located at '${pkgjson.dependencies[pkg].replace(
         "file:",
-        ""
-      )}' needs to be published and your package.json file updated.`
+        "",
+      )}' needs to be published and your package.json file updated.`,
     );
   }
 }

@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useDenomContext } from "../def-hooks/denomContext";
 import { useDenom } from "../def-hooks/useDenom";
 
 import "./IgntDenom.css";
@@ -14,7 +13,7 @@ interface IgntDenomProps {
   className?: string;
 }
 export default function IgntDenom(props: IgntDenomProps) {
-  const { normalized, path, pathExtracted } = useDenom(props.denom);
+  const { normalized, pathExtracted } = useDenom(props.denom);
   const short = useMemo(() => {
     if (normalized.length > 15) {
       return normalized.slice(0, 4) + "..." + normalized.slice(-4);

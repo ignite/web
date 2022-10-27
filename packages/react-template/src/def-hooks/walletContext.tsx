@@ -70,6 +70,8 @@ export default function WalletProvider({ children }: Props) {
     window.localStorage.setItem("wallets", JSON.stringify(wallets));
   };
   const signOut = () => {
+    const client = useClient();
+    client.removeSigner();
     setActiveClient(null);
     setActiveWallet(null);
   };

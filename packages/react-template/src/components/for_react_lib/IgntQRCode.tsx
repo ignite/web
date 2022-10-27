@@ -1,5 +1,5 @@
 import { toCanvas } from "qrcode";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface IgntQRCodeProps {
   value?: string;
@@ -18,8 +18,9 @@ export default function IgntQRCode(props: IgntQRCodeProps) {
       light: props.background,
     },
   };
-
-  toCanvas(canvas.current, props.value ?? "", options);
+  useEffect(() => {
+    toCanvas(canvas.current, props.value ?? "", options);
+  }, [props.value, props.width, props.color]);
 
   return <canvas ref={canvas} className={"qr-code " + (props.className ?? "")} />;
 }

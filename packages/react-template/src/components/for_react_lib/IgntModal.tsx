@@ -23,17 +23,10 @@ export default function IgntModal(props: IgntModalProps) {
   const escapeHandler = (evt: { key: string }) => {
     if (evt.key === "Escape") props.close && props.close();
   };
-  /*
-  useEffect(()=>)
-    () => props.visible,
-    (newVal) => {
-      if (newVal) {
-        document.addEventListener("keyup", escapeHandler);
-      } else {
-        document.removeEventListener("keyup", escapeHandler);
-      }
-    }
-  );*/
+  useEffect(() => {
+    document.addEventListener("keyup", escapeHandler);
+    return () => document.removeEventListener("keyup", escapeHandler);
+  }, []);
   return (
     <>
       {props.visible && (

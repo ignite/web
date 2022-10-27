@@ -3,6 +3,7 @@ import IgntCard from "./for_react_lib/IgntCard";
 import IgntClipboard from "./for_react_lib/IgntClipboard";
 import IgntQRCode from "./for_react_lib/IgntQRCode";
 import IgntTabs from "./for_react_lib/IgntTabs";
+import IgntSend from "./IgntSend";
 interface IgntTransferProps {
   className?: string;
 }
@@ -17,7 +18,7 @@ export default function IgntTransfer(props: IgntTransferProps) {
       className={props.className ?? ""}
     >
       <div className="" title="Send">
-       
+        {address && <IgntSend />}
       </div>
       <div className="" title="Receive">
         {address && (

@@ -10,7 +10,6 @@ import IgntProfileIcon from "./for_react_lib/icons/IgntProfileIcon";
 import IgntCopyIcon from "./for_react_lib/icons/IgntCopyIcon";
 import IgntChevronRightIcon from "./for_react_lib/icons/IgntChevronRightIcon";
 import IgntExternalArrowIcon from "./for_react_lib/icons/IgntExternalArrowIcon";
-import ReactDOM from "react-dom";
 
 interface IgntAccDropdownProps {
   wallet: Wallet;
