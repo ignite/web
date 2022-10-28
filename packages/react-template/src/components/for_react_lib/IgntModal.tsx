@@ -32,7 +32,7 @@ export default function IgntModal(props: IgntModalProps) {
     <>
       {props.visible && (
         <div
-          className="fixed inset-0 flex justify-center items-center bg-gray-330"
+          className="fixed inset-0 flex justify-center items-center bg-gray-330 z-50"
           onClick={() => props.close && props.close()}
         >
           <div

@@ -56,7 +56,7 @@ export default function IgntAcc() {
     }
   }, [chainId]);
   const tryToConnectToKeplr = (): void => {
-    setState((oldState) => ({ ...oldState, modalPage: "connecting" }));
+    setState((oldState) => ({ ...oldState, modalPage: "connect" }));
 
     const onKeplrConnect = (): void => {
       setState((oldState) => ({ ...oldState, connectWalletModal: false, modalPage: "connect" }));
@@ -80,18 +80,7 @@ export default function IgntAcc() {
     setState((oldState) => ({ ...oldState, accountDropdown: false }));
     walletActions.signOut();
   };
-  /*
-  if (client.signer) {
-    try {
-      connectToKeplr(
-        () => {},
-        () => {},
-      );
-    } catch (e) {
-      console.warn("Keplr not connected");
-    }
-  }
-  */
+  
   return (
     <div className="sp-acc">
       {wallet ? (
@@ -149,15 +138,15 @@ export default function IgntAcc() {
               {isKeplrAvailable ? <h3 className="text-2xl font-bold">Connect your wallet</h3> : <h3>Install Keplr</h3>}
             </div>
           ) : state.modalPage === "connecting" ? (
-            <div>
-              <div className="description-grey">Opening Keplr</div>
-              <h3>Connecting</h3>
+            <div className="flex items-center flex-col my-3">
+              <div className="description-grey text-sm">Opening Keplr</div>
+              <h3 className="text-2xl font-bold">Connecting</h3>
             </div>
           ) : (
             state.modalPage === "error" && (
-              <div>
+              <div className="flex items-center flex-col my-3">
                 <IgntWarningIcon className="mb-4" />
-                <h3>Keplr cannot launch</h3>
+                <h3 className="text-2xl font-bold">Keplr cannot launch</h3>
               </div>
             )
           )
@@ -174,7 +163,7 @@ export default function IgntAcc() {
               </div>
             ) : state.modalPage === "connecting" ? (
               <div>
-                <div className="mt-8">
+                <div className="mt-8 flex justify-center">
                   <IgntSpinner />
                 </div>
                 <IgntButton
@@ -185,14 +174,16 @@ export default function IgntAcc() {
                 >
                   Cancel
                 </IgntButton>
-                <div className="external-link mt-8">Having trouble opening Keplr?</div>
+                <div className="external-link mt-8 text-sm text-gray-500 hover:text-black hover:cursor-pointer">
+                  Having trouble opening Keplr?
+                </div>
               </div>
             ) : (
               state.modalPage === "error" && (
                 <div className="py-5">
-                  <div className="external-link">
+                  <div className="flex items-center justify-center">
                     <span>Keplr troubleshooting</span>
-                    <IgntExternalArrowIcon className="ml-2" />
+                    <IgntExternalArrowIcon className="ml-1" />
                   </div>
                 </div>
               )

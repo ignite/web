@@ -34,6 +34,8 @@ export default function IgntCrudDelete(props: IgntCrudDeleteProps) {
     <IgntModal
       visible={true}
       closeIcon={true}
+      cancelButton={false}
+      submitButton={false}
       close={() => props.close()}
       submit={() => props.close()}
       header={

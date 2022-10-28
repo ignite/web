@@ -27,7 +27,7 @@ const initialState: State = {
 export default function IgntCrud(props: IgntCrudProps) {
   const { className, storeName, itemName } = props;
 
-  const reader = useRef<IgntCrudRead>(null);
+  const reader = useRef<{ refetch: () => void }>(null);
   const { address } = useAddressContext();
   const client = useClient();
   initialState.moduleAvailable = !!(client as any)[props.storeName];
@@ -38,7 +38,9 @@ export default function IgntCrud(props: IgntCrudProps) {
   const moduleNameNormalized = useMemo(() => itemName.replace(/^\w/, (c) => c.toUpperCase()), [itemName]);
   const closeAndReload = () => {
     setState((oldState) => ({ ...oldState, visibleModal: "" }));
-    reader.current.refetch();
+    if (reader.current) {
+      reader.current.refetch();
+    }
   };
   return (
     <>
@@ -80,9 +82,7 @@ export default function IgntCrud(props: IgntCrudProps) {
               storeName={storeName}
               itemName={moduleNameNormalized}
               commandName={`sendMsgCreate${moduleNameNormalized}`}
-              close={() => {
-                setState((oldState) => ({ ...oldState, visibleModal: "" }));
-              }}
+              close={closeAndReload}
             />
           )}
           {state.visibleModal === "edit-item" && (
@@ -91,9 +91,7 @@ export default function IgntCrud(props: IgntCrudProps) {
               itemName={moduleNameNormalized}
               itemData={state.activeItem}
               commandName={`sendMsgUpdate${moduleNameNormalized}`}
-              close={() => {
-                setState((oldState) => ({ ...oldState, visibleModal: "" }));
-              }}
+              close={closeAndReload}
             />
           )}
           {state.visibleModal === "delete-item" && (
@@ -102,9 +100,7 @@ export default function IgntCrud(props: IgntCrudProps) {
               itemName={moduleNameNormalized}
               itemData={state.activeItem}
               commandName={`sendMsgDelete${moduleNameNormalized}`}
-              close={() => {
-                setState((oldState) => ({ ...oldState, visibleModal: "" }));
-              }}
+              close={closeAndReload}
             />
           )}
         </div>
@@ -112,55 +108,3 @@ export default function IgntCrud(props: IgntCrudProps) {
     </>
   );
 }
-/*
-<script setup lang="ts">
-import { computed, reactive, ref, toRefs } from "vue";
-
-import { useAddress } from "@/def-composables/useAddress";
-import { IgntButton } from "@ignt/vue-library";
-
-import IgntCrudCreate from "./IgntCrudCreate.vue";
-import IgntCrudUpdate from "./IgntCrudUpdate.vue";
-import IgntCrudDelete from "./IgntCrudDelete.vue";
-import IgntCrudRead from "./IgntCrudRead.vue";
-import { useClient } from "@/composables/useClient";
-
-export interface State {
-  visibleModal: string;
-  activeItem: any;
-  moduleAvailable: boolean;
-}
-
-let initialState: State = {
-  visibleModal: "",
-  activeItem: {},
-  moduleAvailable: false,
-};
-const reader = ref<any>(null);
-const props = defineProps({
-  storeName: {
-    type: String,
-    required: true,
-  },
-
-  itemName: {
-    type: String,
-    required: true,
-  },
-});
-
-// composables
-let { address } = useAddress();
-const client = useClient();
-// state
-let state: State = reactive(initialState);
-
-// computed
-let moduleNameNormalized = computed(() =>
-  props.itemName.replace(/^\w/, (c) => c.toUpperCase())
-);
-
-state.moduleAvailable = !!(client as any)[props.storeName];
-const { activeItem, moduleAvailable, visibleModal } = toRefs(state);
-</script>
-*/
