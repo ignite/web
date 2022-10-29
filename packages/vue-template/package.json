@@ -55,5 +55,9 @@
     "preview": "vite preview --port 4173",
     "type-check": "vue-tsc --noEmit"
   },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
   "version": "0.0.0"
 }

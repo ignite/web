@@ -13,6 +13,10 @@
   "main": "./dist/react-library.umd.js",
   "module": "./dist/react-library.mjs",
   "types": "./dist/index.d.ts",
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
   "exports": {
     ".": {
       "import": "./dist/react-library.mjs",

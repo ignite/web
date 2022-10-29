@@ -10,6 +10,10 @@
     "postinstall": "node postinstall.cjs",
     "prepare": "node prepare.cjs"
   },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
   "dependencies": {
     "@cosmjs/encoding": "^0.29.3",
     "@cosmjs/stargate": "^0.29.3",

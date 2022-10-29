@@ -13,6 +13,10 @@
   "main": "./dist/vue-library.umd.js",
   "module": "./dist/vue-library.mjs",
   "types": "./dist/index.d.ts",
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
   "exports": {
     ".": {
       "import": "./dist/vue-library.mjs",
