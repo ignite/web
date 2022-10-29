@@ -35,7 +35,7 @@ export const useTransactions = () => {
   });
   const allReceived = computed(() => {
     return (
-      sentQuery.data.value?.pages.reduce((txs, page) => {
+      receivedQuery.data.value?.pages.reduce((txs, page) => {
         if (page.tx_responses) {
           return txs.concat(page.tx_responses);
         } else {

@@ -62,7 +62,7 @@
       Transaction history is empty
     </div>
     <div
-      v-if="(hasMoreReceived || hasMoreSent)"
+      v-if="hasMoreReceived || hasMoreSent"
       class="shadow-std flex items-center justify-center w-40 rounded-full text-sm font-medium mx-auto inset-x-0 py-2"
       @click="onShowMore"
     >
@@ -81,7 +81,8 @@ import { computed } from "vue";
 import IgntDenom from "./IgntDenom.vue";
 import { IgntArrowIcon } from "@ignt/vue-library";
 
-const { transferTxs, hasMoreReceived, hasMoreSent, fetchReceived, fetchSent } = useTransactions();
+const { transferTxs, hasMoreReceived, hasMoreSent, fetchReceived, fetchSent } =
+  useTransactions();
 const txs = computed(() => {
   return transferTxs.value?.map((x) => normalizeTX(x)) ?? [];
 });
@@ -92,7 +93,7 @@ const onShowMore = () => {
   if (hasMoreReceived?.value) {
     fetchReceived();
   }
-}
+};
 const shortenHash = (hash: string) => {
   return hash.slice(0, 6) + "..." + hash.slice(-6);
 };

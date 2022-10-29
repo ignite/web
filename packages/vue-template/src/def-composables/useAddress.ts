@@ -36,4 +36,4 @@ export const useAddress = () => {
     addressInstance = useAddressInstance();
   }
   return addressInstance;
-}
+};

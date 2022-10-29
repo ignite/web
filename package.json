@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "purge": "lerna exec -- rm -rf node_modules",
-    "build": "lerna  run build --scope='{@ignt/vue-library}' --include-dependencies"
+    "build": "lerna  run build --scope='{@ignt/vue-library,@ignt/react-library}' --include-dependencies"
   },
   "repository": {
     "type": "git",

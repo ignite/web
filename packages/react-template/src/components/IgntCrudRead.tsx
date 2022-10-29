@@ -2,8 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { useClient } from "../hooks/useClient";
 import { useAddressContext } from "../def-hooks/addressContext";
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from "react";
-import {IgntFileIcon} from "@ignt/react-lib";
-import {IgntDotsIcon} from "@ignt/react-lib";
+import { IgntFileIcon, IgntDotsIcon } from "@ignt/react-library";
 
 interface IgntCrudReadProps {
   className?: string;

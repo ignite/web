@@ -2,7 +2,7 @@
   <transition name="modal-fade">
     <div
       v-if="visible"
-      class="fixed inset-0 flex justify-center items-center bg-gray-330"
+      class="fixed inset-0 flex justify-center items-center bg-gray-330 z-50"
       @click="emit('close')"
     >
       <div

@@ -20,7 +20,7 @@ export type EncodedWallet = {
 export type Amount = {
   amount: string;
   denom: string;
-}
+};
 export type ColoredAmount = Amount & { color: string };
 export interface DenomTrace {
   denom_trace: { path: string; base_denom: string };

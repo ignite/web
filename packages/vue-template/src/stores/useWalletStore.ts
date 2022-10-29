@@ -33,7 +33,7 @@ export const useWalletStore = defineStore("wallet", {
         return null;
       }
     },
-    getNameAvailable: (state) => (name:string) => {
+    getNameAvailable: (state) => (name: string) => {
       return state.wallets.findIndex((x) => x.name == name) == -1;
     },
     getLastWallet: (state) => {

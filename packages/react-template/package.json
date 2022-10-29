@@ -11,8 +11,9 @@
     "prepare": "node prepare.cjs"
   },
   "dependencies": {
-    "@cosmjs/encoding": "^0.29.2",
-    "@cosmjs/stargate": "^0.29.2",
+    "@cosmjs/encoding": "^0.29.3",
+    "@cosmjs/stargate": "^0.29.3",
+    "@ignt/react-library": "^0.3.10",
     "@headlessui/react": "^1.7.3",
     "@headlessui/tailwindcss": "^0.1.1",
     "@tanstack/react-query": "^4.13.0",
@@ -31,8 +32,8 @@
     "react-router-dom": "^6.4.2"
   },
   "devDependencies": {
-    "@cosmjs/proto-signing": "^0.29.2",
-    "@keplr-wallet/types": "^0.11.12",
+    "@cosmjs/proto-signing": "^0.29.3",
+    "@keplr-wallet/types": "^0.11.13",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/crypto-js": "^4.1.1",
@@ -40,12 +41,12 @@
     "@types/jsdom": "^20.0.0",
     "@types/node": "^18.11.7",
     "@types/qrcode": "^1.5.0",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.40.1",
-    "@typescript-eslint/parser": "^5.40.1",
-    "@vitejs/plugin-react": "^2.1.0",
-    "autoprefixer": "^10.4.12",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "@vitejs/plugin-react": "^2.2.0",
+    "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -58,7 +59,7 @@
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.2.1",
-    "typescript": "^4.6.4",
-    "vite": "^3.1.0"
+    "typescript": "^4.8.4",
+    "vite": "^3.2.1"
   }
 }

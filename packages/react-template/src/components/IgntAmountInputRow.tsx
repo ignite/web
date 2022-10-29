@@ -3,7 +3,7 @@ import cx from "classnames";
 import { useAsset } from "../def-hooks/useAsset";
 import BigNumber from "bignumber.js";
 import { useEffect, useMemo, useState } from "react";
-import {IgntAmountInput} from "@ignt/react-lib";
+import { IgntAmountInput } from "@ignt/react-library";
 import IgntDenom from "./IgntDenom";
 
 interface IgntAmountInputRowProps {

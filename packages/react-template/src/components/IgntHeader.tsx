@@ -1,5 +1,4 @@
-import {IgntLink} from "@ignt/react-lib";
-import {IgntLogo} from "@ignt/react-lib";
+import { IgntLink, IgntLogo } from "@ignt/react-library";
 import IgntAcc from "./IgntAcc";
 
 type MenuItem = {

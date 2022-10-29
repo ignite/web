@@ -8,14 +8,16 @@ import { useClient } from "../hooks/useClient";
 
 import useCosmosBaseTendermintV1Beta1 from "../hooks/useCosmosBaseTendermintV1Beta1";
 import { Wallet } from "../utils/interfaces";
-import {IgntProfileIcon} from "@ignt/react-lib";
-import {IgntWarningIcon} from "@ignt/react-lib";
-import {IgntKeplrIcon} from "@ignt/react-lib";
-import {IgntButton} from "@ignt/react-lib";
-import {IgntModal} from "@ignt/react-lib";
+import {
+  IgntProfileIcon,
+  IgntWarningIcon,
+  IgntKeplrIcon,
+  IgntButton,
+  IgntModal,
+  IgntExternalArrowIcon,
+  IgntSpinner,
+} from "@ignt/react-library";
 import IgntAccDropdown from "./IgntAccDropdown";
-import {IgntExternalArrowIcon} from "@ignt/react-lib";
-import {IgntSpinner} from "@ignt/react-lib";
 
 export interface State {
   modalPage: string;
@@ -80,7 +82,7 @@ export default function IgntAcc() {
     setState((oldState) => ({ ...oldState, accountDropdown: false }));
     walletActions.signOut();
   };
-  
+
   return (
     <div className="sp-acc">
       {wallet ? (

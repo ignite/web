@@ -1,8 +1,5 @@
 import { useAddressContext } from "../def-hooks/addressContext";
-import {IgntCard} from "@ignt/react-lib";
-import {IgntClipboard} from "@ignt/react-lib";
-import {IgntQRCode} from "@ignt/react-lib";
-import {IgntTabs} from "@ignt/react-lib";
+import { IgntCard, IgntClipboard, IgntQRCode, IgntTabs } from "@ignt/react-library";
 import IgntSend from "./IgntSend";
 interface IgntTransferProps {
   className?: string;

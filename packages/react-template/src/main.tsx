@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
 import "./index.css";
+import "@ignt/react-library/dist/style.css";
 import AddressProvider from "./def-hooks/addressContext";
 
 import DenomProvider from "./def-hooks/denomContext";

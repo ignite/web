@@ -3,9 +3,7 @@
 import { useMemo, useState } from "react";
 import { useDenomContext } from "../def-hooks/denomContext";
 import { Amount } from "../utils/interfaces";
-import {IgntAddIcon} from "@ignt/react-lib";
-import {IgntSearchIcon} from "@ignt/react-lib";
-import {IgntModal} from "@ignt/react-lib";
+import { IgntAddIcon, IgntSearchIcon, IgntModal } from "@ignt/react-library";
 import IgntAmountInputRow from "./IgntAmountInputRow";
 import IgntDenom from "./IgntDenom";
 
