@@ -1,7 +1,7 @@
 import { Suspense, useMemo, useRef, useState } from "react";
 import { useAddressContext } from "../def-hooks/addressContext";
 import { useClient } from "../hooks/useClient";
-import IgntButton from "./for_react_lib/IgntButton";
+import {IgntButton} from "@ignt/react-lib";
 import IgntCrudCreate from "./IgntCrudCreate";
 import IgntCrudDelete from "./IgntCrudDelete";
 import IgntCrudRead from "./IgntCrudRead";

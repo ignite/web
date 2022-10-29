@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useTransactions } from "../def-hooks/useTransactions";
-import IgntTxArrowIcon from "../components/for_react_lib/icons/IgntTxArrowIcon";
+import {IgntTxArrowIcon} from "@ignt/react-lib";
 import dayjs from "dayjs";
 import IgntDenom from "./IgntDenom";
-import IgntArrowIcon from "../components/for_react_lib/icons/IgntArrowIcon";
+import {IgntArrowIcon} from "@ignt/react-lib";
 import { useMemo } from "react";
 import cx from "classnames";
 

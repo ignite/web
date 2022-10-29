@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import { useAddressContext } from "../def-hooks/addressContext";
 import { useClient } from "../hooks/useClient";
-import IgntModal from "./for_react_lib/IgntModal";
-
+import {IgntModal} from "@ignt/react-lib";
 interface IgntCrudCreateProps {
   className?: string;
   storeName: string;

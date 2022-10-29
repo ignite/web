@@ -2,14 +2,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import useCosmosBaseTendermintV1Beta1 from "../hooks/useCosmosBaseTendermintV1Beta1";
 import { useConnectionStatus } from "../def-hooks/useConnectionStatus";
-import { useClipboard } from "../def-hooks/useClipboard";
+import { useClipboard } from "@ignt/react-lib";
 import { useAddressContext } from "../def-hooks/addressContext";
 import { Wallet } from "../utils/interfaces";
 import { useEffect, useRef, useState } from "react";
-import IgntProfileIcon from "./for_react_lib/icons/IgntProfileIcon";
-import IgntCopyIcon from "./for_react_lib/icons/IgntCopyIcon";
-import IgntChevronRightIcon from "./for_react_lib/icons/IgntChevronRightIcon";
-import IgntExternalArrowIcon from "./for_react_lib/icons/IgntExternalArrowIcon";
+import {IgntProfileIcon} from "@ignt/react-lib";
+import {IgntCopyIcon} from "@ignt/react-lib";
+import {IgntChevronRightIcon} from "@ignt/react-lib";
+import {IgntExternalArrowIcon} from "@ignt/react-lib";
 
 interface IgntAccDropdownProps {
   wallet: Wallet;

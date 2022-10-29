@@ -1,8 +1,8 @@
 import { useAddressContext } from "../def-hooks/addressContext";
 import { useClient } from "../hooks/useClient";
-import IgntButton from "./for_react_lib/IgntButton";
-import IgntModal from "./for_react_lib/IgntModal";
-import IgntTrashIcon from "./for_react_lib/icons/IgntTrashIcon";
+import {IgntButton} from "@ignt/react-lib";
+import {IgntModal} from "@ignt/react-lib";
+import {IgntTrashIcon} from "@ignt/react-lib";
 
 interface IgntCrudDeleteProps {
   className?: string;

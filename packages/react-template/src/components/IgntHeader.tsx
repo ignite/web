@@ -1,6 +1,5 @@
-import IgntLink from "./for_react_lib/IgntLink";
-//import IgntAcc from "@/components/IgntAcc.vue";
-import IgntLogo from "./for_react_lib/IgntLogo";
+import {IgntLink} from "@ignt/react-lib";
+import {IgntLogo} from "@ignt/react-lib";
 import IgntAcc from "./IgntAcc";
 
 type MenuItem = {

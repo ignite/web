@@ -5,9 +5,9 @@ import { useAssets } from "../def-hooks/useAssets";
 import { useDenomContext } from "../def-hooks/denomContext";
 import IgntDenom from "./IgntDenom";
 import { useAddressContext } from "../def-hooks/addressContext";
-import IgntSearchIcon from "../components/for_react_lib/icons/IgntSearchIcon";
-import IgntClearIcon from "../components/for_react_lib/icons/IgntClearIcon";
-import IgntArrowIcon from "../components/for_react_lib/icons/IgntArrowIcon";
+import {IgntSearchIcon} from "@ignt/react-lib";
+import {IgntClearIcon} from "@ignt/react-lib";
+import {IgntArrowIcon} from "@ignt/react-lib";
 import { ChangeEvent, useRef, useState } from "react";
 
 interface IgntAssetsProps {

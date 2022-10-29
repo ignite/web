@@ -1,0 +1,68 @@
+{
+  "name": "@ignt/react-library",
+  "version": "0.3.10",
+  "description": "A library of Vue 3 components for building frontends for cosmos-sdk chains",
+  "repository": "https://github.com/ignite/web.git",
+  "author": "Ignite, Inc <hello@ignite.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/react-library.umd.js",
+  "module": "./dist/react-library.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/react-library.mjs",
+      "require": "./dist/react-library.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "build": "run-s lint type-check build-only",     
+    "build-only": "tsc && vite build",
+    "type-check": "tsc",
+    "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@types/crypto-js": "^4.1.1",
+    "@types/node": "^18.11.7",
+    "@types/qrcode": "^1.5.0",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "@vitejs/plugin-react": "^2.2.0",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.10",
+    "npm-run-all": "^4.1.5",
+    "json": "^11.0.0",
+    "postcss": "^8.4.18",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4",
+    "vite": "^3.2.1",
+    "vite-plugin-dts": "^1.6.6"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.1.0",
+    "classnames": "^2.3.2",
+    "crypto-js": "^4.1.1",
+    "gradient-avatar": "^1.0.2",
+    "qrcode": "^1.5.1",
+    "react-inlinesvg": "^3.0.1"
+  }
+}

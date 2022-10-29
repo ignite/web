@@ -8,14 +8,14 @@ import { useClient } from "../hooks/useClient";
 
 import useCosmosBaseTendermintV1Beta1 from "../hooks/useCosmosBaseTendermintV1Beta1";
 import { Wallet } from "../utils/interfaces";
-import IgntProfileIcon from "./for_react_lib/icons/IgntProfileIcon";
-import IgntWarningIcon from "./for_react_lib/icons/IgntWarningIcon";
-import IgntKeplrIcon from "./for_react_lib/icons/IgntKeplrIcon";
-import IgntButton from "./for_react_lib/IgntButton";
-import IgntModal from "./for_react_lib/IgntModal";
+import {IgntProfileIcon} from "@ignt/react-lib";
+import {IgntWarningIcon} from "@ignt/react-lib";
+import {IgntKeplrIcon} from "@ignt/react-lib";
+import {IgntButton} from "@ignt/react-lib";
+import {IgntModal} from "@ignt/react-lib";
 import IgntAccDropdown from "./IgntAccDropdown";
-import IgntExternalArrowIcon from "./for_react_lib/icons/IgntExternalArrowIcon";
-import IgntSpinner from "./for_react_lib/IgntSpinner";
+import {IgntExternalArrowIcon} from "@ignt/react-lib";
+import {IgntSpinner} from "@ignt/react-lib";
 
 export interface State {
   modalPage: string;

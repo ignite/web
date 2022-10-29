@@ -1,4 +1,4 @@
-import { useClipboard } from "../../def-hooks/useClipboard";
+import { useClipboard } from "../def-hooks/useClipboard";
 import IgntCopyIcon from "./icons/IgntCopyIcon";
 import IgntButton from "./IgntButton";
 
