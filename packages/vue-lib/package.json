@@ -5,6 +5,9 @@
   "repository": "https://github.com/ignite/web.git",
   "author": "Ignite, Inc <hello@ignite.com>",
   "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
     "src"

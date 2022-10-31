@@ -1,9 +1,9 @@
 {
   "name": "root",
   "private": true,
-  "description": "A monorepo of Vue and JS packages for Cosmos SDK apps",
-  "author": "Tendermint, Inc <hello@tendermint.com>",
-  "homepage": "https://github.com/tendermint/vue",
+  "description": "A monorepo of Vue and React packages for Cosmos SDK apps",
+  "author": "Tendermint, Inc <hello@ignite.com>",
+  "homepage": "https://github.com/ignite/web",
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -15,7 +15,13 @@
     "purge": "lerna exec -- rm -rf node_modules",
     "prebuild": "lerna  bootstrap",
     "build": "lerna  run build --scope='{@ignt/vue-library,@ignt/react-library}' --include-dependencies",
-    "publish": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access"
+    "alpha": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access",
+    "prepatch": "lerna version patch --yes -m 'chore(release): publish %s'",
+    "patch": "lerna publish from-git --yes --no-verify-access",
+    "preminor": "lerna version minor --yes -m 'chore(release): publish %s'",
+    "minor": "lerna publish from-git --yes --no-verify-access",
+    "premajor": "lerna version major --yes -m 'chore(release): publish %s'",
+    "major": "lerna publish from-git --yes --no-verify-access"
   },
   "repository": {
     "type": "git",

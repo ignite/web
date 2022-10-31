@@ -17,16 +17,16 @@ jobs:
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-          scope: starport
+          scope: ignt
           
       - name: Configure git
-        run: git config --global user.email "hello@tendermint.com" &&  git config --global user.name "Lerna CI"
+        run: git config --global user.email "hello@ignite.com" &&  git config --global user.name "Lerna CI"
 
-      - name: Create Release
-        run: 'lerna version major --yes -m "chore(release): publish %s"'
+      - name: Build
+        run: npm run build
 
       - name: Publish
-        run: lerna publish from-git --yes --no-verify-access
+        run: npm run major
 
         env:
           GH_TOKEN: ${{ secrets.sp_gh_token }}

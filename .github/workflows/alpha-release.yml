@@ -19,8 +19,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: ignt
           
+      - name: Build
+        run: npm run build
+
       - name: Publish
-        run: lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access
+        run: npm run alpha
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
 
