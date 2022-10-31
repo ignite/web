@@ -7,10 +7,11 @@ export default function IgntArrowIcon({ className }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className ?? ""}
+      style={{ width: "1em", height: "1em" }}
     >
       <path
         d="M6.0001 7.4001L0.600098 2.0001L2.0001 0.600098L6.0001 4.6001L10.0001 0.600098L11.4001 2.0001L6.0001 7.4001Z"
-        fill="black"
+        fill="currentColor"
       />
     </svg>
   );

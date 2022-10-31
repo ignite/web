@@ -23,4 +23,4 @@ export const useClipboard = (options?: ClipboardOptions) => {
     copy,
     hasCopied,
   };
-}
+};

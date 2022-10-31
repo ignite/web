@@ -7,21 +7,20 @@ export default function IgntAddIcon({ className }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className ?? ""}
+      style={{ width: "1em", height: "1em" }}
     >
-      <circle cx="16" cy="16" r="15.5" stroke="black" strokeOpacity="0.07" />
+      <circle cx="16" cy="16" r="15.5" stroke="black" />
       <g clipPath="url(#clip0_721_8528)">
         <path
           d="M16 8.5L16 24.5"
-          stroke="black"
-          strokeOpacity="0.33"
+          stroke="currentColor"
           strokeMiterlimit="10"
           strokeLinecap="square"
           strokeLinejoin="round"
         />
         <path
           d="M24 16.5L8 16.5"
-          stroke="black"
-          strokeOpacity="0.33"
+          stroke="currentColor"
           strokeMiterlimit="10"
           strokeLinecap="square"
           strokeLinejoin="round"

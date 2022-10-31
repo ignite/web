@@ -14,14 +14,14 @@
 
     <div
       v-if="ableToBeSelected.length > 0"
-      class="flex items-center text-xs font-medium text-gray-600 mt-2 px-2"
+      class="flex items-center text-xs font-medium text-gray-600 mt-2 px-2 cursor-pointer"
       @click="
         () => {
           state.modalOpen = true;
         }
       "
     >
-      <IgntAddIcon />
+      <IgntAddIcon class="text-black text-xl"/>
       <div class="ml-3 mt-0.5">Add asset</div>
     </div>
 

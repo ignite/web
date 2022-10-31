@@ -8,6 +8,6 @@ export const useAsset = (denom: string) => {
   const query = QueryBalance(address.value, { denom }, {});
   const balance = computed(() => {
     return query.data?.value?.balance;
-  })
+  });
   return { balance, isLoading: query.isLoading };
 };

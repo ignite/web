@@ -45,7 +45,7 @@ const props = defineProps({
     default: true,
   },
 });
-const { normalized,  pathExtracted } = useDenom(props.denom);
+const { normalized, pathExtracted } = useDenom(props.denom);
 // computed
 const short = computed(() => {
   if (normalized.value.length > 15) {

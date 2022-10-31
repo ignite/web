@@ -1,5 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Children, cloneElement, ReactElement, ReactNode, useRef, useState } from "react";
+import {
+  Children,
+  cloneElement,
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ReactElement,
+  ReactNode,
+  useRef,
+  useState,
+} from "react";
 import "./IgntTabs.css";
 
 interface IgntTabsProps {
@@ -32,7 +41,7 @@ export default function IgntTabs(props: IgntTabsProps) {
               setActive(index);
             }}
           >
-            {((tab as ReactElement).props as any).title}
+            {((tab as ReactElement).props as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>).title}
           </a>
         ))}
       </div>
@@ -43,7 +52,9 @@ export default function IgntTabs(props: IgntTabsProps) {
               child as ReactElement,
               {
                 ...(child as ReactElement).props,
-                className: (((child as ReactElement).props as any).className ?? "") + " is-active",
+                className:
+                  (((child as ReactElement).props as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>)
+                    .className ?? "") + " is-active",
               },
               (child as ReactElement).props.children,
             );

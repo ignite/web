@@ -77,12 +77,12 @@ export default function IgntAmountSelect(props: IgntAmountSelectProps) {
 
       {ableToBeSelected.length > 0 && (
         <div
-          className="flex items-center text-xs font-medium text-gray-600 mt-2 px-2"
+          className="flex items-center text-xs font-medium text-gray-600 mt-2 px-2 cursor-pointer"
           onClick={() => {
             setState((oldState) => ({ ...oldState, modalOpen: true }));
           }}
         >
-          <IgntAddIcon />
+          <IgntAddIcon className="text-black text-xl" />
           <div className="ml-3 mt-0.5">Add asset</div>
         </div>
       )}

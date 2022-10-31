@@ -5,10 +5,11 @@
     viewBox="0 0 12 8"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    style="width: 1em; height: 1em"
   >
     <path
       d="M10 2L6 6L2 2"
-      stroke="black"
+      stroke="currentColor"
       stroke-width="2"
       stroke-miterlimit="10"
       stroke-linecap="square"
@@ -17,9 +18,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'IgntChevronDownIcon'
-})
+  name: "IgntChevronDownIcon",
+});
 </script>

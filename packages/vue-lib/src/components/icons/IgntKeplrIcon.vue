@@ -1,11 +1,11 @@
 <template>
   <svg
-    width="48"
+    width="49"
     height="49"
-    viewBox="0 0 48 49"
+    viewBox="0 0 49 49"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style="margin-bottom: 1rem"
+    style="width: 1em; height: 1em"
   >
     <path
       d="M44.16 0.5H3.84C1.71923 0.5 0 2.21923 0 4.34V44.66C0 46.7808 1.71923 48.5 3.84 48.5H44.16C46.2808 48.5 48 46.7808 48 44.66V4.34C48 2.21923 46.2808 0.5 44.16 0.5Z"
@@ -94,3 +94,10 @@
     </defs>
   </svg>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "IgntKeplrIcon",
+});
+</script>

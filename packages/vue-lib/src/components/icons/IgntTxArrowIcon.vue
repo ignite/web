@@ -5,6 +5,7 @@
     viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    style="width: 1em; height: 1em"
   >
     <path
       d="M8 13V3"
@@ -24,9 +25,10 @@
     />
   </svg>
 </template>
-<style lang="css" scoped>
-svg {
-  width: 1em;
-  height: 1em;
-}
-</style>
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "IgntTxArrowIcon",
+});
+</script>

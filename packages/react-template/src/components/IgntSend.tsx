@@ -246,7 +246,8 @@ export default function IgntSend(props: IgntSendProps) {
       <div
         className={cx({
           "flex text-xs font-semibold items-center mt-8 advanced-label": true,
-          "advanced-label--disabled": !hasAnyBalance,
+          "text-gray-400": !hasAnyBalance,
+          "cursor-pointer": hasAnyBalance,
         })}
         onClick={(evt) => {
           toggleAdvanced();
@@ -270,11 +271,11 @@ export default function IgntSend(props: IgntSendProps) {
               update={handleTxFeesUpdate}
             />
 
-            <div className="text-xs pb-2 mt-8 text-gray-600">Reference (memo)</div>
+            <div className="text-xs mt-8 text-gray-600">Reference (memo)</div>
 
             <div className="mb-4">
               <input
-                className="input"
+                className="mt-1 py-2 px-4 h-12 bg-gray-100 border-xs text-base leading-tight w-full rounded-xl outline-0"
                 placeholder="Enter a reference"
                 onChange={(evt) => {
                   setState((oldState) => {
@@ -286,11 +287,11 @@ export default function IgntSend(props: IgntSendProps) {
               />
             </div>
 
-            <div className="text-xs pb-2 text-gray-600">Channel</div>
+            <div className="text-xs text-gray-600">Channel</div>
 
             <div className="input-wrapper">
               <input
-                className="input"
+                className="mt-1 py-2 px-4 h-12 bg-gray-100 border-xs text-base leading-tight w-full rounded-xl outline-0"
                 placeholder="Enter a channel"
                 onChange={(evt) => {
                   setState((oldState) => {

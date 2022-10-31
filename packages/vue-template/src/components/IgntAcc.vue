@@ -43,7 +43,7 @@
           v-if="state.modalPage === 'connect'"
           class="flex items-center flex-col my-3"
         >
-          <IgntKeplrIcon />
+          <IgntKeplrIcon class="text-[48px]" />
           <h3 v-if="isKeplrAvailable" class="text-2xl font-bold">
             Connect your wallet
           </h3>

@@ -7,10 +7,11 @@ export default function IgntDotsIcon({ className }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className ?? ""}
+      style={{ width: "1em", height: "1em" }}
     >
-      <circle cx="15" cy="20" r="1.5" fill="black" />
-      <circle cx="20" cy="20" r="1.5" fill="black" />
-      <circle cx="25" cy="20" r="1.5" fill="black" />
+      <circle cx="15" cy="20" r="1.5" fill="currentColor" />
+      <circle cx="20" cy="20" r="1.5" fill="currentColor" />
+      <circle cx="25" cy="20" r="1.5" fill="currentColor" />
     </svg>
   );
 }

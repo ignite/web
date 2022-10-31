@@ -34,8 +34,10 @@
     <div
       class="flex text-xs font-semibold items-center mt-8"
       :class="[
-        'advanced-label',
-        { 'advanced-label--disabled': !hasAnyBalance },
+        {
+          'cursor-pointer': hasAnyBalance,
+          'text-gray-400': !hasAnyBalance,
+        },
       ]"
       @click="
         (evt: MouseEvent) => {
@@ -68,22 +70,22 @@
         @update="handleTxFeesUpdate"
       />
 
-      <div class="text-xs pb-2 mt-8 text-gray-600">Reference (memo)</div>
+      <div class="text-xs mt-8 text-gray-600">Reference (memo)</div>
 
       <div class="mb-4">
         <input
           v-model="state.tx.memo"
-          class="input"
+          class="mt-1 py-2 px-4 h-12 bg-gray-100 border-xs text-base leading-tight w-full rounded-xl outline-0"
           placeholder="Enter a reference"
         />
       </div>
 
-      <div class="text-xs pb-2 text-gray-600">Channel</div>
+      <div class="text-xs text-gray-600">Channel</div>
 
       <div class="input-wrapper">
         <input
           v-model="state.tx.ch"
-          class="input"
+          class="mt-1 py-2 px-4 h-12 bg-gray-100 border-xs text-base leading-tight w-full rounded-xl outline-0"
           placeholder="Enter a channel"
         />
       </div>
@@ -92,7 +94,11 @@
     <div style="width: 100%; height: 24px" />
 
     <div>
-      <IgntButton style="width: 100%" :disabled="!ableToTx" @click="sendTx"
+      <IgntButton
+        style="width: 100%"
+        :disabled="!ableToTx"
+        @click="sendTx"
+        :busy="state.currentUIState == UI_STATE.TX_SIGNING"
         >Send</IgntButton
       >
     </div>

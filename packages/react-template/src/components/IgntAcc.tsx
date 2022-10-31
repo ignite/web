@@ -136,7 +136,7 @@ export default function IgntAcc() {
         header={
           state.modalPage === "connect" ? (
             <div className="flex items-center flex-col my-3">
-              <IgntKeplrIcon />
+              <IgntKeplrIcon className="text-[48px]" />
               {isKeplrAvailable ? <h3 className="text-2xl font-bold">Connect your wallet</h3> : <h3>Install Keplr</h3>}
             </div>
           ) : state.modalPage === "connecting" ? (
