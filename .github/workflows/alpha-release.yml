@@ -12,18 +12,24 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-          scope: starport
+          scope: ignt
           
+      - name: Build
+        run: npm run build
+
       - name: Publish
-        run: lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access
+        run: npm run alpha
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
 
+      - name: Install Ignite CLI
+        run: 'curl https://get.ignite.com/cli! | bash'
+        
       - name: Install alpha
         run: lerna exec --scope='@starport/template' -- npm i @starport/vue@alpha @starport/vuex@alpha
 

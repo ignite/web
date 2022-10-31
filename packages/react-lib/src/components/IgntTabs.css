@@ -1,0 +1,7 @@
+
+.tabsContent > * {
+  display: none;
+}
+.tabsContent > .is-active {
+  display: block;
+}

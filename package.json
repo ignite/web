@@ -1,9 +1,9 @@
 {
   "name": "root",
   "private": true,
-  "description": "A monorepo of Vue and JS packages for Cosmos SDK apps",
-  "author": "Tendermint, Inc <hello@tendermint.com>",
-  "homepage": "https://github.com/tendermint/vue",
+  "description": "A monorepo of Vue and React packages for Cosmos SDK apps",
+  "author": "Tendermint, Inc <hello@ignite.com>",
+  "homepage": "https://github.com/ignite/web",
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -13,31 +13,21 @@
   ],
   "scripts": {
     "purge": "lerna exec -- rm -rf node_modules",
-    "dev": "lerna bootstrap --force-local && lerna exec --scope='@starport/template' -- npm run dev",
-    "build": "lerna exec --scope='@starport/template' -- npm run build",
-    "lint:check": "eslint .",
-    "lint:format": "eslint --fix .",
-    "prettify:check": "prettier --check .",
-    "prettify:format": "prettier --write .",
-    "code:check": "npm run lint:check && npm run prettify:check",
-    "code:format": "npm run lint:format && npm run prettify:format"
+    "prebuild": "lerna  bootstrap",
+    "build": "lerna  run build --scope='{@ignt/vue-library,@ignt/react-library}' --include-dependencies",
+    "alpha": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access",
+    "prepatch": "lerna version patch --yes -m 'chore(release): publish %s'",
+    "patch": "lerna publish from-git --yes --no-verify-access",
+    "preminor": "lerna version minor --yes -m 'chore(release): publish %s'",
+    "minor": "lerna publish from-git --yes --no-verify-access",
+    "premajor": "lerna version major --yes -m 'chore(release): publish %s'",
+    "major": "lerna publish from-git --yes --no-verify-access"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tendermint/vue.git"
+    "url": "git+https://github.com/ignite/web.git"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.8.1",
-    "@typescript-eslint/parser": "^5.8.1",
-    "@vue/eslint-config-prettier": "^7.0.0",
-    "@vue/eslint-config-typescript": "^10.0.0",
-    "eslint": "^8.6.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-vue": "^8.2.0",
-    "husky": "^7.0.4",
-    "lerna": "^4.0.0",
-    "prettier": "^2.5.1",
-    "typescript": "^4.5.4"
+    "lerna": "^4.0.0"
   }
 }

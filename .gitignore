@@ -30,3 +30,5 @@ packages/**/dist
 packages/**/lib
 packages/**/.env.local
 packages/**/.env.*.local
+packages/ts-client/**
+packages/ts-client
