@@ -13,7 +13,9 @@
   ],
   "scripts": {
     "purge": "lerna exec -- rm -rf node_modules",
-    "build": "lerna  run build --scope='{@ignt/vue-library,@ignt/react-library}' --include-dependencies"
+    "prebuild": "lerna  bootstrap",
+    "build": "lerna  run build --scope='{@ignt/vue-library,@ignt/react-library}' --include-dependencies",
+    "publish": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access"
   },
   "repository": {
     "type": "git",

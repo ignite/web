@@ -2,6 +2,7 @@
   "name": "@ignt/react-template",
   "version": "0.0.0",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
