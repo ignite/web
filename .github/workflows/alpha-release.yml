@@ -27,6 +27,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.sp_npm_token}}
 
+      - name: Install Ignite CLI
+        run: 'curl https://get.ignite.com/cli! | bash'
+        
       - name: Install alpha
         run: lerna exec --scope='@starport/template' -- npm i @starport/vue@alpha @starport/vuex@alpha
 
