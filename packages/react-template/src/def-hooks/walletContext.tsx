@@ -65,7 +65,7 @@ export default function WalletProvider({ children }: Props) {
 
       setActiveClient(client);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
     window.localStorage.setItem("wallets", JSON.stringify(wallets));
   };

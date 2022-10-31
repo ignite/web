@@ -175,7 +175,7 @@ const sendTx = async (): Promise<void> => {
     amount: x.amount == "" ? "0" : x.amount,
   }));
 
-  const amount: Array<Amount> = state.tx.amount.map((x) => ({
+  const amount: Array<Amount> = state.tx.amounts.map((x) => ({
     denom: x.denom,
     amount: x.amount == "" ? "0" : x.amount,
   }));
@@ -275,7 +275,6 @@ let validTxFees = computed<boolean>(() =>
   })
 );
 let validTxAmount = computed<boolean>(() => {
-  console.log(state);
   return (
     state.tx.amounts.length > 0 &&
     state.tx.amounts.every((x) => {

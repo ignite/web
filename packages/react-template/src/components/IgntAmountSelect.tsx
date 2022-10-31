@@ -45,11 +45,9 @@ export default function IgntAmountSelect(props: IgntAmountSelectProps) {
   }, [selected, balances, state.tokenSearch]);
 
   const handleInputChange = (val: Amount) => {
-    console.log(val);
     const newSelected: Array<Amount> = [...(selected ?? [])];
     const index = newSelected.findIndex((x) => x.denom == val.denom);
     newSelected[index].amount = val.amount;
-    console.log(newSelected);
     update(newSelected);
   };
   const handleTokenSelect = (x: Amount) => {

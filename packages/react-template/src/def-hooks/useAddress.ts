@@ -28,7 +28,6 @@ export const useAddress = () => {
     });
   });
   window.addEventListener("keplr_keystorechange", async () => {
-    console.log("kc");
     const newAddress = await getAddress();
     setAddress((oldAddress) => {
       return oldAddress.address != newAddress.address ? newAddress : oldAddress;

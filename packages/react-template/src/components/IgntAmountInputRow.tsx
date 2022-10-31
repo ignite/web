@@ -12,7 +12,6 @@ interface IgntAmountInputRowProps {
   onChange: (val: string) => void;
 }
 export default function IgntAmountInputRow(props: IgntAmountInputRowProps) {
-  console.log("rendered with " + props.amount.amount);
   const { balance } = useAsset(props.amount.denom);
   const [value, setValue] = useState<BigNumber>(new BigNumber(props.amount.amount != "" ? props.amount.amount : 0));
   useEffect(() => {

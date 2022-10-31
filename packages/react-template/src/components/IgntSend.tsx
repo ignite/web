@@ -180,7 +180,6 @@ export default function IgntSend(props: IgntSendProps) {
     }
   };
   const handleTxAmountUpdate = (selected: Amount[]) => {
-    console.log(selected);
     setState((oldState) => {
       const tx = oldState.tx;
       tx.amounts = selected;

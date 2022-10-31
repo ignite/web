@@ -103,7 +103,7 @@ export const useWalletStore = defineStore("wallet", {
 
         this.activeClient = client;
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
       this.storeWallets();
     },

@@ -85,7 +85,6 @@ export default function IgntAccDropdown(props: IgntAccDropdownProps) {
           <div
             className="flex justify-between items-center cursor-pointer hover:text-gray-660"
             onClick={() => {
-              console.log("Settings");
               setState((oldState) => ({ ...oldState, currentUIState: UI_STATE.SETTINGS }));
             }}
           >

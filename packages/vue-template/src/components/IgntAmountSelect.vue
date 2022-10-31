@@ -140,7 +140,6 @@ let handleTokenSelect = (x: Amount) => {
       denom: x.denom,
     },
   ];
-  console.log(newSelected);
   emit("update", newSelected);
 
   state.modalOpen = false;
