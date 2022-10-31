@@ -25,7 +25,7 @@
     <div v-if="hasAnyBalance">
       <IgntAmountSelect
         class="token-selector--main"
-        :selected="state.tx.amount"
+        :selected="state.tx.amounts"
         :balances="(balances.assets as Amount[])"
         @update="handleTxAmountUpdate"
       />
@@ -114,7 +114,7 @@ import { IgntChevronDownIcon } from "@ignt/vue-library";
 interface TxData {
   receiver: string;
   ch: string;
-  amount: Array<Amount>;
+  amounts: Array<Amount>;
   memo: string;
   fees: Array<Amount>;
 }
@@ -144,7 +144,7 @@ const initialState: State = {
   tx: {
     receiver: "",
     ch: "",
-    amount: [],
+    amounts: [],
     memo: "",
     fees: [],
   },
@@ -159,7 +159,7 @@ const { address } = useAddress();
 const { balances } = useAssets(100);
 
 const resetTx = (): void => {
-  state.tx.amount = [];
+  state.tx.amounts = [];
   state.tx.receiver = "";
   state.tx.memo = "";
   state.tx.ch = "";
@@ -204,7 +204,7 @@ const sendTx = async (): Promise<void> => {
         timeoutTimestamp: Long.fromNumber(
           new Date().getTime() + 60000
         ).multiply(1000000),
-        token: state.tx.amount[0],
+        token: state.tx.amounts[0],
       };
 
       send = () =>
@@ -241,10 +241,10 @@ const toggleAdvanced = () => {
     state.advancedOpen = !state.advancedOpen;
   }
 };
-const handleTxAmountUpdate = ({ selected }: { selected: Amount[] }) => {
-  state.tx.amount = selected;
+const handleTxAmountUpdate = (selected: Amount[]) => {
+  state.tx.amounts = selected;
 };
-const handleTxFeesUpdate = ({ selected }: { selected: Amount[] }) => {
+const handleTxFeesUpdate = (selected: Amount[]) => {
   state.tx.fees = selected;
 };
 const parseAmount = (amount: string): BigNumber => {
@@ -274,15 +274,17 @@ let validTxFees = computed<boolean>(() =>
     return !parsedAmount.isNaN() && parsedAmount.isPositive();
   })
 );
-let validTxAmount = computed<boolean>(
-  () =>
-    state.tx.amount.length > 0 &&
-    state.tx.amount.every((x) => {
+let validTxAmount = computed<boolean>(() => {
+  console.log(state);
+  return (
+    state.tx.amounts.length > 0 &&
+    state.tx.amounts.every((x) => {
       let parsedAmount = parseAmount(x.amount);
 
       return !parsedAmount.isNaN() && parsedAmount.isPositive();
     })
-);
+  );
+});
 let validReceiver = computed<boolean>(() => {
   let valid: boolean;
 
@@ -305,7 +307,7 @@ const bootstrapTxAmount = () => {
   if (hasAnyBalance.value) {
     let firstBalance = balances.value.assets[0];
 
-    state.tx.amount[0] = {
+    state.tx.amounts[0] = {
       denom: "",
       ...firstBalance,
       amount: "",

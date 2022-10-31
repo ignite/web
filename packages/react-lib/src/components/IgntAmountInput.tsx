@@ -39,7 +39,6 @@ export default function IgntAmountInput(props: IgntAmountInputProps) {
     if (fractionDigits?.length > props.maxDecimals) {
       newValue = `${integerDigits}.${fractionDigits.slice(0, props.maxDecimals)}`;
     }
-    console.log(newValue);
     return new BigNumber(newValue);
   };
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {

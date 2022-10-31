@@ -1,35 +1,16 @@
 <template>
   <div class="flex flex-col">
-    <div
+    <IgntAmountInputRow
       v-for="(x, i) in selected"
       :key="`${x.denom}-${i}`"
+      :amount="x"
       class="flex justify-between items-center my-1 py-3 rounded-xl relative -mx-2 px-4"
-    >
-      <IgntDenom :denom="x.denom" modifier="avatar" class="z-10" />
-      <div class="flex flex-col justify-between ml-4 z-10">
-        <div class="font-semibold">
-          <IgntDenom :denom="x.denom" />
-        </div>
-
-        <div
-          class="text-xs"
-          :class="{
-            error: !hasEnoughBalance(x, x.amount),
-          }"
-        >
-          {{ getBalanceAmount(x) }} available
-        </div>
-      </div>
-
-      <div class="flex-1 w-full h-full">
-        <IgntAmountInput
-          class="absolute w-full left-0 text-right h-full top-0 outline-0 focus:bg-gray-100 text-3xl font-medium rounded-lg px-4"
-          @update="(amount: string) => handleAmountInput(amount, x)"
-        />
-
-        <div class="focus-background"></div>
-      </div>
-    </div>
+      @change="
+        (val) => {
+          handleInputChange({ amount: val, denom: x.denom });
+        }
+      "
+    />
 
     <div
       v-if="ableToBeSelected.length > 0"
@@ -97,7 +78,7 @@ import IgntDenom from "./IgntDenom.vue";
 import { IgntModal } from "@ignt/vue-library";
 import { IgntSearchIcon } from "@ignt/vue-library";
 import { IgntAddIcon } from "@ignt/vue-library";
-import { IgntAmountInput } from "@ignt/vue-library";
+import IgntAmountInputRow from "./IgntAmountInputRow.vue";
 
 export interface State {
   tokenSearch: string;
@@ -141,21 +122,15 @@ let ableToBeSelected = computed(() => {
   return props.balances?.filter(notSelected).filter(searchFilter) ?? [];
 });
 
-// methods
-let findAsset = (x: Amount, y: Amount): boolean => x.denom === y.denom;
 let parseAmount = (amount: string): BigNumber => {
   return amount == "" ? new BigNumber(0) : new BigNumber(amount);
 };
-let handleAmountInput = (amount: string, x: Amount) => {
-  let amountAsBigNumber = new BigNumber(amount);
 
-  let newSelected: Array<Amount> = [...(props.selected ?? [])];
-
-  let index = newSelected.findIndex((y: Amount) => findAsset(x, y));
-
-  newSelected[index].amount = amountAsBigNumber.toString();
-
-  emit("update", { selected: newSelected });
+const handleInputChange = (val: Amount) => {
+  const newSelected: Array<Amount> = [...(props.selected ?? [])];
+  const index = newSelected.findIndex((x) => x.denom == val.denom);
+  newSelected[index].amount = val.amount;
+  emit("update", newSelected);
 };
 let handleTokenSelect = (x: Amount) => {
   let newSelected: Array<Amount> = [
@@ -165,13 +140,9 @@ let handleTokenSelect = (x: Amount) => {
       denom: x.denom,
     },
   ];
-
-  emit("update", { selected: newSelected });
+  console.log(newSelected);
+  emit("update", newSelected);
 
   state.modalOpen = false;
 };
-let getBalanceAmount = (x: Amount): string =>
-  props.balances?.find((y) => findAsset(x, y))?.amount ?? "";
-let hasEnoughBalance = (x: Amount, amountDesired: string) =>
-  parseAmount(getBalanceAmount(x)).gte(parseAmount(amountDesired));
 </script>

@@ -13,6 +13,7 @@
 </template>
 <script setup lang="ts">
 import { computed, type PropType, ref } from "vue";
+import BigNumber from "bignumber.js";
 
 const props = defineProps({
   modelValue: {
@@ -76,7 +77,7 @@ let model = computed({
 
     let formatted = format(currentValue);
 
-    emit("update", formatted);
+    emit("update", new BigNumber(formatted));
 
     let inputHTMLEl = inputRef.value as HTMLInputElement;
 
