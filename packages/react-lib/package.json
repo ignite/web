@@ -1,6 +1,6 @@
 {
   "name": "@ignt/react-library",
-  "version": "0.3.10",
+  "version": "0.4.0",
   "description": "A library of React components for building frontends for cosmos-sdk chains",
   "repository": "https://github.com/ignite/web.git",
   "author": "Ignite, Inc <hello@ignite.com>",
@@ -27,7 +27,7 @@
     "./dist/style.css": "./dist/style.css"
   },
   "scripts": {
-    "build": "run-s lint type-check build-only",     
+    "build": "run-s lint type-check build-only",
     "build-only": "tsc && vite build",
     "type-check": "tsc",
     "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
@@ -55,8 +55,8 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
-    "npm-run-all": "^4.1.5",
     "json": "^11.0.0",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
