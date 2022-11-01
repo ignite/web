@@ -3,21 +3,15 @@
 import IgntAssets from "../components/IgntAssets";
 import IgntTransactions from "../components/IgntTransactions";
 import IgntTransfer from "../components/IgntTransfer";
-import { useAddressContext } from "../def-hooks/addressContext";
 
 export default function PortfolioView() {
-  const address = useAddressContext();
   return (
     <div>
       <div className="container mx-auto">
         <div className="grid grid-cols-2">
           <div>
-            {address.address && (
-              <>
-                <IgntAssets className="px-2.5 mb-10" displayLimit={3} />
-                <IgntTransactions className="px-2.5" />
-              </>
-            )}
+            <IgntAssets className="px-2.5 mb-10" displayLimit={3} />
+            <IgntTransactions className="px-2.5" />
           </div>
           <IgntTransfer className="px-2.5 w-4/6 mx-auto" />
         </div>

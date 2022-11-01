@@ -7,7 +7,7 @@
   >
     <template v-slot:header>
       <div class="flex flex-col items-center w-96">
-        <IgntTrashIcon class="my-6" />
+        <IgntTrashIcon class="my-6 text-[48px]" />
         <div class="text-2xl font-bold">Delete this item?</div>
       </div>
     </template>

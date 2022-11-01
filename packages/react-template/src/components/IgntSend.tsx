@@ -66,7 +66,6 @@ export default function IgntSend(props: IgntSendProps) {
   const parseAmount = (amount: string): BigNumber => {
     return amount == "" ? new BigNumber(0) : new BigNumber(amount);
   };
-  const showWalletLocked = useMemo(() => state.currentUIState === UI_STATE.WALLET_LOCKED, [state.currentUIState]);
   const hasAnyBalance = useMemo(
     () => balances.assets.length > 0 && balances.assets.some((x) => parseAmount(x.amount ?? "0").isPositive()),
     [balances],
@@ -87,7 +86,7 @@ export default function IgntSend(props: IgntSendProps) {
       state.tx.amounts.length > 0 &&
       state.tx.amounts.every((x) => {
         const parsedAmount = parseAmount(x.amount);
-        return !parsedAmount.isNaN() && parsedAmount.isPositive();
+        return !parsedAmount.isNaN() && parsedAmount.isPositive() && !parsedAmount.isZero();
       }),
     [state.tx.amounts],
   );
@@ -109,6 +108,11 @@ export default function IgntSend(props: IgntSendProps) {
   const resetTx = (): void => {
     setState({ ...initialState });
   };
+  if (isTxSuccess) {
+    setTimeout(() => {
+      resetTx();
+    }, 2500);
+  }
   const sendTx = async (): Promise<void> => {
     const fee: Array<Amount> = state.tx.fees.map((x) => ({
       denom: x.denom,
@@ -165,14 +169,11 @@ export default function IgntSend(props: IgntSendProps) {
       if (txResult.code) {
         throw new Error();
       }
-      setState((oldState) => ({ ...oldState, currentUIState: UI_STATE.TX_SUCCESS }));
+      setState(() => ({ ...initialState, currentUIState: UI_STATE.TX_SUCCESS }));
     } catch (e) {
       console.error(e);
       setState((oldState) => ({ ...oldState, currentUIState: UI_STATE.TX_ERROR }));
     }
-  };
-  const resetFees = (): void => {
-    state.tx.fees = [];
   };
   const toggleAdvanced = () => {
     if (hasAnyBalance) {
@@ -196,15 +197,20 @@ export default function IgntSend(props: IgntSendProps) {
   const bootstrapTxAmount = () => {
     if (hasAnyBalance) {
       const firstBalance = balances.assets[0];
-
-      state.tx.amounts[0] = {
-        denom: "",
-        ...firstBalance,
-        amount: "",
-      };
+      setState((oldState) => {
+        const tx = oldState.tx;
+        tx.amounts.push({
+          denom: "",
+          ...firstBalance,
+          amount: "",
+        });
+        return { ...oldState, tx };
+      });
     }
   };
-
+  if (state.tx.amounts.length == 0) {
+    bootstrapTxAmount();
+  }
   return (
     <div className={props.className ?? ""}>
       <div className="pt-8">
@@ -309,14 +315,17 @@ export default function IgntSend(props: IgntSendProps) {
       <div style={{ width: "100%", height: "24px" }} />
 
       <div>
-        <IgntButton
-          className="w-full"
-          disabled={!ableToTx}
-          onClick={sendTx}
-          busy={state.currentUIState == UI_STATE.TX_SIGNING}
-        >
+        <IgntButton className="w-full" disabled={!ableToTx} onClick={sendTx} busy={isTxOngoing}>
           Send
         </IgntButton>
+        {isTxError && (
+          <div className="flex items-center justify-center text-xs text-red-500 italic mt-2"> Error submitting Tx</div>
+        )}
+        {isTxSuccess && (
+          <div className="flex items-center justify-center text-xs text-green-500 italic mt-2">
+            Tx submitted succesfully
+          </div>
+        )}
       </div>
     </div>
   );

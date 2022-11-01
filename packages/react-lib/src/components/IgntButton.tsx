@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import cx from "classnames";
-import { ReactNode, useRef } from "react";
+import { ReactNode } from "react";
+import IgntLoadingIcon from "./icons/IgntLoadingIcon";
 interface IgntButtonProps {
   link?: string;
   href?: string;
@@ -14,17 +15,7 @@ interface IgntButtonProps {
 }
 export default function IgntButton(props: IgntButtonProps) {
   const { link, disabled, type, busy, target, href, children, onClick, className } = props;
-  const [dots, setDots] = useState("");
-  const waiting = () => {
-    if (dots.current == "...") {
-      dots.current = "";
-    } else {
-      dots.current += ".";
-    }
-    setTimeout(waiting, 750);
-  };
-  waiting();
-  console.log(type == "primary" && !busy && !disabled);
+
   return link ? (
     <Link
       to={!disabled && !busy ? link : ""}
@@ -45,7 +36,13 @@ export default function IgntButton(props: IgntButtonProps) {
         [className ?? ""]: !!className,
       })}
     >
-      {!busy ? <span>{children}</span> : <div>{dots.current}</div>}
+      {!busy ? (
+        <span>{children}</span>
+      ) : (
+        <div className="flex items-center justify-center">
+          <IgntLoadingIcon />
+        </div>
+      )}
     </Link>
   ) : href ? (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -69,7 +66,13 @@ export default function IgntButton(props: IgntButtonProps) {
       })}
       target={target}
     >
-      {!busy ? <span>{children}</span> : <div>{dots.current}</div>}
+      {!busy ? (
+        <span>{children}</span>
+      ) : (
+        <div className="flex items-center justify-center">
+          <IgntLoadingIcon />
+        </div>
+      )}
     </a>
   ) : (
     <button
@@ -93,7 +96,13 @@ export default function IgntButton(props: IgntButtonProps) {
       onClick={onClick}
       disabled={disabled || busy}
     >
-      {!busy ? <span>{children}</span> : <div>{dots.current}</div>}
+      {!busy ? (
+        <span>{children}</span>
+      ) : (
+        <div className="flex items-center justify-center">
+          <IgntLoadingIcon />
+        </div>
+      )}
     </button>
   );
 }

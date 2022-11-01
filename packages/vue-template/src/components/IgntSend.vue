@@ -98,9 +98,22 @@
         style="width: 100%"
         :disabled="!ableToTx"
         @click="sendTx"
-        :busy="state.currentUIState == UI_STATE.TX_SIGNING"
+        :busy="isTxOngoing"
         >Send</IgntButton
       >
+      <div
+        v-if="isTxError"
+        class="flex items-center justify-center text-xs text-red-500 italic mt-2"
+      >
+        Error submitting Tx
+      </div>
+
+      <div
+        v-if="isTxSuccess"
+        class="flex items-center justify-center text-xs text-green-500 italic mt-2"
+      >
+        Tx submitted succesfully
+      </div>
     </div>
   </div>
 </template>
@@ -233,14 +246,15 @@ const sendTx = async (): Promise<void> => {
     if (txResult.code) {
       throw new Error();
     }
+    resetTx();
     state.currentUIState = UI_STATE.TX_SUCCESS;
+    setTimeout(() => {
+      resetTx();
+    }, 2500);
   } catch (e) {
     console.error(e);
     state.currentUIState = UI_STATE.TX_ERROR;
   }
-};
-const resetFees = (): void => {
-  state.tx.fees = [];
 };
 const toggleAdvanced = () => {
   if (hasAnyBalance.value) {
@@ -256,9 +270,6 @@ const handleTxFeesUpdate = (selected: Amount[]) => {
 const parseAmount = (amount: string): BigNumber => {
   return amount == "" ? new BigNumber(0) : new BigNumber(amount);
 };
-const showWalletLocked = computed<boolean>(() => {
-  return state.currentUIState === UI_STATE.WALLET_LOCKED;
-});
 const hasAnyBalance = computed<boolean>(
   () =>
     balances.value.assets.length > 0 &&
@@ -286,7 +297,11 @@ let validTxAmount = computed<boolean>(() => {
     state.tx.amounts.every((x) => {
       let parsedAmount = parseAmount(x.amount);
 
-      return !parsedAmount.isNaN() && parsedAmount.isPositive();
+      return (
+        !parsedAmount.isNaN() &&
+        parsedAmount.isPositive() &&
+        !parsedAmount.isZero()
+      );
     })
   );
 });
@@ -319,4 +334,5 @@ const bootstrapTxAmount = () => {
     };
   }
 };
+bootstrapTxAmount();
 </script>

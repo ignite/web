@@ -7,7 +7,7 @@ import PortfolioView from "../views/PortfolioView";
 const items = [
   {
     label: "Portfolio",
-    to: "/portfolio",
+    to: "/",
   },
   {
     label: "Data",
@@ -28,7 +28,6 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <PortfolioView /> },
-      { path: "/portfolio", element: <PortfolioView /> },
       { path: "/data", element: <DataView /> },
     ],
   },

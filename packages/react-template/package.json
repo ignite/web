@@ -29,7 +29,6 @@
     "dayjs": "^1.11.6",
     "gradient-avatar": "^1.0.2",
     "long": "^5.2.0",
-    "newvuetest-client-ts": "file:../ts-client",
     "qrcode": "^1.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

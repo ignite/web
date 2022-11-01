@@ -38,36 +38,42 @@
         <IgntChevronRightIcon class="text-sm" />
       </div>
       <hr class="divide-y my-3 -mx-7" />
-      <div
+      <a
+        href="#"
         class="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660"
       >
         <span> Support </span>
         <IgntExternalArrowIcon class="text-xs" />
-      </div>
-      <div
+      </a>
+      <a
+        href="#"
         class="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660"
       >
         <span> Twitter </span>
         <IgntExternalArrowIcon class="text-xs" />
-      </div>
-      <div
+      </a>
+      <a
+        href="#"
         class="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660"
       >
         <span> Telegram </span>
         <IgntExternalArrowIcon class="text-xs" />
-      </div>
+      </a>
       <div style="text-align: center; margin-top: 2rem">
-        <span
+        <a
+          href="#"
           class="text-sm leading-normal text-gray-660 terms-link mr-2 cursor-pointer"
-          >Privacy</span
+          >Privacy</a
         >•
-        <span
+        <a
+          href="#"
           class="text-sm leading-normal text-gray-660 terms-link mr-2 ml-1 cursor-pointer"
-          >Terms of use</span
+          >Terms of use</a
         >•
-        <span
+        <a
+          href="#"
           class="text-sm leading-normal text-gray-660 terms-link ml-1 cursor-pointer"
-          >Cookies</span
+          >Cookies</a
         >
       </div>
     </div>

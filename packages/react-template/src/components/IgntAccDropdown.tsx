@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import useCosmosBaseTendermintV1Beta1 from "../hooks/useCosmosBaseTendermintV1Beta1";
@@ -92,24 +93,30 @@ export default function IgntAccDropdown(props: IgntAccDropdownProps) {
             <IgntChevronRightIcon className="text-sm" />
           </div>
           <hr className="divide-y my-3 -mx-7" />
-          <div className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
+          <a href="#" className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
             <span> Support </span>
             <IgntExternalArrowIcon className="text-xs" />
-          </div>
-          <div className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
+          </a>
+          <a href="#" className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
             <span> Twitter </span>
             <IgntExternalArrowIcon className="text-xs" />
-          </div>
-          <div className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
+          </a>
+          <a href="#" className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
             <span> Telegram </span>
             <IgntExternalArrowIcon className="text-xs" />
-          </div>
+          </a>
           <div className="text-center mt-4">
-            <span className="text-sm leading-normal text-gray-660 terms-link mr-2 cursor-pointer">Privacy</span>•
-            <span className="text-sm leading-normal text-gray-660 terms-link mr-2 ml-1 cursor-pointer">
+            <a href="#" className="text-sm leading-normal text-gray-660 terms-link mr-2 cursor-pointer">
+              Privacy
+            </a>
+            •
+            <a href="#" className="text-sm leading-normal text-gray-660 terms-link mr-2 ml-1 cursor-pointer">
               Terms of use
-            </span>
-            •<span className="text-sm leading-normal text-gray-660 terms-link ml-1 cursor-pointer">Cookies</span>
+            </a>
+            •
+            <a href="#" className="text-sm leading-normal text-gray-660 terms-link ml-1 cursor-pointer">
+              Cookies
+            </a>
           </div>
         </div>
       ) : (

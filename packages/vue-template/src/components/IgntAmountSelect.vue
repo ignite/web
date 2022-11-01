@@ -4,7 +4,7 @@
       v-for="(x, i) in selected"
       :key="`${x.denom}-${i}`"
       :amount="x"
-      class="flex justify-between items-center my-1 py-3 rounded-xl relative -mx-2 px-4"
+      class="flex justify-between items-center my-1 py-3 rounded-xl relative px-4"
       @change="
         (val) => {
           handleInputChange({ amount: val, denom: x.denom });

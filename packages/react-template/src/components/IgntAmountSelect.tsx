@@ -72,7 +72,7 @@ export default function IgntAmountSelect(props: IgntAmountSelectProps) {
           onChange={(val) => {
             handleInputChange({ amount: val, denom: x.denom });
           }}
-          className="flex justify-between items-center my-1 py-3 rounded-xl relative -mx-2 px-4"
+          className="flex justify-between items-center my-1 py-3 rounded-xl relative px-4"
         />
       ))}
 

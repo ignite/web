@@ -8,6 +8,7 @@ export { default as IgntDotsIcon } from "@/components/icons/IgntDotsIcon.vue";
 export { default as IgntExternalArrowIcon } from "@/components/icons/IgntExternalArrowIcon.vue";
 export { default as IgntFileIcon } from "@/components/icons/IgntFileIcon.vue";
 export { default as IgntKeplrIcon } from "@/components/icons/IgntKeplrIcon.vue";
+export { default as IgntLoadingIcon } from "@/components/icons/IgntLoadingIcon.vue";
 export { default as IgntProfileIcon } from "@/components/icons/IgntProfileIcon.vue";
 export { default as IgntSearchIcon } from "@/components/icons/IgntSearchIcon.vue";
 export { default as IgntTimesIcon } from "@/components/icons/IgntTimesIcon.vue";
