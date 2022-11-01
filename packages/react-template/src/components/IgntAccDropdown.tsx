@@ -66,12 +66,12 @@ export default function IgntAccDropdown(props: IgntAccDropdownProps) {
             <div className="flex flex-col ml-3">
               <span className="text-[13px] font-bold">{props.accName}</span>
               <span
-                className="text-[13px] leading-normal text-gray-660 copy-address flex"
+                className="text-[13px] leading-normal text-gray-660 copy-address flex items-center"
                 title="Copy address"
                 onClick={() => copy(address)}
               >
                 {shortAddress}
-                <IgntCopyIcon className="ml-1" />
+                <IgntCopyIcon className="ml-2 cursor-pointer hover:text-black" />
               </span>
             </div>
           </div>
@@ -89,20 +89,20 @@ export default function IgntAccDropdown(props: IgntAccDropdownProps) {
             }}
           >
             <span> Settings </span>
-            <IgntChevronRightIcon />
+            <IgntChevronRightIcon className="text-sm" />
           </div>
           <hr className="divide-y my-3 -mx-7" />
           <div className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
             <span> Support </span>
-            <IgntExternalArrowIcon />
+            <IgntExternalArrowIcon className="text-xs" />
           </div>
           <div className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
             <span> Twitter </span>
-            <IgntExternalArrowIcon />
+            <IgntExternalArrowIcon className="text-xs" />
           </div>
           <div className="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660">
             <span> Telegram </span>
-            <IgntExternalArrowIcon />
+            <IgntExternalArrowIcon className="text-xs" />
           </div>
           <div className="text-center mt-4">
             <span className="text-sm leading-normal text-gray-660 terms-link mr-2 cursor-pointer">Privacy</span>•

@@ -21,7 +21,7 @@
         }
       "
     >
-      <IgntAddIcon class="text-black text-xl"/>
+      <IgntAddIcon class="text-black text-xl" />
       <div class="ml-3 mt-0.5">Add asset</div>
     </div>
 
@@ -29,18 +29,35 @@
       :visible="state.modalOpen"
       :close-icon="true"
       :title="'Select asset'"
-      @close="state.modalOpen = false"
+      @close="
+        () => {
+          state.modalOpen = false;
+        }
+      "
     >
       <template #body>
-        <div class="relative mb-4">
-          <IgntSearchIcon class="absolute py-3 h-12 mt-2 left-3" />
+        <div className="relative mb-4 flex items-center">
+          <div className="z-50">
+            <IgntSearchIcon className="ml-4" />
+          </div>
           <input
             v-model="state.tokenSearch"
-            class="mt-1 py-3 px-4 pl-8 h-12 bg-gray-100 border-xs text-base leading-tight w-full rounded-xl outline-0"
+            class="-ml-8 pl-10 pr-10 leading-12 h-12 appearance-none w-full outline-none border-none rounded-xl focus:shadow-outline"
             placeholder="Search assets"
           />
+          <div
+            v-if="state.tokenSearch"
+            class="z-50 absolute mr-4"
+            @click.prevent="
+              () => {
+                state.tokenSearch = '';
+              }
+            "
+          >
+            <IgntClearIcon />
+          </div>
         </div>
-        <div class="relative">
+        <div class="relative mb-3">
           <div
             v-for="(x, i) in ableToBeSelected"
             :key="'balance_select_' + x.denom"

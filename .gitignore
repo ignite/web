@@ -3,7 +3,6 @@ node_modules
 /dist
 lerna-debug.log
 .netlify
-
 # local env files
 .env.local
 .env.*.local
@@ -32,3 +31,7 @@ packages/**/.env.local
 packages/**/.env.*.local
 packages/ts-client/**
 packages/ts-client
+packages/vue-template/src/composables/**
+packages/vue-template/src/composables
+packages/react-template/src/hooks/**
+packages/react-template/src/hooks

@@ -3,7 +3,7 @@ export default function IgntChevronDownIcon({ className }: { className?: string 
     <svg
       width="12"
       height="12"
-      viewBox="0 -2 12 8"
+      viewBox="0 0 12 8"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className ?? ""}

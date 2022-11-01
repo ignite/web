@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useDenomContext } from "../def-hooks/denomContext";
 import { Amount } from "../utils/interfaces";
-import { IgntAddIcon, IgntSearchIcon, IgntModal } from "@ignt/react-library";
+import { IgntAddIcon, IgntSearchIcon, IgntModal, IgntClearIcon } from "@ignt/react-library";
 import IgntAmountInputRow from "./IgntAmountInputRow";
 import IgntDenom from "./IgntDenom";
 
@@ -25,6 +25,7 @@ const initialState: State = {
 export default function IgntAmountSelect(props: IgntAmountSelectProps) {
   const { selected, balances, update } = props;
   const [state, setState] = useState(initialState);
+  const searchInput = useRef<HTMLInputElement>(null);
 
   const { denoms } = useDenomContext();
   const ableToBeSelected = useMemo(() => {
@@ -96,17 +97,31 @@ export default function IgntAmountSelect(props: IgntAmountSelectProps) {
         }}
         body={
           <>
-            <div className="relative mb-4">
-              <IgntSearchIcon className="absolute py-3 h-12 mt-2 left-3" />
+            <div className="relative mb-4 flex items-center">
+              <div className="z-50">
+                <IgntSearchIcon className="ml-4" />
+              </div>
               <input
-                className="mt-1 py-3 px-4 pl-8 h-12 bg-gray-100 border-xs text-base leading-tight w-full rounded-xl outline-0"
+                ref={searchInput}
+                className="-ml-8 pl-10 pr-10 leading-12 h-12 appearance-none w-full outline-none border-none rounded-xl focus:shadow-outline"
                 placeholder="Search assets"
+                value={state.tokenSearch}
                 onChange={(evt) => {
                   setState((oldState) => ({ ...oldState, tokenSearch: evt.target.value }));
                 }}
               />
+              {state.tokenSearch && (
+                <div
+                  className="z-50 absolute mr-4 right-0 cursor-pointer"
+                  onClick={(evt) => {
+                    setState((oldState) => ({ ...oldState, tokenSearch: "" }));
+                  }}
+                >
+                  <IgntClearIcon />
+                </div>
+              )}
             </div>
-            <div className="relative">
+            <div className="relative mb-3">
               {ableToBeSelected.map((x) => (
                 <div
                   key={"balance_select_" + x.denom}

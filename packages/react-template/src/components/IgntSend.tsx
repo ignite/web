@@ -309,66 +309,15 @@ export default function IgntSend(props: IgntSendProps) {
       <div style={{ width: "100%", height: "24px" }} />
 
       <div>
-        <IgntButton className="w-full" disabled={!ableToTx} onClick={sendTx}>
+        <IgntButton
+          className="w-full"
+          disabled={!ableToTx}
+          onClick={sendTx}
+          busy={state.currentUIState == UI_STATE.TX_SIGNING}
+        >
           Send
         </IgntButton>
       </div>
     </div>
   );
 }
-/*
-<script setup lang="ts">
-import { fromBech32 } from "@cosmjs/encoding";
-import { useAddress } from "@/def-composables/useAddress";
-import { useAssets } from "@/def-composables/useAssets";
-import type { Amount } from "@/utils/interfaces";
-import { reactive } from "vue";
-import Long from "long";
-import BigNumber from "bignumber.js";
-import { useClient } from "@/composables/useClient";
-import { computed } from "vue";
-import { IgntButton } from "@ignt/vue-library";
-import IgntAmountSelect from "./IgntAmountSelect.tsx";
-import { IgntChevronDownIcon } from "@ignt/vue-library";
-interface TxData {
-  receiver: string;
-  ch: string;
-  amount: Array<Amount>;
-  memo: string;
-  fees: Array<Amount>;
-}
-
-enum UI_STATE {
-  "FRESH" = 1,
-
-  "BOOTSTRAPED" = 2,
-
-  "WALLET_LOCKED" = 3,
-
-  "SEND" = 100,
-  "SEND_ADD_TOKEN" = 101,
-
-  "TX_SIGNING" = 300,
-  "TX_SUCCESS" = 301,
-  "TX_ERROR" = 302,
-}
-
-interface State {
-  tx: TxData;
-  currentUIState: UI_STATE;
-  advancedOpen: boolean;
-}
-
-const initialState: State = {
-  tx: {
-    receiver: "",
-    ch: "",
-    amount: [],
-    memo: "",
-    fees: [],
-  },
-  currentUIState: UI_STATE.SEND,
-  advancedOpen: false,
-};
-</script>
-*/

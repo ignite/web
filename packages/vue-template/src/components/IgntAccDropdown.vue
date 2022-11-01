@@ -14,12 +14,12 @@
             {{ accName }}
           </span>
           <span
-            class="text-[13px] leading-normal text-gray-660 copy-address flex"
+            class="text-[13px] leading-normal text-gray-660 copy-address flex items-center"
             title="Copy address"
             @click="copy(address)"
           >
             {{ shortAddress }}
-            <IgntCopyIcon class="ml-1" />
+            <IgntCopyIcon class="ml-2 cursor-pointer hover:text-black" />
           </span>
         </div>
       </div>
@@ -35,26 +35,26 @@
         @click="switchToSettings"
       >
         <span> Settings </span>
-        <IgntChevronRightIcon />
+        <IgntChevronRightIcon class="text-sm" />
       </div>
       <hr class="divide-y my-3 -mx-7" />
       <div
         class="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660"
       >
         <span> Support </span>
-        <IgntExternalArrowIcon />
+        <IgntExternalArrowIcon class="text-xs" />
       </div>
       <div
         class="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660"
       >
         <span> Twitter </span>
-        <IgntExternalArrowIcon />
+        <IgntExternalArrowIcon class="text-xs" />
       </div>
       <div
         class="flex justify-between items-center mb-3 cursor-pointer hover:text-gray-660"
       >
         <span> Telegram </span>
-        <IgntExternalArrowIcon />
+        <IgntExternalArrowIcon class="text-xs" />
       </div>
       <div style="text-align: center; margin-top: 2rem">
         <span
