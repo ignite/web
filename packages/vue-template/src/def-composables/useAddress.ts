@@ -8,6 +8,8 @@ const useAddressInstance = () => {
     if (client.signer) {
       const [{ address: rawAddress }] = await client.signer.getAccounts();
       address.value = rawAddress;
+    } else {
+      address.value = "";
     }
   };
   client.on("signer-changed", () => {

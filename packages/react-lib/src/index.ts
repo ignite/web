@@ -8,6 +8,7 @@ export { default as IgntDotsIcon } from "./components/icons/IgntDotsIcon";
 export { default as IgntExternalArrowIcon } from "./components/icons/IgntExternalArrowIcon";
 export { default as IgntFileIcon } from "./components/icons/IgntFileIcon";
 export { default as IgntKeplrIcon } from "./components/icons/IgntKeplrIcon";
+export { default as IgntLoadingIcon } from "./components/icons/IgntLoadingIcon";
 export { default as IgntProfileIcon } from "./components/icons/IgntProfileIcon";
 export { default as IgntSearchIcon } from "./components/icons/IgntSearchIcon";
 export { default as IgntTimesIcon } from "./components/icons/IgntTimesIcon";

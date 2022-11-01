@@ -57,7 +57,7 @@ export default function IgntCrudCreate(props: IgntCrudCreateProps) {
           <div className="my-4" />
           {itemFieldsFiltered.map((field) => (
             <div key={"create_field_" + field.name}>
-              <label htmlFor={`p${field.name}`} className="sp-label capitalize-first-letter">
+              <label htmlFor={`p${field.name}`} className="block text-sm text-left text-gray-400 mb-1 capitalize">
                 {field.name}
               </label>
               <input
@@ -66,7 +66,7 @@ export default function IgntCrudCreate(props: IgntCrudCreateProps) {
                 placeholder={`Enter ${field.name}`}
                 type="text"
                 name={`p${field.name}`}
-                className="sp-input"
+                className="mt-1 py-2 px-4 h-12 bg-gray-100 border-xs text-base leading-tight w-full rounded-xl outline-0"
                 onChange={(evt) => {
                   setFormData((oldForm: any) => ({ ...oldForm, [field.name]: evt.target.value }));
                 }}

@@ -64,7 +64,7 @@ export default function IgntAssets(props: IgntAssetsProps) {
     <section className={className ?? ""}>
       <header className="flex items-center justify-between">
         <h2 className="text-3xl text-black font-semibold p-0 m-0 mb-2.5 flex-1">Assets</h2>
-        {balances.assets.length && (
+        {balances.assets.length > 0 && (
           <div className="flex items-center justify-end mb-2.5">
             <div className="z-50">
               <IgntSearchIcon />

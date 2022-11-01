@@ -59,7 +59,7 @@ const IgntCrudRead = forwardRef((props: IgntCrudReadProps, ref) => {
             {items.map((item: any) => (
               <div key={item.id} className="flex justify-between mb-6 items-start">
                 <div className="w-10 bg-gray-100 flex items-center justify-center h-10 rounded-lg mr-4">
-                  <IgntFileIcon />
+                  <IgntFileIcon className="text-3xl" />
                 </div>
                 <div className="flex-1">
                   {itemFields.fields.map((field: any) => (
@@ -69,40 +69,42 @@ const IgntCrudRead = forwardRef((props: IgntCrudReadProps, ref) => {
                     </div>
                   ))}
                 </div>
-                <div className="relative">
-                  <Menu>
-                    <Menu.Button>
-                      <IgntDotsIcon className="hover:bg-gray-100 rounded-lg" />
-                    </Menu.Button>
-                    <Transition
-                      enter="transition duration-100 ease-out"
-                      enterFrom="transform scale-95 opacity-0"
-                      enterTo="transform scale-100 opacity-100"
-                      leave="transition duration-75 ease-out"
-                      leaveFrom="transform scale-100 opacity-100"
-                      leaveTo="transform scale-95 opacity-0"
-                    >
-                      <Menu.Items className="absolute shadow-std px-3 w-40 rounded-lg">
-                        <Menu.Item
-                          disabled={!loggedIn}
-                          as="div"
-                          className="cursor-pointer py-2 my-2 text-sm text-gray-500 ui-active:text-black ui-active:font-medium"
-                          onClick={() => editItem(item)}
-                        >
-                          Edit
-                        </Menu.Item>
-                        <Menu.Item
-                          disabled={!loggedIn}
-                          as="div"
-                          className="cursor-pointer py-2 my-2 text-sm text-red-500 ui-active:font-medium"
-                          onClick={() => deleteItem(item)}
-                        >
-                          Delete
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </div>
+                {address != "" && (
+                  <div className="relative">
+                    <Menu>
+                      <Menu.Button>
+                        <IgntDotsIcon className="hover:bg-gray-100 rounded-lg text-3xl" />
+                      </Menu.Button>
+                      <Transition
+                        enter="transition duration-100 ease-out"
+                        enterFrom="transform scale-95 opacity-0"
+                        enterTo="transform scale-100 opacity-100"
+                        leave="transition duration-75 ease-out"
+                        leaveFrom="transform scale-100 opacity-100"
+                        leaveTo="transform scale-95 opacity-0"
+                      >
+                        <Menu.Items className="absolute shadow-std px-3 w-40 rounded-lg">
+                          <Menu.Item
+                            disabled={!loggedIn}
+                            as="div"
+                            className="cursor-pointer py-2 my-2 text-sm text-gray-500 ui-active:text-black ui-active:font-medium"
+                            onClick={() => editItem(item)}
+                          >
+                            Edit
+                          </Menu.Item>
+                          <Menu.Item
+                            disabled={!loggedIn}
+                            as="div"
+                            className="cursor-pointer py-2 my-2 text-sm text-red-500 ui-active:font-medium"
+                            onClick={() => deleteItem(item)}
+                          >
+                            Delete
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </div>
+                )}
               </div>
             ))}
             {(items || []).length === 0 && (

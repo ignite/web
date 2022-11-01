@@ -9,7 +9,7 @@
         <div
           class="w-10 bg-gray-100 flex items-center justify-center h-10 rounded-lg mr-4"
         >
-          <IgntFileIcon />
+          <IgntFileIcon class="text-3xl" />
         </div>
         <div class="flex-1">
           <div v-for="field in itemFields.fields" :key="'field_' + field">
@@ -19,10 +19,10 @@
             <div class="mb-3 text-base">{{ item[field.name] }}</div>
           </div>
         </div>
-        <div class="relative">
+        <div class="relative" v-if="address">
           <Menu>
             <MenuButton>
-              <IgntDotsIcon class="hover:bg-gray-100 rounded-lg" />
+              <IgntDotsIcon class="hover:bg-gray-100 rounded-lg text-3xl" />
             </MenuButton>
             <transition
               enter-active-class="transition duration-100 ease-out"

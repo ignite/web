@@ -5,7 +5,7 @@ import IgntHeader from "./components/IgntHeader.vue";
 const items = [
   {
     label: "Portfolio",
-    to: "/portfolio",
+    to: "/",
   },
   {
     label: "Data",

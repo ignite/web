@@ -12,7 +12,6 @@
     "dayjs": "^1.11.6",
     "gradient-avatar": "^1.0.2",
     "long": "^5.2.0",
-    "newvuetest-client-ts": "file:../ts-client",
     "pinia": "^2.0.23",
     "qrcode": "^1.5.1",
     "vue": "^3.2.41",

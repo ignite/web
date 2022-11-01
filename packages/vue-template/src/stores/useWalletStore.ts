@@ -55,6 +55,7 @@ export const useWalletStore = defineStore("wallet", {
   actions: {
     signOut() {
       this.selectedAddress = "";
+      this.activeClient?.removeSigner();
       this.activeClient = null;
       this.activeWallet = null;
       this.authorized = false;

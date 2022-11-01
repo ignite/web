@@ -38,7 +38,7 @@ export default function IgntCrudDelete(props: IgntCrudDeleteProps) {
       submit={() => props.close()}
       header={
         <div className="flex flex-col items-center w-96">
-          <IgntTrashIcon className="my-6" />
+          <IgntTrashIcon className="my-6 text-[48px]" />
           <div className="text-2xl font-bold">Delete this item?</div>
         </div>
       }
