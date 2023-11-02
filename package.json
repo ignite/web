@@ -11,9 +11,10 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
+  "workspaces": ["packages/react-lib","packages/vue-lib","packages/react-template","packages/vue-template"],
   "scripts": {
     "purge": "lerna exec -- rm -rf node_modules",
-    "prebuild": "lerna  bootstrap",
+    "prebuild": "npm install",
     "build": "lerna  run build --scope='{@ignt/vue-library,@ignt/react-library}' --include-dependencies",
     "alpha": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access",
     "prepatch": "lerna version patch --yes -m 'chore(release): publish %s'",
