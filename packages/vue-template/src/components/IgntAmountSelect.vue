@@ -95,6 +95,7 @@ import IgntDenom from "./IgntDenom.vue";
 import { IgntModal } from "@ignt/vue-library";
 import { IgntSearchIcon } from "@ignt/vue-library";
 import { IgntAddIcon } from "@ignt/vue-library";
+import { IgntClearIcon } from "@ignt/vue-library";
 import IgntAmountInputRow from "./IgntAmountInputRow.vue";
 
 export interface State {
