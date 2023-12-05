@@ -11,9 +11,9 @@ export const useTransactions = () => {
   const RECEIVED_EVENT = computed<string>(
     () => `transfer.recipient='${address.value}'`
   );
-  const sentQuery = ServiceGetTxsEvent({ events: SENT_EVENT.value }, {}, 100);
+  const sentQuery = ServiceGetTxsEvent({ query: SENT_EVENT.value }, {}, 100);
   const receivedQuery = ServiceGetTxsEvent(
-    { events: RECEIVED_EVENT.value },
+    { query: RECEIVED_EVENT.value },
     {},
     100
   );
