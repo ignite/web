@@ -1,6 +1,6 @@
 {
   "name": "@ignt/react-template",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "type": "module",
   "private": true,
   "scripts": {
@@ -20,7 +20,7 @@
     "@cosmjs/stargate": "^0.32.1",
     "@headlessui/react": "^1.7.3",
     "@headlessui/tailwindcss": "^0.1.1",
-    "@ignt/react-library": "^0.5.1",
+    "@ignt/react-library": "^0.6.0",
     "@tanstack/react-query": "^4.13.5",
     "axios": "^1.1.3",
     "bignumber.js": "^9.1.0",
