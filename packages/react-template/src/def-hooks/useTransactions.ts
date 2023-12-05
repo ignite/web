@@ -8,8 +8,8 @@ export const useTransactions = () => {
   const { ServiceGetTxsEvent } = useCosmosTxV1Beta1();
   const SENT_EVENT = `transfer.sender='${address}'`;
   const RECEIVED_EVENT = `transfer.recipient='${address}'`;
-  const sentQuery = ServiceGetTxsEvent({ events: SENT_EVENT }, {}, 100);
-  const receivedQuery = ServiceGetTxsEvent({ events: RECEIVED_EVENT }, {}, 100);
+  const sentQuery = ServiceGetTxsEvent({ query: SENT_EVENT }, {}, 100);
+  const receivedQuery = ServiceGetTxsEvent({ query: RECEIVED_EVENT }, {}, 100);
   type HelperTxs = NonNullable<NonNullable<Required<typeof sentQuery.data>>["pages"][0]["tx_responses"]>;
   const allSent =
     sentQuery.data?.pages.reduce((txs, page) => {
