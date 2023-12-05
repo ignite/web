@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@cosmjs/encoding": "^0.31.1",
-    "@cosmjs/stargate": "^0.31.1",
+    "@cosmjs/encoding": "^0.32.1",
+    "@cosmjs/stargate": "^0.32.1",
     "@headlessui/tailwindcss": "^0.1.1",
     "@headlessui/vue": "^1.7.3",
     "@ignt/vue-library": "^0.5.1",
@@ -18,8 +18,8 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@cosmjs/proto-signing": "^0.31.1",
-    "@keplr-wallet/types": "^0.11.14",
+    "@cosmjs/proto-signing": "^0.32.1",
+    "@keplr-wallet/types": "^0.12.44",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/crypto-js": "^4.1.1",
@@ -50,7 +50,7 @@
     "build-only": "vite build",
     "dev": "vite",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "postinstall": "node postinstall.js",
+    "preinstall": "node preinstall.js",
     "prepare": "node prepare.js",
     "preview": "vite preview --port 4173",
     "type-check": "vue-tsc --noEmit"
