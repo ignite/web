@@ -11,11 +11,14 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "workspaces": ["packages/react-lib","packages/vue-lib","packages/react-template","packages/vue-template"],
+  "workspaces": [
+    "packages/vue-lib",
+    "packages/vue-template"
+  ],
   "scripts": {
-    "purge": "lerna exec -- rm -rf node_modules",
-    "prebuild": "npm ci",
-    "build": "lerna  run build --scope='{@ignt/vue-library,@ignt/react-library}' --include-dependencies",
+    "purge": "shx rm -rf node_modules",
+    "prebuild": "pnpm i",
+    "build": "pnpm --filter '@ignt/vue-library' build",
     "alpha": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access",
     "prepatch": "lerna version patch --yes -m 'chore(release): publish %s'",
     "patch": "lerna publish from-git --yes --no-verify-access",
@@ -29,6 +32,7 @@
     "url": "git+https://github.com/ignite/web.git"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "4",
+    "shx": "^0.4.0"
   }
 }
