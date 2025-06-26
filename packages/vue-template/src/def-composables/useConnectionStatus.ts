@@ -1,6 +1,7 @@
+import { computed, ref } from "vue";
+
 import useCosmosBaseTendermintV1Beta1 from "@/composables/useCosmosBaseTendermintV1Beta1";
 import { env } from "@/env";
-import { computed, ref } from "vue";
 
 export const useConnectionStatus = () => {
   const query = useCosmosBaseTendermintV1Beta1();

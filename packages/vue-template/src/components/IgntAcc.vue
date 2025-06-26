@@ -127,9 +127,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, watch } from "vue";
-import useKeplr from "@/def-composables/useKeplr";
-import IgntAccDropdown from "./IgntAccDropdown.vue";
 import { IgntButton } from "@ignt/vue-library";
 import { IgntExternalArrowIcon } from "@ignt/vue-library";
 import { IgntKeplrIcon } from "@ignt/vue-library";
@@ -137,9 +134,14 @@ import { IgntModal } from "@ignt/vue-library";
 import { IgntProfileIcon } from "@ignt/vue-library";
 import { IgntSpinner } from "@ignt/vue-library";
 import { IgntWarningIcon } from "@ignt/vue-library";
+import { computed, onMounted, reactive, watch } from "vue";
+
 import { useClient } from "@/composables/useClient";
-import { useWalletStore } from "@/stores/useWalletStore";
 import useCosmosBaseTendermintV1Beta1 from "@/composables/useCosmosBaseTendermintV1Beta1";
+import useKeplr from "@/def-composables/useKeplr";
+import { useWalletStore } from "@/stores/useWalletStore";
+
+import IgntAccDropdown from "./IgntAccDropdown.vue";
 
 export interface State {
   modalPage: string;
@@ -174,35 +176,35 @@ watch(
   () => chainId.value,
   async (newVal) => {
     if (newVal != "") {
-      let { name, bech32Address } = await getKeplrAccParams(newVal);
+      const { name, bech32Address } = await getKeplrAccParams(newVal);
       state.keplrParams.name = name;
       state.keplrParams.bech32Address = bech32Address;
     }
   }
 );
 
-let tryToConnectToKeplr = (): void => {
+const tryToConnectToKeplr = (): void => {
   state.modalPage = "connecting";
 
-  let onKeplrConnect = async () => {
+  const onKeplrConnect = async () => {
     state.connectWalletModal = false;
     state.modalPage = "connect";
   };
 
-  let onKeplrError = (): void => {
+  const onKeplrError = (): void => {
     state.modalPage = "error";
   };
 
   connectToKeplr(onKeplrConnect, onKeplrError);
 };
-let getAccName = (): string => {
+const getAccName = (): string => {
   if (client.signer) {
     return state.keplrParams.name;
   } else {
     return "";
   }
 };
-let disconnect = (): void => {
+const disconnect = (): void => {
   state.accountDropdown = false;
   walletStore.signOut();
 };
@@ -212,7 +214,7 @@ onMounted(async () => {
   if (client.signer) {
     try {
       await tryToConnectToKeplr();
-    } catch (e) {
+    } catch (_e) {
       console.warn("Keplr not connected");
     }
   }

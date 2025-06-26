@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { useAddress } from "@/def-composables/useAddress";
+
 import IgntAssets from "../components/IgntAssets.vue";
 import IgntTransactions from "../components/IgntTransactions.vue";
 import IgntTransfer from "../components/IgntTransfer.vue";

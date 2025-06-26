@@ -27,12 +27,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { Amount } from "../utils/interfaces";
-import { useAsset } from "../def-composables/useAsset";
-import BigNumber from "bignumber.js";
 import { IgntAmountInput } from "@ignt/vue-library";
+import BigNumber from "bignumber.js";
+import { computed, type PropType, ref } from "vue";
+
+import { useAsset } from "../def-composables/useAsset";
+import type { Amount } from "../utils/interfaces";
 import IgntDenom from "./IgntDenom.vue";
-import { computed, ref, type PropType } from "vue";
 
 const props = defineProps({
   amount: {

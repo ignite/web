@@ -1,5 +1,5 @@
-import { ref, unref } from "vue";
 import type { ComputedRef } from "vue";
+import { ref, unref } from "vue";
 
 type ClipboardOptions = {
   resetAfter?: number;

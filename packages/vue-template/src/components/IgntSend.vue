@@ -119,17 +119,19 @@
 </template>
 <script setup lang="ts">
 import { fromBech32 } from "@cosmjs/encoding";
+import { IgntButton } from "@ignt/vue-library";
+import { IgntChevronDownIcon } from "@ignt/vue-library";
+import BigNumber from "bignumber.js";
+import Long from "long";
+import { reactive } from "vue";
+import { computed } from "vue";
+
+import { useClient } from "@/composables/useClient";
 import { useAddress } from "@/def-composables/useAddress";
 import { useAssets } from "@/def-composables/useAssets";
 import type { Amount } from "@/utils/interfaces";
-import { reactive } from "vue";
-import Long from "long";
-import BigNumber from "bignumber.js";
-import { useClient } from "@/composables/useClient";
-import { computed } from "vue";
-import { IgntButton } from "@ignt/vue-library";
+
 import IgntAmountSelect from "./IgntAmountSelect.vue";
-import { IgntChevronDownIcon } from "@ignt/vue-library";
 interface TxData {
   receiver: string;
   ch: string;
@@ -139,18 +141,18 @@ interface TxData {
 }
 
 enum UI_STATE {
-  "FRESH" = 1,
+  FRESH = 1,
 
-  "BOOTSTRAPED" = 2,
+  BOOTSTRAPED = 2,
 
-  "WALLET_LOCKED" = 3,
+  WALLET_LOCKED = 3,
 
-  "SEND" = 100,
-  "SEND_ADD_TOKEN" = 101,
+  SEND = 100,
+  SEND_ADD_TOKEN = 101,
 
-  "TX_SIGNING" = 300,
-  "TX_SUCCESS" = 301,
-  "TX_ERROR" = 302,
+  TX_SIGNING = 300,
+  TX_SUCCESS = 301,
+  TX_ERROR = 302,
 }
 
 interface State {
@@ -172,8 +174,8 @@ const initialState: State = {
 };
 const state = reactive(initialState);
 const client = useClient();
-const sendMsgSend = client.CosmosBankV1Beta1.tx.sendMsgSend;
-const sendMsgTransfer = client.IbcApplicationsTransferV1.tx.sendMsgTransfer;
+const sendMsgSend = client.CosmosBankV_1Beta_1.tx.sendMsgSend;
+const sendMsgTransfer = client.IbcApplicationsTransferV_1.tx.sendMsgTransfer;
 const { address } = useAddress();
 const { balances } = useAssets(100);
 
@@ -199,9 +201,9 @@ const sendTx = async (): Promise<void> => {
     amount: x.amount == "" ? "0" : x.amount,
   }));
 
-  let memo = state.tx.memo;
+  const memo = state.tx.memo;
 
-  let isIBC = state.tx.ch !== "";
+  const isIBC = state.tx.ch !== "";
 
   let send;
 
@@ -284,18 +286,18 @@ const isTxSuccess = computed<boolean>(() => {
 const isTxError = computed<boolean>(() => {
   return state.currentUIState === UI_STATE.TX_ERROR;
 });
-let validTxFees = computed<boolean>(() =>
+const validTxFees = computed<boolean>(() =>
   state.tx.fees.every((x) => {
-    let parsedAmount = parseAmount(x.amount);
+    const parsedAmount = parseAmount(x.amount);
 
     return !parsedAmount.isNaN() && parsedAmount.isPositive();
   })
 );
-let validTxAmount = computed<boolean>(() => {
+const validTxAmount = computed<boolean>(() => {
   return (
     state.tx.amounts.length > 0 &&
     state.tx.amounts.every((x) => {
-      let parsedAmount = parseAmount(x.amount);
+      const parsedAmount = parseAmount(x.amount);
 
       return (
         !parsedAmount.isNaN() &&
@@ -305,7 +307,7 @@ let validTxAmount = computed<boolean>(() => {
     })
   );
 });
-let validReceiver = computed<boolean>(() => {
+const validReceiver = computed<boolean>(() => {
   let valid: boolean;
 
   try {
@@ -316,7 +318,7 @@ let validReceiver = computed<boolean>(() => {
 
   return valid;
 });
-let ableToTx = computed<boolean>(
+const ableToTx = computed<boolean>(
   () =>
     validTxAmount.value &&
     validReceiver.value &&
@@ -325,7 +327,7 @@ let ableToTx = computed<boolean>(
 );
 const bootstrapTxAmount = () => {
   if (hasAnyBalance.value) {
-    let firstBalance = balances.value.assets[0];
+    const firstBalance = balances.value.assets[0];
 
     state.tx.amounts[0] = {
       denom: "",

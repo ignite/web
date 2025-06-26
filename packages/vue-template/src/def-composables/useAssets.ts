@@ -1,5 +1,7 @@
 import { computed, onBeforeUpdate } from "vue";
+
 import useCosmosBankV1Beta1 from "@/composables/useCosmosBankV1Beta1";
+
 import { useAddress } from "./useAddress";
 import { useDenom } from "./useDenom";
 
@@ -9,21 +11,22 @@ export const useAssets = (perPage: number) => {
   const { QueryAllBalances } = useCosmosBankV1Beta1();
   const enabled = address.value != ""; // if useAssets is called with no wallet connected/no address actual query will be registered but never ran
   const query = QueryAllBalances(address.value, {}, { enabled }, perPage);
-  type HelperBalances = NonNullable<
-    NonNullable<Required<typeof query.data>["value"]>["pages"][0]["balances"]
-  >;
+  type Flatten<T> = T extends any[] ? T[number] : T;
+  type HelperBalances = NonNullable<Required<typeof query.data>["value"]>["pages"][number]['balances'];
+
   const balancesRaw = computed(() => {
-    return query.data?.value?.pages.reduce((bals, page) => {
-      if (page.balances) {
-        return bals.concat(page.balances);
-      } else {
-        return bals;
+    const bals = [] as HelperBalances;
+    if (query.data && query.data.value) {
+      for (let i=0; i < query.data.value.pages.length; i++) {
+        const page = query.data.value.pages[i];
+        bals.concat(page.balances)
       }
-    }, [] as HelperBalances);
+    }
+    return bals;
   });
   const balances = computed(() => {
     return {
-      assets: balancesRaw.value ?? [],
+      assets: balancesRaw.value,
       isLoading: query.isLoading.value,
     };
   });

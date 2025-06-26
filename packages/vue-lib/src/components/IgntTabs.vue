@@ -25,9 +25,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { Nullable } from "@/types/interfaces";
-import { onMounted, ref, type PropType } from "vue";
+import { onMounted, type PropType, ref } from "vue";
 import { useSlots } from "vue";
+
+import type { Nullable } from "@/types/interfaces";
 
 const slots = useSlots();
 

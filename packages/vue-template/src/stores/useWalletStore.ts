@@ -1,7 +1,8 @@
 import CryptoJS from "crypto-js";
 import { defineStore } from "pinia";
+
 import { useClient } from "@/composables/useClient";
-import type { Wallet, Nullable, EncodedWallet } from "@/utils/interfaces";
+import type { EncodedWallet, Nullable, Wallet } from "@/utils/interfaces";
 
 export const useWalletStore = defineStore("wallet", {
   state: () => ({

@@ -119,15 +119,15 @@
 </template>
 
 <script setup lang="ts">
+import { IgntSearchIcon } from "@ignt/vue-library";
+import { IgntClearIcon } from "@ignt/vue-library";
+import { IgntArrowIcon } from "@ignt/vue-library";
 import { computed, nextTick, ref, toRefs } from "vue";
 
 import { useAddress } from "../def-composables/useAddress";
 import { useAssets } from "../def-composables/useAssets";
 import { useDenom } from "../def-composables/useDenom";
 import IgntDenom from "./IgntDenom.vue";
-import { IgntSearchIcon } from "@ignt/vue-library";
-import { IgntClearIcon } from "@ignt/vue-library";
-import { IgntArrowIcon } from "@ignt/vue-library";
 
 const props = defineProps({
   displayLimit: {
@@ -146,8 +146,8 @@ const state = ref({
 });
 
 // composables
-let { address } = useAddress();
-let { balances, fetch, hasMore } = useAssets(props.displayLimit);
+const { address } = useAddress();
+const { balances, fetch, hasMore } = useAssets(props.displayLimit);
 
 const filteredBalanceList = computed(() => {
   if (!state.value.searchQuery) {
@@ -202,7 +202,7 @@ const resetSearch = () => {
   state.value.searchQuery = "";
   nextTick(() => state.value.searchInput?.focus());
 };
-const { searchQuery, displayLimit, searchInput } = toRefs(state.value);
+
 </script>
 
 <style lang="scss" scoped>

@@ -21,8 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import type { PropType } from "vue";
+import { computed } from "vue";
+
 import { useDenom } from "../def-composables/useDenom";
 
 type Modifier = "avatar" | "path" | "base";

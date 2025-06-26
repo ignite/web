@@ -81,6 +81,7 @@
 </template>
 <script setup lang="ts">
 import type { PropType } from "vue";
+
 import IgntLoadingIcon from "./icons/IgntLoadingIcon.vue";
 
 defineProps({

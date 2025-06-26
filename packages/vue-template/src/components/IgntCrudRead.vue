@@ -61,11 +61,12 @@
 </template>
 
 <script setup lang="ts">
-import { useClient } from "@/composables/useClient";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { IgntFileIcon } from "@ignt/vue-library";
 import { IgntDotsIcon } from "@ignt/vue-library";
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import { computed, ref } from "vue";
+
+import { useClient } from "@/composables/useClient";
 import { useAddress } from "@/def-composables/useAddress";
 
 const props = defineProps({
@@ -90,7 +91,7 @@ const { address } = useAddress();
 const loggedIn = computed(() => {
   return address.value != "";
 });
-let itemFields = (
+const itemFields = (
   client[
     props.storeName as keyof Omit<
       typeof client,

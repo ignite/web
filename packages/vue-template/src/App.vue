@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
+
 import IgntHeader from "./components/IgntHeader.vue";
 
 const items = [

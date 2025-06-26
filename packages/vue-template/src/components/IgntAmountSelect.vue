@@ -86,17 +86,18 @@
 </template>
 
 <script setup lang="ts">
-import { useDenom } from "@/def-composables/useDenom";
-import type { Amount } from "@/utils/interfaces";
-import BigNumber from "bignumber.js";
-import { computed, type PropType, reactive } from "vue";
-
-import IgntDenom from "./IgntDenom.vue";
 import { IgntModal } from "@ignt/vue-library";
 import { IgntSearchIcon } from "@ignt/vue-library";
 import { IgntAddIcon } from "@ignt/vue-library";
 import { IgntClearIcon } from "@ignt/vue-library";
+import BigNumber from "bignumber.js";
+import { computed, type PropType, reactive } from "vue";
+
+import { useDenom } from "@/def-composables/useDenom";
+import type { Amount } from "@/utils/interfaces";
+
 import IgntAmountInputRow from "./IgntAmountInputRow.vue";
+import IgntDenom from "./IgntDenom.vue";
 
 export interface State {
   tokenSearch: string;
@@ -120,10 +121,10 @@ const props = defineProps({
 });
 
 // state
-let state: State = reactive(initialState);
+const state: State = reactive(initialState);
 
 // computed
-let ableToBeSelected = computed(() => {
+const ableToBeSelected = computed(() => {
   const notSelected = (x: Amount) =>
     (props.selected as Array<Amount>).every((y: Amount) => {
       return x.denom !== y.denom;
@@ -140,7 +141,7 @@ let ableToBeSelected = computed(() => {
   return props.balances?.filter(notSelected).filter(searchFilter) ?? [];
 });
 
-let parseAmount = (amount: string): BigNumber => {
+const parseAmount = (amount: string): BigNumber => {
   return amount == "" ? new BigNumber(0) : new BigNumber(amount);
 };
 
@@ -150,8 +151,8 @@ const handleInputChange = (val: Amount) => {
   newSelected[index].amount = val.amount;
   emit("update", newSelected);
 };
-let handleTokenSelect = (x: Amount) => {
-  let newSelected: Array<Amount> = [
+const handleTokenSelect = (x: Amount) => {
+  const newSelected: Array<Amount> = [
     ...(props.selected ?? []),
     {
       amount: "",

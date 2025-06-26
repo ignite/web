@@ -1,6 +1,7 @@
+import { computed } from "vue";
+
 import { useClient } from "@/composables/useClient";
 import { useWalletStore } from "@/stores/useWalletStore";
-import { computed } from "vue";
 
 export default function () {
   const client = useClient();

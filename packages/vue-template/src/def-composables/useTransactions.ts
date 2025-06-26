@@ -1,5 +1,7 @@
 import { computed } from "vue";
+
 import useCosmosTxV1Beta1 from "@/composables/useCosmosTxV1Beta1";
+
 import { useAddress } from "./useAddress";
 
 export const useTransactions = () => {
