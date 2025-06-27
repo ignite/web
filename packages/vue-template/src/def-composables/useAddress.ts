@@ -1,5 +1,6 @@
-import { useClient } from "@/composables/useClient";
 import { computed, ref } from "vue";
+
+import { useClient } from "@/composables/useClient";
 
 const useAddressInstance = () => {
   const client = useClient();

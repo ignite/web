@@ -1,19 +1,21 @@
 import { fileURLToPath, URL } from "node:url";
-import dts from "vite-plugin-dts";
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
 
-// https://vitejs.dev/config/
+import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     dts({
+      tsconfigPath: './tsconfig.app.json' ,
       insertTypesEntry: true,
     }),
   ],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@": fileURLToPath(new URL("./src", import.meta.url))
     },
   },
   build: {
@@ -33,5 +35,5 @@ export default defineConfig({
         },
       },
     },
-  },
+  }
 });

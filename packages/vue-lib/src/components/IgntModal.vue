@@ -62,9 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import IgntButton from "./IgntButton.vue";
 import { watch } from "vue";
+
 import IgntTimesIcon from "./icons/IgntTimesIcon.vue";
+import IgntButton from "./IgntButton.vue";
 import IgntCard from "./IgntCard.vue";
 const emit = defineEmits(["close", "submit"]);
 const props = defineProps({

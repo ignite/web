@@ -16,10 +16,11 @@
   </header>
 </template>
 <script setup lang="ts">
-import { ref, type PropType } from "vue";
 import { IgntLink } from "@ignt/vue-library";
-import IgntAcc from "@/components/IgntAcc.vue";
 import { IgntLogo } from "@ignt/vue-library";
+import { type PropType, ref } from "vue";
+
+import IgntAcc from "@/components/IgntAcc.vue";
 
 type MenuItem = {
   label: string;

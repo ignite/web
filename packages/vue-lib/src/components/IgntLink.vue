@@ -9,7 +9,7 @@
   <a v-else :href="item.href">{{ item.label }}</a>
 </template>
 <script setup lang="ts">
-import { ref, watch, type PropType } from "vue";
+import { type PropType, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 type MenuItem = {

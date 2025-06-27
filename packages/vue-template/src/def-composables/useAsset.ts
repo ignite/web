@@ -1,4 +1,5 @@
 import { computed } from "vue";
+
 import useCosmosBankV1Beta1 from "../composables/useCosmosBankV1Beta1";
 import { useAddress } from "./useAddress";
 

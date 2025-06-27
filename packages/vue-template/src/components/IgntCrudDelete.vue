@@ -38,8 +38,9 @@
 import { IgntButton } from "@ignt/vue-library";
 import { IgntModal } from "@ignt/vue-library";
 import { IgntTrashIcon } from "@ignt/vue-library";
-import { useAddress } from "@/def-composables/useAddress";
+
 import { useClient } from "@/composables/useClient";
+import { useAddress } from "@/def-composables/useAddress";
 const props = defineProps({
   storeName: {
     type: String,
@@ -66,7 +67,7 @@ const { address } = useAddress();
 
 const client = useClient();
 
-let deleteItem = async () => {
+const deleteItem = async () => {
   await (
     client[
       props.storeName as keyof Omit<

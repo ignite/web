@@ -69,16 +69,16 @@
 </template>
 
 <script setup lang="ts">
+import { IgntButton } from "@ignt/vue-library";
 import { computed, reactive, ref, toRefs } from "vue";
 
+import { useClient } from "@/composables/useClient";
 import { useAddress } from "@/def-composables/useAddress";
-import { IgntButton } from "@ignt/vue-library";
 
 import IgntCrudCreate from "./IgntCrudCreate.vue";
-import IgntCrudUpdate from "./IgntCrudUpdate.vue";
 import IgntCrudDelete from "./IgntCrudDelete.vue";
 import IgntCrudRead from "./IgntCrudRead.vue";
-import { useClient } from "@/composables/useClient";
+import IgntCrudUpdate from "./IgntCrudUpdate.vue";
 
 export interface State {
   visibleModal: string;
@@ -86,7 +86,7 @@ export interface State {
   moduleAvailable: boolean;
 }
 
-let initialState: State = {
+const initialState: State = {
   visibleModal: "",
   activeItem: {},
   moduleAvailable: false,
@@ -105,13 +105,13 @@ const props = defineProps({
 });
 
 // composables
-let { address } = useAddress();
+const { address } = useAddress();
 const client = useClient();
 // state
-let state: State = reactive(initialState);
+const state: State = reactive(initialState);
 
 // computed
-let moduleNameNormalized = computed(() =>
+const moduleNameNormalized = computed(() =>
   props.itemName.replace(/^\w/, (c) => c.toUpperCase())
 );
 

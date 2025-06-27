@@ -1,5 +1,7 @@
 import { computed } from "vue";
+
 import useCosmosTxV1Beta1 from "@/composables/useCosmosTxV1Beta1";
+
 import { useAddress } from "./useAddress";
 
 export const useTransactions = () => {
@@ -11,9 +13,9 @@ export const useTransactions = () => {
   const RECEIVED_EVENT = computed<string>(
     () => `transfer.recipient='${address.value}'`
   );
-  const sentQuery = ServiceGetTxsEvent({ query: SENT_EVENT.value }, {}, 100);
+  const sentQuery = ServiceGetTxsEvent({ query: SENT_EVENT.value } as Parameters<typeof ServiceGetTxsEvent>[0], {}, 100);
   const receivedQuery = ServiceGetTxsEvent(
-    { query: RECEIVED_EVENT.value },
+    { query: RECEIVED_EVENT.value } as Parameters<typeof ServiceGetTxsEvent>[0],
     {},
     100
   );

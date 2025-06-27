@@ -30,10 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from "vue";
 import { IgntModal } from "@ignt/vue-library";
-import { useAddress } from "@/def-composables/useAddress";
+import { computed, reactive } from "vue";
+
 import { useClient } from "@/composables/useClient";
+import { useAddress } from "@/def-composables/useAddress";
 
 const props = defineProps({
   storeName: {
@@ -59,10 +60,10 @@ const props = defineProps({
 const emit = defineEmits(["close"]);
 const { address } = useAddress();
 const client = useClient();
-let formData = reactive<any>({ ...props.itemData });
+const formData = reactive<any>({ ...props.itemData });
 
 // computed
-let itemFields = (
+const itemFields = (
   client[
     props.storeName as keyof Omit<
       typeof client,
@@ -78,12 +79,12 @@ let itemFields = (
   ] as any
 ).structure[props.itemName];
 
-let itemFieldsFiltered = computed(() =>
+const itemFieldsFiltered = computed(() =>
   itemFields.fields.filter((f: any) => f.name !== "id" && f.name !== "creator")
 );
-let creator = address.value;
+const creator = address.value;
 
-let editItem = async () => {
+const editItem = async () => {
   await (
     client[
       props.storeName as keyof Omit<

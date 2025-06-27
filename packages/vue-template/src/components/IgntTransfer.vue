@@ -39,9 +39,11 @@
 <script setup lang="ts">
 import { IgntTabs } from "@ignt/vue-library";
 import { IgntQRCode } from "@ignt/vue-library";
-import { useAddress } from "@/def-composables/useAddress";
 import { IgntCard } from "@ignt/vue-library";
 import { IgntClipboard } from "@ignt/vue-library";
+
+import { useAddress } from "@/def-composables/useAddress";
+
 import IgntSend from "./IgntSend.vue";
 
 const { address } = useAddress();

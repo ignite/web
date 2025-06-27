@@ -44,7 +44,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(balance, index) in filteredBalanceList.slice(0, displayLimit)"
+          v-for="(balance, index) in filteredBalanceList.slice(0, chosenDisplayLimit)"
           :key="index"
           class="py-2"
         >
@@ -119,15 +119,15 @@
 </template>
 
 <script setup lang="ts">
+import { IgntSearchIcon } from "@ignt/vue-library";
+import { IgntClearIcon } from "@ignt/vue-library";
+import { IgntArrowIcon } from "@ignt/vue-library";
 import { computed, nextTick, ref, toRefs } from "vue";
 
 import { useAddress } from "../def-composables/useAddress";
 import { useAssets } from "../def-composables/useAssets";
 import { useDenom } from "../def-composables/useDenom";
 import IgntDenom from "./IgntDenom.vue";
-import { IgntSearchIcon } from "@ignt/vue-library";
-import { IgntClearIcon } from "@ignt/vue-library";
-import { IgntArrowIcon } from "@ignt/vue-library";
 
 const props = defineProps({
   displayLimit: {
@@ -141,17 +141,17 @@ const props = defineProps({
 const state = ref({
   searchQuery: "",
   balanceList: [],
-  displayLimit: props.displayLimit,
+  chosenDisplayLimit: props.displayLimit,
   searchInput: ref<null | { focus: () => null }>(null),
 });
 
 // composables
-let { address } = useAddress();
-let { balances, fetch, hasMore } = useAssets(props.displayLimit);
+const { address } = useAddress();
+const { balances, fetch, hasMore } = useAssets(props.displayLimit);
 
 const filteredBalanceList = computed(() => {
   if (!state.value.searchQuery) {
-    return balances.value.assets.slice(0, state.value.displayLimit);
+    return balances.value.assets.slice(0, state.value.chosenDisplayLimit);
   }
 
   return balances.value.assets.filter((item) => {
@@ -180,7 +180,7 @@ const noSearchResults = computed(() => {
 
 const isShowMore = computed(() => {
   if (state.value.searchQuery) {
-    return filteredBalanceList.value.length > state.value.displayLimit;
+    return filteredBalanceList.value.length > state.value.chosenDisplayLimit;
   }
 
   return (
@@ -191,18 +191,18 @@ const isShowMore = computed(() => {
 
 const onShowMore = () => {
   fetch();
-  state.value.displayLimit = state.value.displayLimit + props.displayLimit;
+  state.value.chosenDisplayLimit = state.value.chosenDisplayLimit + props.displayLimit;
 };
 
 const resetDisplayLimit = () => {
-  state.value.displayLimit = props.displayLimit;
+  state.value.chosenDisplayLimit = props.displayLimit;
 };
 
 const resetSearch = () => {
   state.value.searchQuery = "";
   nextTick(() => state.value.searchInput?.focus());
 };
-const { searchQuery, displayLimit, searchInput } = toRefs(state.value);
+const { searchQuery, searchInput, chosenDisplayLimit, balanceList } = toRefs(state.value);
 </script>
 
 <style lang="scss" scoped>

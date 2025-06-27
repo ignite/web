@@ -74,12 +74,14 @@
 </template>
 
 <script setup lang="ts">
-import { useTransactions } from "@/def-composables/useTransactions";
 import { IgntTxArrowIcon } from "@ignt/vue-library";
+import { IgntArrowIcon } from "@ignt/vue-library";
 import dayjs from "dayjs";
 import { computed } from "vue";
+
+import { useTransactions } from "@/def-composables/useTransactions";
+
 import IgntDenom from "./IgntDenom.vue";
-import { IgntArrowIcon } from "@ignt/vue-library";
 
 const { transferTxs, hasMoreReceived, hasMoreSent, fetchReceived, fetchSent } =
   useTransactions();

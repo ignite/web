@@ -1,25 +1,33 @@
-import useIbcApplicationsTransferV1 from "@/composables/useIbcApplicationsTransferV1";
 import { computed, ref } from "vue";
+
+import useIbcApplicationsTransferV1 from "@/composables/useIbcApplicationsTransferV1";
 
 const useDenomInstances = {} as Record<
   string,
   ReturnType<typeof useDenomInstance>
 >;
+const traceToPath = (trace: { port_id: string; channel_id: string }[] | undefined) => {
+  if (!trace || trace.length === 0) {
+    return "";
+  }else{
+    return trace.map((t) => `${t.port_id}/${t.channel_id}`).join("/");
+  }
+};
 const useDenomInstance = (denom: string) => {
   const isIBC = denom.indexOf("ibc/") == 0;
   const hash = denom.split("/")[1];
-  const { QueryDenomTrace } = useIbcApplicationsTransferV1();
-  const denomTrace = QueryDenomTrace(hash, { enabled: ref(isIBC) }).data;
+  const { QueryDenom } = useIbcApplicationsTransferV1();
+  const denomTrace = QueryDenom(hash, { enabled: ref(isIBC) }).data;
   const normalized = computed(() => {
     if (isIBC) {
-      return denomTrace.value?.denom_trace?.base_denom?.toUpperCase() ?? "";
+      return denomTrace.value?.denom?.base?.toUpperCase() ?? "";
     } else {
       return denom.toUpperCase();
     }
   });
   const path = computed(() => {
     if (isIBC) {
-      return denomTrace.value?.denom_trace?.path ?? "";
+      return traceToPath(denomTrace.value?.denom?.trace);
     } else {
       return "";
     }
@@ -28,7 +36,7 @@ const useDenomInstance = (denom: string) => {
   const pathExtracted = computed(() => {
     if (isIBC) {
       return (
-        denomTrace.value?.denom_trace?.path?.match(/\d+/g)?.reverse() ?? ""
+        traceToPath(denomTrace.value?.denom?.trace).match(/\d+/g)?.reverse() ?? ""
       );
     } else {
       return "";

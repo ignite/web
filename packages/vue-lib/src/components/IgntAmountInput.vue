@@ -12,8 +12,8 @@
   />
 </template>
 <script setup lang="ts">
-import { computed, type PropType, ref } from "vue";
 import BigNumber from "bignumber.js";
+import { computed, type PropType, ref } from "vue";
 
 const props = defineProps({
   modelValue: {
@@ -30,9 +30,9 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(["update"]);
-let inputRef = ref(null);
+const inputRef = ref(null);
 
-let format = (value: string): string => {
+const format = (value: string): string => {
   let newValue: string = value;
 
   // Replace commas
@@ -53,7 +53,7 @@ let format = (value: string): string => {
     newValue = newValue.replace(/(?<=\..*)\./g, "");
   }
 
-  let [integerDigits, fractionDigits] = newValue.split(".");
+  const [integerDigits, fractionDigits] = newValue.split(".");
 
   if (fractionDigits?.length > props.maxDecimals) {
     newValue = `${integerDigits}.${fractionDigits.slice(0, props.maxDecimals)}`;
@@ -62,7 +62,7 @@ let format = (value: string): string => {
   return newValue;
 };
 
-let model = computed({
+const model = computed({
   get: () => (props.modelValue || "").toString(),
   set: (value) => {
     if (!inputRef.value) {
@@ -75,11 +75,11 @@ let model = computed({
       currentValue = currentValue.slice(0, -1);
     }
 
-    let formatted = format(currentValue);
+    const formatted = format(currentValue);
 
     emit("update", new BigNumber(formatted));
 
-    let inputHTMLEl = inputRef.value as HTMLInputElement;
+    const inputHTMLEl = inputRef.value as HTMLInputElement;
 
     inputHTMLEl.value = formatted;
   },

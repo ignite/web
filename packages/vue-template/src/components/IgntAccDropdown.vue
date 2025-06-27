@@ -129,20 +129,22 @@
 </template>
 
 <script setup lang="ts">
-import useCosmosBaseTendermintV1Beta1 from "@/composables/useCosmosBaseTendermintV1Beta1";
-import { useConnectionStatus } from "@/def-composables/useConnectionStatus";
-import { computed, onBeforeUnmount, onMounted, reactive } from "vue";
-import { useAddress } from "../def-composables/useAddress";
-import { useClipboard } from "../def-composables/useClipboard";
 import { IgntChevronRightIcon } from "@ignt/vue-library";
 import { IgntExternalArrowIcon } from "@ignt/vue-library";
 import { IgntProfileIcon } from "@ignt/vue-library";
 import { IgntCopyIcon } from "@ignt/vue-library";
+import { computed, onBeforeUnmount, onMounted, reactive } from "vue";
+
+import useCosmosBaseTendermintV1Beta1 from "@/composables/useCosmosBaseTendermintV1Beta1";
+import { useConnectionStatus } from "@/def-composables/useConnectionStatus";
+
+import { useAddress } from "../def-composables/useAddress";
+import { useClipboard } from "../def-composables/useClipboard";
 
 enum UI_STATE {
-  "DEFAULT" = 1,
+  DEFAULT = 1,
 
-  "SETTINGS" = 2,
+  SETTINGS = 2,
 }
 
 interface State {
@@ -167,8 +169,8 @@ defineProps({
 const emit = defineEmits(["disconnect", "close"]);
 
 // composables
-let { address, shortAddress } = useAddress();
-let { copy } = useClipboard();
+const { address, shortAddress } = useAddress();
+const { copy } = useClipboard();
 
 // computed
 const query = useCosmosBaseTendermintV1Beta1();
@@ -177,20 +179,20 @@ const chainId = computed(
   () => nodeInfo.data?.value?.default_node_info?.network ?? ""
 );
 const { apiConnected, rpcConnected, wsConnected } = useConnectionStatus();
-let showDefault = computed<boolean>(
+const showDefault = computed<boolean>(
   () => state.currentUIState === UI_STATE.DEFAULT
 );
-let showSettings = computed<boolean>(
+const showSettings = computed<boolean>(
   () => state.currentUIState === UI_STATE.SETTINGS
 );
 
 // state
-let state: State = reactive(initialState);
+const state: State = reactive(initialState);
 
 // methods
-let clickOutsideHandler = (evt: MouseEvent) => {
-  let dropdownEl = document.querySelector(".acc-dd");
-  let dropdownButtonEl = document.querySelector(".acc-dd-btn");
+const clickOutsideHandler = (evt: MouseEvent) => {
+  const dropdownEl = document.querySelector(".acc-dd");
+  const dropdownButtonEl = document.querySelector(".acc-dd-btn");
   if (
     !dropdownEl?.contains(evt.target as Node) &&
     !dropdownButtonEl?.contains(evt.target as Node)
@@ -199,10 +201,10 @@ let clickOutsideHandler = (evt: MouseEvent) => {
     state.currentUIState = UI_STATE.DEFAULT;
   }
 };
-let switchToSettings = () => {
+const switchToSettings = () => {
   state.currentUIState = UI_STATE.SETTINGS;
 };
-let switchToDefault = () => {
+const switchToDefault = () => {
   state.currentUIState = UI_STATE.DEFAULT;
 };
 
