@@ -9,7 +9,7 @@
     "dev": "vite",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "preinstall": "node preinstall.cjs",
+    "pnpm:devPreinstall": "node preinstall.cjs",
     "prepare": "node prepare.cjs",
     "preview": "vite preview",
     "type-check": "vue-tsc --build"
