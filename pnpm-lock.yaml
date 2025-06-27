@@ -128,8 +128,8 @@ importers:
         specifier: ^1.7.23
         version: 1.7.23(vue@3.5.17(typescript@5.8.3))
       '@ignt/vue-library':
-        specifier: ^1.0.5
-        version: 1.0.5(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
+        specifier: ^1.0.6
+        version: 1.0.6(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
       '@keplr-wallet/types':
         specifier: ^0.12.247
         version: 0.12.247(starknet@7.6.2)
@@ -628,8 +628,8 @@ packages:
     resolution: {integrity: sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==}
     engines: {node: '>=6.9.0'}
 
-  '@ignt/vue-library@1.0.5':
-    resolution: {integrity: sha512-AepaXG8jKxn3J22L09DcNGcMW0MuukYx4KEwtva2GFU7dJf/gUPUYmu6ltjzcfXY6yaSKP/LKDhfAAL8ZaEUVQ==}
+  '@ignt/vue-library@1.0.6':
+    resolution: {integrity: sha512-OLLb2bmdR0BfUZAidPKsz50v+wi8zFlBvm6hwICUbbI02+GsYwHjQNznaOizDGylJsELQXMDPd7wBVWGe4f1aQ==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     peerDependencies:
       vue: ^3.5.17
@@ -5837,7 +5837,7 @@ snapshots:
 
   '@hutson/parse-repository-url@3.0.2': {}
 
-  '@ignt/vue-library@1.0.5(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
+  '@ignt/vue-library@1.0.6(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
     dependencies:
       bignumber.js: 9.3.0
       crypto-js: 4.2.0
