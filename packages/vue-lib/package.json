@@ -36,7 +36,8 @@
   "exports": {
     ".": {
       "import": "./dist/vue-library.js",
-      "require": "./dist/vue-library.umd.cjs"
+      "require": "./dist/vue-library.umd.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./dist/style.css": "./dist/vue-library.css"
   },
