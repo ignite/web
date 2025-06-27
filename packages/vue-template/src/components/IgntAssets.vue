@@ -44,7 +44,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(balance, index) in filteredBalanceList.slice(0, displayLimit)"
+          v-for="(balance, index) in filteredBalanceList.slice(0, chosenDisplayLimit)"
           :key="index"
           class="py-2"
         >
@@ -141,7 +141,7 @@ const props = defineProps({
 const state = ref({
   searchQuery: "",
   balanceList: [],
-  displayLimit: props.displayLimit,
+  chosenDisplayLimit: props.displayLimit,
   searchInput: ref<null | { focus: () => null }>(null),
 });
 
@@ -191,18 +191,18 @@ const isShowMore = computed(() => {
 
 const onShowMore = () => {
   fetch();
-  state.value.displayLimit = state.value.displayLimit + props.displayLimit;
+  state.value.chosenDisplayLimit = state.value.chosenDisplayLimit + props.displayLimit;
 };
 
 const resetDisplayLimit = () => {
-  state.value.displayLimit = props.displayLimit;
+  state.value.chosenDisplayLimit = props.displayLimit;
 };
 
 const resetSearch = () => {
   state.value.searchQuery = "";
   nextTick(() => state.value.searchInput?.focus());
 };
-
+const { searchQuery, searchInput, chosenDisplayLimit, balanceList } = toRefs(state.value);
 </script>
 
 <style lang="scss" scoped>
