@@ -29,7 +29,7 @@
     "@cosmjs/encoding": "^0.33.1",
     "@headlessui/tailwindcss": "^0.2.2",
     "@headlessui/vue": "^1.7.23",
-    "@ignt/vue-library": "^1.0.4",
+    "@ignt/vue-library": "^1.0.5",
     "@stylistic/eslint-plugin": "^5.0.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^21.1.7",
