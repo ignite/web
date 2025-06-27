@@ -20,11 +20,11 @@
     "prebuild": "pnpm i",
     "build": "pnpm --filter '@ignt/vue-library' build",
     "alpha": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access",
-    "prepatchrel": "lerna version patch --yes -m 'chore(release): publish %s'",
+    "prepatchrel": "node patch.cjs && lerna version patch --yes -m 'chore(release): publish %s'",
     "patchrel": "lerna publish from-git --yes --no-verify-access",
-    "preminor": "lerna version minor --yes -m 'chore(release): publish %s'",
+    "preminor": "node minor.cjs && lerna version minor --yes -m 'chore(release): publish %s'",
     "minor": "lerna publish from-git --yes --no-verify-access",
-    "premajor": "lerna version major --yes -m 'chore(release): publish %s'",
+    "premajor": "node major.cjs && lerna version major --yes -m 'chore(release): publish %s'",
     "major": "lerna publish from-git --yes --no-verify-access"
   },
   "repository": {
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "lerna": "4",
+    "semver": "^7.7.2",
     "shx": "^0.4.0"
   }
 }

@@ -11,6 +11,9 @@ importers:
       lerna:
         specifier: '4'
         version: 4.0.0(encoding@0.1.13)
+      semver:
+        specifier: ^7.7.2
+        version: 7.7.2
       shx:
         specifier: ^0.4.0
         version: 0.4.0
@@ -125,8 +128,8 @@ importers:
         specifier: ^1.7.23
         version: 1.7.23(vue@3.5.17(typescript@5.8.3))
       '@ignt/vue-library':
-        specifier: ^0.6.1
-        version: 0.6.1(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
+        specifier: ^1.0.2
+        version: 1.0.2(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
       '@stylistic/eslint-plugin':
         specifier: ^5.0.0
         version: 5.0.0(eslint@9.29.0(jiti@2.4.2))
@@ -619,12 +622,12 @@ packages:
     resolution: {integrity: sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==}
     engines: {node: '>=6.9.0'}
 
-  '@ignt/vue-library@0.6.1':
-    resolution: {integrity: sha512-h9utft8+HIO+yaxl9xFCakOgMDOxjADN9tuwBs8DOjTekTmtOrChC8ExwTUg9DAf0u3M3W6N3WXFkSJ8cfRlBw==}
+  '@ignt/vue-library@1.0.2':
+    resolution: {integrity: sha512-3M5+H0r7B1HG8rMgfbsc67x2zlR2yfd8FRAjPwZBBHhWLQ1+NOBwUizqjioHyXbZoo7yDLaGswdBcwSMzICWgg==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     peerDependencies:
-      vue: ^3.2.38
-      vue-router: ^4.1.6
+      vue: ^3.5.17
+      vue-router: ^4.5.1
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -5752,8 +5755,12 @@ snapshots:
 
   '@hutson/parse-repository-url@3.0.2': {}
 
-  '@ignt/vue-library@0.6.1(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
+  '@ignt/vue-library@1.0.2(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
     dependencies:
+      bignumber.js: 9.3.0
+      crypto-js: 4.2.0
+      gradient-avatar: 1.0.2
+      qrcode: 1.5.4
       vue: 3.5.17(typescript@5.8.3)
       vue-router: 4.5.1(vue@3.5.17(typescript@5.8.3))
 
