@@ -28,7 +28,7 @@ export const useWalletStore = defineStore("wallet", {
           state.activeWallet.HDpath +
           state.activeWallet.accounts.find(
             (x) => x.address == state.selectedAddress
-          ).pathIncrement
+          )?.pathIncrement
         );
       } else {
         return null;
@@ -75,6 +75,9 @@ export const useWalletStore = defineStore("wallet", {
           accounts: [],
         };
         await client.useKeplr();
+        if (!client.signer) {
+          throw new Error("Keplr signer not available");
+        }
         const [account] = await client.signer.getAccounts();
         wallet.accounts.push({ address: account.address, pathIncrement: null });
 

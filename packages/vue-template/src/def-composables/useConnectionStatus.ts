@@ -5,7 +5,7 @@ import { env } from "@/env";
 
 export const useConnectionStatus = () => {
   const query = useCosmosBaseTendermintV1Beta1();
-  const nodeInfo = query.ServiceGetNodeInfo();
+  const nodeInfo = query.ServiceGetNodeInfo({});
   const apiConnected = computed(() => !nodeInfo.error.value);
   const rpcConnected = ref(false);
   const rpcCheck = async () => {

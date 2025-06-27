@@ -10,16 +10,16 @@ export const useAssets = (perPage: number) => {
   const { address } = useAddress();
   const { QueryAllBalances } = useCosmosBankV1Beta1();
   const enabled = address.value != ""; // if useAssets is called with no wallet connected/no address actual query will be registered but never ran
-  const query = QueryAllBalances(address.value, {}, { enabled }, perPage);
+  const query = QueryAllBalances(address.value, {} as Parameters<typeof QueryAllBalances>[1], { enabled }, perPage);
   type Flatten<T> = T extends any[] ? T[number] : T;
   type HelperBalances = NonNullable<Required<typeof query.data>["value"]>["pages"][number]['balances'];
 
   const balancesRaw = computed(() => {
-    const bals = [] as HelperBalances;
+    let bals = [] as HelperBalances;
     if (query.data && query.data.value) {
       for (let i=0; i < query.data.value.pages.length; i++) {
         const page = query.data.value.pages[i];
-        bals.concat(page.balances)
+        bals = bals.concat(page.balances)
       }
     }
     return bals;

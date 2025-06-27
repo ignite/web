@@ -330,7 +330,6 @@ const bootstrapTxAmount = () => {
     const firstBalance = balances.value.assets[0];
 
     state.tx.amounts[0] = {
-      denom: "",
       ...firstBalance,
       amount: "",
     };

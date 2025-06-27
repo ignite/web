@@ -151,7 +151,7 @@ const { balances, fetch, hasMore } = useAssets(props.displayLimit);
 
 const filteredBalanceList = computed(() => {
   if (!state.value.searchQuery) {
-    return balances.value.assets.slice(0, state.value.displayLimit);
+    return balances.value.assets.slice(0, state.value.chosenDisplayLimit);
   }
 
   return balances.value.assets.filter((item) => {
@@ -180,7 +180,7 @@ const noSearchResults = computed(() => {
 
 const isShowMore = computed(() => {
   if (state.value.searchQuery) {
-    return filteredBalanceList.value.length > state.value.displayLimit;
+    return filteredBalanceList.value.length > state.value.chosenDisplayLimit;
   }
 
   return (
