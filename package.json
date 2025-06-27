@@ -20,11 +20,11 @@
     "prebuild": "pnpm i",
     "build": "pnpm --filter '@ignt/vue-library' build",
     "alpha": "lerna publish --force-publish --canary --preid alpha-$(git rev-parse HEAD) --dist-tag alpha --yes --no-verify-access",
-    "prepatchrel": "node patch.cjs && lerna version patch --yes -m 'chore(release): publish %s'",
+    "prepatchrel": "node patch.cjs && git add ./packages/vue-template/package.json && git commit -m 'chore(release): Bumped @ignt/vue-lib version in template' && lerna version patch --yes -m 'chore(release): publish %s'",
     "patchrel": "lerna publish from-git --yes --no-verify-access",
-    "preminor": "node minor.cjs && lerna version minor --yes -m 'chore(release): publish %s'",
+    "preminor": "node minor.cjs && git add ./packages/vue-template/package.json && git commit -m 'chore(release): Bumped @ignt/vue-lib version in template' && lerna version minor --yes -m 'chore(release): publish %s'",
     "minor": "lerna publish from-git --yes --no-verify-access",
-    "premajor": "node major.cjs && lerna version major --yes -m 'chore(release): publish %s'",
+    "premajor": "node major.cjs && git add ./packages/vue-template/package.json && git commit -m 'chore(release): Bumped @ignt/vue-lib version in template' && lerna version major --yes -m 'chore(release): publish %s'",
     "major": "lerna publish from-git --yes --no-verify-access"
   },
   "repository": {
