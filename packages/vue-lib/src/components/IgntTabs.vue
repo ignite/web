@@ -25,7 +25,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, type PropType, ref } from "vue";
+import { onMounted, type PropType, ref, type RendererElement } from "vue";
 import { useSlots } from "vue";
 
 import type { Nullable } from "@/types/interfaces";
@@ -60,7 +60,7 @@ const setActive = (slot: number) => {
 };
 onMounted(() => {
   if (slots.default) {
-    tabs.value = slots.default().map((el) => {
+    tabs.value = slots.default({}).map((el: RendererElement) => {
       return { title: el.props?.tabTitle, content: el };
     });
   }

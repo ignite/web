@@ -128,8 +128,8 @@ importers:
         specifier: ^1.7.23
         version: 1.7.23(vue@3.5.17(typescript@5.8.3))
       '@ignt/vue-library':
-        specifier: ^1.0.2
-        version: 1.0.2(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
+        specifier: ^1.0.3
+        version: 1.0.3(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
       '@stylistic/eslint-plugin':
         specifier: ^5.0.0
         version: 5.0.0(eslint@9.29.0(jiti@2.4.2))
@@ -622,8 +622,8 @@ packages:
     resolution: {integrity: sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==}
     engines: {node: '>=6.9.0'}
 
-  '@ignt/vue-library@1.0.2':
-    resolution: {integrity: sha512-3M5+H0r7B1HG8rMgfbsc67x2zlR2yfd8FRAjPwZBBHhWLQ1+NOBwUizqjioHyXbZoo7yDLaGswdBcwSMzICWgg==}
+  '@ignt/vue-library@1.0.3':
+    resolution: {integrity: sha512-wS9vraWzY3YnYiJxE8WlCcaKSWACQKjk8/ctK3JtSwK66UiGahAnjmQHqtLGj/y4uqBa4qskdsPwe/1/q6EYhA==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     peerDependencies:
       vue: ^3.5.17
@@ -5755,7 +5755,7 @@ snapshots:
 
   '@hutson/parse-repository-url@3.0.2': {}
 
-  '@ignt/vue-library@1.0.2(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
+  '@ignt/vue-library@1.0.3(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
     dependencies:
       bignumber.js: 9.3.0
       crypto-js: 4.2.0

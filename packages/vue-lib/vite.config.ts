@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
+      tsconfigPath: './tsconfig.app.json' ,
       insertTypesEntry: true,
     }),
   ],
