@@ -4,17 +4,11 @@
 
 ## Contents
 
-### [App template](https://github.com/tendermint/vue/tree/develop/packages/template)
+### [App template](https://github.com/ignite/web/tree/develop/packages/vue-template)
 
-A Vue 3 web application template is bundled with the [Ignite CLI](https://github.com/ignite-hq/cli). The template features an asset list, transaction list, token transfer component, and a form component for custom models created with Ignite. The template is connected to the [Keplr](https://github.com/chainapsis/keplr-wallet/) wallet by default.
+A Vue 3 web application template is bundled with the [Ignite CLI](https://github.com/ignite/cli). The template features an asset list, transaction list, token transfer component, and a form component for custom models created with Ignite. The template is connected to the [Keplr](https://github.com/chainapsis/keplr-wallet/) wallet by default.
 
-### Vuex modules 
-
-[@starport/vuex](https://github.com/ignite-hq/web/tree/develop/packages/vuex)
-
-A set of Vuex modules implement functionality common to most Cosmos SDK chains.
-
-### [@starport/vue](https://github.com/tendermint/vue/tree/develop/packages/vue)
+### [@ignt/vue-library](https://github.com/ignite/web/tree/develop/packages/vue-lib)
 
 A library that contains components used by the template.
 
@@ -23,13 +17,13 @@ A library that contains components used by the template.
 Inside your `PROJECT_DIRECTORY/vue` directory, run the following command to start your frontend local environment:
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## Questions
 
-For questions and support, join the official [Ignite Discord](https://discord.gg/ignite) server. The issue list in this repo is exclusively for bug reports and feature requests.
+For questions and support, join the official [Ignite Discord](https://discord.com/invite/ignitecli) server. The issue list in this repo is exclusively for bug reports and feature requests.
 
 ## Contributing
 
